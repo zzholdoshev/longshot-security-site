@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+
+<html data-site-base="/longshot-security-site/" data-site-page="docs/" dir="ltr" lang="de"><head><script data-language-script="" defer="" src="/longshot-security-site/language.js?v=20261110-i18n"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Vollständige Dokumentation – Longshot Security 2.18.1</title><meta content="Das vollständige allgemeine Longshot-Tutorial: Browser-Scanning, nativer Proxy, Cookie-Überschreibungen, ZAP, MCP, Fuzzing, Ergebnisse und Berichte." name="description"/><link href="/longshot-security-site/assets/mark.svg" rel="icon" type="image/svg+xml"/><link href="/longshot-security-site/style.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/docs/docs.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/localization.css?v=20261110-i18n" rel="stylesheet"/><link href="https://zzholdoshev.github.io/longshot-security-site/de/docs/" rel="canonical"/><link href="https://zzholdoshev.github.io/longshot-security-site/docs/" hreflang="en" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ru/docs/" hreflang="ru" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/de/docs/" hreflang="de" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/fr/docs/" hreflang="fr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/zh/docs/" hreflang="zh" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ja/docs/" hreflang="ja" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/es/docs/" hreflang="es" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/hi/docs/" hreflang="hi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/pt/docs/" hreflang="pt" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ar/docs/" hreflang="ar" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/bn/docs/" hreflang="bn" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ur/docs/" hreflang="ur" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/id/docs/" hreflang="id" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/tr/docs/" hreflang="tr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ko/docs/" hreflang="ko" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/it/docs/" hreflang="it" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/vi/docs/" hreflang="vi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ta/docs/" hreflang="ta" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/te/docs/" hreflang="te" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/mr/docs/" hreflang="mr" rel="alternate"/></head><body data-ui-copy='{"Signed in already? Start from that tab. Your session is the starting point.":"Schon angemeldet? Beginnen Sie mit dieser Registerkarte. Ihre Sitzung ist der Ausgangspunkt.","Your tools send their own HTTP requests. Browser Bridge can supply the browser cookies.":"Ihre Tools senden ihre eigenen HTTP-Anfragen. Browser Bridge kann die Browser-Cookies bereitstellen.","Cookie override is on by default in the paired native bridge. You can turn it off.":"Die Cookie-Überschreibung ist in der gepaarten nativen Bridge standardmäßig aktiviert. Sie können es ausschalten.","A finding is a lead. Read the request, the response and the controls before confirming it.":"Ein Befund ist ein Hinweis. Lesen Sie die Anfrage, die Antwort und die Kontrollen, bevor Sie sie bestätigen.","Using Chrome? Keep the Longshot workbench tab open while you scan.":"Verwenden Sie Chrome? Lassen Sie die Registerkarte „Longshot Workbench“ während des Scannens geöffnet.","Connect a compatible MCP agent to run permitted checks and examine the evidence.":"Schließen Sie einen kompatiblen MCP-Agenten an, um zulässige Prüfungen durchzuführen und die Beweise zu untersuchen.","No bridge.invalid or hosts-file entry. The native proxy uses the actual target URL.":"Kein Eintrag in „bridge.invalid“ oder „hosts-file“. Der native Proxy verwendet die tatsächliche Ziel-URL.","Pause motion":"Bewegung pausieren","Resume motion":"Bewegung fortsetzen"}'><a class="skip" href="#documentation">Zur Dokumentation springen</a><nav aria-label="Hauptnavigation"><a href="/longshot-security-site/de/">LONGSHOT</a><a href="/longshot-security-site/de/#download">Herunterladen</a><a href="/longshot-security-site/de/support.html">Unterstützung</a><a href="/longshot-security-site/de/privacy.html">Privatsphäre</a><label class="language-switcher"><span>Sprache</span><select aria-label="Website-Sprache" id="site-language" translate="no"><option value="en">English</option><option value="ru">Русский</option><option selected="selected" value="de">Deutsch</option><option value="fr">Français</option><option value="zh">简体中文</option><option value="ja">日本語</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="pt">Português</option><option value="ar">العربية</option><option value="bn">বাংলা</option><option value="ur">اردو</option><option value="id">Bahasa Indonesia</option><option value="tr">Türkçe</option><option value="ko">한국어</option><option value="it">Italiano</option><option value="vi">Tiếng Việt</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="mr">मराठी</option></select></label></nav><div class="docs-layout"><aside class="docs-sidebar"><details open=""><summary>ALLGEMEINE ANLEITUNG / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">Vibe-codiert. Ausgeliefert. Gehackt.</a><a href="#firefox-and-chrome-choose-your-edition">Firefox und Chrome: Wählen Sie Ihre Edition</a><a href="#contents">Inhalt</a><a href="#what-runs-where">Was läuft wo</a><a href="#install-or-update-in-firefox-nightly">Installieren oder aktualisieren Sie Firefox Nightly</a><a href="#getting-started-and-target-sessions">Erste Schritte und Zielsitzungen</a><a href="#light-discovery-and-a-focused-active-scan">Leichte Entdeckung und ein fokussierter aktiver Scan</a><a href="#aggressive-options-and-run-approval">Aggressive Optionen und Laufgenehmigung</a><a href="#overview-checks">Übersichtsprüfungen</a><a href="#scan-options-reference">Referenz zu Scanoptionen</a><a href="#budgets-selectors-and-request-settings">Budgets, Selektoren und Anfrageeinstellungen</a><a href="#fuzzer-auto-fuzz-and-probe-library">Fuzzer-, Auto-Fuzz- und Probe-Bibliothek</a><a href="#your-payloads-and-imported-templates">Ihre Payloads und importierten Vorlagen</a><a href="#server-stack-and-smart-analyzer">Server-Stack und Smart-Analysator</a><a href="#oast-setup-and-interpretation">OAST-Aufbau und Interpretation</a><a href="#browser-bridge-native-tool-proxy">Browser Bridge: nativer Tool-Proxy</a><a href="#native-bridge-configuration">Native Bridge-Konfiguration</a><a href="#cookie-and-header-overrides-without-damaging-probes">Cookie- und Header-Überschreibungen ohne Beschädigung der Sonden</a><a href="#external-tools-and-actual-zap-scanning">Externe Tools und tatsächliches ZAP-Scannen</a><a href="#tor-and-onion-routing">Tor- und Zwiebelrouting</a><a href="#agent-api-mcp-and-local-model-clients">Agent-API, MCP und Clients mit lokalem Modell</a><a href="#optional-native-nuclei">Optionale native Kerne</a><a href="#manual-tools-interception-and-api-inventory">Manuelle Tools, Abfangen und API-Inventarisierung</a><a href="#findings-and-the-cimematic-viewer">Erkenntnisse und der filmische Betrachter</a><a href="#owasp-top-10-coverage">OWASP Top 10-Berichterstattung</a><a href="#recovery-assessment-files-and-reports">Wiederherstellung, Bewertungsdateien und Berichte</a><a href="#appearance-language-and-help">Aussehen, Sprache und Hilfe</a><a href="#troubleshooting">Fehlerbehebung</a><a href="#terms-and-source-references">Begriffe und Quellenangaben</a></div></details><a class="markdown-download" download="" href="/longshot-security-site/docs/longshot-general-tutorial.md">Markdown herunterladen ↓ · English</a></aside><main class="docs-main" id="documentation"><p class="eyebrow">VOLLSTÄNDIGE DOKUMENTATION · AKTUALISIERT AM 10. NOVEMBER 2026</p><h1 id="longshot-2181-general-tutorial-and-control-reference">Longshot 2.18.1 – allgemeines Tutorial und Referenz zur Steuerung</h1>
+<p>Aktualisiert am 10. November 2026 für Longshot <strong>2.18.1</strong> (Firefox- und Chrome-Editionen) und seine <strong>nativer HTTP/HTTPS-Tool-Proxy</strong>. Dies ersetzt das allgemeine 2.11.1-Tutorial. Die folgenden Anweisungen beschreiben die ausgelieferte Implementierung, einschließlich ihrer Grenzen. Ältere Bridge-Beispiele sind mit dieser Version nicht austauschbar.</p>
+<p>Longshot ist eine Browser-Sitzungs-Workbench für die autorisierte Bewertung von Webanwendungen. Es kombiniert Erkennung, einen eigenen aktiven JavaScript-Scanner, manuelle HTTP-Tools, importierte Vorlagen, Ergebnisüberprüfung und Berichte. Mit der optionalen Browser Bridge können externe Tools ausgewählte Firefox-Sitzungswerte verwenden und gleichzeitig ihre eigenen nativen HTTP-Anfragen senden.</p>
+<p>Ein nützlicher erster Durchgang ist: <strong>Öffnen Sie die Anwendung → Anmelden → Starten Sie Longshot über diese Registerkarte → Verbinden → Validieren Sie die Sitzung → Entdecken Sie Eingaben → Führen Sie ausgewählte Prüfungen durch → Überprüfen Sie Beweise</strong>.</p>
+<p>Für eine Anwendung, die vertrauliche Benutzerdaten oder Geld verarbeitet, einschließlich einer KI-basierten oder Vibe-codierten Anwendung, beauftragen Sie ein Cybersicherheitsteam mit einer professionellen Bewertung. Ein Erweiterungsscan ersetzt nicht die Autorisierungsprüfung, die Überprüfung der Geschäftslogik oder eine unabhängige Sicherheitsbewertung. Eine leere Befundliste ist kein Sicherheitszertifikat.</p>
+<p>In diesem Dokument werden Befehle erläutert. Durch die Aktualisierung wird keine Software installiert, kein Host registriert, keine Browsereinstellungen geändert oder Scans ausgeführt. Führen Sie Beispiele nur anhand Ihres autorisierten Bewertungsziels durch. Die Probe <code dir="ltr" translate="no">http://localhost:8080</code> ist ein lokales Zielbeispiel, kein integrierter Longshot-Dienst.</p>
+<h2 id="vibe-coded-shipped-hacked">Vibe-codiert. Ausgeliefert. Gehackt.</h2>
+<p><strong>Stellen Sie sich Folgendes vor:</strong> Ihre App wird live geschaltet, ein Angreifer findet den Fehler und ein Benutzer eröffnet sein Konto mit einem Kontostand von Null. Ihr ganzes Geld – weg.</p>
+<p>Der Code sah überzeugend aus. Die KI sagte, es sah sicher aus. Das war nicht genug.</p>
+<p><strong>LLMs sind nichtdeterministisch. Sie können Schwachstellen übersehen und souveräne Fehler begehen. Sie brauchen eine zweite Meinung. Du brauchst Longshot.</strong></p>
+<p>Longshot verwandelt Firefox in eine Sicherheitswerkbank für die von Ihnen erstellten Web-Apps. Führen Sie wiederholbare Prüfungen für die tatsächlich ausgeführte Anwendung durch, überprüfen Sie die HTTP-Beweise und untersuchen Sie die Schwachstellen, bevor Ihre Benutzer den Preis zahlen.</p>
+<p>Scheckschutz wird unterstützt <strong>SQL/NoSQL-Injection, serverseitige Code- und Template-Injection, reflektierte XSS-Kandidaten, Path Traversal/File Inclusion, offene Weiterleitungen und CRLF/Header-Injection</strong>, mit optionaler Live-DOM-XSS-Überprüfung. Rezension <strong>schwache Sicherheitsheader, Cookie- und CORS-Richtlinien, offengelegte Konfiguration und Fehleroffenlegung</strong>, mit optionalen Prüfungen für weitere Angriffsklassen.</p>
+<p>Beginnen Sie mit der Browser-Registerkarte, die Sie bereits verwenden. Behalten Sie Live-Cookies bei, konfigurieren Sie die Sitzungsvalidierung, stellen Sie sie nach einem Sitzungsverlust wieder her und halten Sie die Einstellungen, den Verlauf und die Ergebnisse jedes Ziels organisiert.</p>
+<p><strong>Lassen Sie Ihre KI arbeiten – und überprüfen Sie dann ihre Arbeit.</strong> Verbinden Sie einen Agenten über MCP, um autorisierte Prüfungen durchzuführen und Ergebnisse zu untersuchen. Verwenden Sie die native Browser Bridge, um ZAP, sqlmap, curl, ffuf oder wget in die verbundene Browsersitzung einzubinden, ohne Cookie-Werte manuell zu kopieren. Die Tools senden ihre eigenen HTTP-Anfragen und Payloads; Browser-Cookie-Überschreibungen sind standardmäßig aktiviert und können deaktiviert werden.</p>
+<p>Fortgeschrittene Benutzer können kompatible importieren <strong>CVE-Vorlagen</strong> und korrelieren <strong>OAST-Rückrufe</strong> mit den Sonden, die sie verursacht haben. Überprüfen und protokollieren Sie Ihre Urteile und exportieren Sie dann beweiskräftige Informationen <strong>HTML-, JSON-, CSV- oder SARIF-Berichte</strong>, mit Druck-/PDF-Ausgabe. Erklären Sie die Ergebnisse mit dem <strong>Filmbetrachter</strong>, einschließlich Live-CSS/JavaScript-Seitenkontext, animierte 3D-Elemente, Pause und Vollbild-Steuerelemente. Wählen Sie ein ansprechendes Thema und passen Sie Bewegung und Ton an Ihren Arbeitsplatz an.</p>
+<p><strong>Bevor Sie Vertrauen äußern, fordern Sie Beweise. Longshot.</strong></p>
+<h3 id="quick-scan-one-sentence">Schneller Scan – ein Satz</h3>
+<p>Öffnen Sie Ihre App in Firefox, melden Sie sich bei Bedarf an, starten Sie Longshot über diese Registerkarte, klicken Sie auf „Verbinden“, validieren Sie die konfigurierte Sitzungsprüfung und wählen Sie dann Spider + aktive Prüfungen → Scan starten und Ergebnisse überprüfen.</p>
+<h3 id="short-ad">Kurze Anzeige</h3>
+<p>Ihre Vibe-codierte App ist live. Was hat die KI übersehen? Longshot überprüft die laufende App auf Injektion, XSS und andere häufige Schwachstellen, fügt Browser-Sitzungstests und AI/MCP-Workflows hinzu und liefert Ihnen Beweise zur Überprüfung. Sie brauchen eine zweite Meinung. Du brauchst Longshot.</p>
+<h3 id="compact-description">Kompakte Beschreibung</h3>
+<p>Eine zweite Meinung zu Vibe-codierten Apps: Browser-Sitzungsprüfungen, AI/MCP, native Tools mit konfigurierbaren Browser-Cookie-Überschreibungen, CVE/OAST, filmische Ergebnisse und Berichte.</p>
+<h3 id="campaign-captions">Untertitel der Kampagne</h3>
+<ol>
+<li><strong>VIBE-CODED. VERSENDET. GEHACKT.</strong> Ein hypothetisches Szenario mit Eröffnung und Kontoverlust; Holen Sie vor dem Versand eine zweite Meinung ein.</li>
+<li><strong>TESTEN SIE DIE SITZUNG. ÜBERPRÜFEN SIE DIE APP.</strong> Live-Cookies, Validierung und zielspezifische Beweise.</li>
+<li><strong>KI hat es geschrieben. WER HAT ES ÜBERPRÜFT?</strong> Bringen Sie KI-Vorschläge in einen überprüfbaren Sicherheitsworkflow ein.</li>
+<li><strong>IHRE WERKZEUGE. IHR TAB. DEINE SITZUNG.</strong> Browser Bridge für unterstützte lokale HTTP-Dienstprogramme.</li>
+<li><strong>JAGD DIE FEHLER. FOLGEN SIE DEN BEWEISEN.</strong> Erweiterte kompatible CVE-Vorlagen und OAST-Korrelation.</li>
+<li><strong>Beweis statt Sicherheit.</strong> Überprüfen und exportieren Sie Berichte in einem Arbeitsbereich, den Sie anpassen können.</li>
+<li><strong>IHRE KI IST KEIN SICHERHEITSURTEIL.</strong> MCP sucht nach Ihrer laufenden App. Beweise, die Sie überprüfen können.</li>
+<li><strong>SITZUNG ABGELAUFEN. VERLORENER KONTEXT.</strong> Bestätigen Sie, pausieren Sie, melden Sie sich erneut an und fahren Sie fort.</li>
+</ol>
+<h3 id="selling-points-in-2181">Verkaufsargumente in 2.18.1</h3>
+<table>
+<thead>
+<tr>
+<th>Verkaufsargument</th>
+<th>Praktischer Nutzen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ihre angemeldete Browsersitzung, Ihre Tools</strong></td>
+<td>ZAP und andere HTTP-Proxy-Clients verwenden standardmäßig die ausgewählte Firefox-Cookie-Jar-Datei mit Antwort-Cookie-Synchronisierung und unabhängigen Ausschaltern.</td>
+</tr>
+<tr>
+<td><strong>Die echte externe Scanner-Engine</strong></td>
+<td>ZAP generiert seine eigenen nativen HTTP-Anfragen und Payloads über Browser Bridge; Ausgewählte Cookie-/Header-Überschreibungen sind explizit.</td>
+</tr>
+<tr>
+<td><strong>Schützen Sie die Sonde, behalten Sie die Sitzung bei</strong></td>
+<td>Durch geschützte Felder und die Umgehung pro Anfrage können Sie die absichtlichen Cookie-/Header-Mutationen eines Tools beibehalten.</td>
+</tr>
+<tr>
+<td><strong>Beweise, die Sie einsehen können</strong></td>
+<td>Dedizierte aktive Regeln verwenden wiederholte Kontrollen; Bei der tatsächlichen Eingabeabdeckung wird zwischen abgeschlossener, teilweiser und übersprungener Arbeit unterschieden.</td>
+</tr>
+<tr>
+<td><strong>KI, die über die Schnittstelle arbeiten kann</strong></td>
+<td>MCP stellt unterstützte Scanbefehle und Dashboard-Steuerelemente zur Verfügung, damit kompatible Agenten die Workbench bedienen und Ergebnisse abrufen können.</td>
+</tr>
+<tr>
+<td><strong>Erkenntnisse, die Sie erklären können</strong></td>
+<td>Der Cimematic Viewer kombiniert den aktuellen Seitenkontext, aufgezeichnete Beweise, 3D-Erklärungen und potenzielle Risiken im Klartext.</td>
+</tr>
+<tr>
+<td><strong>Bringen Sie Ihr eigenes Testmaterial mit</strong></td>
+<td>Laden Sie zielspezifische Nutzlastpakete und überprüfte Vorlagen hoch; Aktualisieren Sie die unterstützten Community-Listen über die Benutzeroberfläche.</td>
+</tr>
+<tr>
+<td><strong>Ein Arbeitsplatz, der Ihnen gehört</strong></td>
+<td>Bewertungsdaten pro Ziel, Überprüfungsnotizen, optionale Dateiprüfpunkte, Offline-Berichte, Themen und 20 gebündelte UI-Sprachen.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publication-notes">Veröffentlichungshinweise</h3>
+<p>Die Geschichte des Kontoverlusts ist hypothetisch, keine Behauptung über einen echten Kunden oder eine Garantie, dass Longshot finanzielle Verluste verhindert. Die Erweiterung führt Bewertungen durch, keine kontinuierliche Angriffsblockierung. Feststellungen bedürfen einer Überprüfung; In der Abdeckungstabelle werden begrenzte Unterstützung und Lücken erläutert, die nur manuell verfügbar sind. Die DOM-Analyse umfasst Indikatoren und unterstützte Ausführungskanarien, keine universelle DOM-Exploit-Abdeckung. Die Filmsequenz erklärt Beweise; es fügt keinen Ausbeutungsbeweis hinzu.</p>
+<p>MCP und Browser Bridge müssen lokal eingerichtet werden. Der native Tool-Proxy verwendet einen separaten Node/Python/mitmproxy-Prozess und das Abfangen von HTTPS erfordert die Vertrauenskonfiguration des Tools für die Adapter-CA. Es handelt sich um einen analysierten HTTP-Transport, nicht um bytetransparentes Roh-TCP. Cookie-Überschreibungen können deaktiviert werden; Ein Browser-Cookie oder User-Agent garantiert keine browseridentische Vernetzung oder WAF-Akzeptanz. Externes ZAP bleibt separat installiert. Die Ausführung der Vorlage hängt von der Kompatibilität/Laufzeit ab; OAST erfordert einen konfigurierten Anbieter. Für die Authentifizierungsvalidierung ist ein aussagekräftiger geschützter Endpunkt/Marker erforderlich. Zielprofile trennen Bewertungsdaten; Der Tab/Container stellt die Cookie-Sitzung bereit.</p>
+<p>Stellen Sie für Anwendungen, die sensible Daten oder Geld verarbeiten, ein Cybersicherheitsteam ein und nutzen Sie Longshot als einen Teil der Bewertung. Verwenden Sie es nur für Anwendungen, die Sie besitzen oder zum Testen berechtigt sind.</p>
+<p>Wenn Sie zuvor erstellte Kampagnenbilder wiederverwenden, kennzeichnen Sie diese als Kompositionen und verwenden Sie überall dort, wo eine pixelgenaue Benutzeroberfläche erforderlich ist, echte aktuelle Screenshots. Dieses Tutorial verlinkt die tatsächlichen 2.18.1-Validierungs-Screenshots im Abschnitt „Erscheinungsbild“. Es enthält weder ein neues Kampagnenpaket mit acht Bildern noch den Anspruch auf Unterstützung durch Dritte.</p>
+<h2 id="firefox-and-chrome-choose-your-edition">Firefox und Chrome: Wählen Sie Ihre Edition</h2>
+<p>In dieser vollständigen Anleitung werden die von Firefox unterstützten Funktionen beschrieben. Chrome verwendet dieselbe Kern-Browser-Sitzungs-Workbench mit den unten aufgeführten Plattformunterschieden. Verweise auf Firefox-Container, Live-DOM-Ausführung, gehaltenes Abfangen und Browser-VHOST-Umschreiben weiter unten in diesem Handbuch gelten nur für Firefox.</p>
+<table>
+<thead>
+<tr>
+<th>Fähigkeit</th>
+<th>Firefox</th>
+<th>Chrome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser-Aktivprüfungen, manuelles/automatisches Fuzzing, unterstützte HTTP-Vorlagen, OAST, Stack-Beweise und Berichte</td>
+<td>Unterstützt durch die dokumentierten Voraussetzungen</td>
+<td>Unterstützt durch die dokumentierten Voraussetzungen</td>
+</tr>
+<tr>
+<td>Nativer HTTP-Proxy mit Browser-Cookies/Header-Überschreibungen und Antwort-Cookie-Synchronisierung</td>
+<td>Unterstützt</td>
+<td>Unterstützt</td>
+</tr>
+<tr>
+<td>Seitenkontext-AJAX-Instrumentierung und Live-DOM-XSS-Ausführungsüberprüfung</td>
+<td>Unterstützt, wenn genehmigt und erlaubt</td>
+<td>In dieser Version nicht verfügbar</td>
+</tr>
+<tr>
+<td>Sitzung B mit separatem Container, abgefangen und Browser-VHOST neu geschrieben</td>
+<td>Wird unterstützt, wenn konfiguriert und zulässig</td>
+<td>In dieser Version nicht verfügbar</td>
+</tr>
+<tr>
+<td>Betrachter finden</td>
+<td>Erfasste Beweise und unterstützter Live-Seitenkontext</td>
+<td>Erbeutete Beweise; Live-Hintergrundseitenerfassung nicht verfügbar</td>
+</tr>
+<tr>
+<td>Motorlebenszyklus</td>
+<td>Permanente Hintergrundseite</td>
+<td>Halten Sie die sichtbare Werkbank offen; Durch das Schließen werden neue gepaarte native Anfragen gestoppt</td>
+</tr>
+<tr>
+<td>Privates Surfen</td>
+<td>Ausgewählte Kontexte, vorbehaltlich der Genehmigung und Einrichtung</td>
+<td>In dieser Version deaktiviert</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-the-chrome-edition">Installieren Sie die Chrome-Edition</h3>
+<ol>
+<li>Laden Sie die herunter <strong>Chrome ZIP</strong> von den Veröffentlichungslinks oben/unten und extrahieren Sie es in einen Ordner, den Sie behalten.</li>
+<li>Offen <code dir="ltr" translate="no">chrome://extensions</code>, aktivieren <strong>Entwicklermodus</strong>, auswählen <strong>Ausgepackt laden</strong>, und wählen Sie dann den extrahierten Ordner aus, der Folgendes enthält <code dir="ltr" translate="no">manifest.json</code>.</li>
+<li>Öffnen Sie Ihre autorisierte Anwendung, melden Sie sich an, starten Sie Longshot über diese Registerkarte und stellen Sie eine Verbindung her.</li>
+<li>Lassen Sie die Workbench-Registerkarte während des Scannens und der nativen Kopplung geöffnet. Durch das Schließen wird die aktive Arbeit am Motor beendet; Gespeicherte Beweise bleiben erhalten und werden wiederhergestellt, ohne dass unsichere Anfragen erneut abgespielt werden müssen.</li>
+<li>Verwenden Sie für den Start des nativen Tool-Proxys den genauen Ursprung, der von Chrome angezeigt wird, z <code dir="ltr" translate="no">chrome-extension://YOUR_INSTALLED_ID</code>, rather than a Firefox <code dir="ltr" translate="no">moz-extension://</code> Herkunft. Der Proxy verwendet echte Ziel-URLs; Es ist kein Eintrag in der Hosts-Datei erforderlich.</li>
+</ol>
+<h3 id="chrome-agent-api-mcp-registration">Chrome Agent API/MCP-Registrierung</h3>
+<p>Aus dem beibehaltenen vollständigen Quellcode-Checkout, nach der Installation der angehefteten Hilfsabhängigkeit:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev
+node bridge/bin/longshot-bridge install --browser chrome \
+  --extension-id YOUR_INSTALLED_32_LETTER_ID \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+node bridge/bin/longshot-bridge mcp \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+</code></pre>
+<p>Zur Verwendung mit Chrom <code dir="ltr" translate="no">--browser chromium</code>. Verwenden Sie die tatsächliche ID in <code dir="ltr" translate="no">chrome://extensions</code>; Registrieren Sie sich erneut, wenn die Installation der Store-Edition eine andere ID ergibt. Das separate Port-/Datenverzeichnis vermeidet eine Kollision mit einem Firefox-Host. Diese Agent-API unterscheidet sich vom HTTP-Tool-Proxy (Standardports 8900/8901). Linux ist die getestete Native-Host-Plattform; Die macOS-Registrierung ist implementiert, aber hier nicht getestet, und es wird kein Windows-Native-Host-Installationsprogramm bereitgestellt.</p>
+<p>Eine detaillierte Browser Bridge-Konfiguration ist auch in den Erweiterungen verfügbar <strong>Browser Bridge → Informationen</strong> Dialog. Die ausführliche README-Datei und die neuen Plattform-/Datenschutzdokumente sind auf Englisch; Die gebündelte UI-Sprachauswahl übersetzt keine Zielbeweise, Nutzlasten oder ausführbaren Beispiele.</p>
+<h2 id="contents">Inhalt</h2>
+<ul>
+<li><a href="#firefox-and-chrome-choose-your-edition">Firefox-/Chrome-Editionen und Einrichtung</a></li>
+<li><a href="#vibe-coded-shipped-hacked">Werbung und Verkaufsargumente</a></li>
+</ul>
+<ol>
+<li><a href="#what-runs-where">Was läuft wo</a></li>
+<li><a href="#install-or-update-in-firefox-nightly">Installieren oder aktualisieren Sie Firefox Nightly</a></li>
+<li><a href="#getting-started-and-target-sessions">Erste Schritte und Zielsitzungen</a></li>
+<li><a href="#light-discovery-and-a-focused-active-scan">Leichte Entdeckung und ein fokussierter aktiver Scan</a></li>
+<li><a href="#aggressive-options-and-run-approval">Aggressive Optionen und Laufgenehmigung</a></li>
+<li><a href="#overview-checks">Übersichtsprüfungen</a></li>
+<li><a href="#scan-options-reference">Referenz zu Scanoptionen</a></li>
+<li><a href="#budgets-selectors-and-request-settings">Budgets, Selektoren und Anfrageeinstellungen</a></li>
+<li><a href="#fuzzer-auto-fuzz-and-probe-library">Fuzzer-, Auto-Fuzz- und Probe-Bibliothek</a></li>
+<li><a href="#your-payloads-and-imported-templates">Ihre Payloads und importierten Vorlagen</a></li>
+<li><a href="#server-stack-and-smart-analyzer">Server-Stack und Smart-Analysator</a></li>
+<li><a href="#oast-setup-and-interpretation">OAST-Aufbau und Interpretation</a></li>
+<li><a href="#browser-bridge-native-tool-proxy">Browser Bridge: nativer Tool-Proxy</a></li>
+<li><a href="#native-bridge-configuration">Native Bridge-Konfiguration</a></li>
+<li><a href="#cookie-and-header-overrides-without-damaging-probes">Cookie- und Header-Überschreibungen ohne Beschädigung der Sonden</a></li>
+<li><a href="#external-tools-and-actual-zap-scanning">Externe Tools und tatsächliches ZAP-Scannen</a></li>
+<li><a href="#tor-and-onion-routing">Tor- und Zwiebelrouting</a></li>
+<li><a href="#agent-api-mcp-and-local-model-clients">Agent-API, MCP und Clients mit lokalem Modell</a></li>
+<li><a href="#optional-native-nuclei">Optionale native Kerne</a></li>
+<li><a href="#manual-tools-interception-and-api-inventory">Manuelle Tools, Abfangen und API-Inventarisierung</a></li>
+<li><a href="#findings-and-the-cimematic-viewer">Erkenntnisse und der filmische Betrachter</a></li>
+<li><a href="#owasp-top-10-coverage">OWASP Top 10-Berichterstattung</a></li>
+<li><a href="#recovery-assessment-files-and-reports">Wiederherstellung, Bewertungsdateien und Berichte</a></li>
+<li><a href="#appearance-language-and-help">Aussehen, Sprache und Hilfe</a></li>
+<li><a href="#troubleshooting">Fehlerbehebung</a></li>
+<li><a href="#terms-and-source-references">Begriffe und Quellenangaben</a></li>
+</ol>
+<h2 id="what-runs-where">Was läuft wo</h2>
+<p>Das Wort „Brücke“ bezieht sich auf verschiedene Komponenten. Wählen Sie die für Ihre Aufgabe benötigte Komponente.</p>
+<table>
+<thead>
+<tr>
+<th>Komponente</th>
+<th>Läuft wo</th>
+<th>Was es bewirkt</th>
+<th>Standardverbindung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eingebauter Scanner, Repeater und Fuzzer</td>
+<td>Firefox-Erweiterung und gebundene Zielregisterkarte</td>
+<td>HTTP-Überprüfungen für Browsersitzungen mithilfe der JavaScript-Regeln von Longshot</td>
+<td>Kein externer Proxy-Prozess erforderlich</td>
+</tr>
+<tr>
+<td><strong>Browser Bridge / Native Tool-Proxy</strong></td>
+<td>Lokaler Knotenkoordinator plus separat installierter Mitmproxy</td>
+<td>Überträgt die eigenen HTTP/HTTPS-Anfragen externer Tools; Überschreibt optional Cookies und ausgewählte Header von Firefox</td>
+<td>HTTP-Proxy <code dir="ltr" translate="no">127.0.0.1:8900</code>; Erweiterungssteuerung <code dir="ltr" translate="no">127.0.0.1:8901</code></td>
+</tr>
+<tr>
+<td><strong>Agent-API/Native-Messaging-Brücke</strong></td>
+<td>Bei Firefox registrierter lokaler Knotendienst</td>
+<td>REST/MCP/UI-Automatisierung, Bewertungsdateien und optionale native Nuclei-Ausführung</td>
+<td>API <code dir="ltr" translate="no">http://127.0.0.1:8765</code></td>
+</tr>
+<tr>
+<td>Externes ZAP, Curl, ffuf, sqlmap oder Nuclei CLI</td>
+<td>Separate, von Ihnen installierte Prozesse</td>
+<td>Generieren Sie ihren eigenen Datenverkehr und ihre eigenen Ergebnisse, optional über den nativen Tool-Proxy</td>
+<td>Konfigurieren Sie den ausgehenden HTTP-Proxy jedes Tools</td>
+</tr>
+<tr>
+<td>Isolierte native Kerne, die von Longshot gestartet wurden</td>
+<td>Agent-API-Host und Linux-Sandbox</td>
+<td>Führt geeignete importierte Vorlagen mit der offiziellen Nuclei-Engine aus</td>
+<td>Separater isolierter Ausführungsweg; kein automatischer Firefox-Cookie-Export</td>
+</tr>
+</tbody>
+</table>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">Built-in scan / Repeater / Fuzzer
+        → Firefox networking + target tab's session → target
+
+External ZAP / curl / another HTTP tool
+        → authenticated native proxy :8900 → mitmproxy → target
+                        ↑
+             selected cookie/header values
+                        ↑
+              paired Firefox tab via :8901
+
+MCP or REST client → Agent API :8765 → Longshot commands / UI
+                                      └→ separately enabled native jobs
+</code></pre>
+<p><strong>Beim Starten des Scans wird ZAP nicht ausgeführt.</strong> Durch die Kopplung von ZAP mit Browser Bridge wird weder der JavaScript-Scanner von Longshot ersetzt noch werden alle ZAP-Benachrichtigungen in Longshot importiert. Überprüfen Sie die Ergebnisse eines externen Tools in diesem Tool. Bei der Anzeige des nativen Bridge-Verkehrs handelt es sich um Metadaten und nicht um einen vollständigen Importer für Schwachstellenergebnisse.</p>
+<h3 id="changes-that-invalidate-old-instructions">Änderungen, die alte Anweisungen ungültig machen</h3>
+<table>
+<thead>
+<tr>
+<th>Ältere Anleitung</th>
+<th>Verwendung in 2.18.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wählen Sie „Legacy-Browser-Abruf“ aus</td>
+<td>Aus Browser Bridge und XPI entfernt</td>
+</tr>
+<tr>
+<td>Senden Sie Werkzeuge an <code dir="ltr" translate="no">http://bridge.invalid</code></td>
+<td>Verwenden Sie die tatsächliche Ziel-URL</td>
+</tr>
+<tr>
+<td>Hinzufügen <code dir="ltr" translate="no">bridge.invalid</code> zu <code dir="ltr" translate="no">/etc/hosts</code></td>
+<td>Es ist keine Eingabe erforderlich; Fügen Sie für diese Brücke keine hinzu</td>
+</tr>
+<tr>
+<td>Proxy eingeschaltet <code dir="ltr" translate="no">8899</code>; beginnen <code dir="ltr" translate="no">node ./bridge/cli.js</code> im alten Adapter</td>
+<td>Der heruntergeladene native Adapter verwendet <code dir="ltr" translate="no">node cli.js</code>; Standard-Proxy-/Kontrollports sind <code dir="ltr" translate="no">8900</code> / <code dir="ltr" translate="no">8901</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, <code dir="ltr" translate="no">X-Bridge-Host</code>, <code dir="ltr" translate="no">/v1/cookies</code>, pair-check endpoints</td>
+<td>Alte Adapterschnittstellen; Fügen Sie sie nicht in die native Konfiguration ein und gehen Sie nicht davon aus, dass sie existieren</td>
+</tr>
+<tr>
+<td>Bridge sendet bytegenauen Roh-TCP- oder Schmuggelverkehr</td>
+<td>Nativer Proxy analysiert HTTP; Fehlerhaftes Framing und bytetransparentes TCP werden nicht unterstützt</td>
+</tr>
+<tr>
+<td>Eine Browsersitzung bedeutet, dass externe Tools keine Zertifizierungsstelle benötigen</td>
+<td>Beim HTTPS-Abfangen muss das Tool der generierten Zertifizierungsstelle des nativen Adapters vertrauen</td>
+</tr>
+<tr>
+<td>Das Tor-Routing wird von Firefox übernommen</td>
+<td>Das Routing des nativen Adapters erfolgt separat; SOCKS ist standardmäßig deaktiviert</td>
+</tr>
+<tr>
+<td>Der Adapter unterbricht/startet externe Prozessgruppen neu oder gibt fehlgeschlagene Arbeiten automatisch wieder</td>
+<td>Pause blockiert neue Proxy-Anfragen; Überprüfen Sie das Tool und versuchen Sie es erneut bzw. setzen Sie es explizit fort</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-or-update-in-firefox-nightly">Installieren oder aktualisieren Sie Firefox Nightly</h2>
+<p>Benutzen Sie die <strong>2.18.1 XPI</strong>, kein alter Adapter-ZIP, der in ein Add-on umbenannt wurde. Extrahieren Sie das passende Quellarchiv in einen Ordner, den Sie an Ort und Stelle behalten (siehe Abbildung). <code dir="ltr" translate="no">/path/to/longshot</code> in Beispielen. Verschieben Sie einen registrierten nativen Host nicht, ohne ihn erneut zu registrieren.</p>
+<p>Die Release-Dateien sind:</p>
+<ul>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1.xpi">Firefox XPI</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-chrome.zip">Chrome ZIP</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-source.zip">Passende Erweiterungsquelle ZIP</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/tag/v2.18.1">Versionshinweise und Prüfsummen</a></li>
+<li>Nativer Adapter-ZIP: Laden Sie ihn in Browser Bridge herunter. Es ist in jedem Erweiterungspaket enthalten.</li>
+</ul>
+<p>Dabei handelt es sich um Entwicklungs-/Einreichungs-Builds. Die Unterzeichnung des Firefox-Stores und die Genehmigung beider Marktplätze stehen noch aus. Befolgen Sie das entsprechende Entwicklungsladeverfahren, anstatt zu erwarten, dass das unsignierte XPI in der Firefox-Version normal installiert wird.</p>
+<p>Das Manifest erfordert Firefox 140 oder neuer. Bei den Release-Integrationsprüfungen wurde der Desktop-Firefox 159 unter Linux verwendet. Die Plattform-/Laufzeitunterstützung für optionale Hilfsprogramme ist von der grundlegenden Erweiterungsunterstützung getrennt.</p>
+<p>Für eine temporäre, nicht signierte Installation:</p>
+<ol>
+<li>Offen <code dir="ltr" translate="no">about:debugging#/runtime/this-firefox</code>.</li>
+<li>Wählen Sie <strong>Temporäres Add-on laden</strong> und wählen Sie den XPI aus.</li>
+<li>Bestätigen Sie die angezeigte Version von Longshot, öffnen Sie dann das Ziel und starten Sie die entsprechende Symbolleistenschaltfläche.</li>
+<li>Laden Sie die Erweiterung neu, nachdem Sie einen entpackten Entwicklungs-Build ersetzt haben.</li>
+</ol>
+<p>Ein temporäres Add-on verschwindet nach dem Neustart von Firefox. Das wird erwartet; Es ist nicht der Adapter, der die Erweiterung löscht. Für die dauerhafte öffentliche Verbreitung ist eine Mozilla-Signierung erforderlich. Nightly verfügt über zusätzliche unsignierte Entwicklungsoptionen, die von beschrieben werden <a href="https://www.extensionworkshop.com/documentation/publish/signing-and-distribution-overview/">Mozillas Signierleitfaden</a>; Beim temporären Laden müssen diese Einstellungen nicht geändert werden. Siehe <a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">temporäre Installation</a>.</p>
+<p>Das XPI bündelt den nativen Adapter als herunterladbares Archiv. Es kann kein beliebiger Node-/Python-Prozess gestartet oder der native Host ausschließlich über Firefox-Add-ons installiert werden. Das Starten des Proxys und das Registrieren der Agent-API sind unterschiedliche optionale lokale Einrichtungsschritte.</p>
+<h2 id="getting-started-and-target-sessions">Erste Schritte und Zielsitzungen</h2>
+<h3 id="connect-the-right-tab">Verbinden Sie die rechte Lasche</h3>
+<ol>
+<li>Öffnen Sie beispielsweise das autorisierte Ziel in Firefox <code dir="ltr" translate="no">http://localhost:8080</code>.</li>
+<li>Melden Sie sich mit dem vorgesehenen Testkonto an und schließen Sie alle Browser-Herausforderungen ab.</li>
+<li>Starten Sie Longshot <strong>von dieser Zielregisterkarte aus</strong>. Lassen Sie die Registerkarte „Anwendung“ geöffnet.</li>
+<li>Überprüfen Sie die Zieladresse und wählen Sie <strong>Verbinden</strong>.</li>
+<li>Benutzen <strong>Erste Schritte</strong> in der Kopfzeile für die hervorgehobene exemplarische Vorgehensweise in acht Schritten. Es kann wiederholt werden; Es startet keine Scans und ändert keine Einstellungen.</li>
+<li>Durchsuchen Sie repräsentative Anwendungsseiten, damit Longshot nützliche Routen und Eingaben beobachten kann.</li>
+</ol>
+<p>Ein Zielursprung besteht aus Schema, Hostname und Port. <code dir="ltr" translate="no">http://localhost:8080</code>, <code dir="ltr" translate="no">http://127.0.0.1:8080</code> und <code dir="ltr" translate="no">https://localhost:8080</code> sind unterschiedlichen Ursprungs, auch wenn sie letztendlich den gleichen Dienst erreichen. Verbinden Sie sich und verwenden Sie die genaue Adresse, die für die Bewertung vorgesehen ist. Eine hinter einem Hostnamen beobachtete IP-Adresse wird nicht automatisch zu einem zusätzlichen autorisierten Ziel.</p>
+<h3 id="configure-session-validation">Konfigurieren Sie die Sitzungsvalidierung</h3>
+<p>Offen <strong>Einstellungen → Scannereinstellungen</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Feld</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sitzungsvalidierungspfad</td>
+<td>Eine im Gültigkeitsbereich enthaltene Seite/API-Pfad, die eine Authentifizierung erfordert</td>
+</tr>
+<tr>
+<td>Erwarteter authentifizierter Text</td>
+<td>Eine stabile Markierung, die vorhanden ist, wenn das ausgewählte Konto angemeldet ist, und nach der Abmeldung nicht mehr vorhanden ist</td>
+</tr>
+<tr>
+<td>Minimale authentifizierte Antwortbytes</td>
+<td>Optional additional lower size threshold; Null deaktiviert es</td>
+</tr>
+<tr>
+<td>Anmeldepfad</td>
+<td>Der Anmeldepfad der Anwendung, falls zur Ablehnungserkennung erforderlich</td>
+</tr>
+<tr>
+<td>Nach so vielen Anfragen erneut validieren</td>
+<td>Regelmäßige unabhängige Sitzungsprüfung; Standard 20</td>
+</tr>
+<tr>
+<td>Erfordert eine erfolgreiche Sitzungsvalidierung vor Scans</td>
+<td>Erfordern, dass der konfigurierte Validator besteht; Standardmäßig deaktiviert</td>
+</tr>
+</tbody>
+</table>
+<p>Speichern Sie die Einstellungen und verwenden Sie sie <strong>Übersicht → Sitzung prüfen</strong>. Eine öffentliche Seite, die 200 zurückgibt, ist kein Beweis für die Authentifizierung. Eine Weiterleitung zu einer Anmeldeseite gefolgt von 200 kann immer noch eine ungültige Sitzung darstellen; Wählen Sie einen geschützten Endpunkt und eine aussagekräftige Markierung.</p>
+<p>Der integrierte Scanner verwendet die entsprechenden Browser-Cookies der gebundenen Registerkarte, einschließlich HttpOnly-Cookies. Firefox wählt Cookies nach URL, Pfad, Sicherheitsattributen und Cookie-Speicher aus. Die geschützten Cookie-/Autorisierungs-/Hostfelder des Scanners sind keine gewöhnlichen bearbeitbaren Fuzz-Eingaben.</p>
+<h3 id="profiles-and-accounts">Profile und Konten</h3>
+<p><strong>Ziele</strong> trennt Verlauf, Ergebnisse, Anforderungsjournal, erkannte Endpunkte, Überprüfungen und Scankonfiguration. Durch die Rückkehr zu einem Profil werden Bewertungsdaten wiederhergestellt, nicht eine alte authentifizierte Browsersitzung. Explizite Profile können einen gemeinsamen Ursprung haben.</p>
+<p>Normalerweise teilen sich zwei normale Firefox-Registerkarten Cookies. Verwenden Sie unabhängige Container oder einen separaten privaten Cookie-Speicher für wirklich unterschiedliche Testidentitäten. Beim Wechseln des Profils wird keine zweite Kontositzung erstellt. Der Vergleich in Sitzung B erfordert denselben Zielursprung und einen separaten Speicher.</p>
+<h2 id="light-discovery-and-a-focused-active-scan">Leichte Entdeckung und ein fokussierter aktiver Scan</h2>
+<h3 id="first-pass-discovery-and-passive-review">Erster Durchgang: Entdeckung und passive Überprüfung</h3>
+<ol>
+<li>Set <strong>Anfragen pro Sekunde</strong> auf 0,5–1, Crawling-Tiefe auf 1 und maximal erkannte URLs auf 25–50.</li>
+<li>Geh <strong>Maximaler Befund</strong>, <strong>Aggressiv</strong>, CVE-Autophase, OAST und native Ausführung aus.</li>
+<li>Set <strong>Auto-Fuzz → Aus</strong>. Lassen Sie Seitenklicks/Scroll- und Live-DOM-/Timing-/Callback-Tests deaktiviert.</li>
+<li>Wählen Sie die passiven Übersichtsgruppen aus: Header, Cookies, Offenlegung, Formulare, DOM-Quellen-/Senkenüberprüfung und CORS.</li>
+<li>Wählen Sie <strong>Nur Spinne</strong> und beginnen.</li>
+<li>Inspizieren <strong>Sitemap</strong>, <strong>HTTP-Verlauf</strong>, <strong>API-Explorer</strong>, <strong>Server-Stack</strong> und <strong>Erkenntnisse</strong>.</li>
+</ol>
+<p>Spider folgt entdeckten Links/Formularen im Gültigkeitsbereich, ohne Formularschreibvorgänge abzusenden. Es kennt nicht jeden versteckten Endpunkt. GET-Anfragen können weiterhin anwendungsspezifische Nebenwirkungen haben; „Lesemethode“ legt kein nebenwirkungsfreies Ziel fest.</p>
+<h3 id="second-pass-a-bounded-active-assessment">Zweiter Durchgang: eine begrenzte aktive Bewertung</h3>
+<ol>
+<li>Behalten <strong>Auto-Fuzz → Aus</strong> um die separate Überprüfung der integrierten aktiven Regeln zu erleichtern.</li>
+<li>Wählen Sie die relevanten aktiven Übersichtsprüfungen aus, z. B. SQL-Injection und Reflected XSS.</li>
+<li>Verwenden Sie kleine Limits, zum Beispiel 150 aktive Anfragen, 10 aktive URLs und fünf aktive Parameter.</li>
+<li>Wählen Sie <strong>Nur aktive Schecks</strong> um die aktuelle Seite und das gespeicherte Inventar wiederzuverwenden, oder <strong>Spinne + aktive Kontrollen</strong> erst einmal entdecken.</li>
+<li>Starten Sie, überprüfen Sie alle erforderlichen Genehmigungen und beobachten Sie die Anzahl der Aktivitäten und Anfragen.</li>
+<li>Überprüfen Sie die Anfrage, den Ausgangswert, die wiederholten Untersuchungs-/Kontrollbeweise, das Urteil und das Vertrauen jedes Ergebnisses.</li>
+<li>Offen <strong>WSTG-Prüfungen → Tatsächliche Eingabeabdeckung</strong> um abgeschlossene, teilweise und übersprungene Arbeiten anzuzeigen.</li>
+</ol>
+<p><strong>„Auto-Fuzz Off“ schaltet aktive Prüfungen nicht aus.</strong> SQLi/XSS/SSTI und andere dedizierte Regeln generieren ihre eigenen Sonden. Umgekehrt führt das Ankreuzen einer aktiven Regel nicht zu einer fehlenden Eingabe und führt auch nicht dazu, dass ein reiner Spider-Lauf die generische aktive Phase ausführt.</p>
+<h2 id="aggressive-options-and-run-approval">Aggressive Optionen und Laufgenehmigung</h2>
+<p>Aggressiv ermöglicht explizit genehmigte Methoden/Fähigkeiten; Es führt nicht jede Prüfung durch und garantiert keine stärkeren Beweise.</p>
+<ol>
+<li>Ermitteln Sie zunächst Eingaben und validieren Sie die Authentifizierung.</li>
+<li>Aktivieren Sie nur die benötigten erweiterten Optionen und Schreib-/Hochlade-/Löschberechtigungen.</li>
+<li>Scanoptionen speichern.</li>
+<li>Wählen Sie <strong>Überprüfen/genehmigen Sie den nächsten aggressiven Lauf</strong>.</li>
+<li>Überprüfen Sie das Ziel, die Funktionen, die Methodenberechtigungen und die Budgets.</li>
+<li>Klicken Sie <strong>Genehmigen Sie diesen nächsten Lauf</strong>. Diese Benutzeraktion fordert alle fehlenden kombinierten Firefox-Berechtigungen an und erstellt die Gewährung für die nächste Ausführung.</li>
+<li>Starten Sie den Lauf mit der überprüften Konfiguration.</li>
+</ol>
+<p>Der Zuschuss ist einmalig, läuft nach 30 Minuten ab und wird durch relevante Ziel-/Konfigurations-/Anfrageeinstellungsänderungen ungültig. Für einen neuen Scan ist normalerweise eine neue Bewilligung erforderlich. Das Speichern nicht abgeschlossener Optionen ist zulässig. Beim Starten oder Genehmigen werden erforderliche Felder validiert.</p>
+<p>Firefox erfordert <code dir="ltr" translate="no">permissions.request()</code> direkt aus einer echten Benutzeraktion hervorgehen. Das Ändern einer Einstellung ist kein Grund, im Hintergrund willkürliche Berechtigungen zu erteilen. Wenn die Berechtigung verweigert wird, überprüfen Sie die genaue Funktion, versuchen Sie es über die Genehmigungsschaltfläche erneut oder deaktivieren Sie diese Funktion. Normale Betriebssystem-/Browser-Berechtigungsaufforderungen bleiben außerhalb der Erweiterungs-DOM-Automatisierung.</p>
+<h3 id="maximum-findings-is-a-broad-preset">Maximaler Befund ist eine breite Voreinstellung</h3>
+<p>Diese Voreinstellung aktiviert viele Phasen, einschließlich erweiterter Überprüfung, OAST- und Session-B-Vergleich, und erweitert mehrere Budgets. Es handelt sich nicht um einen „Alles finden“-Schalter. Es wird kein OAST-Konto erstellt, keine Anbieter-URL/Callback-Domäne ausgefüllt, keine gültige Sitzung B ausgewählt, Nuclei installiert oder fehlende Rollen authentifiziert.</p>
+<p>Wenn die Genehmigung leere OAST-Felder oder fehlende Sitzung B meldet, konfigurieren Sie diese oder schalten Sie diese Optionen aus. Dies ist unabhängig davon, ob die Ziel-URL gültig ist.</p>
+<h3 id="two-command-injection-controls">Zwei Befehlsinjektionssteuerungen</h3>
+<p><strong>Übersicht → OS-Befehlsanzeigen</strong> ermöglicht direkte Unix-orientierte Befehlsausgabe-Probes. Es ist standardmäßig deaktiviert. <strong>Scan-Optionen → Befehlssonden</strong> steuert die zusätzliche Blind-Callback-Route, wenn OAST lauscht. Ein Kontrollkästchen konfiguriert nicht automatisch den anderen Pfad. Überprüfen Sie die Autorisierungsanforderungen für die tatsächliche Ausführung.</p>
+<h2 id="overview-checks">Übersichtsprüfungen</h2>
+<p>Die standardmäßig aktivierte Liste enthält die sechs passiven Gruppen sowie SQLi, NoSQLi, Servercode-Injection, reflektiertes XSS, SSTI, Traversal, Redirect, CRLF und Methoden. <strong>Betriebssystembefehlsanzeigen</strong> und <strong>Behandlung doppelter Abfrageparameter</strong> fang an.</p>
+<table>
+<thead>
+<tr>
+<th>Überprüfen</th>
+<th>Was es bewirkt</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sicherheitsheader und HTTPS</td>
+<td>Behandelt CSP, Framing-Richtlinie, Nosniff, HSTS und ausgewählte Mixed-Content-Referenzen</td>
+<td>Verteidigungs-/Konfigurationsindikatoren, kein automatischer Exploit-Beweis</td>
+</tr>
+<tr>
+<td>Cookie-Attribute</td>
+<td>Überprüft Secure, HttpOnly und SameSite, ohne Cookie-Werte als Ergebnisse beizubehalten</td>
+<td>Der Cookie-Zweck und das Browserverhalten müssen überprüft werden</td>
+</tr>
+<tr>
+<td>Fehler und sensible Inhalte</td>
+<td>Erkennt ausgewählte Traces, Konfigurations-/Quellinhalte und Verzeichnislisten</td>
+<td>Beschränkt auf beobachtete Inhalte und Signaturen</td>
+</tr>
+<tr>
+<td>Formular- und CSRF-Überprüfung</td>
+<td>Überprüft Passworttransport-/GET-Formulare und erkannte Tokenfelder</td>
+<td>Das Fehlen eines sichtbaren Tokens ist kein Beweis für CSRF</td>
+</tr>
+<tr>
+<td>Überprüfung der DOM-XSS-Quelle/Senke</td>
+<td>Findet nahegelegene URL-Quellen und gefährliche Senken im Inline-Code</td>
+<td>Heuristisch; kein Ausführungs- oder vollständiger Datenflussnachweis</td>
+</tr>
+<tr>
+<td>Überprüfung der CORS-Richtlinie</td>
+<td>Überprüft beobachtbare Zulassungs-/Ursprungs-/Anmeldeinformationskombinationen</td>
+<td>Testet keine willkürliche Origin-Reflektion oder vom Angreifer stammende Lesevorgänge</td>
+</tr>
+<tr>
+<td>SQL-Injection</td>
+<td>Wiederholt neue Datenbankfehlersignaturen und Wahr/Falsch-Vergleiche mit Steuerelementen</td>
+<td>Der Nachweis bleibt auf getestete Eingaben und Syntaxfamilien beschränkt</td>
+</tr>
+<tr>
+<td>NoSQL-Injection</td>
+<td>Wiederholt MongoDB/BSON-Fehlersignaturen</td>
+<td>Kein allgemeiner Operator-Injection- oder Authentifizierungs-Bypass-Verifizierer</td>
+</tr>
+<tr>
+<td>Serverseitige Codeinjektion</td>
+<td>Berechnete JavaScript/PHP-Kanarienvögel</td>
+<td>Kleiner Sprach-/Kontextsatz</td>
+</tr>
+<tr>
+<td>Reflektiertes XSS</td>
+<td>Reflection Gate plus wiederholtes inertes Parsen von ausführbaren HTML-Kontexten</td>
+<td>Kandidat bis zur Überprüfung der tatsächlichen Ausführung</td>
+</tr>
+<tr>
+<td>Injektion von Servervorlagen</td>
+<td>Einzigartige arithmetische Markierungen und Wiederholungs-/Kontrollprüfungen</td>
+<td>Deckt nicht jede Template-Engine oder jeden Blindkontext ab</td>
+</tr>
+<tr>
+<td>Traversal / Dateieinbindung</td>
+<td>Wiederholte bekannte Dateiinhaltssignaturen</td>
+<td>Keine erschöpfenden Kodierungen, Dateien oder Plattformen</td>
+</tr>
+<tr>
+<td>Weiterleitungen öffnen</td>
+<td>Erstellt .invalid Location Canary</td>
+<td>Das externe Weiterleitungsziel wird nicht verfolgt</td>
+</tr>
+<tr>
+<td>Antwort-Header-Injektion</td>
+<td>Wiederholt generierter Header-Marker</td>
+<td>Die Handhabung von Browser-URLs/Headern schränkt den Test ein</td>
+</tr>
+<tr>
+<td>Angekündigte HTTP-Methoden</td>
+<td>OPTIONEN und Inventar zulassen</td>
+<td>Werbung ist keine Schreiberlaubnis</td>
+</tr>
+<tr>
+<td>Behandlung doppelter Abfrageparameter</td>
+<td>Wiederholte Vergleiche erster/letzter Ordnung</td>
+<td>Informationsparsing-Unterschied, keine nachgewiesenen Auswirkungen auf die Sicherheit</td>
+</tr>
+<tr>
+<td>Betriebssystembefehlsanzeigen</td>
+<td>Optionale wiederholte ID-Ausgabeindikatoren</td>
+<td>Unix-orientiert, kontextabhängig und standardmäßig deaktiviert</td>
+</tr>
+</tbody>
+</table>
+<p>Zu den unterstützten aktiven Einfügepunkten gehören Abfragewerte, verschachtelte JSON/Arrays, Formular-/Multipart-Felder, ausgewählte bearbeitbare importierte Header und benannte API-Pfadeingaben. Stellen müssen bekannt und erlaubt sein. Verwaltete Authentifizierungs-/Framing-Felder, ausgeschlossene Werte und nicht verfügbare Anforderungstexte werden nicht stillschweigend erfunden.</p>
+<p>Ausgeblendete Formularwerte bleiben erhalten und werden, sofern unterstützt, vor dem Schreiben in das Formular aktualisiert. Nicht verfügbare Token können dazu führen, dass die Abdeckung übersprungen wird. Dieser Mechanismus stellt nicht sicher, dass der CSRF-Schutz eines Formulars funktioniert.</p>
+<h2 id="scan-options-reference">Referenz zu Scanoptionen</h2>
+<p>Sofern nicht anders angegeben, beginnen diese optionalen Phasen. <strong>Adaptive Anfragerate</strong> Standardmäßig ist; Der standardmäßige Auto-Fuzz-Modus ist Aus. Aus einem vorhandenen Profil wiederhergestellte Einstellungen können von den neuen Standardeinstellungen abweichen.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Welche Änderungen / Voraussetzung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CVE-Autophase</td>
+<td>Führt berechtigte importierte CVE-Vorlagen unter Verwendung ihrer erstellten Anfragen/Matcher innerhalb von CVE/globalen Budgets aus</td>
+</tr>
+<tr>
+<td>Aggressiv (autorisiert)</td>
+<td>Ermöglicht die Genehmigung der nächsten Ausführung für Schreibmethoden und erweiterte Funktionen</td>
+</tr>
+<tr>
+<td>Mehrteilige Datei-Uploads zulassen</td>
+<td>Ermöglicht separat dateitragende mehrteilige Anforderungen; generiert keinen Upload-Test</td>
+</tr>
+<tr>
+<td>LÖSCHEN zulassen (separate Einwilligung)</td>
+<td>Lässt DELETE separat zu; stellt nicht automatisch eine Löschanforderung aus</td>
+</tr>
+<tr>
+<td>AJAX/DOM-Instrumentierung</td>
+<td>Beobachtet dynamische Anwendungsendpunkte und unterstützte Seitenaktivitäten während der begrenzten Erkennung</td>
+</tr>
+<tr>
+<td>Opt-in page clicks / scroll</td>
+<td>Fügt begrenzte Interaktionen hinzu; erfordert AJAX-Erkennung und Aggressive-Genehmigung; Anwendungshandler können Daten ändern</td>
+</tr>
+<tr>
+<td>Live-DOM-XSS-Überprüfung (neue Registerkarten)</td>
+<td>Testet begrenzte Abfrage-/Fragmentabfrage-URL-Eingaben in verfügbaren Tabs im selben Store; zwei frische heimische Kanarienvögel plus eine Negativkontrolle; CSP bleibt durchgesetzt</td>
+</tr>
+<tr>
+<td>Wiederholte Zeitmessungen</td>
+<td>Wiederholte SQL-Verzögerungsvergleiche und ein JSON-MongoDB-Timing-Kandidat, beginnend mit dem ersten Einfügepunkt; erfordert Aggressiv</td>
+</tr>
+<tr>
+<td>SSRF-Kanarienvögel / Rückrufe</td>
+<td>Antwortunterschiede zwischen internen Adressen und exakte OAST-Korrelation bei Konfiguration; erfordert Aggressiv</td>
+</tr>
+<tr>
+<td>Externe XML-Entitätsprüfungen</td>
+<td>Callback Canary für bekannte XML-Anfragetexte; erfordert ein genehmigtes OAST-Setup für den implementierten Test</td>
+</tr>
+<tr>
+<td>Log4Shell OAST-Sonden</td>
+<td>Callback Canary in einer geeigneten Eingabe- und X-API-Version; Eine Interaktion ist kein Beweis für die Codeausführung</td>
+</tr>
+<tr>
+<td>Befehlssonden</td>
+<td>Blinde Befehlsrückrufroute, wenn OAST lauscht</td>
+</tr>
+<tr>
+<td>Importierte Deserialisierungsvorlagen</td>
+<td>Enthält berechtigte importierte Vorlagen mit Deserialisierungs-Tags; kein universeller Gadget-Generator</td>
+</tr>
+<tr>
+<td>Adaptive WAF-Mutationen (maximal 3)</td>
+<td>Bounded alternative representations of eligible probes; niemals eine Garantie für einen Bypass</td>
+</tr>
+<tr>
+<td>Vergleichen Sie mit Sitzung B</td>
+<td>Vergleicht bis zu zehn berechtigte Leseanfragen mit einem anderen Cookie-Speicher gleicher Herkunft; Besitz/Rollen bleiben im manuellen Kontext</td>
+</tr>
+<tr>
+<td>WebSocket-Probes entdeckt</td>
+<td>Begrenzter Kanalaustausch; kein erfundenes anwendungsspezifisches Angriffsprotokoll</td>
+</tr>
+<tr>
+<td>SSE-Sonden entdeckt</td>
+<td>Begrenztes EventSource-Abhören; kein allgemeiner Stream-Autorisierungsprüfer</td>
+</tr>
+<tr>
+<td>Offline-Client-Bibliothek SCA</td>
+<td>Kleiner gebündelter Katalog bekannter Versionen/Bereiche für beobachtete Client-Assets</td>
+</tr>
+<tr>
+<td>Parameter-/Header-Mining</td>
+<td>Verwendet Namen, die aus Ziel-/API-Beweisen gelernt wurden; kein vollständiges Wörterbuch mit versteckten Eingaben</td>
+</tr>
+<tr>
+<td>Native vollständige Nuclei-Ausführung</td>
+<td>Ermöglicht Vorlagenjobs für offizielle Engines über die Agent-API, vorbehaltlich der Linux-Isolation und Zustimmung</td>
+</tr>
+<tr>
+<td>Sandboxed nativer Code/JavaScript</td>
+<td>Zusätzliche Funktion für überprüfte/signierte native Vorlagen</td>
+</tr>
+<tr>
+<td>Isolierter Headless-Browser</td>
+<td>Zusätzliche native Headless-Funktionalität; vom Firefox-Login isoliert</td>
+</tr>
+<tr>
+<td>Native Dateilesevorgänge auf der Zulassungsliste</td>
+<td>Zusätzliche schreibgeschützte lokale Dateifunktion innerhalb der ausgewählten Zulassungsliste</td>
+</tr>
+<tr>
+<td>OAST (externer Anbieter)</td>
+<td>Registriert/fragt den angegebenen Anbieter ab; Wählen Sie relevante Schwachstellensonden separat aus</td>
+</tr>
+<tr>
+<td>Community-SQL-Probelisten</td>
+<td>Fügt die unterstützten gefilterten SecLists/FuzzDB-Werte zu relevanten SQL-Prüfungen/Fuzzern hinzu</td>
+</tr>
+<tr>
+<td>Adaptive Anfragerate</td>
+<td>Konservative Drosselung/Herausforderungsbehandlung; erhöht den Tarif nicht automatisch</td>
+</tr>
+<tr>
+<td>Hochgeladene Payload-Pakete aktiviert</td>
+<td>Fügt ausgewählte zielspezifische Werte hinzu; erfordert Aggressive Plus-Genehmigung für den nächsten Lauf</td>
+</tr>
+</tbody>
+</table>
+<p>Bei der Live-DOM-Überprüfung handelt es sich nicht um eine allgemeine Taint-Verfolgung. Gespeichertes XSS, PostMessage-/lokale Speicherquellen, Nicht-URL-Eingaben und mehrstufige Schreib-/Lese-Workflows erfordern zusätzliche Tests. Eine blockierte Abhängigkeit oder ein Timeout ist eine unvollständige Abdeckung und kein Erfolg.</p>
+<h2 id="budgets-selectors-and-request-settings">Budgets, Selektoren und Anfrageeinstellungen</h2>
+<p>Es gibt <strong>zwei separate Grenzwertsätze</strong>: Die integrierten Scan-Limits von Longshot und die Limits des nativen Tool-Proxys. Eine ZAP-Anfrage über :8900 verbraucht nicht das integrierte JavaScript-Scan-Budget und die Kontrollkästchen von Longshot wählen nicht die Scan-Richtlinie von ZAP aus.</p>
+<h3 id="operation-and-phase-selectors">Operation and phase selectors</h3>
+<table>
+<thead>
+<tr>
+<th>Selektor</th>
+<th>Entscheidungen und Verhalten</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Betrieb</td>
+<td>Nur Spinne; Spinne + aktive Kontrollen; Nur aktive Schecks</td>
+</tr>
+<tr>
+<td>Auto-fuzz</td>
+<td>Aus; Nach aktiv und CVE; Während des Scans. Dies steuert eine zusätzliche Phase, keine dedizierten aktiven Regeln</td>
+</tr>
+<tr>
+<td>Angriffsmodell</td>
+<td>Scharfschütze; Rammbock; Heugabel; Streubombe zur unterstützten strukturierten automatischen/Körpermutationsplanung</td>
+</tr>
+<tr>
+<td>Sitzung B</td>
+<td>Ein weiterer Tab gleichen Ursprungs mit einem wirklich unabhängigen Cookie-Shop</td>
+</tr>
+<tr>
+<td>Body fuzzer method</td>
+<td>POST, GET, PUT oder PATCH, vorbehaltlich der Anforderungsrichtlinien und Genehmigung</td>
+</tr>
+<tr>
+<td>Body format</td>
+<td>JSON, URL-codiert, mehrteilig oder unformatiert/XML; Nicht jedes Format bietet generische skalare Einfügepunkte</td>
+</tr>
+<tr>
+<td>Body payload class</td>
+<td>SQLi, NoSQLi, Code, XSS, SSTI, Traversal, CRLF, Redirect, Befehl oder benutzerdefiniert</td>
+</tr>
+</tbody>
+</table>
+<p>Angriffsmodelle in dieser Implementierung:</p>
+<ul>
+<li><strong>Scharfschütze:</strong> Variieren Sie jeweils einen Eingang.</li>
+<li><strong>Battering ram:</strong> Geben Sie die gleiche Nutzlast in alle ausgewählten Eingänge ein.</li>
+<li><strong>Heugabel:</strong> Verwenden Sie eine gestaffelte/rotierende Sequenz aus der Liste der gemeinsam genutzten Nutzlasten über die Eingaben hinweg. Dies ist keine Behauptung von Burps Verhalten auf der unabhängigen Liste.</li>
+<li><strong>Streubombe:</strong> begrenzte Kombinationen über Eingaben hinweg; Die Obergrenze verhindert eine unbegrenzte kartesische Expansion.</li>
+</ul>
+<h3 id="scan-option-limits">Einschränkungen der Scanoptionen</h3>
+<table>
+<thead>
+<tr>
+<th>Feld</th>
+<th style="text-align: right;">Neuer Standard</th>
+<th style="text-align: right;">Akzeptierter Bereich</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Globales Anforderungsbudget</td>
+<td style="text-align: right;">2,000</td>
+<td style="text-align: right;">1–10,000</td>
+</tr>
+<tr>
+<td>Fuzz-Anfragen pro Parameter</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>CVE-Anfragen pro Vorlage</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>CVE-Anfragen pro Ziel</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1–2,000</td>
+</tr>
+<tr>
+<td>Parallelitätslimit</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1–2; verspricht keinen parallelen Browserdurchsatz</td>
+</tr>
+<tr>
+<td>AJAX-Eventbudget</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>AJAX-Seitenbudget (ms)</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">500–15,000</td>
+</tr>
+<tr>
+<td>AJAX-Seitenanzahl</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>Verzögerungssonde (Sekunden)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1–5</td>
+</tr>
+<tr>
+<td>OAST-Callback-TTL-Sekunden</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">5–3,600</td>
+</tr>
+<tr>
+<td>OAST-Umfragesekunden</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5–15</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scanner-settings">Scannereinstellungen</h3>
+<table>
+<thead>
+<tr>
+<th>Einstellung</th>
+<th>Neuer Standard/Zweck</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anfragen pro Sekunde</td>
+<td>1; Die Benutzeroberfläche unterstützt 0,5–5</td>
+</tr>
+<tr>
+<td>Maximale Kriechtiefe</td>
+<td>3; Die Benutzeroberfläche unterstützt 0–5</td>
+</tr>
+<tr>
+<td>Maximal erkannte URLs</td>
+<td>100; Die Benutzeroberfläche unterstützt 1–500</td>
+</tr>
+<tr>
+<td>Maximale Bytes pro Antwort</td>
+<td>2 MB; Größere/verkürzte Antworten können zu Beweislücken führen</td>
+</tr>
+<tr>
+<td>Transportwiederholungen</td>
+<td>2; Es gibt keine Garantie dafür, dass ein bestimmter Schreibvorgang sicher wiedergegeben werden kann</td>
+</tr>
+<tr>
+<td>Maximale Fuzz-Probes pro Parameter</td>
+<td>40; getrennt vom Extra-Phase-Parameterbudget</td>
+</tr>
+<tr>
+<td>Maximale aktive Anfragen</td>
+<td>150</td>
+</tr>
+<tr>
+<td>Maximale aktive URLs</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Maximale aktive Abfrageparameter</td>
+<td>10; Die Prüfung erfasst auch andere unterstützte Einfügepunkttypen</td>
+</tr>
+<tr>
+<td>Ausgeschlossene Pfadpräfixe</td>
+<td>Ein Präfix pro Zeile; verhindert, dass diese Pfade als Testziele generiert werden</td>
+</tr>
+<tr>
+<td>Ausgeschlossene Parameternamen</td>
+<td>Ein Name pro Zeile</td>
+</tr>
+<tr>
+<td>Behalten Sie geschwärzte Scanner-Antwortkörper lokal bei</td>
+<td>Ein; Unterstützt Überprüfung/Vergleich innerhalb bestimmter Grenzen mit bestmöglicher Schwärzung</td>
+</tr>
+</tbody>
+</table>
+<p>Die aktive Prüfung reserviert begrenzte Berechtigungen für später aktivierte Regeln. Mehr Nutzlasten können daher dazu führen, dass einige Regeln unvollständig sind, anstatt jede Variante zu testen. Ein konfiguriertes Maximum ist eine Obergrenze und kein Versprechen, jede Anfrage zu verwenden oder jede Eingabe abzuschließen.</p>
+<h3 id="other-selectors">Andere Selektoren</h3>
+<table>
+<thead>
+<tr>
+<th>Seite</th>
+<th>Selektoren und Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Erkenntnisse</td>
+<td>Schweregrad und Überprüfungsstatus; Es werden nur negative/blockierte Sichtbarkeitsänderungen angezeigt</td>
+</tr>
+<tr>
+<td>Vorlagen</td>
+<td>Schweregrad, schreibgeschützter Filter und manuelle Auswahl; „Bereit“ ist der Berechtigungs-/Kompatibilitätsstatus, kein Urteil über die Schwachstelle</td>
+</tr>
+<tr>
+<td>Repeater</td>
+<td>GET/HEAD/OPTIONS/POST/PUT/PATCH/DELETE und Raw/XML, JSON oder Formularkörper</td>
+</tr>
+<tr>
+<td>Fuzzer</td>
+<td>Payload-Familie und Wertmutation: Original, URL/doppelte Codierung, Änderung der Groß-/Kleinschreibung, codierte Punkte, Tabulator-/Semikolonsuffix, doppelter Schrägstrich-Präfix, abschließender Punkt/Leerzeichen</td>
+</tr>
+<tr>
+<td>Abfangjäger</td>
+<td>Ressourcentyp, Methode und Timeout-Aktion; Dieser Filter hielt den Datenverkehr zurück, anstatt seine Methode neu zu schreiben</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>Wählen Sie das beobachtete Kanalprotokoll aus</td>
+</tr>
+<tr>
+<td>Server-Stack</td>
+<td>Automatisches NVD+OSV, NVD-Produkt/CPE oder OSV-Paket/Version; Handbuch npm/PyPI-Ökosystem</td>
+</tr>
+<tr>
+<td>Vergleichen</td>
+<td>Basislinie und Vergleichsantwort gespeichert</td>
+</tr>
+<tr>
+<td>Dienstprogramme</td>
+<td>URL/Base64/Hex-Kodierung/Dekodierung, SHA-256, JSON-Formatierung und JWT-Anspruchsprüfung</td>
+</tr>
+<tr>
+<td>WSTG-Prüfungen</td>
+<td>Kategorie und automatische/unterstützte/manuelle Referenzfilter</td>
+</tr>
+<tr>
+<td>Themen/Sprache</td>
+<td>Globales Erscheinungsbild und gebündelte Sprache, unabhängig von Scanoptionen</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fuzzer-auto-fuzz-and-probe-library">Fuzzer-, Auto-Fuzz- und Probe-Bibliothek</h2>
+<h3 id="pick-the-right-action">Wählen Sie die richtige Aktion</h3>
+<table>
+<thead>
+<tr>
+<th>Aktion</th>
+<th>Wer wählt die Eingaben aus?</th>
+<th>Ausgabe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aktiver Scan</td>
+<td>Longshot verwendet erkannte unterstützte Eingaben</td>
+<td>Dedizierte Regelnachweise mit Wiederholungen/Kontrollen</td>
+</tr>
+<tr>
+<td>Fuzzer ausführen</td>
+<td>Sie wählen eine URL und einen Abfrageparameter</td>
+<td>Basislinien- und ausgewählte Nutzlast-Reaktionsvergleiche</td>
+</tr>
+<tr>
+<td>Body fuzzer</td>
+<td>Sie stellen eine strukturierte Anfrage und Mutationsoptionen bereit</td>
+<td>Begrenzte Body-/Pfad-/Header-Varianten, sofern unterstützt</td>
+</tr>
+<tr>
+<td>Auto-Fuzz-Taste</td>
+<td>Aktuelle Seite/Sitemap/API-Inventar gespeichert</td>
+<td>Zusätzliche generische Nutzlastexploration über geeignete erkannte Eingaben hinweg</td>
+</tr>
+<tr>
+<td>CVE-Autophase / Ausführen ausgewählt</td>
+<td>Importierte Vorlagendefinitionen</td>
+<td>Vorlagenspezifische Anfragen und Matcher-Ergebnisse</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-query-fuzzer">Manueller Abfrage-Fuzzer</h3>
+<ol>
+<li>Verbinden Sie das Ziel und wählen Sie eine bereichsbezogene URL aus. Relative URLs wie <code dir="ltr" translate="no">/search?q=apple</code> werden gegen den verbundenen Ursprung akzeptiert.</li>
+<li>Geben Sie den Namen des vorhandenen Abfrageparameters ein oder wählen Sie <strong>Benutzen</strong> neben einer entdeckten Eingabe.</li>
+<li>Wählen Sie eine Nutzlastklasse und eine Wertmutation.</li>
+<li>Für <strong>Vom Benutzer hochgeladene benutzerdefinierte Nutzlasten</strong>, aktivieren Sie zunächst ein geeignetes benutzerdefiniertes Paket.</li>
+<li>Wählen Sie <strong>Fuzzer ausführen</strong>Überprüfen Sie dann die Ausgangslage, die Anfrage, den Status, die Dauer/den Zeitpunkt und die Beweise.</li>
+</ol>
+<p>Eine fehlende URL, ein fehlender Parameter oder ein leerer benutzerdefinierter Satz führt zu einer bestimmten Validierungsmeldung. Das Ändern einer Reaktion allein stellt noch keinen Injektionsfehler dar. Durch Serverdrosselung kann der Parameter auch dann gestoppt werden, wenn er in der Baseline auftritt.</p>
+<h3 id="auto-fuzz-discovered-inputs">Auto-Fuzz erkennt Eingaben</h3>
+<p>Benutzen <strong>Vorschau der erkannten Eingaben</strong> zuerst. Es liest gespeicherte Bestände und meldet berechtigte/übersprungene Anfragen, ohne Proben zu senden. Auto-Fuzz benötigt nicht die URL-/Parameterfelder des manuellen Fuzzers. Durchsuchen oder durchsuchen Sie zuerst, wenn das Inventar leer ist.</p>
+<p>Wählen Sie Nutzlastklassen aus und wählen Sie die separate aus <strong>Auto-fuzz</strong> Taste. <strong>Erkannte Anforderungstexte einbeziehen</strong> startet und erfordert Aggressiv plus Genehmigung für den nächsten Lauf. Tokengebundene Formulare, nicht unterstützte Methoden, nicht verfügbare Körper und XML werden von dieser automatischen Eingabeauswahl übersprungen. Bestehende Ausschlüsse, Anforderungslimits und Drosselungsverhalten gelten weiterhin.</p>
+<p>Verfügbare Klassen-Kontrollkästchen sind SQLI, NOSQLI, CODE, XSS, SSTI, TRAVERSAL, COMMAND, SSRF, REDIRECT, CRLF und CUSTOM. Neue Standardeinstellungen ermöglichen SQLI, SSTI, TRAVERSAL, REDIRECT und CRLF. Die generische Schleife überspringt SSRF; verwenden <strong>SSRF-Kanarienvögel / Rückrufe</strong> für die durchgeführte Verifizierung. CUSTOM verwendet eingegebene/aktivierte benutzerdefinierte Werte und meldet Antwortunterschiede mit geringer Konfidenz, es sei denn, ein dedizierter Matcher stellt weitere fest.</p>
+<h3 id="why-probe-library-belongs-here">Warum die Probe-Bibliothek hierher gehört</h3>
+<p>Die Bibliothek liefert <strong>Nutzlastwerte und überprüfte Vorlagen</strong>; Die Fuzzer-Steuerung wählt aus <strong>wohin und wie man sie verschickt</strong>. Es ersetzt nicht die manuelle URL/den manuellen Parameter. Die Optionen der gemeinsam genutzten Bibliothek wirken sich auch auf den aktiven Scan und die automatischen Phasen nach dem Speichern aus.</p>
+<p><strong>GitHub-Listen aktualisieren</strong> Aktualisiert feste Quellen, nicht beliebige ausführbare Scanner:</p>
+<table>
+<thead>
+<tr>
+<th>Quelle</th>
+<th>Verwendete Teilmenge</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SecLists schnelles SQLi</td>
+<td>Gefilterte Interpunktions-/boolesche Werte, begrenzt auf 32 unterstützte Einträge</td>
+</tr>
+<tr>
+<td>Plattformübergreifende SQL-Erkennung von FuzzDB</td>
+<td>Gefilterte Interpunktions-/boolesche Werte, begrenzt auf 32 unterstützte Einträge</td>
+</tr>
+<tr>
+<td>ProjectDiscovery Nuclei-Vorlagen</td>
+<td>Zwei Jira-Starterprüfungen nur für GET: CVE-2020-14179 und CVE-2021-26086</td>
+</tr>
+<tr>
+<td>PayloadsAllTheThings-Techniken</td>
+<td>Grundlage für begrenzte implementierte SQL-Leerraum-/Kommentar-/Kodierungsvarianten; kein heruntergeladenes ausführbares Bypass-Skript</td>
+</tr>
+</tbody>
+</table>
+<p>Updates verwenden HTTPS, lassen Cookies weg und behalten bei einem Fehler den alten Snapshot bei. Quell-Hashes, Aktualisierungszeit und unterstützte Zählungen werden angezeigt. Der Hash der vollständigen Eingabedatei bedeutet nicht, dass jeder Wert in dieser Datei verwendet wird. Heruntergeladene SQL-Listen schließen destruktive/Datenextraktions-/Verzögerungs-/Code-/Callback-Konstrukte aus; Integrierte Regeln verfügen über eigene, separat implementierte Kanarienvögel.</p>
+<p>Stoppen Sie einen Scan vor der Aktualisierung. Durch die Aktualisierung werden keine Tests gestartet, keine Genehmigung erteilt, OAST aktiviert oder Zieldaten/benutzerdefinierte Pakete auf GitHub hochgeladen. Eine heruntergeladene Vorlage, die sich in eine nicht unterstützte/Roh-/Code-/Headless-Form ändert, wird abgelehnt und nicht stillschweigend auf eine neue Ausführungsfunktion hochgestuft.</p>
+<h2 id="your-payloads-and-imported-templates">Ihre Payloads und importierten Vorlagen</h2>
+<h3 id="upload-literal-lists">Laden Sie Literallisten hoch</h3>
+<p>Unter <strong>Scan-Optionen oder Fuzzer → Sondenbibliothek → Ihre Nutzlasten und CVE-Vorlagen</strong>, wählen Sie dann die Kategorie aus <strong>Laden Sie eine benutzerdefinierte Datei hoch</strong>.</p>
+<p>Akzeptierte Listenformulare:</p>
+<ul>
+<li><code dir="ltr" translate="no">.txt</code>: ein literaler nicht leerer Wert pro Zeile; Leerzeichen und Groß-/Kleinschreibung bleiben erhalten.</li>
+<li><code dir="ltr" translate="no">.json</code>: ein Array von Zeichenfolgen oder ein Objekt, das Folgendes enthält <code dir="ltr" translate="no">name</code>, <code dir="ltr" translate="no">category</code> und <code dir="ltr" translate="no">payloads</code>.</li>
+<li>Kategorien: <code dir="ltr" translate="no">custom</code>, <code dir="ltr" translate="no">waf</code>, <code dir="ltr" translate="no">sqli</code>, <code dir="ltr" translate="no">nosqli</code>, <code dir="ltr" translate="no">code</code>, <code dir="ltr" translate="no">xss</code>, <code dir="ltr" translate="no">ssti</code>, <code dir="ltr" translate="no">traversal</code>, <code dir="ltr" translate="no">crlf</code>, <code dir="ltr" translate="no">redirect</code>, <code dir="ltr" translate="no">command</code>.</li>
+</ul>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "name": "My SQL review probes",
+  "category": "sqli",
+  "payloads": ["'", "\"", "' AND 1=1 -- "]
+}
+</code></pre>
+<p>Pakete sind zielspezifisch und anfangs <strong>deaktiviert</strong>. Sehen Sie sich die Vorschau an und aktivieren Sie explizit das gewünschte Paket. Aktivierte hochgeladene Pakete erfordern Aggressive und Genehmigung; Alleine das Hochladen bringt nichts.</p>
+<p>Beschränkungen: 256 KB pro Nutzlastdatei, 200 Zeichenfolgen pro Paket, 2.000 Zeichen pro Wert und höchstens 10 Pakete/500 Werte/512 KB Paketkonfiguration pro Ziel. Doppelte Zeichenfolgen innerhalb eines Pakets werden entfernt. Bestehende Methoden-, Umfangs-, Budget- und destruktive SQL-Schutzmaßnahmen gelten weiterhin.</p>
+<p>Kategorisierte Pakete ergänzen integrierte Klassenwerte. WAF-Pakete benötigen außerdem intelligente Versionen und geeignete Filternachweise. Eine literale benutzerdefinierte Nutzlast ist kein Matcher für die erwartete Ausgabe oder ein ausführbarer Erweiterungscode. Durch das Hochladen einer CVE-Nummer allein kann diese CVE nicht überprüft werden.</p>
+<h3 id="import-requestmatcher-templates">Anforderungs-/Matcher-Vorlagen importieren</h3>
+<p>Wählen Sie die Vorlagenkategorie „CVE/Nuclei“, bevor Sie YAML/YML/JSON hochladen. Die Obergrenze für die Vorlagendatei beträgt 2 MB. Überprüfen Sie es <strong>Vorlagen</strong>, einschließlich Testamentsvollstrecker und konkreter Bereitschafts-/Blockierungsgrund. Importierte Vorlagen verwenden die gemeinsam genutzte Bibliothek. Nutzlastpakete bleiben bei ihrem Ziel.</p>
+<ul>
+<li><strong>Lauf ausgewählt</strong> führt die ausgewählten Vorlagen direkt aus und erfordert keine automatische CVE-Phase.</li>
+<li><strong>CVE-Autophase</strong> berücksichtigt geeignete CVE-markierte/identifizierte Importe während eines konfigurierten Scans.</li>
+<li><strong>Auto-fuzz</strong> generiert generische Werte; Es werden keine erstellten CVE-Nutzlasten oder Matcher neu geschrieben.</li>
+<li>JSON, das nur zur Beratung dient, korreliert Produkt-/Versionsnachweise. Es wird keine funktionierende Exploit-Anfrage erstellt.</li>
+<li>Rohe, komplexe, Code-, Headless-, Datei- oder Nicht-HTTP-Vorlagen erfordern möglicherweise die separate offizielle Engine und zusätzliche Gewährungen oder bleiben blockiert.</li>
+</ul>
+<p>Importieren Sie überprüfte relative Hilfspakete mit Vorlagen, die sie benötigen. Eine nicht verfügbare native Laufzeit, eine Anforderung außerhalb des Gültigkeitsbereichs, eine fehlende Genehmigung oder eine nicht unterstützte Funktion ist ein Grund für eine Inspektion und kein erfolgreicher negativer Test.</p>
+<h2 id="server-stack-and-smart-analyzer">Server-Stack und Smart-Analysator</h2>
+<p>Benutzen <strong>Software erkennen</strong> um unterstützte Beobachtungen zu sammeln. Durchsuchen Sie repräsentative Seiten und behalten Sie die passenden Antworten bei, wenn Sie Körperbeweise benötigen. Dann wählen Sie <strong>Analysieren Sie aufgezeichnete Beweise</strong> für eine lokale passive Korrelation von bis zu 200 zuletzt gespeicherten Antworten. Der Analysator selbst fügt keine Zielanforderungen hinzu.</p>
+<p>Die Ansicht trennt Browserkomponenten, WAF/CDN/Edge, Webserver/Reverse-Proxy und Anwendungs-/Laufzeitsignale. Produktspezifische Header, Cookie-Namen, Asset-/Bootstrap-Strukturen und Fehlertexte können das Vertrauen stärken. Challenge-Page-Texte sind vom Anwendungs-Fingerprinting ausgeschlossen. Ein generisches 403-, Nginx-Banner oder CDN-Edge stellt nicht sicher, dass eine bestimmte WAF-Regel aktiviert ist.</p>
+<p>Mögliche Konfigurationskarten erläutern deren Nachweis und schlagen eine Verifizierung vor. Es handelt sich um Hypothesen: Browserantworten können die Ursprungs-IP, private Subnetze, Backend-Datenbankeinstellungen, TLS-Beendigung, Firewall-Regeln oder Proxy-Vertrauenslisten nicht genau ermitteln. Mehrere Upstreams und umgeschriebene Banner können Ebenen verbergen oder falsch identifizieren.</p>
+<h3 id="waf-recommendations-and-rate-handling">WAF-Empfehlungen und Tarifabwicklung</h3>
+<p><strong>Wenden Sie konservative Scan-Empfehlungen an</strong> Aktiviert explizit Community-SQL-Probes, intelligente Variationen und adaptive Rate und senkt die konfigurierte Rate auf höchstens 0,5 Anfragen/Sekunde. Es wird kein Scan gestartet und es werden keine erweiterten Funktionen gewährt.</p>
+<p>Berechtigte Prüfer berücksichtigen höchstens drei alternative Darstellungen innerhalb bestehender Budgets. Eine blockierte Grundlinie wird übersprungen. Browser-Herausforderungen erfordern eine normale Browserauflösung; Eine gewöhnliche ACL-Verweigerung rechtfertigt nicht endlose Umgehungsversuche. Eine Block-zu-Zulassen-Änderung ist ein Erreichbarkeitsbeweis, kein Schwachstellenbeweis.</p>
+<p>Wiederholte explizite Herausforderungen können die In-Memory-Rate halbieren und eine Wartezeit von mindestens zehn Sekunden verursachen. HTTP 429 oder 503 mit Retry-After stoppt weitere geplante Tests; Längere Retry-After-Intervalle werden eingehalten. Der Tarif erhöht sich nicht automatisch wieder. Neue Läufe beginnen mit der konfigurierten Rate.</p>
+<h3 id="cve-lookup">CVE-Suche</h3>
+<p><strong>Suchen Sie online nach CVEs</strong> fragt NVD/OSV nach der Genehmigung nach unterstützten Produkt-/Paketkoordinaten ab. Die Anfrage sendet Koordinaten, keine Ziel-URLs, Cookies oder Seiteninhalte. Unbekannte Versionen, Hersteller-Backports und nicht verifizierte Paketpräsenz schränken die Schlussfolgerungen ein. Manuelle npm/PyPI-Einträge beweisen keine Installation.</p>
+<p>Keine Übereinstimmungen bedeuten nicht, dass keine CVEs vorhanden sind. Ein Match ist ein beratender Kandidat; Überprüfen Sie die Voraussetzungen und die Verwendung <strong>Finden Sie Verifizierungsvorlagen</strong> geeignete importierte Schecks zu finden. Diese Schaltfläche filtert Vorlagen, anstatt sie auszuführen.</p>
+<h2 id="oast-setup-and-interpretation">OAST-Aufbau und Interpretation</h2>
+<p><a href="https://portswigger.net/web-security/ssrf/blind">OAST</a> beobachtet DNS/HTTP-Interaktionen, die durch eine Sonde verursacht werden, wenn die normale Antwort das Verhalten nicht offenbart. Longshot besitzt seine Registrierungs-/Korrelationsschlüssel; Ein zufälliger, vorab generierter Rückruf von einem anderen Client ist nicht austauschbar.</p>
+<ol>
+<li>Wählen Sie einen Interactsh-kompatiblen Dienst, den Sie kontrollieren oder zu dessen Nutzung Sie berechtigt sind.</li>
+<li>Treten Sie ein <strong>Anbieter-URL</strong>: die vollständige API-Basisadresse des Anbieters, normalerweise HTTPS. HTTP ist nur für Loopback-Anbieter zulässig.</li>
+<li>Geben Sie die Übereinstimmung ein <strong>Rückrufdomäne</strong> ohne <code dir="ltr" translate="no">http://</code>, ein Hafen oder ein Pfad.</li>
+<li>Treten Sie ein <strong>Anbieter-Token</strong> nur, wenn dieser Anbieter dies verlangt.</li>
+<li>TTL und Poll-Intervall festlegen; Aktivieren Sie OAST und die relevanten SSRF/XXE/Log4Shell/Befehlsoptionen.</li>
+<li>Benutzen <strong>Testen Sie die OAST-Verbindung</strong> um die Registrierung/Abstimmung zu überprüfen.</li>
+<li>Benutzen <strong>Testen Sie den OAST-Rückruf</strong> um einen separaten korrelierten Kanarienvogel von diesem Browser aus zu senden.</li>
+<li>Speichern, überprüfen und genehmigen Sie den tatsächlichen Scan. Überprüfen Sie die genaue Korrelation und das Protokoll bei OAST-Interaktionen.</li>
+</ol>
+<p>Wenn Sie beispielsweise den passenden öffentlichen Dienst unter nutzen <code dir="ltr" translate="no">https://oast.pro</code>, seine Rückrufbasis ist <code dir="ltr" translate="no">oast.pro</code>. Dies ist ein Beispiel, keine Verfügbarkeitsgarantie oder eine Verpflichtung zur Nutzung dieses Anbieters. Ein selbst gehosteter Anbieter benötigt eine eigene ordnungsgemäß delegierte erreichbare Domäne, DNS/Listener und TLS; Ein Laptop-HTTP-Listener allein ist kein öffentlicher Rückrufdienst. Folgen Sie <a href="https://github.com/projectdiscovery/interactsh">offizielles Interactsh-Setup</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Beobachtung</th>
+<th>Was es begründet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verbindungstest besteht</td>
+<td>Registrierung und Abfrage funktionierten über die Route des Browsers</td>
+</tr>
+<tr>
+<td>Der Browser-Rückruftest ist erfolgreich</td>
+<td>Dieser Browser könnte seine eigene korrelierte Interaktion auslösen und abrufen</td>
+</tr>
+<tr>
+<td>Die Zielsonde erzeugt eine passende Interaktion</td>
+<td>Es kam zu einer korrelierten Interaktion. Ordnen Sie die Quelle zu und bewerten Sie ihre Bedeutung</td>
+</tr>
+<tr>
+<td>Kein Rückruf</td>
+<td>Nicht schlüssig: Zielausgang, Erreichbarkeit des Anbieters, Ablauf, Filterung oder nicht unterstützter Kontext können die Ursache sein</td>
+</tr>
+</tbody>
+</table>
+<p>Eine DNS-Auflösung kann von einem Vermittler/Sicherheitsdienst stammen. Ein Rückruf allein beweist keinen willkürlichen internen Zugriff, Datendiebstahl oder Codeausführung. Die separate isolierte Nuclei-Engine verfügt über eine eigene native Interactsh-Registrierung. Bei diesen Ereignissen handelt es sich nicht um die Registrierung des Browser-Clients.</p>
+<p>Der browserseitige OAST-Client erfordert keine Go-, Node- oder Agent-API. Zu den Release-Tests gehörten die Registrierung am offiziellen Server, der Abruf verschlüsselter HTTP-Rückrufe und die Korrelation beim Loopback. Sie haben weder die Verfügbarkeit des öffentlichen Anbieters noch den ausgehenden Datenverkehr Ihres Zielservers festgestellt. Zum normalen, korrekt delegierten OAST-Setup gehört keine Bearbeitung der Hosts-Datei.</p>
+<h2 id="browser-bridge-native-tool-proxy">Browser Bridge: nativer Tool-Proxy</h2>
+<h3 id="what-it-sends">Was es sendet</h3>
+<p>Ein externes Tool generiert die Anfrage, einschließlich der Angriffsnutzlast, der Methode, des Hauptteils und der Abfrage. Der native Adapter leitet es über mitmproxy weiter und wendet nur konfigurierte Cookie-/Header-Änderungen an. Das tut es <strong>nicht</strong> Bitten Sie Firefox, den Abruf im Auftrag von ZAP oder einem anderen Tool durchzuführen.</p>
+<p>Dadurch bleiben die native HTTP-Semantik und die Nutzdatengenerierung des Tools erhalten, jedoch keine willkürlichen Original-Wire-Bytes: mitmproxy analysiert/serialisiert HTTP und stellt eine eigene ausgehende TLS-Verbindung her. Eine Browser-User-Agent-Zeichenfolge sorgt nicht dafür, dass der native TLS-/Netzwerk-Fingerabdruck mit dem von Firefox identisch ist.</p>
+<h3 id="install-the-downloaded-adapter">Installieren Sie den heruntergeladenen Adapter</h3>
+<ol>
+<li>Offen <strong>Browser-Bridge</strong>. Nur <strong>Nativer Tool-Proxy</strong> ist in 2.18.1 verfügbar.</li>
+<li>Wählen Sie <strong>Laden Sie den nativen Adapter herunter</strong> und extrahieren Sie es.</li>
+<li>Geben Sie das extrahierte ein <code dir="ltr" translate="no">native-bridge</code> Verzeichnis. Es enthält <code dir="ltr" translate="no">cli.js</code>, <code dir="ltr" translate="no">bootstrap.py</code>, <code dir="ltr" translate="no">config.json</code> und der gebündelte Node <code dir="ltr" translate="no">ws</code> Abhängigkeit.</li>
+<li>Installieren Sie Node.js 20+ und Python 3.12+, falls diese noch nicht verfügbar sind.</li>
+<li>Führen Sie das einmalige Python-Setup aus:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   cd /absolute/path/to/native-bridge
+   python3 bootstrap.py</code></p>
+<p>Dadurch entsteht ein lokaler <code dir="ltr" translate="no">.venv</code> und installiert angehefteten mitmproxy 12.2.3. Für die Installation ist ein Internetzugang erforderlich. Beim normalen Start werden weder Scannercode noch Payload-Listen heruntergeladen.</p>
+<ol start="6">
+<li>Verwenden Sie den angezeigten Befehl <strong>dein</strong> Erweiterungsseite:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   node cli.js --config config.json \
+     --extension-origin moz-extension://YOUR-LONGSHOT-UUID</code></p>
+<p>Ersetzen Sie den Platzhalter durch den vollständigen aktuellen Erweiterungsursprung. Es handelt sich nicht um die Zielwebsite, Add-on-ID oder einen von einem anderen Firefox-Profil kopierten Ursprung.</p>
+<ol start="7">
+<li>Lassen Sie das Terminal laufen. Nachdem der Proxy-Listener bereit ist, druckt er die Proxy-Adresse, den Steuerport, das neue Pairing/Proxy-Token und den CA-Zertifikatspfad.</li>
+</ol>
+<p>Wenn Sie aus der Quell-ZIP-Datei entwickeln, anstatt das gebündelte Adapterarchiv zu verwenden, installieren Sie zuerst die angeheftete Knotenabhängigkeit, falls diese nicht vorhanden ist:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+npm --prefix native-bridge ci --omit=dev
+cd native-bridge
+python3 bootstrap.py
+</code></pre>
+<p><code dir="ltr" translate="no">--mitmdump /absolute/path/to/mitmdump</code> oder <code dir="ltr" translate="no">LONGSHOT_MITMDUMP</code> wählt eine vorhandene Laufzeit aus. <code dir="ltr" translate="no">--data-dir /absolute/private/run-directory</code> wählt das CA/audit-Verzeichnis aus; Die Standardeinstellung ist <code dir="ltr" translate="no">run</code> innerhalb des nativen Adapters. Strg+C stoppt den Adapter.</p>
+<p>Der manuelle native Proxy ist von der Agent-API-Hostregistrierung getrennt. Es braucht nicht <code dir="ltr" translate="no">node bridge/bin/longshot-bridge install</code> lediglich als Proxy für Curl/ZAP. Linux/Firefox wurde in Release-Integrationstests getestet; Schließen Sie aus diesem manuellen Node/Python-Startpfad nicht die Unterstützung des Installationsprogramms für native Nachrichten auf einer anderen Plattform ab.</p>
+<h3 id="pair-the-selected-tab">Koppeln Sie die ausgewählte Registerkarte</h3>
+<ol>
+<li>Wählen Sie das Autorisierte aus <strong>Registerkarte „Ziel“.</strong> in Browser Bridge.</li>
+<li>Überprüfen Sie die angezeigte Herkunft und den Cookie-Speicher. Benutzen <strong>Registerkarten aktualisieren</strong> ggf.</li>
+<li>Treten Sie ein <strong>Steueranschluss</strong> <code dir="ltr" translate="no">8901</code>, sofern nicht in der Adapterkonfiguration geändert.</li>
+<li>Fügen Sie den aktuellen ein <strong>Pairing-/Proxy-Token</strong> vom laufenden Adapter.</li>
+<li>Wählen Sie <strong>Koppeln Sie die native Bridge</strong> und überprüfen Sie den Bereitschaftsstatus.</li>
+<li>Überprüfen Sie die Cookie-/Header-Schalter, bevor Sie den Tool-Verkehr weiterleiten.</li>
+</ol>
+<p>Das Feld löscht das Token nach erfolgreicher Kopplung. Ein Neustart erzeugt ein neues Token: Paaren Sie es erneut und aktualisieren Sie die Proxy-Anmeldeinformationen in jedem externen Tool. Der Proxy-Port <code dir="ltr" translate="no">8900</code> ist für Werkzeuge; Der Steueranschluss <code dir="ltr" translate="no">8901</code> ist für Firefox. Keiner von beiden verwendet das Agent-API-Bearer-Token von Port 8765.</p>
+<h3 id="actual-target-urls-and-bridgeinvalid">Tatsächliche Ziel-URLs und Bridge.invalid</h3>
+<p>Verwenden Sie die echte Adresse, z <code dir="ltr" translate="no">http://localhost:8080/search?q=apple</code>, in Ihrem Tool. Wenn Sie HTTPS testen, verwenden Sie das echte <code dir="ltr" translate="no">https://...</code> Adresse. Die eigene Adresse des Proxys bleibt erhalten <code dir="ltr" translate="no">http://127.0.0.1:8900</code> denn das ist der lokale HTTP-Proxy-Listener, auch für HTTPS CONNECT.</p>
+<p><strong>Nein <code dir="ltr" translate="no">/etc/hosts</code> Eintrag erforderlich.</strong> Das Alte <code dir="ltr" translate="no">bridge.invalid</code> Die Adresse war ein adapterspezifischer Alias zum Zuordnen der HTTP-URL eines Dienstprogramms zu einem ausgewählten Browser-Abrufziel. Der aktuelle native Proxy unterstützt tatsächliche Ziel-URLs und HTTPS CONNECT, sodass eine Zuordnung nicht erforderlich ist.</p>
+<p><code dir="ltr" translate="no">localhost</code> ist kein austauschbarer Alias für jedes Ziel: Er benennt den lokalen Computer aus der Netzwerkumgebung des relevanten Prozesses. Es ist nur dann korrekt, wenn das Ziel tatsächlich an diesem Ursprung lokal ist. Ein anderer Hostname kann einen anderen virtuellen Host, eine andere Cookie-Richtlinie oder einen anderen Ursprung auswählen, selbst wenn beide Namen in dieselbe IP aufgelöst werden.</p>
+<p>Ein vorhandener veralteter Host-Eintrag ist für den neuen Workflow irrelevant; Verwenden Sie es nicht in Tool-URLs. Bei der Vorbereitung dieses Tutorials wurden keine Änderungen an der Hosts-Datei vorgenommen.</p>
+<h3 id="https-trust">HTTPS-Vertrauen</h3>
+<p>Der Adapter generiert seine eigene lokale CA unter dem ausgewählten Datenverzeichnis, normalerweise:</p>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
+run/ca/mitmproxy-ca.pem            sensitive CA material/private key
+</code></pre>
+<p>Konfigurieren Sie die <strong>Konfiguration der Bewertungsvertrauensstellung des externen Tools</strong> mit dem öffentlichen Zertifikatspfad, der beim Start gedruckt wird. Geben Sie den privaten Schlüssel nicht weiter und gehen Sie nicht davon aus, dass der System-/Firefox-Vertrauensspeicher geändert wurde. Der Adapter installiert seine Zertifizierungsstelle nicht in einem der Truststores.</p>
+<p>Für Locken:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  --cacert /absolute/path/to/native-bridge/run/ca/mitmproxy-ca-cert.pem \
+  'https://actual-target.example/search?q=apple'
+</code></pre>
+<p>Ersetzen <code dir="ltr" translate="no">CURRENT_TOKEN</code> und den Ziel-/Zertifikatpfad. Für ein reines HTTP-lokales Ziel: <code dir="ltr" translate="no">--cacert</code> ist unnötig. <code dir="ltr" translate="no">--noproxy ''</code> stellt sicher, dass Curl den Proxy für ein Loopback-Ziel nicht stillschweigend umgeht.</p>
+<p>Es gibt zwei unterschiedliche TLS-Prüfungen:</p>
+<ul>
+<li>Der Client überprüft das vom Adapter vorgelegte Zertifikat. Konfigurieren Sie die Vertrauensstellung des Clients mit der Adapter-CA.</li>
+<li>Der Adapter überprüft den echten Upstream-Server. <code dir="ltr" translate="no">tls.verifyUpstream</code> Standardmäßig wahr. Kunde <code dir="ltr" translate="no">--cacert</code> stellt dem Adapter keine private Ursprungszertifizierungsstelle bereit.</li>
+</ul>
+<p>Betrachten Sie die Deaktivierung der Überprüfung nicht als normale Lösung für Zertifikatsfehler. Für ein eigenes, selbstsigniertes Gerät, <code dir="ltr" translate="no">tls.verifyUpstream:false</code> ist eine explizite Bewertungsausnahme in der Adapterkonfiguration, gefolgt von einem Neustart; es schwächt diese separate Upstream-Prüfung. Siehe <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">Verhalten des Mitmproxy-Zertifikats</a>.</p>
+<h3 id="traffic-fidelity-and-limits">Verkehrstreue und Grenzen</h3>
+<table>
+<thead>
+<tr>
+<th>Native Proxy-Unterstützung</th>
+<th>Nicht etablieren oder unterstützen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vom Tool generierte Methoden, Abfragenutzlasten und -körper</td>
+<td>Exakte Original-Header-Bytes/-Reihenfolge/-Schreibweise oder fehlerhaftes Framing</td>
+</tr>
+<tr>
+<td>HTTP/1.1, HTTP/2, HTTPS-VERBINDUNG</td>
+<td>HTTP/3, beliebige TCP- oder Nicht-HTTP-Scannermodi</td>
+</tr>
+<tr>
+<td>Konfigurierte Sitzungs-/Header-Überschreibungen</td>
+<td>Vollständiger Browser-Fingerabdruck, JavaScript-Challenge-Ausführung oder browsereigenes TLS</td>
+</tr>
+<tr>
+<td>WebSocket-Upgrades auf der nativen Route</td>
+<td>Ein allgemeiner Schwachstellenprüfer für Anwendungsprotokolle</td>
+</tr>
+<tr>
+<td>Tool Host-Header-Prüfungen unter Beibehaltung eines autorisierten HTTPS CONNECT-Ziels</td>
+<td>Ein uneingeschränktes Wählziel oder eine automatische neue Zielberechtigung</td>
+</tr>
+<tr>
+<td>Eingeschränkte zusätzliche Ursprünge ohne Browser-Sitzungsexporte</td>
+<td>Browser-Cookies/Header-Anmeldeinformationen werden automatisch über alle Ursprünge hinweg geteilt</td>
+</tr>
+</tbody>
+</table>
+<p>Die native Route verfügt über keinen Browser-Abruf-Fallback. Für das Schmuggeln von Rohanfragen, ungewöhnliches Wire-Framing oder benutzerdefinierte TLS-Recherchen verwenden Sie einen geeigneten separaten Transport. Kennzeichnen Sie diesen geparsten Proxy nicht als bytetransparent.</p>
+<h2 id="native-bridge-configuration">Native Bridge-Konfiguration</h2>
+<p>Laden Sie die Konfiguration von Browser Bridge herunter oder bearbeiten Sie die Adapter <code dir="ltr" translate="no">config.json</code>. Unbekannte Schlüssel, ungültige Typen und Werte außerhalb des Bereichs werden abgelehnt. Alte Adapterfelder sind keine nativen Konfigurationssynonyme.</p>
+<p>Die laufende Adapterkonfiguration ist beim Pairing maßgeblich. <strong>Überschreibungen anwenden</strong> Ändert die unterstützten Browser-Überschreibungsoptionen für die aktuelle Paarung. <strong>Konfiguration herunterladen</strong> behält die ausgewählte Konfiguration für den nächsten Start bei. Durch das Bearbeiten allgemeiner JSON-Felder werden Listener-Ports, TLS, Routing oder Beschränkungen in einem bereits laufenden Prozess nicht stillschweigend neu konfiguriert: Speichern/Herunterladen, Neustart und erneutes Koppeln.</p>
+<h3 id="complete-shipped-defaults">Vollständig ausgelieferte Standardeinstellungen</h3>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "proxy": {
+    "port": 8900
+  },
+  "control": {
+    "port": 8901,
+    "timeoutMs": 10000
+  },
+  "browser": {
+    "required": true,
+    "firstPartyDomain": null
+  },
+  "cookies": {
+    "enabled": true,
+    "mode": "replace",
+    "saveResponses": true,
+    "preserveToolChanges": true,
+    "protectedNames": [],
+    "includeNames": [],
+    "excludeNames": []
+  },
+  "headers": {
+    "userAgent": {
+      "source": "tool",
+      "value": ""
+    },
+    "acceptLanguage": {
+      "source": "tool",
+      "value": ""
+    },
+    "authorization": {
+      "source": "tool",
+      "value": ""
+    },
+    "set": {},
+    "remove": [],
+    "protectedNames": []
+  },
+  "scope": {
+    "origins": [],
+    "excludePaths": [],
+    "methods": [
+      "*"
+    ]
+  },
+  "limits": {
+    "rate": 2,
+    "concurrency": 4,
+    "maxRequests": 10000,
+    "maxBodyBytes": 67108864,
+    "timeoutSeconds": 60
+  },
+  "session": {
+    "pauseStatuses": [
+      401,
+      419,
+      440
+    ],
+    "pauseOn429": true
+  },
+  "tls": {
+    "verifyUpstream": true,
+    "http2": true
+  },
+  "upstream": {
+    "url": null
+  },
+  "routing": {
+    "socks5": null
+  },
+  "audit": {
+    "enabled": true
+  }
+}
+</code></pre>
+<p>Eine leere <code dir="ltr" translate="no">scope.origins</code> Standardmäßig wird der genaue Ursprung des gepaarten Ziels verwendet. Sie müssen weder das Ziel noch einen Start-/Endzeitstempel eingeben, um mit einer normalen gepaarten Bewertung zu beginnen. Die Durchsetzung des Geltungsbereichs besteht weiterhin; Es wird durch Paarung und nicht durch ein altes obligatorisches Bewertungsformular ausgewählt.</p>
+<h3 id="field-reference">Feldreferenz</h3>
+<table>
+<thead>
+<tr>
+<th>Feld</th>
+<th>Wirkung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">schemaVersion</code></td>
+<td>Natives Konfigurationsformat; aktueller Wert 1</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">proxy.port</code></td>
+<td>Toolseitiger HTTP-Proxy-Port, Standard 8900</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.port</code></td>
+<td>Firefox-Koordinator-Port, Standard 8901; muss sich vom Proxy-Port unterscheiden</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.timeoutMs</code></td>
+<td>Zeitlimit für Browser-/Steuerelementantworten, Standard 10.000 ms</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.required</code></td>
+<td>Standardmäßig ist eine Kopplung erforderlich. Für den eigenständigen Betrieb sind explizite Ursprünge und alle vom Browser abgeleiteten Funktionen erforderlich</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.firstPartyDomain</code></td>
+<td>Explizite Erstanbieter-Isolationsdomäne, wenn die Firefox-Cookie-API dies erfordert; null verwendet normales Verhalten</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.enabled</code></td>
+<td>Verwenden Sie ausgewählte Firefox-Cookies in ausgehenden nativen Anfragen. Standardmäßig wahr</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.mode</code></td>
+<td><code dir="ltr" translate="no">replace</code> standardmäßig; optional <code dir="ltr" translate="no">merge</code>, unten erklärt</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code></td>
+<td>Anwenden von Set-Cookie-Antwortaktualisierungen auf das ausgewählte Firefox-JAR; Standardmäßig wahr, unabhängig von der Anforderungsüberschreibung</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.preserveToolChanges</code></td>
+<td>Behalten Sie Änderungen relativ zur ersten Anfrage pro Clientverbindung/Herkunft bei; Standardmäßig wahr</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.protectedNames</code></td>
+<td>Cookie-Namen, deren Tool-Werte unter Tool-Kontrolle bleiben müssen</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.includeNames</code></td>
+<td>Verwalten Sie nur diese Namen; leer bedeutet alle übereinstimmenden Browsernamen</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.excludeNames</code></td>
+<td>Verwalten Sie diese Browser-Cookie-Namen nicht</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.userAgent</code>, <code dir="ltr" translate="no">acceptLanguage</code>, <code dir="ltr" translate="no">authorization</code></td>
+<td><code dir="ltr" translate="no">source</code> ist <code dir="ltr" translate="no">tool</code>, <code dir="ltr" translate="no">browser</code> oder <code dir="ltr" translate="no">custom</code>; „custom“ benötigt eine nicht leere einzeilige Zeile <code dir="ltr" translate="no">value</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.set</code>, <code dir="ltr" translate="no">remove</code>, <code dir="ltr" translate="no">protectedNames</code></td>
+<td>Explizite zusätzliche Header-Änderungen und Schutz; Reservierte/verwaltete Felder erfordern ihre eigenen Steuerelemente</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.origins</code></td>
+<td>Empty verwendet gepaarten Ursprung; Explizit aufgeführte zusätzliche genaue Ursprünge erhalten keine vom Browser abgeleiteten Sitzungsfelder</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.excludePaths</code></td>
+<td>Ausgeschlossene Pfadpräfixe, einschließlich dekodierter Formen</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.methods</code></td>
+<td>Zulässige Methoden; Standard <code dir="ltr" translate="no">["*"]</code> bedeutet alle nativen HTTP-Methoden, nicht die Browser-Schreibgenehmigung von Longshot</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.rate</code></td>
+<td>Gemeinsame native Planungsrate, standardmäßig 2 Anfragen/Sekunde</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.concurrency</code></td>
+<td>Native Steuersteckplätze, Standard 4</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxRequests</code></td>
+<td>Obergrenze für native Anfragen, Standard 10.000; Erschöpfung unterbricht die Arbeit</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxBodyBytes</code></td>
+<td>Puffer-/Körperobergrenze, Standard 64 MiB</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.timeoutSeconds</code></td>
+<td>Abschluss-Lease/Timeout, Standard 60 Sekunden; Kein Rollback einer bereits gesendeten Anfrage</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseStatuses</code></td>
+<td>Standard-Pausenliste für den Authentifizierungsstatus: 401, 419, 440</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseOn429</code></td>
+<td>Standardmäßig bei Drosselung pausieren</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">tls.verifyUpstream</code>, <code dir="ltr" translate="no">http2</code></td>
+<td>Both true by default</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">upstream.url</code></td>
+<td>Optional HTTP(S) upstream proxy; null bedeutet keine</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">routing.socks5</code></td>
+<td>Optional <code dir="ltr" translate="no">socks5h://host:port</code>; standardmäßig null; schließen sich gegenseitig mit der Upstream-URL aus</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">audit.enabled</code></td>
+<td>JSONL-Prüfung nur für Metadaten, Standardwert „true“.</td>
+</tr>
+</tbody>
+</table>
+<p>Native Validierungsbereiche: Ports 1024–65535, Rate 0,1–100, Parallelität 1–32, Anforderungsobergrenze 1–1.000.000, Body-Limit 1 KB–256 MiB, Timeout 1–600 Sekunden, Steuerungs-Timeout 1.000–120.000 ms. Hierbei handelt es sich um akzeptierte Konfigurationsgrenzen und nicht um Empfehlungen für die sichere Auslastung eines Ziels.</p>
+<p>Bei Header-Namen wird die Groß-/Kleinschreibung nicht beachtet. Bei Cookie-Namen muss die Groß-/Kleinschreibung beachtet werden. Verwenden Sie JSON-Boolesche Werte <code dir="ltr" translate="no">true</code>/<code dir="ltr" translate="no">false</code>, keine Zeichenfolgen. Generisch <code dir="ltr" translate="no">headers.set</code> Host-, Cookie-, Autorisierungs-, Framing- oder Proxy-Kontrollfelder können nicht ersetzt werden. Verwenden Sie dedizierte Cookie-/Autorisierungsoptionen und den eigenen Host-Wert des Tools.</p>
+<p>Um die Last für die Ausführung eines nativen Tools zu verringern, kann eine Teilkonfiguration die Standardeinstellungen überschreiben, zum Beispiel:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "limits": {
+    "rate": 0.5,
+    "concurrency": 1,
+    "maxRequests": 500
+  }
+}
+</code></pre>
+<p>Es gibt keinen allgemeinen nativen Konfigurationsschlüssel, der Formularkörper-Tokens aktualisiert oder einen Browser-Anmeldeworkflow erfindet.</p>
+<h2 id="cookie-and-header-overrides-without-damaging-probes">Cookie- und Header-Überschreibungen ohne Beschädigung der Sonden</h2>
+<h3 id="default-cookie-behavior">Standardmäßiges Cookie-Verhalten</h3>
+<p><strong>Verwenden Sie Browser-Cookies</strong> und <strong>Antwort speichern Set-Cookie-Updates</strong> sind standardmäßig aktiviert. User-Agent, Accept-Language und Autorisierung bleiben standardmäßig vom Tool gesteuert.</p>
+<p>Für eine native Anfrage wählt Firefox geeignete Cookies für die URL aus dem Cookie-Speicher des gekoppelten Tabs und der entsprechenden Partition aus. Andere Container/Privatgeschäfte werden nicht zusammengelegt. Domänen-/Pfad-/Sicherheits-/Ablaufregeln und die Reihenfolge der gleichnamigen Pfade bleiben weiterhin relevant. Dem nativen Proxy werden Werte bereitgestellt, damit dieser den ausgehenden Cookie-Header erstellen kann. Im Gegensatz zum entfernten Browser-Abrufpfad verarbeitet der native Helfer daher Sitzungsgeheimnisse im Speicher.</p>
+<p>Mit <code dir="ltr" translate="no">cookies.mode:"replace"</code>, ist die Browser-JAR-Datei maßgeblich, auch wenn sie leer ist. Ein aus dem JAR gelöschtes Browser-Cookie wird aus späteren verwalteten Anfragen entfernt. Explizit geschützte Namen und erkannte Werkzeugänderungen haben Vorrang. Mit <code dir="ltr" translate="no">mode:"merge"</code>Nicht verwandte Tool-Cookies können bestehen bleiben, während vom Browser verwaltete Namen aktualisiert werden.</p>
+<p>Antwortsatz-Cookie-Felder werden mithilfe der Cookie-API von Firefox einzeln auf denselben ausgewählten Speicher angewendet, einschließlich der unterstützten Domain-/Pfad-/Secure-/HttpOnly-/SameSite-/Expiry-/Deletion-/Partitionsattribute. Ungültige Cookies können abgelehnt werden; Überprüfen Sie gemeldete Fehler. Zusätzlich konfigurierte Ursprünge empfangen keine Browser-Cookies oder vom Browser abgeleiteten Header.</p>
+<h3 id="request-and-response-switches-are-independent">Anforderungs- und Antwortschalter sind unabhängig</h3>
+<table>
+<thead>
+<tr>
+<th>Cookie-Überschreibung anfordern</th>
+<th>Antwortsynchronisation</th>
+<th>Ergebnis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Auf</td>
+<td>Auf</td>
+<td>Verwenden Sie Firefox-Cookies und aktualisieren Sie das JAR über die Antwort „Set-Cookie“.</td>
+</tr>
+<tr>
+<td>Aus</td>
+<td>Auf</td>
+<td>Behalten Sie die Anforderungscookies des Tools bei; Zielantworten können das Jar von Firefox immer noch verändern</td>
+</tr>
+<tr>
+<td>Auf</td>
+<td>Aus</td>
+<td>Verwenden Sie Firefox-Cookies. Schreiben Sie über diesen Helfer keine Antwortcookies zurück</td>
+</tr>
+<tr>
+<td>Aus</td>
+<td>Aus</td>
+<td>Halten Sie Anfrage-Cookies vom Tool kontrolliert und synchronisieren Sie keine Antworten</td>
+</tr>
+</tbody>
+</table>
+<p>Berücksichtigen Sie für Cookie-Fuzzing oder ein Sitzungsexperiment, bei dem das Browser-JAR unverändert bleiben muss, beide Schalter. Eine Override-Umgehung pro Anfrage wirkt sich auf die Overrides auf der Anfrageseite aus; Die unabhängige globale Antwort-Cookie-Synchronisierungseinstellung wird dadurch nicht deaktiviert.</p>
+<h3 id="protect-fields-that-contain-attack-payloads">Schützen Sie Felder, die Angriffsnutzlasten enthalten</h3>
+<p>Nehmen wir ZAP-Tests <code dir="ltr" translate="no">session=ATTACK_PAYLOAD</code>. Das blinde Ersetzen dieses Werts durch die gültige Sitzung des Browsers könnte den Test zerstören. Umgekehrt könnte die Beibehaltung eines veralteten Cookies in jeder Anfrage dazu führen, dass ein authentifizierter Scan unbrauchbar wird.</p>
+<p>Die Standardeinstellung <strong>Behalten Sie die Cookie-/Header-Änderungen des Tools nach der ersten Anfrage bei</strong> zeichnet eine Baseline pro Client-Verbindung/Herkunft auf und behält nachfolgende Änderungen bei. Senden Sie zunächst eine gewöhnliche Samenanfrage. Der Proxy kann bei der ersten Anfrage nicht zuverlässig auf die Absicht schließen und eine neue Verbindung erstellt eine neue Baseline. Diese Heuristik bietet keinen vollständigen Schutz.</p>
+<p>Wählen Sie für vorhersehbare Tests einen dieser Mechanismen:</p>
+<ol>
+<li>Deaktivieren Sie die jeweilige Cookie-/Header-Überschreibung, die getestet wird.</li>
+<li>Fügen Sie Cookie-Namen hinzu <code dir="ltr" translate="no">cookies.protectedNames</code> oder Header zu <code dir="ltr" translate="no">headers.protectedNames</code>.</li>
+<li>Senden Sie eine selektive Anmerkung pro Anfrage:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Preserve: cookie:session, User-Agent, Authorization</code></p>
+<p>Dadurch bleiben die benannten Cookie-/Header-Felder des Tools erhalten. <code dir="ltr" translate="no">cookie</code> Ohne Namen bleibt der gesamte Tool-Cookie-Header erhalten.</p>
+<ol start="4">
+<li>Alle anforderungsseitigen Außerkraftsetzungen für diese Anforderung umgehen:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Override: off</code></p>
+<p>Der Adapter entfernt diese Anmerkungsheader vor der Weiterleitung. Es gelten weiterhin die Proxy-Authentifizierung, der Umfang und die Beschränkungen. Konfigurieren Sie Anmerkungen im ursprünglichen Tool. Das Einfügen in eine Zielwebseite ist kein Bridge-Konfigurationsmechanismus.</p>
+<p>Zum Beispiel behalten <code dir="ltr" translate="no">session</code> protected lässt ZAP es variieren, während der Helfer mit der Aktualisierung einer nicht verwandten Datei fortfahren kann <code dir="ltr" translate="no">preferences</code> Keks. Für umfassende Cookie-/Autorisierungs-/User-Agent-Tests vermeidet die Deaktivierung dieser Außerkraftsetzungen die Abhängigkeit von Heuristiken zur Änderungserkennung.</p>
+<h3 id="browser-authorization-and-other-headers">Browserautorisierung und andere Header</h3>
+<p>Die Browserautorisierung erfolgt über die JSON-Konfiguration. It is captured from an actual request by the paired target tab only after enabling browser sourcing. It is not an automatic reader for every token in localStorage or application memory. Möglicherweise ist eine spätere Browseranforderung erforderlich, bevor ein beobachteter Wert vorhanden ist. Turning browser Authorization off stops that captured value being supplied by the helper.</p>
+<p>Wenn Sie im Browser „User-Agent“ oder „Accept-Language“ auswählen, werden nur diese HTTP-Felder geändert. Es führt kein Ziel-JavaScript aus, aktualisiert kein Body-CSRF-Token, reproduziert kein Browser-TLS und garantiert keine WAF-Akzeptanz. IP-/gerätegebundene Authentifizierung und OAuth-Aktualisierung benötigen weiterhin ihren Anwendungsworkflow.</p>
+<h3 id="vhost-host-handling">VHOST / Host-Verwaltung</h3>
+<p>Der native Helfer ersetzt keinen internen Bridge-Alias im Host-Feld des Tools. Lassen Sie das Tool den Host-Wert senden, der für den autorisierten virtuellen Host-Test benötigt wird. Bei HTTPS bleibt das CONNECT-Ziel das autorisierte Ziel, während der Host-Header des Tools beibehalten werden kann.</p>
+<p>Durch das Ändern eines Host-Headers wird kein Zugriff auf ein anderes Netzwerkziel gewährt. Ein Reverse-Proxy kann es an eine andere Anwendung weiterleiten; Beziehen Sie dieses Verhalten des virtuellen Hosts in die Autorisierung der Bewertung ein. Genaue fehlerhafte Header-Bytes und widersprüchliche Framings liegen außerhalb dieses analysierten Proxys.</p>
+<h3 id="audit-and-privacy">Audit and privacy</h3>
+<p><strong>Nativer Verkehr</strong> Zeigt Anforderungsmetadaten und geänderte/geschützte Feldnamen an. Bei der Prüfung werden geheime Cookie-/Header-Werte, Abfragewerte und Textkörper weggelassen. Dies bedeutet nicht, dass der Proxy niemals Geheimnisse verarbeitet: Er muss sie verarbeiten, um authentifizierten Datenverkehr zu senden. Externe Tools verwalten ihre eigenen Historien/Ergebnisse, die diese Werte enthalten können.</p>
+<p>Halten Sie private Konfigurationstoken, CA-Schlüssel und Datenverzeichnisse von Berichten/Quellarchiven fern. Durch das Herunterladen der Konfiguration mit benutzerdefinierten Autorisierungswerten kann eine Datei erstellt werden, die diese Werte enthält.</p>
+<h2 id="external-tools-and-actual-zap-scanning">Externe Tools und tatsächliches ZAP-Scannen</h2>
+<h3 id="start-with-one-request">Beginnen Sie mit einer Anfrage</h3>
+<p>Koppeln Sie die Bridge und testen Sie dann das tatsächliche lokale Ziel:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  'http://localhost:8080/'
+</code></pre>
+<p>Verwenden Sie einen bekannten authentifizierten Lesepfad, um das Sitzungsverhalten zu überprüfen. Eine 200 von einer öffentlichen Homepage reicht nicht aus. Bestätigen Sie, dass die Anfrage im nativen Datenverkehr angezeigt wurde, der ausgewählte Cookie-Speicher korrekt ist und das Tool den erwarteten Inhalt empfangen hat. Schließen Sie nicht daraus, dass alle späteren Anfragen den Proxy verwenden, nur weil dieser dies getan hat.</p>
+<h3 id="zap-outgoing-proxy">ZAP-Ausgangsproxy</h3>
+<ol>
+<li>Installieren/starten Sie ZAP separat und verwenden Sie eine bewertungsspezifische ZAP-Sitzung.</li>
+<li>In ZAPs <strong>Optionen → Netzwerk → Verbindung</strong>, aktivieren Sie die <strong>ausgehender HTTP-Proxy</strong>.</li>
+<li>Host festlegen <code dir="ltr" translate="no">127.0.0.1</code>, port <code dir="ltr" translate="no">8900</code> (oder der aktuell konfigurierte Proxy-Port).</li>
+<li>Proxy-Authentifizierung aktivieren: Benutzername <code dir="ltr" translate="no">bridge</code>, Passwort für das aktuelle Adapter-Token.</li>
+<li>Deaktivieren Sie ZAPs eigenen SOCKS-Proxy für diese Kette. Die SOCKS-Einstellung von ZAP hat Vorrang vor seinem HTTP-Proxy.</li>
+<li>Überprüfen Sie die HTTP-Proxy-Ausschlüsse, damit das beabsichtigte Ziel nicht umgangen wird, insbesondere bei einem lokalen Dienst.</li>
+<li>Konfigurieren Sie die Adapter-CA bei Bedarf im entsprechenden TLS-Vertrauens-/Verifizierungssetup des Tools. Sein Speicherort wird beim Start des Adapters gedruckt.</li>
+<li>Greifen Sie auf die zu <strong>tatsächliche Ziel-URL</strong> von ZAP und überprüfen Sie den Verlauf sowie die Bridge-Metadaten.</li>
+<li>Definieren Sie ZAPs eigenes Ziel/Kontext, Scan-Richtlinie, Ausschlüsse, Authentifizierungsprüfungen und eine bescheidene Anfragerate. Führen Sie den eigentlichen Spider-/Aktiv-Scan wie autorisiert aus.</li>
+<li>Überprüfen Sie die Ergebnisse und die Berichterstattung in ZAP. Wenn Sie Cookie-/Header-Authentifizierungsfelder absichtlich unscharf machen, verwenden Sie die oben genannten Schutz-/Umgehungsmechanismen.</li>
+</ol>
+<p>Diese Einstellung ist ZAPs <strong>ausgehende Verbindung</strong>, nicht sein lokaler eingehender Browser-Proxy-Listener. Firefox muss nicht neu konfiguriert werden, um ZAP lediglich zum Bereitstellen der Cookies der ausgewählten Registerkarte an diese Kette zu verwenden.</p>
+<p>ZAP generiert seine echten aktiven Regelnutzlasten; mitmproxy sendet die resultierenden nativen Anfragen. Longshot ändert nur aktivierte Anforderungsfelder. Dies erhöht den nutzbaren Sitzungskontext des externen Tools, macht den Scan beider Tools jedoch nicht umfassend. Siehe <a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP-Verbindungseinstellungen</a>.</p>
+<h3 id="other-http-tools">Andere HTTP-Tools</h3>
+<table>
+<thead>
+<tr>
+<th>Werkzeug/Client</th>
+<th>So verbinden Sie sich</th>
+<th>Wichtige Grenze</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Locken</td>
+<td><code dir="ltr" translate="no">--proxy</code>, <code dir="ltr" translate="no">--proxy-user</code>; <code dir="ltr" translate="no">--cacert</code> für HTTPS-Vertrauen; Deaktivieren Sie die Proxy-Umgehung, wo nötig</td>
+<td>Verschiedene Aufrufe/Verbindungen können die Baselines der heuristischen Sonde zurücksetzen</td>
+</tr>
+<tr>
+<td>ffuf</td>
+<td>Seine HTTP-Proxy-Option (<code dir="ltr" translate="no">-x</code>) mit authentifizierter Proxy-URL; Stellen Sie eine begrenzte Wortliste und einen niedrigen Preis bereit</td>
+<td>Ein HTTP-Proxy schränkt einen separaten Aufruf ohne Proxy nicht ein</td>
+</tr>
+<tr>
+<td>sqlmap</td>
+<td>Seine HTTP-Proxy-Option mit aktuellen Anmeldeinformationen; Wählen Sie die autorisierte URL/den autorisierten Parameter aus und schützen Sie die getesteten Felder</td>
+<td>Separate SQLi-Engine/-Einstellungen; Durch den Cookie-Ersatz können Cookie-Prüfungen gelöscht werden, sofern dies nicht konfiguriert ist</td>
+</tr>
+<tr>
+<td>wget</td>
+<td>Authentifiziert <code dir="ltr" translate="no">http_proxy</code>/<code dir="ltr" translate="no">https_proxy</code> oder seine Proxy-Einstellungen; Konfigurieren Sie die Zertifikatsvertrauensstellung</td>
+<td>Überprüfen <code dir="ltr" translate="no">no_proxy</code> und werkzeugspezifisches Proxy-Verhalten</td>
+</tr>
+<tr>
+<td>Python-URL / Anfragen</td>
+<td>Explizite authentifizierte Proxy-Handler/Konfiguration plus Adapter-CA für HTTPS</td>
+<td>Bibliotheken unterscheiden sich in der Handhabung von Umgebungsvariablen und Bypass</td>
+</tr>
+<tr>
+<td>Nuclei CLI</td>
+<td>Konfigurieren Sie den HTTP-Proxy/die Vertrauensstellung für den unterstützten HTTP-Vorlagenverkehr</td>
+<td>Nicht-HTTP-/Code-/Headless-Vorlagenverkehr wird nicht allgemein durch eine HTTP-Proxy-Option abgedeckt</td>
+</tr>
+</tbody>
+</table>
+<p>Eine Proxy-URL mit Anmeldeinformationen ist vertraulich. Verwenden Sie die private Bewertungskonfiguration Ihres Tools, sofern verfügbar. Fügen Sie keine aktuellen Token in freigegebene Berichte ein. Bestätigen Sie für jedes Tool den weitergeleiteten Datenverkehr, anstatt davon auszugehen, dass jedes Protokoll oder jeder Unterprozess seine HTTP-Proxy-Einstellung berücksichtigt.</p>
+<p>Beispiel einer Linux-Python-Standardbibliothek für ein schreibgeschütztes lokales Ziel; Es fordert zur Eingabe des Tokens auf, anstatt es fest zu codieren, und löscht die Umgebungs-Proxy-Umgehung für diesen Prozess:</p>
+<pre dir="ltr" translate="no"><code class="language-python" dir="ltr" translate="no">import os
+from getpass import getpass
+from urllib.request import (
+    HTTPPasswordMgrWithDefaultRealm,
+    ProxyBasicAuthHandler, ProxyHandler, build_opener,
+)
+
+os.environ["no_proxy"] = ""
+os.environ["NO_PROXY"] = ""
+proxy = "http://127.0.0.1:8900"
+credentials = HTTPPasswordMgrWithDefaultRealm()
+credentials.add_password(None, proxy, "bridge", getpass("Bridge token: "))
+opener = build_opener(
+    ProxyHandler({"http": proxy, "https": proxy}),
+    ProxyBasicAuthHandler(credentials),
+)
+with opener.open("http://localhost:8080/", timeout=20) as response:
+    print(response.status)
+    print(response.read(200).decode("utf-8", errors="replace"))
+</code></pre>
+<p>Überprüfen Sie die Anfrage im nativen Datenverkehr. Andere Plattformen können zusätzliche System-Proxy-Bypass-Regeln haben. Das Curl-Beispiel mit explizitem <code dir="ltr" translate="no">--noproxy ''</code> ist die einfachere Überprüfung der Loopback-Routenvalidierung. HTTPS-Python-Clients benötigen zusätzlich ein SSL-Kontext-/CA-Bundle, das dem Adapterzertifikat vertraut.</p>
+<h3 id="pause-and-errors">Pause und Fehler</h3>
+<p><strong>Pausieren Sie native Anfragen</strong> blockiert neuen nativen Egress. Auch Authentifizierungsstatus 401/419/440, HTTP 429, Tab-Schließung/Off-Origin-Änderungen oder Budgetlimits können die Arbeit unterbrechen. <strong>Fahren Sie fort, nachdem Sie die Registerkarte überprüft haben</strong> wird erst wieder aufgenommen, nachdem der Kopplungsstatus überprüft wurde.</p>
+<p><strong>Anhalten und trennen</strong> beendet die Browser-Kopplung; Der separat gestartete Node-Prozess wird dadurch nicht beendet. Verwenden Sie Strg+C im Terminal, um diesen Vorgang zu stoppen.</p>
+<p>Anfragen während des Flugs können beendet werden. Proxy-Clients erhalten Fehlermeldungen für blockierte Arbeit; Der Adapter unterbricht keine beliebigen Tool-Prozesse und spielt deren Anforderungen nicht ab. Überprüfen Sie, welche Anfragen erfolgreich waren, und verwenden Sie die eigenen Wiederholungs-/Fortsetzungssteuerungen des Tools. Durch einen Neustart/eine erneute Kopplung wird das Token geändert und eine Aktualisierung der Tool-Authentifizierung erforderlich.</p>
+<p>401/419/440 kann bei absichtlich negativen Authentifizierungstests erwartet werden. Bei Bedarf anpassen <code dir="ltr" translate="no">session.pauseStatuses</code> für diesen überprüften Lauf und Neustart; Der Adapter leitet nicht ab, ob es sich bei jedem Authentifizierungsfehler um eine beabsichtigte Prüfung handelt.</p>
+<h2 id="tor-and-onion-routing">Tor- und Zwiebelrouting</h2>
+<p>Browserbasierte Longshot-Anfragen folgen dem Netzwerk des ausgewählten Browsers. Der native Adapter ist ein anderer Prozess und erbt nicht die Proxy-Einstellungen des Firefox/Tor-Browsers.</p>
+<p>SOCKS/Tor ist <strong>standardmäßig deaktiviert</strong> in der nativen Konfiguration. Verwenden Sie für eine autorisierte Onion-Bewertung einen explizit konfigurierten vorhandenen SOCKS-Dienst mit Remote-Hostnamenauflösung, zum Beispiel diese Überschreibung, wenn das wirklich Ihr lokaler Tor-Listener ist:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "routing": {
+    "socks5": "socks5h://127.0.0.1:9050"
+  }
+}
+</code></pre>
+<p>In diesem Beispiel wird Tor nicht gestartet und es wird nicht festgestellt, dass Port 9050 existiert. Wählen Sie den tatsächlich konfigurierten Dienst aus; Eine Tor-Browser-Instanz verwendet möglicherweise einen anderen Listener. Starten Sie den Adapter neu und koppeln Sie ihn erneut. Ein HTTP(S) <code dir="ltr" translate="no">upstream.url</code> und <code dir="ltr" translate="no">routing.socks5</code> schließen sich gegenseitig aus.</p>
+<p>Der native Shim löst Hostnamen über SOCKS auf und verfügt über keinen stillen direkten Fallback. Ohne eine explizit konfigurierte Upstream-/SOCKS-Route werden direkte Onion-Ziele vor dem Ziel-DNS abgelehnt. Eine SOCKS-URL kann sich auch auf einen autorisierten SSH-Tunnel oder einen anderen SOCKS5-Dienst beziehen; es ist nicht unbedingt ein Beweis für das Tor-Routing.</p>
+<p>Durch die Cookie-Freigabe wird die Exit-IP-Adresse oder der TLS-/Browser-Fingerabdruck der nativen Route nicht mit denen von Firefox identisch. Herausforderungen oder Sitzungsbindungen können dies ablehnen. Überprüfen Sie die Route und die erwartete Sitzung unabhängig voneinander.</p>
+<p><strong>Isolierte native Nuclei, die von der Agent-API gestartet werden, sind anders:</strong> Sein eingebautes Relay verfügt über keine Tor/SOCKS-Route und blockiert Onion-Ziele vor dem System-DNS. Verwenden Sie geeignete browserseitige Prüfungen im vorgesehenen Browser oder ein separat konfiguriertes externes Tool über den nativen Proxy. Gehen Sie nicht davon aus, dass das Kontrollkästchen Nuclei erbt <code dir="ltr" translate="no">routing.socks5</code> von Browser Bridge.</p>
+<h2 id="agent-api-mcp-and-local-model-clients">Agent-API, MCP und Clients mit lokalem Modell</h2>
+<p>Verwenden Sie dies, wenn ein Agent/Skript Longshot ausführen, Beweise abrufen oder Bewertungsdateien speichern muss. Es handelt sich nicht um den Traffic-Proxy :8900.</p>
+<h3 id="register-and-connect-the-native-host">Registrieren Sie sich und verbinden Sie den nativen Host</h3>
+<p>Aus dem Zurückbehaltenen <strong>Quelle</strong> Verzeichnis mit <code dir="ltr" translate="no">manifest.json</code> und <code dir="ltr" translate="no">bridge/</code>:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+node bridge/bin/longshot-bridge install
+</code></pre>
+<p>Dies wird registriert <code dir="ltr" translate="no">longshot.bridge</code> und einen Launcher, der auf den Quellordner und die ausführbare Node-Datei verweist. Halten Sie beides an Ort und Stelle. Wenn einer der beiden umzieht, registrieren Sie sich erneut.</p>
+<p>Offen <strong>Einstellungen → Verbindung &amp; Einrichtung → Native Bridge verbinden</strong> und erteilen Sie Firefox die Berechtigung zum nativen Senden von Nachrichten. Der Host kann seinen Daemon automatisch starten. Wenn Sie den Daemon absichtlich manuell ausführen:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">node bridge/bin/longshot-bridge serve
+</code></pre>
+<p>Vermeiden Sie einen zweiten Daemon auf demselben Port-/Datenverzeichnis. „Disconnect“ schließt die native Verbindung der Erweiterung; Es stoppt nicht unbedingt einen unabhängig gestarteten Daemon.</p>
+<p>Node.js 20+ ist erforderlich. Native Messaging-MCP benötigt keine Python/mitmproxy-Installation des Proxys. Linux ist das durchgeführte Setup. Unterstützung für die macOS-Registrierung wird bereitgestellt, aber hier nicht zur Laufzeit überprüft; Diese Version verfügt über kein natives Host-Installationsprogramm für Windows Firefox. Durch die Registrierung in der WSL wird kein Host für Windows Firefox registriert. Die native Nuclei-Isolierung ist nur für Linux verfügbar.</p>
+<p>Standarddienst: <code dir="ltr" translate="no">http://127.0.0.1:8765</code>. Diese Localhost-Adresse ist eine Steuerungs-API. <strong>nicht das gescannte Ziel</strong>. Der Token/Socket ist standardmäßig auf <code dir="ltr" translate="no">$XDG_DATA_HOME/longshot</code> oder <code dir="ltr" translate="no">~/.local/share/longshot</code>. Benutzerdefiniert <code dir="ltr" translate="no">--port</code> und <code dir="ltr" translate="no">--data-dir</code> muss zwischen install, Serve und mcp übereinstimmen. Verwenden Sie einen kurzen Unix-Datenpfad, da sein Socket-Pfad eine Begrenzung auf 100 Byte hat.</p>
+<h3 id="rest-example">REST-Beispiel</h3>
+<p>Aus demselben Quellordner:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">longshot_token_file="$(node bridge/bin/longshot-bridge token-path)"
+longshot_api_token="$(cat "$longshot_token_file")"
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/health
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/targets
+</code></pre>
+<p>Die <code dir="ltr" translate="no">token-path</code> Der Befehl gibt einen Dateinamen aus, nicht das Token. Die API verwendet im Gegensatz zur Proxy-Benutzername/Passwort-Authentifizierung die Inhaberauthentifizierung. Es lehnt Nicht-Loopback-Clients und Browser-Origin-Anfragen ab und stellt keine allgemeine CORS-API zur Verfügung. Veröffentlichen Sie es nicht über einen öffentlichen Reverse-Proxy.</p>
+<p>Starten Sie einen kleinen Scan erst, nachdem Sie das gewünschte Ziel verbunden/aktiviert und seine gespeicherten Optionen überprüft haben:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  -H 'Content-Type: application/json' \
+  --data '{"target_id":"PROFILE_ID","mode":"safe","budget":150}' \
+  http://127.0.0.1:8765/v1/scans
+</code></pre>
+<p>Ersetzen Sie PROFILE_ID durch die ausgewählte Profil-ID. <code dir="ltr" translate="no">safe</code> Karten nur für Spider; Es setzt nicht jede gespeicherte erweiterte Option zurück und fungiert nicht als universelle Überschreibung. Der Start erfolgt asynchron. Lesen Sie die zurückgegebene Lauf-ID und überwachen Sie sie dann <code dir="ltr" translate="no">/v1/scans/RUN_ID</code>, <code dir="ltr" translate="no">/eta</code>, <code dir="ltr" translate="no">/findings</code> oder <code dir="ltr" translate="no">/report?format=html</code>. POST <code dir="ltr" translate="no">/pause</code>, <code dir="ltr" translate="no">/resume</code> und <code dir="ltr" translate="no">/stop</code> einen Lauf kontrollieren. Konsultieren Sie authentifiziert <code dir="ltr" translate="no">/openapi.json</code> für genaue Schemata.</p>
+<p>REST/JSON-RPC unterstützt Profile, Scans, Ergebnisse/Berichte, Vorlagen, OAST und Sitzungsvorgänge. <code dir="ltr" translate="no">/rpc</code> trägt JSON-RPC; <code dir="ltr" translate="no">/mcp</code> bietet MCP HTTP mit stdio- und SSE-Optionen. Die Protokoll-/API-Versionszeichenfolgen des Dienstes behalten möglicherweise ältere Schemaversionen bei; Verwenden Sie das Erweiterungsmanifest für die installierte UI-Release-Version.</p>
+<h3 id="mcp-client-setup">MCP-Client-Setup</h3>
+<p>Für einen Client, der die Standard-MCP-Konfiguration unterstützt:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "mcpServers": {
+    "longshot": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/longshot-source/bridge/bin/longshot-bridge",
+        "mcp"
+      ]
+    }
+  }
+}
+</code></pre>
+<p>Verwenden Sie eine ausführbare Datei für einen absoluten Knoten, wenn der Client über einen eingeschränkten PATH verfügt. Passende hinzufügen <code dir="ltr" translate="no">--port</code> / <code dir="ltr" translate="no">--data-dir</code> Argumente, wenn sie angepasst werden. Der stdio-Helfer stellt eine Verbindung zum lokalen authentifizierten Dienst her. Es ersetzt nicht selbst die Firefox-Verbindung.</p>
+<p>Der aktuelle MCP-Toolkatalog enthält 21 Tools: die Scan-/Vorlagen-/Berichts-/OAST-Tools sowie UI und semantische Befehlserkennung/-steuerung. Entdecken Sie den tatsächlichen Katalog, anstatt sich auf das alte Tutorial mit acht Werkzeugen zu verlassen.</p>
+<table>
+<thead>
+<tr>
+<th>Werkzeuggruppe</th>
+<th>Arbeitsablauf</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">longshot_list_targets</code>, Scan-/Status-/ETA-/Befund-/Berichtstools</td>
+<td>Verwenden Sie explizite Profil-/Lauf-IDs und überprüfen Sie asynchrone Ergebnisse</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_commands</code>, <code dir="ltr" translate="no">longshot_command</code></td>
+<td>Entdecken Sie semantische Befehle und rufen Sie deren unterstützte Argumente auf</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_pages</code>, <code dir="ltr" translate="no">longshot_ui_open</code></td>
+<td>Zielgebundene Erweiterungs-Dashboards entdecken/öffnen</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_snapshot</code></td>
+<td>Lesen Sie tatsächliche Beschriftungen, aktuelle Werte, Dialoge und Elementreferenzen</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_action</code>, <code dir="ltr" translate="no">navigate</code>, <code dir="ltr" translate="no">wait</code></td>
+<td>Betreiben Sie vorhandene Kontrollen und überprüfen Sie die Vollständigkeit</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_downloads</code>, <code dir="ltr" translate="no">clipboard</code>, <code dir="ltr" translate="no">screenshot</code>, <code dir="ltr" translate="no">focus</code>, <code dir="ltr" translate="no">close</code></td>
+<td>Unterstützte Erweiterungsseitenausgabe und UI-Verwaltung; kein willkürlicher Betriebssystemzugriff</td>
+</tr>
+</tbody>
+</table>
+<p>Deaktivierte Kontrollen, Zielumfang, Status und Budgets gelten weiterhin. Veraltete Refs erfordern einen neuen Snapshot; Ein geschickter Klick allein beweist noch keinen Erfolg. Firefox/OS-Berechtigungsaufforderungen bleiben separate Browser-/OS-Steuerelemente.</p>
+<p><strong>Zulassungsgrenze:</strong> Direkte semantische Zustimmungsbefehle können keinen aggressiven Ausführungszuschuss auslösen. Eine authentifizierte vollständige UI-Automatisierung kann den Genehmigungsdialog des gebundenen Dashboards einschließlich der Schaltfläche „Genehmigen“ bedienen. Wenn man einem Agenten die UI-Kontrolle gibt, erhält er daher diese UI-Fähigkeit; Beschreiben Sie einen solchen Zugriff nicht als nicht klickgenehmigungsfähig. Es gelten weiterhin Ziel-/Konfigurations-/Ablaufprüfungen für den einmaligen Gebrauch.</p>
+<h3 id="hermesollama-or-another-local-model-agent">Hermes/Ollama oder ein anderer lokaler Modelagent</h3>
+<p>Longshot akzeptiert keinen beliebigen LLM-Chat-Stream oder die Auswahl eines Modells. Die <strong>Agent-Anwendung</strong> stellt die Modellverbindung und die Tool-Call-Schleife bereit. Wenn Ihr Agent MCP unterstützt, konfigurieren Sie den MCP-Server oben in diesem Agenten. Der Agent sendet unterstützte Tool-Aufrufe und empfängt Tool-Ergebnisse. Es kann die Erweiterung über die offengelegten UI-Tools inspizieren/navigieren/ausfüllen sowie Scan-Befehle aufrufen.</p>
+<p>Wählen Sie das Ollama-Modell und den Server in Hermes/die eigene Konfiguration des Agenten. Verwenden Sie eine Modell-/Client-Kombination, die das Tool-Aufrufformat des Agenten unterstützt, und stellen Sie sicher, dass der Agent tatsächlich MCP-Tools aufrufen darf. Die Konfiguration von Longshot hat keine <code dir="ltr" translate="no">model</code>, <code dir="ltr" translate="no">ollama</code> oder API-Schlüsseleinstellung des Anbieters. Modellzugriff, Shell-Zugriff und unabhängige Dateisystemsteuerung sind Funktionen des Agent-Hosts, die durch die Installation dieser Erweiterung nicht gewährt werden.</p>
+<p>Halten Sie den Umfang, die Budgets, das Konto und die beabsichtigten Aktionen in der Agentenaufgabe explizit fest. Validieren Sie generierte Ergebnisse anhand aufgezeichneter Beweise; Modelltext ist kein Scannerergebnis oder eine Berechtigungserteilung.</p>
+<h3 id="optional-debugging-port-control">Optionale Debugging-Port-Steuerung</h3>
+<p>Die Quelle umfasst BiDi/CDP-Kontrollhelfer und einen Ein-Befehl <code dir="ltr" translate="no">bridge/bin/longshot-ui</code> Schnittstelle. Hierbei handelt es sich um eine erweiterte Kontrolle über erweiterungseigene Seiten. Die Chrome-Edition ist ein separates Manifest V3-Paket; Die sichtbare Werkbank muss geöffnet bleiben. Das Öffnen eines Browser-Debugging-Listeners ist eine separate Browser-Startoption. siehe <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">Sicherheit des Firefox Remote Agent</a>.</p>
+<p>Der optionale Debugging-Helfer verwendet das angeheftete <code dir="ltr" translate="no">ws</code> Abhängigkeit in <code dir="ltr" translate="no">native-bridge/node_modules/ws/</code>. Lauf <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code> zuerst aus der beibehaltenen Quelle auschecken. Dieser Pfad wurde in der 2.18-Serie korrigiert; Der entfernte historische Browser-Abrufadapter ist nicht erforderlich.</p>
+<h2 id="optional-native-nuclei">Optionale native Kerne</h2>
+<p>Es gibt drei verschiedene Vorlagenrouten:</p>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>Motor/Sitzung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browserkompatible importierte HTTP-Vorlage</td>
+<td>Von Longshot unterstützter Vorlageninterpreter und Zielbrowsersitzung</td>
+</tr>
+<tr>
+<td>Kontrollkästchen „Native Full Nuclei“.</td>
+<td>Offizielle separat installierte Nuclei innerhalb des Linux-Isolationspfads der Agent-API; keine automatische Firefox-Anmeldung</td>
+</tr>
+<tr>
+<td>Externe Nuclei-CLI über Browser Bridge</td>
+<td>Ihr unabhängiger CLI-Job; Der unterstützte Proxy-HTTP-Verkehr kann konfigurierte Browser-Cookies empfangen</td>
+</tr>
+</tbody>
+</table>
+<p>Für von Longshot gestartete native Jobs:</p>
+<ol>
+<li>Installieren Sie die offizielle Nuclei-Binärdatei separat und stellen Sie sie auf PATH oder set bereit <code dir="ltr" translate="no">LONGSHOT_NUCLEI</code> bevor Sie die Agent-API starten.</li>
+<li>Stellen Sie Linux-Bubblewrap mit funktionierenden, nicht privilegierten Benutzer-/Netzwerk-Namespaces bereit.</li>
+<li>Stellen Sie für Headless-Vorlagen den erforderlichen Browser bereit, optional über <code dir="ltr" translate="no">LONGSHOT_CHROME</code>.</li>
+<li>Registrieren/verbinden Sie die Agent-API und prüfen Sie die gemeldeten nativen Funktionen.</li>
+<li>Importieren Sie überprüfte Vorlagen und alle erforderlichen entsprechenden Hilfsdateien.</li>
+<li>Aktivieren <strong>Native vollständige Nuclei-Ausführung</strong> und nur die zusätzlichen Code-/JavaScript-, Headless- oder Dateifunktionen, die benötigt werden.</li>
+<li>Für Dateivorlagen legen Sie fest <code dir="ltr" translate="no">LONGSHOT_FILE_ROOT</code> auf die explizite schreibgeschützte Zulassungsliste hinzufügen, bevor Sie den Host starten.</li>
+<li>Speichern, überprüfen und genehmigen Sie den Lauf; Überprüfen Sie die Gründe für „Bereit“/„Blockiert“ und die vom Ausführenden markierte Ausgabe.</li>
+</ol>
+<p>Worker verfügen über einen isolierten Dateisystem-/Netzwerk-Namespace, privaten temporären Speicher und eine begrenzte Ausführung über das Ziel-Relay. Sie erhalten nicht automatisch Firefox-Cookies, den lokalen Browserspeicher oder die Tor-Route von Firefox. Headless-Sitzungen sind isoliert. Eine blockierte native Vorlage bedeutet nicht, dass die Sicherheitslücke negativ ist.</p>
+<p>Native Code-/JavaScript-Vorlagen erfordern Signaturen, denen die offizielle Engine vertraut. <code dir="ltr" translate="no">LONGSHOT_NUCLEI_CERT</code> kann auf ein überprüftes öffentliches Autorenzertifikat verweisen; Der Host signiert Importe nicht automatisch und stellt keine privaten Signaturschlüssel bereit. Native Dateivorlagen können Host-Home-Verzeichnisse nicht frei lesen. Zusätzliche Datei-/Code-/Headless-Schalter bleiben vom generischen Vorlagenimport getrennt.</p>
+<p>Das native Relay unterstützt eingeschränkte Ziel-/Anbieterverbindungen, keinen willkürlichen Netzwerkzugriff. Onion-Ziele, nicht verfügbare Isolation/Laufzeiten, nicht unterstützte Zieladressierung oder inkompatible Pfadbereiche können die Ausführung blockieren. Die native Interactsh-Registrierung gehört zu Nuclei, getrennt vom Browser-OAST-Client von Longshot. Verwenden Sie tatsächliche Ergebnisnachweise und Plattformfähigkeitsberichte, nicht die Bezeichnung „vollständige Engine“, um zu entscheiden, was ausgeführt wurde.</p>
+<h2 id="manual-tools-interception-and-api-inventory">Manuelle Tools, Abfangen und API-Inventarisierung</h2>
+<h3 id="page-guide">Seitenführer</h3>
+<table>
+<thead>
+<tr>
+<th>Seite</th>
+<th>Wofür soll man es verwenden?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Übersicht</td>
+<td>Stellen Sie eine Verbindung her, validieren Sie die Sitzung, wählen Sie Regelgruppen aus, wählen Sie den Vorgang aus und überwachen Sie den Fortschritt</td>
+</tr>
+<tr>
+<td>Scanoptionen</td>
+<td>Zusätzliche Phasen, Einwilligung, Body Fuzzing, Anbietereinstellungen und Budgets</td>
+</tr>
+<tr>
+<td>Ziele</td>
+<td>Trennen Sie Profile, wählen Sie einen Browser-Tab aus/hängen Sie ihn an und stellen Sie zielspezifische Beweise/Optionen wieder her</td>
+</tr>
+<tr>
+<td>Sitemap</td>
+<td>Erkannte URLs/Formulare/Routen; eine Karte mit Beobachtungen, kein Beweis für die vollständige Entdeckung</td>
+</tr>
+<tr>
+<td>HTTP-Verlauf</td>
+<td>Browser-Traffic-Metadaten und Scanner-/Repeater-Antworten; Überprüfen Sie genaue Eingaben und Zeitstempel</td>
+</tr>
+<tr>
+<td>API-Explorer</td>
+<td>Beobachtete/importierte Vorgänge und Parameterinventur; Bereiten Sie unterstützte Lesevorgänge im Repeater vor</td>
+</tr>
+<tr>
+<td>Server-Stack</td>
+<td>Fingerabdrücke, lokaler Smart-Analysator und Kandidatenberatung</td>
+</tr>
+<tr>
+<td>Netzwerkdiagramm</td>
+<td>Beobachtete Ursprünge/IPs/referenzierte Domänen und verfügbare Vhost-Beweise; Externe Knoten sind Inventarknoten, kein automatischer Bereich</td>
+</tr>
+<tr>
+<td>Erkenntnisse</td>
+<td>Beweise, Urteil/Konfidenz/Schweregrad, Überprüfungsstatus und Filmbetrachter</td>
+</tr>
+<tr>
+<td>WSTG-Prüfungen</td>
+<td>Referenzabdeckungstypen und tatsächliche Auditausführung pro Eingabe</td>
+</tr>
+<tr>
+<td>Vorlagen</td>
+<td>Import, Kompatibilitäts-/Ausführerdetails, manuelle Auswahl und Ausführungsergebnisse</td>
+</tr>
+<tr>
+<td>Repeater / Fuzzer</td>
+<td>Fokussierte Anforderungswiederholung oder begrenzte Mutation</td>
+</tr>
+<tr>
+<td>Abfangjäger</td>
+<td>Halten Sie geeignete Ziel-Tab-URL-/Header-Stufen bereit</td>
+</tr>
+<tr>
+<td>OAST</td>
+<td>Anbieter-/Rückrufstatus, Testaktionen und korrelierte Interaktionen</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>Begrenzter beobachteter Kanalaustausch</td>
+</tr>
+<tr>
+<td>Vergleichen</td>
+<td>Lokale Unterschiede zwischen zwei gespeicherten Antworten</td>
+</tr>
+<tr>
+<td>Encoder/Decoder</td>
+<td>Lokale Transformationen und Token-Anspruchsprüfung</td>
+</tr>
+<tr>
+<td>Browser-Bridge</td>
+<td>Koppeln Sie den nativen Tool-Proxy und konfigurieren Sie Sitzungsüberschreibungen</td>
+</tr>
+<tr>
+<td>Bericht</td>
+<td>Exportieren Sie die Beweise des aktiven Profils</td>
+</tr>
+<tr>
+<td>Einstellungen</td>
+<td>Anfrage-/Sitzungseinstellungen, Erscheinungsbild, native Verbindung und Bewertungsdateien</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-explorer">API-Explorer</h3>
+<p>Zuerst eine Verbindung herstellen und durchsuchen, dann auswählen <strong>Überprüfen Sie die aktuelle Seite</strong>. Importieren Sie eine vom Entwickler bereitgestellte Datei <strong>OpenAPI JSON</strong> Beschreibung, sofern verfügbar, bis zu 2 MB. Es liest lokales JSON, keine beliebige Remote-Seite oder YAML-Datei. Lokale Spezifikationsreferenzen und verfügbare Anfragebeispiele/Standards können konkrete unterstützte Eingaben liefern; Fehlende Werte/Körper und nicht unterstützte Konstrukte hinterlassen Lücken.</p>
+<p>Ein Endpunkt ist eine Adresse; Eine Operation ist eine Adresse plus Methode. Abfrageeingaben werden danach angezeigt <code dir="ltr" translate="no">?</code>, Pfadeingaben im Adresspfad und Texteingaben im übermittelten Inhalt. Bei einem aufgeführten Vorgang handelt es sich um eine Bestandsaufnahme, nicht um einen Beweis dafür, dass das aktuelle Konto auf jedes Objekt, auf das es sich bezieht, zugreifen kann.</p>
+<p>Benutzen <strong>Repeater</strong> neben einer unterstützten GET/HEAD-Operation, um eine Anfrage vorzubereiten, ohne sie noch zu senden. Überprüfen Sie URL/Methode/Eingaben und senden Sie sie dann gezielt. Bei reinen Inventarschreibvorgängen müssen Sie weiterhin die entsprechende Anfrage vorbereiten und eine Schreibgenehmigung einholen.</p>
+<h3 id="repeater-and-compare">Repeater und Vergleich</h3>
+<p>Der Repeater stellt mithilfe der gebundenen Browsersitzung eine neue bereichsbezogene Anfrage. GET/HEAD/OPTIONS verwenden die normale Route. Schreibmethoden, Körperänderungen und Zerstörungs-/Upload-Funktionen unterliegen weiterhin den Richtlinien und der Genehmigung. Verwaltete Cookie-/Autorisierungs-/Hostwerte können nicht frei über den Header-Editor ersetzt werden. Verwenden Sie die native Route des externen Tools für explizit konfigurierte Header-/Cookie-Tests.</p>
+<p><strong>Folgen Sie Weiterleitungen gleichen Ursprungs</strong> steuert, ob Sie die Weiterleitung selbst oder die zulässige endgültige Antwort überprüfen. Weiterleitungen außerhalb des Gültigkeitsbereichs stellen keine pauschale Autorisierung dar. Behalten Sie die Antworttexte bei Bedarf zur Überprüfung bei und wählen Sie dann zwei gespeicherte Antworten aus <strong>Vergleichen</strong>. Compare sendet keine Anfragen; Dynamischer Inhalt, Anmeldestatus, Drosselung oder WAF-Seiten können einen Unterschied erklären.</p>
+<h3 id="interceptor">Abfangjäger</h3>
+<p>Aktivieren Sie den Abfangjäger und <strong>Abfangen anwenden</strong>. Erteilen Sie die optionale Firefox-Blockierungsberechtigung durch die normale Benutzeraktion. Das Abfangen wird nach dem Neustart der Erweiterung deaktiviert.</p>
+<table>
+<thead>
+<tr>
+<th>Bühne / Kontrolle</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anforderungs-URLs zurückhalten</td>
+<td>Pause vor Anforderungsheadern; Bearbeiten Sie die bereichsbezogene URL/Abfrage oder löschen Sie sie</td>
+</tr>
+<tr>
+<td>Anforderungsheader zurückhalten</td>
+<td>Überprüfen/bearbeiten Sie zulässige Anforderungsheader vor der Übertragung</td>
+</tr>
+<tr>
+<td>Antwortheader halten</td>
+<td>Unterbrechen Sie die Zustellung, nachdem die Anfrage den Server erreicht hat. Eine serverseitige Aktion kann nicht rückgängig gemacht werden</td>
+</tr>
+<tr>
+<td>Ressourcen-/Methoden-/Pfadfilter</td>
+<td>Beschränken Sie den zulässigen Datenverkehr auf der Registerkarte „Gebunden“ und im genauen Zielbereich</td>
+</tr>
+<tr>
+<td>Hold-Timeout</td>
+<td>Standard 0: keine automatische Freigabe. Optional 10–3.600 Sekunden, dann ausgewählte Vorwärts-/Drop-Aktion</td>
+</tr>
+<tr>
+<td>Vorwärtsbühne</td>
+<td>Lösen Sie diese Phase; Eine andere aktivierte Stufe kann dieselbe Anforderung später halten</td>
+</tr>
+<tr>
+<td>Drop-Anfrage</td>
+<td>Diesen Schritt abbrechen/Lieferung anfordern</td>
+</tr>
+<tr>
+<td>Alle ausstehenden weiterleiten/verwerfen</td>
+<td>Lösen Sie die aktuelle Warteschlange auf, ohne zukünftige Filter zu ändern</td>
+</tr>
+<tr>
+<td>Ausschalten und Weiterleiten ausstehend</td>
+<td>Abfang- und Freigabe-Wartephasen unscharf schalten, unverändert</td>
+</tr>
+</tbody>
+</table>
+<p>Es kann zu einer Zeitüberschreitung der Anwendung/des Browsers kommen, bevor Sie eine lange zurückgehaltene Anfrage freigeben. Bis zu 20 Etappen können warten; Bei Überschreitung des Warteschlangenlimits wird weiterer passender Datenverkehr abgebrochen. Beim Ändern der Filter werden die aktuellen Stufen unverändert freigegeben. Durch das Schließen des letzten steuernden Dashboards werden angehaltene Phasen freigegeben und das Abfangen deaktiviert.</p>
+<p>Zulässige Header verwenden ein JSON-Array aus Name/Wert-Paaren; Sensible/vom Browser verwaltete/Framing-Felder sind geschützt. Das Umschreiben von Methode/Text/Status der zurückgehaltenen Netzwerkanforderung ist nicht verfügbar. <strong>An Repeater senden</strong> erstellt eine separate Anforderungsform zur gezielten Bearbeitung; Es handelt sich nicht um eine transparente Umschreibung des Körperkörpers während des Fluges.</p>
+<p>Nur ausgewählter HTTP-Verkehr auf der Zielregisterkarte ist zulässig. Der Scannertransport umgeht das Abfangen, um einen Deadlock zu vermeiden. Externer nativer Proxy-Verkehr liegt außerhalb dieses Browser-Interceptors. WebSocket-Nachrichten benötigen nach dem Upgrade eine separate Kanal-Workbench.</p>
+<h3 id="websocket-sse-and-utilities">WebSocket, SSE und Dienstprogramme</h3>
+<p>Wählen Sie einen entdeckten Kanal im Geltungsbereich aus oder geben Sie dessen genaue URL ein. Das Abhören und das Senden benutzerdefinierter Frames sind begrenzte, genehmigte Vorgänge und kein allgemeiner Protokollscanner. Der erfasste Fehlertext ist ein Hinweis; Es stellt keine Nachrichtenautorisierung oder einen Rassen-/Logikfehler dar.</p>
+<p>Dienstprogramme kodieren/dekodieren Werte, berechnen SHA-256, formatieren JSON und prüfen JWT-Ansprüche lokal. Das Dekodieren eines JWT ist keine Signaturüberprüfung und stellt nicht sicher, dass der Server ein gefälschtes Token akzeptiert. Transformierte Eingaben werden nicht automatisch ausgeführt oder übermittelt.</p>
+<h2 id="findings-and-the-cimematic-viewer">Erkenntnisse und der filmische Betrachter</h2>
+<h3 id="read-the-evidence-first">Lesen Sie zuerst die Beweise</h3>
+<p>Ein Befund hat separate Felder:</p>
+<table>
+<thead>
+<tr>
+<th>Feld</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Schweregrad</td>
+<td>Geschätzter potenzieller Schaden, wenn das Problem ausnutzbar ist</td>
+</tr>
+<tr>
+<td>Urteil</td>
+<td>Was der Scanner beobachtet hat: potenziell/übereinstimmend/anfällig, negativ, blockiert oder nicht schlüssig, je nachdem</td>
+</tr>
+<tr>
+<td>Vertrauen</td>
+<td>Stärke der umgesetzten Beweise, nicht die Höhe des Schadens</td>
+</tr>
+<tr>
+<td>Überprüfungsstatus</td>
+<td>Ihre Einschätzung: Nicht überprüft, Vom Prüfer bestätigt, Falsch positiv oder Akzeptiertes Risiko</td>
+</tr>
+<tr>
+<td>WSTG / CWE</td>
+<td>Referenzklassifizierung, kein Beweis dafür, dass der gesamte Test/die vollständige Kategorie abgeschlossen wurde</td>
+</tr>
+</tbody>
+</table>
+<p>Überprüfen Sie die URL, den Einfügepunkt, die Anfrage, die Baseline, die Nutzlast, die Antwort und Wiederholungen/Kontrollen. Überprüfen Sie, ob der Inhalt abgeschnitten wurde oder die Antwort eine Challenge-/Login-/Fehlerseite war. Ein wiederholter Fehler mit hoher Wahrscheinlichkeit kann immer noch ein potenzieller Injektionsbefund sein, der überprüft werden muss.</p>
+<p>Legen Sie dann den Überprüfungsstatus und die Notizen fest <strong>Bewertung speichern</strong>. Das ursprüngliche Urteil/Vertrauen des Scanners wird dadurch nicht überschrieben. Falsch positive Ergebnisse bleiben Beweismittel. Filter, einschließlich <strong>Negativ / blockiert anzeigen</strong>, ändern Sie die Sichtbarkeit, nicht den Ausführungsdatensatz.</p>
+<h3 id="cimematic-viewer">Filmbetrachter</h3>
+<p>Der Button ist bewusst benannt <strong>Filmbetrachter</strong> in dieser Version. Es öffnet die thematische 3D-Erklärung für den ausgewählten Befund.</p>
+<p>Die Sequenz dauert ca. 9,3 Sekunden: Lokalisieren Sie den betroffenen Bereich, zeigen Sie die Eingabe, veranschaulichen Sie die Verarbeitung, zeigen Sie aufgezeichnete Ergebnisnachweise, dann zeigen Sie den Schweregrad und eine verständliche Erklärung des potenziellen Risikos an. Zu den verfügbaren Steuerelementen gehören: <strong>Anhalten/fortsetzen</strong>, Wiederholung, nummerierte Schritte, zum Aufprall springen, <strong>3D-Tiefe</strong> und <strong>Vollbild</strong>. Einstellungen mit reduzierter Bewegung können direkt zum Aufprall führen.</p>
+<table>
+<thead>
+<tr>
+<th>Modus</th>
+<th>Was es zeigt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Live / CSS + JS</td>
+<td>Ein normaler Firefox-Vorschau-Tab lädt die aktuelle Seite mit ihrem CSS/JavaScript und dem ausgewählten Cookie-Kontext; Der Betrachter erhält gerenderte Frames und Elementrechtecke</td>
+</tr>
+<tr>
+<td>Nur erfasst</td>
+<td>Mit bereinigtem, nicht ausführbarem HTML oder einer Erfassung aufbewahrte Beweise; Von diesem Offline-Fallback werden keine externen Ressourcen oder Skripte ausgeführt</td>
+</tr>
+<tr>
+<td>Aufgezeichnetes Ergebnis</td>
+<td>Die gespeicherte Scan-Beweis-/Ergebnisebene, die von der aktuellen Live-Seite abweichen kann</td>
+</tr>
+</tbody>
+</table>
+<p>Es handelt sich um ein filmisches Ansichtsfenster, nicht um ein interaktives, geklontes Site-DOM. <strong>Öffnen Sie den Live-Tab</strong> Öffnet die echte Seite zur Interaktion. Beim normalen Live-Laden können die normalen Ressourcen-/Anwendungsanfragen der Site gestellt werden, aber beim Öffnen des Viewers wird weder das gespeicherte Angriffsformular gesendet noch ein POST erneut abgespielt oder der Exploit erneut ausgeführt.</p>
+<p>Die Kameraposition ist nur dann genau, wenn eine passende Eingabe/Name/ID gefunden werden kann. API-/Header-/Cookie-Ergebnisse können kein HTML-Format haben; Eine Seitenkontextansicht wird als solche gekennzeichnet. Die Animation wertet einen potenziellen Befund niemals zu einem Ausbeutungsbeweis auf. Wenn die Live-Wiedergabe fehlschlägt, verwenden Sie erfasste Beweise und die Text-/Anfragedetails.</p>
+<p>Die Vorschau-Registerkarte des Viewers wird bei der normalen Viewer-/Dashboard-Bereinigung geschlossen; Eine explizit geöffnete interaktive Registerkarte bleibt Ihnen überlassen und kann geschlossen werden. Aktuelle Anmeldung, Site-Status, Laden von Abhängigkeiten und CSP können die Anzeige im Live-Modus ändern.</p>
+<h2 id="owasp-top-10-coverage">OWASP Top 10-Berichterstattung</h2>
+<p>Offen <strong>Scanoptionen → Informationen</strong> für die durchsuchbare/filterbare Implementierungstabelle mit 44 Einträgen, die auch über die Schaltfläche „Seiteninformationen“ erreichbar ist. Es nutzt <a href="https://top10.owasp.org/2025/">OWASP Top 10:2025</a> mit älteren Referenzen aus dem Jahr 2021 zur Orientierung. SSRF ist jetzt unter Broken Access Control gruppiert. Beispiele können sich mit Kategorien überschneiden; Die Liste ist nicht der vollständige CWE-Katalog.</p>
+<p>Support-Labels:</p>
+<ul>
+<li><strong>Aktive Prüfung:</strong> Bei Aktivierung ist eine dedizierte implementierte Regel für unterstützte erreichte Eingaben vorhanden.</li>
+<li><strong>Optionale Verifizierung:</strong> Es gelten zusätzliche Optionen, Berechtigungen, Anbieter oder Ausführungsvoraussetzungen.</li>
+<li><strong>Nur Indikatoren:</strong> ein passives Signal/ein passiver Vergleich, der eine manuelle Interpretation erfordert.</li>
+<li><strong>Vorlagenabhängig:</strong> Die importierte Vorlage und der Executor bestimmen den getesteten Zustand.</li>
+<li><strong>Nicht abgedeckt:</strong> kein dedizierter integrierter Verifizierer für diese Klasse; Generische benutzerdefinierte Nutzlasten stellen nicht automatisch eine Abdeckung her.</li>
+</ul>
+<p>Dies ist eine quellenbasierte Fähigkeitsprüfung, <strong>kein gemessener Erkennungsprozentsatz</strong>. Es beschreibt den integrierten Scanner von Longshot und seine optionalen Phasen, nicht den gesamten externen ZAP-Regelsatz.</p>
+<table>
+<thead>
+<tr>
+<th>OWASP 2025</th>
+<th>Verletzlichkeit/Schwäche</th>
+<th>Unterstützung</th>
+<th>Was läuft/erforderliche Optionen</th>
+<th>Grenzen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A05</td>
+<td>SQL-Injection: Datenbankfehler und boolesche Unterschiede</td>
+<td>Aktive Prüfung</td>
+<td>Aktivieren Sie die SQL-Injection. Wiederholte Datenbankfehlerprüfungen und Wahr/Falsch-Vergleiche verwenden neue Kontrollen für erkannte Eingaben.</td>
+<td>Kandidaten müssen überprüft werden. Keine Datenbankextraktion oder umfassende DBMS-spezifische Blindabdeckung.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Blinde SQL-Injection: Timing</td>
+<td>Optionale Verifizierung</td>
+<td>Aktivieren Sie wiederholte Zeitprüfungen mit aggressiver Genehmigung. Drei saubere Timings werden mit drei SLEEP-Sonden am ersten Einfügepunkt verglichen.</td>
+<td>Eine enge SQL-Syntax und Timing-Heuristik; Jitter, WAFs und verschiedene Datenbankdialekte können das Ergebnis verdecken oder imitieren.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>NoSQL-Injection</td>
+<td>Aktive Prüfung</td>
+<td>Aktivieren Sie die NoSQL-Injection für wiederholte MongoDB/BSON-Fehlersignaturen. Bei der optionalen Zeitüberprüfung wird auch eine MongoDB-$where-Verzögerung für JSON-Körper versucht.</td>
+<td>Keine allgemeine Umgehung der betreiberbasierten Authentifizierung, keine blinde NoSQL-Extraktion oder Abdeckung jeder NoSQL-Engine.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Reflektiertes Cross-Site-Scripting (XSS)</td>
+<td>Aktive Prüfung</td>
+<td>Aktivieren Sie Reflected XSS. Ein eindeutiger Reflexionsmarker und wiederholte inerte HTML-Kontextprüfungen identifizieren ausführbar aussehendes Markup.</td>
+<td>HTML-Kontextbeweise sind ein Kandidat. Es wird keine Skriptausführung eingerichtet oder die Inhaltssicherheitsrichtlinie umgangen.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>DOM XSS aus URL-Abfragen oder Fragmenteingaben</td>
+<td>Optionale Verifizierung</td>
+<td>Aktivieren Sie die Live-DOM-XSS-Überprüfung und genehmigen Sie aggressive Berechtigungen. Zwei frische Kanarienvögel müssen in Einweg-Tabs aus dem gleichen Cookie-Store ausgeführt werden. Eine Kontrolle muss negativ bleiben.</td>
+<td>Nur begrenzte URL-Eingaben. CSP und Abhängigkeiten bleiben durchgesetzt; Timeouts und blockierte Ressourcen hinterlassen Lücken.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>DOM XSS aus PostMessage, Speicherung oder beliebigen Datenflüssen</td>
+<td>Nicht abgedeckt</td>
+<td>Passive Quell-/Senkenhinweise können nahegelegene Inline-JavaScript-Muster zur Überprüfung identifizieren.</td>
+<td>Keine allgemeine Taint-Verfolgung, willkürliche Nachrichtengenerierung oder Speicherquellen-Ausführungstest.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Gespeichertes XSS und mehrstufige Injektion zweiter Ordnung</td>
+<td>Nicht abgedeckt</td>
+<td>Eine besuchte Seite kann verdächtigen Code oder einen entsprechenden Kandidaten enthalten.</td>
+<td>Keine allgemeine Schreib-Speicher-Lese-Korrelation, Workflow-Wiedergabe oder Überprüfung der Ausführung gespeicherter Nutzlasten.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Serverseitige Vorlageninjektion (SSTI)</td>
+<td>Aktive Prüfung</td>
+<td>Aktivieren Sie die Server-Vorlageninjektion. Zufällige arithmetische Ergebnisse mit eindeutigen Markern müssen mit Kontrollen wiederholt werden.</td>
+<td>Nur unterstützte Ausdrucksfamilien; Die blinde Template-Ausführung und jede Template-Engine werden nicht abgedeckt.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Serverseitige Codeinjektion</td>
+<td>Aktive Prüfung</td>
+<td>Aktivieren Sie die serverseitige Codeinjektion. Berechnete JavaScript/PHP-Canaries unterscheiden die Auswertung von der einfachen Reflexion.</td>
+<td>Ein kleiner Sprach-/Kontextsatz; kein universeller Remote-Code-Ausführungstest.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Betriebssystem-Befehlsinjektion</td>
+<td>Optionale Verifizierung</td>
+<td>Aktivieren Sie Betriebssystembefehlsanzeigen für wiederholte ID-Ausgabe-Prüfungen. Optionale Befehlsproben mit einem lauschenden OAST-Anbieter können einen DNS-Rückruf korrelieren.</td>
+<td>Erfordert einen kompatiblen Befehlskontext und für Rückrufe Zielausgang. Kein Rückruf schafft keine Sicherheit.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>CRLF / Antwort-Header-Injektion</td>
+<td>Aktive Prüfung</td>
+<td>Aktivieren Sie die Antwortheader-Injektion. Eine generierte Antwort-Header-Markierung muss sich wiederholen und darf in den Steuerelementen nicht vorhanden sein.</td>
+<td>Die Verarbeitung von Browser-URLs/Headern begrenzt die Nutzlast. Raw-Response-Splitting, Cache-Poisoning und Framing-Angriffe sind nicht bekannt.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>LDAP, XPath und andere nicht implementierte Injektionssprachen</td>
+<td>Nicht abgedeckt</td>
+<td>Benutzerdefinierte Payloads, Auto-Fuzz oder eine überprüfte Vorlage können eine separate Untersuchung unterstützen.</td>
+<td>Kein dedizierter integrierter sprachspezifischer Prüfer; Ein Antwortunterschied ist keine Bestätigung.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Pfaddurchquerung/Einbindung lokaler Dateien</td>
+<td>Aktive Prüfung</td>
+<td>Aktivieren Sie Traversal/Dateieinbindung. Unterstützte Dateiinhaltssignaturen müssen an erkannten Einfügepunkten wiederholt werden.</td>
+<td>Deckt nicht jede Kodierung, jedes Betriebssystem, jede Remote-Inklusion oder jede beliebige Datei ab. Kein Verzeichnis-Brute-Force-Inventar.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Serverseitige Anforderungsfälschung (SSRF)</td>
+<td>Optionale Verifizierung</td>
+<td>Aktivieren Sie SSRF und OAST mit einem zugelassenen erreichbaren Anbieter. Die genaue Sondenkorrelation zeichnet eine DNS/HTTP-Interaktion auf.</td>
+<td>Unterschiede bei der Antwort auf interne Adressen sind lediglich Hinweise. Ein Rückruf stellt eine Interaktion her, keinen internen Zugriff oder Datendiebstahl; Vermittler können Nutzlasten auflösen.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>IDOR / defekte Objekt- oder Funktionsberechtigung</td>
+<td>Nur Indikatoren</td>
+<td>Aktivieren Sie den Vergleich mit Sitzung B mithilfe eines bestimmten Firefox-Containers/privaten Cookie-Speichers. Bis zu zehn Leseanfragen vergleichen Status und Body-Hashes.</td>
+<td>Kein Objektbesitz oder erwartetes Vorbild; Identische öffentliche Seiten können legitim sein. Kein allgemeiner Beweis für die Rechteausweitung.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Cross-Site-Request-Forgery (CSRF)</td>
+<td>Nur Indikatoren</td>
+<td>Die Formularüberprüfung meldet POST-Formulare ohne erkannte Tokenfelder und prüft sichtbare Cookie-Attribute.</td>
+<td>Keine standortübergreifende Exploit-Übermittlung oder Server-Token-Validierungstest. SameSite, benutzerdefinierte Header und Workflow-Steuerelemente müssen manuell überprüft werden.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Nutzung von Cross-Origin Resource Sharing (CORS).</td>
+<td>Nur Indikatoren</td>
+<td>Die CORS-Überprüfung prüft die beobachteten Allow-Origin- und Credentials-Header.</td>
+<td>Kein willkürlicher Origin-Reflection-Test oder Überprüfung der vom Angreifer stammenden Datenlesevorgänge. Platzhalter mit Anmeldeinformationen werden von Browsern abgelehnt.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Weiterleitung öffnen</td>
+<td>Aktive Prüfung</td>
+<td>Aktivieren Sie offene Weiterleitungen. Ein generiertes .invalid-Ziel im Location-Header muss wiederholt werden. Externe Ziele werden nicht verfolgt.</td>
+<td>JavaScript-Weiterleitungen, mehrstufige Login-Weiterleitungen und jede Umgehung der URL-Normalisierung werden nicht abgedeckt.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Mandantenisolierung, Rolleneskalation und Workflow-Autorisierung</td>
+<td>Nicht abgedeckt</td>
+<td>Sitzungsvergleiche und importierte Anfragen können einem Analysten Beweise liefern.</td>
+<td>Kein Verständnis für Mietereigentum, Rollen, Zustandsübergänge oder zulässige Geschäftshandlungen.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Fehlende Sicherheitsheader, schwacher CSP und Clickjacking-Abwehrmaßnahmen</td>
+<td>Nur Indikatoren</td>
+<td>Die passive Header-Überprüfung während des Scans prüft CSP, Unsafe-Eval, Framing-Richtlinie und Nosniff auf beobachtete Antworten.</td>
+<td>Fehlende Abwehrmaßnahmen sind verhärtende Signale; Ausnutzbarkeit, Richtlinienvollständigkeit und Auswirkungen auf die UI-Redressierung sind nicht erwiesen.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Verzeichnislisten, Offenlegung von Quellen/Konfigurationen und Debug-Traces</td>
+<td>Nur Indikatoren</td>
+<td>Die passive Überprüfung erkennt Listing-Markup, PHP-Quelle, Konfigurationsschlüsselzuweisungen und ausgewählte Stack-Traces in zurückgegebenen Inhalten.</td>
+<td>Nur beobachtete Inhalte und Signaturen; Keine umfassende Erkennung von Backup-Dateien, Geheimnissen oder versteckten Administratoren.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>XML-External-Entity-Injection (XXE)</td>
+<td>Optionale Verifizierung</td>
+<td>Aktivieren Sie XXE und einen zuhörenden OAST-Anbieter mit Aggressive-Genehmigung. Ein XML-Anfragetext wird durch einen Callback-Canary für eine externe Entität ersetzt.</td>
+<td>Erfordert eine inventarisierte XML-Anfrage. Keine umfassende Parser-, SOAP-, Dateilese-, Parameterentitäts- oder Blindextraktionsabdeckung.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Gefährliche HTTP-Methoden</td>
+<td>Nur Indikatoren</td>
+<td>Aktivieren Sie angekündigte HTTP-Methoden. OPTIONS zeichnet den Allow-Antwortheader auf.</td>
+<td>Versucht nicht, unbefugte PUT/DELETE-Schreibvorgänge durchzuführen oder zu beweisen, dass beworbene Methoden ausnutzbar sind.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Behandlung doppelter Abfrageparameter</td>
+<td>Nur Indikatoren</td>
+<td>Aktivieren Sie die Behandlung doppelter Abfrageparameter für wiederholte Antwortvergleiche erster/letzter Ordnung.</td>
+<td>Ein Parsing-Unterschied ist kein Beweis für eine WAF-Umgehung, einen Fehler bei der Zugriffskontrolle oder eine Meinungsverschiedenheit zwischen Proxy und Backend.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Cloud-Berechtigungen, versteckte Admin-Dienste und Backend-Konfiguration</td>
+<td>Nicht abgedeckt</td>
+<td>Stack-Fingerprints und Topologieansichten liefern für den Browser sichtbare Hypothesen.</td>
+<td>Kein Cloud-Kontozugriff, keine Infrastrukturprüfung, keine Überprüfung der Serverkonfiguration oder umfassende interne Netzwerkerkennung.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Bekannte anfällige Browser-JavaScript-Abhängigkeiten</td>
+<td>Optionale Verifizierung</td>
+<td>Aktivieren Sie die SCA der Client-Bibliothek, um beobachtete Asset-Versionen mit der kleinen gebündelten Beratungsdatenbank zu vergleichen.</td>
+<td>Nur Versions-/Signaturkorrelation; Backports, erreichbarer anfälliger Code, vollständige Abhängigkeitsbäume und unsichtbare Assets werden nicht überprüft.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Serverabhängigkeits-CVEs und Produktschwachstellen</td>
+<td>Vorlagenabhängig</td>
+<td>Für die automatische CVE-Phase sind geeignete importierte Vorlagen erforderlich. Es werden nur die von ihnen erstellten Anfragen und Matcher ausgeführt. Native Nuclei erfordert eine separate Engine und Genehmigung.</td>
+<td>Allein Fingerabdruck-/Beratungsübereinstimmungen sind Kandidaten. Zwei gebündelte Community-Starter bieten keine universelle CVE-Abdeckung.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Kompromittierte Pakete, CI/CD und bösartige Lieferkettenaktualisierungen</td>
+<td>Nicht abgedeckt</td>
+<td>Abhängigkeitsnamen oder -versionen können eine separate Code- und Buildüberprüfung unterstützen.</td>
+<td>Keine SBOM-Vollständigkeit, Repository-/Build-Prüfung, Paketauthentizität oder Signaturkettenüberprüfung.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>HTTP-Passwortformulare, HSTS und unsichere Ressourcenreferenzen</td>
+<td>Nur Indikatoren</td>
+<td>Passive Prüfungen erkennen Passwortformulare, die HTTP/GET verwenden, fehlendes HSTS und ausgewählte HTTP-Ressourcen, auf die durch HTTPS-Markup verwiesen wird.</td>
+<td>Keine umfassende Erkennung sensibler Daten; beweist nicht die Datenexposition im Ruhezustand und bewertet nicht das gesamte Transportverhalten.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>Schwache TLS-Protokolle/-Verschlüsselungen, Schlüsselverwaltung und Verschlüsselung im Ruhezustand</td>
+<td>Nicht abgedeckt</td>
+<td>Der Browser stellt seine normale TLS-Verbindung bereit.</td>
+<td>Keine Verschlüsselungs-/Protokollaufzählung, Zertifikatinventur, Überprüfung des kryptografischen Designs, Passwort-Hash-Prüfung oder serverseitiger Schlüsselzugriff.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>Geschäftslogik, Zahlungs-/Preismanipulation und Workflow-Missbrauch</td>
+<td>Nicht abgedeckt</td>
+<td>Beobachtete Anfragen und Repeater unterstützen manuelle Tests.</td>
+<td>Kein Modell für korrekte Preise, Kontostände, Geschäftsregeln, Transaktionsreihenfolge oder beabsichtigtes Anwendungsverhalten.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>Rennbedingungen und Designfehler aufgrund von Ressourcenerschöpfung</td>
+<td>Nicht abgedeckt</td>
+<td>Anforderungslimits und Geschwindigkeitskontrollen beim gebundenen Scannen; Ratenbegrenzungsreaktionen sind Betriebssignale.</td>
+<td>Kein synchronisiertes Renngeschirr oder absichtliche Denial-of-Service-Überprüfung.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Schwache Cookie-/Sitzungsattribute</td>
+<td>Nur Indikatoren</td>
+<td>In Cookie-Überprüfungsberichten fehlt Secure, HttpOnly oder explizites SameSite und SameSite=None ohne Secure.</td>
+<td>Der Cookie-Zweck und die Browser-Standardeinstellungen sind wichtig. Führt nicht zu Sitzungs-Hijacking, Fixierung, Abmeldungsungültigmachung oder Token-Entropie.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Login-Umgehung, MFA, Passwort-Reset, Brute-Force und Kontoübernahme</td>
+<td>Nicht abgedeckt</td>
+<td>Eine Injektionsprüfung kann eine Ursache für einen Anmeldefehler aufdecken. Der Session-Validator prüft, ob der konfigurierte Login noch gültig erscheint.</td>
+<td>Kein allgemeiner Angriff auf Anmeldeinformationen, kein MFA-/Reset-Workflow-Test, kein Sperraudit oder keine Überprüfung der Kontoübernahme.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>JWT-, OAuth-, OIDC- und SAML-Verifizierungsfehler</td>
+<td>Nicht abgedeckt</td>
+<td>Versorgungsunternehmen können ein JWT lokal zur manuellen Überprüfung dekodieren.</td>
+<td>Bei der Dekodierung handelt es sich nicht um eine Signaturprüfung. Keine allgemeine Algorithmus-Verwirrung, Token-Fälschung, Redirect-Flow oder Federation-Test.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Log4Shell-Rückrufpfad</td>
+<td>Optionale Verifizierung</td>
+<td>Aktivieren Sie Log4Shell und OAST mit Genehmigung. Ein JNDI-Callback-Canary wird in der ersten verfügbaren Eingabe und X-API-Version platziert.</td>
+<td>Eine passende Interaktion muss zugeordnet und überprüft werden; es beweist nicht die Codeausführung. Begrenzte Einfügepunkte und begrenzter Zielausgang können anfällige Pfade übersehen.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Unsichere Deserialisierung</td>
+<td>Vorlagenabhängig</td>
+<td>Die Deserialisierungsoption wählt geeignete importierte Vorlagen aus, die für die Deserialisierung markiert sind. Überprüfen Sie deren Testamentsvollstrecker und Voraussetzungen.</td>
+<td>Keine allgemeine Objektformaterkennung, kein Gadget-Chain-Generator oder universeller Deserialisierungsprüfer.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Nicht signierte Updates, gefälschte Anwendungsdaten und Integritätskontrollen</td>
+<td>Nicht abgedeckt</td>
+<td>Erfasste Antworten und entschlüsselte Daten können die manuelle Analyse unterstützen.</td>
+<td>Kein Anwendungsvertrauensmodell, Aktualisierungssignaturvalidierung, Datensignaturprüfung oder allgemeine Massenzuweisungsüberprüfung.</td>
+</tr>
+<tr>
+<td>A09</td>
+<td>Fehlende Sicherheitsprotokolle, Warnungen, Protokollintegrität und Vorfallerkennung</td>
+<td>Nicht abgedeckt</td>
+<td>Longshot zeichnet seine eigenen Scan-Beweise und sein lokales Anforderungsjournal auf.</td>
+<td>Scannerprotokolle geben keinen Aufschluss darüber, ob die Anwendung korrekt protokolliert oder Warnungen ausgibt; Überprüfen Sie Server-/SIEM-Beweise und führen Sie überwachte Szenarien aus.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>Informationsverlust durch außergewöhnliche Antworten</td>
+<td>Nur Indikatoren</td>
+<td>Durch die passive Offenlegung von Fehlern und aktive Injektionskontrollen können ausgewählte Stack-Traces und neu eingeführte Datenbankfehler erkannt werden.</td>
+<td>Nur zurückgegebene Beweise. Ein allgemeiner Fehler oder HTTP 500 allein stellt keine verifizierte Schwachstelle dar.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>Fail-Open-Verhalten, Rollback-Fehler und unsichere Ausnahmewiederherstellung</td>
+<td>Nicht abgedeckt</td>
+<td>Status-/Körperunterschiede können als Leitfaden für manuelle Untersuchungen dienen.</td>
+<td>Keine allgemeine Fehlerinjektion, Transaktions-Rollback-Behauptungen, Wiederherstellung nach einem Absturz oder Ausnahmepfad-Zugriffskontrollmodell.</td>
+</tr>
+<tr>
+<td>Andere</td>
+<td>Schmuggel von HTTP-Anfragen, fehlerhaftes Framing, Cache-Poisoning und Host-Angriffe</td>
+<td>Nicht abgedeckt</td>
+<td>Der integrierte Scanner nutzt Browser-Netzwerke und schützt verwaltete Header.</td>
+<td>Externe Tools über den nativen Proxy sind separat. Der analysierte HTTP-Transport ist auch keine bytetransparente Schmuggel- oder benutzerdefinierte TLS-Engine.</td>
+</tr>
+<tr>
+<td>Andere</td>
+<td>Schwachstellen in WebSocket-/SSE-Anwendungen</td>
+<td>Nur Indikatoren</td>
+<td>Optionale begrenzte Kanaltests erfassen den Austausch und melden ausgewählten Fehlertext.</td>
+<td>Keine protokollbewusste Autorisierung, kein Nachrichtenschema-Fuzzing, kein standortübergreifendes WebSocket-Hijacking oder keine Überprüfung der Geschäftslogik.</td>
+</tr>
+<tr>
+<td>Andere</td>
+<td>Datei-Upload, GraphQL/SOAP-Logik und nicht unterstützte Binärprotokolle</td>
+<td>Nicht abgedeckt</td>
+<td>Erkannte HTTP-Anfragen können unterstützte skalare Eingaben für generische Prüfungen verfügbar machen.</td>
+<td>Keine dedizierte Upload-Ausführung, GraphQL-Autorisierung/-Komplexität, umfassender SOAP- oder Binärprotokoll-Scanner.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interpreting-actual-run-coverage">Interpretieren der tatsächlichen Laufabdeckung</h3>
+<p>Die vollständige WSTG-Referenzkarte umfasst automatisierte Teilmengen, unterstützte Arbeit und manuelle Bewertung. In <strong>Tatsächliche Eingabeabdeckung</strong>:</p>
+<ul>
+<li><strong>Abgeschlossen</strong> bedeutet, dass die implementierte Regel für diese Eingabe abgeschlossen ist und nicht, dass die Eingabe sicher ist.</li>
+<li><strong>Teilweise</strong> bedeutet, dass einige Arbeiten ausgeführt wurden, aber ein Limit, eine Unterbrechung oder eine andere Bedingung den Abschluss verhinderte.</li>
+<li><strong>Übersprungen</strong> bedeutet, dass die Regel/Eingabe nicht ausgeführt wurde; Überprüfen Sie den Grund.</li>
+</ul>
+<p>Eine WAF, eine fehlende Rolle, eine ungültige Sitzung, ein ausgeblendeter/nicht besuchter Workflow, ein nicht verfügbarer Anforderungstext, ein CSP oder ein erschöpftes Budget können dazu führen, dass eine anfällige Eingabe ungetestet bleibt. Durch die native Proxy-Kopplung werden diese Einschränkungen nicht vom integrierten Scanner entfernt. Eine beobachtete CVE-Version, ein fehlender Header oder eine andere Antwort ist nicht automatisch ein Exploit.</p>
+<p>Version 2.18.1 hat 192 automatisierte Unit-/Regressionstests, acht echte Chrome-Prüfungen und acht echte Firefox-Prüfungen bestanden, einschließlich ZIP/YAML-CSP-Überprüfung und nativem ZAP-Verkehr gegen ein eigenes SQLite-Fixture. Seine offiziellen Browser-Bibliotheken werden Byte für Byte überprüft und ein sauberer Source-Rebuild reproduziert den Firefox XPI exakt. Diese Tests validieren das benannte Implementierungsverhalten; Sie zeigen nicht die Erkennung jeder Juice Shop-, WebGoat-, bWAPP- oder NodeGoat-Herausforderung an. Das externe ZAP SQLi-Ergebnis überprüft den Proxy-Pfad und nicht den Rückruf von Longshot über alle Schwachstellen hinweg.</p>
+<h2 id="recovery-assessment-files-and-reports">Wiederherstellung, Bewertungsdateien und Berichte</h2>
+<h3 id="keep-recovery-paths-separate">Halten Sie die Wiederherstellungspfade getrennt</h3>
+<table>
+<thead>
+<tr>
+<th>Pfad</th>
+<th>Was tun nach einem Ausfall?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Integrierter Scan/Sitzung</td>
+<td>Überprüfen Sie den Wiederherstellungsdialog des Dashboards, melden Sie sich erneut im ursprünglichen Cookie-Kontext an, validieren Sie und fahren Sie fort, wenn dies zulässig ist</td>
+</tr>
+<tr>
+<td>Nativer Tool-Proxy</td>
+<td>Überprüfen Sie den Adapter, Tab/Speicher, Token und Pausengrund; explizit fortsetzen/erneut koppeln, dann die eigene Wiederholung/Wiederaufnahme des externen Tools verwenden</td>
+</tr>
+<tr>
+<td>Agent-API</td>
+<td>Stellen Sie die native Messaging-/Daemon-Verbindung wieder her. Überprüfen Sie dann den vorhandenen Ausführungsstatus, bevor Sie einen weiteren Start ausführen</td>
+</tr>
+<tr>
+<td>Browser-Neustart / Bewertung importiert</td>
+<td>Gespeicherte Beweise wiederherstellen und Login erneut validieren; Gehen Sie nicht davon aus, dass ein Netzwerkvorgang während des Flugs oder eine vollständige Live-Scan-Warteschlange überlebt hat</td>
+</tr>
+</tbody>
+</table>
+<p>Durch die unabhängige Authentifizierungsvalidierung wird verhindert, dass jede bewusst abgelehnte Login-Mutation mit einem Sitzungsablauf verwechselt wird. Konfigurieren Sie einen aussagekräftigen geschützten Validator. Die Live-Warteschlange unterstützt möglicherweise die Wiederherstellung, während die Erweiterung ausgeführt wird, eine gespeicherte Sitzungsdatei rekonstruiert jedoch keinen unsicheren Schreibvorgang und gibt keinen gesamten unterbrochenen Scan automatisch wieder.</p>
+<h3 id="browser-storage-and-optional-session-files">Browserspeicher und optionale Sitzungsdateien</h3>
+<p>Der Browserspeicher bleibt unabhängig von einer der lokalen Bridges aktiv. Es speichert pro Profil den Verlauf, Ergebnisse, Bewertungen, Inventar und Optionen. Antworttexte können mit bestmöglicher Schwärzung beibehalten werden; Der vom Browser beobachtete Datenverkehr enthält häufig Metadaten ohne erfassten Text.</p>
+<p>Für automatische Dateiprüfpunkte:</p>
+<ol>
+<li>Registrieren/verbinden <strong>Agent-API</strong>, nicht nur Browser Bridge.</li>
+<li>Offen <strong>Einstellungen → Beurteilungssitzungen → Anleitung</strong>.</li>
+<li>Geben Sie einen absoluten Wert ein <strong>Sitzungsordner</strong> auf dem Agent-API-Computer.</li>
+<li>Aktivieren <strong>Sitzungsdateien automatisch speichern</strong> und wählen <strong>Sitzungseinstellungen speichern</strong>.</li>
+<li>Benutzen <strong>Sitzung jetzt speichern</strong> für einen sofortigen Kontrollpunkt; Normale Änderungen lösen auch Speicherungen aus.</li>
+<li>Benutzen <strong>Aktuelle Sitzung exportieren</strong> / <strong>Sitzungsdatei importieren</strong> für manuelle Übertragung; Für den manuellen Import ist der native Host nicht erforderlich.</li>
+</ol>
+<p>Dateien verwenden stabile Profil-IDs mit <code dir="ltr" translate="no">.longshot.json</code>, was explizite Profile für einen Ursprung zulässt. Es handelt sich um lesbare, unverschlüsselte Bewertungsarchive, die Antragsdaten, verfasste Vorlagen und aufbewahrte Stellen enthalten können. Ausgenommen sind vom Browser verwaltete Cookies, Provider-Tokens und Ausführungszuschüsse.</p>
+<p>Schreibvorgänge sind atomare Prüfpunkte für private Dateien. Bei einem abrupten Abbruch kann nur der zuletzt abgeschlossene Speicher wiederhergestellt werden. Wiederhergestellte laufende Scans werden unterbrochen. Wenn die Brücke getrennt wird, wird die Browserspeicherung fortgesetzt und die Dateispeicherung wartet; Nicht aufgelöste aktivierte Prüfpunkte erfordern möglicherweise eine erneute Verbindung oder die Deaktivierung der Dateispeicherung, bevor das Ziel gewechselt wird. Die maximale Größe der Sitzungsdatei beträgt 256 MB mit einem expliziten Fehler.</p>
+<p>Der Export des Bewertungsarchivs unterscheidet sich von <strong>Konfiguration herunterladen</strong> in Browser Bridge. Ersteres speichert Bewertungsnachweise/-optionen; Letzteres speichert native Proxy-Einstellungen.</p>
+<h3 id="reports">Berichte</h3>
+<p>Überprüfen Sie das aktive Profil vor dem Exportieren. Historische Scanberichte sind auch über die Agent-API verfügbar. Themenbezogene Berichte enthalten Diagramme und Beweise, aber die Diagrammzahlen sind Alarmzahlen und keine Zählung eindeutiger, verifizierter, ausnutzbarer Schwachstellen.</p>
+<table>
+<thead>
+<tr>
+<th>Formatieren</th>
+<th>Nutzung/Beschränkung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>Eigenständiger Offline-Bericht mit Inline-Diagrammen, Suche/Filtern, Beweisdetails, Thema und Drucksteuerung</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>Strukturierte redigierte Beweise, Scan-Konfiguration und aufgezeichnete Eingabeabdeckung</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>Tabellarischer Austausch; verschachtelte Felder serialisiert und Präfixe für Tabellenkalkulationsformeln geschützt</td>
+</tr>
+<tr>
+<td>SARIF 2.1.0</td>
+<td>Tooling-Integration mit Schweregrad/Konfidenz/Urteil/Referenz und Überprüfungsmetadaten</td>
+</tr>
+<tr>
+<td>Drucken / PDF</td>
+<td>Öffnen Sie den HTML-Bericht und verwenden Sie Firefox „Drucken/Als PDF speichern“. Die PDF-Option der API kann HTML plus Druckanweisungen anstelle fertiger PDF-Bytes zurückgeben</td>
+</tr>
+</tbody>
+</table>
+<p>Der Überprüfungsstatus und die Notizen sind vom Scannerurteil getrennt. Falsch-positive/akzeptierte Risikobewertungen bleiben überprüfbar; SARIF enthält ggf. Überprüfungsinformationen und Unterdrückungen. Eine Schwärzung nach besten Kräften ist keine Garantie dafür, dass eine beibehaltene Seite/ein beibehaltener Text keine Anwendungsdaten enthält. Überprüfen Sie den tatsächlichen Export, bevor Sie ihn freigeben.</p>
+<p>Externe ZAP/sqlmap/ffuf-Berichte bleiben getrennt. Native Traffic-Metadaten sind keine Kopie ihres vollständigen Anfrage-/Antwortverlaufs oder ihrer Ergebnisse.</p>
+<h2 id="appearance-language-and-help">Aussehen, Sprache und Hilfe</h2>
+<p>Themen sind global und können sich während eines Scans ändern, ohne dass sich die Scan-Genehmigung ändert. Das Menü umfasst System, Dunkel, Licht, Cybersteppe, Mr. Robot, Iron Man und gespeicherte benutzerdefinierte Themen. Das adaptive Layout schränkt die Steuerelemente ein; Die Abdeckungstabelle verfügt über einen eigenen horizontalen Bildlaufbereich für detaillierte Spalten.</p>
+<p>Unter <strong>Einstellungen → Themen und Alarmton</strong>:</p>
+<ul>
+<li>Wählen Sie das aktive Thema und den Alarmton/die Lautstärke; <strong>Testen Sie den Alarmton</strong> Zeigt eine Vorschau der ausgewählten Warnung an.</li>
+<li>Bearbeiten Sie ein integriertes und <strong>Als neues Theme speichern</strong> / duplicate to create a custom theme.</li>
+<li>Wählen Sie gebündelte/System-UI/Code-Schriftarten, Palette, Deckkraft, Hintergrund und Ton aus.</li>
+<li>Theme JSON exportieren/importieren; Beim Importieren werden keine beliebigen CSS-Codes oder Skripte ausgeführt.</li>
+<li><strong>Animationen und Sounds</strong> Steuert Bewegung und Interface-Audio pro Thema. Die Browser-/System-Einstellungen für Bewegungsreduzierung und Stummschaltung sind weiterhin wichtig.</li>
+</ul>
+<p>Dark/Light, Cybersteppe, Mr. Robot und Iron Man haben unterschiedliche visuelle/akustische Behandlungen. Das Öffnen/Auswählen des Dropdown-Menüs ist stumm. Hinweise zur Servoauswahl sind Iron-Man-spezifisch; Sicherheitswarnungen unterscheiden sich von gewöhnlichen Schnittstellentönen.</p>
+<p>Das Sprachmenü bietet 20 gebündelte Sprachen: Englisch, Russisch, Deutsch, Französisch, vereinfachtes Chinesisch, Japanisch, Spanisch, Hindi, Portugiesisch, Arabisch, Bengali, Urdu, Indonesisch, Türkisch, Koreanisch, Italienisch, Vietnamesisch, Tamil, Telugu und Marathi. Neue Abdeckung/nativer UI-Text ist in den Zusatzkatalogen enthalten. Hierbei handelt es sich um gebündelte maschinelle Übersetzungen öffentlicher UI-Prosa, nicht um einen Laufzeitübersetzungsdienst. Erfasste Zielseiten, Payloads, URLs, Feld-/Codenamen und Befehlsbeispiele behalten ihren Originaltext.</p>
+<p>Benutzen <strong>Informationen/Anleitung</strong>, Kontrollhinweise und <strong>So nutzen Sie diese Seite · Begriffe erklärt</strong> für den Kontext. Die Begriffe verweisen auf Referenzmaterial. Ein Informationsfilter/eine Informationssuche ändert nur die angezeigte Erklärung; es ermöglicht keine Prüfungen. <strong>Erste Schritte</strong> besteht aus genau acht Folien und kann nach der Entlassung noch einmal abgespielt werden.</p>
+<p>Screenshots der aktuellen Version verwenden ein eigenes temporäres Loopback-SQLite-Fixture. Ihre zufälligen Ports und Beispielkontodaten sind Testartefakte und keine erforderliche Konfiguration für Ihre Anwendung:</p>
+<blockquote>
+<p><strong>Abdeckungsdialog</strong>
+<img alt="Scan-Abdeckungs-Desktop" src="/longshot-security-site/docs/assets/scan-coverage-desktop.png"/>
+<strong>Schmales Iron Man-Layout mit russischem Berichterstattungstext</strong>
+<img alt="Scanabdeckung Eisen schmal ru" src="/longshot-security-site/docs/assets/scan-coverage-iron-narrow-ru.png"/>
+<strong>Native Proxy-Seite</strong>
+<img alt="nativer Tool-Proxy" src="/longshot-security-site/docs/assets/native-tool-proxy.png"/></p>
+</blockquote>
+<h2 id="troubleshooting">Fehlerbehebung</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Genauer zu überprüfender Bereich / nächste Aktion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Die Erweiterung ist nach dem Neustart verschwunden</td>
+<td>Ein Provisorium <code dir="ltr" translate="no">about:debugging</code> Die Installation endet beim Neustart. Laden Sie das XPI neu oder verwenden Sie die entsprechende signierte/persistente Entwicklungsinstallation</td>
+</tr>
+<tr>
+<td>Falsche Benutzeroberfläche/Version nach dem Update</td>
+<td>Überprüfen Sie das Manifest/die angezeigte Version; Laden Sie den vorgesehenen XPI neu und schließen Sie veraltete Dashboards. Quellverzeichnisnamen können alte Versionen beibehalten</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find package 'ws'</code></td>
+<td>Überprüfen Sie den Pfad im Fehler. Ein vollständig heruntergeladener nativer Adapter enthält ws; ein frisches natives Quellverzeichnis benötigt <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code>. Ein Fehler unter dem alten Adapterpfad ist ein altes Setup, nicht das neue <code dir="ltr" translate="no">cli.js</code> Befehl</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find module .../bridge/bin/longshot-bridge</code></td>
+<td>Führen Sie Agent-API-Befehle aus dem Quellstamm aus, der Folgendes enthält: <code dir="ltr" translate="no">bridge/</code>, oder verwenden Sie den absoluten Skriptpfad. Die native Proxy-ZIP-Datei ist nicht die vollständige Agent-API-Quelle</td>
+</tr>
+<tr>
+<td>Adapter startet nicht / mitmdump fehlt</td>
+<td>Lauf <code dir="ltr" translate="no">python3 bootstrap.py</code> mit Python 3.12+ oder wählen Sie die vorgesehene installierte Laufzeit mit aus <code dir="ltr" translate="no">--mitmdump</code></td>
+</tr>
+<tr>
+<td>Beim Pairing kann keine Verbindung hergestellt werden</td>
+<td>Verwenden Sie den Steuerport 8901, den aktuellen Token und den genauen Strom <code dir="ltr" translate="no">moz-extension://...</code> Herkunft. Stellen Sie sicher, dass der Adapterprozess bereit ist</td>
+</tr>
+<tr>
+<td>Das Tool erhält einen Proxy-Authentifizierungsfehler</td>
+<td>Verwenden Sie Proxy-Port 8900, Benutzername-Brücke und aktuelles Token. Aktualisieren Sie jedes Tool nach dem Neustart des Adapters</td>
+</tr>
+<tr>
+<td>Direkter/öffentlicher Inhalt anstelle der erwarteten Proxy-Anfrage</td>
+<td>Überprüfen Sie NO_PROXY/no_proxy, Tool-Ausschlüsse und Proxy-Einstellungen. Bestätigen Sie, dass die Anfrage im nativen Datenverkehr angezeigt wird</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">bridge.invalid</code> scheitert</td>
+<td>Alter Alias-Workflow. Verwenden Sie die echte Ziel-URL und keinen Eintrag in der Hosts-Datei</td>
+</tr>
+<tr>
+<td>Konfiguration abgelehnt/unbekannte Eigenschaft</td>
+<td>Nicht wiederverwenden <code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, alte Umfangs-/Zeitformulare oder alte API-Steuerelemente. Exportieren Sie die native Konfiguration und verwenden Sie die unterstützten Schlüssel</td>
+</tr>
+<tr>
+<td>Fehler bei der Zertifikatsüberprüfung</td>
+<td>Unterscheiden Sie zwischen Client→Adapter-Vertrauen und Adapter→Ursprungsüberprüfung. Vertrauen Sie der gedruckten öffentlichen Adapter-CA im Tool; Überprüfen Sie das Zertifikat des echten Servers separat</td>
+</tr>
+<tr>
+<td>Browser-Cookies erreichen das Tool nicht</td>
+<td>Überprüfen Sie die ausgewählte Registerkarte/den ausgewählten Speicher, die zutreffende Domäne/den Pfad/die sichere Datei/Partition, die aktivierten Cookies, die geschützten Namen und ob die Anfrage tatsächlich den Proxy durchlaufen hat</td>
+</tr>
+<tr>
+<td>Das Tool sendet einen Cookie-Test, der jedoch verschwindet</td>
+<td>Deaktivieren/schützen Sie die relevante Überschreibung oder fügen Sie X-Longshot-Preserve hinzu / fordern Sie die Überschreibung aus an. Verlassen Sie sich nicht auf die Absichtserkennung bei erster Anfrage</td>
+</tr>
+<tr>
+<td>Browser-Cookies ändern sich weiterhin, wenn die Anforderungsüberschreibung deaktiviert ist</td>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code> ist unabhängig. Deaktivieren Sie es auch, wenn die Antwortsynchronisierung unerwünscht ist</td>
+</tr>
+<tr>
+<td>401/419/440 oder 429 pausiert den nativen Proxy</td>
+<td>Überprüfen Sie die Registerkarte/Sitzung/Drosselung und setzen Sie sie dann explizit fort. Absichtliche Tests mit negativer Authentifizierung erfordern möglicherweise eine überprüfte Konfigurationsänderung und einen Neustart des Pausenstatus</td>
+</tr>
+<tr>
+<td>WAF akzeptiert Firefox, lehnt jedoch nativen Datenverkehr ab</td>
+<td>Das Kopieren von Cookies/UA reproduziert weder das TLS-/IP-/Browserverhalten noch führt es JavaScript-Herausforderungen aus. Überprüfen Sie den zulässigen Bewertungsweg und die Beweise</td>
+</tr>
+<tr>
+<td>Zwiebelziel blockiert</td>
+<td>Konfigurieren Sie eine echte explizite SOCKS/Upstream-Route im nativen Adapter. Integrierte/Browser- und isolierte native Nuclei haben unterschiedliche Routings</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">permissions.request may only be called from a user input handler</code></td>
+<td>Verwenden Sie den aktuellen Erweiterungsgenehmigungsworkflow. Speichern, prüfen und dann auf „Diesen nächsten Lauf genehmigen“ klicken, um fehlende Berechtigungen anzufordern. Rufen Sie keine Berechtigungen aus einer asynchronen Agenten-/Hintergrundeinstellungsänderung auf</td>
+</tr>
+<tr>
+<td>Allgemeiner URL-Konstruktorfehler nach Maximum-Ergebnissen</td>
+<td>Überprüfen <strong>URL des OAST-Anbieters</strong> und <strong>Rückrufdomäne</strong>, unabhängig von der Ziel-URL. Füllen Sie passende Werte aus oder deaktivieren Sie OAST; Die aktuelle Validierung identifiziert das relevante Feld</td>
+</tr>
+<tr>
+<td>„Aggressiv“ ist deaktiviert, die erweiterten Optionen bleiben jedoch aktiviert</td>
+<td>Deaktivieren Sie die aufgeführten Funktionen oder aktivieren/speichern Sie Aggressive und genehmigen Sie den nächsten Lauf</td>
+</tr>
+<tr>
+<td>Sitzung B fehlt/ungültig</td>
+<td>Wählen Sie eine eindeutige Registerkarte mit demselben Ursprung in einem anderen Container/privaten Cookie-Speicher aus. Normale Registerkarten stellen keine unabhängigen Cookies bereit</td>
+</tr>
+<tr>
+<td>Genehmigung abgelaufen/verwendet/geändert</td>
+<td>Speichern Sie die endgültigen Einstellungen und genehmigen Sie einen neuen Zuschuss für die nächste Ausführung. Die Haltbarkeit beträgt 30 Minuten und es ist zum einmaligen Gebrauch bestimmt</td>
+</tr>
+<tr>
+<td>Run Fuzzer hat keine sinnvolle Anfrage</td>
+<td>Geben Sie eine bereichsbezogene URL, einen Abfrageparameter und einen nicht leeren ausgewählten Nutzlastsatz an oder verwenden Sie nach der Inventarerkennung einen separaten Auto-Fuzz</td>
+</tr>
+<tr>
+<td>Das Update der Sondenbibliothek schlägt fehl</td>
+<td>Überprüfen Sie die gemeldete Quelle/das Netzwerk/den Validierungsgrund. Zuvor zwischengespeicherte Daten bleiben erhalten; Zielscans werden nicht automatisch erneut ausgeführt</td>
+</tr>
+<tr>
+<td>Keine Befunde / zu wenige Kontrollen</td>
+<td>Lesen der tatsächlich abgeschlossenen/teilweisen/übersprungenen Eingabeabdeckung; Überprüfen Sie Erkennung, Anmeldung, Budgets, Antworttyp, Blockierung und Ausschlüsse</td>
+</tr>
+<tr>
+<td>OPTIONEN ermöglichen LÖSCHEN</td>
+<td>Nur Inventar. Es beweist nicht, dass es sich um nicht authentifizierte Schreibvorgänge handelte oder dass Longshot sie versucht hat</td>
+</tr>
+<tr>
+<td>Die OAST-Verbindung wird bestanden, aber kein Zielrückruf</td>
+<td>Führen Sie einen Browser-Callback-Test durch und überprüfen Sie, ob Anbieter/Domain, TTL und Zielausgang übereinstimmen. Abwesenheit bleibt unklar</td>
+</tr>
+<tr>
+<td>Die native Vorlage ist blockiert</td>
+<td>Grund für Lesen von Executor/Fähigkeit: Nuclei/isolation/helper/signature/scope/approval/routing fehlt möglicherweise</td>
+</tr>
+<tr>
+<td>Smart Analyzer kann das Backend nicht benennen</td>
+<td>„Unbekannt“ ist ein gültiges Ergebnis. WAF/Proxy-Schichten können Beweise verbergen oder umschreiben; Überprüfen Sie den Bereitstellungsbestand manuell</td>
+</tr>
+<tr>
+<td>Dem Cimematic Viewer fehlt eine Live-Seite</td>
+<td>Überprüfen Sie die aktive Registerkarte/Anmeldung/Herkunft, Erfassungs-/Ladeeinschränkungen und Abhängigkeiten. Verwenden Sie ausschließlich erfasste und aufgezeichnete Beweise</td>
+</tr>
+<tr>
+<td>Der Betrachter zeigt auf einen allgemeinen Seitenbereich</td>
+<td>Möglicherweise gibt es kein passendes HTML-Feld für ein Header-/API-/Cookie-Ergebnis. Die Positionierung im Seitenkontext ist kein exakter Eingabenachweis</td>
+</tr>
+<tr>
+<td>Die Bewertungsdateien warten/fehlerhaft</td>
+<td>Verbinden Sie die Agent-API, überprüfen Sie den ausgewählten absoluten Ordner/Status und ausstehende Prüfpunkte. Der Browserspeicher bleibt getrennt</td>
+</tr>
+<tr>
+<td>Nativer Datenverkehr hat keine Antworttexte oder ZAP-Ergebnisse</td>
+<td>Erwartete Nur-Metadaten-Ansicht; Überprüfen Sie den eigenen Verlauf und Bericht des externen Tools</td>
+</tr>
+<tr>
+<td>Die PDF-API-Antwort ist HTML/Anweisungen</td>
+<td>Verwenden Sie „Drucken/Als PDF speichern“; Benennen Sie HTML-Bytes nicht in .pdf um</td>
+</tr>
+<tr>
+<td>Die übersetzte Benutzeroberfläche zeigt immer noch Englisch an</td>
+<td>Codebegriffe, Befehlsbeispiele, URLs, Payloads und erfasste Beweise bleiben absichtlich erhalten. Überprüfen Sie die Version/Sprache auf tatsächliche UI-Prosa. Die Qualität der maschinellen Übersetzung kann variieren</td>
+</tr>
+</tbody>
+</table>
+<p>Beginnen Sie zur Diagnose mit der feldspezifischen Meldung und den Protokollen der relevanten Komponente. Ein nativer Proxy-Kopplungsfehler, ein Browser-Scan-Sitzungsfehler und ein Agent-API-Verbindungsfehler erfordern unterschiedliche Korrekturen. Betrachten Sie eine abgeschlossene UI-Aktion oder eine erfolgreiche Kopplung nicht als Beweis dafür, dass jede geplante Anfrage oder Prüfung ausgeführt wurde.</p>
+<h2 id="terms-and-source-references">Begriffe und Quellenangaben</h2>
+<table>
+<thead>
+<tr>
+<th>Begriff</th>
+<th>Klartextbedeutung/Referenz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">HTTP-Anfrage/Antwort</a></td>
+<td>Nachricht an einen Webserver / deren Antwort, einschließlich Methode, URL, Header und optionalem Text</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/Origin">Herkunft</a></td>
+<td>Schema, Host und Port, die als Web-Sicherheitsgrenze verwendet werden</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies">Keks</a></td>
+<td>Browserverwalteter Status für entsprechende Anfragen ausgewählt</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Session_Management">Sitzungsverwaltung</a></td>
+<td>Wie die Anwendung einen Benutzer über Anfragen hinweg erkennt</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/essential-skills">Nutzlast</a></td>
+<td>Ein an einen Eingang gesendeter Testwert; nicht automatisch ein erfolgreicher Exploit</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/sql-injection">SQL-Injection</a></td>
+<td>Die Eingabe ändert, wie eine Datenbankabfrage interpretiert wird</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/nosql-injection">NoSQL-Injection</a></td>
+<td>Die Eingabe ändert eine Nicht-SQL-Datenbankabfrage oder das Verhalten eines Operators</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a></td>
+<td>Vom Angreifer kontrollierte Daten gelangen in ausführbare Browserinhalte</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting/dom-based">DOM XSS</a></td>
+<td>Clientseitiges JavaScript überträgt nicht vertrauenswürdige Daten in eine ausführbare Senke</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/server-side-template-injection">SSTI</a></td>
+<td>Eingaben werden als Servervorlagenanweisungen interpretiert</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/os-command-injection">Befehlsinjektion</a></td>
+<td>Die Eingabe ändert Befehle, die von einer Betriebssystem-Shell/einem Betriebssystem-Programm ausgeführt werden</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/file-path-traversal">Pfaddurchquerung</a></td>
+<td>Die Eingabe überschreitet die vorgesehene Dateipfadgrenze</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/ssrf">SSRF</a></td>
+<td>Ein Server stellt eine unbeabsichtigte Anfrage an ein anderes Ziel</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/xxe">XXE</a></td>
+<td>Die Verarbeitung externer XML-Entitäten führt zu unbeabsichtigtem Ressourcenzugriff</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/csrf">CSRF</a></td>
+<td>Eine andere Site löst eine unbeabsichtigte authentifizierte Anwendungsaktion aus</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cors">CORS</a></td>
+<td>Browserrichtlinie, die den ursprungsübergreifenden Antwortzugriff steuert</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/access-control/idor">Zugangskontrolle / IDOR</a></td>
+<td>Ob ein Benutzer auf ein Objekt/eine Aktion zugreifen darf, nicht nur, ob seine URL erreichbar ist</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/logic-flaws">Geschäftslogik</a></td>
+<td>Regeln zu gültigen Preisen, Arbeitsabläufen, Salden und Zustandsübergängen</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a></td>
+<td>Vom Browser erzwungene Ressourcen-/Skriptrichtlinie; Ein fehlender Header allein ist keine XSS-Ausführung</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Web_Application_Firewall">WAF</a></td>
+<td>HTTP-Filterschicht, deren Vorhandensein nicht jede aktive Regel preisgibt</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Reverse_proxy">Reverse-Proxy</a></td>
+<td>Vermittler, der Anfragen vor einem Anwendungsserver empfängt</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/TLS">TLS/CA</a></td>
+<td>Verbindungsverschlüsselung und die Zertifikatsvertrauensstellung, die zur Authentifizierung des Endpunkts verwendet wird</td>
+</tr>
+<tr>
+<td><a href="https://nvd.nist.gov/vuln">CVE / NVD</a></td>
+<td>Identifikator/Datenbank für bekannte Schwachstellen; Das Zuordnen eines Banners ist keine Exploit-Überprüfung</td>
+</tr>
+<tr>
+<td><a href="https://cwe.mitre.org/">CWE</a></td>
+<td>Klassifizierung von Schwächetypen</td>
+</tr>
+<tr>
+<td><a href="https://top10.owasp.org/2025/">OWASP Top 10:2025</a></td>
+<td>Bekanntheitskategorien, keine vollständige Scanner-Testsuite</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-project-web-security-testing-guide/">WSTG</a></td>
+<td>Referenz zum Web-Sicherheitstest, der automatisierte und manuelle Arbeit abdeckt</td>
+</tr>
+</tbody>
+</table>
+<p>Implementierungsbasis für dieses Tutorial: Manifest 2.18.1; <code dir="ltr" translate="no">content/checks.js</code>; <code dir="ltr" translate="no">lib/core.js</code>, <code dir="ltr" translate="no">lib/v2.js</code>, Audit-/DOM-/Probe-Module; Dashboard/Hilfe/Abdeckung/native Benutzeroberfläche; native Adapterkonfiguration, Überschreibungen und CLI; Agent-API/nativer Client; Release-Validierungsartefakte. Wenn ältere Dokumentation mit dem entfernten Legacy-Transportverhalten in Konflikt steht, wird hier die ausgelieferte 2.18.1-Laufzeitumgebung als Grundlage verwendet.</p>
+<p>Zusätzliche Setup-Referenzen:</p>
+<ul>
+<li><a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">Temporäre Mozilla-Installation</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging">Natives Mozilla-Messaging</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP-Einstellungen für ausgehende Verbindungen</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/">Richtlinien und Einschränkungen für den aktiven ZAP-Scan</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/concepts/certificates/">Mitmproxy-Zertifikate</a></li>
+<li><a href="https://github.com/projectdiscovery/interactsh">Offizielle Interactsh</a></li>
+<li><a href="https://docs.projectdiscovery.io/templates/reference/template-signing">Unterzeichnung der Nuclei-Vorlage</a></li>
+<li><a href="#owasp-top-10-coverage">Vollständiges Release-Coverage-Dokument</a></li>
+</ul>
+<p>Dieses Tutorial ist eine allgemeine Anleitung für die genannte Version. Für anwendungsspezifische Ergebnisse sind weiterhin ein autorisiertes Ziel, festgelegte Arbeitsabläufe und überprüfte Beweise erforderlich.</p></main></div><footer>Longshot Security · Nur autorisierte Bewertungen · <a href="/longshot-security-site/de/">Back to Longshot</a><p class="translation-notice">Übersetzungen werden maschinell erstellt. Die englische Version ist die Referenz.</p></footer></body></html>

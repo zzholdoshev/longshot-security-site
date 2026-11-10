@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+
+<html data-site-base="/longshot-security-site/" data-site-page="docs/" dir="ltr" lang="id"><head><script data-language-script="" defer="" src="/longshot-security-site/language.js?v=20261110-i18n"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Dokumentasi lengkap — Keamanan Longshot 2.18.1</title><meta content="Tutorial umum lengkap Longshot: pemindaian browser, proxy asli, penggantian cookie, ZAP, MCP, fuzzing, temuan dan laporan." name="description"/><link href="/longshot-security-site/assets/mark.svg" rel="icon" type="image/svg+xml"/><link href="/longshot-security-site/style.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/docs/docs.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/localization.css?v=20261110-i18n" rel="stylesheet"/><link href="https://zzholdoshev.github.io/longshot-security-site/id/docs/" rel="canonical"/><link href="https://zzholdoshev.github.io/longshot-security-site/docs/" hreflang="en" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ru/docs/" hreflang="ru" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/de/docs/" hreflang="de" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/fr/docs/" hreflang="fr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/zh/docs/" hreflang="zh" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ja/docs/" hreflang="ja" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/es/docs/" hreflang="es" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/hi/docs/" hreflang="hi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/pt/docs/" hreflang="pt" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ar/docs/" hreflang="ar" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/bn/docs/" hreflang="bn" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ur/docs/" hreflang="ur" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/id/docs/" hreflang="id" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/tr/docs/" hreflang="tr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ko/docs/" hreflang="ko" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/it/docs/" hreflang="it" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/vi/docs/" hreflang="vi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ta/docs/" hreflang="ta" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/te/docs/" hreflang="te" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/mr/docs/" hreflang="mr" rel="alternate"/></head><body data-ui-copy='{"Signed in already? Start from that tab. Your session is the starting point.":"Sudah masuk? Mulai dari tab itu. Sesi Anda adalah titik awal.","Your tools send their own HTTP requests. Browser Bridge can supply the browser cookies.":"Alat Anda mengirimkan permintaan HTTPnya sendiri. Browser Bridge dapat menyediakan cookie browser.","Cookie override is on by default in the paired native bridge. You can turn it off.":"Penggantian cookie diaktifkan secara default di jembatan asli yang dipasangkan. Anda dapat mematikannya.","A finding is a lead. Read the request, the response and the controls before confirming it.":"Sebuah temuan adalah sebuah petunjuk. Baca permintaan, respons, dan kontrolnya sebelum mengonfirmasinya.","Using Chrome? Keep the Longshot workbench tab open while you scan.":"Menggunakan Chrome? Biarkan tab meja kerja Longshot tetap terbuka saat Anda memindai.","Connect a compatible MCP agent to run permitted checks and examine the evidence.":"Hubungkan agen MCP yang kompatibel untuk menjalankan pemeriksaan yang diizinkan dan memeriksa bukti.","No bridge.invalid or hosts-file entry. The native proxy uses the actual target URL.":"Tidak ada entri file bridge.invalid atau host. Proksi asli menggunakan URL target sebenarnya.","Pause motion":"Jeda gerakan","Resume motion":"Lanjutkan gerakan"}'><a class="skip" href="#documentation">Lewati ke dokumentasi</a><nav aria-label="Navigasi utama"><a href="/longshot-security-site/id/">LONGSHOT</a><a href="/longshot-security-site/id/#download">Unduh</a><a href="/longshot-security-site/id/support.html">Dukungan</a><a href="/longshot-security-site/id/privacy.html">Privasi</a><label class="language-switcher"><span>Bahasa</span><select aria-label="Bahasa situs web" id="site-language" translate="no"><option value="en">English</option><option value="ru">Русский</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="zh">简体中文</option><option value="ja">日本語</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="pt">Português</option><option value="ar">العربية</option><option value="bn">বাংলা</option><option value="ur">اردو</option><option selected="selected" value="id">Bahasa Indonesia</option><option value="tr">Türkçe</option><option value="ko">한국어</option><option value="it">Italiano</option><option value="vi">Tiếng Việt</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="mr">मराठी</option></select></label></nav><div class="docs-layout"><aside class="docs-sidebar"><details open=""><summary>TUTORIAL UMUM / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">Berkode getaran. Dikirim. Diretas.</a><a href="#firefox-and-chrome-choose-your-edition">Firefox dan Chrome: pilih edisi Anda</a><a href="#contents">Isi</a><a href="#what-runs-where">Apa yang berjalan dimana</a><a href="#install-or-update-in-firefox-nightly">Instal atau perbarui di Firefox Nightly</a><a href="#getting-started-and-target-sessions">Memulai dan menargetkan sesi</a><a href="#light-discovery-and-a-focused-active-scan">Penemuan ringan dan pemindaian aktif terfokus</a><a href="#aggressive-options-and-run-approval">Opsi agresif dan jalankan persetujuan</a><a href="#overview-checks">Pemeriksaan ikhtisar</a><a href="#scan-options-reference">Referensi opsi pemindaian</a><a href="#budgets-selectors-and-request-settings">Anggaran, penyeleksi, dan pengaturan permintaan</a><a href="#fuzzer-auto-fuzz-and-probe-library">Pustaka Fuzzer, Fuzz Otomatis, dan Probe</a><a href="#your-payloads-and-imported-templates">Muatan Anda dan templat yang diimpor</a><a href="#server-stack-and-smart-analyzer">Tumpukan server dan penganalisis cerdas</a><a href="#oast-setup-and-interpretation">Pengaturan dan interpretasi OAST</a><a href="#browser-bridge-native-tool-proxy">Jembatan Browser: proksi alat asli</a><a href="#native-bridge-configuration">Konfigurasi jembatan asli</a><a href="#cookie-and-header-overrides-without-damaging-probes">Cookie dan header diganti tanpa merusak probe</a><a href="#external-tools-and-actual-zap-scanning">Alat eksternal dan pemindaian ZAP yang sebenarnya</a><a href="#tor-and-onion-routing">Perutean Tor dan bawang</a><a href="#agent-api-mcp-and-local-model-clients">Agen API, MCP, dan klien model lokal</a><a href="#optional-native-nuclei">Nuclei asli opsional</a><a href="#manual-tools-interception-and-api-inventory">Alat manual, intersepsi, dan inventaris API</a><a href="#findings-and-the-cimematic-viewer">Temuan dan penampil simematik</a><a href="#owasp-top-10-coverage">Cakupan 10 Teratas OWASP</a><a href="#recovery-assessment-files-and-reports">Pemulihan, penilaian file dan laporan</a><a href="#appearance-language-and-help">Penampilan, bahasa dan bantuan</a><a href="#troubleshooting">Pemecahan masalah</a><a href="#terms-and-source-references">Istilah dan referensi sumber</a></div></details><a class="markdown-download" download="" href="/longshot-security-site/docs/longshot-general-tutorial.md">Unduh Penurunan harga ↓ · English</a></aside><main class="docs-main" id="documentation"><p class="eyebrow">DOKUMENTASI LENGKAP · DIPERBARUI 10 NOVEMBER 2026</p><h1 id="longshot-2181-general-tutorial-and-control-reference">Longshot 2.18.1 — tutorial umum dan referensi kontrol</h1>
+<p>Diperbarui 10 November 2026 untuk Longshot <strong>2.18.1</strong> (Edisi Firefox dan Chrome) dan nya <strong>proksi alat HTTP/HTTPS asli</strong>. Ini menggantikan tutorial umum 2.11.1. Petunjuk di bawah menjelaskan implementasi yang dikirimkan, termasuk batasannya; contoh jembatan lama tidak dapat dipertukarkan dengan rilis ini.</p>
+<p>Longshot adalah meja kerja sesi browser untuk penilaian aplikasi web resmi. Ini menggabungkan penemuan, pemindai aktif JavaScript-nya sendiri, alat HTTP manual, templat yang diimpor, tinjauan temuan, dan laporan. Browser Bridge opsional memungkinkan alat eksternal menggunakan nilai sesi Firefox yang dipilih sambil mengirimkan permintaan HTTP asli mereka sendiri.</p>
+<p>Pass pertama yang berguna adalah: <strong>buka aplikasi → masuk → luncurkan Longshot dari tab itu → Hubungkan → validasi sesi → temukan masukan → jalankan pemeriksaan yang dipilih → tinjau bukti</strong>.</p>
+<p>Untuk aplikasi yang menangani data atau uang pengguna yang sensitif, termasuk aplikasi yang dibuat dengan AI atau aplikasi berkode getaran, pekerjakan tim keamanan siber untuk melakukan penilaian profesional. Pemindaian ekstensi tidak menggantikan pengujian otorisasi, tinjauan logika bisnis, atau penilaian keamanan independen. Daftar temuan yang kosong bukanlah sertifikat keamanan.</p>
+<p>Dokumen ini menjelaskan perintah; memperbaruinya tidak menginstal perangkat lunak, mendaftarkan host, mengubah pengaturan browser atau menjalankan pemindaian apa pun. Jalankan contoh hanya terhadap target penilaian resmi Anda. Sampel <code dir="ltr" translate="no">http://localhost:8080</code> adalah contoh target lokal, bukan layanan Longshot bawaan.</p>
+<h2 id="vibe-coded-shipped-hacked">Berkode getaran. Dikirim. Diretas.</h2>
+<p><strong>Bayangkan ini:</strong> aplikasi Anda ditayangkan, penyerang menemukan kelemahannya, dan pengguna membuka akunnya hingga saldo nol. Semua uang mereka—hilang.</p>
+<p>Kode tersebut tampak meyakinkan. AI mengatakan itu tampak aman. Itu tidak cukup.</p>
+<p><strong>LLM bersifat nondeterministik. Mereka dapat melewatkan kerentanan dan membuat kesalahan yang pasti. Anda memerlukan opini kedua. Anda membutuhkan Longshot.</strong></p>
+<p>Longshot mengubah Firefox menjadi meja kerja keamanan untuk aplikasi web yang Anda buat. Jalankan pemeriksaan berulang terhadap aplikasi yang sebenarnya berjalan, periksa bukti HTTP, dan selidiki kelemahannya sebelum pengguna Anda membayar akibatnya.</p>
+<p>Penutup cek didukung <strong>Injeksi SQL/NoSQL, kode sisi server dan injeksi templat, kandidat XSS yang tercermin, traversal jalur/penyertaan file, pengalihan terbuka, dan injeksi CRLF/header</strong>, dengan verifikasi DOM XSS langsung opsional. Ulasan <strong>header keamanan yang lemah, kebijakan cookie dan CORS, konfigurasi terbuka, dan pengungkapan kesalahan</strong>, dengan pemeriksaan opsional untuk kelas serangan lebih lanjut.</p>
+<p>Mulai dari tab browser yang sudah Anda gunakan. Simpan cookie aktif, konfigurasikan validasi sesi, pulihkan setelah kehilangan sesi, dan atur setiap pengaturan, riwayat, dan temuan target.</p>
+<p><strong>Manfaatkan AI Anda—lalu periksa fungsinya.</strong> Hubungkan agen melalui MCP untuk menjalankan pemeriksaan resmi dan memeriksa temuan. Gunakan Browser Bridge asli untuk menghadirkan ZAP, sqlmap, curl, ffuf, atau wget ke sesi browser yang terhubung tanpa menyalin nilai cookie secara manual. Alat tersebut mengirimkan permintaan dan muatan HTTPnya sendiri; penggantian cookie-browser diaktifkan secara default dan dapat dinonaktifkan.</p>
+<p>Pengguna tingkat lanjut dapat mengimpor yang kompatibel <strong>Templat CVE</strong> dan berkorelasi <strong>Panggilan balik OAST</strong> dengan penyelidikan yang menyebabkannya. Tinjau dan catat keputusan Anda, lalu ekspor yang kaya akan bukti <strong>Laporan HTML, JSON, CSV atau SARIF</strong>, dengan keluaran cetak/PDF. Jelaskan temuan dengan <strong>penampil sinematik</strong>, termasuk konteks halaman CSS/JavaScript langsung, elemen 3D animasi, jeda, dan kontrol layar penuh. Pilih tema yang tajam dan sesuaikan gerakan dan suara agar sesuai dengan ruang kerja Anda.</p>
+<p><strong>Sebelum Anda memberikan kepercayaan, mintalah bukti. Jangka panjang.</strong></p>
+<h3 id="quick-scan-one-sentence">Pemindaian cepat — satu kalimat</h3>
+<p>Buka aplikasi Anda di Firefox, masuk jika diperlukan, luncurkan Longshot dari tab itu, klik Hubungkan, validasi pemeriksaan sesi yang dikonfigurasi, lalu pilih Spider + pemeriksaan aktif → Mulai pemindaian dan tinjau Temuan.</p>
+<h3 id="short-ad">Iklan pendek</h3>
+<p>Aplikasi berkode getaran Anda sudah aktif. Apa yang terlewatkan oleh AI? Longshot memeriksa aplikasi yang berjalan untuk melihat injeksi, XSS, dan kelemahan umum lainnya, menambahkan pengujian sesi browser dan alur kerja AI/MCP, serta memberi Anda bukti untuk ditinjau. Anda memerlukan opini kedua. Anda membutuhkan Longshot.</p>
+<h3 id="compact-description">Deskripsi ringkas</h3>
+<p>Pendapat kedua untuk aplikasi berkode getaran: pemeriksaan sesi browser, AI/MCP, alat asli dengan penggantian cookie browser yang dapat dikonfigurasi, CVE/OAST, temuan dan laporan sinematik.</p>
+<h3 id="campaign-captions">Keterangan kampanye</h3>
+<ol>
+<li><strong>KODE GETARAN. DIKIRIM. diretas.</strong> Skenario hipotetis peluncuran dan kehilangan akun; dapatkan opini kedua sebelum pengiriman.</li>
+<li><strong>UJI SESI INI. PERIKSA APLIKASI.</strong> Cookie langsung, validasi, dan bukti spesifik target.</li>
+<li><strong>AI MENULISNYA. SIAPA YANG MEMERIKSANYA?</strong> Membawa saran AI ke dalam alur kerja keamanan yang dapat ditinjau.</li>
+<li><strong>ALAT ANDA. TAB ANDA. SESI ANDA.</strong> Jembatan Browser untuk utilitas HTTP lokal yang didukung.</li>
+<li><strong>BURU CACATNYA. IKUTI BUKTINYA.</strong> Templat CVE canggih yang kompatibel dan korelasi OAST.</li>
+<li><strong>BUKTI ATAS KEAMANAN.</strong> Tinjau dan ekspor laporan di ruang kerja yang dapat Anda sesuaikan.</li>
+<li><strong>AI ANDA BUKAN PUTUSAN KEAMANAN.</strong> MCP memeriksa aplikasi Anda yang sedang berjalan; bukti yang dapat Anda ulas.</li>
+<li><strong>SESI YANG KEDALUWARSA. KONTEKS HILANG.</strong> Validasi, jeda, masuk lagi, dan lanjutkan.</li>
+</ol>
+<h3 id="selling-points-in-2181">Nilai jual di 2.18.1</h3>
+<table>
+<thead>
+<tr>
+<th>Nilai jual</th>
+<th>Manfaat praktis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sesi browser Anda saat masuk, alat Anda</strong></td>
+<td>ZAP dan klien proksi HTTP lainnya menggunakan toples cookie Firefox yang dipilih secara default, dengan sinkronisasi cookie respons dan sakelar mati independen.</td>
+</tr>
+<tr>
+<td><strong>Mesin pemindai eksternal yang sebenarnya</strong></td>
+<td>ZAP menghasilkan permintaan dan muatan HTTP aslinya sendiri melalui Browser Bridge; penggantian cookie/header yang dipilih bersifat eksplisit.</td>
+</tr>
+<tr>
+<td><strong>Lindungi probe, pertahankan sesinya</strong></td>
+<td>Bidang yang dilindungi dan bypass per permintaan memungkinkan Anda mempertahankan mutasi cookie/header yang disengaja dari suatu alat.</td>
+</tr>
+<tr>
+<td><strong>Bukti yang bisa Anda periksa</strong></td>
+<td>Aturan aktif khusus menggunakan kontrol berulang; cakupan input aktual membedakan pekerjaan yang selesai, sebagian, dan dilewati.</td>
+</tr>
+<tr>
+<td><strong>AI yang dapat bekerja melalui antarmuka</strong></td>
+<td>MCP memaparkan perintah pemindaian dan kontrol dasbor yang didukung sehingga agen yang kompatibel dapat mengoperasikan meja kerja dan mengambil hasilnya.</td>
+</tr>
+<tr>
+<td><strong>Temuan yang bisa Anda jelaskan</strong></td>
+<td>Penampil simematik menggabungkan konteks halaman saat ini, rekaman bukti, penjelasan 3D, dan potensi risiko dalam bahasa sederhana.</td>
+</tr>
+<tr>
+<td><strong>Bawalah bahan pengujian Anda sendiri</strong></td>
+<td>Unggah paket muatan spesifik target dan templat yang telah ditinjau; segarkan daftar komunitas yang didukung dari antarmuka.</td>
+</tr>
+<tr>
+<td><strong>Ruang kerja yang tetap menjadi milik Anda</strong></td>
+<td>Data penilaian per target, catatan tinjauan, pos pemeriksaan file opsional, laporan offline, tema, dan 20 bahasa UI yang dibundel.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publication-notes">Catatan publikasi</h3>
+<p>Kisah kehilangan rekening bersifat hipotetis, bukan klaim tentang pelanggan sebenarnya atau jaminan bahwa Longshot mencegah kerugian finansial. Ekstensi melakukan penilaian, bukan pemblokiran serangan berkelanjutan. Temuan memerlukan peninjauan; tabel cakupan menjelaskan dukungan terbatas dan kesenjangan manual saja. Analisis DOM mencakup indikator dan canary eksekusi yang didukung, bukan cakupan eksploitasi DOM universal. Urutan sinematik menjelaskan bukti; itu tidak menambahkan bukti eksploitasi.</p>
+<p>MCP dan Jembatan Browser memerlukan pengaturan lokal. Proksi alat asli menggunakan proses Node/Python/mitmproxy terpisah, dan intersepsi HTTPS memerlukan konfigurasi kepercayaan alat untuk CA adaptor. Ini adalah transportasi HTTP yang diurai, bukan TCP mentah transparan-byte. Penggantian cookie dapat dinonaktifkan; cookie browser atau Agen Pengguna tidak menjamin jaringan yang identik dengan browser atau penerimaan WAF. ZAP eksternal tetap dipasang secara terpisah. Eksekusi template bergantung pada kompatibilitas/runtime; OAST memerlukan penyedia yang dikonfigurasi. Validasi autentikasi memerlukan titik akhir/penanda yang dilindungi secara bermakna. Profil target data penilaian terpisah; tab/wadah menyediakan sesi cookie.</p>
+<p>Untuk aplikasi yang menangani data sensitif atau uang, pekerjakan tim keamanan siber dan gunakan Longshot sebagai salah satu bagian dari penilaian. Gunakan hanya pada aplikasi yang Anda miliki atau yang diizinkan untuk diuji.</p>
+<p>Jika menggunakan kembali gambar kampanye yang dibuat sebelumnya, beri label sebagai komposisi dan gunakan tangkapan layar aktual saat ini jika UI dengan piksel persis diperlukan. Tutorial ini menghubungkan screenshot validasi 2.18.1 yang sebenarnya di bagian tampilan; itu tidak termasuk paket kampanye delapan gambar baru atau klaim dukungan pihak ketiga.</p>
+<h2 id="firefox-and-chrome-choose-your-edition">Firefox dan Chrome: pilih edisi Anda</h2>
+<p>Panduan lengkap ini menjelaskan rangkaian fitur yang didukung Firefox. Chrome menggunakan meja kerja sesi browser inti yang sama dengan perbedaan platform di bawah ini. Referensi ke container Firefox, eksekusi DOM langsung, intersepsi yang ditahan, dan penulisan ulang VHOST browser nanti dalam panduan ini hanya untuk Firefox.</p>
+<table>
+<thead>
+<tr>
+<th>Kemampuan</th>
+<th>Firefox</th>
+<th>Chrome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pemeriksaan aktif browser, fuzzing manual/otomatis, templat HTTP yang didukung, OAST, tumpukan bukti dan laporan</td>
+<td>Didukung dengan prasyarat yang terdokumentasi</td>
+<td>Didukung dengan prasyarat yang terdokumentasi</td>
+</tr>
+<tr>
+<td>Proksi HTTP asli dengan penggantian cookie/header browser dan sinkronisasi cookie respons</td>
+<td>Didukung</td>
+<td>Didukung</td>
+</tr>
+<tr>
+<td>Instrumentasi AJAX konteks halaman dan verifikasi eksekusi DOM XSS langsung</td>
+<td>Didukung ketika disetujui dan diizinkan</td>
+<td>Tidak tersedia dalam rilis ini</td>
+</tr>
+<tr>
+<td>Sesi B dalam wadah terpisah, mengadakan intersepsi dan penulisan ulang VHOST browser</td>
+<td>Didukung ketika dikonfigurasi dan diizinkan</td>
+<td>Tidak tersedia dalam rilis ini</td>
+</tr>
+<tr>
+<td>Menemukan pemirsa</td>
+<td>Menangkap bukti dan mendukung konteks halaman langsung</td>
+<td>Barang bukti yang diambil; pengambilan halaman latar belakang langsung tidak tersedia</td>
+</tr>
+<tr>
+<td>Siklus hidup mesin</td>
+<td>Halaman latar belakang yang persisten</td>
+<td>Biarkan meja kerja yang terlihat tetap terbuka; menutupnya akan menghentikan permintaan asli berpasangan yang baru</td>
+</tr>
+<tr>
+<td>Penjelajahan pribadi</td>
+<td>Konteks yang dipilih, bergantung pada izin dan pengaturan</td>
+<td>Dinonaktifkan dalam rilis ini</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-the-chrome-edition">Instal edisi Chrome</h3>
+<ol>
+<li>Unduh <strong>ZIP Krom</strong> dari tautan rilis di atas/bawah dan ekstrak ke folder yang Anda simpan.</li>
+<li>Buka <code dir="ltr" translate="no">chrome://extensions</code>, aktifkan <strong>Mode pengembang</strong>, pilih <strong>Muatan dibongkar</strong>, lalu pilih folder hasil ekstrak yang berisi <code dir="ltr" translate="no">manifest.json</code>.</li>
+<li>Buka aplikasi resmi Anda, masuk, luncurkan Longshot dari tab itu dan Hubungkan.</li>
+<li>Biarkan tab meja kerja tetap terbuka selama pemindaian dan pemasangan asli. Menutupnya mengakhiri kerja mesin secara langsung; bukti yang disimpan tetap ada dan dipulihkan tanpa mengulangi permintaan yang tidak pasti.</li>
+<li>Untuk permulaan proksi alat asli, gunakan asal persis yang ditunjukkan oleh Chrome, seperti <code dir="ltr" translate="no">chrome-extension://YOUR_INSTALLED_ID</code>, bukan Firefox <code dir="ltr" translate="no">moz-extension://</code> asal. Proksi menggunakan URL target sebenarnya; tidak diperlukan entri file host.</li>
+</ol>
+<h3 id="chrome-agent-api-mcp-registration">Pendaftaran API Agen Chrome/MCP</h3>
+<p>Dari checkout sumber lengkap yang dipertahankan, setelah menginstal ketergantungan pembantu yang disematkan:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev
+node bridge/bin/longshot-bridge install --browser chrome \
+  --extension-id YOUR_INSTALLED_32_LETTER_ID \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+node bridge/bin/longshot-bridge mcp \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+</code></pre>
+<p>Untuk penggunaan Kromium <code dir="ltr" translate="no">--browser chromium</code>. Gunakan ID sebenarnya di <code dir="ltr" translate="no">chrome://extensions</code>; daftar lagi jika menginstal edisi toko memberikan ID yang berbeda. Direktori port/data terpisah menghindari tabrakan dengan host Firefox. API Agen ini berbeda dari proksi alat HTTP (port default 8900/8901). Linux adalah platform host asli yang teruji; Pendaftaran macOS telah diterapkan tetapi belum diuji di sini, dan tidak ada penginstal host asli Windows yang disediakan.</p>
+<p>Konfigurasi Jembatan Peramban terperinci juga tersedia di ekstensi <strong>Jembatan Browser → Informasi</strong> dialog. README jangka panjang dan platform/dokumen privasi baru adalah bahasa Inggris; pilihan bahasa UI yang dibundel tidak menerjemahkan bukti target, payload, atau contoh yang dapat dieksekusi.</p>
+<h2 id="contents">Isi</h2>
+<ul>
+<li><a href="#firefox-and-chrome-choose-your-edition">Edisi dan pengaturan Firefox / Chrome</a></li>
+<li><a href="#vibe-coded-shipped-hacked">Iklan dan nilai jual</a></li>
+</ul>
+<ol>
+<li><a href="#what-runs-where">Apa yang berjalan dimana</a></li>
+<li><a href="#install-or-update-in-firefox-nightly">Instal atau perbarui di Firefox Nightly</a></li>
+<li><a href="#getting-started-and-target-sessions">Memulai dan menargetkan sesi</a></li>
+<li><a href="#light-discovery-and-a-focused-active-scan">Penemuan ringan dan pemindaian aktif terfokus</a></li>
+<li><a href="#aggressive-options-and-run-approval">Opsi agresif dan jalankan persetujuan</a></li>
+<li><a href="#overview-checks">Pemeriksaan ikhtisar</a></li>
+<li><a href="#scan-options-reference">Referensi opsi pemindaian</a></li>
+<li><a href="#budgets-selectors-and-request-settings">Anggaran, penyeleksi, dan pengaturan permintaan</a></li>
+<li><a href="#fuzzer-auto-fuzz-and-probe-library">Pustaka Fuzzer, Fuzz Otomatis, dan Probe</a></li>
+<li><a href="#your-payloads-and-imported-templates">Muatan Anda dan templat yang diimpor</a></li>
+<li><a href="#server-stack-and-smart-analyzer">Tumpukan server dan penganalisis cerdas</a></li>
+<li><a href="#oast-setup-and-interpretation">Pengaturan dan interpretasi OAST</a></li>
+<li><a href="#browser-bridge-native-tool-proxy">Jembatan Browser: proksi alat asli</a></li>
+<li><a href="#native-bridge-configuration">Konfigurasi jembatan asli</a></li>
+<li><a href="#cookie-and-header-overrides-without-damaging-probes">Cookie dan header diganti tanpa merusak probe</a></li>
+<li><a href="#external-tools-and-actual-zap-scanning">Alat eksternal dan pemindaian ZAP yang sebenarnya</a></li>
+<li><a href="#tor-and-onion-routing">Perutean Tor dan bawang</a></li>
+<li><a href="#agent-api-mcp-and-local-model-clients">Agen API, MCP, dan klien model lokal</a></li>
+<li><a href="#optional-native-nuclei">Nuclei asli opsional</a></li>
+<li><a href="#manual-tools-interception-and-api-inventory">Alat manual, intersepsi, dan inventaris API</a></li>
+<li><a href="#findings-and-the-cimematic-viewer">Temuan dan penampil simematik</a></li>
+<li><a href="#owasp-top-10-coverage">Cakupan 10 Teratas OWASP</a></li>
+<li><a href="#recovery-assessment-files-and-reports">Pemulihan, penilaian file dan laporan</a></li>
+<li><a href="#appearance-language-and-help">Penampilan, bahasa dan bantuan</a></li>
+<li><a href="#troubleshooting">Pemecahan masalah</a></li>
+<li><a href="#terms-and-source-references">Istilah dan referensi sumber</a></li>
+</ol>
+<h2 id="what-runs-where">Apa yang berjalan dimana</h2>
+<p>Kata “jembatan” mengacu pada komponen yang berbeda. Pilih komponen yang diperlukan untuk tugas Anda.</p>
+<table>
+<thead>
+<tr>
+<th>Komponen</th>
+<th>Berjalan dimana</th>
+<th>Apa fungsinya</th>
+<th>Koneksi bawaan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pemindai bawaan, Repeater dan Fuzzer</td>
+<td>Ekstensi Firefox dan tab target terikat</td>
+<td>Pemeriksaan HTTP sesi browser menggunakan aturan JavaScript Longshot</td>
+<td>Tidak diperlukan proses proxy eksternal</td>
+</tr>
+<tr>
+<td><strong>Jembatan Browser / Proksi alat asli</strong></td>
+<td>Koordinator Node Lokal ditambah mitmproxy yang diinstal secara terpisah</td>
+<td>Membawa permintaan HTTP/HTTPS milik alat eksternal; secara opsional mengesampingkan cookie dan header yang dipilih dari Firefox</td>
+<td>Proksi HTTP <code dir="ltr" translate="no">127.0.0.1:8900</code>; kontrol ekstensi <code dir="ltr" translate="no">127.0.0.1:8901</code></td>
+</tr>
+<tr>
+<td><strong>Agen API/jembatan pesan asli</strong></td>
+<td>Layanan Node Lokal terdaftar dengan Firefox</td>
+<td>Otomatisasi REST/MCP/UI, file penilaian, dan eksekusi Nuclei asli opsional</td>
+<td>API <code dir="ltr" translate="no">http://127.0.0.1:8765</code></td>
+</tr>
+<tr>
+<td>ZAP eksternal, curl, ffuf, sqlmap atau Nuclei CLI</td>
+<td>Proses terpisah yang Anda instal</td>
+<td>Hasilkan lalu lintas dan hasil mereka sendiri, secara opsional melalui proksi alat asli</td>
+<td>Konfigurasikan proksi HTTP keluar setiap alat</td>
+</tr>
+<tr>
+<td>Nuclei asli yang terisolasi diluncurkan oleh Longshot</td>
+<td>Host Agen API dan kotak pasir Linux</td>
+<td>Menjalankan templat impor yang memenuhi syarat dengan mesin Nuclei resmi</td>
+<td>Pisahkan rute eksekusi yang terisolasi; tidak ada ekspor cookie Firefox otomatis</td>
+</tr>
+</tbody>
+</table>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">Built-in scan / Repeater / Fuzzer
+        → Firefox networking + target tab's session → target
+
+External ZAP / curl / another HTTP tool
+        → authenticated native proxy :8900 → mitmproxy → target
+                        ↑
+             selected cookie/header values
+                        ↑
+              paired Firefox tab via :8901
+
+MCP or REST client → Agent API :8765 → Longshot commands / UI
+                                      └→ separately enabled native jobs
+</code></pre>
+<p><strong>Mulai pemindaian tidak menjalankan ZAP.</strong> Memasangkan ZAP dengan Browser Bridge tidak menggantikan pemindai JavaScript Longshot atau mengimpor semua peringatan ZAP ke Longshot. Tinjau temuan alat eksternal pada alat tersebut; tampilan lalu lintas jembatan asli adalah metadata, bukan pengimpor hasil kerentanan yang lengkap.</p>
+<h3 id="changes-that-invalidate-old-instructions">Perubahan yang membatalkan instruksi lama</h3>
+<table>
+<thead>
+<tr>
+<th>Instruksi yang lebih lama</th>
+<th>Gunakan di 2.18.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pilih Pengambilan browser lama</td>
+<td>Dihapus dari Browser Bridge dan XPI</td>
+</tr>
+<tr>
+<td>Kirim alat ke <code dir="ltr" translate="no">http://bridge.invalid</code></td>
+<td>Gunakan URL target sebenarnya</td>
+</tr>
+<tr>
+<td>Tambahkan <code dir="ltr" translate="no">bridge.invalid</code> untuk <code dir="ltr" translate="no">/etc/hosts</code></td>
+<td>Tidak diperlukan entri; jangan tambahkan satu pun untuk jembatan ini</td>
+</tr>
+<tr>
+<td>Proksi aktif <code dir="ltr" translate="no">8899</code>; mulai <code dir="ltr" translate="no">node ./bridge/cli.js</code> di adaptor lama</td>
+<td>Adaptor asli yang diunduh menggunakan <code dir="ltr" translate="no">node cli.js</code>; port proxy/kontrol default adalah <code dir="ltr" translate="no">8900</code> / <code dir="ltr" translate="no">8901</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, <code dir="ltr" translate="no">X-Bridge-Host</code>, <code dir="ltr" translate="no">/v1/cookies</code>, titik akhir pemeriksaan berpasangan</td>
+<td>Antarmuka adaptor lama; jangan letakkan di konfigurasi asli atau anggap ada</td>
+</tr>
+<tr>
+<td>Bridge mengirimkan TCP mentah atau lalu lintas penyelundupan dengan jumlah byte yang sama persis</td>
+<td>Proksi asli mem-parsing HTTP; format framing yang salah dan TCP byte-transparan tidak didukung</td>
+</tr>
+<tr>
+<td>Sesi browser berarti alat eksternal tidak memerlukan CA</td>
+<td>Intersepsi HTTPS memerlukan alat untuk memercayai CA yang dihasilkan adaptor asli</td>
+</tr>
+<tr>
+<td>Perutean Tor diwarisi dari Firefox</td>
+<td>Perutean adaptor asli terpisah; SOCKS dinonaktifkan secara default</td>
+</tr>
+<tr>
+<td>Adaptor menangguhkan/memulai ulang grup proses eksternal atau secara otomatis memutar ulang pekerjaan yang gagal</td>
+<td>Jeda memblokir permintaan proxy baru; periksa dan coba lagi/lanjutkan alat secara eksplisit</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-or-update-in-firefox-nightly">Instal atau perbarui di Firefox Nightly</h2>
+<p>Gunakan <strong>2.18.1 XPI</strong>, bukan adaptor lama ZIP yang diganti namanya menjadi add-on. Ekstrak arsip sumber yang cocok ke folder yang Anda simpan, seperti yang ditunjukkan sebagai <code dir="ltr" translate="no">/path/to/longshot</code> dalam contoh. Jangan memindahkan host asli yang terdaftar tanpa mendaftarkannya lagi.</p>
+<p>File rilisnya adalah:</p>
+<ul>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1.xpi">Firefox XPI</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-chrome.zip">ZIP Krom</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-source.zip">ZIP sumber ekstensi yang cocok</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/tag/v2.18.1">Catatan rilis dan checksum</a></li>
+<li>ZIP adaptor asli: unduh di dalam Browser Bridge; itu disertakan dalam setiap paket ekstensi.</li>
+</ul>
+<p>Ini adalah pembangunan pengembangan/pengajuan. Penandatanganan toko Firefox dan persetujuan kedua pasar sedang menunggu keputusan. Ikuti prosedur pemuatan pengembangan yang berlaku daripada mengharapkan XPI yang tidak ditandatangani untuk diinstal secara normal di rilis Firefox.</p>
+<p>Manifesnya memerlukan Firefox 140 atau lebih baru. Pemeriksaan integrasi rilis menggunakan desktop Firefox 159 di Linux. Dukungan platform/runtime untuk pembantu opsional terpisah dari dukungan ekstensi dasar.</p>
+<p>Untuk instalasi sementara yang tidak ditandatangani:</p>
+<ol>
+<li>Buka <code dir="ltr" translate="no">about:debugging#/runtime/this-firefox</code>.</li>
+<li>Pilih <strong>Muat Add-on Sementara</strong> dan pilih XPI.</li>
+<li>Konfirmasikan versi Longshot yang ditampilkan, lalu buka target dan luncurkan tombol toolbarnya.</li>
+<li>Muat ulang ekstensi setelah mengganti build pengembangan yang belum dibongkar.</li>
+</ol>
+<p>Add-on sementara menghilang setelah Firefox dimulai ulang. Hal ini diharapkan; itu bukan adaptor yang menghapus ekstensi. Distribusi publik yang persisten memerlukan penandatanganan Mozilla. Nightly memiliki opsi pengembangan tambahan yang tidak ditandatangani yang dijelaskan oleh <a href="https://www.extensionworkshop.com/documentation/publish/signing-and-distribution-overview/">Panduan penandatanganan Mozilla</a>; pemuatan sementara tidak memerlukan perubahan pengaturan tersebut. Lihat <a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">instalasi sementara</a>.</p>
+<p>XPI menggabungkan adaptor asli sebagai arsip yang dapat diunduh. Itu tidak dapat memulai proses Node/Python secara sewenang-wenang atau menginstal host asli hanya melalui Add-on Firefox. Memulai proksi dan mendaftarkan API Agen merupakan langkah penyiapan lokal opsional yang berbeda.</p>
+<h2 id="getting-started-and-target-sessions">Memulai dan menargetkan sesi</h2>
+<h3 id="connect-the-right-tab">Hubungkan tab kanan</h3>
+<ol>
+<li>Buka target resmi di Firefox, misalnya <code dir="ltr" translate="no">http://localhost:8080</code>.</li>
+<li>Masuk dengan akun pengujian yang dimaksud dan selesaikan tantangan browser apa pun.</li>
+<li>Luncurkan Longshot <strong>dari tab target itu</strong>. Biarkan tab aplikasi tetap terbuka.</li>
+<li>Periksa alamat target dan pilih <strong>Hubungkan</strong>.</li>
+<li>Gunakan <strong>Memulai</strong> di header untuk panduan delapan langkah yang disorot. Itu bisa diputar ulang; itu tidak memulai pemindaian atau mengubah pengaturan itu sendiri.</li>
+<li>Jelajahi halaman aplikasi yang representatif sehingga Longshot dapat mengamati rute dan masukan yang berguna.</li>
+</ol>
+<p>Asal target terdiri dari skema, nama host, dan port. <code dir="ltr" translate="no">http://localhost:8080</code>, <code dir="ltr" translate="no">http://127.0.0.1:8080</code> dan <code dir="ltr" translate="no">https://localhost:8080</code> berasal dari tempat yang berbeda, meskipun pada akhirnya mencapai layanan yang sama. Hubungkan dan gunakan alamat persis yang dimaksudkan untuk penilaian. Alamat IP yang ditemukan di belakang nama host tidak secara otomatis menjadi target resmi tambahan.</p>
+<h3 id="configure-session-validation">Konfigurasikan validasi sesi</h3>
+<p>Buka <strong>Pengaturan → Pengaturan pemindai</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Bidang</th>
+<th>Artinya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jalur validasi sesi</td>
+<td>Halaman dalam cakupan/jalur API yang memerlukan autentikasi</td>
+</tr>
+<tr>
+<td>Teks terotentikasi yang diharapkan</td>
+<td>Penanda stabil muncul saat akun yang dipilih masuk dan hilang setelah keluar</td>
+</tr>
+<tr>
+<td>Byte respons minimum yang diautentikasi</td>
+<td>Ambang batas ukuran tambahan tambahan yang lebih rendah opsional; nol menonaktifkannya</td>
+</tr>
+<tr>
+<td>Jalur masuk</td>
+<td>Jalur login aplikasi, bila diperlukan untuk deteksi penolakan</td>
+</tr>
+<tr>
+<td>Validasi ulang setelah banyak permintaan ini</td>
+<td>Pemeriksaan sidang mandiri secara berkala; bawaan 20</td>
+</tr>
+<tr>
+<td>Memerlukan validasi sesi yang berhasil sebelum pemindaian</td>
+<td>Mewajibkan validator yang dikonfigurasi untuk lulus; default mati</td>
+</tr>
+</tbody>
+</table>
+<p>Simpan pengaturan dan gunakan <strong>Ikhtisar → Periksa sesi</strong>. Halaman publik yang menghasilkan 200 bukanlah bukti autentikasi. Pengalihan ke halaman login yang diikuti dengan 200 masih dapat menunjukkan sesi yang tidak valid; pilih titik akhir yang dilindungi dan penanda yang bermakna.</p>
+<p>Pemindai internal menggunakan cookie browser yang berlaku pada tab terikat, termasuk cookie HttpOnly. Firefox memilih cookie berdasarkan URL, jalur, atribut keamanan, dan penyimpanan cookie. Bidang Cookie/Otorisasi/Host yang dilindungi pemindai bukanlah input fuzz biasa yang dapat diedit.</p>
+<h3 id="profiles-and-accounts">Profil dan akun</h3>
+<p><strong>Target</strong> memisahkan riwayat, temuan, jurnal permintaan, titik akhir yang ditemukan, tinjauan, dan konfigurasi pemindaian. Kembali ke profil akan memulihkan data penilaian, bukan sesi browser lama yang diautentikasi. Profil eksplisit dapat berbagi asal usul.</p>
+<p>Dua tab Firefox biasa biasanya berbagi cookie. Gunakan wadah independen atau penyimpanan kue pribadi terpisah untuk identitas pengujian yang benar-benar berbeda. Beralih profil tidak membuat sesi akun kedua. Perbandingan sesi B memerlukan asal target yang sama dan penyimpanan terpisah.</p>
+<h2 id="light-discovery-and-a-focused-active-scan">Penemuan ringan dan pemindaian aktif terfokus</h2>
+<h3 id="first-pass-discovery-and-passive-review">Lulus pertama: penemuan dan tinjauan pasif</h3>
+<ol>
+<li>Tetapkan <strong>Permintaan per detik</strong> menjadi 0,5–1, kedalaman perayapan menjadi 1 dan URL maksimum yang ditemukan menjadi 25–50.</li>
+<li>Pergi <strong>Temuan maksimal</strong>, <strong>Agresif</strong>, fase otomatis CVE, OAST, dan eksekusi asli nonaktif.</li>
+<li>Tetapkan <strong>Fuzz otomatis → Mati</strong>. Biarkan klik/gulir halaman dan aktifkan pengujian DOM/waktu/panggilan balik.</li>
+<li>Pilih grup Ikhtisar pasif: header, cookie, pengungkapan, formulir, tinjauan sumber/sink DOM, dan CORS.</li>
+<li>Pilih <strong>Hanya laba-laba</strong> dan mulai.</li>
+<li>Periksa <strong>Peta situs</strong>, <strong>riwayat HTTP</strong>, <strong>penjelajah API</strong>, <strong>Tumpukan server</strong> dan <strong>Temuan</strong>.</li>
+</ol>
+<p>Spider mengikuti tautan/formulir dalam cakupan yang ditemukan tanpa mengirimkan penulisan formulir. Ia tidak mengetahui setiap titik akhir yang tersembunyi. Permintaan GET masih dapat memiliki efek samping khusus aplikasi; "metode baca" tidak menetapkan target bebas efek samping.</p>
+<h3 id="second-pass-a-bounded-active-assessment">Lulus kedua: penilaian aktif terbatas</h3>
+<ol>
+<li>Simpan <strong>Fuzz otomatis → Mati</strong> untuk membuat aturan aktif bawaan lebih mudah ditinjau secara terpisah.</li>
+<li>Pilih pemeriksaan aktif Ikhtisar yang relevan, seperti injeksi SQL dan XSS Tercermin.</li>
+<li>Gunakan batasan kecil, misalnya 150 permintaan aktif, 10 URL aktif, dan lima parameter aktif.</li>
+<li>Pilih <strong>Hanya pemeriksaan aktif</strong> untuk menggunakan kembali halaman saat ini dan inventaris yang disimpan, atau <strong>Spider + pemeriksaan aktif</strong> untuk menemukan terlebih dahulu.</li>
+<li>Mulai, tinjau persetujuan yang diperlukan, dan lihat Aktivitas dan jumlah permintaan.</li>
+<li>Periksa setiap permintaan temuan, data dasar, bukti penyelidikan/pengendalian berulang, keputusan dan keyakinan.</li>
+<li>Buka <strong>Pemeriksaan WSTG → Cakupan input aktual</strong> untuk melihat pekerjaan yang selesai, sebagian, dan dilewati.</li>
+</ol>
+<p><strong>Auto-fuzz Off tidak mematikan pemeriksaan aktif.</strong> SQLi/XSS/SSTI dan aturan khusus lainnya menghasilkan probe mereka sendiri. Sebaliknya, mencentang aturan aktif tidak akan memberikan masukan yang hilang atau membuat proses khusus Spider menjalankan fase aktif umum.</p>
+<h2 id="aggressive-options-and-run-approval">Opsi agresif dan jalankan persetujuan</h2>
+<p>Agresif memungkinkan metode/kemampuan yang disetujui secara eksplisit; hal ini tidak membuat setiap pemeriksaan berjalan atau menjamin bukti yang lebih kuat.</p>
+<ol>
+<li>Temukan masukan dan validasi otentikasi terlebih dahulu.</li>
+<li>Aktifkan hanya opsi lanjutan yang diperlukan dan izin tulis/unggah/hapus.</li>
+<li>Simpan opsi Pemindaian.</li>
+<li>Pilih <strong>Tinjau/setujui proses agresif berikutnya</strong>.</li>
+<li>Tinjau target, fitur, izin metode, dan anggaran.</li>
+<li>Klik <strong>Setujui proses berikutnya</strong>. Tindakan pengguna ini meminta izin gabungan Firefox yang hilang dan membuat hibah yang dijalankan berikutnya.</li>
+<li>Mulai jalankan dengan konfigurasi yang ditinjau.</li>
+</ol>
+<p>Hibah ini bersifat sekali pakai, habis masa berlakunya setelah 30 menit dan tidak valid karena perubahan target/konfigurasi/pengaturan permintaan yang relevan. Pemindaian baru biasanya memerlukan hibah baru. Menyimpan opsi yang belum selesai diperbolehkan; memulai atau menyetujui memvalidasi bidang yang diperlukan.</p>
+<p>Firefox membutuhkan <code dir="ltr" translate="no">permissions.request()</code> berasal langsung dari tindakan pengguna nyata. Mengubah pengaturan bukan alasan untuk memberikan izin sewenang-wenang di latar belakang. Jika izin ditolak, tinjau fitur sebenarnya, coba lagi dari tombol persetujuan atau nonaktifkan fitur tersebut. Permintaan izin OS/browser normal tetap berada di luar otomatisasi ekstensi DOM.</p>
+<h3 id="maximum-findings-is-a-broad-preset">Temuan maksimal merupakan preset yang luas</h3>
+<p>Prasetel ini mengaktifkan banyak fase, termasuk verifikasi lanjutan, perbandingan OAST dan Sesi B, dan memperluas beberapa anggaran. Ini bukan tombol “temukan segalanya”. Itu tidak membuat akun OAST, mengisi URL Penyedia/domain Panggilan Balik, memilih Sesi B yang valid, menginstal Nuclei atau mengautentikasi peran yang hilang.</p>
+<p>Jika persetujuan melaporkan kolom OAST kosong atau Sesi B hilang, konfigurasikan atau nonaktifkan opsi tersebut. Hal ini terpisah dari valid atau tidaknya URL target.</p>
+<h3 id="two-command-injection-controls">Dua kontrol injeksi perintah</h3>
+<p><strong>Ikhtisar → Indikator perintah OS</strong> mengaktifkan probe keluaran perintah berorientasi Unix langsung. Ini dinonaktifkan secara default. <strong>Opsi pemindaian → Probe perintah</strong> mengontrol rute panggilan balik ekstra buta saat OAST mendengarkan. Satu kotak centang tidak secara otomatis mengonfigurasi jalur lainnya. Tinjau persyaratan otorisasi untuk pengoperasian sebenarnya.</p>
+<h2 id="overview-checks">Pemeriksaan ikhtisar</h2>
+<p>Daftar yang diaktifkan secara default berisi enam grup pasif dan SQLi, NoSQLi, injeksi kode server, XSS, SSTI, traversal, redirect, CRLF dan metode yang tercermin. <strong>Indikator perintah OS</strong> dan <strong>Penanganan parameter kueri duplikat</strong> memulai.</p>
+<table>
+<thead>
+<tr>
+<th>Periksa</th>
+<th>Apa fungsinya</th>
+<th>Interpretasi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Header keamanan &amp; HTTPS</td>
+<td>Meninjau CSP, kebijakan pembingkaian, nosniff, HSTS, dan referensi konten campuran terpilih</td>
+<td>Indikator pertahanan/konfigurasi, bukan bukti eksploitasi otomatis</td>
+</tr>
+<tr>
+<td>Atribut kue</td>
+<td>Meninjau Secure, HttpOnly, dan SameSite tanpa mempertahankan nilai cookie sebagai temuan</td>
+<td>Tujuan cookie dan perilaku browser perlu ditinjau</td>
+</tr>
+<tr>
+<td>Kesalahan &amp; konten sensitif</td>
+<td>Mengenali jejak yang dipilih, konten konfigurasi/sumber, dan daftar direktori</td>
+<td>Terbatas pada konten dan tanda tangan yang diamati</td>
+</tr>
+<tr>
+<td>Tinjauan formulir &amp; CSRF</td>
+<td>Meninjau formulir transportasi/GET kata sandi dan bidang token yang dikenali</td>
+<td>Token yang terlihat hilang tidak membuktikan CSRF</td>
+</tr>
+<tr>
+<td>Tinjauan sumber/sink DOM XSS</td>
+<td>Menemukan sumber URL terdekat dan sink berbahaya dalam kode sebaris</td>
+<td>Heuristik; bukan eksekusi atau bukti aliran data lengkap</td>
+</tr>
+<tr>
+<td>Tinjauan kebijakan CORS</td>
+<td>Meninjau kombinasi izin-asal/kredensial yang dapat diamati</td>
+<td>Tidak menguji refleksi Asal sewenang-wenang atau pembacaan asal penyerang</td>
+</tr>
+<tr>
+<td>injeksi SQL</td>
+<td>Mengulangi tanda kesalahan database baru dan perbandingan benar/salah terhadap kontrol</td>
+<td>Bukti tetap terbatas pada masukan yang diuji dan kelompok sintaksis</td>
+</tr>
+<tr>
+<td>Injeksi NoSQL</td>
+<td>Mengulangi tanda tangan kesalahan MongoDB/BSON</td>
+<td>Tidak ada pemverifikasi injeksi operator atau bypass autentikasi umum</td>
+</tr>
+<tr>
+<td>Injeksi kode sisi server</td>
+<td>Burung kenari JavaScript/PHP yang dihitung</td>
+<td>Kumpulan bahasa/konteks kecil</td>
+</tr>
+<tr>
+<td>XSS yang dipantulkan</td>
+<td>Gerbang refleksi ditambah penguraian inert berulang-ulang dari konteks HTML yang tampak dapat dieksekusi</td>
+<td>Kandidat sampai eksekusi sebenarnya diverifikasi</td>
+</tr>
+<tr>
+<td>Injeksi templat server</td>
+<td>Penanda aritmatika unik dan pemeriksaan berulang/kontrol</td>
+<td>Tidak mencakup semua mesin templat atau konteks buta</td>
+</tr>
+<tr>
+<td>Traversal / penyertaan file</td>
+<td>Tanda tangan konten file yang diketahui berulang kali</td>
+<td>Bukan pengkodean, file, atau platform yang lengkap</td>
+</tr>
+<tr>
+<td>Buka pengalihan</td>
+<td>Menghasilkan canary Lokasi yang tidak valid</td>
+<td>Tujuan pengalihan eksternal tidak diikuti</td>
+</tr>
+<tr>
+<td>Injeksi header respons</td>
+<td>Penanda tajuk yang dihasilkan berulang kali</td>
+<td>Penanganan URL/header browser membatasi pengujian</td>
+</tr>
+<tr>
+<td>Metode HTTP yang diiklankan</td>
+<td>OPSI dan Izinkan inventaris</td>
+<td>Iklan bukanlah izin untuk menulis</td>
+</tr>
+<tr>
+<td>Penanganan parameter kueri duplikat</td>
+<td>Perbandingan urutan pertama/terakhir yang berulang</td>
+<td>Perbedaan penguraian informasi, tidak terbukti dampak keamanannya</td>
+</tr>
+<tr>
+<td>Indikator perintah OS</td>
+<td>Indikator keluaran id berulang opsional</td>
+<td>Berorientasi Unix, bergantung pada konteks, dan tidak aktif secara default</td>
+</tr>
+</tbody>
+</table>
+<p>Titik penyisipan aktif yang didukung mencakup nilai kueri, JSON/array bertumpuk, kolom formulir/multibagian, header impor terpilih yang dapat diedit, dan input jalur API bernama. Badan harus diketahui dan diizinkan. Bidang autentikasi/pembingkaian terkelola, nilai yang dikecualikan, dan badan permintaan yang tidak tersedia tidak diciptakan secara diam-diam.</p>
+<p>Nilai formulir yang tersembunyi dipertahankan dan disegarkan jika didukung sebelum formulir ditulis; token yang tidak tersedia dapat membuat cakupan dilewati. Mekanisme ini tidak menetapkan bahwa perlindungan CSRF suatu formulir berfungsi.</p>
+<h2 id="scan-options-reference">Referensi opsi pemindaian</h2>
+<p>Kecuali dinyatakan lain, fase opsional ini dimulai. <strong>Tingkat permintaan adaptif</strong> default aktif; mode Fuzz otomatis default adalah Mati. Pengaturan yang dipulihkan dari profil yang ada mungkin berbeda dari pengaturan default baru.</p>
+<table>
+<thead>
+<tr>
+<th>Pilihan</th>
+<th>Perubahan / prasyarat apa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fase otomatis CVE</td>
+<td>Menjalankan templat CVE impor yang memenuhi syarat menggunakan permintaan/pencocokan yang dibuat sesuai dengan anggaran CVE/global</td>
+</tr>
+<tr>
+<td>Agresif (resmi)</td>
+<td>Memungkinkan persetujuan yang dijalankan berikutnya untuk metode penulisan dan kemampuan tingkat lanjut</td>
+</tr>
+<tr>
+<td>Izinkan pengunggahan file multi-bagian</td>
+<td>Secara terpisah mengizinkan permintaan multibagian yang memuat file; tidak menghasilkan tes unggah</td>
+</tr>
+<tr>
+<td>Izinkan DELETE (persetujuan terpisah)</td>
+<td>Secara terpisah mengizinkan DELETE; tidak secara otomatis mengeluarkan permintaan penghapusan</td>
+</tr>
+<tr>
+<td>Instrumentasi AJAX / DOM</td>
+<td>Mengamati titik akhir aplikasi dinamis dan aktivitas halaman yang didukung selama penemuan terbatas</td>
+</tr>
+<tr>
+<td>Klik/gulir halaman ikut serta</td>
+<td>Menambahkan interaksi terbatas; memerlukan penemuan AJAX dan persetujuan agresif; penangan aplikasi dapat mengubah data</td>
+</tr>
+<tr>
+<td>Verifikasi DOM XSS langsung (tab baru)</td>
+<td>Menguji masukan URL kueri/kueri fragmen terbatas pada tab penyimpanan yang sama; dua ekor burung kenari lokal segar ditambah satu kontrol negatif; CSP tetap diberlakukan</td>
+</tr>
+<tr>
+<td>Pemeriksaan waktu yang berulang</td>
+<td>Perbandingan penundaan SQL berulang dan kandidat waktu JSON MongoDB, dimulai dengan titik penyisipan pertama; membutuhkan Agresif</td>
+</tr>
+<tr>
+<td>Kenari/callback SSRF</td>
+<td>Perbedaan respons alamat internal ditambah korelasi OAST yang tepat saat dikonfigurasi; membutuhkan Agresif</td>
+</tr>
+<tr>
+<td>Pemeriksaan entitas eksternal XML</td>
+<td>Canary panggilan balik untuk badan permintaan XML yang dikenal; memerlukan pengaturan OAST yang disetujui untuk pengujian yang diterapkan</td>
+</tr>
+<tr>
+<td>Probe Log4Shell OAST</td>
+<td>Canary panggilan balik dalam input yang memenuhi syarat dan Versi X-Api; interaksi bukanlah bukti eksekusi kode</td>
+</tr>
+<tr>
+<td>Probe perintah</td>
+<td>Rute panggilan balik perintah buta saat OAST mendengarkan</td>
+</tr>
+<tr>
+<td>Templat deserialisasi yang diimpor</td>
+<td>Menyertakan templat bertanda deserialisasi impor yang memenuhi syarat; tidak ada generator gadget universal</td>
+</tr>
+<tr>
+<td>Mutasi WAF adaptif (maks 3)</td>
+<td>Representasi alternatif yang terbatas dari penyelidikan yang memenuhi syarat; tidak pernah ada jaminan jalan pintas</td>
+</tr>
+<tr>
+<td>Bandingkan dengan Sesi B</td>
+<td>Membandingkan hingga sepuluh permintaan baca yang memenuhi syarat dengan penyimpanan cookie asal yang sama; kepemilikan/peran tetap dalam konteks manual</td>
+</tr>
+<tr>
+<td>Menemukan probe WebSocket</td>
+<td>Pertukaran saluran terbatas; tidak ada protokol serangan khusus aplikasi yang ditemukan</td>
+</tr>
+<tr>
+<td>Menemukan probe SSE</td>
+<td>Mendengarkan EventSource yang dibatasi; bukan pemverifikasi otorisasi aliran umum</td>
+</tr>
+<tr>
+<td>Perpustakaan klien offline SCA</td>
+<td>Katalog versi/rentang kecil yang diketahui untuk aset klien yang diamati</td>
+</tr>
+<tr>
+<td>Penambangan parameter / header</td>
+<td>Menggunakan nama yang dipelajari dari bukti target/API; bukan kamus masukan tersembunyi yang lengkap</td>
+</tr>
+<tr>
+<td>Eksekusi Nuclei penuh asli</td>
+<td>Mengaktifkan pekerjaan templat mesin resmi melalui API Agen, tergantung pada isolasi dan persetujuan Linux</td>
+</tr>
+<tr>
+<td>Kode asli / JavaScript dalam kotak pasir</td>
+<td>Kemampuan tambahan untuk templat asli yang ditinjau/ditandatangani</td>
+</tr>
+<tr>
+<td>Peramban tanpa kepala yang terisolasi</td>
+<td>Kemampuan tambahan tanpa kepala asli; diisolasi dari login Firefox</td>
+</tr>
+<tr>
+<td>File asli yang diizinkan dibaca</td>
+<td>Kemampuan file lokal hanya baca tambahan di dalam daftar yang diizinkan yang dipilih</td>
+</tr>
+<tr>
+<td>OAST (penyedia eksternal)</td>
+<td>Mendaftarkan/melakukan polling pada penyedia yang ditentukan; pilih pemeriksaan kerentanan yang relevan secara terpisah</td>
+</tr>
+<tr>
+<td>Daftar penyelidikan SQL komunitas</td>
+<td>Menambahkan nilai SecLists/FuzzDB yang difilter dan didukung ke pemeriksaan/fuzzer SQL yang relevan</td>
+</tr>
+<tr>
+<td>Tingkat permintaan adaptif</td>
+<td>Penanganan pembatasan/tantangan secara konservatif; tidak secara otomatis menaikkan tarif</td>
+</tr>
+<tr>
+<td>Mengaktifkan paket muatan yang diunggah</td>
+<td>Menambahkan nilai spesifik target yang dipilih; membutuhkan persetujuan Agresif dan selanjutnya dijalankan</td>
+</tr>
+</tbody>
+</table>
+<p>Verifikasi DOM langsung bukanlah pelacakan noda umum. XSS yang tersimpan, sumber postMessage/penyimpanan lokal, input non-URL, dan alur kerja tulis/baca multi-langkah memerlukan pengujian tambahan. Ketergantungan atau batas waktu yang diblokir adalah cakupan yang tidak lengkap, bukan izin.</p>
+<h2 id="budgets-selectors-and-request-settings">Anggaran, penyeleksi, dan pengaturan permintaan</h2>
+<p>Ada <strong>dua set batas yang terpisah</strong>: Batas pemindaian bawaan Longshot dan batas proxy alat asli. Permintaan ZAP melalui :8900 tidak menghabiskan anggaran pemindaian JavaScript bawaan, dan kotak centang Longshot tidak memilih kebijakan pemindaian ZAP.</p>
+<h3 id="operation-and-phase-selectors">Selektor operasi dan fase</h3>
+<table>
+<thead>
+<tr>
+<th>Pemilih</th>
+<th>Pilihan dan perilaku</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operasi</td>
+<td>Hanya laba-laba; Laba-laba + pemeriksaan aktif; Hanya pemeriksaan aktif</td>
+</tr>
+<tr>
+<td>Bulu halus otomatis</td>
+<td>Mati; Setelah aktif dan CVE; Selama pemindaian. Ini mengontrol fase tambahan, bukan aturan aktif khusus</td>
+</tr>
+<tr>
+<td>Model serangan</td>
+<td>Penembak jitu; pendobrak; Garpu rumput; Bom cluster untuk mendukung perencanaan mutasi otomatis/tubuh terstruktur</td>
+</tr>
+<tr>
+<td>Sesi B</td>
+<td>Tab asal yang sama dengan toko kue yang benar-benar independen</td>
+</tr>
+<tr>
+<td>Metode fuzzer tubuh</td>
+<td>POST, GET, PUT atau PATCH, tergantung pada kebijakan permintaan dan persetujuan</td>
+</tr>
+<tr>
+<td>Format tubuh</td>
+<td>JSON, formulir yang disandikan URL, multibagian atau mentah/XML; tidak semua format menyediakan titik penyisipan skalar umum</td>
+</tr>
+<tr>
+<td>Kelas muatan tubuh</td>
+<td>SQLi, NoSQLi, kode, XSS, SSTI, traversal, CRLF, redirect, perintah atau kustom</td>
+</tr>
+</tbody>
+</table>
+<p>Model serangan dalam implementasi ini:</p>
+<ul>
+<li><strong>Penembak jitu:</strong> memvariasikan satu input pada satu waktu.</li>
+<li><strong>Pendobrak:</strong> masukkan muatan yang sama ke semua input yang dipilih.</li>
+<li><strong>garpu rumput:</strong> gunakan urutan terhuyung/berputar dari daftar muatan bersama di seluruh input. Ini bukan klaim perilaku daftar independen Burp.</li>
+<li><strong>Bom cluster:</strong> kombinasi terbatas antar masukan; tutupnya mencegah ekspansi Cartesian yang tidak terbatas.</li>
+</ul>
+<h3 id="scan-option-limits">Batasan opsi pemindaian</h3>
+<table>
+<thead>
+<tr>
+<th>Bidang</th>
+<th style="text-align: right;">Default baru</th>
+<th style="text-align: right;">Kisaran yang diterima</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anggaran permintaan global</td>
+<td style="text-align: right;">2,000</td>
+<td style="text-align: right;">1–10,000</td>
+</tr>
+<tr>
+<td>Permintaan fuzz per parameter</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>Permintaan CVE per templat</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>Permintaan CVE per target</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1–2,000</td>
+</tr>
+<tr>
+<td>Batas konkurensi</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1–2; tidak menjanjikan throughput browser paralel</td>
+</tr>
+<tr>
+<td>Anggaran acara AJAX</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>Anggaran halaman AJAX (md)</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">500–15,000</td>
+</tr>
+<tr>
+<td>Jumlah halaman AJAX</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>Penundaan pemeriksaan (detik)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1–5</td>
+</tr>
+<tr>
+<td>OAST Panggilan Balik TTL detik</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">5–3,600</td>
+</tr>
+<tr>
+<td>Detik jajak pendapat OAST</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5–15</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scanner-settings">Pengaturan pemindai</h3>
+<table>
+<thead>
+<tr>
+<th>Pengaturan</th>
+<th>Default/tujuan baru</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Permintaan per detik</td>
+<td>1; UI mendukung 0,5–5</td>
+</tr>
+<tr>
+<td>Kedalaman perayapan maksimum</td>
+<td>3; UI mendukung 0–5</td>
+</tr>
+<tr>
+<td>URL yang ditemukan sebanyak mungkin</td>
+<td>100; UI mendukung 1–500</td>
+</tr>
+<tr>
+<td>Byte maksimum per respons</td>
+<td>2MB; tanggapan yang lebih besar/terpotong dapat meninggalkan kesenjangan bukti</td>
+</tr>
+<tr>
+<td>Percobaan ulang transportasi</td>
+<td>2; bukan jaminan bahwa tulisan tertentu dapat diputar ulang dengan aman</td>
+</tr>
+<tr>
+<td>Probe fuzz maksimum per parameter</td>
+<td>40; terpisah dari anggaran parameter ekstra fase</td>
+</tr>
+<tr>
+<td>Permintaan aktif maksimum</td>
+<td>150</td>
+</tr>
+<tr>
+<td>URL aktif maksimum</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Parameter kueri aktif maksimum</td>
+<td>10; audit juga mencatat jenis titik penyisipan lain yang didukung</td>
+</tr>
+<tr>
+<td>Awalan jalur yang dikecualikan</td>
+<td>Satu awalan per baris; mencegah jalur tersebut menjadi target pengujian</td>
+</tr>
+<tr>
+<td>Nama parameter yang dikecualikan</td>
+<td>Satu nama per baris</td>
+</tr>
+<tr>
+<td>Simpan badan respons pemindai yang telah disunting secara lokal</td>
+<td>Aktif; mendukung peninjauan/Bandingkan dalam batas tertentu, dengan upaya redaksi terbaik</td>
+</tr>
+</tbody>
+</table>
+<p>Audit aktif mencadangkan tunjangan terbatas untuk aturan yang diaktifkan nanti. Oleh karena itu, lebih banyak muatan dapat membuat beberapa aturan menjadi parsial daripada menguji setiap varian. Maksimum yang dikonfigurasi adalah batas tertinggi, bukan janji untuk menggunakan setiap permintaan atau menyelesaikan setiap masukan.</p>
+<h3 id="other-selectors">Selector lainnya</h3>
+<table>
+<thead>
+<tr>
+<th>Halaman</th>
+<th>Selektor dan makna</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Temuan</td>
+<td>Tingkat keparahan dan status peninjauan; perubahan visibilitas negatif/diblokir hanya ditampilkan</td>
+</tr>
+<tr>
+<td>Templat</td>
+<td>Keparahan, filter siap pakai, dan pemilihan manual; Siap adalah status izin/kompatibilitas, bukan putusan kerentanan</td>
+</tr>
+<tr>
+<td>Pengulang</td>
+<td>GET/HEAD/OPTIONS/POST/PUT/PATCH/DELETE dan raw/XML, JSON atau badan formulir</td>
+</tr>
+<tr>
+<td>bulu halus</td>
+<td>Kelompok muatan dan mutasi nilai: asli, URL/pengkodean ganda, perubahan huruf besar/kecil, titik yang dikodekan, akhiran tab/titik koma, awalan garis miring ganda, titik/spasi di akhir</td>
+</tr>
+<tr>
+<td>pencegat</td>
+<td>Jenis sumber daya, metode dan tindakan batas waktu; filter ini menahan lalu lintas daripada menulis ulang metodenya</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>Pilih protokol saluran yang diamati</td>
+</tr>
+<tr>
+<td>Tumpukan server</td>
+<td>NVD+OSV otomatis, produk/CPE NVD atau paket/versi OSV; ekosistem npm/PyPI manual</td>
+</tr>
+<tr>
+<td>Bandingkan</td>
+<td>Respons dasar dan perbandingan yang disimpan</td>
+</tr>
+<tr>
+<td>Utilitas</td>
+<td>Pengodean/dekode URL/Base64/hex, SHA-256, pemformatan JSON, dan pemeriksaan klaim JWT</td>
+</tr>
+<tr>
+<td>Pemeriksaan WSTG</td>
+<td>Kategori dan filter referensi otomatis/bantuan/manual</td>
+</tr>
+<tr>
+<td>Tema/bahasa</td>
+<td>Tampilan global dan bahasa yang dibundel, tidak bergantung pada opsi pemindaian</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fuzzer-auto-fuzz-and-probe-library">Pustaka Fuzzer, Fuzz Otomatis, dan Probe</h2>
+<h3 id="pick-the-right-action">Pilih tindakan yang tepat</h3>
+<table>
+<thead>
+<tr>
+<th>Tindakan</th>
+<th>Siapa yang memilih masukan?</th>
+<th>Keluaran</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pemindaian aktif</td>
+<td>Longshot menggunakan masukan yang didukung yang ditemukan</td>
+<td>Bukti aturan khusus dengan pengulangan/kontrol</td>
+</tr>
+<tr>
+<td>Jalankan fuzzer</td>
+<td>Anda memilih satu URL dan parameter kueri</td>
+<td>Perbandingan dasar dan respons muatan terpilih</td>
+</tr>
+<tr>
+<td>Penghalus tubuh</td>
+<td>Anda memberikan permintaan terstruktur dan pilihan mutasi</td>
+<td>Variasi isi/jalur/tajuk yang dibatasi jika didukung</td>
+</tr>
+<tr>
+<td>Tombol fuzz otomatis</td>
+<td>Menyimpan inventaris halaman/peta situs/API saat ini</td>
+<td>Eksplorasi muatan umum ekstra di seluruh masukan yang ditemukan dan memenuhi syarat</td>
+</tr>
+<tr>
+<td>Fase otomatis CVE / Jalankan dipilih</td>
+<td>Definisi templat yang diimpor</td>
+<td>Permintaan khusus template dan hasil pencocokan</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-query-fuzzer">Fuzzer kueri manual</h3>
+<ol>
+<li>Hubungkan target dan pilih URL cakupan. URL relatif seperti <code dir="ltr" translate="no">/search?q=apple</code> diterima terhadap asal terhubung.</li>
+<li>Masukkan nama parameter kueri yang ada, atau pilih <strong>Gunakan</strong> di samping masukan yang ditemukan.</li>
+<li>Pilih kelas payload dan mutasi nilai.</li>
+<li>Untuk <strong>Muatan khusus yang diunggah pengguna</strong>, aktifkan paket khusus yang sesuai terlebih dahulu.</li>
+<li>Pilih <strong>Jalankan fuzzer</strong>, lalu periksa data dasar, permintaan, status, durasi/waktu, dan bukti.</li>
+</ol>
+<p>URL, parameter, atau kumpulan kustom kosong yang hilang menghasilkan pesan validasi tertentu. Mengubah respons saja tidak menyebabkan cacat injeksi. Pembatasan server dapat menghentikan parameter meskipun terjadi pada baseline.</p>
+<h3 id="auto-fuzz-discovered-inputs">Input yang ditemukan fuzz otomatis</h3>
+<p>Gunakan <strong>Pratinjau masukan yang ditemukan</strong> pertama. Itu membaca inventaris yang disimpan dan melaporkan permintaan yang memenuhi syarat/dilewati tanpa mengirimkan pemeriksaan. Fuzz otomatis tidak memerlukan kolom URL/parameter fuzzer manual. Telusuri atau Spider terlebih dahulu jika inventaris kosong.</p>
+<p>Pilih kelas muatan dan pilih yang terpisah <strong>Bulu halus otomatis</strong> tombol. <strong>Sertakan badan permintaan yang ditemukan</strong> dimulai dan memerlukan persetujuan Agresif plus dijalankan selanjutnya. Formulir yang terikat token, metode yang tidak didukung, isi yang tidak tersedia, dan XML dilewati oleh pemilih masukan otomatis ini. Pengecualian yang ada, batas permintaan, dan perilaku pembatasan masih berlaku.</p>
+<p>Kotak centang kelas yang tersedia adalah SQLI, NOSQLI, CODE, XSS, SSTI, TRAVERSAL, COMMAND, SSRF, REDIRECT, CRLF dan CUSTOM. Default baru mengaktifkan SQLI, SSTI, TRAVERSAL, REDIRECT dan CRLF. Perulangan generik melewati SSRF; gunakan <strong>Kenari/callback SSRF</strong> untuk verifikasi yang diterapkan. CUSTOM menggunakan nilai khusus yang dimasukkan/diaktifkan dan melaporkan perbedaan respons berkeyakinan rendah kecuali jika pencocokan khusus menentukan lebih banyak.</p>
+<h3 id="why-probe-library-belongs-here">Mengapa perpustakaan Probe ada di sini</h3>
+<p>Persediaan perpustakaan <strong>nilai muatan dan templat yang ditinjau</strong>; pilih kontrol fuzzer <strong>kemana dan bagaimana mengirimkannya</strong>. Itu tidak menggantikan URL/parameter manual. Opsi perpustakaan bersama juga memengaruhi Pemindaian aktif dan fase otomatis setelah penyimpanan.</p>
+<p><strong>Perbarui daftar GitHub</strong> menyegarkan sumber tetap, bukan pemindai yang dapat dieksekusi secara sembarangan:</p>
+<table>
+<thead>
+<tr>
+<th>Sumber</th>
+<th>Subset yang digunakan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SecList SQLi cepat</td>
+<td>Nilai tanda baca/boolean yang difilter, dibatasi hingga 32 entri yang didukung</td>
+</tr>
+<tr>
+<td>Deteksi SQL lintas platform FuzzDB</td>
+<td>Nilai tanda baca/boolean yang difilter, dibatasi hingga 32 entri yang didukung</td>
+</tr>
+<tr>
+<td>Templat ProjectDiscovery Nuclei</td>
+<td>Dua pemeriksaan starter Jira khusus GET: CVE-2020-14179 dan CVE-2021-26086</td>
+</tr>
+<tr>
+<td>Teknik PayloadsAllTheThings</td>
+<td>Dasar untuk implementasi variasi spasi putih/komentar/pengkodean SQL yang dibatasi; bukan skrip bypass yang dapat dieksekusi yang diunduh</td>
+</tr>
+</tbody>
+</table>
+<p>Pembaruan menggunakan HTTPS, menghilangkan cookie, dan mempertahankan snapshot lama jika terjadi kegagalan. Hash sumber, waktu penyegaran, dan jumlah yang didukung ditampilkan. Hash file input lengkap tidak berarti setiap nilai dalam file tersebut digunakan. Daftar SQL yang diunduh mengecualikan konstruksi destruktif/ekstraksi data/penundaan/kode/panggilan balik; aturan bawaan memiliki kenari yang diimplementasikan secara terpisah.</p>
+<p>Hentikan pemindaian sebelum memperbarui. Pembaruan tidak memulai pemeriksaan, memberikan persetujuan, mengaktifkan OAST, atau mengunggah data target/paket khusus ke GitHub. Templat yang diunduh dan berubah menjadi bentuk yang tidak didukung/mentah/kode/tanpa kepala akan ditolak daripada secara diam-diam dipromosikan ke kemampuan eksekusi baru.</p>
+<h2 id="your-payloads-and-imported-templates">Muatan Anda dan templat yang diimpor</h2>
+<h3 id="upload-literal-lists">Unggah daftar literal</h3>
+<p>Di bawah <strong>Opsi pemindaian atau Fuzzer → Perpustakaan probe → Payload dan templat CVE Anda</strong>, lalu pilih kategori <strong>Unggah file khusus</strong>.</p>
+<p>Formulir daftar yang diterima:</p>
+<ul>
+<li><code dir="ltr" translate="no">.txt</code>: satu nilai literal yang tidak kosong per baris; ruang dan kotak dipertahankan.</li>
+<li><code dir="ltr" translate="no">.json</code>: array string atau objek yang berisi <code dir="ltr" translate="no">name</code>, <code dir="ltr" translate="no">category</code> dan <code dir="ltr" translate="no">payloads</code>.</li>
+<li>Kategori: <code dir="ltr" translate="no">custom</code>, <code dir="ltr" translate="no">waf</code>, <code dir="ltr" translate="no">sqli</code>, <code dir="ltr" translate="no">nosqli</code>, <code dir="ltr" translate="no">code</code>, <code dir="ltr" translate="no">xss</code>, <code dir="ltr" translate="no">ssti</code>, <code dir="ltr" translate="no">traversal</code>, <code dir="ltr" translate="no">crlf</code>, <code dir="ltr" translate="no">redirect</code>, <code dir="ltr" translate="no">command</code>.</li>
+</ul>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "name": "My SQL review probes",
+  "category": "sqli",
+  "payloads": ["'", "\"", "' AND 1=1 -- "]
+}
+</code></pre>
+<p>Paket bersifat spesifik target dan pada awalnya <strong>dengan disabilitas</strong>. Periksa pratinjau dan aktifkan paket yang dimaksud secara eksplisit. Paket unggahan yang diaktifkan memerlukan Agresif dan persetujuan; mengunggah saja tidak menghasilkan apa-apa.</p>
+<p>Batasan: 256 KB per file payload, 200 string per paket, 2.000 karakter per nilai, dan maksimal 10 paket / 500 nilai / 512 KB konfigurasi paket per target. String duplikat dalam paket akan dihapus. Metode, cakupan, anggaran, dan penjaga SQL destruktif yang ada masih berlaku.</p>
+<p>Paket yang dikategorikan melengkapi nilai kelas bawaan. Paket WAF juga memerlukan variasi cerdas dan bukti pemfilteran yang memenuhi syarat. Payload khusus literal bukanlah pencocokan keluaran yang diharapkan atau kode ekstensi yang dapat dieksekusi. Mengunggah nomor CVE saja tidak dapat memverifikasi CVE tersebut.</p>
+<h3 id="import-requestmatcher-templates">Impor templat permintaan/pencocokan</h3>
+<p>Pilih kategori template CVE/Nuclei sebelum mengunggah YAML/YML/JSON; batas file templat adalah 2 MB. Tinjau di <strong>Templat</strong>, termasuk eksekutor dan alasan Siap/Diblokir yang konkrit. Templat yang diimpor menggunakan perpustakaan bersama; paket muatan tetap pada targetnya.</p>
+<ul>
+<li><strong>Jalankan dipilih</strong> mengeksekusi templat yang dipilih secara langsung dan tidak memerlukan fase otomatis CVE.</li>
+<li><strong>Fase otomatis CVE</strong> mempertimbangkan impor yang diberi tag/identifikasi CVE yang memenuhi syarat selama pemindaian yang dikonfigurasi.</li>
+<li><strong>Bulu halus otomatis</strong> menghasilkan nilai-nilai umum; itu tidak menulis ulang muatan atau pencocokan CVE yang dibuat.</li>
+<li>JSON khusus penasehat menghubungkan bukti produk/versi. Itu tidak menciptakan permintaan eksploitasi yang berfungsi.</li>
+<li>Templat mentah, kompleks, kode, tanpa kepala, file, atau non-HTTP mungkin memerlukan mesin resmi terpisah dan hibah tambahan, atau tetap diblokir.</li>
+</ul>
+<p>Impor bundel pembantu relatif yang telah ditinjau dengan templat yang memerlukannya. Waktu proses asli yang tidak tersedia, permintaan di luar cakupan, persetujuan yang hilang, atau fitur yang tidak didukung adalah alasan untuk melakukan pemeriksaan, bukan pengujian negatif yang berhasil.</p>
+<h2 id="server-stack-and-smart-analyzer">Tumpukan server dan penganalisis cerdas</h2>
+<p>Gunakan <strong>Deteksi perangkat lunak</strong> untuk mengumpulkan pengamatan terbatas yang didukung. Jelajahi halaman representatif dan simpan tanggapan yang sesuai saat Anda membutuhkan bukti tubuh. Lalu pilih <strong>Analisis bukti-bukti yang tercatat</strong> untuk korelasi pasif lokal hingga 200 tanggapan tersimpan terbaru. Penganalisis itu sendiri tidak menambahkan permintaan target.</p>
+<p>Tampilan tersebut memisahkan komponen browser, WAF/CDN/edge, server web/proxy terbalik, dan sinyal aplikasi/runtime. Header khusus produk, nama cookie, struktur aset/bootstrap, dan teks kesalahan dapat meningkatkan kepercayaan diri. Badan halaman tantangan dikecualikan dari sidik jari aplikasi. 403 generik, spanduk nginx, atau tepi CDN tidak menetapkan bahwa aturan WAF tertentu diaktifkan.</p>
+<p>Kartu konfigurasi yang mungkin menjelaskan buktinya dan verifikasi yang disarankan. Hipotesisnya adalah: respons browser tidak dapat secara tepat menetapkan IP asal, subnet pribadi, pengaturan database backend, penghentian TLS, aturan firewall, atau daftar kepercayaan proxy. Beberapa upstream dan spanduk yang ditulis ulang dapat menyembunyikan atau salah mengidentifikasi lapisan.</p>
+<h3 id="waf-recommendations-and-rate-handling">Rekomendasi WAF dan penanganan tarif</h3>
+<p><strong>Terapkan rekomendasi pemindaian konservatif</strong> secara eksplisit mengaktifkan probe SQL komunitas, variasi cerdas, dan kecepatan adaptif serta menurunkan kecepatan yang dikonfigurasi hingga maksimal 0,5 permintaan/detik. Itu tidak memulai pemindaian atau memberikan kemampuan tingkat lanjut.</p>
+<p>Penyelidikan yang memenuhi syarat mempertimbangkan paling banyak tiga representasi alternatif dalam anggaran yang ada. Garis dasar yang diblokir dilewati. Tantangan browser memerlukan resolusi browser normal; penolakan ACL biasa tidak membenarkan upaya bypass tanpa akhir. Perubahan yang dilarang untuk dibolehkan adalah bukti keterjangkauan, bukan bukti kerentanan.</p>
+<p>Tantangan eksplisit yang berulang dapat mengurangi separuh kecepatan dalam memori dan menyebabkan waktu tunggu setidaknya sepuluh detik. HTTP 429 atau 503 dengan Retry-After menghentikan pemeriksaan terjadwal lebih lanjut; interval Coba Lagi-Setelah yang lebih lama dipatuhi. Tarifnya tidak otomatis naik lagi. Proses baru dimulai dengan laju yang dikonfigurasi.</p>
+<h3 id="cve-lookup">pencarian CVE</h3>
+<p><strong>Cari CVE online</strong> menanyakan NVD/OSV untuk koordinat produk/paket yang didukung setelah izin. Permintaan mengirimkan koordinat, bukan URL target, cookie, atau konten halaman. Kesimpulan versi tidak diketahui, backport vendor, dan kehadiran paket yang tidak terverifikasi. Entri npm/PyPI manual tidak membuktikan instalasi.</p>
+<p>Tidak ada kecocokan bukan berarti tidak ada CVE. Yang cocok adalah calon penasehat; memeriksa prasyarat dan penggunaan <strong>Temukan templat verifikasi</strong> untuk menemukan cek impor yang sesuai. Tombol itu memfilter templat daripada menjalankannya.</p>
+<h2 id="oast-setup-and-interpretation">Pengaturan dan interpretasi OAST</h2>
+<p><a href="https://portswigger.net/web-security/ssrf/blind">OAST</a> mengamati interaksi DNS/HTTP yang disebabkan oleh penyelidikan ketika respons normal tidak mengungkapkan perilaku tersebut. Longshot memiliki kunci registrasi/korelasinya; panggilan balik acak yang dibuat sebelumnya dari klien lain tidak dapat dipertukarkan.</p>
+<ol>
+<li>Pilih layanan yang kompatibel dengan Interactsh yang Anda kendalikan atau diizinkan untuk digunakan.</li>
+<li>Masuk <strong>URL Penyedia</strong>: alamat dasar API lengkap penyedia, biasanya HTTPS. HTTP hanya diperbolehkan untuk penyedia loopback.</li>
+<li>Masukkan yang cocok <strong>Domain panggilan balik</strong> tanpa <code dir="ltr" translate="no">http://</code>, port atau jalur.</li>
+<li>Masuk <strong>Token penyedia</strong> hanya jika penyedia tersebut memerlukannya.</li>
+<li>Atur TTL dan interval polling; aktifkan OAST ditambah opsi SSRF/XXE/Log4Shell/perintah yang relevan.</li>
+<li>Gunakan <strong>Uji koneksi OAST</strong> untuk memeriksa pendaftaran/polling.</li>
+<li>Gunakan <strong>Uji panggilan balik OAST</strong> untuk mengirim canary berkorelasi terpisah dari browser ini.</li>
+<li>Simpan, tinjau, dan setujui pemindaian sebenarnya. Periksa korelasi dan protokol yang tepat dalam interaksi OAST.</li>
+</ol>
+<p>Misalnya jika menggunakan layanan publik yang cocok di <code dir="ltr" translate="no">https://oast.pro</code>, basis panggilan baliknya adalah <code dir="ltr" translate="no">oast.pro</code>. Ini adalah contoh, bukan jaminan ketersediaan atau persyaratan untuk menggunakan penyedia tersebut. Penyedia yang dihosting sendiri memerlukan domain, DNS/pendengar, dan TLS yang dapat didelegasikan dengan benar; pendengar HTTP laptop saja bukanlah layanan panggilan balik publik. Ikuti <a href="https://github.com/projectdiscovery/interactsh">pengaturan Interactsh resmi</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Pengamatan</th>
+<th>Apa yang ditetapkannya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tes koneksi berhasil</td>
+<td>Registrasi dan polling dilakukan melalui rute browser</td>
+</tr>
+<tr>
+<td>Tes panggilan balik browser berhasil</td>
+<td>Browser ini dapat memicu dan mengambil interaksinya yang berkorelasi</td>
+</tr>
+<tr>
+<td>Probe target menghasilkan interaksi yang cocok</td>
+<td>Terjadi interaksi yang berkorelasi; mengatribusikan sumber dan menilai maknanya</td>
+</tr>
+<tr>
+<td>Tidak ada panggilan balik</td>
+<td>Tidak meyakinkan: target keluar, jangkauan penyedia, habis masa berlakunya, pemfilteran, atau konteks yang tidak didukung dapat menjelaskan hal ini</td>
+</tr>
+</tbody>
+</table>
+<p>Resolusi DNS dapat berasal dari perantara/layanan keamanan. Panggilan balik saja tidak membuktikan akses internal yang sewenang-wenang, pencurian data, atau eksekusi kode. Mesin Nuclei terisolasi yang terpisah memiliki registrasi Interactsh aslinya sendiri; peristiwa tersebut bukan merupakan registrasi klien browser.</p>
+<p>Klien OAST sisi browser tidak memerlukan Go, Node, atau Agent API. Uji rilis dilakukan dengan registrasi server resmi, pengambilan panggilan balik HTTP terenkripsi, dan korelasi pada loopback; mereka tidak menetapkan ketersediaan penyedia publik atau jalan keluar server target Anda. Tidak ada pengeditan file host yang merupakan bagian dari pengaturan OAST normal yang didelegasikan dengan benar.</p>
+<h2 id="browser-bridge-native-tool-proxy">Jembatan Browser: proksi alat asli</h2>
+<h3 id="what-it-sends">Apa yang dikirimkannya</h3>
+<p>Alat eksternal menghasilkan permintaan, termasuk muatan serangan, metode, isi, dan kuerinya. Adaptor asli meneruskannya melalui mitmproxy, hanya menerapkan perubahan cookie/header yang dikonfigurasi. Memang benar <strong>tidak</strong> minta Firefox untuk melakukan pengambilan atas nama ZAP atau alat lain.</p>
+<p>Hal ini mempertahankan semantik HTTP asli dan pembuatan payload alat, namun bukan byte kabel asli yang sewenang-wenang: mitmproxy mem-parsing/membuat serial HTTP dan membuat koneksi TLS keluarnya sendiri. String Agen-Pengguna browser tidak membuat sidik jari TLS/jaringan asli identik dengan Firefox.</p>
+<h3 id="install-the-downloaded-adapter">Instal adaptor yang diunduh</h3>
+<ol>
+<li>Buka <strong>Jembatan Peramban</strong>. Hanya saja <strong>Proksi alat asli</strong> tersedia di 2.18.1.</li>
+<li>Pilih <strong>Unduh adaptor asli</strong> dan mengekstraknya.</li>
+<li>Masukkan hasil ekstraknya <code dir="ltr" translate="no">native-bridge</code> direktori. Ini berisi <code dir="ltr" translate="no">cli.js</code>, <code dir="ltr" translate="no">bootstrap.py</code>, <code dir="ltr" translate="no">config.json</code> dan Node.js yang dibundel <code dir="ltr" translate="no">ws</code> ketergantungan.</li>
+<li>Instal Node.js 20+ dan Python 3.12+ jika belum tersedia.</li>
+<li>Jalankan pengaturan Python satu kali:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   cd /absolute/path/to/native-bridge
+   python3 bootstrap.py</code></p>
+<p>Hal ini menciptakan lokal <code dir="ltr" translate="no">.venv</code> dan menginstal mitmproxy 12.2.3 yang disematkan. Instalasi memerlukan akses Internet. Startup normal tidak mengunduh kode pemindai atau daftar muatan.</p>
+<ol start="6">
+<li>Gunakan perintah yang ditunjukkan oleh <strong>milikmu</strong> halaman ekstensi:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   node cli.js --config config.json \
+     --extension-origin moz-extension://YOUR-LONGSHOT-UUID</code></p>
+<p>Ganti placeholder dengan asal ekstensi lengkap saat ini. Ini bukan situs web target, ID tambahan, atau asal yang disalin dari profil Firefox lain.</p>
+<ol start="7">
+<li>Biarkan terminal tetap berjalan. Setelah pendengar proksi siap, ia akan mencetak alamat proksi, port kontrol, token pemasangan/proksi baru, dan jalur sertifikat CA.</li>
+</ol>
+<p>Saat mengembangkan dari ZIP sumber daripada menggunakan arsip adaptor yang dibundel, instal ketergantungan Node yang disematkan terlebih dahulu jika tidak ada:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+npm --prefix native-bridge ci --omit=dev
+cd native-bridge
+python3 bootstrap.py
+</code></pre>
+<p><code dir="ltr" translate="no">--mitmdump /absolute/path/to/mitmdump</code> atau <code dir="ltr" translate="no">LONGSHOT_MITMDUMP</code> memilih runtime yang ada. <code dir="ltr" translate="no">--data-dir /absolute/private/run-directory</code> memilih direktori CA/audit; standarnya adalah <code dir="ltr" translate="no">run</code> di dalam adaptor asli. Ctrl+C menghentikan adaptor.</p>
+<p>Proksi asli manual terpisah dari pendaftaran host API Agen. Itu tidak perlu <code dir="ltr" translate="no">node bridge/bin/longshot-bridge install</code> hanya untuk proxy curl/ZAP. Linux/Firefox dilaksanakan dalam uji integrasi rilis; jangan menyimpulkan dukungan penginstal pesan asli pada platform lain dari jalur startup Node/Python manual ini.</p>
+<h3 id="pair-the-selected-tab">Pasangkan tab yang dipilih</h3>
+<ol>
+<li>Pilih yang berwenang <strong>Tab sasaran</strong> di Jembatan Peramban.</li>
+<li>Verifikasi asal yang ditampilkan dan penyimpanan cookie. Gunakan <strong>Segarkan tab</strong> jika perlu.</li>
+<li>Masuk <strong>Pelabuhan kontrol</strong> <code dir="ltr" translate="no">8901</code>, kecuali diubah pada konfigurasi adaptor.</li>
+<li>Tempelkan arusnya <strong>Memasangkan/token proksi</strong> dari adaptor yang sedang berjalan.</li>
+<li>Pilih <strong>Pasangkan jembatan asli</strong> dan verifikasi status siap.</li>
+<li>Tinjau peralihan cookie/header sebelum merutekan lalu lintas alat.</li>
+</ol>
+<p>Bidang ini menghapus token setelah pemasangan berhasil. Pengulangan ulang menghasilkan token baru: pasangkan kembali dan perbarui kredensial proxy di setiap alat eksternal. Pelabuhan proksi <code dir="ltr" translate="no">8900</code> adalah untuk alat; port kendali <code dir="ltr" translate="no">8901</code> adalah untuk Firefox. Tidak ada yang menggunakan token pembawa API Agen dari port 8765.</p>
+<h3 id="actual-target-urls-and-bridgeinvalid">URL target sebenarnya dan bridge.invalid</h3>
+<p>Gunakan alamat sebenarnya, misalnya <code dir="ltr" translate="no">http://localhost:8080/search?q=apple</code>, di alat Anda. Jika menguji HTTPS, gunakan yang asli <code dir="ltr" translate="no">https://...</code> alamat. Alamat proxy itu sendiri tetap ada <code dir="ltr" translate="no">http://127.0.0.1:8900</code> karena itu adalah pendengar proxy HTTP lokal, termasuk untuk HTTPS CONNECT.</p>
+<p><strong>Tidak <code dir="ltr" translate="no">/etc/hosts</code> diperlukan entri.</strong> Yang lama <code dir="ltr" translate="no">bridge.invalid</code> alamat adalah alias khusus adaptor untuk memetakan URL HTTP utilitas ke target pengambilan browser yang dipilih. Proksi asli saat ini mendukung URL target sebenarnya dan HTTPS CONNECT, sehingga pemetaan tidak diperlukan.</p>
+<p><code dir="ltr" translate="no">localhost</code> bukanlah alias yang dapat dipertukarkan untuk setiap target: ia memberi nama mesin lokal dari lingkungan jaringan proses yang relevan. Ini benar hanya jika targetnya benar-benar lokal di tempat asal tersebut. Nama host yang berbeda dapat memilih host virtual, kebijakan cookie, atau asal yang berbeda meskipun kedua nama tersebut memiliki IP yang sama.</p>
+<p>Entri host yang sudah usang tidak relevan dengan alur kerja baru; jangan menggunakannya di URL alat. Tidak ada modifikasi file host yang dilakukan saat mempersiapkan tutorial ini.</p>
+<h3 id="https-trust">kepercayaan HTTPS</h3>
+<p>Adaptor menghasilkan CA lokalnya sendiri di bawah direktori data yang dipilih, biasanya:</p>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
+run/ca/mitmproxy-ca.pem            sensitive CA material/private key
+</code></pre>
+<p>Konfigurasikan <strong>konfigurasi kepercayaan penilaian alat eksternal</strong> dengan jalur sertifikat publik yang dicetak saat startup. Jangan membagikan kunci pribadi atau menganggap sistem/penyimpanan kepercayaan Firefox telah diubah. Adaptor tidak menginstal CA-nya ke salah satu penyimpanan kepercayaan.</p>
+<p>Untuk ikal:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  --cacert /absolute/path/to/native-bridge/run/ca/mitmproxy-ca-cert.pem \
+  'https://actual-target.example/search?q=apple'
+</code></pre>
+<p>Ganti <code dir="ltr" translate="no">CURRENT_TOKEN</code> dan jalur sasaran/sertifikat. Untuk target lokal khusus HTTP, <code dir="ltr" translate="no">--cacert</code> tidak diperlukan. <code dir="ltr" translate="no">--noproxy ''</code> memastikan curl tidak secara diam-diam mem-bypass proxy untuk target loopback.</p>
+<p>Ada dua pemeriksaan TLS yang berbeda:</p>
+<ul>
+<li>Klien memverifikasi sertifikat yang diberikan oleh adaptor. Konfigurasikan kepercayaan klien dengan adaptor CA.</li>
+<li>Adaptor memverifikasi server upstream yang sebenarnya. <code dir="ltr" translate="no">tls.verifyUpstream</code> defaultnya benar. Klien <code dir="ltr" translate="no">--cacert</code> tidak menyediakan CA asal privat ke adaptor.</li>
+</ul>
+<p>Jangan perlakukan penonaktifan verifikasi sebagai perbaikan normal untuk kesalahan sertifikat. Untuk perlengkapan yang ditandatangani sendiri, <code dir="ltr" translate="no">tls.verifyUpstream:false</code> adalah pengecualian penilaian eksplisit dalam konfigurasi adaptor, diikuti dengan restart; hal ini melemahkan pemeriksaan hulu yang terpisah. Lihat <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">perilaku sertifikat mitmproxy</a>.</p>
+<h3 id="traffic-fidelity-and-limits">Kesetiaan dan batasan lalu lintas</h3>
+<table>
+<thead>
+<tr>
+<th>Dukungan proksi asli</th>
+<th>Tidak membangun atau mendukung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Metode yang dihasilkan alat, muatan kueri, dan isi</td>
+<td>Byte header/pesanan/casing asli yang persis atau format framing yang salah</td>
+</tr>
+<tr>
+<td>HTTP/1.1, HTTP/2, HTTPS TERHUBUNG</td>
+<td>HTTP/3, mode pemindai TCP atau non-HTTP sewenang-wenang</td>
+</tr>
+<tr>
+<td>Penggantian sesi/tajuk yang dikonfigurasi</td>
+<td>Sidik jari browser lengkap, eksekusi tantangan JavaScript, atau TLS milik browser</td>
+</tr>
+<tr>
+<td>Peningkatan WebSocket pada rute asli</td>
+<td>Pemverifikasi kerentanan protokol aplikasi umum</td>
+</tr>
+<tr>
+<td>Alat memeriksa header Host sambil mempertahankan tujuan HTTPS CONNECT yang sah</td>
+<td>Target panggilan tidak terbatas atau otorisasi target baru otomatis</td>
+</tr>
+<tr>
+<td>Cakupan asal tambahan tanpa ekspor sesi browser</td>
+<td>Cookie browser/kredensial header secara otomatis dibagikan ke seluruh asal</td>
+</tr>
+</tbody>
+</table>
+<p>Rute asli tidak memiliki fallback pengambilan browser. Untuk penelitian penyelundupan permintaan mentah, pembuatan kawat yang tidak biasa, atau penelitian TLS khusus, gunakan angkutan terpisah yang sesuai. Jangan memberi label pada proxy yang diurai ini dengan byte-transparan.</p>
+<h2 id="native-bridge-configuration">Konfigurasi jembatan asli</h2>
+<p>Unduh konfigurasi dari Browser Bridge atau edit adaptor <code dir="ltr" translate="no">config.json</code>. Kunci yang tidak diketahui, jenis yang tidak valid, dan nilai di luar rentang akan ditolak. Bidang adaptor lama bukan sinonim konfigurasi asli.</p>
+<p>Konfigurasi adaptor yang berjalan berwenang dalam pemasangan. <strong>Terapkan penggantian</strong> mengubah pilihan pengesampingan browser yang didukung untuk pemasangan saat ini. <strong>Unduh konfigurasi</strong> mempertahankan konfigurasi yang dipilih untuk permulaan berikutnya. Mengedit bidang JSON umum tidak secara diam-diam mengonfigurasi ulang port pendengar, TLS, perutean, atau batasan dalam proses yang sudah berjalan: simpan/unduh, mulai ulang, dan pasangkan ulang.</p>
+<h3 id="complete-shipped-defaults">Selesaikan default yang dikirimkan</h3>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "proxy": {
+    "port": 8900
+  },
+  "control": {
+    "port": 8901,
+    "timeoutMs": 10000
+  },
+  "browser": {
+    "required": true,
+    "firstPartyDomain": null
+  },
+  "cookies": {
+    "enabled": true,
+    "mode": "replace",
+    "saveResponses": true,
+    "preserveToolChanges": true,
+    "protectedNames": [],
+    "includeNames": [],
+    "excludeNames": []
+  },
+  "headers": {
+    "userAgent": {
+      "source": "tool",
+      "value": ""
+    },
+    "acceptLanguage": {
+      "source": "tool",
+      "value": ""
+    },
+    "authorization": {
+      "source": "tool",
+      "value": ""
+    },
+    "set": {},
+    "remove": [],
+    "protectedNames": []
+  },
+  "scope": {
+    "origins": [],
+    "excludePaths": [],
+    "methods": [
+      "*"
+    ]
+  },
+  "limits": {
+    "rate": 2,
+    "concurrency": 4,
+    "maxRequests": 10000,
+    "maxBodyBytes": 67108864,
+    "timeoutSeconds": 60
+  },
+  "session": {
+    "pauseStatuses": [
+      401,
+      419,
+      440
+    ],
+    "pauseOn429": true
+  },
+  "tls": {
+    "verifyUpstream": true,
+    "http2": true
+  },
+  "upstream": {
+    "url": null
+  },
+  "routing": {
+    "socks5": null
+  },
+  "audit": {
+    "enabled": true
+  }
+}
+</code></pre>
+<p>Sebuah kosong <code dir="ltr" translate="no">scope.origins</code> default ke asal pasti target yang dipasangkan. Anda tidak perlu memasukkan target atau stempel waktu mulai/berakhir untuk memulai penilaian berpasangan normal. Penegakan cakupan masih ada; itu dipilih secara berpasangan daripada formulir penilaian wajib yang lama.</p>
+<h3 id="field-reference">Referensi lapangan</h3>
+<table>
+<thead>
+<tr>
+<th>Bidang</th>
+<th>Efek</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">schemaVersion</code></td>
+<td>Format konfigurasi asli; nilai saat ini 1</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">proxy.port</code></td>
+<td>Port proksi HTTP yang menghadap alat, default 8900</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.port</code></td>
+<td>Port koordinator Firefox, default 8901; harus berbeda dari port proxy</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.timeoutMs</code></td>
+<td>Batas waktu balasan browser/kontrol, default 10.000 ms</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.required</code></td>
+<td>Pemasangan diperlukan secara default. Pengoperasian mandiri memerlukan asal yang jelas dan semua fitur turunan browser dinonaktifkan</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.firstPartyDomain</code></td>
+<td>Domain isolasi pihak pertama yang eksplisit jika API cookie Firefox memerlukannya; null menggunakan perilaku normal</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.enabled</code></td>
+<td>Gunakan cookie Firefox yang dipilih dalam permintaan asli keluar; standarnya benar</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.mode</code></td>
+<td><code dir="ltr" translate="no">replace</code> secara default; opsional <code dir="ltr" translate="no">merge</code>, dijelaskan di bawah</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code></td>
+<td>Terapkan pembaruan Set-Cookie respons ke toples Firefox yang dipilih; defaultnya benar, tidak bergantung pada penggantian permintaan</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.preserveToolChanges</code></td>
+<td>Pertahankan perubahan yang berhubungan dengan permintaan pertama per koneksi/asal klien; standarnya benar</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.protectedNames</code></td>
+<td>Nama cookie yang nilai alatnya harus tetap berada di bawah kendali alat</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.includeNames</code></td>
+<td>Hanya kelola nama-nama ini; kosong berarti semua nama browser yang cocok</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.excludeNames</code></td>
+<td>Jangan kelola nama cookie browser ini</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.userAgent</code>, <code dir="ltr" translate="no">acceptLanguage</code>, <code dir="ltr" translate="no">authorization</code></td>
+<td><code dir="ltr" translate="no">source</code> adalah <code dir="ltr" translate="no">tool</code>, <code dir="ltr" translate="no">browser</code> atau <code dir="ltr" translate="no">custom</code>; custom membutuhkan satu baris yang tidak kosong <code dir="ltr" translate="no">value</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.set</code>, <code dir="ltr" translate="no">remove</code>, <code dir="ltr" translate="no">protectedNames</code></td>
+<td>Perubahan dan perlindungan header ekstra secara eksplisit; bidang yang dicadangkan/dikelola memerlukan kontrol khusus</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.origins</code></td>
+<td>Kosong menggunakan asal berpasangan; asal usul tambahan yang dicantumkan secara eksplisit tidak menerima bidang sesi yang diturunkan dari browser</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.excludePaths</code></td>
+<td>Awalan jalur yang dikecualikan, termasuk formulir yang didekodekan</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.methods</code></td>
+<td>Metode yang diperbolehkan; bawaan <code dir="ltr" translate="no">["*"]</code> berarti semua metode HTTP asli, bukan persetujuan penulisan browser Longshot</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.rate</code></td>
+<td>Kecepatan penjadwalan asli bersama, default 2 permintaan/detik</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.concurrency</code></td>
+<td>Slot kontrol asli, default 4</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxRequests</code></td>
+<td>Plafon permintaan asli, default 10.000; kelelahan menghentikan pekerjaan</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxBodyBytes</code></td>
+<td>Buffer/langit-langit bodi, default 64 MiB</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.timeoutSeconds</code></td>
+<td>Sewa/batas waktu penyelesaian, default 60 detik; tidak ada pengembalian permintaan yang sudah dikirim</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseStatuses</code></td>
+<td>Daftar jeda status autentikasi default: 401, 419, 440</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseOn429</code></td>
+<td>Jeda saat pembatasan secara default</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">tls.verifyUpstream</code>, <code dir="ltr" translate="no">http2</code></td>
+<td>Keduanya benar secara default</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">upstream.url</code></td>
+<td>Proksi hulu HTTP(S) opsional; null berarti tidak ada</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">routing.socks5</code></td>
+<td>Opsional <code dir="ltr" translate="no">socks5h://host:port</code>; nol secara default; saling eksklusif dengan URL upstream</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">audit.enabled</code></td>
+<td>Audit JSONL khusus metadata, defaultnya benar</td>
+</tr>
+</tbody>
+</table>
+<p>Rentang validasi asli: port 1024–65535, kecepatan 0,1–100, konkurensi 1–32, batas permintaan 1–1.000.000, batas isi 1 KB–256 MiB, batas waktu 1–600 detik, batas waktu kontrol 1.000–120.000 ms. Ini adalah batasan konfigurasi yang diterima, bukan rekomendasi untuk beban aman target.</p>
+<p>Nama header tidak peka huruf besar-kecil. Nama cookie peka huruf besar-kecil. Gunakan boolean JSON <code dir="ltr" translate="no">true</code>/<code dir="ltr" translate="no">false</code>, bukan string. Generik <code dir="ltr" translate="no">headers.set</code> tidak dapat menggantikan bidang Host, Cookie, Otorisasi, pembingkaian, atau kontrol proxy. Gunakan opsi cookie/Otorisasi khusus dan nilai Host alat itu sendiri.</p>
+<p>Untuk menurunkan beban pengoperasian alat asli, konfigurasi parsial dapat mengesampingkan konfigurasi default, misalnya:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "limits": {
+    "rate": 0.5,
+    "concurrency": 1,
+    "maxRequests": 500
+  }
+}
+</code></pre>
+<p>Tidak ada kunci konfigurasi asli umum yang menyegarkan token badan atau menciptakan alur kerja masuk browser.</p>
+<h2 id="cookie-and-header-overrides-without-damaging-probes">Cookie dan header diganti tanpa merusak probe</h2>
+<h3 id="default-cookie-behavior">Perilaku cookie default</h3>
+<p><strong>Gunakan cookie browser</strong> dan <strong>Simpan respons pembaruan Set-Cookie</strong> aktif secara default. Agen Pengguna, Bahasa Terima, dan Otorisasi tetap dikontrol alat secara default.</p>
+<p>Untuk permintaan asli, Firefox memilih cookie yang berlaku untuk URL dari penyimpanan cookie tab berpasangan dan partisi yang cocok. Kontainer/toko pribadi lainnya tidak digabungkan. Aturan domain/jalur/Aman/kedaluwarsa dan pengurutan jalur dengan nama yang sama tetap relevan. Nilai diberikan ke proksi asli sehingga dapat membuat header Cookie keluar; tidak seperti jalur pengambilan browser yang dihapus, helper asli menangani rahasia sesi di memori.</p>
+<p>Dengan <code dir="ltr" translate="no">cookies.mode:"replace"</code>, toples browser bersifat otoritatif, termasuk saat kosong. Cookie browser yang dihapus dari toples akan dihapus dari permintaan terkelola selanjutnya. Nama yang dilindungi secara eksplisit dan perubahan alat yang terdeteksi menjadi prioritas. Dengan <code dir="ltr" translate="no">mode:"merge"</code>, cookie alat yang tidak terkait dapat tetap ada selama nama yang dikelola browser diperbarui.</p>
+<p>Bidang Set-Cookie Respons diterapkan satu per satu ke penyimpanan terpilih yang sama menggunakan API cookie Firefox, termasuk atribut Domain/path/Secure/HttpOnly/SameSite/expiry/deletion/partition yang didukung. Cookie yang tidak valid dapat ditolak; memeriksa kesalahan yang dilaporkan. Asal tambahan yang dikonfigurasi tidak menerima cookie browser atau header turunan browser.</p>
+<h3 id="request-and-response-switches-are-independent">Sakelar permintaan dan respons bersifat independen</h3>
+<table>
+<thead>
+<tr>
+<th>Minta penggantian cookie</th>
+<th>Sinkronisasi respons</th>
+<th>Hasil</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aktif</td>
+<td>Aktif</td>
+<td>Gunakan cookie Firefox dan perbarui toples dari respons Set-Cookie</td>
+</tr>
+<tr>
+<td>Mati</td>
+<td>Aktif</td>
+<td>Simpan cookie permintaan alat tersebut; tanggapan target masih dapat mengubah toples Firefox</td>
+</tr>
+<tr>
+<td>Aktif</td>
+<td>Mati</td>
+<td>Gunakan cookie Firefox; jangan menulis kembali cookie respons melalui pembantu ini</td>
+</tr>
+<tr>
+<td>Mati</td>
+<td>Mati</td>
+<td>Jaga agar cookie permintaan tetap terkontrol dan jangan sinkronkan respons</td>
+</tr>
+</tbody>
+</table>
+<p>Untuk pengaburan cookie atau eksperimen sesi yang harus membiarkan toples browser tidak berubah, pertimbangkan kedua sakelar. Bypass pengesampingan per permintaan memengaruhi pengesampingan sisi permintaan; itu tidak menonaktifkan pengaturan sinkronisasi cookie respons global yang independen.</p>
+<h3 id="protect-fields-that-contain-attack-payloads">Lindungi bidang yang berisi muatan serangan</h3>
+<p>Misalkan tes ZAP <code dir="ltr" translate="no">session=ATTACK_PAYLOAD</code>. Mengganti nilai tersebut secara membabi buta dengan sesi browser yang valid dapat menghapus pengujian. Sebaliknya, menyimpan cookie basi di setiap permintaan dapat membuat pemindaian yang diautentikasi menjadi tidak berguna.</p>
+<p>Standarnya <strong>Pertahankan perubahan cookie/header alat setelah permintaan pertama</strong> mencatat garis dasar per koneksi/asal klien dan menyimpan perubahan selanjutnya. Kirim permintaan benih biasa terlebih dahulu. Proksi tidak dapat secara andal menyimpulkan maksud pada permintaan pertama, dan koneksi baru akan membuat garis dasar baru. Heuristik ini bukanlah perlindungan lengkap.</p>
+<p>Untuk pengujian yang dapat diprediksi, pilih salah satu mekanisme berikut:</p>
+<ol>
+<li>Nonaktifkan penggantian cookie/header tertentu yang sedang diuji.</li>
+<li>Tambahkan nama cookie ke <code dir="ltr" translate="no">cookies.protectedNames</code> atau header ke <code dir="ltr" translate="no">headers.protectedNames</code>.</li>
+<li>Kirim anotasi selektif per permintaan:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Preserve: cookie:session, User-Agent, Authorization</code></p>
+<p>Ini mempertahankan bidang cookie/header yang diberi nama alat tersebut. <code dir="ltr" translate="no">cookie</code> tanpa nama mempertahankan alat lengkap Header cookie.</p>
+<ol start="4">
+<li>Abaikan semua penggantian sisi permintaan untuk permintaan tersebut:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Override: off</code></p>
+<p>Adaptor menghapus header anotasi ini sebelum meneruskannya. Otentikasi proxy, cakupan dan batasannya masih berlaku. Konfigurasikan anotasi di alat asal; memasukkannya ke halaman web target bukanlah mekanisme konfigurasi jembatan.</p>
+<p>Misalnya saja menjaga <code dir="ltr" translate="no">session</code> dilindungi memungkinkan ZAP memvariasikannya sementara pembantu dapat terus memperbarui yang tidak terkait <code dir="ltr" translate="no">preferences</code> kue. Untuk pengujian Cookie/Otorisasi/Agen-Pengguna yang menyeluruh, menonaktifkan penggantian tersebut akan menghindari ketergantungan pada heuristik deteksi perubahan.</p>
+<h3 id="browser-authorization-and-other-headers">Otorisasi Browser dan header lainnya</h3>
+<p>Otorisasi Browser diikutsertakan melalui konfigurasi JSON. Itu diambil dari permintaan sebenarnya oleh tab target yang dipasangkan hanya setelah mengaktifkan sumber browser. Ini bukan pembaca otomatis untuk setiap token di Penyimpanan lokal atau memori aplikasi. Permintaan browser yang lebih baru mungkin diperlukan sebelum nilai yang diamati ada. Mematikan Otorisasi browser akan menghentikan nilai yang diambil yang diberikan oleh helper.</p>
+<p>Memilih Agen Pengguna browser atau Bahasa Terima hanya akan mengubah bidang HTTP tersebut. Itu tidak menjalankan JavaScript target, menyegarkan token CSRF badan, mereproduksi TLS browser, atau menjamin penerimaan WAF. Otentikasi terikat IP/perangkat dan penyegaran OAuth masih memerlukan alur kerja aplikasinya.</p>
+<h3 id="vhost-host-handling">Penanganan VHOST / Host</h3>
+<p>Helper asli tidak menggantikan alias jembatan internal ke dalam bidang Host alat. Biarkan alat mengirimkan nilai Host yang diperlukan untuk pengujian host virtual resmi. Untuk HTTPS, tujuan CONNECT tetap menjadi target resmi sementara header Host alat dapat dipertahankan.</p>
+<p>Mengubah header Host tidak memberikan akses ke tujuan jaringan lain. Proksi terbalik dapat mengarahkannya ke aplikasi lain; sertakan perilaku host virtual tersebut dalam otorisasi penilaian. Format header byte yang salah dan framing yang bertentangan berada di luar proksi yang diuraikan ini.</p>
+<h3 id="audit-and-privacy">Audit dan privasi</h3>
+<p><strong>Lalu lintas asli</strong> menunjukkan metadata permintaan dan nama bidang yang diubah/dilindungi. Audit menghilangkan nilai rahasia cookie/header, nilai kueri, dan isi. Ini tidak berarti proxy tidak pernah menangani rahasia: proxy harus memprosesnya untuk mengirimkan lalu lintas yang diautentikasi. Alat eksternal menyimpan riwayat/hasilnya sendiri, yang dapat berisi nilai-nilai tersebut.</p>
+<p>Jauhkan token konfigurasi pribadi, kunci CA, dan direktori data dari laporan/arsip sumber. Mengunduh konfigurasi dengan nilai Otorisasi khusus dapat membuat file yang berisi nilai tersebut.</p>
+<h2 id="external-tools-and-actual-zap-scanning">Alat eksternal dan pemindaian ZAP yang sebenarnya</h2>
+<h3 id="start-with-one-request">Mulailah dengan satu permintaan</h3>
+<p>Pasangkan jembatan, lalu uji target lokal sebenarnya:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  'http://localhost:8080/'
+</code></pre>
+<p>Gunakan jalur baca terautentikasi yang diketahui untuk memeriksa perilaku sesi. 200 dari halaman beranda publik tidaklah cukup. Konfirmasikan permintaan muncul di lalu lintas asli, penyimpanan cookie yang dipilih sudah benar, dan alat menerima konten yang diharapkan. Jangan menyimpulkan semua permintaan selanjutnya menggunakan proxy hanya karena yang ini melakukannya.</p>
+<h3 id="zap-outgoing-proxy">Proksi keluar ZAP</h3>
+<ol>
+<li>Instal/mulai ZAP secara terpisah dan gunakan sesi ZAP khusus penilaian.</li>
+<li>Di ZAP <strong>Pilihan → Jaringan → Koneksi</strong>, aktifkan <strong>proksi HTTP keluar</strong>.</li>
+<li>Tetapkan tuan rumah <code dir="ltr" translate="no">127.0.0.1</code>, pelabuhan <code dir="ltr" translate="no">8900</code> (atau port proxy yang dikonfigurasi saat ini).</li>
+<li>Aktifkan otentikasi proxy: nama pengguna <code dir="ltr" translate="no">bridge</code>, sandi token adaptor saat ini.</li>
+<li>Nonaktifkan proksi SOCKS milik ZAP untuk rantai ini. Pengaturan SOCKS ZAP lebih diutamakan daripada proxy HTTP-nya.</li>
+<li>Periksa pengecualian proxy HTTP agar target yang dituju tidak dilewati, terutama untuk layanan lokal.</li>
+<li>Konfigurasikan CA adaptor dalam pengaturan kepercayaan/verifikasi TLS yang berlaku pada alat tersebut bila diperlukan. Lokasinya dicetak saat adaptor dinyalakan.</li>
+<li>Akses <strong>URL target sebenarnya</strong> dari ZAP dan verifikasi riwayatnya ditambah metadata jembatan.</li>
+<li>Tentukan target/konteks ZAP, kebijakan pemindaian, pengecualian, pemeriksaan otentikasi, dan tingkat permintaan sederhana. Jalankan pemindaian laba-laba/aktif yang sebenarnya sesuai izin.</li>
+<li>Tinjau temuan dan liputan di ZAP. Saat dengan sengaja mengaburkan bidang autentikasi cookie/header, gunakan mekanisme perlindungan/bypass di atas.</li>
+</ol>
+<p>Pengaturan ini adalah milik ZAP <strong>sambungan keluar</strong>, bukan pendengar proksi browser masuk lokalnya. Firefox tidak perlu dikonfigurasi ulang untuk menggunakan ZAP hanya untuk memasok cookie tab yang dipilih ke rantai ini.</p>
+<p>ZAP menghasilkan muatan aturan aktif yang sebenarnya; mitmproxy mengirimkan permintaan asli yang dihasilkan. Perubahan jangka panjang hanya bidang permintaan yang diikutsertakan. Hal ini meningkatkan konteks sesi alat eksternal yang dapat digunakan tetapi tidak membuat pemindaian alat mana pun menjadi komprehensif. Lihat <a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">Pengaturan koneksi ZAP</a>.</p>
+<h3 id="other-http-tools">Alat HTTP lainnya</h3>
+<table>
+<thead>
+<tr>
+<th>Alat/klien</th>
+<th>Bagaimana cara menghubungkan</th>
+<th>Batas penting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keriting</td>
+<td><code dir="ltr" translate="no">--proxy</code>, <code dir="ltr" translate="no">--proxy-user</code>; <code dir="ltr" translate="no">--cacert</code> untuk kepercayaan HTTPS; hapus bypass proxy jika diperlukan</td>
+<td>Pemanggilan/koneksi yang berbeda dapat mengatur ulang garis dasar pemeriksaan heuristik</td>
+</tr>
+<tr>
+<td>ffuf</td>
+<td>Opsi proksi HTTP-nya (<code dir="ltr" translate="no">-x</code>) dengan URL proksi yang diautentikasi; menyediakan daftar kata dengan cakupan terbatas dan tarif rendah</td>
+<td>Proksi HTTP tidak membatasi pemanggilan non-proksi terpisah</td>
+</tr>
+<tr>
+<td>peta sql</td>
+<td>Opsi proksi HTTP dengan kredensial saat ini; pilih URL/parameter resmi dan lindungi bidang yang sedang diuji</td>
+<td>Pisahkan mesin/pengaturan SQLi; penggantian cookie dapat menghapus pemeriksaan cookie kecuali dikonfigurasi</td>
+</tr>
+<tr>
+<td>wget</td>
+<td>Diautentikasi <code dir="ltr" translate="no">http_proxy</code>/<code dir="ltr" translate="no">https_proxy</code> atau pengaturan proksinya; konfigurasikan kepercayaan sertifikat</td>
+<td>Periksa <code dir="ltr" translate="no">no_proxy</code> dan perilaku proksi khusus alat</td>
+</tr>
+<tr>
+<td>Urllib Python/Permintaan</td>
+<td>Pengendali/konfigurasi proxy yang diautentikasi secara eksplisit plus adaptor CA untuk HTTPS</td>
+<td>Perpustakaan berbeda dalam penanganan variabel lingkungan dan bypass</td>
+</tr>
+<tr>
+<td>CLI Inti</td>
+<td>Konfigurasikan proksi/kepercayaan HTTP-nya untuk lalu lintas templat HTTP yang didukung</td>
+<td>Lalu lintas templat non-HTTP/kode/tanpa kepala tidak tercakup secara universal dalam satu opsi proksi HTTP</td>
+</tr>
+</tbody>
+</table>
+<p>URL proksi yang berisi kredensial bersifat sensitif. Gunakan konfigurasi penilaian pribadi alat Anda jika tersedia. Jangan tempelkan token saat ini ke dalam laporan bersama. Untuk setiap alat, konfirmasikan lalu lintas yang dirutekan daripada berasumsi bahwa setiap protokol atau subproses mematuhi pengaturan proksi HTTP-nya.</p>
+<p>Contoh perpustakaan standar Linux Python untuk target lokal hanya-baca; itu meminta token alih-alih melakukan hardcoding dan menghapus bypass proksi lingkungan untuk proses ini:</p>
+<pre dir="ltr" translate="no"><code class="language-python" dir="ltr" translate="no">import os
+from getpass import getpass
+from urllib.request import (
+    HTTPPasswordMgrWithDefaultRealm,
+    ProxyBasicAuthHandler, ProxyHandler, build_opener,
+)
+
+os.environ["no_proxy"] = ""
+os.environ["NO_PROXY"] = ""
+proxy = "http://127.0.0.1:8900"
+credentials = HTTPPasswordMgrWithDefaultRealm()
+credentials.add_password(None, proxy, "bridge", getpass("Bridge token: "))
+opener = build_opener(
+    ProxyHandler({"http": proxy, "https": proxy}),
+    ProxyBasicAuthHandler(credentials),
+)
+with opener.open("http://localhost:8080/", timeout=20) as response:
+    print(response.status)
+    print(response.read(200).decode("utf-8", errors="replace"))
+</code></pre>
+<p>Verifikasi permintaan dalam lalu lintas asli; platform lain dapat memiliki aturan bypass proxy sistem tambahan. Contoh curl dengan eksplisit <code dir="ltr" translate="no">--noproxy ''</code> adalah pemeriksaan validasi rute loopback yang lebih sederhana. Klien HTTPS Python juga memerlukan konteks SSL/bundel CA yang mempercayai sertifikat adaptor.</p>
+<h3 id="pause-and-errors">Jeda dan kesalahan</h3>
+<p><strong>Jeda permintaan asli</strong> memblokir jalan keluar asli yang baru. Status autentikasi 401/419/440, HTTP 429, penutupan tab/perubahan di luar asal, atau batas anggaran juga dapat menjeda pekerjaan. <strong>Lanjutkan setelah memeriksa tab</strong> dilanjutkan hanya setelah meninjau status pemasangan.</p>
+<p><strong>Berhenti dan putuskan sambungan</strong> mengakhiri pemasangan browser; itu tidak menghentikan proses Node yang dimulai secara terpisah. Gunakan Ctrl+C di terminalnya untuk menghentikan proses itu.</p>
+<p>Permintaan dalam penerbangan mungkin selesai. Klien proxy menerima kesalahan untuk pekerjaan yang diblokir; adaptor tidak menangguhkan proses alat yang sewenang-wenang atau memutar ulang permintaannya. Periksa permintaan mana yang berhasil dan gunakan kontrol coba lagi/lanjutkan alat itu sendiri. Memulai ulang/memasangkan ulang akan mengubah token dan memerlukan pembaruan autentikasi alat.</p>
+<p>401/419/440 mungkin diharapkan dalam pengujian autentikasi negatif yang disengaja. Jika perlu, sesuaikan <code dir="ltr" translate="no">session.pauseStatuses</code> untuk yang ditinjau, jalankan dan mulai ulang; adaptor tidak menyimpulkan apakah setiap kegagalan otentikasi merupakan penyelidikan yang dimaksudkan.</p>
+<h2 id="tor-and-onion-routing">Perutean Tor dan bawang</h2>
+<p>Permintaan Longshot berbasis browser mengikuti jaringan browser yang dipilih. Adaptor asli adalah proses yang berbeda dan tidak mewarisi pengaturan proksi Firefox/Tor Browser.</p>
+<p>SOCKS/Tor adalah <strong>mati secara default</strong> dalam konfigurasi asli. Untuk penilaian bawang yang sah, gunakan layanan SOCKS yang dikonfigurasi secara eksplisit dengan resolusi nama host jarak jauh, misalnya penggantian ini jika itu benar-benar pendengar Tor lokal Anda:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "routing": {
+    "socks5": "socks5h://127.0.0.1:9050"
+  }
+}
+</code></pre>
+<p>Contoh ini tidak memulai Tor atau menetapkan bahwa port 9050 ada. Pilih layanan terkonfigurasi yang sebenarnya; contoh Tor Browser mungkin menggunakan pendengar yang berbeda. Nyalakan ulang adaptor dan pasangkan kembali. HTTP(S) <code dir="ltr" translate="no">upstream.url</code> dan <code dir="ltr" translate="no">routing.socks5</code> saling eksklusif.</p>
+<p>Shim asli menyelesaikan nama host melalui SOCKS dan tidak memiliki fallback langsung yang senyap. Tanpa rute upstream/SOCKS yang dikonfigurasi secara eksplisit, tujuan bawang langsung ditolak sebelum DNS target. URL SOCKS juga dapat merujuk ke terowongan SSH resmi atau layanan SOCKS5 lainnya; ini secara intrinsik bukanlah bukti perutean Tor.</p>
+<p>Berbagi cookie tidak membuat IP keluar rute asli atau sidik jari TLS/browser identik dengan Firefox. Tantangan atau pengikatan sesi mungkin menolaknya. Periksa rute dan sesi yang diharapkan secara mandiri.</p>
+<p><strong>Nuclei asli terisolasi yang diluncurkan oleh Agent API berbeda:</strong> relai bawaannya tidak memiliki rute Tor/SOCKS dan memblokir target bawang sebelum DNS sistem. Gunakan pemeriksaan sisi browser yang memenuhi syarat di browser yang dimaksud, atau alat eksternal yang dikonfigurasi secara terpisah melalui proksi asli. Jangan menganggap kotak centang Nuclei mewarisi <code dir="ltr" translate="no">routing.socks5</code> dari Jembatan Peramban.</p>
+<h2 id="agent-api-mcp-and-local-model-clients">Agen API, MCP, dan klien model lokal</h2>
+<p>Gunakan ini ketika agen/skrip harus mengoperasikan Longshot, mengambil bukti atau menyimpan file penilaian. Ini bukan proksi lalu lintas :8900.</p>
+<h3 id="register-and-connect-the-native-host">Daftarkan dan sambungkan host asli</h3>
+<p>Dari yang ditahan <strong>sumber</strong> direktori yang berisi <code dir="ltr" translate="no">manifest.json</code> dan <code dir="ltr" translate="no">bridge/</code>:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+node bridge/bin/longshot-bridge install
+</code></pre>
+<p>Ini mendaftar <code dir="ltr" translate="no">longshot.bridge</code> dan peluncur yang mereferensikan folder sumber dan Node yang dapat dieksekusi. Simpan keduanya di tempatnya. Jika salah satu pindah, daftar lagi.</p>
+<p>Buka <strong>Pengaturan → Koneksi &amp; pengaturan → Hubungkan jembatan asli</strong> dan memberikan izin perpesanan asli Firefox. Host dapat memulai daemonnya secara otomatis. Jika sengaja menjalankan daemon secara manual:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">node bridge/bin/longshot-bridge serve
+</code></pre>
+<p>Hindari daemon kedua pada port/direktori data yang sama. Putuskan sambungan menutup koneksi asli ekstensi; itu tidak serta merta menghentikan daemon yang dimulai secara independen.</p>
+<p>Node.js 20+ diperlukan. MCP perpesanan asli tidak memerlukan instalasi Python/mitmproxy proxy. Linux adalah pengaturan yang dilakukan. dukungan pendaftaran macOS disediakan tetapi tidak diverifikasi waktu proses di sini; rilis ini tidak memiliki penginstal host asli Windows Firefox. Mendaftar di WSL tidak mendaftarkan host untuk Windows Firefox. Isolasi Nuclei asli hanya untuk Linux.</p>
+<p>Layanan bawaan: <code dir="ltr" translate="no">http://127.0.0.1:8765</code>. Alamat localhost ini adalah API kontrol, <strong>bukan target yang dipindai</strong>. Token/soket defaultnya adalah <code dir="ltr" translate="no">$XDG_DATA_HOME/longshot</code> atau <code dir="ltr" translate="no">~/.local/share/longshot</code>. Adat <code dir="ltr" translate="no">--port</code> dan <code dir="ltr" translate="no">--data-dir</code> harus cocok di seluruh instalasi, servis, dan mcp. Gunakan jalur data Unix yang pendek karena jalur soketnya memiliki batas 100 byte.</p>
+<h3 id="rest-example">Contoh REST</h3>
+<p>Dari folder sumber yang sama:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">longshot_token_file="$(node bridge/bin/longshot-bridge token-path)"
+longshot_api_token="$(cat "$longshot_token_file")"
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/health
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/targets
+</code></pre>
+<p>Itu <code dir="ltr" translate="no">token-path</code> perintah mencetak nama file, bukan token. API menggunakan autentikasi pembawa, tidak seperti autentikasi nama pengguna/kata sandi proxy. Ini menolak klien non-loopback dan permintaan Asal browser dan tidak mengekspos API CORS umum. Jangan mempublikasikannya melalui proxy terbalik publik.</p>
+<p>Mulai pemindaian kecil hanya setelah menghubungkan/mengaktifkan target yang dituju dan memeriksa opsi yang disimpan:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  -H 'Content-Type: application/json' \
+  --data '{"target_id":"PROFILE_ID","mode":"safe","budget":150}' \
+  http://127.0.0.1:8765/v1/scans
+</code></pre>
+<p>Ganti PROFILE_ID dengan ID profil yang dipilih. <code dir="ltr" translate="no">safe</code> memetakan ke Spider saja; itu tidak mengatur ulang setiap opsi lanjutan yang disimpan atau bertindak sebagai penggantian universal. Permulaannya tidak sinkron. Baca ID proses yang dikembalikan, lalu pantau <code dir="ltr" translate="no">/v1/scans/RUN_ID</code>, <code dir="ltr" translate="no">/eta</code>, <code dir="ltr" translate="no">/findings</code> atau <code dir="ltr" translate="no">/report?format=html</code>. POST <code dir="ltr" translate="no">/pause</code>, <code dir="ltr" translate="no">/resume</code> dan <code dir="ltr" translate="no">/stop</code> mengendalikan lari. Konsultasikan diautentikasi <code dir="ltr" translate="no">/openapi.json</code> untuk skema yang tepat.</p>
+<p>Profil dukungan REST/JSON-RPC, pemindaian, temuan/laporan, templat, OAST, dan operasi sesi. <code dir="ltr" translate="no">/rpc</code> membawa JSON-RPC; <code dir="ltr" translate="no">/mcp</code> menawarkan MCP HTTP, dengan opsi stdio dan SSE. String versi protokol/API layanan mungkin mempertahankan versi skema yang lebih lama; gunakan manifes ekstensi untuk versi rilis UI yang diinstal.</p>
+<h3 id="mcp-client-setup">Pengaturan klien MCP</h3>
+<p>Untuk klien yang mendukung konfigurasi stdio MCP:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "mcpServers": {
+    "longshot": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/longshot-source/bridge/bin/longshot-bridge",
+        "mcp"
+      ]
+    }
+  }
+}
+</code></pre>
+<p>Gunakan Node absolut yang dapat dieksekusi jika klien memiliki PATH terbatas. Tambahkan yang cocok <code dir="ltr" translate="no">--port</code> / <code dir="ltr" translate="no">--data-dir</code> argumen saat disesuaikan. Stdio helper terhubung ke layanan terotentikasi lokal; itu sendiri tidak menggantikan koneksi Firefox.</p>
+<p>Katalog alat MCP saat ini berisi 21 alat: alat pemindaian/templat/laporan/OAST ditambah UI dan penemuan/kontrol perintah semantik. Temukan katalog sebenarnya daripada mengandalkan tutorial delapan alat yang lama.</p>
+<table>
+<thead>
+<tr>
+<th>Kelompok alat</th>
+<th>Alur kerja</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">longshot_list_targets</code>, alat pindai/status/ETA/temuan/laporan</td>
+<td>Gunakan profil eksplisit/ID yang dijalankan dan periksa hasil asinkron</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_commands</code>, <code dir="ltr" translate="no">longshot_command</code></td>
+<td>Temukan perintah semantik dan aktifkan argumen yang didukungnya</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_pages</code>, <code dir="ltr" translate="no">longshot_ui_open</code></td>
+<td>Temukan/buka dasbor ekstensi terikat target</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_snapshot</code></td>
+<td>Baca label aktual, nilai saat ini, dialog, dan referensi elemen</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_action</code>, <code dir="ltr" translate="no">navigate</code>, <code dir="ltr" translate="no">wait</code></td>
+<td>Operasikan kontrol yang ada dan verifikasi penyelesaian</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_downloads</code>, <code dir="ltr" translate="no">clipboard</code>, <code dir="ltr" translate="no">screenshot</code>, <code dir="ltr" translate="no">focus</code>, <code dir="ltr" translate="no">close</code></td>
+<td>Output halaman ekstensi dan manajemen UI yang didukung; bukan akses OS sembarangan</td>
+</tr>
+</tbody>
+</table>
+<p>Kontrol yang dinonaktifkan, cakupan target, negara bagian, dan anggaran masih berlaku. Referensi basi memerlukan cuplikan baru; klik yang dikirim saja tidak membuktikan keberhasilan. Permintaan izin Firefox/OS tetap merupakan kontrol browser/OS yang terpisah.</p>
+<p><strong>Batas persetujuan:</strong> perintah persetujuan semantik langsung tidak dapat menghasilkan izin proses yang agresif. Otomatisasi UI penuh yang diautentikasi dapat mengoperasikan dialog persetujuan dasbor terikat, termasuk tombol persetujuannya. Oleh karena itu, memberikan kontrol UI kepada agen akan memberikan kemampuan UI tersebut; jangan menggambarkan akses tersebut sebagai tidak mampu mengklik persetujuan. Pemeriksaan target/konfigurasi/kedaluwarsa sekali pakai masih berlaku.</p>
+<h3 id="hermesollama-or-another-local-model-agent">Hermes/Ollama atau agen model lokal lainnya</h3>
+<p>Longshot tidak menerima aliran obrolan LLM sembarangan atau memilih model. Itu <strong>permohonan agen</strong> memasok koneksi model dan loop panggilan alat. Jika agen Anda mendukung MCP, konfigurasikan server MCP di atas pada agen tersebut. Agen mengirimkan panggilan alat yang didukung dan menerima hasil alat; itu dapat memeriksa/menavigasi/mengisi ekstensi melalui alat UI yang terbuka serta menjalankan perintah pemindaian.</p>
+<p>Pilih model dan server Ollama di Hermes/konfigurasi agen itu sendiri. Gunakan kombinasi model/klien yang mendukung format panggilan alat agen, dan pastikan agen benar-benar diizinkan untuk memanggil alat MCP. Konfigurasi Longshot tidak memiliki <code dir="ltr" translate="no">model</code>, <code dir="ltr" translate="no">ollama</code> atau pengaturan kunci API penyedia. Akses model, akses shell, dan kontrol sistem file yang tidak terkait adalah kemampuan host agen, tidak diberikan dengan menginstal ekstensi ini.</p>
+<p>Jaga agar cakupan, anggaran, akun, dan tindakan yang dimaksudkan tetap eksplisit dalam tugas agen. Validasi temuan yang dihasilkan terhadap bukti yang tercatat; teks model bukan hasil pemindai atau pemberian izin.</p>
+<h3 id="optional-debugging-port-control">Kontrol port debug opsional</h3>
+<p>Sumbernya mencakup pembantu kontrol BiDi/CDP dan satu perintah <code dir="ltr" translate="no">bridge/bin/longshot-ui</code> antarmuka. Ini adalah kontrol lanjutan atas halaman milik ekstensi. Edisi Chrome adalah paket Manifest V3 terpisah; meja kerja yang terlihat harus tetap terbuka. Membuka pendengar debug browser adalah pilihan startup browser yang terpisah; lihat <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">Keamanan Agen Jarak Jauh Firefox</a>.</p>
+<p>Pembantu debugging opsional menggunakan yang disematkan <code dir="ltr" translate="no">ws</code> ketergantungan dalam <code dir="ltr" translate="no">native-bridge/node_modules/ws/</code>. Jalankan <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code> dari checkout sumber yang dipertahankan terlebih dahulu. Jalur ini diperbaiki pada seri 2.18; adaptor pengambilan browser historis yang dihapus tidak diperlukan.</p>
+<h2 id="optional-native-nuclei">Nuclei asli opsional</h2>
+<p>Ada tiga rute templat yang berbeda:</p>
+<table>
+<thead>
+<tr>
+<th>Rute</th>
+<th>Mesin/sesi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Templat HTTP impor yang kompatibel dengan browser</td>
+<td>Penerjemah template dan sesi browser target yang didukung Longshot</td>
+</tr>
+<tr>
+<td>Kotak centang Nuclei lengkap asli</td>
+<td>Nuclei yang diinstal secara resmi secara terpisah di dalam jalur isolasi Agent API Linux; tidak ada login Firefox otomatis</td>
+</tr>
+<tr>
+<td>CLI Inti Eksternal melalui Jembatan Browser</td>
+<td>Pekerjaan CLI independen Anda; lalu lintas HTTP proksi yang didukung dapat menerima cookie browser yang dikonfigurasi</td>
+</tr>
+</tbody>
+</table>
+<p>Untuk pekerjaan asli yang diluncurkan oleh Longshot:</p>
+<ol>
+<li>Instal biner Nuclei resmi secara terpisah dan ekspos di PATH atau set <code dir="ltr" translate="no">LONGSHOT_NUCLEI</code> sebelum memulai API Agen.</li>
+<li>Menyediakan bubblewrap Linux dengan namespace pengguna/jaringan yang tidak memiliki hak istimewa.</li>
+<li>Untuk templat tanpa kepala, sediakan browser yang diperlukan, opsional melalui <code dir="ltr" translate="no">LONGSHOT_CHROME</code>.</li>
+<li>Daftarkan/hubungkan API Agen dan periksa kemampuan asli yang dilaporkan.</li>
+<li>Impor templat yang telah ditinjau dan file pembantu relatif apa pun yang diperlukan.</li>
+<li>Aktifkan <strong>Eksekusi Nuclei penuh asli</strong> dan hanya diperlukan kemampuan Kode/JavaScript, Tanpa Kepala, atau File tambahan.</li>
+<li>Untuk templat file, atur <code dir="ltr" translate="no">LONGSHOT_FILE_ROOT</code> ke daftar izin baca-saja yang eksplisit sebelum memulai host.</li>
+<li>Simpan, tinjau, dan setujui proses tersebut; periksa alasan Siap/Diblokir dan keluaran yang diberi tag pelaksana.</li>
+</ol>
+<p>Pekerja memiliki sistem file/namespace jaringan yang terisolasi, penyimpanan sementara pribadi, dan eksekusi terbatas melalui relai target. Mereka tidak secara otomatis menerima cookie Firefox, penyimpanan lokal browser, atau rute Tor Firefox. Sesi tanpa kepala diisolasi. Templat asli yang diblokir tidak berarti dampak kerentanan negatif.</p>
+<p>Templat kode/JavaScript asli memerlukan tanda tangan yang dipercaya oleh mesin resmi. <code dir="ltr" translate="no">LONGSHOT_NUCLEI_CERT</code> dapat menunjuk ke sertifikat penulis publik yang ditinjau; tuan rumah tidak menandatangani impor secara otomatis atau memasang kunci penandatanganan pribadi. Templat file asli tidak dapat dengan bebas membaca direktori home host. Sakelar file/kode/tanpa kepala tambahan tetap terpisah dari impor templat umum.</p>
+<p>Relai asli mendukung koneksi target/penyedia yang dibatasi, bukan akses jaringan sembarangan. Target bawang, isolasi/runtime yang tidak tersedia, pengalamatan target yang tidak didukung, atau cakupan jalur yang tidak kompatibel dapat memblokir eksekusi. Pendaftaran Interactsh asli adalah milik Nuclei, terpisah dari klien OAST browser Longshot. Gunakan bukti hasil aktual dan laporan kemampuan platform, bukan label “mesin penuh”, untuk memutuskan apa yang dijalankan.</p>
+<h2 id="manual-tools-interception-and-api-inventory">Alat manual, intersepsi, dan inventaris API</h2>
+<h3 id="page-guide">Panduan halaman</h3>
+<table>
+<thead>
+<tr>
+<th>Halaman</th>
+<th>Untuk apa menggunakannya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ikhtisar</td>
+<td>Hubungkan, validasi sesi, pilih grup aturan, pilih operasi dan pantau kemajuan</td>
+</tr>
+<tr>
+<td>Opsi pemindaian</td>
+<td>Fase tambahan, persetujuan, body fuzzing, pengaturan penyedia dan anggaran</td>
+</tr>
+<tr>
+<td>Target</td>
+<td>Pisahkan profil, pilih/lampirkan tab browser dan pulihkan bukti/opsi spesifik target</td>
+</tr>
+<tr>
+<td>Peta situs</td>
+<td>URL/formulir/rute yang ditemukan; peta pengamatan, bukan bukti penemuan lengkap</td>
+</tr>
+<tr>
+<td>riwayat HTTP</td>
+<td>Metadata lalu lintas browser dan balasan pemindai/pengulang; periksa input dan stempel waktu yang tepat</td>
+</tr>
+<tr>
+<td>penjelajah API</td>
+<td>Operasi yang diamati/diimpor dan inventaris parameter; menyiapkan bacaan yang didukung di Repeater</td>
+</tr>
+<tr>
+<td>Tumpukan server</td>
+<td>Sidik jari, penganalisis Cerdas lokal, dan pencarian penasihat kandidat</td>
+</tr>
+<tr>
+<td>Grafik jaringan</td>
+<td>Asal/IP/domain yang direferensikan dan bukti vhost yang tersedia; node eksternal adalah inventaris, bukan cakupan otomatis</td>
+</tr>
+<tr>
+<td>Temuan</td>
+<td>Bukti, putusan/keyakinan/keparahan, status tinjauan, dan penampil simematik</td>
+</tr>
+<tr>
+<td>Pemeriksaan WSTG</td>
+<td>Jenis cakupan referensi dan pelaksanaan audit per input aktual</td>
+</tr>
+<tr>
+<td>Templat</td>
+<td>Impor, detail kompatibilitas/pelaksana, pemilihan manual dan hasil yang dijalankan</td>
+</tr>
+<tr>
+<td>Pengulang / Fuzzer</td>
+<td>Pemutaran ulang permintaan terfokus atau mutasi terbatas</td>
+</tr>
+<tr>
+<td>pencegat</td>
+<td>Pertahankan tahapan URL/tajuk tab target yang memenuhi syarat</td>
+</tr>
+<tr>
+<td>OAST</td>
+<td>Status penyedia/panggilan balik, tindakan pengujian, dan interaksi terkait</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>Pertukaran saluran yang diamati dibatasi</td>
+</tr>
+<tr>
+<td>Bandingkan</td>
+<td>Perbedaan lokal antara dua tanggapan yang disimpan</td>
+</tr>
+<tr>
+<td>Enkoder/dekoder</td>
+<td>Transformasi lokal dan pemeriksaan klaim token</td>
+</tr>
+<tr>
+<td>Jembatan Peramban</td>
+<td>Pasangkan proksi alat asli dan konfigurasikan penggantian sesi</td>
+</tr>
+<tr>
+<td>Laporkan</td>
+<td>Ekspor bukti profil aktif</td>
+</tr>
+<tr>
+<td>Pengaturan</td>
+<td>Pengaturan permintaan/sesi, tampilan, koneksi asli, dan file penilaian</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-explorer">Penjelajah API</h3>
+<p>Hubungkan dan jelajahi terlebih dahulu, lalu pilih <strong>Periksa halaman saat ini</strong>. Impor yang disediakan pengembang <strong>OpenAPI JSON</strong> deskripsi bila tersedia, hingga 2 MB. Bunyinya JSON lokal, bukan halaman jarak jauh atau file YAML sembarangan. Referensi spesifikasi lokal dan contoh/default permintaan yang tersedia dapat memberikan masukan yang didukung secara konkret; nilai/tubuh yang hilang dan konstruksi yang tidak didukung meninggalkan kesenjangan.</p>
+<p>Titik akhir adalah sebuah alamat; operasi adalah alamat plus metode. Input kueri muncul setelahnya <code dir="ltr" translate="no">?</code>, masukan jalur di jalur alamat, dan masukan isi dalam konten yang dikirimkan. Operasi yang terdaftar adalah inventaris, bukan bukti bahwa akun saat ini dapat mengakses setiap objek yang dialamatkannya.</p>
+<p>Gunakan <strong>Pengulang</strong> di samping operasi GET/HEAD yang didukung untuk menyiapkan permintaan tanpa harus mengirimkannya. Tinjau URL/metode/masukan, lalu kirimkan dengan sengaja. Operasi penulisan khusus inventaris masih mengharuskan Anda menyiapkan permintaan yang sesuai dan mendapatkan persetujuan menulis.</p>
+<h3 id="repeater-and-compare">Repeater dan Bandingkan</h3>
+<p>Repeater membuat permintaan cakupan baru menggunakan sesi browser terikat. GET/HEAD/OPTIONS menggunakan rute biasa. Metode penulisan, perubahan isi, dan kemampuan destruktif/unggah tetap tunduk pada kebijakan dan persetujuan. Nilai Cookie/Otorisasi/Host yang dikelola tidak dapat diganti secara bebas melalui editor headernya; gunakan rute alat eksternal asli untuk pengujian header/cookie yang dikonfigurasi secara eksplisit.</p>
+<p><strong>Ikuti pengalihan asal yang sama</strong> mengontrol apakah Anda memeriksa pengalihan itu sendiri atau respons akhir yang diizinkan. Pengalihan di luar cakupan bukanlah otorisasi menyeluruh. Simpan isi tanggapan bila diperlukan untuk ditinjau, lalu pilih dua tanggapan yang disimpan <strong>Bandingkan</strong>. Bandingkan tidak mengirimkan permintaan; konten dinamis, status login, pembatasan, atau halaman WAF dapat menjelaskan perbedaannya.</p>
+<h3 id="interceptor">pencegat</h3>
+<p>Aktifkan interseptor dan <strong>Terapkan intersepsi</strong>. Berikan izin pemblokiran Firefox opsional melalui tindakan pengguna normal. Intersepsi mulai dinonaktifkan setelah ekstensi dimulai ulang.</p>
+<table>
+<thead>
+<tr>
+<th>Panggung/kontrol</th>
+<th>Perilaku</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tahan URL permintaan</td>
+<td>Jeda sebelum meminta header; edit URL/kueri yang dicakup atau lepaskan</td>
+</tr>
+<tr>
+<td>Tahan header permintaan</td>
+<td>Periksa/edit header permintaan yang diizinkan sebelum transmisi</td>
+</tr>
+<tr>
+<td>Tahan header respons</td>
+<td>Jeda pengiriman setelah permintaan mencapai server; tidak dapat membatalkan tindakan sisi server</td>
+</tr>
+<tr>
+<td>Filter sumber daya/metode/jalur</td>
+<td>Batasi lalu lintas yang memenuhi syarat di tab terikat dan cakupan target yang tepat</td>
+</tr>
+<tr>
+<td>Tahan batas waktu</td>
+<td>Default 0: tidak ada rilis otomatis. Opsional 10–3.600 detik, lalu pilih tindakan maju/lepas</td>
+</tr>
+<tr>
+<td>Tahap ke depan</td>
+<td>Selesaikan tahap ini; tahap lain yang diaktifkan dapat menampung permintaan yang sama nanti</td>
+</tr>
+<tr>
+<td>Batalkan permintaan</td>
+<td>Batalkan tahap ini/permintaan pengiriman</td>
+</tr>
+<tr>
+<td>Teruskan/lepaskan semua yang tertunda</td>
+<td>Selesaikan antrean saat ini tanpa mengubah filter di masa mendatang</td>
+</tr>
+<tr>
+<td>Matikan dan teruskan tertunda</td>
+<td>Melucuti intersepsi dan melepaskan tahap tunggu tidak berubah</td>
+</tr>
+</tbody>
+</table>
+<p>Aplikasi/browser dapat kehabisan waktu sebelum Anda melepaskan permintaan yang sudah lama ditahan. Hingga 20 tahap bisa menunggu; melebihi batas antrian akan membatalkan lalu lintas pencocokan lebih lanjut. Mengubah filter akan melepaskan tahapan saat ini tanpa perubahan. Menutup rilis dasbor pengontrol terakhir akan menahan tahapan dan menonaktifkan intersepsi.</p>
+<p>Header yang diizinkan menggunakan array pasangan nama/nilai JSON; bidang sensitif/dikelola browser/pembingkaian dilindungi. Penulisan ulang metode/isi/status dari permintaan jaringan yang ditahan tidak tersedia. <strong>Kirim ke Pengulang</strong> membuat bentuk permintaan terpisah untuk pengeditan yang disengaja; ini bukan penulisan ulang badan pesawat dalam penerbangan yang transparan.</p>
+<p>Hanya lalu lintas HTTP tab target terpilih yang memenuhi syarat. Transportasi pemindai melewati intersepsi untuk menghindari kebuntuan. Lalu lintas proksi asli eksternal berada di luar pencegat browser ini. Pesan WebSocket setelah pemutakhiran memerlukan meja kerja saluran terpisah.</p>
+<h3 id="websocket-sse-and-utilities">WebSocket, SSE dan utilitas</h3>
+<p>Pilih saluran dalam cakupan yang ditemukan atau masukkan URL persisnya. Mendengarkan dan mengirim bingkai khusus adalah operasi terbatas yang disetujui, bukan pemindai protokol umum. Teks kesalahan yang diambil adalah petunjuk; itu tidak menetapkan otorisasi pesan atau cacat ras/logika.</p>
+<p>Utilitas menyandikan/mendekode nilai, menghitung SHA-256, memformat JSON, dan memeriksa klaim JWT secara lokal. Penguraian kode JWT bukanlah verifikasi tanda tangan dan tidak menetapkan bahwa server menerima token palsu. Input yang diubah tidak secara otomatis dijalankan atau dikirimkan.</p>
+<h2 id="findings-and-the-cimematic-viewer">Temuan dan penampil simematik</h2>
+<h3 id="read-the-evidence-first">Baca buktinya dulu</h3>
+<p>Sebuah temuan memiliki bidang terpisah:</p>
+<table>
+<thead>
+<tr>
+<th>Bidang</th>
+<th>Artinya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keparahan</td>
+<td>Perkiraan potensi kerugian jika isu tersebut dapat dieksploitasi</td>
+</tr>
+<tr>
+<td>Putusan</td>
+<td>Apa yang diamati oleh pemindai: potensial/cocok/rentan, negatif, diblokir atau tidak meyakinkan, sebagaimana berlaku</td>
+</tr>
+<tr>
+<td>Keyakinan</td>
+<td>Kekuatan bukti yang diterapkan, bukan jumlah kerugiannya</td>
+</tr>
+<tr>
+<td>Status tinjauan</td>
+<td>Penilaian Anda: Belum ditinjau, Dikonfirmasi oleh pengulas, Positif palsu, atau Risiko diterima</td>
+</tr>
+<tr>
+<td>WSTG/CWE</td>
+<td>Klasifikasi referensi, bukan bukti bahwa tes/kategori lengkap telah diselesaikan</td>
+</tr>
+</tbody>
+</table>
+<p>Periksa URL, titik penyisipan, permintaan, garis dasar, muatan, respons, dan pengulangan/kontrol. Periksa apakah konten terpotong atau responsnya berupa halaman tantangan/login/kesalahan. Kesalahan berulang dengan tingkat keyakinan tinggi masih dapat menjadi temuan injeksi potensial yang memerlukan peninjauan.</p>
+<p>Lalu, tetapkan status ulasan dan catatan <strong>Simpan ulasan</strong>. Ini tidak menimpa keputusan/keyakinan asli pemindai. Hasil positif palsu masih menjadi bukti. Filter, termasuk <strong>Tampilkan negatif/diblokir</strong>, ubah visibilitas, bukan catatan eksekusi.</p>
+<h3 id="cimematic-viewer">penampil sinematik</h3>
+<p>Tombol tersebut sengaja diberi nama <strong>penampil sinematik</strong> dalam rilis ini. Ini membuka penjelasan 3D bertema untuk temuan yang dipilih.</p>
+<p>Urutannya kira-kira 9,3 detik: temukan area yang terkena dampak, tunjukkan masukan, ilustrasikan pemrosesan, tunjukkan bukti hasil yang direkam, lalu tampilkan tingkat keparahan dan penjelasan potensi risiko dalam bahasa yang sederhana. Kontrol yang tersedia meliputi <strong>Jeda/lanjutkan</strong>, putar ulang, langkah bernomor, lompat ke dampak, <strong>kedalaman 3D</strong> dan <strong>Layar penuh</strong>. Pengaturan pengurangan gerakan dapat berdampak langsung.</p>
+<table>
+<thead>
+<tr>
+<th>Modus</th>
+<th>Apa yang ditunjukkannya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Langsung / CSS + JS</td>
+<td>Tab pratinjau Firefox normal memuat halaman saat ini dengan CSS/JavaScript dan konteks cookie yang dipilih; pemirsa menerima bingkai yang dirender dan elemen persegi panjang</td>
+</tr>
+<tr>
+<td>Hanya ditangkap</td>
+<td>Bukti yang disimpan dengan HTML atau tangkapan yang sudah dibersihkan dan tidak dijalankan; tidak ada sumber daya atau skrip eksternal yang dijalankan oleh fallback offline tersebut</td>
+</tr>
+<tr>
+<td>Hasil yang dicatat</td>
+<td>Bidang bukti/hasil pemindaian yang disimpan, yang mungkin berbeda dari halaman aktif saat ini</td>
+</tr>
+</tbody>
+</table>
+<p>Ini adalah area pandang sinematik, bukan DOM situs kloning interaktif. <strong>Buka tab langsung</strong> membuka halaman sebenarnya untuk interaksi. Pemuatan langsung yang normal dapat membuat permintaan sumber daya/aplikasi biasa pada situs, tetapi membuka penampil tidak mengirimkan formulir serangan yang disimpan, memutar ulang POST, atau menjalankan kembali eksploitasi.</p>
+<p>Posisi kamera tepat hanya jika input/nama/id yang cocok dapat ditemukan. Temuan API/header/cookie tidak boleh berbentuk HTML; tampilan konteks halaman diberi label seperti itu. Animasi tersebut tidak pernah meningkatkan temuan potensial menjadi bukti eksploitasi. Jika rendering langsung gagal, gunakan bukti yang diambil dan detail teks/permintaan.</p>
+<p>Tab pratinjau milik pemirsa ditutup pada pembersihan penampil/dasbor normal; tab interaktif yang dibuka secara eksplisit tetap menjadi milik Anda untuk ditutup. Login saat ini, status situs, pemuatan ketergantungan, dan CSP dapat mengubah tampilan mode langsung.</p>
+<h2 id="owasp-top-10-coverage">Cakupan 10 Teratas OWASP</h2>
+<p>Buka <strong>Opsi pemindaian → Informasi</strong> untuk tabel implementasi 44 entri yang dapat dicari/difilter, juga dapat dijangkau melalui tombol Informasi halaman. Ini menggunakan <a href="https://top10.owasp.org/2025/">OWASP Teratas 10:2025</a> dengan referensi tahun 2021 yang lebih lama untuk orientasi. SSRF sekarang dikelompokkan dalam Kontrol Akses Rusak. Contoh dapat tumpang tindih dengan kategori; daftar tersebut bukanlah katalog CWE yang lengkap.</p>
+<p>Label dukungan:</p>
+<ul>
+<li><strong>Pemeriksaan aktif:</strong> aturan implementasi khusus ada saat diaktifkan, untuk input yang didukung.</li>
+<li><strong>Verifikasi opsional:</strong> opsi tambahan, izin, penyedia, atau prasyarat eksekusi berlaku.</li>
+<li><strong>Hanya indikator:</strong> sinyal/perbandingan pasif yang memerlukan interpretasi manual.</li>
+<li><strong>Bergantung pada template:</strong> templat dan pelaksana yang diimpor menentukan kondisi yang diuji.</li>
+<li><strong>Tidak tercakup:</strong> tidak ada pemverifikasi bawaan khusus untuk kelas itu; muatan khusus generik tidak menetapkan cakupan secara otomatis.</li>
+</ul>
+<p>Ini adalah audit kemampuan berbasis sumber, <strong>bukan persentase deteksi yang diukur</strong>. Ini menjelaskan pemindai internal Longshot dan fase opsionalnya, bukan seluruh rangkaian aturan ZAP eksternal.</p>
+<table>
+<thead>
+<tr>
+<th>OWASP 2025</th>
+<th>Kerentanan/kelemahan</th>
+<th>Dukungan</th>
+<th>Apa yang berjalan/opsi yang diperlukan</th>
+<th>Batasan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A05</td>
+<td>Injeksi SQL: kesalahan database dan perbedaan boolean</td>
+<td>Pemeriksaan aktif</td>
+<td>Aktifkan injeksi SQL. Pemeriksaan kesalahan basis data yang berulang dan perbandingan benar/salah menggunakan kontrol baru pada masukan yang ditemukan.</td>
+<td>Kandidat perlu ditinjau. Tidak ada ekstraksi basis data atau cakupan buta khusus DBMS yang komprehensif.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Injeksi SQL buta: waktu</td>
+<td>Verifikasi opsional</td>
+<td>Aktifkan pemeriksaan waktu berulang dengan persetujuan Agresif. Tiga pengaturan waktu bersih dibandingkan dengan tiga probe SLEEP pada titik penyisipan pertama.</td>
+<td>Sintaks SQL yang sempit dan heuristik waktu; jitter, WAF, dan dialek basis data yang berbeda dapat menyembunyikan atau meniru hasilnya.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Injeksi NoSQL</td>
+<td>Pemeriksaan aktif</td>
+<td>Aktifkan injeksi NoSQL untuk tanda tangan kesalahan MongoDB/BSON yang berulang. Verifikasi waktu opsional juga mencoba penundaan MongoDB $where pada badan JSON.</td>
+<td>Tidak ada bypass otentikasi berbasis operator umum, ekstraksi NoSQL buta, atau cakupan setiap mesin NoSQL.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Skrip lintas situs yang direfleksikan (XSS)</td>
+<td>Pemeriksaan aktif</td>
+<td>Aktifkan XSS Tercermin. Penanda refleksi unik dan pemeriksaan konteks HTML inert yang berulang mengidentifikasi markup yang tampak dapat dieksekusi.</td>
+<td>Bukti konteks HTML adalah salah satu kandidatnya. Itu tidak menetapkan eksekusi skrip atau mengabaikan Kebijakan Keamanan Konten.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>DOM XSS dari kueri URL atau input fragmen</td>
+<td>Verifikasi opsional</td>
+<td>Aktifkan verifikasi Live DOM XSS dan setujui izin Agresif. Dua burung kenari segar harus dijalankan dalam tab penyimpanan kue yang sama; suatu kontrol harus tetap negatif.</td>
+<td>Hanya masukan URL terbatas. CSP dan dependensi tetap diterapkan; batas waktu dan sumber daya yang diblokir meninggalkan celah.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>DOM XSS dari postMessage, penyimpanan, atau aliran data sewenang-wenang</td>
+<td>Tidak tercakup</td>
+<td>Petunjuk sumber/sink pasif dapat mengidentifikasi pola JavaScript sebaris terdekat untuk ditinjau.</td>
+<td>Tidak ada pelacakan noda umum, pembuatan pesan sewenang-wenang, atau pengujian eksekusi sumber penyimpanan.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>XSS tersimpan dan injeksi orde kedua multi-langkah</td>
+<td>Tidak tercakup</td>
+<td>Halaman yang dikunjungi mungkin berisi kode mencurigakan atau kandidat yang dicerminkan.</td>
+<td>Tidak ada korelasi umum tulis-simpan-baca, pemutaran ulang alur kerja, atau verifikasi eksekusi muatan tersimpan.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Injeksi templat sisi server (SSTI)</td>
+<td>Pemeriksaan aktif</td>
+<td>Aktifkan injeksi template Server. Hasil aritmatika acak dengan penanda unik harus diulang terhadap kontrol.</td>
+<td>Hanya mendukung kelompok ekspresi; eksekusi templat buta dan setiap mesin templat tidak tercakup.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Injeksi kode sisi server</td>
+<td>Pemeriksaan aktif</td>
+<td>Aktifkan injeksi kode sisi server. Burung kenari JavaScript/PHP yang dihitung membedakan evaluasi dari refleksi biasa.</td>
+<td>Kumpulan bahasa/konteks kecil; bukan tes eksekusi kode jarak jauh universal.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>injeksi perintah OS</td>
+<td>Verifikasi opsional</td>
+<td>Aktifkan indikator perintah OS untuk pemeriksaan keluaran id berulang. Probe Perintah opsional dengan penyedia OAST yang mendengarkan dapat menghubungkan panggilan balik DNS.</td>
+<td>Memerlukan konteks perintah yang kompatibel dan, untuk callback, target jalan keluar. Tidak ada panggilan balik tidak menciptakan keamanan.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>CRLF / injeksi header respons</td>
+<td>Pemeriksaan aktif</td>
+<td>Aktifkan injeksi header Respons. Penanda header respons yang dihasilkan harus berulang dan tidak ada di kontrol.</td>
+<td>Penanganan URL/tajuk browser membatasi muatan. Pemisahan respons mentah, peracunan cache, dan serangan pembingkaian tidak terjadi.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>LDAP, XPath, dan bahasa injeksi lainnya yang belum diterapkan</td>
+<td>Tidak tercakup</td>
+<td>Muatan khusus, Fuzz otomatis, atau templat yang ditinjau dapat membantu penyelidikan terpisah.</td>
+<td>Tidak ada pemverifikasi khusus bahasa bawaan; perbedaan respons bukanlah konfirmasi.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Traversal jalur / penyertaan file lokal</td>
+<td>Pemeriksaan aktif</td>
+<td>Aktifkan Traversal / penyertaan file. Tanda tangan konten file yang didukung harus diulangi pada titik penyisipan yang ditemukan.</td>
+<td>Tidak mencakup setiap pengkodean, sistem operasi, penyertaan jarak jauh, atau file sewenang-wenang. Tidak ada inventaris direktori brute force.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Pemalsuan permintaan sisi server (SSRF)</td>
+<td>Verifikasi opsional</td>
+<td>Aktifkan SSRF dan OAST dengan penyedia terjangkau yang disetujui. Korelasi pemeriksaan yang tepat mencatat interaksi DNS/HTTP.</td>
+<td>Perbedaan respons alamat internal hanyalah petunjuk. Panggilan balik menciptakan interaksi, bukan akses internal atau pencurian data; perantara dapat menyelesaikan muatan.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>IDOR / otorisasi objek atau fungsi rusak</td>
+<td>Hanya indikator</td>
+<td>Aktifkan Bandingkan dengan Sesi B menggunakan wadah Firefox/penyimpanan cookie pribadi yang berbeda. Hingga sepuluh permintaan baca membandingkan status dan hash isi.</td>
+<td>Tidak ada kepemilikan objek atau teladan yang diharapkan; halaman publik yang identik bisa sah. Tidak ada bukti peningkatan hak istimewa secara umum.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Pemalsuan permintaan lintas situs (CSRF)</td>
+<td>Hanya indikator</td>
+<td>Tinjauan formulir melaporkan formulir POST tanpa bidang token yang dikenali dan memeriksa atribut cookie yang terlihat.</td>
+<td>Tidak ada pengiriman eksploitasi lintas situs atau uji validasi token server. SameSite, header khusus, dan kontrol alur kerja memerlukan tinjauan manual.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Eksploitasi berbagi sumber daya lintas asal (CORS).</td>
+<td>Hanya indikator</td>
+<td>Tinjauan CORS memeriksa header asal izin dan kredensial yang diamati.</td>
+<td>Tidak ada tes refleksi Asal yang sewenang-wenang atau verifikasi pembacaan data asal penyerang. Wildcard dengan kredensial ditolak oleh browser.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Buka pengalihan</td>
+<td>Pemeriksaan aktif</td>
+<td>Aktifkan pengalihan terbuka. Tujuan .invalid yang dihasilkan di header Lokasi harus diulang. Tujuan eksternal tidak diikuti.</td>
+<td>Pengalihan JavaScript, pengalihan login multi-langkah, dan setiap bypass normalisasi URL tidak tercakup.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Isolasi penyewa, peningkatan peran, dan otorisasi alur kerja</td>
+<td>Tidak tercakup</td>
+<td>Perbandingan sesi dan permintaan yang diimpor dapat memberikan bukti bagi seorang analis.</td>
+<td>Tidak ada pemahaman tentang kepemilikan penyewa, peran, transisi status, atau tindakan bisnis yang diizinkan.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Header keamanan tidak ada, CSP lemah, dan pertahanan clickjacking</td>
+<td>Hanya indikator</td>
+<td>Tinjauan header pasif selama pemindaian memeriksa CSP, evaluasi tidak aman, kebijakan pembingkaian, dan tidak mengetahui respons yang diamati.</td>
+<td>Hilangnya pertahanan memperkuat sinyal; kemampuan eksploitasi, kelengkapan kebijakan, dan dampak perbaikan UI belum diketahui.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Daftar direktori, paparan sumber/konfigurasi, dan jejak debug</td>
+<td>Hanya indikator</td>
+<td>Tinjauan pasif mengenali markup daftar, sumber PHP, penetapan kunci konfigurasi, dan pelacakan tumpukan yang dipilih dalam konten yang dikembalikan.</td>
+<td>Hanya konten dan tanda tangan yang diamati; tidak ada file cadangan yang komprehensif, penemuan admin rahasia atau tersembunyi.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Injeksi entitas eksternal XML (XXE)</td>
+<td>Verifikasi opsional</td>
+<td>Aktifkan XXE dan penyedia OAST yang mendengarkan dengan persetujuan Agresif. Badan permintaan XML diganti dengan canary panggilan balik entitas eksternal.</td>
+<td>Memerlukan permintaan XML yang diinventarisasi. Tidak ada cakupan parser, SOAP, pembacaan file, entitas parameter, atau ekstraksi buta yang komprehensif.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Metode HTTP berbahaya</td>
+<td>Hanya indikator</td>
+<td>Aktifkan metode HTTP yang Diiklankan. OPTIONS mencatat header Izinkan respons.</td>
+<td>Tidak mencoba menulis PUT/DELETE tanpa izin atau membuktikan metode yang diiklankan dapat dieksploitasi.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Penanganan parameter kueri duplikat</td>
+<td>Hanya indikator</td>
+<td>Aktifkan penanganan parameter kueri duplikat untuk perbandingan respons urutan pertama/terakhir yang berulang.</td>
+<td>Perbedaan penguraian tidak membuktikan bypass WAF, kegagalan kontrol akses, atau ketidaksepakatan proxy/backend.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Izin cloud, layanan admin tersembunyi, dan konfigurasi backend</td>
+<td>Tidak tercakup</td>
+<td>Sidik jari tumpukan dan tampilan topologi memberikan hipotesis yang dapat dilihat oleh browser.</td>
+<td>Tidak ada akses akun cloud, audit infrastruktur, inspeksi konfigurasi server, atau penemuan jaringan internal yang menyeluruh.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Ketergantungan JavaScript browser yang diketahui rentan</td>
+<td>Verifikasi opsional</td>
+<td>Aktifkan SCA perpustakaan klien untuk membandingkan versi aset yang diamati dengan database penasihat kecil yang dibundel.</td>
+<td>Hanya korelasi versi/tanda tangan; backport, kode rentan yang dapat dijangkau, pohon ketergantungan penuh, dan aset yang tidak terlihat tidak diverifikasi.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>CVE ketergantungan server dan kerentanan produk</td>
+<td>Bergantung pada template</td>
+<td>Fase otomatis CVE memerlukan templat impor yang memenuhi syarat; hanya permintaan dan pencocokan yang ditulis yang dijalankan. Native Nuclei memerlukan mesin dan persetujuan terpisah.</td>
+<td>Pencocokan sidik jari/penasihat saja sudah merupakan kandidat. Dua paket permulaan komunitas tidak menyediakan cakupan CVE universal.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Paket yang disusupi, CI/CD, dan pembaruan rantai pasokan yang berbahaya</td>
+<td>Tidak tercakup</td>
+<td>Nama atau versi ketergantungan dapat membantu kode terpisah dan tinjauan build.</td>
+<td>Tidak ada kelengkapan SBOM, audit repositori/pembuatan, keaslian paket, atau verifikasi rantai penandatanganan.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>Formulir kata sandi HTTP, HSTS, dan referensi sumber daya yang tidak aman</td>
+<td>Hanya indikator</td>
+<td>Pemeriksaan pasif mengenali formulir kata sandi menggunakan HTTP/GET, tidak adanya HSTS, dan sumber daya HTTP terpilih yang direferensikan oleh markup HTTPS.</td>
+<td>Bukan penemuan data sensitif yang komprehensif; tidak membuktikan paparan data saat diam atau menilai semua perilaku transportasi.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>Protokol/sandi TLS yang lemah, manajemen kunci dan enkripsi saat tidak digunakan</td>
+<td>Tidak tercakup</td>
+<td>Browser menyediakan koneksi TLS normalnya.</td>
+<td>Tidak ada enumerasi sandi/protokol, inventaris sertifikat, tinjauan desain kriptografi, audit hash kata sandi, atau akses kunci sisi server.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>Logika bisnis, manipulasi pembayaran/harga, dan penyalahgunaan alur kerja</td>
+<td>Tidak tercakup</td>
+<td>Permintaan yang diamati dan pengujian manual bantuan Repeater.</td>
+<td>Tidak ada model harga yang benar, saldo akun, aturan bisnis, urutan transaksi, atau perilaku aplikasi yang dimaksudkan.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>Kondisi balapan dan kelemahan desain yang menghabiskan sumber daya</td>
+<td>Tidak tercakup</td>
+<td>Batas permintaan dan kontrol tarif pemindaian terikat; respons batas laju adalah sinyal operasional.</td>
+<td>Tidak ada race harness yang disinkronkan atau verifikasi penolakan layanan yang disengaja.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Atribut cookie/sesi lemah</td>
+<td>Hanya indikator</td>
+<td>Laporan tinjauan cookie tidak memiliki SameSite Aman, HttpOnly, atau eksplisit dan SameSite=None tanpa Aman.</td>
+<td>Tujuan cookie dan default browser penting. Tidak melakukan pembajakan sesi, fiksasi, pembatalan logout, atau entropi token.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Bypass login, MFA, reset kata sandi, brute force dan pengambilalihan akun</td>
+<td>Tidak tercakup</td>
+<td>Pemeriksaan injeksi dapat mengungkap salah satu penyebab kesalahan login. Validator sesi memeriksa apakah login yang dikonfigurasi masih tampak valid.</td>
+<td>Tidak ada serangan kredensial umum, pengujian alur kerja MFA/reset, audit lockout, atau verifikasi pengambilalihan akun.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Kelemahan verifikasi JWT, OAuth, OIDC dan SAML</td>
+<td>Tidak tercakup</td>
+<td>Utilitas dapat memecahkan kode JWT secara lokal untuk pemeriksaan manual.</td>
+<td>Decoding bukan verifikasi tanda tangan. Tidak ada uji kebingungan algoritma, pemalsuan token, aliran pengalihan, atau federasi secara umum.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Jalur panggilan balik Log4Shell</td>
+<td>Verifikasi opsional</td>
+<td>Aktifkan Log4Shell dan OAST dengan persetujuan. Canary panggilan balik JNDI ditempatkan di input pertama yang tersedia dan Versi X-Api.</td>
+<td>Interaksi yang cocok memerlukan atribusi dan peninjauan; itu tidak membuktikan eksekusi kode. Titik penyisipan yang terbatas dan target jalan keluar dapat melewatkan jalur yang rentan.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Deserialisasi yang tidak aman</td>
+<td>Bergantung pada template</td>
+<td>Opsi deserialisasi memilih templat impor yang memenuhi syarat yang diberi tag untuk deserialisasi. Tinjau pelaksana dan prasyaratnya.</td>
+<td>Tidak ada penemuan format objek umum, generator rantai gadget, atau pemverifikasi deserialisasi universal.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Pembaruan yang tidak ditandatangani, data aplikasi palsu, dan kontrol integritas</td>
+<td>Tidak tercakup</td>
+<td>Respons yang diambil dan data yang diterjemahkan dapat membantu analisis manual.</td>
+<td>Tidak ada model kepercayaan aplikasi, validasi tanda tangan pembaruan, audit tanda tangan data, atau verifikasi penugasan massal secara umum.</td>
+</tr>
+<tr>
+<td>A09</td>
+<td>Log keamanan, peringatan, integritas log, dan deteksi insiden tidak ada</td>
+<td>Tidak tercakup</td>
+<td>Longshot mencatat bukti pemindaiannya sendiri dan jurnal permintaan lokal.</td>
+<td>Log pemindai tidak mengungkapkan apakah aplikasi mencatat atau memberi peringatan dengan benar; memeriksa bukti server/SIEM dan menjalankan skenario yang dipantau.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>Kebocoran informasi dari tanggapan yang luar biasa</td>
+<td>Hanya indikator</td>
+<td>Pengungkapan kesalahan pasif dan kontrol injeksi aktif dapat melihat jejak tumpukan yang dipilih dan kesalahan database yang baru diperkenalkan.</td>
+<td>Hanya mengembalikan bukti. Kesalahan umum atau HTTP 500 saja bukanlah kerentanan yang terverifikasi.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>Perilaku buka-gagal, kegagalan rollback, dan pemulihan pengecualian yang tidak aman</td>
+<td>Tidak tercakup</td>
+<td>Perbedaan status/tubuh dapat memandu penyelidikan manual.</td>
+<td>Tidak ada injeksi kesalahan umum, pernyataan rollback transaksi, pemulihan kerusakan, atau model kontrol akses jalur pengecualian.</td>
+</tr>
+<tr>
+<td>Lainnya</td>
+<td>Penyelundupan permintaan HTTP, format framing yang salah, keracunan cache, dan serangan Host</td>
+<td>Tidak tercakup</td>
+<td>Pemindai internal menggunakan jaringan browser dan melindungi header terkelola.</td>
+<td>Alat eksternal melalui proxy asli terpisah. Transportasi HTTP yang diurai juga bukan merupakan penyelundupan byte-transparan atau mesin TLS khusus.</td>
+</tr>
+<tr>
+<td>Lainnya</td>
+<td>Kerentanan aplikasi WebSocket / SSE</td>
+<td>Hanya indikator</td>
+<td>Tes saluran terbatas opsional menangkap pertukaran dan melaporkan teks kesalahan yang dipilih.</td>
+<td>Tidak ada otorisasi yang sadar protokol, pengaburan skema pesan, pembajakan WebSocket lintas situs, atau pemverifikasi logika bisnis.</td>
+</tr>
+<tr>
+<td>Lainnya</td>
+<td>Unggahan file, logika GraphQL/SOAP, dan protokol biner tidak didukung</td>
+<td>Tidak tercakup</td>
+<td>Permintaan HTTP yang ditemukan dapat mengekspos input skalar yang didukung untuk pemeriksaan umum.</td>
+<td>Tidak ada eksekusi unggahan khusus, otorisasi/kompleksitas GraphQL, SOAP komprehensif, atau pemindai protokol biner.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interpreting-actual-run-coverage">Menafsirkan cakupan proses yang sebenarnya</h3>
+<p>Peta referensi WSTG yang lengkap mencakup subset otomatis, pekerjaan berbantuan, dan penilaian manual. Di <strong>Cakupan masukan aktual</strong>:</p>
+<ul>
+<li><strong>Selesai</strong> berarti aturan yang diterapkan selesai pada masukan itu, bukan masukan tersebut aman.</li>
+<li><strong>Sebagian</strong> berarti beberapa pekerjaan dijalankan tetapi ada batasan, gangguan, atau kondisi lain yang menghalangi penyelesaian.</li>
+<li><strong>Dilewati</strong> berarti rule/inputnya tidak berjalan; periksa alasannya.</li>
+</ul>
+<p>WAF, peran yang hilang, sesi yang tidak valid, alur kerja yang tersembunyi/belum dikunjungi, isi permintaan yang tidak tersedia, CSP, atau anggaran yang habis dapat membuat masukan yang rentan belum teruji. Pemasangan proxy asli tidak menghilangkan batasan tersebut dari pemindai internal. Versi CVE yang diamati, header yang hilang, atau respons berbeda tidak secara otomatis merupakan eksploitasi.</p>
+<p>Rilis 2.18.1 lulus 192 pengujian unit/regresi otomatis, delapan pemeriksaan Chrome nyata dan delapan pemeriksaan Firefox nyata, termasuk verifikasi ZIP/YAML CSP dan lalu lintas ZAP asli terhadap perlengkapan SQLite yang dimiliki. Pustaka peramban resminya diverifikasi byte demi byte dan pembangunan kembali sumber bersih mereproduksi Firefox XPI dengan tepat. Tes tersebut memvalidasi perilaku implementasi yang disebutkan; mereka tidak menunjukkan deteksi setiap tantangan Toko Jus, WebGoat, bWAPP, atau NodeGoat. Hasil ZAP SQLi eksternal memverifikasi jalur proksi, bukan penarikan kembali Longshot di semua kerentanan.</p>
+<h2 id="recovery-assessment-files-and-reports">Pemulihan, penilaian file dan laporan</h2>
+<h3 id="keep-recovery-paths-separate">Pisahkan jalur pemulihan</h3>
+<table>
+<thead>
+<tr>
+<th>Jalan</th>
+<th>Apa yang harus dilakukan setelah kegagalan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pemindaian/sesi bawaan</td>
+<td>Tinjau dialog pemulihan dasbor, masuk lagi dalam konteks cookie asli, validasi dan lanjutkan jika diizinkan</td>
+</tr>
+<tr>
+<td>Proksi alat asli</td>
+<td>Periksa adaptor, tab/toko, token, dan alasan jeda; lanjutkan/pasangkan ulang secara eksplisit, lalu gunakan coba ulang/lanjutkan alat eksternal itu sendiri</td>
+</tr>
+<tr>
+<td>API Agen</td>
+<td>Pulihkan koneksi perpesanan/daemon asli; lalu periksa status proses yang ada sebelum mengeluarkan start yang lain</td>
+</tr>
+<tr>
+<td>Mulai ulang browser/penilaian yang diimpor</td>
+<td>Kembalikan bukti yang disimpan dan validasi ulang login; jangan berasumsi operasi jaringan dalam penerbangan atau antrian pemindaian langsung lengkap selamat</td>
+</tr>
+</tbody>
+</table>
+<p>Validasi autentikasi independen mencegah setiap mutasi login yang sengaja ditolak agar tidak disalahartikan sebagai berakhirnya sesi. Konfigurasikan validator terlindungi yang bermakna. Antrian langsung mungkin mendukung pemulihan saat ekstensi berjalan, namun file sesi yang disimpan tidak merekonstruksi penulisan yang tidak pasti atau secara otomatis memutar ulang seluruh pemindaian yang terputus.</p>
+<h3 id="browser-storage-and-optional-session-files">Penyimpanan browser dan file sesi opsional</h3>
+<p>Penyimpanan browser tetap aktif secara independen dari jembatan lokal mana pun. Itu menyimpan riwayat, temuan, ulasan, inventaris, dan opsi per profil. Badan-badan tanggap dapat dipertahankan dengan upaya redaksi terbaik; lalu lintas yang diamati browser sering kali memiliki metadata tanpa isi yang diambil.</p>
+<p>Untuk pos pemeriksaan file otomatis:</p>
+<ol>
+<li>Daftar/sambungkan <strong>API Agen</strong>, bukan hanya Jembatan Peramban.</li>
+<li>Buka <strong>Pengaturan → Sesi penilaian → Instruksi</strong>.</li>
+<li>Masukkan yang absolut <strong>Folder sesi</strong> di komputer Agen API.</li>
+<li>Aktifkan <strong>Secara otomatis menyimpan file sesi</strong> dan pilih <strong>Simpan pengaturan sesi</strong>.</li>
+<li>Gunakan <strong>Simpan sesi sekarang</strong> untuk pos pemeriksaan segera; perubahan normal juga memicu penyimpanan.</li>
+<li>Gunakan <strong>Ekspor sesi saat ini</strong> / <strong>Impor file sesi</strong> untuk transfer manual; impor manual tidak memerlukan host asli.</li>
+</ol>
+<p>File menggunakan ID profil stabil dengan <code dir="ltr" translate="no">.longshot.json</code>, mengizinkan profil eksplisit untuk satu asal. Mereka adalah arsip penilaian yang dapat dibaca dan tidak terenkripsi dan dapat berisi data aplikasi, templat yang dibuat, dan isi yang disimpan. Cookie yang dikelola browser, token penyedia, dan izin eksekusi tidak termasuk.</p>
+<p>Penulisan adalah pos pemeriksaan file pribadi atom. Penghentian mendadak hanya dapat memulihkan penyimpanan terakhir yang telah selesai. Pemindaian berjalan yang dipulihkan menjadi terganggu. Jika jembatan terputus, penyimpanan browser dilanjutkan dan penyimpanan file menunggu; pos pemeriksaan yang diaktifkan yang belum terselesaikan mungkin memerlukan penyambungan kembali atau penonaktifan penyimpanan file sebelum berpindah target. Ukuran file sesi maksimum adalah 256 MB dengan kesalahan eksplisit.</p>
+<p>Penilaian ekspor arsip berbeda dengan <strong>Unduh konfigurasi</strong> di Jembatan Peramban. Yang pertama menyimpan bukti/pilihan penilaian; yang terakhir menyimpan pengaturan proxy asli.</p>
+<h3 id="reports">Laporan</h3>
+<p>Tinjau profil aktif sebelum mengekspor; laporan pemindaian historis juga tersedia melalui API Agen. Laporan yang disesuaikan dengan tema berisi diagram dan bukti, namun jumlah diagram adalah jumlah peringatan, bukan jumlah kelemahan unik yang dapat dieksploitasi dan terverifikasi.</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Gunakan / batasi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>Laporan offline mandiri dengan bagan sebaris, pencarian/filter, detail bukti, tema, dan kontrol cetak</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>Bukti terstruktur yang disunting, konfigurasi pemindaian, dan cakupan masukan yang direkam</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>Pertukaran tabel; bidang bersarang diserialkan dan awalan rumus spreadsheet dilindungi</td>
+</tr>
+<tr>
+<td>SARIF 2.1.0</td>
+<td>Integrasi alat dengan tingkat keparahan/keyakinan/putusan/referensi dan metadata tinjauan</td>
+</tr>
+<tr>
+<td>Cetak / PDF</td>
+<td>Buka laporan HTML dan gunakan Firefox cetak / Simpan ke PDF; opsi PDF API dapat mengembalikan HTML plus instruksi pencetakan daripada byte PDF siap pakai</td>
+</tr>
+</tbody>
+</table>
+<p>Status tinjauan dan catatan terpisah dari putusan pemindai. Tinjauan positif palsu/risiko yang diterima tetap dapat diaudit; SARIF mencakup informasi tinjauan dan penindasan jika berlaku. Redaksi dengan upaya terbaik bukan merupakan jaminan bahwa halaman/isi yang disimpan tidak berisi data aplikasi. Tinjau ekspor sebenarnya sebelum berbagi.</p>
+<p>Laporan ZAP/sqlmap/ffuf eksternal tetap terpisah. Metadata lalu lintas asli bukan salinan riwayat atau temuan lengkap permintaan/responsnya.</p>
+<h2 id="appearance-language-and-help">Penampilan, bahasa dan bantuan</h2>
+<p>Tema bersifat global dan dapat berubah selama pemindaian tanpa mengubah izin pemindaian. Menunya mencakup Sistem, Gelap, Terang, Cybersteppe, Mr. Robot, Iron Man, dan tema khusus yang disimpan. Tata letak adaptif mempersempit kontrol; tabel cakupan memiliki wilayah gulir horizontalnya sendiri untuk kolom detail.</p>
+<p>Di bawah <strong>Pengaturan → Tema &amp; suara peringatan</strong>:</p>
+<ul>
+<li>Pilih tema aktif dan suara/volume peringatan; <strong>Uji suara peringatan</strong> mempratinjau peringatan yang dipilih.</li>
+<li>Edit bawaan dan <strong>Simpan sebagai tema baru</strong> / duplicate to create a custom theme.</li>
+<li>Pilih font yang dibundel/UI sistem/kode, palet, opasitas, latar belakang, dan suara.</li>
+<li>Ekspor/impor tema JSON; mengimpor tidak mengeksekusi CSS atau skrip sewenang-wenang.</li>
+<li><strong>Animasi &amp; suara</strong> mengontrol gerakan dan audio antarmuka per tema. Pengaturan pengurangan gerakan dan bisu browser/sistem tetap penting.</li>
+</ul>
+<p>Gelap/Terang, Cybersteppe, Mr. Robot, dan Iron Man memiliki perlakuan visual/audio yang berbeda. Pembukaan/pemilihan dropdown tidak bersuara. Isyarat pemilihan servo khusus untuk Iron-Man; peringatan kegagalan keamanan terpisah dari suara antarmuka biasa.</p>
+<p>Menu bahasa menawarkan 20 paket bahasa: Inggris, Rusia, Jerman, Prancis, Cina Sederhana, Jepang, Spanyol, Hindi, Portugis, Arab, Bengali, Urdu, Indonesia, Turki, Korea, Italia, Vietnam, Tamil, Telugu, dan Marathi. Cakupan baru/teks UI asli disertakan dalam katalog tambahan. Ini adalah paket terjemahan mesin prosa UI publik, bukan layanan terjemahan runtime. Halaman target yang diambil, muatan, URL, nama bidang/kode, dan contoh perintah tetap mempertahankan teks aslinya.</p>
+<p>Gunakan <strong>Informasi/Instruksi</strong>, petunjuk kontrol dan <strong>Cara menggunakan halaman ini · ketentuan dijelaskan</strong> untuk konteks. Tautan istilah ke materi referensi. Filter/pencarian informasi hanya mengubah penjelasan yang ditampilkan; itu tidak mengaktifkan pemeriksaan. <strong>Memulai</strong> tepat delapan slide dan dapat diputar ulang setelah pemberhentian.</p>
+<p>Tangkapan layar rilis saat ini menggunakan perlengkapan SQLite loopback sementara yang dimiliki. Port acak dan data akun sampelnya merupakan artefak pengujian, bukan konfigurasi yang diperlukan untuk aplikasi Anda:</p>
+<blockquote>
+<p><strong>Dialog liputan</strong>
+<img alt="memindai cakupan desktop" src="/longshot-security-site/docs/assets/scan-coverage-desktop.png"/>
+<strong>Tata letak Iron Man yang sempit dengan teks liputan Rusia</strong>
+<img alt="cakupan pemindaian besi sempit ru" src="/longshot-security-site/docs/assets/scan-coverage-iron-narrow-ru.png"/>
+<strong>Halaman proksi asli</strong>
+<img alt="proxy alat asli" src="/longshot-security-site/docs/assets/native-tool-proxy.png"/></p>
+</blockquote>
+<h2 id="troubleshooting">Pemecahan masalah</h2>
+<table>
+<thead>
+<tr>
+<th>Gejala</th>
+<th>Area yang tepat untuk diperiksa / tindakan selanjutnya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ekstensi hilang setelah restart</td>
+<td>Sementara <code dir="ltr" translate="no">about:debugging</code> instalasi berakhir saat restart. Muat ulang XPI atau gunakan instalasi pengembangan bertanda tangan/persisten yang sesuai</td>
+</tr>
+<tr>
+<td>UI/versi salah setelah pembaruan</td>
+<td>Periksa versi manifes/yang ditampilkan; muat ulang XPI yang dimaksud dan tutup dasbor yang sudah usang. Nama direktori sumber dapat mempertahankan versi lama</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find package 'ws'</code></td>
+<td>Verifikasi jalur dalam kesalahan. Adaptor asli yang diunduh lengkap mencakup ws; kebutuhan direktori sumber asli yang baru <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code>. Kesalahan pada jalur adaptor lama adalah pengaturan lama, bukan yang baru <code dir="ltr" translate="no">cli.js</code> perintah</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find module .../bridge/bin/longshot-bridge</code></td>
+<td>Jalankan perintah Agen API dari root sumber yang berisi <code dir="ltr" translate="no">bridge/</code>, atau gunakan jalur skrip absolut. ZIP proksi asli bukan sumber API Agen lengkap</td>
+</tr>
+<tr>
+<td>Adaptor tidak memulai/mitmdump hilang</td>
+<td>Jalankan <code dir="ltr" translate="no">python3 bootstrap.py</code> dengan Python 3.12+ atau pilih runtime terinstal yang diinginkan dengan <code dir="ltr" translate="no">--mitmdump</code></td>
+</tr>
+<tr>
+<td>Penyandingan tidak dapat tersambung</td>
+<td>Gunakan port kontrol 8901, token saat ini dan arus pastinya <code dir="ltr" translate="no">moz-extension://...</code> asal. Pastikan proses adaptor sudah siap</td>
+</tr>
+<tr>
+<td>Alat mengalami kegagalan autentikasi proksi</td>
+<td>Gunakan port proxy 8900, jembatan nama pengguna, dan token saat ini. Perbarui setiap alat setelah adaptor dihidupkan ulang</td>
+</tr>
+<tr>
+<td>Konten langsung/publik, bukan permintaan proxy yang diharapkan</td>
+<td>Periksa NO_PROXY/no_proxy, pengecualian alat, dan pengaturan proxy. Konfirmasikan permintaan muncul di lalu lintas asli</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">bridge.invalid</code> gagal</td>
+<td>Alur kerja alias lama. Gunakan URL target sebenarnya dan tidak ada entri file host</td>
+</tr>
+<tr>
+<td>Konfigurasi ditolak/properti tidak diketahui</td>
+<td>Jangan gunakan kembali <code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, formulir cakupan/waktu lama, atau kontrol API lama. Ekspor konfigurasi asli dan gunakan kunci yang didukungnya</td>
+</tr>
+<tr>
+<td>Kesalahan verifikasi sertifikat</td>
+<td>Bedakan klien→kepercayaan adaptor dari adaptor→verifikasi asal. Percayai CA adaptor publik yang dicetak pada alat tersebut; periksa sertifikat server sebenarnya secara terpisah</td>
+</tr>
+<tr>
+<td>Cookie browser tidak menjangkau alat tersebut</td>
+<td>Verifikasi tab/penyimpanan yang dipilih, Domain/jalur/Aman/partisi yang berlaku, cookie.diaktifkan, nama yang dilindungi dan apakah permintaan benar-benar melintasi proxy</td>
+</tr>
+<tr>
+<td>Alat mengirimkan pemeriksaan cookie tetapi menghilang</td>
+<td>Nonaktifkan/lindungi penggantian yang relevan atau tambahkan X-Longshot-Preserve / minta penggantian nonaktif. Jangan mengandalkan deteksi niat permintaan pertama</td>
+</tr>
+<tr>
+<td>Cookie browser masih berubah dengan pembatalan permintaan</td>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code> mandiri. Nonaktifkan juga jika sinkronisasi respons tidak diinginkan</td>
+</tr>
+<tr>
+<td>401/419/440 atau 429 menjeda proksi asli</td>
+<td>Tinjau tab/sesi/pembatasan, lalu lanjutkan secara eksplisit. Pengujian autentikasi negatif yang disengaja mungkin memerlukan peninjauan perubahan konfigurasi status jeda dan memulai ulang</td>
+</tr>
+<tr>
+<td>WAF menerima Firefox tetapi menolak lalu lintas asli</td>
+<td>Penyalinan cookie/UA tidak mereproduksi perilaku TLS/IP/browser atau menjalankan tantangan JavaScript. Tinjau rute penilaian yang diizinkan dan bukti</td>
+</tr>
+<tr>
+<td>Target bawang diblokir</td>
+<td>Konfigurasikan rute SOCKS/upstream eksplisit nyata di adaptor asli. Nuclei bawaan/browser dan Nuclei asli yang terisolasi memiliki perutean yang berbeda</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">permissions.request may only be called from a user input handler</code></td>
+<td>Gunakan alur kerja persetujuan ekstensi saat ini. Simpan, tinjau, lalu klik Setujui proses berikutnya untuk meminta izin yang hilang; jangan meminta izin dari perubahan pengaturan agen/latar belakang asinkron</td>
+</tr>
+<tr>
+<td>Kesalahan konstruktor URL umum setelah temuan Maksimum</td>
+<td>Periksa <strong>URL Penyedia OAST</strong> dan <strong>Domain panggilan balik</strong>, terlepas dari URL target. Isi nilai yang cocok atau nonaktifkan OAST; validasi saat ini mengidentifikasi bidang yang relevan</td>
+</tr>
+<tr>
+<td>Agresif dinonaktifkan namun opsi lanjutan tetap diaktifkan</td>
+<td>Nonaktifkan fitur yang terdaftar atau aktifkan/simpan Agresif dan setujui pengoperasian berikutnya</td>
+</tr>
+<tr>
+<td>Sesi B hilang/tidak valid</td>
+<td>Pilih tab asal yang sama di wadah lain/penyimpanan cookie pribadi; tab biasa tidak menyediakan cookie independen</td>
+</tr>
+<tr>
+<td>Persetujuan telah habis masa berlakunya/digunakan/diubah</td>
+<td>Simpan pengaturan akhir dan setujui hibah baru yang dijalankan berikutnya; kadaluarsa adalah 30 menit dan sekali pakai</td>
+</tr>
+<tr>
+<td>Jalankan fuzzer tidak memiliki permintaan yang berguna</td>
+<td>Berikan URL cakupan, parameter kueri, dan kumpulan muatan pilihan yang tidak kosong, atau gunakan Fuzz otomatis terpisah setelah penemuan inventaris</td>
+</tr>
+<tr>
+<td>Pembaruan perpustakaan pemeriksaan gagal</td>
+<td>Periksa sumber/jaringan/alasan validasi yang dilaporkan. Data cache sebelumnya dipertahankan; pemindaian target tidak dijalankan ulang secara otomatis</td>
+</tr>
+<tr>
+<td>Tidak ada temuan / terlalu sedikit pemeriksaan</td>
+<td>Membaca cakupan input aktual yang diselesaikan/sebagian/dilewati; memeriksa penemuan, login, anggaran, jenis respons, pemblokiran, dan pengecualian</td>
+</tr>
+<tr>
+<td>OPSI memungkinkan HAPUS</td>
+<td>Hanya inventaris. Ini tidak membuktikan tulisan yang tidak diautentikasi atau bahwa Longshot mencobanya</td>
+</tr>
+<tr>
+<td>Koneksi OAST lolos tetapi tidak ada panggilan balik target</td>
+<td>Jalankan tes panggilan balik browser, verifikasi penyedia/domain yang cocok, TTL dan target jalan keluar; ketidakhadiran masih belum meyakinkan</td>
+</tr>
+<tr>
+<td>Template asli Diblokir</td>
+<td>Baca alasan pelaksana/kemampuan: Inti/isolasi/pembantu/tanda tangan/ruang lingkup/persetujuan/perutean mungkin hilang</td>
+</tr>
+<tr>
+<td>Penganalisis cerdas tidak dapat memberi nama backend</td>
+<td>Tidak diketahui adalah hasil yang valid. Lapisan WAF/proxy dapat menyembunyikan atau menulis ulang bukti; memverifikasi inventaris penerapan secara manual</td>
+</tr>
+<tr>
+<td>penampil cimematic tidak memiliki halaman aktif</td>
+<td>Periksa tab/login/asal yang aktif, batasan pengambilan/pemuatan dan ketergantungan; gunakan Hanya bukti yang ditangkap dan dicatat</td>
+</tr>
+<tr>
+<td>Titik penampil di area halaman umum</td>
+<td>Mungkin tidak ada bidang HTML yang cocok untuk temuan header/API/cookie. Penempatan konteks halaman bukanlah bukti masukan yang tepat</td>
+</tr>
+<tr>
+<td>File penilaian menunggu/eror</td>
+<td>Hubungkan API Agen, periksa folder/status absolut yang dipilih dan pos pemeriksaan yang tertunda. Penyimpanan browser tetap terpisah</td>
+</tr>
+<tr>
+<td>Lalu lintas asli tidak memiliki badan respons atau temuan ZAP</td>
+<td>Tampilan hanya metadata yang diharapkan; periksa riwayat dan laporan alat eksternal itu sendiri</td>
+</tr>
+<tr>
+<td>Respons API PDF adalah HTML/instruksi</td>
+<td>Gunakan Cetak / Simpan ke PDF; jangan ganti nama byte HTML menjadi .pdf</td>
+</tr>
+<tr>
+<td>UI yang diterjemahkan masih menampilkan bahasa Inggris</td>
+<td>Istilah kode, contoh perintah, URL, muatan, dan bukti yang diambil sengaja disimpan. Periksa versi/bahasa untuk prosa UI sebenarnya; kualitas terjemahan mesin dapat bervariasi</td>
+</tr>
+</tbody>
+</table>
+<p>Untuk diagnostik, mulailah dari pesan khusus bidang dan log komponen yang relevan. Kesalahan pemasangan proksi asli, kegagalan sesi pemindaian browser, dan kegagalan koneksi API Agen memerlukan perbaikan yang berbeda. Jangan menganggap tindakan UI yang telah selesai atau pemasangan yang berhasil sebagai bukti bahwa setiap permintaan atau pemeriksaan yang direncanakan telah berjalan.</p>
+<h2 id="terms-and-source-references">Istilah dan referensi sumber</h2>
+<table>
+<thead>
+<tr>
+<th>Istilah</th>
+<th>Makna/referensi bahasa sederhana</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">Permintaan/tanggapan HTTP</a></td>
+<td>Pesan ke server web/balasannya, termasuk metode, URL, header, dan isi opsional</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/Origin">Asal</a></td>
+<td>Skema, host dan port digunakan sebagai batas keamanan web</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies">kue</a></td>
+<td>Status yang dikelola browser dipilih untuk permintaan yang berlaku</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Session_Management">Manajemen sesi</a></td>
+<td>Bagaimana aplikasi mengenali pengguna di seluruh permintaan</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/essential-skills">Muatan</a></td>
+<td>Nilai tes dikirim ke input; tidak secara otomatis merupakan eksploitasi yang berhasil</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/sql-injection">injeksi SQL</a></td>
+<td>Input mengubah cara kueri database diinterpretasikan</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/nosql-injection">Injeksi NoSQL</a></td>
+<td>Input mengubah kueri database non-SQL atau perilaku operator</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a></td>
+<td>Data yang dikendalikan penyerang mencapai konten browser yang dapat dieksekusi</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting/dom-based">DOM XSS</a></td>
+<td>JavaScript sisi klien membawa data yang tidak tepercaya ke dalam sink yang mampu mengeksekusi</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/server-side-template-injection">SSTI</a></td>
+<td>Input ditafsirkan sebagai instruksi template server</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/os-command-injection">Injeksi perintah</a></td>
+<td>Input mengubah perintah yang dijalankan oleh shell/program sistem operasi</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/file-path-traversal">Lintasan jalur</a></td>
+<td>Input lolos dari batas jalur file yang diinginkan</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/ssrf">SSRF</a></td>
+<td>Server membuat permintaan yang tidak diinginkan ke tujuan lain</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/xxe">XXE</a></td>
+<td>Pemrosesan entitas eksternal XML menyebabkan akses sumber daya yang tidak diinginkan</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/csrf">CSRF</a></td>
+<td>Situs lain menyebabkan tindakan aplikasi terotentikasi yang tidak diinginkan</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cors">CORS</a></td>
+<td>Kebijakan browser yang mengontrol akses respons lintas asal</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/access-control/idor">Kontrol akses / IDOR</a></td>
+<td>Apakah pengguna dapat mengakses suatu objek/tindakan, bukan hanya apakah URL-nya dapat dijangkau</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/logic-flaws">Logika bisnis</a></td>
+<td>Aturan tentang harga yang valid, alur kerja, saldo, dan transisi status</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a></td>
+<td>Kebijakan sumber daya/skrip yang didukung browser; header yang hilang saja bukanlah eksekusi XSS</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Web_Application_Firewall">WAF</a></td>
+<td>Lapisan pemfilteran HTTP yang kehadirannya tidak mengungkapkan setiap aturan aktif</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Reverse_proxy">Proksi terbalik</a></td>
+<td>Perantara menerima permintaan sebelum server aplikasi</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/TLS">TLS / CA</a></td>
+<td>Enkripsi koneksi dan kepercayaan sertifikat digunakan untuk mengautentikasi titik akhirnya</td>
+</tr>
+<tr>
+<td><a href="https://nvd.nist.gov/vuln">CVE/NVD</a></td>
+<td>Pengidentifikasi/database untuk kerentanan yang diketahui; mencocokkan spanduk bukanlah verifikasi eksploitasi</td>
+</tr>
+<tr>
+<td><a href="https://cwe.mitre.org/">CWE</a></td>
+<td>Klasifikasi jenis kelemahan</td>
+</tr>
+<tr>
+<td><a href="https://top10.owasp.org/2025/">OWASP Teratas 10:2025</a></td>
+<td>Kategori kesadaran, bukan rangkaian pengujian pemindai yang lengkap</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-project-web-security-testing-guide/">WSTG</a></td>
+<td>Referensi pengujian keamanan web yang mencakup pekerjaan otomatis dan manual</td>
+</tr>
+</tbody>
+</table>
+<p>Dasar implementasi tutorial ini: manifes 2.18.1; <code dir="ltr" translate="no">content/checks.js</code>; <code dir="ltr" translate="no">lib/core.js</code>, <code dir="ltr" translate="no">lib/v2.js</code>, modul audit/DOM/penyelidikan; dasbor/bantuan/cakupan/UI asli; konfigurasi adaptor asli, penggantian dan CLI; Agen API/klien asli; melepaskan artefak validasi. Jika dokumentasi lama bertentangan dengan perilaku transportasi lama yang dihapus, runtime 2.18.1 yang dikirimkan adalah dasar yang digunakan di sini.</p>
+<p>Referensi pengaturan tambahan:</p>
+<ul>
+<li><a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">Instalasi sementara Mozilla</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging">Pesan asli Mozilla</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">Pengaturan koneksi keluar ZAP</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/">Kebijakan dan batasan pemindaian aktif ZAP</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/concepts/certificates/">sertifikat mitmproxy</a></li>
+<li><a href="https://github.com/projectdiscovery/interactsh">Interaksi Resmi</a></li>
+<li><a href="https://docs.projectdiscovery.io/templates/reference/template-signing">Penandatanganan template inti</a></li>
+<li><a href="#owasp-top-10-coverage">Dokumen cakupan rilis lengkap</a></li>
+</ul>
+<p>Tutorial ini adalah panduan umum untuk rilis bernama. Hasil spesifik aplikasi masih memerlukan target resmi, alur kerja yang dicapai, dan bukti yang ditinjau.</p></main></div><footer>Keamanan Jangka Panjang · Hanya penilaian resmi · <a href="/longshot-security-site/id/">Kembali ke Jangka Panjang</a><p class="translation-notice">Terjemahan dihasilkan oleh mesin. Versi bahasa Inggris adalah referensinya.</p></footer></body></html>

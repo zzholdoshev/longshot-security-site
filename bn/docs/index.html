@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+
+<html data-site-base="/longshot-security-site/" data-site-page="docs/" dir="ltr" lang="bn"><head><script data-language-script="" defer="" src="/longshot-security-site/language.js?v=20261110-i18n"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>সম্পূর্ণ ডকুমেন্টেশন — লংশট নিরাপত্তা 2.18.1</title><meta content="সম্পূর্ণ লংশট সাধারণ টিউটোরিয়াল: ব্রাউজার স্ক্যানিং, নেটিভ প্রক্সি, কুকি ওভাররাইড, ZAP, MCP, ফাজিং, ফাইন্ডিং এবং রিপোর্ট।" name="description"/><link href="/longshot-security-site/assets/mark.svg" rel="icon" type="image/svg+xml"/><link href="/longshot-security-site/style.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/docs/docs.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/localization.css?v=20261110-i18n" rel="stylesheet"/><link href="https://zzholdoshev.github.io/longshot-security-site/bn/docs/" rel="canonical"/><link href="https://zzholdoshev.github.io/longshot-security-site/docs/" hreflang="en" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ru/docs/" hreflang="ru" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/de/docs/" hreflang="de" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/fr/docs/" hreflang="fr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/zh/docs/" hreflang="zh" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ja/docs/" hreflang="ja" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/es/docs/" hreflang="es" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/hi/docs/" hreflang="hi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/pt/docs/" hreflang="pt" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ar/docs/" hreflang="ar" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/bn/docs/" hreflang="bn" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ur/docs/" hreflang="ur" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/id/docs/" hreflang="id" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/tr/docs/" hreflang="tr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ko/docs/" hreflang="ko" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/it/docs/" hreflang="it" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/vi/docs/" hreflang="vi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ta/docs/" hreflang="ta" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/te/docs/" hreflang="te" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/mr/docs/" hreflang="mr" rel="alternate"/></head><body data-ui-copy='{"Signed in already? Start from that tab. Your session is the starting point.":"ইতিমধ্যে সাইন ইন করেছেন? সেই ট্যাব থেকে শুরু করুন। আপনার অধিবেশন শুরু বিন্দু.","Your tools send their own HTTP requests. Browser Bridge can supply the browser cookies.":"আপনার টুলগুলি তাদের নিজস্ব HTTP অনুরোধ পাঠায়। ব্রাউজার ব্রিজ ব্রাউজার কুকিজ সরবরাহ করতে পারে।","Cookie override is on by default in the paired native bridge. You can turn it off.":"কুকি ওভাররাইড ডিফল্টভাবে জোড়া দেশীয় সেতুতে চালু আছে। আপনি এটি বন্ধ করতে পারেন.","A finding is a lead. Read the request, the response and the controls before confirming it.":"একটি অনুসন্ধান একটি সীসা. এটি নিশ্চিত করার আগে অনুরোধ, প্রতিক্রিয়া এবং নিয়ন্ত্রণগুলি পড়ুন।","Using Chrome? Keep the Longshot workbench tab open while you scan.":"ক্রোম ব্যবহার করছেন? আপনি স্ক্যান করার সময় লংশট ওয়ার্কবেঞ্চ ট্যাবটি খোলা রাখুন।","Connect a compatible MCP agent to run permitted checks and examine the evidence.":"অনুমোদিত চেক চালানোর জন্য একটি সামঞ্জস্যপূর্ণ MCP এজেন্টকে সংযুক্ত করুন এবং প্রমাণ পরীক্ষা করুন।","No bridge.invalid or hosts-file entry. The native proxy uses the actual target URL.":"কোনো bridge.invalid বা hosts-file এন্ট্রি নেই। নেটিভ প্রক্সি প্রকৃত লক্ষ্য URL ব্যবহার করে।","Pause motion":"গতি বিরতি","Resume motion":"গতি পুনরায় শুরু করুন"}'><a class="skip" href="#documentation">ডকুমেন্টেশন এড়িয়ে যান</a><nav aria-label="প্রধান নেভিগেশন"><a href="/longshot-security-site/bn/">LONGSHOT</a><a href="/longshot-security-site/bn/#download">ডাউনলোড করুন</a><a href="/longshot-security-site/bn/support.html">সমর্থন</a><a href="/longshot-security-site/bn/privacy.html">গোপনীয়তা</a><label class="language-switcher"><span>ভাষা</span><select aria-label="ওয়েবসাইটের ভাষা" id="site-language" translate="no"><option value="en">English</option><option value="ru">Русский</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="zh">简体中文</option><option value="ja">日本語</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="pt">Português</option><option value="ar">العربية</option><option selected="selected" value="bn">বাংলা</option><option value="ur">اردو</option><option value="id">Bahasa Indonesia</option><option value="tr">Türkçe</option><option value="ko">한국어</option><option value="it">Italiano</option><option value="vi">Tiếng Việt</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="mr">मराठी</option></select></label></nav><div class="docs-layout"><aside class="docs-sidebar"><details open=""><summary>সাধারণ টিউটোরিয়াল / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">ভাইব-কোডেড। পাঠানো হয়েছে। হ্যাকড।</a><a href="#firefox-and-chrome-choose-your-edition">ফায়ারফক্স এবং ক্রোম: আপনার সংস্করণ চয়ন করুন</a><a href="#contents">বিষয়বস্তু</a><a href="#what-runs-where">কোথায় কি চলে</a><a href="#install-or-update-in-firefox-nightly">ফায়ারফক্স নাইটলিতে ইনস্টল বা আপডেট করুন</a><a href="#getting-started-and-target-sessions">শুরু করা এবং লক্ষ্য সেশন</a><a href="#light-discovery-and-a-focused-active-scan">হালকা আবিষ্কার এবং একটি ফোকাসড সক্রিয় স্ক্যান</a><a href="#aggressive-options-and-run-approval">আক্রমনাত্মক বিকল্প এবং রান অনুমোদন</a><a href="#overview-checks">ওভারভিউ চেক</a><a href="#scan-options-reference">স্ক্যান বিকল্প রেফারেন্স</a><a href="#budgets-selectors-and-request-settings">বাজেট, নির্বাচক এবং অনুরোধ সেটিংস</a><a href="#fuzzer-auto-fuzz-and-probe-library">ফুজার, অটো-ফাজ এবং প্রোব লাইব্রেরি</a><a href="#your-payloads-and-imported-templates">আপনার পেলোড এবং আমদানি করা টেমপ্লেট</a><a href="#server-stack-and-smart-analyzer">সার্ভার স্ট্যাক এবং স্মার্ট বিশ্লেষক</a><a href="#oast-setup-and-interpretation">OAST সেটআপ এবং ব্যাখ্যা</a><a href="#browser-bridge-native-tool-proxy">ব্রাউজার ব্রিজ: নেটিভ টুল প্রক্সি</a><a href="#native-bridge-configuration">নেটিভ ব্রিজ কনফিগারেশন</a><a href="#cookie-and-header-overrides-without-damaging-probes">কুকি এবং হেডার প্রোবের ক্ষতি না করে ওভাররাইড করে</a><a href="#external-tools-and-actual-zap-scanning">বাহ্যিক সরঞ্জাম এবং প্রকৃত ZAP স্ক্যানিং</a><a href="#tor-and-onion-routing">টর এবং পেঁয়াজ রাউটিং</a><a href="#agent-api-mcp-and-local-model-clients">এজেন্ট API, MCP এবং স্থানীয়-মডেল ক্লায়েন্ট</a><a href="#optional-native-nuclei">ঐচ্ছিক নেটিভ নিউক্লিয়াস</a><a href="#manual-tools-interception-and-api-inventory">ম্যানুয়াল টুল, ইন্টারসেপশন এবং API ইনভেন্টরি</a><a href="#findings-and-the-cimematic-viewer">ফাইন্ডিং এবং সিমেটিক ভিউয়ার</a><a href="#owasp-top-10-coverage">OWASP শীর্ষ 10 কভারেজ</a><a href="#recovery-assessment-files-and-reports">পুনরুদ্ধার, মূল্যায়ন ফাইল এবং রিপোর্ট</a><a href="#appearance-language-and-help">চেহারা, ভাষা এবং সাহায্য</a><a href="#troubleshooting">সমস্যা সমাধান</a><a href="#terms-and-source-references">শর্তাবলী এবং উত্স রেফারেন্স</a></div></details><a class="markdown-download" download="" href="/longshot-security-site/docs/longshot-general-tutorial.md">মার্কডাউন ডাউনলোড করুন ↓ · English</a></aside><main class="docs-main" id="documentation"><p class="eyebrow">সম্পূর্ণ ডকুমেন্টেশন · 10 নভেম্বর 2026 আপডেট করা হয়েছে</p><h1 id="longshot-2181-general-tutorial-and-control-reference">লংশট 2.18.1 — সাধারণ টিউটোরিয়াল এবং নিয়ন্ত্রণ রেফারেন্স</h1>
+<p>লংশটের জন্য 10 নভেম্বর 2026 আপডেট করা হয়েছে <strong>2.18.1</strong> (ফায়ারফক্স এবং ক্রোম সংস্করণ) এবং এর <strong>নেটিভ HTTP/HTTPS টুল প্রক্সি</strong>. এটি সাধারণ 2.11.1 টিউটোরিয়াল প্রতিস্থাপন করে। নীচের নির্দেশাবলী প্রেরিত বাস্তবায়ন বর্ণনা করে, এর সীমা সহ; পুরানো সেতু উদাহরণ এই রিলিজের সাথে বিনিময়যোগ্য নয়।</p>
+<p>লংশট অনুমোদিত ওয়েব অ্যাপ্লিকেশন মূল্যায়নের জন্য একটি ব্রাউজার-সেশন ওয়ার্কবেঞ্চ। এটি আবিষ্কার, নিজস্ব জাভাস্ক্রিপ্ট সক্রিয় স্ক্যানার, ম্যানুয়াল HTTP সরঞ্জাম, আমদানি করা টেমপ্লেট, অনুসন্ধান পর্যালোচনা এবং প্রতিবেদনগুলিকে একত্রিত করে। ঐচ্ছিক ব্রাউজার ব্রিজ বহিরাগত সরঞ্জামগুলিকে তাদের নিজস্ব স্থানীয় HTTP অনুরোধ পাঠানোর সময় নির্বাচিত Firefox সেশন মান ব্যবহার করতে দেয়।</p>
+<p>একটি দরকারী প্রথম পাস হল: <strong>অ্যাপ্লিকেশনটি খুলুন → সাইন ইন করুন → সেই ট্যাব থেকে লংশট চালু করুন → সংযোগ করুন → সেশনটি যাচাই করুন → ইনপুটগুলি আবিষ্কার করুন → নির্বাচিত চেকগুলি চালান → প্রমাণ পর্যালোচনা করুন</strong>.</p>
+<p>একটি এআই-বিল্ট বা ভাইব-কোডেড অ্যাপ্লিকেশন সহ সংবেদনশীল ব্যবহারকারীর ডেটা বা অর্থ পরিচালনার জন্য, পেশাদার মূল্যায়নের জন্য একটি সাইবার নিরাপত্তা দল নিয়োগ করুন। একটি এক্সটেনশন স্ক্যান অনুমোদন পরীক্ষা, ব্যবসা-যুক্তি পর্যালোচনা বা একটি স্বাধীন নিরাপত্তা মূল্যায়ন প্রতিস্থাপন করে না। একটি খালি অনুসন্ধান তালিকা একটি নিরাপত্তা শংসাপত্র নয়.</p>
+<p>এই নথিটি কমান্ড ব্যাখ্যা করে; এটি আপডেট করলে সফ্টওয়্যার ইনস্টল করা, হোস্ট নিবন্ধন করা, ব্রাউজার সেটিংস পরিবর্তন করা বা কোনো স্ক্যান চালানো হয় না। শুধুমাত্র আপনার অনুমোদিত মূল্যায়ন লক্ষ্যের বিপরীতে উদাহরণ চালান। নমুনা <code dir="ltr" translate="no">http://localhost:8080</code> একটি স্থানীয় লক্ষ্য উদাহরণ, একটি অন্তর্নির্মিত লংশট পরিষেবা নয়।</p>
+<h2 id="vibe-coded-shipped-hacked">ভাইব-কোডেড। পাঠানো হয়েছে। হ্যাকড।</h2>
+<p><strong>এটি কল্পনা করুন:</strong> আপনার অ্যাপ লাইভ হয়, একজন আক্রমণকারী ত্রুটি খুঁজে পায় এবং একজন ব্যবহারকারী তাদের অ্যাকাউন্ট শূন্যের ব্যালেন্সে খোলে। তাদের সব টাকা-পয়সা চলে গেছে।</p>
+<p>কোড বিশ্বাসযোগ্য লাগছিল. এআই বলেছে যে এটি সুরক্ষিত দেখাচ্ছে। যে যথেষ্ট ছিল না.</p>
+<p><strong>এলএলএম অনির্ধারক। তারা দুর্বলতা মিস করতে পারে এবং আত্মবিশ্বাসী ভুল তৈরি করতে পারে। আপনি একটি দ্বিতীয় মতামত প্রয়োজন. আপনি লংশট প্রয়োজন.</strong></p>
+<p>লংশট আপনার তৈরি করা ওয়েব অ্যাপগুলির জন্য ফায়ারফক্সকে একটি নিরাপত্তা ওয়ার্কবেঞ্চে পরিণত করে। যে অ্যাপ্লিকেশনটি আসলে চলছে তার বিরুদ্ধে পুনরাবৃত্তিযোগ্য চেক চালান, HTTP প্রমাণ পরিদর্শন করুন এবং আপনার ব্যবহারকারীদের মূল্য পরিশোধ করার আগে দুর্বলতাগুলি তদন্ত করুন।</p>
+<p>চেক কভার সমর্থিত <strong>SQL/NoSQL ইনজেকশন, সার্ভার-সাইড কোড এবং টেমপ্লেট ইনজেকশন, প্রতিফলিত XSS প্রার্থী, পাথ ট্রাভার্সাল/ফাইল অন্তর্ভুক্তি, ওপেন রিডাইরেক্ট এবং CRLF/হেডার ইনজেকশন</strong>, ঐচ্ছিক লাইভ DOM XSS যাচাইকরণ সহ। পর্যালোচনা <strong>দুর্বল নিরাপত্তা শিরোনাম, কুকি এবং CORS নীতি, উন্মুক্ত কনফিগারেশন এবং ত্রুটি প্রকাশ</strong>, আরও আক্রমণ ক্লাসের জন্য ঐচ্ছিক চেক সহ।</p>
+<p>আপনি ইতিমধ্যেই ব্যবহার করছেন এমন ব্রাউজার ট্যাব থেকে শুরু করুন। লাইভ কুকিজ রাখুন, সেশনের বৈধতা কনফিগার করুন, সেশন হারানোর পরে পুনরুদ্ধার করুন এবং প্রতিটি লক্ষ্যের সেটিংস, ইতিহাস এবং অনুসন্ধানগুলি সংগঠিত রাখুন।</p>
+<p><strong>আপনার AI-কে কাজে লাগান—তারপর এর কাজ পরীক্ষা করুন।</strong> অনুমোদিত চেক চালানোর জন্য এবং ফলাফলগুলি পরীক্ষা করতে MCP-এর মাধ্যমে একজন এজেন্টকে সংযুক্ত করুন। ম্যানুয়ালি কুকি মান অনুলিপি না করে সংযুক্ত ব্রাউজার সেশনে ZAP, sqlmap, curl, ffuf বা wget আনতে নেটিভ ব্রাউজার ব্রিজ ব্যবহার করুন। টুলগুলি তাদের নিজস্ব HTTP অনুরোধ এবং পেলোড পাঠায়; ব্রাউজার-কুকি ওভাররাইডগুলি ডিফল্টরূপে চালু থাকে এবং বন্ধ করা যেতে পারে।</p>
+<p>উন্নত ব্যবহারকারীরা সামঞ্জস্যপূর্ণ আমদানি করতে পারেন <strong>CVE টেমপ্লেট</strong> এবং পারস্পরিক সম্পর্ক <strong>OAST কলব্যাক</strong> তাদের ঘটানো প্রোবের সাথে। পর্যালোচনা করুন এবং আপনার রায় রেকর্ড করুন, তারপর প্রমাণ সমৃদ্ধ রপ্তানি <strong>HTML, JSON, CSV বা SARIF রিপোর্ট</strong>, প্রিন্ট/পিডিএফ আউটপুট সহ। এর সাথে অনুসন্ধানগুলি ব্যাখ্যা করুন <strong>cimematic দর্শক</strong>, লাইভ CSS/JavaScript পৃষ্ঠার প্রসঙ্গ, অ্যানিমেটেড 3D উপাদান, বিরতি এবং পূর্ণস্ক্রীন নিয়ন্ত্রণ সহ। একটি তীক্ষ্ণ থিম বেছে নিন এবং আপনার কর্মক্ষেত্রের সাথে মানানসই গতি ও শব্দ কাস্টমাইজ করুন।</p>
+<p><strong>আপনি আত্মবিশ্বাস পাঠানোর আগে, প্রমাণ দাবি করুন. লংশট।</strong></p>
+<h3 id="quick-scan-one-sentence">দ্রুত স্ক্যান - একটি বাক্য</h3>
+<p>ফায়ারফক্সে আপনার অ্যাপ খুলুন, প্রয়োজনে সাইন ইন করুন, সেই ট্যাব থেকে লংশট চালু করুন, কানেক্ট ক্লিক করুন, কনফিগার করা সেশন চেক যাচাই করুন, তারপর স্পাইডার + সক্রিয় চেকগুলি বেছে নিন → স্ক্যান শুরু করুন এবং ফলাফল পর্যালোচনা করুন।</p>
+<h3 id="short-ad">সংক্ষিপ্ত বিজ্ঞাপন</h3>
+<p>আপনার ভাইব-কোডেড অ্যাপ লাইভ। এআই কি মিস করেছে? লংশট ইনজেকশন, XSS এবং অন্যান্য সাধারণ দুর্বলতার জন্য চলমান অ্যাপটি পরীক্ষা করে, ব্রাউজার-সেশন টেস্টিং এবং AI/MCP ওয়ার্কফ্লো যোগ করে এবং আপনাকে পর্যালোচনা করার প্রমাণ দেয়। আপনি একটি দ্বিতীয় মতামত প্রয়োজন. আপনি লংশট প্রয়োজন.</p>
+<h3 id="compact-description">কমপ্যাক্ট বর্ণনা</h3>
+<p>ভাইব-কোডেড অ্যাপগুলির জন্য একটি দ্বিতীয় মতামত: ব্রাউজার-সেশন চেক, AI/MCP, কনফিগারযোগ্য ব্রাউজার-কুকি ওভাররাইড সহ নেটিভ টুল, CVE/OAST, সিনেমাটিক ফলাফল এবং রিপোর্ট।</p>
+<h3 id="campaign-captions">প্রচারাভিযান ক্যাপশন</h3>
+<ol>
+<li><strong>VIBE-কোডেড। পাঠানো হয়েছে। হ্যাকড।</strong> একটি অনুমানমূলক লঞ্চ-এবং-অ্যাকাউন্ট-ক্ষতির দৃশ্য; শিপিং আগে একটি দ্বিতীয় মতামত পান.</li>
+<li><strong>সেশন পরীক্ষা করুন. অ্যাপটি দেখুন।</strong> লাইভ কুকিজ, বৈধতা এবং লক্ষ্য-নির্দিষ্ট প্রমাণ।</li>
+<li><strong>এআই এটা লিখেছে। কে এটা চেক?</strong> একটি পর্যালোচনাযোগ্য নিরাপত্তা কর্মপ্রবাহে AI পরামর্শগুলি আনুন।</li>
+<li><strong>আপনার টুলস। আপনার ট্যাব। আপনার সেশন.</strong> সমর্থিত স্থানীয় HTTP ইউটিলিটিগুলির জন্য ব্রাউজার ব্রিজ।</li>
+<li><strong>ত্রুটি খুঁজে. প্রমাণ অনুসরণ করুন.</strong> উন্নত সামঞ্জস্যপূর্ণ CVE টেমপ্লেট এবং OAST পারস্পরিক সম্পর্ক।</li>
+<li><strong>আশ্বাস ওভার প্রমাণ.</strong> আপনি কাস্টমাইজ করতে পারেন এমন একটি কর্মক্ষেত্রে প্রতিবেদনগুলি পর্যালোচনা এবং রপ্তানি করুন৷</li>
+<li><strong>আপনার AI একটি নিরাপত্তা রায় নয়।</strong> MCP আপনার চলমান অ্যাপের জন্য পরীক্ষা করে; প্রমাণ আপনি পর্যালোচনা করতে পারেন।</li>
+<li><strong>মেয়াদ শেষ সেশন। হারিয়ে যাওয়া প্রসঙ্গ।</strong> যাচাই করুন, বিরতি দিন, আবার সাইন ইন করুন এবং পুনরায় শুরু করুন।</li>
+</ol>
+<h3 id="selling-points-in-2181">2.18.1 এ সেলিং পয়েন্ট</h3>
+<table>
+<thead>
+<tr>
+<th>সেলিং পয়েন্ট</th>
+<th>ব্যবহারিক সুবিধা</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>আপনার সাইন-ইন করা ব্রাউজার সেশন, আপনার টুলস</strong></td>
+<td>ZAP এবং অন্যান্য HTTP-প্রক্সি ক্লায়েন্ট রেসপন্স-কুকি সিঙ্ক্রোনাইজেশন এবং স্বাধীন অফ সুইচ সহ ডিফল্টরূপে নির্বাচিত ফায়ারফক্স কুকি জার ব্যবহার করে।</td>
+</tr>
+<tr>
+<td><strong>আসল বাহ্যিক স্ক্যানার ইঞ্জিন</strong></td>
+<td>ZAP ব্রাউজার ব্রিজের মাধ্যমে নিজস্ব এইচটিটিপি অনুরোধ এবং পেলোড তৈরি করে; নির্বাচিত কুকি/হেডার ওভাররাইডগুলি স্পষ্ট।</td>
+</tr>
+<tr>
+<td><strong>প্রোব রক্ষা করুন, অধিবেশন রাখুন</strong></td>
+<td>সুরক্ষিত ক্ষেত্র এবং প্রতি-অনুরোধ বাইপাস আপনাকে একটি টুলের ইচ্ছাকৃত কুকি/হেডার মিউটেশন সংরক্ষণ করতে দেয়।</td>
+</tr>
+<tr>
+<td><strong>প্রমাণ আপনি পরিদর্শন করতে পারেন</strong></td>
+<td>ডেডিকেটেড সক্রিয় নিয়ম বারবার নিয়ন্ত্রণ ব্যবহার; প্রকৃত ইনপুট কভারেজ সম্পূর্ণ, আংশিক এবং এড়িয়ে যাওয়া কাজকে আলাদা করে।</td>
+</tr>
+<tr>
+<td><strong>AI যা ইন্টারফেসের মাধ্যমে কাজ করতে পারে</strong></td>
+<td>MCP সমর্থিত স্ক্যান কমান্ড এবং ড্যাশবোর্ড নিয়ন্ত্রণ প্রকাশ করে যাতে সামঞ্জস্যপূর্ণ এজেন্টরা ওয়ার্কবেঞ্চ পরিচালনা করতে পারে এবং ফলাফল পুনরুদ্ধার করতে পারে।</td>
+</tr>
+<tr>
+<td><strong>আপনি ব্যাখ্যা করতে পারেন অনুসন্ধান</strong></td>
+<td>সিমেটিক ভিউয়ার বর্তমান পৃষ্ঠার প্রসঙ্গ, রেকর্ড করা প্রমাণ, 3D ব্যাখ্যা এবং সরল-ভাষার সম্ভাব্য ঝুঁকিগুলিকে একত্রিত করে।</td>
+</tr>
+<tr>
+<td><strong>আপনার নিজের পরীক্ষার উপাদান আনুন</strong></td>
+<td>লক্ষ্য-নির্দিষ্ট পেলোড প্যাক এবং পর্যালোচনা করা টেমপ্লেট আপলোড করুন; ইন্টারফেস থেকে সমর্থিত সম্প্রদায়ের তালিকা রিফ্রেশ করুন।</td>
+</tr>
+<tr>
+<td><strong>একটি কর্মক্ষেত্র যা আপনার থাকে</strong></td>
+<td>প্রতি-টার্গেট মূল্যায়ন ডেটা, পর্যালোচনা নোট, ঐচ্ছিক ফাইল চেকপয়েন্ট, অফলাইন রিপোর্ট, থিম এবং 20 টি বান্ডিলযুক্ত UI ভাষা।</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publication-notes">প্রকাশনার নোট</h3>
+<p>অ্যাকাউন্ট-হারানোর গল্পটি অনুমানমূলক, প্রকৃত গ্রাহকের দাবি বা লংশট আর্থিক ক্ষতি প্রতিরোধ করে এমন গ্যারান্টি নয়। এক্সটেনশন মূল্যায়ন সঞ্চালন করে, ক্রমাগত আক্রমণ ব্লকিং নয়। ফলাফল পর্যালোচনা প্রয়োজন; কভারেজ টেবিল আবদ্ধ সমর্থন এবং শুধুমাত্র ম্যানুয়াল ফাঁক ব্যাখ্যা করে। DOM বিশ্লেষণের মধ্যে রয়েছে সূচক এবং সমর্থিত এক্সিকিউশন ক্যানারি, সার্বজনীন DOM শোষণ কভারেজ নয়। সিনেমাটিক সিকোয়েন্স প্রমাণ ব্যাখ্যা করে; এটা শোষণ প্রমাণ যোগ করে না.</p>
+<p>MCP এবং ব্রাউজার সেতু স্থানীয় সেটআপ প্রয়োজন. নেটিভ টুল প্রক্সি একটি পৃথক নোড/পাইথন/মিটমপ্রক্সি প্রক্রিয়া ব্যবহার করে এবং HTTPS ইন্টারসেপশনের জন্য অ্যাডাপ্টার CA-এর জন্য টুলের ট্রাস্ট কনফিগারেশন প্রয়োজন। এটিকে পার্স করা হয় HTTP পরিবহন, বাইট-স্বচ্ছ কাঁচা TCP নয়। কুকি ওভাররাইড নিষ্ক্রিয় করা যেতে পারে; একটি ব্রাউজার কুকি বা ব্যবহারকারী-এজেন্ট ব্রাউজার-সদৃশ নেটওয়ার্কিং বা WAF গ্রহণের নিশ্চয়তা দেয় না। বাহ্যিক ZAP আলাদাভাবে ইনস্টল করা থাকে। টেমপ্লেট এক্সিকিউশন সামঞ্জস্য/রানটাইমের উপর নির্ভর করে; OAST-এর জন্য একটি কনফিগার করা প্রদানকারীর প্রয়োজন। প্রমাণীকরণ যাচাইকরণের জন্য একটি অর্থপূর্ণ সুরক্ষিত এন্ডপয়েন্ট/মার্কার প্রয়োজন। লক্ষ্য প্রোফাইল পৃথক মূল্যায়ন তথ্য; ট্যাব/কন্টেইনার কুকি সেশন সরবরাহ করে।</p>
+<p>সংবেদনশীল ডেটা বা অর্থ পরিচালনার অ্যাপ্লিকেশনগুলির জন্য, একটি সাইবার নিরাপত্তা দল নিয়োগ করুন এবং মূল্যায়নের একটি অংশ হিসাবে লংশট ব্যবহার করুন৷ এটি শুধুমাত্র আপনার মালিকানাধীন বা পরীক্ষা করার জন্য অনুমোদিত অ্যাপ্লিকেশনগুলিতে ব্যবহার করুন৷</p>
+<p>পূর্বে জেনারেট করা প্রচারাভিযানের ছবিগুলিকে পুনরায় ব্যবহার করলে, সেগুলিকে রচনা হিসাবে লেবেল করুন এবং যেখানেই পিক্সেল-সঠিক UI প্রয়োজন সেখানে বাস্তব বর্তমান স্ক্রিনশটগুলি ব্যবহার করুন৷ এই টিউটোরিয়ালটি উপস্থিতি বিভাগে প্রকৃত 2.18.1 যাচাইকরণের স্ক্রিনশটগুলিকে লিঙ্ক করে; এটি একটি নতুন আট-ছবির প্রচারাভিযান প্যাক অন্তর্ভুক্ত করে না বা তৃতীয় পক্ষের অনুমোদন দাবি করে না।</p>
+<h2 id="firefox-and-chrome-choose-your-edition">ফায়ারফক্স এবং ক্রোম: আপনার সংস্করণ চয়ন করুন</h2>
+<p>এই সম্পূর্ণ নির্দেশিকাটি ফায়ারফক্সের সমর্থিত বৈশিষ্ট্য সেটের বর্ণনা করে। Chrome নীচের প্ল্যাটফর্মের পার্থক্যগুলির সাথে একই মূল ব্রাউজার-সেশন ওয়ার্কবেঞ্চ ব্যবহার করে। ফায়ারফক্স কন্টেইনারের উল্লেখ, লাইভ DOM এক্সিকিউশন, হোল্ড ইন্টারসেপশন এবং ব্রাউজার VHOST এই গাইডে পরে রিরাইটিং শুধুমাত্র Firefox-এর জন্য।</p>
+<table>
+<thead>
+<tr>
+<th>সামর্থ্য</th>
+<th>Firefox</th>
+<th>Chrome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ব্রাউজার সক্রিয় চেক, ম্যানুয়াল/স্বয়ংক্রিয় ফাজিং, সমর্থিত HTTP টেমপ্লেট, OAST, স্ট্যাক প্রমাণ এবং রিপোর্ট</td>
+<td>নথিভুক্ত পূর্বশর্তগুলির সাথে সমর্থিত</td>
+<td>নথিভুক্ত পূর্বশর্তগুলির সাথে সমর্থিত</td>
+</tr>
+<tr>
+<td>ব্রাউজার কুকি/হেডার ওভাররাইড এবং প্রতিক্রিয়া-কুকি সিঙ্ক্রোনাইজেশন সহ নেটিভ HTTP প্রক্সি</td>
+<td>সমর্থিত</td>
+<td>সমর্থিত</td>
+</tr>
+<tr>
+<td>পৃষ্ঠা-প্রসঙ্গ AJAX ইন্সট্রুমেন্টেশন এবং লাইভ DOM XSS এক্সিকিউশন যাচাইকরণ</td>
+<td>অনুমোদিত এবং অনুমোদিত হলে সমর্থিত</td>
+<td>এই রিলিজে অনুপলব্ধ</td>
+</tr>
+<tr>
+<td>পৃথক-কন্টেইনার সেশন B, অনুষ্ঠিত ইন্টারসেপশন এবং ব্রাউজার VHOST পুনর্লিখন</td>
+<td>কনফিগার করা এবং অনুমতি দেওয়া হলে সমর্থিত</td>
+<td>এই রিলিজে অনুপলব্ধ</td>
+</tr>
+<tr>
+<td>দর্শক খোঁজা হচ্ছে</td>
+<td>ক্যাপচার করা প্রমাণ এবং লাইভ পৃষ্ঠার প্রসঙ্গ সমর্থিত</td>
+<td>বন্দী প্রমাণ; লাইভ ব্যাকগ্রাউন্ড-পৃষ্ঠা ক্যাপচার অনুপলব্ধ৷</td>
+</tr>
+<tr>
+<td>ইঞ্জিন জীবনচক্র</td>
+<td>অবিরাম পটভূমি পৃষ্ঠা</td>
+<td>দৃশ্যমান ওয়ার্কবেঞ্চ খোলা রাখুন; এটি বন্ধ করা নতুন জোড়া নেটিভ অনুরোধ বন্ধ করে</td>
+</tr>
+<tr>
+<td>ব্যক্তিগত ব্রাউজিং</td>
+<td>নির্বাচিত প্রসঙ্গ, অনুমতি এবং সেটআপ সাপেক্ষে</td>
+<td>এই রিলিজে নিষ্ক্রিয়</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-the-chrome-edition">Chrome সংস্করণ ইনস্টল করুন</h3>
+<ol>
+<li>ডাউনলোড করুন <strong>ক্রোম জিপ</strong> উপরে/নীচে রিলিজ লিঙ্কগুলি থেকে এবং আপনার রাখা ফোল্ডারে এটি বের করুন।</li>
+<li>খোলা <code dir="ltr" translate="no">chrome://extensions</code>, সক্ষম করুন <strong>বিকাশকারী মোড</strong>, নির্বাচন করুন <strong>আনপ্যাক লোড</strong>, তারপর নিষ্কাশিত ফোল্ডার ধারণকারী নির্বাচন করুন <code dir="ltr" translate="no">manifest.json</code>.</li>
+<li>আপনার অনুমোদিত অ্যাপ্লিকেশন খুলুন, সাইন ইন করুন, সেই ট্যাব থেকে লংশট চালু করুন এবং সংযোগ করুন।</li>
+<li>স্ক্যানিং এবং নেটিভ পেয়ারিংয়ের সময় ওয়ার্কবেঞ্চ ট্যাবটি খোলা রাখুন। এটি বন্ধ করলে লাইভ ইঞ্জিনের কাজ শেষ হয়; সংরক্ষিত প্রমাণ রয়ে গেছে এবং অনিশ্চিত অনুরোধগুলি পুনরায় প্লে না করে পুনরুদ্ধার করা হয়।</li>
+<li>নেটিভ টুল প্রক্সি স্টার্টআপের জন্য, Chrome দ্বারা দেখানো সঠিক উৎস ব্যবহার করুন, যেমন <code dir="ltr" translate="no">chrome-extension://YOUR_INSTALLED_ID</code>ফায়ারফক্সের পরিবর্তে <code dir="ltr" translate="no">moz-extension://</code> মূল প্রক্সি বাস্তব টার্গেট URL ব্যবহার করে; কোনো হোস্ট-ফাইল এন্ট্রির প্রয়োজন নেই।</li>
+</ol>
+<h3 id="chrome-agent-api-mcp-registration">Chrome এজেন্ট API / MCP নিবন্ধন</h3>
+<p>পিন করা সাহায্যকারী নির্ভরতা ইনস্টল করার পরে ধরে রাখা সম্পূর্ণ উৎস চেকআউট থেকে:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev
+node bridge/bin/longshot-bridge install --browser chrome \
+  --extension-id YOUR_INSTALLED_32_LETTER_ID \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+node bridge/bin/longshot-bridge mcp \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+</code></pre>
+<p>Chromium ব্যবহারের জন্য <code dir="ltr" translate="no">--browser chromium</code>. প্রকৃত আইডি ব্যবহার করুন <code dir="ltr" translate="no">chrome://extensions</code>; আবার নিবন্ধন করুন যদি স্টোর সংস্করণ ইনস্টল করা একটি ভিন্ন আইডি দেয়। পৃথক পোর্ট/ডেটা ডিরেক্টরি ফায়ারফক্স হোস্টের সাথে সংঘর্ষ এড়ায়। এই Agent API HTTP টুল প্রক্সি (ডিফল্ট পোর্ট 8900/8901) থেকে আলাদা। লিনাক্স হল পরীক্ষিত নেটিভ-হোস্ট প্ল্যাটফর্ম; macOS রেজিস্ট্রেশন কার্যকর করা হয়েছে কিন্তু এখানে পরীক্ষা করা হয়নি, এবং কোন Windows নেটিভ-হোস্ট ইনস্টলার সরবরাহ করা হয় না।</p>
+<p>বিস্তারিত ব্রাউজার ব্রিজ কনফিগারেশন এক্সটেনশনের মধ্যে উপলব্ধ <strong>ব্রাউজার ব্রিজ → তথ্য</strong> ডায়ালগ দীর্ঘ ফর্ম README এবং নতুন প্ল্যাটফর্ম/গোপনীয়তা নথি ইংরেজি; বান্ডেলড UI ভাষা নির্বাচন লক্ষ্য প্রমাণ, পেলোড বা এক্সিকিউটেবল উদাহরণ অনুবাদ করে না।</p>
+<h2 id="contents">বিষয়বস্তু</h2>
+<ul>
+<li><a href="#firefox-and-chrome-choose-your-edition">ফায়ারফক্স/ক্রোম সংস্করণ এবং সেটআপ</a></li>
+<li><a href="#vibe-coded-shipped-hacked">বিজ্ঞাপন এবং বিক্রয় পয়েন্ট</a></li>
+</ul>
+<ol>
+<li><a href="#what-runs-where">কোথায় কি চলে</a></li>
+<li><a href="#install-or-update-in-firefox-nightly">ফায়ারফক্স নাইটলিতে ইনস্টল বা আপডেট করুন</a></li>
+<li><a href="#getting-started-and-target-sessions">শুরু করা এবং লক্ষ্য সেশন</a></li>
+<li><a href="#light-discovery-and-a-focused-active-scan">হালকা আবিষ্কার এবং একটি ফোকাসড সক্রিয় স্ক্যান</a></li>
+<li><a href="#aggressive-options-and-run-approval">আক্রমনাত্মক বিকল্প এবং রান অনুমোদন</a></li>
+<li><a href="#overview-checks">ওভারভিউ চেক</a></li>
+<li><a href="#scan-options-reference">স্ক্যান বিকল্প রেফারেন্স</a></li>
+<li><a href="#budgets-selectors-and-request-settings">বাজেট, নির্বাচক এবং অনুরোধ সেটিংস</a></li>
+<li><a href="#fuzzer-auto-fuzz-and-probe-library">ফুজার, অটো-ফাজ এবং প্রোব লাইব্রেরি</a></li>
+<li><a href="#your-payloads-and-imported-templates">আপনার পেলোড এবং আমদানি করা টেমপ্লেট</a></li>
+<li><a href="#server-stack-and-smart-analyzer">সার্ভার স্ট্যাক এবং স্মার্ট বিশ্লেষক</a></li>
+<li><a href="#oast-setup-and-interpretation">OAST সেটআপ এবং ব্যাখ্যা</a></li>
+<li><a href="#browser-bridge-native-tool-proxy">ব্রাউজার ব্রিজ: নেটিভ টুল প্রক্সি</a></li>
+<li><a href="#native-bridge-configuration">নেটিভ ব্রিজ কনফিগারেশন</a></li>
+<li><a href="#cookie-and-header-overrides-without-damaging-probes">কুকি এবং হেডার প্রোবের ক্ষতি না করে ওভাররাইড করে</a></li>
+<li><a href="#external-tools-and-actual-zap-scanning">বাহ্যিক সরঞ্জাম এবং প্রকৃত ZAP স্ক্যানিং</a></li>
+<li><a href="#tor-and-onion-routing">টর এবং পেঁয়াজ রাউটিং</a></li>
+<li><a href="#agent-api-mcp-and-local-model-clients">এজেন্ট API, MCP এবং স্থানীয়-মডেল ক্লায়েন্ট</a></li>
+<li><a href="#optional-native-nuclei">ঐচ্ছিক নেটিভ নিউক্লিয়াস</a></li>
+<li><a href="#manual-tools-interception-and-api-inventory">ম্যানুয়াল টুল, ইন্টারসেপশন এবং API ইনভেন্টরি</a></li>
+<li><a href="#findings-and-the-cimematic-viewer">ফাইন্ডিং এবং সিমেটিক ভিউয়ার</a></li>
+<li><a href="#owasp-top-10-coverage">OWASP শীর্ষ 10 কভারেজ</a></li>
+<li><a href="#recovery-assessment-files-and-reports">পুনরুদ্ধার, মূল্যায়ন ফাইল এবং রিপোর্ট</a></li>
+<li><a href="#appearance-language-and-help">চেহারা, ভাষা এবং সাহায্য</a></li>
+<li><a href="#troubleshooting">সমস্যা সমাধান</a></li>
+<li><a href="#terms-and-source-references">শর্তাবলী এবং উত্স রেফারেন্স</a></li>
+</ol>
+<h2 id="what-runs-where">কোথায় কি চলে</h2>
+<p>"সেতু" শব্দটি বিভিন্ন উপাদানকে বোঝায়। আপনার কাজের জন্য প্রয়োজনীয় উপাদান নির্বাচন করুন।</p>
+<table>
+<thead>
+<tr>
+<th>কম্পোনেন্ট</th>
+<th>যেখানে দৌড়ায়</th>
+<th>এটা কি করে</th>
+<th>ডিফল্ট সংযোগ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>অন্তর্নির্মিত স্ক্যানার, রিপিটার এবং ফুজার</td>
+<td>ফায়ারফক্স এক্সটেনশন এবং আবদ্ধ লক্ষ্য ট্যাব</td>
+<td>ব্রাউজার-সেশন HTTP লংশটের জাভাস্ক্রিপ্ট নিয়ম ব্যবহার করে পরীক্ষা করে</td>
+<td>কোনো বাহ্যিক প্রক্সি প্রক্রিয়ার প্রয়োজন নেই</td>
+</tr>
+<tr>
+<td><strong>ব্রাউজার ব্রিজ / নেটিভ টুল প্রক্সি</strong></td>
+<td>স্থানীয় নোড সমন্বয়কারী প্লাস আলাদাভাবে mitmproxy ইনস্টল করা হয়েছে</td>
+<td>বহিরাগত টুলের নিজস্ব HTTP/HTTPS অনুরোধ বহন করে; ঐচ্ছিকভাবে Firefox থেকে কুকিজ এবং নির্বাচিত হেডার ওভাররাইড করে</td>
+<td>HTTP প্রক্সি <code dir="ltr" translate="no">127.0.0.1:8900</code>; এক্সটেনশন নিয়ন্ত্রণ <code dir="ltr" translate="no">127.0.0.1:8901</code></td>
+</tr>
+<tr>
+<td><strong>এজেন্ট API / নেটিভ-মেসেজিং সেতু</strong></td>
+<td>ফায়ারফক্সের সাথে নিবন্ধিত স্থানীয় নোড পরিষেবা</td>
+<td>REST/MCP/UI অটোমেশন, মূল্যায়ন ফাইল এবং ঐচ্ছিক নেটিভ নিউক্লিয়াস এক্সিকিউশন</td>
+<td>API <code dir="ltr" translate="no">http://127.0.0.1:8765</code></td>
+</tr>
+<tr>
+<td>বাহ্যিক ZAP, curl, ffuf, sqlmap বা নিউক্লি CLI</td>
+<td>আপনার দ্বারা ইনস্টল করা পৃথক প্রক্রিয়া</td>
+<td>ঐচ্ছিকভাবে নেটিভ টুল প্রক্সির মাধ্যমে তাদের নিজস্ব ট্রাফিক এবং ফলাফল তৈরি করুন</td>
+<td>প্রতিটি টুলের বহির্গামী HTTP প্রক্সি কনফিগার করুন</td>
+</tr>
+<tr>
+<td>বিচ্ছিন্ন দেশীয় নিউক্লিয়াস লংশট দ্বারা চালু করা হয়েছে</td>
+<td>এজেন্ট API হোস্ট এবং লিনাক্স স্যান্ডবক্স</td>
+<td>অফিসিয়াল নিউক্লি ইঞ্জিনের সাথে যোগ্য আমদানিকৃত টেমপ্লেট চালায়</td>
+<td>পৃথক বিচ্ছিন্ন মৃত্যুদন্ডের পথ; স্বয়ংক্রিয় ফায়ারফক্স কুকি রপ্তানি নেই</td>
+</tr>
+</tbody>
+</table>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">Built-in scan / Repeater / Fuzzer
+        → Firefox networking + target tab's session → target
+
+External ZAP / curl / another HTTP tool
+        → authenticated native proxy :8900 → mitmproxy → target
+                        ↑
+             selected cookie/header values
+                        ↑
+              paired Firefox tab via :8901
+
+MCP or REST client → Agent API :8765 → Longshot commands / UI
+                                      └→ separately enabled native jobs
+</code></pre>
+<p><strong>স্টার্ট স্ক্যান ZAP চালায় না।</strong> ব্রাউজার ব্রিজের সাথে ZAP যুক্ত করা লংশটের জাভাস্ক্রিপ্ট স্ক্যানারকে প্রতিস্থাপন করে না বা লংশটে সমস্ত ZAP সতর্কতা আমদানি করে না। সেই টুলে একটি বাহ্যিক টুলের ফলাফল পর্যালোচনা করুন; নেটিভ ব্রিজ ট্রাফিক ডিসপ্লে হল মেটাডেটা, সম্পূর্ণ দুর্বলতা-ফলাফল আমদানিকারক নয়।</p>
+<h3 id="changes-that-invalidate-old-instructions">পরিবর্তন যা পুরানো নির্দেশাবলী বাতিল করে</h3>
+<table>
+<thead>
+<tr>
+<th>পুরোনো নির্দেশ</th>
+<th>2.18.1 এ ব্যবহার করুন</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>লিগ্যাসি ব্রাউজার ফেচ নির্বাচন করুন</td>
+<td>ব্রাউজার ব্রিজ এবং XPI থেকে সরানো হয়েছে</td>
+</tr>
+<tr>
+<td>টুল পাঠান <code dir="ltr" translate="no">http://bridge.invalid</code></td>
+<td>প্রকৃত লক্ষ্য URL ব্যবহার করুন</td>
+</tr>
+<tr>
+<td>যোগ করুন <code dir="ltr" translate="no">bridge.invalid</code> থেকে <code dir="ltr" translate="no">/etc/hosts</code></td>
+<td>কোন প্রবেশের প্রয়োজন নেই; এই সেতুর জন্য একটি যোগ করবেন না</td>
+</tr>
+<tr>
+<td>প্রক্সি চালু <code dir="ltr" translate="no">8899</code>; শুরু <code dir="ltr" translate="no">node ./bridge/cli.js</code> পুরানো অ্যাডাপ্টারে</td>
+<td>ডাউনলোড করা নেটিভ অ্যাডাপ্টার ব্যবহার করে <code dir="ltr" translate="no">node cli.js</code>; ডিফল্ট প্রক্সি/কন্ট্রোল পোর্ট হয় <code dir="ltr" translate="no">8900</code> / <code dir="ltr" translate="no">8901</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, <code dir="ltr" translate="no">X-Bridge-Host</code>, <code dir="ltr" translate="no">/v1/cookies</code>, জোড়া-চেক শেষ পয়েন্ট</td>
+<td>পুরানো অ্যাডাপ্টার ইন্টারফেস; এগুলিকে নেটিভ কনফিগারে রাখবেন না বা অনুমান করবেন না যে তারা বিদ্যমান</td>
+</tr>
+<tr>
+<td>সেতু বাইট-সঠিক কাঁচা TCP বা চোরাচালান ট্রাফিক পাঠায়</td>
+<td>নেটিভ প্রক্সি HTTP পার্স করে; বিকৃত ফ্রেমিং এবং বাইট-স্বচ্ছ TCP অসমর্থিত</td>
+</tr>
+<tr>
+<td>ব্রাউজার সেশন মানে বাহ্যিক সরঞ্জামগুলির কোন CA প্রয়োজন নেই</td>
+<td>নেটিভ অ্যাডাপ্টারের জেনারেট করা CA-কে বিশ্বাস করার জন্য HTTPS ইন্টারসেপশনের টুলের প্রয়োজন</td>
+</tr>
+<tr>
+<td>টর রাউটিং ফায়ারফক্স থেকে উত্তরাধিকার সূত্রে প্রাপ্ত</td>
+<td>নেটিভ অ্যাডাপ্টার রাউটিং আলাদা; SOCKS ডিফল্টরূপে বন্ধ</td>
+</tr>
+<tr>
+<td>অ্যাডাপ্টার বহিরাগত প্রক্রিয়া গোষ্ঠীগুলিকে স্থগিত/পুনরারম্ভ করে বা স্বয়ংক্রিয়ভাবে ব্যর্থ কাজ পুনরায় প্লে করে</td>
+<td>বিরতি ব্লক নতুন প্রক্সি অনুরোধ; পরিদর্শন করুন এবং স্পষ্টভাবে টুলটি পুনরায় চেষ্টা করুন/পুনরায় শুরু করুন</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-or-update-in-firefox-nightly">ফায়ারফক্স নাইটলিতে ইনস্টল বা আপডেট করুন</h2>
+<p>ব্যবহার করুন <strong>2.18.1 XPI</strong>, একটি পুরানো অ্যাডাপ্টার জিপ একটি অ্যাড-অন হিসাবে পুনঃনামকরণ করা হয়নি৷ আপনি যে ফোল্ডারে রাখেন সেই ফোল্ডারে মিলে যাওয়া উৎস সংরক্ষণাগারটি বের করুন, যেমন দেখানো হয়েছে <code dir="ltr" translate="no">/path/to/longshot</code> উদাহরণে একটি নিবন্ধিত নেটিভ হোস্ট আবার নিবন্ধন না করে স্থানান্তর করবেন না।</p>
+<p>রিলিজ ফাইলগুলি হল:</p>
+<ul>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1.xpi">ফায়ারফক্স এক্সপিআই</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-chrome.zip">ক্রোম জিপ</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-source.zip">ম্যাচিং এক্সটেনশন উৎস ZIP</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/tag/v2.18.1">রিলিজ নোট এবং চেকসাম</a></li>
+<li>নেটিভ অ্যাডাপ্টার জিপ: ব্রাউজার ব্রিজের ভিতরে এটি ডাউনলোড করুন; এটা প্রতিটি এক্সটেনশন প্যাকেজ অন্তর্ভুক্ত করা হয়.</li>
+</ul>
+<p>এগুলি হ'ল বিকাশ/জমা বিল্ড। ফায়ারফক্স স্টোর স্বাক্ষর এবং উভয় মার্কেটপ্লেসের অনুমোদন মুলতুবি রয়েছে। রিলিজ ফায়ারফক্সে স্বাক্ষরবিহীন XPI সাধারণত ইনস্টল করার আশা না করে প্রযোজ্য বিকাশ-লোডিং পদ্ধতি অনুসরণ করুন।</p>
+<p>ম্যানিফেস্টের জন্য প্রয়োজন Firefox 140 বা নতুন। রিলিজ ইন্টিগ্রেশন লিনাক্সে ব্যবহৃত ডেস্কটপ ফায়ারফক্স 159 চেক করে। ঐচ্ছিক সাহায্যকারীদের জন্য প্ল্যাটফর্ম/রানটাইম সমর্থন মৌলিক এক্সটেনশন সমর্থন থেকে আলাদা।</p>
+<p>একটি অস্থায়ী স্বাক্ষরবিহীন ইনস্টলেশনের জন্য:</p>
+<ol>
+<li>খোলা <code dir="ltr" translate="no">about:debugging#/runtime/this-firefox</code>.</li>
+<li>বেছে নিন <strong>অস্থায়ী অ্যাড-অন লোড করুন</strong> এবং XPI নির্বাচন করুন।</li>
+<li>লংশট এর প্রদর্শিত সংস্করণ নিশ্চিত করুন, তারপর লক্ষ্যটি খুলুন এবং এর টুলবার বোতামটি চালু করুন।</li>
+<li>একটি আনপ্যাকড ডেভেলপমেন্ট বিল্ড প্রতিস্থাপন করার পরে এক্সটেনশনটি পুনরায় লোড করুন।</li>
+</ol>
+<p>ফায়ারফক্স পুনরায় চালু হওয়ার পরে একটি অস্থায়ী অ্যাড-অন অদৃশ্য হয়ে যায়। এটা প্রত্যাশিত; এটি এক্সটেনশন মুছে ফেলা অ্যাডাপ্টার নয়। ক্রমাগত পাবলিক ডিস্ট্রিবিউশনের জন্য Mozilla স্বাক্ষর প্রয়োজন। Nightly এর দ্বারা বর্ণিত অতিরিক্ত স্বাক্ষরবিহীন-উন্নয়ন বিকল্প রয়েছে <a href="https://www.extensionworkshop.com/documentation/publish/signing-and-distribution-overview/">Mozilla এর সাইনিং গাইড</a>; অস্থায়ী লোডিংয়ের জন্য সেই সেটিংস পরিবর্তন করার প্রয়োজন নেই। দেখুন <a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">অস্থায়ী ইনস্টলেশন</a>.</p>
+<p>XPI একটি ডাউনলোডযোগ্য সংরক্ষণাগার হিসাবে নেটিভ অ্যাডাপ্টারকে বান্ডিল করে। এটি একটি নির্বিচারে নোড/পাইথন প্রক্রিয়া শুরু করতে পারে না বা শুধুমাত্র ফায়ারফক্স অ্যাড-অনগুলির মাধ্যমে নেটিভ হোস্ট ইনস্টল করতে পারে না। প্রক্সি শুরু করা এবং এজেন্ট API নিবন্ধন করা হল স্বতন্ত্র ঐচ্ছিক স্থানীয় সেটআপ পদক্ষেপ।</p>
+<h2 id="getting-started-and-target-sessions">শুরু করা এবং লক্ষ্য সেশন</h2>
+<h3 id="connect-the-right-tab">ডান ট্যাব সংযোগ করুন</h3>
+<ol>
+<li>উদাহরণস্বরূপ, Firefox-এ অনুমোদিত লক্ষ্য খুলুন <code dir="ltr" translate="no">http://localhost:8080</code>.</li>
+<li>উদ্দেশ্য পরীক্ষা অ্যাকাউন্ট দিয়ে সাইন ইন করুন এবং যেকোনো ব্রাউজার চ্যালেঞ্জ সম্পূর্ণ করুন।</li>
+<li>লংশট চালু করুন <strong>যে টার্গেট ট্যাব থেকে</strong>. অ্যাপ্লিকেশন ট্যাব খোলা রাখুন।</li>
+<li>লক্ষ্য ঠিকানা পরীক্ষা করুন এবং নির্বাচন করুন <strong>সংযোগ করুন</strong>.</li>
+<li>ব্যবহার করুন <strong>শুরু হচ্ছে</strong> আট ধাপ হাইলাইট ওয়াকথ্রু জন্য হেডারে. এটা রিপ্লে করা যেতে পারে; এটি স্ক্যান শুরু করে না বা সেটিংস নিজেই পরিবর্তন করে না।</li>
+<li>প্রতিনিধি অ্যাপ্লিকেশন পৃষ্ঠাগুলি ব্রাউজ করুন যাতে লংশট দরকারী রুট এবং ইনপুটগুলি পর্যবেক্ষণ করতে পারে৷</li>
+</ol>
+<p>একটি টার্গেট অরিজিন স্কিম, হোস্টনাম এবং পোর্ট নিয়ে গঠিত। <code dir="ltr" translate="no">http://localhost:8080</code>, <code dir="ltr" translate="no">http://127.0.0.1:8080</code> এবং <code dir="ltr" translate="no">https://localhost:8080</code> ভিন্ন উত্স, এমনকি যদি তারা শেষ পর্যন্ত একই পরিষেবাতে পৌঁছায়। সংযুক্ত করুন এবং মূল্যায়নের উদ্দেশ্যে সঠিক ঠিকানাটি ব্যবহার করুন। হোস্টনামের পিছনে দেখা একটি আইপি ঠিকানা স্বয়ংক্রিয়ভাবে অতিরিক্ত অনুমোদিত লক্ষ্য হয়ে ওঠে না।</p>
+<h3 id="configure-session-validation">সেশনের বৈধতা কনফিগার করুন</h3>
+<p>খোলা <strong>সেটিংস → স্ক্যানার সেটিংস৷</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>মাঠ</th>
+<th>অর্থ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>সেশনের বৈধতা পাথ</td>
+<td>একটি ইন-স্কোপ পৃষ্ঠা/API পাথ যার জন্য প্রমাণীকরণ প্রয়োজন</td>
+</tr>
+<tr>
+<td>প্রত্যাশিত প্রমাণীকৃত পাঠ্য</td>
+<td>একটি স্থিতিশীল চিহ্নিতকারী উপস্থিত থাকে যখন নির্বাচিত অ্যাকাউন্ট সাইন ইন থাকে এবং লগআউট করার পরে অনুপস্থিত থাকে</td>
+</tr>
+<tr>
+<td>ন্যূনতম প্রমাণীকৃত প্রতিক্রিয়া বাইট</td>
+<td>ঐচ্ছিক অতিরিক্ত নিম্ন আকারের থ্রেশহোল্ড; শূন্য এটি নিষ্ক্রিয় করে</td>
+</tr>
+<tr>
+<td>লগইন পাথ</td>
+<td>অ্যাপ্লিকেশনের লগইন পথ, যখন প্রত্যাখ্যান সনাক্তকরণের প্রয়োজন হয়</td>
+</tr>
+<tr>
+<td>এই অনেক অনুরোধের পরে পুনরায় যাচাই করুন</td>
+<td>পর্যায়ক্রমিক স্বাধীন সেশন চেক; ডিফল্ট 20</td>
+</tr>
+<tr>
+<td>স্ক্যান করার আগে সফল সেশনের বৈধতা প্রয়োজন</td>
+<td>পাস করার জন্য কনফিগার করা যাচাইকারীর প্রয়োজন; ডিফল্ট বন্ধ</td>
+</tr>
+</tbody>
+</table>
+<p>সেটিংস সংরক্ষণ করুন এবং ব্যবহার করুন <strong>ওভারভিউ → চেক সেশন</strong>. একটি সর্বজনীন পৃষ্ঠা যা 200 ফেরত দেয় তা প্রমাণীকরণের প্রমাণ নয়। 200 অনুসরণ করে একটি লগইন পৃষ্ঠায় একটি পুনঃনির্দেশ এখনও একটি অবৈধ অধিবেশন উপস্থাপন করতে পারে; একটি সুরক্ষিত শেষ বিন্দু এবং অর্থপূর্ণ মার্কার চয়ন করুন।</p>
+<p>অন্তর্নির্মিত স্ক্যানারটি HttpOnly কুকি সহ বাউন্ড ট্যাবের প্রযোজ্য ব্রাউজার কুকিজ ব্যবহার করে। ফায়ারফক্স URL, পথ, নিরাপত্তা বৈশিষ্ট্য এবং কুকি স্টোর দ্বারা কুকি নির্বাচন করে। স্ক্যানারের সুরক্ষিত কুকি/অনুমোদন/হোস্ট ক্ষেত্রগুলি সাধারণ সম্পাদনাযোগ্য ফাজ ইনপুট নয়৷</p>
+<h3 id="profiles-and-accounts">প্রোফাইল এবং অ্যাকাউন্ট</h3>
+<p><strong>টার্গেট</strong> ইতিহাস, অনুসন্ধান, অনুরোধ জার্নাল, আবিষ্কৃত শেষ পয়েন্ট, পর্যালোচনা এবং স্ক্যান কনফিগারেশন আলাদা করে। একটি প্রোফাইলে ফিরে আসা মূল্যায়ন ডেটা পুনরুদ্ধার করে, একটি পুরানো প্রমাণীকৃত ব্রাউজার সেশন নয়। স্পষ্ট প্রোফাইল একটি মূল শেয়ার করতে পারেন.</p>
+<p>দুটি সাধারণ ফায়ারফক্স ট্যাব সাধারণত কুকি শেয়ার করে। সত্যিকারের ভিন্ন পরীক্ষার পরিচয়ের জন্য স্বাধীন পাত্রে বা একটি পৃথক ব্যক্তিগত কুকি স্টোর ব্যবহার করুন। প্রোফাইল স্যুইচ করা একটি দ্বিতীয় অ্যাকাউন্ট সেশন তৈরি করে না। সেশন B তুলনার জন্য একই টার্গেট মূল এবং একটি পৃথক স্টোর প্রয়োজন।</p>
+<h2 id="light-discovery-and-a-focused-active-scan">হালকা আবিষ্কার এবং একটি ফোকাসড সক্রিয় স্ক্যান</h2>
+<h3 id="first-pass-discovery-and-passive-review">প্রথম পাস: আবিষ্কার এবং নিষ্ক্রিয় পর্যালোচনা</h3>
+<ol>
+<li>সেট <strong>প্রতি সেকেন্ডে অনুরোধ</strong> 0.5-1 পর্যন্ত, ক্রল গভীরতা 1 এবং সর্বাধিক আবিষ্কৃত URL 25-50 পর্যন্ত।</li>
+<li>ছেড়ে দিন <strong>সর্বাধিক অনুসন্ধান</strong>, <strong>আক্রমণাত্মক</strong>, CVE অটো-ফেজ, OAST এবং নেটিভ এক্সিকিউশন বন্ধ।</li>
+<li>সেট <strong>অটো-ফাজ → বন্ধ</strong>. পৃষ্ঠা ক্লিক/স্ক্রোল এবং লাইভ DOM/টাইমিং/কলব্যাক পরীক্ষা বন্ধ রাখুন।</li>
+<li>প্যাসিভ ওভারভিউ গ্রুপ নির্বাচন করুন: হেডার, কুকিজ, ডিসক্লোজার, ফর্ম, DOM সোর্স/সিঙ্ক রিভিউ এবং CORS।</li>
+<li>বেছে নিন <strong>শুধুমাত্র মাকড়সা</strong> এবং শুরু</li>
+<li>পরিদর্শন করুন <strong>সাইট ম্যাপ</strong>, <strong>HTTP ইতিহাস</strong>, <strong>API এক্সপ্লোরার</strong>, <strong>সার্ভার স্ট্যাক</strong> এবং <strong>ফাইন্ডিংস</strong>.</li>
+</ol>
+<p>স্পাইডার ফর্ম লেখা জমা না দিয়েই আবিষ্কৃত ইন-স্কোপ লিঙ্ক/ফর্ম অনুসরণ করে। এটি প্রতিটি লুকানো শেষ বিন্দু জানে না। GET অনুরোধগুলির এখনও অ্যাপ্লিকেশন-নির্দিষ্ট পার্শ্ব প্রতিক্রিয়া থাকতে পারে; "পঠন পদ্ধতি" একটি পার্শ্ব-প্রতিক্রিয়া-মুক্ত লক্ষ্য স্থাপন করে না।</p>
+<h3 id="second-pass-a-bounded-active-assessment">দ্বিতীয় পাস: একটি আবদ্ধ সক্রিয় মূল্যায়ন</h3>
+<ol>
+<li>রাখা <strong>অটো-ফাজ → বন্ধ</strong> বিল্ট-ইন সক্রিয় নিয়মগুলিকে আলাদাভাবে পর্যালোচনা করা সহজ করতে।</li>
+<li>প্রাসঙ্গিক ওভারভিউ সক্রিয় চেক নির্বাচন করুন, যেমন SQL ইনজেকশন এবং প্রতিফলিত XSS।</li>
+<li>ছোট সীমা ব্যবহার করুন, উদাহরণস্বরূপ 150টি সক্রিয় অনুরোধ, 10টি সক্রিয় URL এবং পাঁচটি সক্রিয় প্যারামিটার৷</li>
+<li>বেছে নিন <strong>শুধুমাত্র সক্রিয় চেক</strong> বর্তমান পৃষ্ঠা এবং সংরক্ষিত ইনভেন্টরি পুনরায় ব্যবহার করতে, বা <strong>স্পাইডার + সক্রিয় চেক</strong> প্রথম আবিষ্কার করতে।</li>
+<li>শুরু করুন, যেকোনো প্রয়োজনীয় অনুমোদন পর্যালোচনা করুন এবং কার্যকলাপ এবং অনুরোধের সংখ্যা দেখুন।</li>
+<li>প্রতিটি অনুসন্ধানের অনুরোধ, বেসলাইন, বারবার তদন্ত/নিয়ন্ত্রণ প্রমাণ, রায় এবং আস্থা পরিদর্শন করুন।</li>
+<li>খোলা <strong>WSTG চেক → প্রকৃত ইনপুট কভারেজ</strong> সম্পূর্ণ, আংশিক এবং এড়িয়ে যাওয়া কাজ দেখতে।</li>
+</ol>
+<p><strong>অটো-ফাজ বন্ধ সক্রিয় চেক বন্ধ করে না।</strong> SQLi/XSS/SSTI এবং অন্যান্য নিবেদিত নিয়মগুলি তাদের নিজস্ব প্রোব তৈরি করে। বিপরীতভাবে, একটি সক্রিয় নিয়মে টিক চিহ্ন দেওয়া একটি অনুপস্থিত ইনপুট সরবরাহ করে না বা স্পাইডার-অনলি রানকে জেনেরিক অ্যাক্টিভ ফেজ কার্যকর করে না।</p>
+<h2 id="aggressive-options-and-run-approval">আক্রমনাত্মক বিকল্প এবং রান অনুমোদন</h2>
+<p>আক্রমনাত্মক স্পষ্টভাবে অনুমোদিত পদ্ধতি/ক্ষমতা সক্ষম করে; এটি প্রতিটি চেক চালানো বা শক্তিশালী প্রমাণের গ্যারান্টি দেয় না।</p>
+<ol>
+<li>ইনপুটগুলি আবিষ্কার করুন এবং প্রথমে প্রমাণীকরণ যাচাই করুন৷</li>
+<li>শুধুমাত্র প্রয়োজনীয় উন্নত বিকল্পগুলি সক্ষম করুন এবং অনুমতি লিখুন/আপলোড করুন/মুছুন।</li>
+<li>স্ক্যান বিকল্পগুলি সংরক্ষণ করুন।</li>
+<li>বেছে নিন <strong>পরবর্তী আক্রমণাত্মক রান পর্যালোচনা/অনুমোদন করুন</strong>.</li>
+<li>লক্ষ্য, বৈশিষ্ট্য, পদ্ধতির অনুমতি এবং বাজেট পর্যালোচনা করুন।</li>
+<li>ক্লিক করুন <strong>এই পরবর্তী রান অনুমোদন</strong>. এই ব্যবহারকারীর ক্রিয়াটি কোনো অনুপস্থিত সম্মিলিত ফায়ারফক্স অনুমতির অনুরোধ করে এবং পরবর্তী-চালিত অনুদান তৈরি করে।</li>
+<li>পর্যালোচনা করা কনফিগারেশন দিয়ে রান শুরু করুন।</li>
+</ol>
+<p>অনুদানটি একক-ব্যবহার, 30 মিনিটের পরে মেয়াদ শেষ হয়ে যায় এবং প্রাসঙ্গিক লক্ষ্য/কনফিগারেশন/অনুরোধ-সেটিং পরিবর্তন দ্বারা অবৈধ হয়ে যায়। একটি নতুন স্ক্যানের জন্য সাধারণত একটি নতুন অনুদান প্রয়োজন। অসমাপ্ত বিকল্পগুলি সংরক্ষণ করার অনুমতি দেওয়া হয়; প্রয়োজনীয় ক্ষেত্রগুলিকে যাচাই করা শুরু করা বা অনুমোদন করা।</p>
+<p>ফায়ারফক্স প্রয়োজন <code dir="ltr" translate="no">permissions.request()</code> একটি বাস্তব ব্যবহারকারী ক্রিয়া থেকে সরাসরি উদ্ভূত। একটি সেটিং পরিবর্তন করা ব্যাকগ্রাউন্ডে নির্বিচারে অনুমতি দেওয়ার কারণ নয়। অনুমতি অস্বীকৃত হলে, সঠিক বৈশিষ্ট্যটি পর্যালোচনা করুন, অনুমোদন বোতাম থেকে পুনরায় চেষ্টা করুন বা সেই বৈশিষ্ট্যটি অক্ষম করুন৷ সাধারণ OS/ব্রাউজার অনুমতি প্রম্পট এক্সটেনশন DOM অটোমেশনের বাইরে থাকে।</p>
+<h3 id="maximum-findings-is-a-broad-preset">সর্বাধিক অনুসন্ধানগুলি একটি বিস্তৃত প্রিসেট</h3>
+<p>এই প্রিসেটটি উন্নত যাচাইকরণ, OAST এবং সেশন B তুলনা সহ অনেকগুলি পর্যায় চালু করে এবং বেশ কয়েকটি বাজেট প্রসারিত করে। এটি একটি "সবকিছু খুঁজুন" সুইচ নয়। এটি একটি OAST অ্যাকাউন্ট তৈরি করে না, প্রদানকারী URL/কলব্যাক ডোমেন পূরণ করে, একটি বৈধ সেশন B নির্বাচন করে, নিউক্লিয়া ইনস্টল করে বা অনুপস্থিত ভূমিকা প্রমাণীকরণ করে।</p>
+<p>অনুমোদন যদি খালি OAST ক্ষেত্র বা অনুপস্থিত সেশন B রিপোর্ট করে, সেগুলি কনফিগার করুন বা সেই বিকল্পগুলি বন্ধ করুন৷ টার্গেট URL বৈধ কিনা তা থেকে এটি আলাদা।</p>
+<h3 id="two-command-injection-controls">দুটি কমান্ড-ইনজেকশন নিয়ন্ত্রণ</h3>
+<p><strong>ওভারভিউ → OS কমান্ড সূচক</strong> সরাসরি ইউনিক্স-ভিত্তিক কমান্ড-আউটপুট প্রোব সক্রিয় করে। এটা ডিফল্টরূপে বন্ধ. <strong>স্ক্যান অপশন → কমান্ড প্রোব</strong> OAST শুনলে অতিরিক্ত অন্ধ কলব্যাক রুট নিয়ন্ত্রণ করে। একটি চেকবক্স স্বয়ংক্রিয়ভাবে অন্য পাথ কনফিগার করে না। প্রকৃত রানের জন্য অনুমোদনের প্রয়োজনীয়তা পর্যালোচনা করুন।</p>
+<h2 id="overview-checks">ওভারভিউ চেক</h2>
+<p>ডিফল্ট সক্রিয় তালিকায় ছয়টি প্যাসিভ গ্রুপ এবং SQLi, NoSQLi, সার্ভার কোড ইনজেকশন, প্রতিফলিত XSS, SSTI, ট্রাভার্সাল, রিডাইরেক্ট, CRLF এবং পদ্ধতি রয়েছে। <strong>ওএস কমান্ড সূচক</strong> এবং <strong>ডুপ্লিকেট ক্যোয়ারী প্যারামিটার হ্যান্ডলিং</strong> শুরু করা</p>
+<table>
+<thead>
+<tr>
+<th>চেক করুন</th>
+<th>এটা কি করে</th>
+<th>ব্যাখ্যা</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>নিরাপত্তা শিরোনাম এবং HTTPS</td>
+<td>CSP, ফ্রেমিং নীতি, nosniff, HSTS এবং নির্বাচিত মিশ্র-সামগ্রী রেফারেন্স পর্যালোচনা করে</td>
+<td>প্রতিরক্ষা/কনফিগারেশন সূচক, স্বয়ংক্রিয় শোষণ প্রমাণ নয়</td>
+</tr>
+<tr>
+<td>কুকি বৈশিষ্ট্য</td>
+<td>ফলাফল হিসাবে কুকি মান বজায় না রেখে নিরাপদ, HttpOnly এবং SameSite পর্যালোচনা করুন</td>
+<td>কুকি উদ্দেশ্য এবং ব্রাউজার আচরণ পর্যালোচনা প্রয়োজন</td>
+</tr>
+<tr>
+<td>ত্রুটি এবং সংবেদনশীল বিষয়বস্তু</td>
+<td>নির্বাচিত ট্রেস, কনফিগারেশন/উৎস বিষয়বস্তু এবং ডিরেক্টরি তালিকা সনাক্ত করে</td>
+<td>পর্যবেক্ষণ বিষয়বস্তু এবং স্বাক্ষর সীমিত</td>
+</tr>
+<tr>
+<td>ফর্ম এবং CSRF পর্যালোচনা</td>
+<td>পাসওয়ার্ড পরিবহন/GET ফর্ম এবং স্বীকৃত টোকেন ক্ষেত্র পর্যালোচনা করে</td>
+<td>দৃশ্যমান টোকেন অনুপস্থিত CSRF প্রমাণ করে না</td>
+</tr>
+<tr>
+<td>DOM XSS উৎস/সিঙ্ক পর্যালোচনা</td>
+<td>ইনলাইন কোডে কাছাকাছি URL উত্স এবং বিপজ্জনক সিঙ্কগুলি খুঁজে পায়৷</td>
+<td>হিউরিস্টিক; এক্সিকিউশন বা সম্পূর্ণ ডাটা-ফ্লো প্রমাণ নয়</td>
+</tr>
+<tr>
+<td>CORS নীতি পর্যালোচনা</td>
+<td>পর্যবেক্ষণযোগ্য মঞ্জুরি-অরিজিন/প্রমাণপত্রের সমন্বয় পর্যালোচনা করে</td>
+<td>নির্বিচারে অরিজিন প্রতিফলন বা আক্রমণকারী-অরিজিন রিড পরীক্ষা করে না</td>
+</tr>
+<tr>
+<td>এসকিউএল ইনজেকশন</td>
+<td>নতুন ডাটাবেস-ত্রুটি স্বাক্ষর এবং নিয়ন্ত্রণের বিরুদ্ধে সত্য/মিথ্যা তুলনা পুনরাবৃত্তি করে</td>
+<td>প্রমাণ পরীক্ষিত ইনপুট এবং সিনট্যাক্স পরিবারে আবদ্ধ থাকে</td>
+</tr>
+<tr>
+<td>NoSQL ইনজেকশন</td>
+<td>MongoDB/BSON ত্রুটি স্বাক্ষরের পুনরাবৃত্তি করে</td>
+<td>কোন সাধারণ অপারেটর-ইনজেকশন বা প্রমাণীকরণ-বাইপাস যাচাইকারী নেই</td>
+</tr>
+<tr>
+<td>সার্ভার-সাইড কোড ইনজেকশন</td>
+<td>কম্পিউটেড জাভাস্ক্রিপ্ট/পিএইচপি ক্যানারি</td>
+<td>ছোট ভাষা/প্রসঙ্গ সেট</td>
+</tr>
+<tr>
+<td>প্রতিফলিত XSS</td>
+<td>প্রতিফলন গেট প্লাস এক্সিকিউটেবল-সুদর্শন HTML প্রসঙ্গগুলির পুনরাবৃত্তি জড় পার্সিং</td>
+<td>প্রকৃত মৃত্যুদন্ড যাচাই না হওয়া পর্যন্ত প্রার্থী</td>
+</tr>
+<tr>
+<td>সার্ভার টেমপ্লেট ইনজেকশন</td>
+<td>অনন্য গাণিতিক মার্কার এবং পুনরাবৃত্তি/নিয়ন্ত্রণ চেক</td>
+<td>প্রতিটি টেমপ্লেট ইঞ্জিন বা অন্ধ প্রসঙ্গ কভার করে না</td>
+</tr>
+<tr>
+<td>ট্রাভার্সাল / ফাইল অন্তর্ভুক্তি</td>
+<td>বারবার পরিচিত ফাইল-সামগ্রীর স্বাক্ষর</td>
+<td>সম্পূর্ণ এনকোডিং, ফাইল বা প্ল্যাটফর্ম নয়</td>
+</tr>
+<tr>
+<td>রিডাইরেক্ট খুলুন</td>
+<td>উত্পন্ন .অবৈধ অবস্থান ক্যানারি</td>
+<td>বাহ্যিক পুনঃনির্দেশিত গন্তব্য অনুসরণ করা হয় না</td>
+</tr>
+<tr>
+<td>প্রতিক্রিয়া হেডার ইনজেকশন</td>
+<td>বারবার জেনারেট করা হেডার মার্কার</td>
+<td>ব্রাউজার URL/হেডার হ্যান্ডলিং পরীক্ষা সীমিত করে</td>
+</tr>
+<tr>
+<td>বিজ্ঞাপন HTTP পদ্ধতি</td>
+<td>বিকল্প এবং মঞ্জুরি তালিকা</td>
+<td>বিজ্ঞাপন লেখার অনুমতি নেই</td>
+</tr>
+<tr>
+<td>ডুপ্লিকেট ক্যোয়ারী প্যারামিটার হ্যান্ডলিং</td>
+<td>পুনরাবৃত্ত প্রথম/শেষ-ক্রম তুলনা</td>
+<td>তথ্যগত পার্সিং পার্থক্য, নিরাপত্তা প্রভাব প্রমাণিত নয়</td>
+</tr>
+<tr>
+<td>ওএস কমান্ড সূচক</td>
+<td>ঐচ্ছিক বারবার আইডি-আউটপুট সূচক</td>
+<td>ইউনিক্স-ভিত্তিক, প্রসঙ্গ-নির্ভর এবং ডিফল্টরূপে বন্ধ</td>
+</tr>
+</tbody>
+</table>
+<p>সমর্থিত সক্রিয় সন্নিবেশ পয়েন্টগুলির মধ্যে রয়েছে ক্যোয়ারী মান, নেস্টেড JSON/অ্যারে, ফর্ম/মাল্টিপার্ট ক্ষেত্র, নির্বাচিত সম্পাদনাযোগ্য আমদানি করা শিরোনাম এবং নামযুক্ত API পাথ ইনপুট। মৃতদেহকে অবশ্যই জানা এবং অনুমতি দিতে হবে। পরিচালিত প্রমাণীকরণ/ফ্রেমিং ক্ষেত্র, বাদ দেওয়া মান এবং অনুপলব্ধ অনুরোধ সংস্থাগুলি নীরবে উদ্ভাবিত হয় না।</p>
+<p>লুকানো ফর্ম মানগুলি সংরক্ষিত এবং রিফ্রেশ করা হয় যেখানে ফর্ম লেখার আগে সমর্থিত হয়; অনুপলব্ধ টোকেন কভারেজ এড়িয়ে যেতে পারে। এই প্রক্রিয়াটি প্রতিষ্ঠিত করে না যে একটি ফর্মের CSRF সুরক্ষা কাজ করে।</p>
+<h2 id="scan-options-reference">স্ক্যান বিকল্প রেফারেন্স</h2>
+<p>অন্যথায় উল্লেখ না থাকলে, এই ঐচ্ছিক পর্যায়গুলি শুরু হয়। <strong>অভিযোজিত অনুরোধের হার</strong> ডিফল্ট অন; ডিফল্ট অটো-ফাজ মোড বন্ধ। একটি বিদ্যমান প্রোফাইল থেকে পুনরুদ্ধার করা সেটিংস নতুন ডিফল্ট থেকে ভিন্ন হতে পারে।</p>
+<table>
+<thead>
+<tr>
+<th>অপশন</th>
+<th>কি পরিবর্তন / পূর্বশর্ত</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CVE অটো-ফেজ</td>
+<td>যোগ্য আমদানিকৃত CVE টেমপ্লেটগুলিকে CVE/গ্লোবাল বাজেটের মধ্যে তাদের লেখক অনুরোধ/ম্যাচারগুলি ব্যবহার করে কার্যকর করে</td>
+</tr>
+<tr>
+<td>আক্রমণাত্মক (অনুমোদিত)</td>
+<td>লেখার পদ্ধতি এবং উন্নত ক্ষমতার জন্য পরবর্তী-চালিত অনুমোদন সক্ষম করে</td>
+</tr>
+<tr>
+<td>মাল্টিপার্ট ফাইল আপলোড করার অনুমতি দিন</td>
+<td>আলাদাভাবে ফাইল-বহনকারী মাল্টিপার্ট অনুরোধের অনুমতি দেয়; একটি আপলোড পরীক্ষা তৈরি করে না</td>
+</tr>
+<tr>
+<td>DELETE (আলাদা সম্মতি) অনুমতি দিন</td>
+<td>আলাদাভাবে মুছে ফেলার অনুমতি দেয়; স্বয়ংক্রিয়ভাবে মুছে ফেলার অনুরোধ জারি করে না</td>
+</tr>
+<tr>
+<td>AJAX/DOM ইন্সট্রুমেন্টেশন</td>
+<td>আবদ্ধ আবিষ্কারের সময় গতিশীল অ্যাপ্লিকেশন এন্ডপয়েন্ট এবং সমর্থিত পৃষ্ঠা কার্যকলাপ পর্যবেক্ষণ করে</td>
+</tr>
+<tr>
+<td>অপ্ট-ইন পৃষ্ঠা ক্লিক / স্ক্রোল</td>
+<td>আবদ্ধ মিথস্ক্রিয়া যোগ করে; AJAX আবিষ্কার এবং আক্রমনাত্মক অনুমোদন প্রয়োজন; অ্যাপ্লিকেশন হ্যান্ডলার ডেটা পরিবর্তন করতে পারেন</td>
+</tr>
+<tr>
+<td>লাইভ DOM XSS যাচাইকরণ (নতুন ট্যাব)</td>
+<td>ডিসপোজেবল একই-স্টোর ট্যাবে আবদ্ধ ক্যোয়ারী/ফ্র্যাগমেন্ট-কোয়েরি ইউআরএল ইনপুট পরীক্ষা করে; দুটি তাজা স্থানীয় ক্যানারি এবং একটি নেতিবাচক নিয়ন্ত্রণ; CSP বলবৎ থাকে</td>
+</tr>
+<tr>
+<td>বারবার টাইমিং প্রোব</td>
+<td>পুনরাবৃত্ত SQL বিলম্ব তুলনা এবং একটি JSON MongoDB টাইমিং প্রার্থী, প্রথম সন্নিবেশ বিন্দু থেকে শুরু করে; আগ্রাসী প্রয়োজন</td>
+</tr>
+<tr>
+<td>SSRF ক্যানারি/কলব্যাক</td>
+<td>কনফিগার করা হলে অভ্যন্তরীণ-ঠিকানা প্রতিক্রিয়া পার্থক্য প্লাস সঠিক OAST পারস্পরিক সম্পর্ক; আগ্রাসী প্রয়োজন</td>
+</tr>
+<tr>
+<td>এক্সএমএল এক্সটার্নাল এন্টিটি প্রোব</td>
+<td>পরিচিত XML অনুরোধ সংস্থাগুলির জন্য কলব্যাক ক্যানারি; বাস্তবায়িত পরীক্ষার জন্য অনুমোদিত OAST সেটআপ প্রয়োজন</td>
+</tr>
+<tr>
+<td>Log4Shell OAST প্রোব</td>
+<td>একটি যোগ্য ইনপুট এবং X-Api-সংস্করণে কলব্যাক ক্যানারি; একটি মিথস্ক্রিয়া কোড নির্বাহের প্রমাণ নয়</td>
+</tr>
+<tr>
+<td>কমান্ড প্রোব</td>
+<td>ব্লাইন্ড কমান্ড কলব্যাক রুট যখন OAST শুনছে</td>
+</tr>
+<tr>
+<td>আমদানিকৃত ডিসিরিয়ালাইজেশন টেমপ্লেট</td>
+<td>যোগ্য আমদানিকৃত ডিসিরিয়ালাইজেশন-ট্যাগযুক্ত টেমপ্লেট অন্তর্ভুক্ত করে; কোনো সার্বজনীন গ্যাজেট জেনারেটর নেই</td>
+</tr>
+<tr>
+<td>অভিযোজিত WAF মিউটেশন (সর্বোচ্চ 3)</td>
+<td>যোগ্য অনুসন্ধানের আবদ্ধ বিকল্প উপস্থাপনা; কখনও বাইপাসের গ্যারান্টি নেই</td>
+</tr>
+<tr>
+<td>সেশন বি এর সাথে তুলনা করুন</td>
+<td>অন্য একই-অরিজিন কুকি স্টোরের সাথে দশটি যোগ্য পঠিত অনুরোধের তুলনা করে; মালিকানা/ভূমিকা ম্যানুয়াল প্রসঙ্গ থেকে যায়</td>
+</tr>
+<tr>
+<td>আবিষ্কৃত WebSocket প্রোব</td>
+<td>আবদ্ধ চ্যানেল বিনিময়; কোনো উদ্ভাবিত অ্যাপ্লিকেশন-নির্দিষ্ট আক্রমণ প্রোটোকল নেই</td>
+</tr>
+<tr>
+<td>আবিষ্কৃত SSE প্রোব</td>
+<td>আবদ্ধ ইভেন্টসোর্স শোনা; একটি সাধারণ স্ট্রিম-অনুমোদন যাচাইকারী নয়</td>
+</tr>
+<tr>
+<td>অফলাইন ক্লায়েন্ট লাইব্রেরি SCA</td>
+<td>পর্যবেক্ষণ করা ক্লায়েন্ট সম্পদের জন্য ছোট বান্ডিল পরিচিত-সংস্করণ/পরিসীমা ক্যাটালগ</td>
+</tr>
+<tr>
+<td>প্যারামিটার / হেডার মাইনিং</td>
+<td>লক্ষ্য/API প্রমাণ থেকে শেখা নাম ব্যবহার করে; একটি সম্পূর্ণ লুকানো-ইনপুট অভিধান নয়</td>
+</tr>
+<tr>
+<td>নেটিভ পূর্ণ নিউক্লিয়াস নির্বাহ</td>
+<td>Linux বিচ্ছিন্নতা এবং সম্মতি সাপেক্ষে Agent API-এর মাধ্যমে অফিসিয়াল-ইঞ্জিন টেমপ্লেট কাজগুলি সক্ষম করে৷</td>
+</tr>
+<tr>
+<td>স্যান্ডবক্সযুক্ত নেটিভ কোড / জাভাস্ক্রিপ্ট</td>
+<td>পর্যালোচনা করা/স্বাক্ষর করা নেটিভ টেমপ্লেটের জন্য অতিরিক্ত ক্ষমতা</td>
+</tr>
+<tr>
+<td>বিচ্ছিন্ন হেডলেস ব্রাউজার</td>
+<td>অতিরিক্ত নেটিভ হেডলেস ক্ষমতা; ফায়ারফক্সের লগইন থেকে বিচ্ছিন্ন</td>
+</tr>
+<tr>
+<td>নেটিভ অনুমোদিত তালিকাভুক্ত ফাইল পড়ে</td>
+<td>নির্বাচিত অনুমোদিত তালিকার মধ্যে অতিরিক্ত শুধুমাত্র-পঠনযোগ্য স্থানীয় ফাইলের ক্ষমতা</td>
+</tr>
+<tr>
+<td>OAST (বাহ্যিক প্রদানকারী)</td>
+<td>নির্দিষ্ট প্রদানকারীর নিবন্ধন/পোল; আলাদাভাবে প্রাসঙ্গিক দুর্বলতা প্রোব নির্বাচন করুন</td>
+</tr>
+<tr>
+<td>কমিউনিটি এসকিউএল প্রোবের তালিকা</td>
+<td>প্রাসঙ্গিক SQL চেক/ফুজারে সমর্থিত ফিল্টার করা SecLists/FuzzDB মান যোগ করে</td>
+</tr>
+<tr>
+<td>অভিযোজিত অনুরোধের হার</td>
+<td>রক্ষণশীল থ্রটলিং/চ্যালেঞ্জ হ্যান্ডলিং; স্বয়ংক্রিয়ভাবে হার বাড়ায় না</td>
+</tr>
+<tr>
+<td>আপলোড করা পেলোড প্যাকগুলি সক্ষম করা হয়েছে৷</td>
+<td>নির্বাচিত লক্ষ্য-নির্দিষ্ট মান যোগ করে; আক্রমনাত্মক প্লাস পরবর্তী রান অনুমোদন প্রয়োজন</td>
+</tr>
+</tbody>
+</table>
+<p>লাইভ DOM যাচাইকরণ সাধারণ কলঙ্কিত ট্র্যাকিং নয়। সঞ্চিত XSS, পোস্টমেসেজ/স্থানীয়-সঞ্চয়স্থান উত্স, নন-ইউআরএল ইনপুট এবং মাল্টি-স্টেপ লেখা/পড়া ওয়ার্কফ্লোগুলির জন্য অতিরিক্ত পরীক্ষার প্রয়োজন। একটি অবরুদ্ধ নির্ভরতা বা সময়সীমা অসম্পূর্ণ কভারেজ, পাস নয়।</p>
+<h2 id="budgets-selectors-and-request-settings">বাজেট, নির্বাচক এবং অনুরোধ সেটিংস</h2>
+<p>আছে <strong>সীমার দুটি পৃথক সেট</strong>: লংশটের অন্তর্নির্মিত স্ক্যান সীমা এবং নেটিভ টুল প্রক্সির সীমা। :8900 এর মাধ্যমে একটি ZAP অনুরোধ অন্তর্নির্মিত জাভাস্ক্রিপ্ট স্ক্যান বাজেট ব্যবহার করে না এবং লংশট-এর চেকবক্সগুলি ZAP-এর স্ক্যান নীতি বেছে নেয় না।</p>
+<h3 id="operation-and-phase-selectors">অপারেশন এবং ফেজ নির্বাচক</h3>
+<table>
+<thead>
+<tr>
+<th>নির্বাচক</th>
+<th>পছন্দ এবং আচরণ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>অপারেশন</td>
+<td>শুধুমাত্র মাকড়সা; স্পাইডার + সক্রিয় চেক; শুধুমাত্র সক্রিয় চেক</td>
+</tr>
+<tr>
+<td>অটো-ফাজ</td>
+<td>বন্ধ; সক্রিয় এবং CVE পরে; স্ক্যান করার সময়। এটি একটি অতিরিক্ত ফেজ নিয়ন্ত্রণ করে, ডেডিকেটেড সক্রিয় নিয়ম নয়</td>
+</tr>
+<tr>
+<td>আক্রমণ মডেল</td>
+<td>স্নাইপার; ব্যাটারিং রাম; পিচফর্ক; সমর্থিত কাঠামোগত স্বয়ংক্রিয়/বডি মিউটেশন পরিকল্পনার জন্য ক্লাস্টার বোমা</td>
+</tr>
+<tr>
+<td>অধিবেশন বি</td>
+<td>সত্যিকারের স্বাধীন কুকি স্টোর সহ আরেকটি একই-অরিজিন ট্যাব</td>
+</tr>
+<tr>
+<td>বডি ফাজার পদ্ধতি</td>
+<td>POST, GET, PUT বা PATCH, অনুরোধ নীতি এবং অনুমোদন সাপেক্ষে</td>
+</tr>
+<tr>
+<td>শরীরের বিন্যাস</td>
+<td>JSON, ফর্ম ইউআরএল-এনকোডেড, মাল্টিপার্ট বা কাঁচা/এক্সএমএল; প্রতিটি বিন্যাস জেনেরিক স্কেলার সন্নিবেশ পয়েন্ট প্রদান করে না</td>
+</tr>
+<tr>
+<td>বডি পেলোড ক্লাস</td>
+<td>SQLi, NoSQLi, কোড, XSS, SSTI, ট্রাভার্সাল, CRLF, পুনঃনির্দেশ, কমান্ড বা কাস্টম</td>
+</tr>
+</tbody>
+</table>
+<p>এই বাস্তবায়নে আক্রমণ মডেল:</p>
+<ul>
+<li><strong>স্নাইপার:</strong> একবারে একটি ইনপুট পরিবর্তন করুন।</li>
+<li><strong>ব্যাটারিং রাম:</strong> সমস্ত নির্বাচিত ইনপুটে একই পেলোড রাখুন।</li>
+<li><strong>পিচফর্ক:</strong> ইনপুট জুড়ে শেয়ার করা পেলোড তালিকা থেকে একটি স্তব্ধ/ঘূর্ণমান ক্রম ব্যবহার করুন। এটি বার্পের স্বাধীন-তালিকা আচরণের দাবি নয়।</li>
+<li><strong>ক্লাস্টার বোমা:</strong> ইনপুট জুড়ে আবদ্ধ সমন্বয়; ক্যাপ সীমাহীন কার্টেসিয়ান প্রসারণ প্রতিরোধ করে।</li>
+</ul>
+<h3 id="scan-option-limits">স্ক্যান বিকল্প সীমা</h3>
+<table>
+<thead>
+<tr>
+<th>মাঠ</th>
+<th style="text-align: right;">তাজা ডিফল্ট</th>
+<th style="text-align: right;">গৃহীত পরিসীমা</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>বিশ্বব্যাপী অনুরোধ বাজেট</td>
+<td style="text-align: right;">2,000</td>
+<td style="text-align: right;">1–10,000</td>
+</tr>
+<tr>
+<td>প্রতি প্যারামিটারে ফাজ অনুরোধ</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>প্রতি টেমপ্লেট CVE অনুরোধ</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>লক্ষ্য প্রতি CVE অনুরোধ</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1–2,000</td>
+</tr>
+<tr>
+<td>সঙ্গতি সীমা</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1-2; সমান্তরাল ব্রাউজার থ্রুপুটের প্রতিশ্রুতি দেয় না</td>
+</tr>
+<tr>
+<td>AJAX ইভেন্ট বাজেট</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>AJAX পৃষ্ঠা বাজেট (ms)</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">500–15,000</td>
+</tr>
+<tr>
+<td>AJAX পৃষ্ঠা সংখ্যা</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>বিলম্ব তদন্ত (সেকেন্ড)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1–5</td>
+</tr>
+<tr>
+<td>OAST কলব্যাক TTL সেকেন্ড</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">5–3,600</td>
+</tr>
+<tr>
+<td>OAST পোল সেকেন্ড</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5–15</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scanner-settings">স্ক্যানার সেটিংস</h3>
+<table>
+<thead>
+<tr>
+<th>সেটিং</th>
+<th>ফ্রেশ ডিফল্ট/উদ্দেশ্য</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>প্রতি সেকেন্ডে অনুরোধ</td>
+<td>1; UI 0.5-5 সমর্থন করে</td>
+</tr>
+<tr>
+<td>ক্রল করার সর্বোচ্চ গভীরতা</td>
+<td>3; UI 0-5 সমর্থন করে</td>
+</tr>
+<tr>
+<td>সর্বাধিক আবিষ্কৃত URL</td>
+<td>100; UI 1-500 সমর্থন করে</td>
+</tr>
+<tr>
+<td>প্রতিক্রিয়া প্রতি সর্বোচ্চ বাইট</td>
+<td>2 এমবি; বড়/কাটা প্রতিক্রিয়া প্রমাণ ফাঁক রেখে যেতে পারে</td>
+</tr>
+<tr>
+<td>পরিবহন পুনরায় চেষ্টা</td>
+<td>2; একটি গ্যারান্টি নয় যে একটি নির্দিষ্ট লেখা নিরাপদে রিপ্লে করা যাবে</td>
+</tr>
+<tr>
+<td>প্রতি প্যারামিটারে সর্বাধিক ফাজ প্রোব</td>
+<td>40; অতিরিক্ত-ফেজ প্যারামিটার বাজেট থেকে পৃথক</td>
+</tr>
+<tr>
+<td>সর্বাধিক সক্রিয় অনুরোধ</td>
+<td>150</td>
+</tr>
+<tr>
+<td>সর্বাধিক সক্রিয় ইউআরএল</td>
+<td>20</td>
+</tr>
+<tr>
+<td>সর্বাধিক সক্রিয় ক্যোয়ারী পরামিতি</td>
+<td>10; অডিট অন্যান্য সমর্থিত সন্নিবেশ-পয়েন্ট ধরনের রেকর্ড করে</td>
+</tr>
+<tr>
+<td>বাদ দেওয়া পথ উপসর্গ</td>
+<td>প্রতি লাইনে একটি উপসর্গ; পরীক্ষার লক্ষ্য তৈরি করা থেকে সেই পথগুলিকে বাধা দেয়</td>
+</tr>
+<tr>
+<td>বাদ দেওয়া প্যারামিটার নাম</td>
+<td>প্রতি লাইনে একটি নাম</td>
+</tr>
+<tr>
+<td>স্থানীয়ভাবে সংশোধিত স্ক্যানার প্রতিক্রিয়া সংস্থাগুলি রাখুন</td>
+<td>চালু; সীমার মধ্যে পর্যালোচনা/তুলনা সমর্থন করে, সর্বোত্তম-প্রচেষ্টা সংশোধন সহ</td>
+</tr>
+</tbody>
+</table>
+<p>সক্রিয় অডিট পরে সক্রিয় নিয়মের জন্য আবদ্ধ ভাতা সংরক্ষণ করে। আরও পেলোড তাই প্রতিটি বৈকল্পিক পরীক্ষা করার পরিবর্তে কিছু নিয়ম আংশিক করতে পারে। একটি কনফিগার করা সর্বাধিক হল একটি সিলিং, প্রতিটি অনুরোধ ব্যবহার করার বা প্রতিটি ইনপুট শেষ করার প্রতিশ্রুতি নয়।</p>
+<h3 id="other-selectors">অন্যান্য নির্বাচক</h3>
+<table>
+<thead>
+<tr>
+<th>পাতা</th>
+<th>নির্বাচক এবং অর্থ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ফাইন্ডিংস</td>
+<td>তীব্রতা এবং পর্যালোচনা অবস্থা; নেতিবাচক/অবরুদ্ধ দৃশ্যমানতা পরিবর্তন শুধুমাত্র প্রদর্শন</td>
+</tr>
+<tr>
+<td>টেমপ্লেট</td>
+<td>তীব্রতা, শুধুমাত্র প্রস্তুত ফিল্টার এবং ম্যানুয়াল নির্বাচন; প্রস্তুত অনুমতি/সামঞ্জস্য অবস্থা, একটি দুর্বলতা রায় নয়</td>
+</tr>
+<tr>
+<td>রিপিটার</td>
+<td>GET/HEAD/OPTIONS/POST/PUT/PATCH/DELETE এবং raw/XML, JSON বা ফর্ম বডি</td>
+</tr>
+<tr>
+<td>ফুজার</td>
+<td>পেলোড ফ্যামিলি এবং ভ্যালু মিউটেশন: আসল, ইউআরএল/ডাবল এনকোডিং, কেস পরিবর্তন, এনকোডেড ডটস, ট্যাব/সেমিকোলন প্রত্যয়, ডাবল-স্ল্যাশ প্রিফিক্স, ট্রেলিং ডট/স্পেস</td>
+</tr>
+<tr>
+<td>ইন্টারসেপ্টর</td>
+<td>রিসোর্সের ধরন, পদ্ধতি এবং টাইমআউট অ্যাকশন; এই ফিল্টার তার পদ্ধতি পুনর্লিখনের পরিবর্তে ট্রাফিক ধরে রাখে</td>
+</tr>
+<tr>
+<td>ওয়েবসকেট/এসএসই</td>
+<td>পর্যবেক্ষণ করা চ্যানেল প্রোটোকল নির্বাচন করুন</td>
+</tr>
+<tr>
+<td>সার্ভার স্ট্যাক</td>
+<td>স্বয়ংক্রিয় NVD+OSV, NVD পণ্য/CPE বা OSV প্যাকেজ/সংস্করণ; ম্যানুয়াল npm/PyPI ইকোসিস্টেম</td>
+</tr>
+<tr>
+<td>তুলনা করুন</td>
+<td>সংরক্ষিত বেসলাইন এবং তুলনা প্রতিক্রিয়া</td>
+</tr>
+<tr>
+<td>ইউটিলিটিস</td>
+<td>URL/Base64/hex এনকোডিং/ডিকোডিং, SHA-256, JSON ফর্ম্যাটিং এবং JWT দাবি পরিদর্শন</td>
+</tr>
+<tr>
+<td>WSTG চেক করে</td>
+<td>বিভাগ এবং স্বয়ংক্রিয়/সহায়তা/ম্যানুয়াল রেফারেন্স ফিল্টার</td>
+</tr>
+<tr>
+<td>থিম/ভাষা</td>
+<td>গ্লোবাল চেহারা এবং বান্ডিল ভাষা, স্ক্যান বিকল্প থেকে স্বাধীন</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fuzzer-auto-fuzz-and-probe-library">ফুজার, অটো-ফাজ এবং প্রোব লাইব্রেরি</h2>
+<h3 id="pick-the-right-action">সঠিক পদক্ষেপ বাছুন</h3>
+<table>
+<thead>
+<tr>
+<th>অ্যাকশন</th>
+<th>কে ইনপুট নির্বাচন করে?</th>
+<th>আউটপুট</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>সক্রিয় স্ক্যান</td>
+<td>লংশট আবিষ্কৃত সমর্থিত ইনপুট ব্যবহার করে</td>
+<td>পুনরাবৃত্তি/নিয়ন্ত্রণ সহ উত্সর্গীকৃত নিয়ম প্রমাণ</td>
+</tr>
+<tr>
+<td>ফাজার চালান</td>
+<td>আপনি একটি URL এবং ক্যোয়ারী প্যারামিটার চয়ন করুন৷</td>
+<td>বেসলাইন এবং নির্বাচিত পেলোড-প্রতিক্রিয়া তুলনা</td>
+</tr>
+<tr>
+<td>বডি ফাজার</td>
+<td>আপনি একটি কাঠামোগত অনুরোধ এবং মিউটেশন পছন্দ প্রদান করেন</td>
+<td>বাউন্ডেড বডি/পাথ/হেডার বৈচিত্র যেখানে সমর্থিত</td>
+</tr>
+<tr>
+<td>অটো-ফাজ বোতাম</td>
+<td>সংরক্ষিত বর্তমান-পৃষ্ঠা/সাইট-ম্যাপ/এপিআই ইনভেন্টরি</td>
+<td>যোগ্য আবিষ্কৃত ইনপুট জুড়ে অতিরিক্ত জেনেরিক পেলোড অনুসন্ধান</td>
+</tr>
+<tr>
+<td>CVE স্বয়ংক্রিয়-ফেজ / রান নির্বাচিত</td>
+<td>আমদানি করা টেমপ্লেট সংজ্ঞা</td>
+<td>টেমপ্লেট-নির্দিষ্ট অনুরোধ এবং ম্যাচার ফলাফল</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-query-fuzzer">ম্যানুয়াল ক্যোয়ারী fuzzer</h3>
+<ol>
+<li>লক্ষ্যটি সংযুক্ত করুন এবং একটি স্কোপযুক্ত URL চয়ন করুন৷ আপেক্ষিক URL যেমন <code dir="ltr" translate="no">/search?q=apple</code> সংযুক্ত মূলের বিরুদ্ধে গৃহীত হয়।</li>
+<li>বিদ্যমান ক্যোয়ারী প্যারামিটারের নাম লিখুন, বা বেছে নিন <strong>ব্যবহার করুন</strong> একটি আবিষ্কৃত ইনপুট পাশে।</li>
+<li>একটি পেলোড ক্লাস এবং মান মিউটেশন চয়ন করুন।</li>
+<li>জন্য <strong>ব্যবহারকারীর আপলোড করা কাস্টম পেলোড</strong>, প্রথমে একটি উপযুক্ত কাস্টম প্যাক সক্ষম করুন।</li>
+<li>বেছে নিন <strong>ফাজার চালান</strong>, তারপর বেসলাইন, অনুরোধ, স্থিতি, দৈর্ঘ্য/সময় এবং প্রমাণ পরিদর্শন করুন।</li>
+</ol>
+<p>একটি অনুপস্থিত URL, প্যারামিটার বা খালি কাস্টম সেট একটি নির্দিষ্ট বৈধতা বার্তা তৈরি করে। শুধুমাত্র একটি প্রতিক্রিয়া পরিবর্তন করা একটি ইনজেকশন ত্রুটি স্থাপন করে না। বেসলাইনে ঘটলেও সার্ভার থ্রটলিং প্যারামিটার বন্ধ করতে পারে।</p>
+<h3 id="auto-fuzz-discovered-inputs">অটো-ফাজ আবিষ্কৃত ইনপুট</h3>
+<p>ব্যবহার করুন <strong>আবিষ্কৃত ইনপুটগুলির পূর্বরূপ দেখুন</strong> প্রথম এটি সংরক্ষিত ইনভেন্টরি পড়ে এবং প্রোব না পাঠিয়ে যোগ্য/এড়িয়ে যাওয়া অনুরোধের প্রতিবেদন করে। অটো-ফাজ-এর জন্য ম্যানুয়াল ফাজারের URL/প্যারামিটার ক্ষেত্রগুলির প্রয়োজন নেই৷ ইনভেন্টরি খালি থাকলে প্রথমে ব্রাউজ করুন বা স্পাইডার।</p>
+<p>পেলোড ক্লাস নির্বাচন করুন এবং পৃথক নির্বাচন করুন <strong>অটো-ফাজ</strong> বোতাম <strong>আবিষ্কৃত অনুরোধ সংস্থা অন্তর্ভুক্ত</strong> শুরু হয় এবং আক্রমনাত্মক প্লাস পরবর্তী রানের অনুমোদনের প্রয়োজন হয়। টোকেন-বাউন্ড ফর্ম, অসমর্থিত পদ্ধতি, অনুপলব্ধ সংস্থা এবং XML এই স্বয়ংক্রিয় ইনপুট নির্বাচক দ্বারা বাদ দেওয়া হয়। বিদ্যমান বর্জন, অনুরোধের সীমা এবং থ্রটলিং আচরণ এখনও প্রযোজ্য।</p>
+<p>উপলব্ধ ক্লাস চেকবক্স হল SQLI, NOSQLI, CODE, XSS, SSTI, TRAVERSAL, COMMAND, SSRF, REDIRECT, CRLF এবং কাস্টম। ফ্রেশ ডিফল্ট SQLI, SSTI, TRAVERSAL, REDIRECT এবং CRLF সক্ষম করে। জেনেরিক লুপ SSRF এড়িয়ে যায়; ব্যবহার <strong>SSRF ক্যানারি/কলব্যাক</strong> এর বাস্তবায়িত যাচাইকরণের জন্য। CUSTOM প্রবেশ করা/সক্ষম কাস্টম মান ব্যবহার করে এবং কম-আস্থা প্রতিক্রিয়া পার্থক্য রিপোর্ট করে যদি না একজন ডেডিকেটেড ম্যাচার আরও বেশি করে থাকে।</p>
+<h3 id="why-probe-library-belongs-here">কেন প্রোব লাইব্রেরি এখানে অন্তর্গত</h3>
+<p>লাইব্রেরি সরবরাহ করে <strong>পেলোড মান এবং পর্যালোচনা করা টেমপ্লেট</strong>; fuzzer নিয়ন্ত্রণ নির্বাচন <strong>কোথায় এবং কিভাবে তাদের পাঠাতে হয়</strong>. এটি ম্যানুয়াল URL/প্যারামিটার প্রতিস্থাপন করে না। ভাগ করা লাইব্রেরি বিকল্পগুলি সংরক্ষণের পরে সক্রিয় স্ক্যান এবং স্বয়ংক্রিয় পর্যায়গুলিকেও প্রভাবিত করে।</p>
+<p><strong>GitHub তালিকা আপডেট করুন</strong> নির্দিষ্ট উত্স রিফ্রেশ করে, নির্বিচারে এক্সিকিউটেবল স্ক্যানার নয়:</p>
+<table>
+<thead>
+<tr>
+<th>উৎস</th>
+<th>ব্যবহৃত উপসেট</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SecLists দ্রুত SQLi</td>
+<td>ফিল্টার করা বিরাম চিহ্ন/বুলিয়ান মান, 32টি সমর্থিত এন্ট্রিতে ক্যাপ করা হয়েছে</td>
+</tr>
+<tr>
+<td>FuzzDB ক্রস-প্ল্যাটফর্ম SQL সনাক্তকরণ</td>
+<td>ফিল্টার করা বিরাম চিহ্ন/বুলিয়ান মান, 32টি সমর্থিত এন্ট্রিতে ক্যাপ করা হয়েছে</td>
+</tr>
+<tr>
+<td>প্রজেক্ট ডিসকভারি নিউক্লিয়াস টেমপ্লেট</td>
+<td>দুটি শুধুমাত্র-জিরা স্টার্টার চেক: CVE-2020-14179 এবং CVE-2021-26086</td>
+</tr>
+<tr>
+<td>Payloads AllThe Things কৌশল</td>
+<td>আবদ্ধ বাস্তবায়িত SQL হোয়াইটস্পেস/মন্তব্য/এনকোডিং বৈচিত্রের ভিত্তি; ডাউনলোড করা এক্সিকিউটেবল বাইপাস স্ক্রিপ্ট নয়</td>
+</tr>
+</tbody>
+</table>
+<p>আপডেটগুলি HTTPS ব্যবহার করে, কুকিজ বাদ দেয় এবং ব্যর্থ হলে পুরানো স্ন্যাপশট সংরক্ষণ করে৷ উৎস হ্যাশ, রিফ্রেশ সময় এবং সমর্থিত গণনা দেখানো হয়. সম্পূর্ণ ইনপুট ফাইলের হ্যাশ মানে এই নয় যে ফাইলের প্রতিটি মান ব্যবহার করা হয়েছে। ডাউনলোড করা এসকিউএল তালিকা ধ্বংসাত্মক/ডেটা-এক্সট্রাকশন/ডেলে/কোড/কলব্যাক কনস্ট্রাক্ট বাদ দেয়; অন্তর্নির্মিত নিয়ম তাদের নিজস্ব পৃথকভাবে বাস্তবায়িত ক্যানারি আছে.</p>
+<p>আপডেট করার আগে একটি স্ক্যান বন্ধ করুন। আপডেট করলে প্রোব শুরু হয় না, অনুমোদন দেওয়া হয় না, OAST সক্ষম হয় বা GitHub-এ টার্গেট ডেটা/কাস্টম প্যাক আপলোড হয় না। একটি ডাউনলোড করা টেমপ্লেট যা একটি অসমর্থিত/কাঁচা/কোড/হেডলেস ফর্মে পরিবর্তিত হয় তা নীরবে একটি নতুন সম্পাদন ক্ষমতায় উন্নীত করার পরিবর্তে প্রত্যাখ্যান করা হয়।</p>
+<h2 id="your-payloads-and-imported-templates">আপনার পেলোড এবং আমদানি করা টেমপ্লেট</h2>
+<h3 id="upload-literal-lists">আক্ষরিক তালিকা আপলোড করুন</h3>
+<p>অধীন <strong>স্ক্যান বিকল্প বা Fuzzer → প্রোব লাইব্রেরি → আপনার পেলোড এবং CVE টেমপ্লেট</strong>, তারপর বিভাগ নির্বাচন করুন <strong>কাস্টম ফাইল আপলোড করুন</strong>.</p>
+<p>গৃহীত তালিকা ফর্ম:</p>
+<ul>
+<li><code dir="ltr" translate="no">.txt</code>: প্রতি লাইনে একটি আক্ষরিক খালি মান; স্পেস এবং কেস সংরক্ষিত হয়।</li>
+<li><code dir="ltr" translate="no">.json</code>: স্ট্রিং এর একটি অ্যারে বা একটি বস্তু ধারণকারী <code dir="ltr" translate="no">name</code>, <code dir="ltr" translate="no">category</code> এবং <code dir="ltr" translate="no">payloads</code>.</li>
+<li>বিভাগ: <code dir="ltr" translate="no">custom</code>, <code dir="ltr" translate="no">waf</code>, <code dir="ltr" translate="no">sqli</code>, <code dir="ltr" translate="no">nosqli</code>, <code dir="ltr" translate="no">code</code>, <code dir="ltr" translate="no">xss</code>, <code dir="ltr" translate="no">ssti</code>, <code dir="ltr" translate="no">traversal</code>, <code dir="ltr" translate="no">crlf</code>, <code dir="ltr" translate="no">redirect</code>, <code dir="ltr" translate="no">command</code>.</li>
+</ul>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "name": "My SQL review probes",
+  "category": "sqli",
+  "payloads": ["'", "\"", "' AND 1=1 -- "]
+}
+</code></pre>
+<p>প্যাকগুলি লক্ষ্য-নির্দিষ্ট এবং প্রাথমিকভাবে <strong>অক্ষম</strong>. পূর্বরূপ পরিদর্শন করুন এবং স্পষ্টভাবে উদ্দেশ্য প্যাক সক্ষম করুন. সক্ষম আপলোড করা প্যাকগুলির জন্য আক্রমনাত্মক এবং অনুমোদন প্রয়োজন; একা আপলোড কিছুই চলে না।</p>
+<p>সীমা: প্রতি পেলোড ফাইলে 256 KB, প্রতি প্যাকে 200টি স্ট্রিং, প্রতি মান 2,000 অক্ষর, এবং সর্বাধিক 10 প্যাক / 500 মান / লক্ষ্য প্রতি 512 KB প্যাক কনফিগারেশন। একটি প্যাকের মধ্যে ডুপ্লিকেট স্ট্রিং সরানো হয়. বিদ্যমান পদ্ধতি, সুযোগ, বাজেট এবং ধ্বংসাত্মক-এসকিউএল গার্ড এখনও প্রযোজ্য।</p>
+<p>শ্রেণীবদ্ধ প্যাক পরিপূরক অন্তর্নির্মিত শ্রেণী মান. WAF প্যাকগুলির অতিরিক্ত স্মার্ট বৈচিত্র্য এবং যোগ্য ফিল্টারিং প্রমাণ প্রয়োজন। একটি আক্ষরিক কাস্টম পেলোড একটি প্রত্যাশিত-আউটপুট ম্যাচার বা এক্সিকিউটেবল এক্সটেনশন কোড নয়। শুধুমাত্র একটি CVE নম্বর আপলোড করলে সেই CVE যাচাই করা যায় না।</p>
+<h3 id="import-requestmatcher-templates">ইম্পোর্ট রিকোয়েস্ট/মেচার টেমপ্লেট</h3>
+<p>YAML/YML/JSON আপলোড করার আগে CVE/Nuclei টেমপ্লেট বিভাগ বেছে নিন; টেমপ্লেট-ফাইল ক্যাপ 2 এমবি। এটি পর্যালোচনা করুন <strong>টেমপ্লেট</strong>, নির্বাহক এবং কংক্রিট প্রস্তুত/অবরুদ্ধ কারণ সহ। আমদানি করা টেমপ্লেট শেয়ার করা লাইব্রেরি ব্যবহার করে; পেলোড প্যাকগুলি তাদের লক্ষ্যের সাথে থাকে।</p>
+<ul>
+<li><strong>নির্বাচিত রান</strong> নির্বাচিত টেমপ্লেটগুলি সরাসরি কার্যকর করে এবং CVE অটো-ফেজ প্রয়োজন হয় না।</li>
+<li><strong>CVE অটো-ফেজ</strong> কনফিগার করা স্ক্যানের সময় যোগ্য CVE-ট্যাগড/শনাক্তকৃত আমদানি বিবেচনা করে।</li>
+<li><strong>অটো-ফাজ</strong> জেনেরিক মান তৈরি করে; এটি রচিত CVE পেলোড বা ম্যাচারদের পুনর্লিখন করে না।</li>
+<li>উপদেশ-শুধু JSON পণ্য/সংস্করণ প্রমাণের সাথে সম্পর্কযুক্ত। এটি একটি কাজের শোষণ অনুরোধ উদ্ভাবন করে না।</li>
+<li>কাঁচা, জটিল, কোড, হেডলেস, ফাইল বা নন-HTTP টেমপ্লেটগুলির জন্য আলাদা অফিসিয়াল ইঞ্জিন এবং অতিরিক্ত অনুদানের প্রয়োজন হতে পারে বা অবরুদ্ধ থাকতে পারে।</li>
+</ul>
+<p>যে টেমপ্লেটগুলির প্রয়োজন সেগুলির সাথে পর্যালোচনা করা আপেক্ষিক সাহায্যকারী বান্ডিলগুলি আমদানি করুন৷ একটি অনুপলব্ধ স্থানীয় রানটাইম, সুযোগের বাইরের অনুরোধ, অনুপস্থিত অনুমোদন বা অসমর্থিত বৈশিষ্ট্য পরিদর্শনের একটি কারণ, একটি সফল নেতিবাচক পরীক্ষা নয়।</p>
+<h2 id="server-stack-and-smart-analyzer">সার্ভার স্ট্যাক এবং স্মার্ট বিশ্লেষক</h2>
+<p>ব্যবহার করুন <strong>সফ্টওয়্যার সনাক্ত করুন</strong> সমর্থিত স্কোপড পর্যবেক্ষণ সংগ্রহ করতে। প্রতিনিধি পৃষ্ঠাগুলি ব্রাউজ করুন এবং আপনার শরীরের প্রমাণের প্রয়োজন হলে উপযুক্ত প্রতিক্রিয়া বজায় রাখুন। তারপর নির্বাচন করুন <strong>রেকর্ডকৃত প্রমাণ বিশ্লেষণ করুন</strong> 200টি সাম্প্রতিক সঞ্চিত প্রতিক্রিয়াগুলির একটি স্থানীয় প্যাসিভ পারস্পরিক সম্পর্কের জন্য। বিশ্লেষক নিজেই কোন লক্ষ্য অনুরোধ যোগ করে না.</p>
+<p>ভিউ ব্রাউজারের উপাদান, WAF/CDN/edge, ওয়েব সার্ভার/রিভার্স প্রক্সি এবং অ্যাপ্লিকেশন/রানটাইম সংকেতকে আলাদা করে। পণ্য-নির্দিষ্ট শিরোনাম, কুকির নাম, সম্পদ/বুটস্ট্র্যাপ কাঠামো এবং ত্রুটি পাঠ্য আত্মবিশ্বাস বাড়াতে পারে। চ্যালেঞ্জ-পৃষ্ঠা সংস্থাগুলিকে অ্যাপ্লিকেশন ফিঙ্গারপ্রিন্টিং থেকে বাদ দেওয়া হয়েছে। একটি জেনেরিক 403, nginx ব্যানার বা CDN প্রান্ত এটি স্থাপন করে না যে একটি নির্দিষ্ট WAF নিয়ম সক্রিয় করা হয়েছে।</p>
+<p>সম্ভাব্য কনফিগারেশন কার্ডগুলি তাদের প্রমাণ এবং একটি প্রস্তাবিত যাচাইকরণ ব্যাখ্যা করে। তারা অনুমান: ব্রাউজার প্রতিক্রিয়া সঠিকভাবে মূল আইপি, ব্যক্তিগত সাবনেট, ব্যাকএন্ড ডাটাবেস সেটিংস, TLS সমাপ্তি, ফায়ারওয়াল নিয়ম বা প্রক্সি ট্রাস্ট তালিকা স্থাপন করতে পারে না। একাধিক আপস্ট্রিম এবং পুনঃলিখিত ব্যানার স্তরগুলি লুকাতে বা ভুল শনাক্ত করতে পারে।</p>
+<h3 id="waf-recommendations-and-rate-handling">WAF সুপারিশ এবং হার পরিচালনা</h3>
+<p><strong>রক্ষণশীল স্ক্যান সুপারিশ প্রয়োগ করুন</strong> স্পষ্টভাবে কমিউনিটি SQL প্রোব, স্মার্ট বৈচিত্র এবং অভিযোজিত হার সক্ষম করে এবং কনফিগার করা হারকে সর্বাধিক 0.5 অনুরোধ/সেকেন্ডে কমিয়ে দেয়। এটি একটি স্ক্যান শুরু করে না বা উন্নত ক্ষমতা প্রদান করে না।</p>
+<p>যোগ্য অনুসন্ধানগুলি বিদ্যমান বাজেটের মধ্যে সর্বাধিক তিনটি বিকল্প উপস্থাপনা বিবেচনা করে। একটি অবরুদ্ধ বেসলাইন এড়িয়ে গেছে। ব্রাউজার চ্যালেঞ্জ স্বাভাবিক ব্রাউজার রেজোলিউশন প্রয়োজন; সাধারণ ACL অস্বীকার অন্তহীন বাইপাস প্রচেষ্টাকে ন্যায্যতা দেয় না। একটি ব্লক-টু-অ্যালো পরিবর্তন হল পৌঁছানোর প্রমাণ, দুর্বলতার প্রমাণ নয়।</p>
+<p>বারবার স্পষ্ট চ্যালেঞ্জ ইন-মেমরি রেটকে অর্ধেক করতে পারে এবং কমপক্ষে দশ সেকেন্ড অপেক্ষা করতে পারে। Retry-After সহ HTTP 429 বা 503 আরও নির্ধারিত প্রোব বন্ধ করে; দীর্ঘ পুনঃপ্রচেষ্টা-পরবর্তী বিরতি সম্মান করা হয়। হার স্বয়ংক্রিয়ভাবে আবার বাড়ে না। কনফিগার করা হার দিয়ে নতুন রান শুরু হয়।</p>
+<h3 id="cve-lookup">সিভিই লুকআপ</h3>
+<p><strong>অনলাইনে সিভিই অনুসন্ধান করুন</strong> অনুমতির পরে সমর্থিত পণ্য/প্যাকেজ স্থানাঙ্কের জন্য NVD/OSV জিজ্ঞাসা করুন। অনুরোধটি স্থানাঙ্ক পাঠায়, লক্ষ্য ইউআরএল, কুকিজ বা পৃষ্ঠা সামগ্রী নয়। অজানা সংস্করণ, বিক্রেতা ব্যাকপোর্ট এবং অযাচাইকৃত প্যাকেজ উপস্থিতি সীমা উপসংহার। ম্যানুয়াল npm/PyPI এন্ট্রি ইনস্টলেশন প্রমাণ করে না।</p>
+<p>কোন মিল মানে কোন CVE নয়। একটি ম্যাচ একটি উপদেষ্টা প্রার্থী; পূর্বশর্ত পরিদর্শন এবং ব্যবহার <strong>যাচাইকরণ টেমপ্লেট খুঁজুন</strong> উপযুক্ত আমদানি করা চেক সনাক্ত করতে. সেই বোতামটি টেমপ্লেটগুলি চালানোর পরিবর্তে ফিল্টার করে।</p>
+<h2 id="oast-setup-and-interpretation">OAST সেটআপ এবং ব্যাখ্যা</h2>
+<p><a href="https://portswigger.net/web-security/ssrf/blind">OAST</a> যখন স্বাভাবিক প্রতিক্রিয়া আচরণ প্রকাশ করে না তখন একটি অনুসন্ধানের কারণে সৃষ্ট DNS/HTTP মিথস্ক্রিয়া পর্যবেক্ষণ করে। লংশট এর নিবন্ধন/সম্পর্ক কীগুলির মালিক; অন্য ক্লায়েন্ট থেকে একটি র্যান্ডম পূর্ব-উত্পন্ন কলব্যাক বিনিময়যোগ্য নয়।</p>
+<ol>
+<li>একটি Interactsh-সামঞ্জস্যপূর্ণ পরিষেবা বেছে নিন যা আপনি নিয়ন্ত্রণ করেন বা ব্যবহার করার অনুমতি পান।</li>
+<li>প্রবেশ করুন <strong>প্রদানকারী URL</strong>: প্রদানকারীর সম্পূর্ণ API বেস ঠিকানা, সাধারণত HTTPS। HTTP শুধুমাত্র লুপব্যাক প্রদানকারীদের জন্য অনুমোদিত।</li>
+<li>ম্যাচিং লিখুন <strong>কলব্যাক ডোমেইন</strong> ছাড়া <code dir="ltr" translate="no">http://</code>, একটি বন্দর বা একটি পথ।</li>
+<li>প্রবেশ করুন <strong>প্রদানকারী টোকেন</strong> শুধুমাত্র যদি সেই প্রদানকারীর প্রয়োজন হয়।</li>
+<li>TTL এবং ভোটের ব্যবধান সেট করুন; OAST এবং প্রাসঙ্গিক SSRF/XXE/Log4Shell/কমান্ড বিকল্পগুলি সক্ষম করুন৷</li>
+<li>ব্যবহার করুন <strong>OAST সংযোগ পরীক্ষা করুন</strong> রেজিস্ট্রেশন/পোলিং চেক করতে।</li>
+<li>ব্যবহার করুন <strong>OAST কলব্যাক পরীক্ষা করুন</strong> এই ব্রাউজার থেকে একটি পৃথক সম্পর্কযুক্ত ক্যানারি পাঠাতে।</li>
+<li>প্রকৃত স্ক্যান সংরক্ষণ, পর্যালোচনা এবং অনুমোদন. OAST মিথস্ক্রিয়াতে সঠিক পারস্পরিক সম্পর্ক এবং প্রোটোকল পরিদর্শন করুন।</li>
+</ol>
+<p>উদাহরণস্বরূপ, যদি মিলিত পাবলিক সার্ভিস ব্যবহার করে <code dir="ltr" translate="no">https://oast.pro</code>, এর কলব্যাক বেস <code dir="ltr" translate="no">oast.pro</code>. এটি একটি উদাহরণ, প্রাপ্যতার গ্যারান্টি বা সেই প্রদানকারীকে ব্যবহার করার জন্য প্রয়োজনীয়তা নয়। একটি স্ব-হোস্টেড প্রদানকারীর নিজস্ব সঠিকভাবে অর্পণযোগ্য ডোমেইন, DNS/শ্রোতা এবং TLS প্রয়োজন; শুধুমাত্র একটি ল্যাপটপ HTTP শ্রোতা একটি পাবলিক কলব্যাক পরিষেবা নয়। অনুসরণ করুন <a href="https://github.com/projectdiscovery/interactsh">অফিসিয়াল ইন্টারঅ্যাক্টশ সেটআপ</a>.</p>
+<table>
+<thead>
+<tr>
+<th>পর্যবেক্ষণ</th>
+<th>এটি কি প্রতিষ্ঠা করে</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>সংযোগ পরীক্ষা পাস</td>
+<td>রেজিস্ট্রেশন এবং পোলিং ব্রাউজারের রুট মাধ্যমে কাজ</td>
+</tr>
+<tr>
+<td>ব্রাউজার কলব্যাক পরীক্ষা পাস</td>
+<td>এই ব্রাউজারটি তার নিজস্ব সম্পর্কযুক্ত মিথস্ক্রিয়া ট্রিগার এবং পুনরুদ্ধার করতে পারে</td>
+</tr>
+<tr>
+<td>টার্গেট প্রোব মিলে মিথস্ক্রিয়া তৈরি করে</td>
+<td>একটি সম্পর্কযুক্ত মিথস্ক্রিয়া ঘটেছে; উত্সটি বৈশিষ্ট্যযুক্ত করুন এবং এর অর্থ মূল্যায়ন করুন</td>
+</tr>
+<tr>
+<td>কোন কলব্যাক নেই</td>
+<td>অনিশ্চিত: লক্ষ্য বহির্গমন, প্রদানকারীর পৌঁছানো, মেয়াদ শেষ, ফিল্টারিং বা অসমর্থিত প্রসঙ্গ এটি ব্যাখ্যা করতে পারে</td>
+</tr>
+</tbody>
+</table>
+<p>একটি DNS রেজোলিউশন একটি মধ্যস্থতাকারী/নিরাপত্তা পরিষেবা থেকে আসতে পারে। একা একটি কলব্যাক নির্বিচারে অভ্যন্তরীণ অ্যাক্সেস, ডেটা চুরি বা কোড সম্পাদন প্রমাণ করে না। পৃথক বিচ্ছিন্ন নিউক্লি ইঞ্জিনের নিজস্ব স্থানীয় ইন্টারঅ্যাক্টশ নিবন্ধন রয়েছে; সেই ইভেন্টগুলি ব্রাউজার ক্লায়েন্টের নিবন্ধন নয়।</p>
+<p>ব্রাউজার-সাইড OAST ক্লায়েন্টের জন্য Go, Node বা Agent API এর প্রয়োজন নেই। রিলিজ পরীক্ষায় অফিসিয়াল-সার্ভার নিবন্ধন, এনক্রিপ্ট করা HTTP কলব্যাক পুনরুদ্ধার এবং লুপব্যাকের পারস্পরিক সম্পর্ক; তারা পাবলিক-প্রোভাইডার প্রাপ্যতা বা আপনার টার্গেট সার্ভারের প্রস্থান স্থাপন করেনি। কোনো হোস্ট-ফাইল সম্পাদনা স্বাভাবিকভাবে অর্পিত OAST সেটআপের অংশ নয়।</p>
+<h2 id="browser-bridge-native-tool-proxy">ব্রাউজার ব্রিজ: নেটিভ টুল প্রক্সি</h2>
+<h3 id="what-it-sends">এটা কি পাঠায়</h3>
+<p>একটি বাহ্যিক সরঞ্জাম অনুরোধটি তৈরি করে, এর আক্রমণের পেলোড, পদ্ধতি, বডি এবং ক্যোয়ারী সহ। নেটিভ অ্যাডাপ্টার এটিকে mitmproxy এর মাধ্যমে ফরোয়ার্ড করে, শুধুমাত্র কনফিগার করা কুকি/হেডার পরিবর্তনগুলি প্রয়োগ করে। এটা করে <strong>না</strong> ফায়ারফক্সকে ZAP বা অন্য কোনো টুলের হয়ে ফেচ করতে বলুন।</p>
+<p>এটি নেটিভ HTTP শব্দার্থবিদ্যা এবং টুলের পেলোড জেনারেশন সংরক্ষণ করে, কিন্তু নির্বিচারে মূল তারের বাইট নয়: mitmproxy HTTP পার্স/সিরিয়ালাইজ করে এবং নিজস্ব আউটবাউন্ড TLS সংযোগ স্থাপন করে। একটি ব্রাউজার ব্যবহারকারী-এজেন্ট স্ট্রিং নেটিভ TLS/নেটওয়ার্ক ফিঙ্গারপ্রিন্টকে ফায়ারফক্সের মতো করে না।</p>
+<h3 id="install-the-downloaded-adapter">ডাউনলোড করা অ্যাডাপ্টার ইনস্টল করুন</h3>
+<ol>
+<li>খোলা <strong>ব্রাউজার ব্রিজ</strong>. শুধুমাত্র <strong>নেটিভ টুল প্রক্সি</strong> 2.18.1 এ উপলব্ধ।</li>
+<li>বেছে নিন <strong>নেটিভ অ্যাডাপ্টার ডাউনলোড করুন</strong> এবং এটি নিষ্কাশন করুন।</li>
+<li>নিষ্কাশিত লিখুন <code dir="ltr" translate="no">native-bridge</code> ডিরেক্টরি এটি ধারণ করে <code dir="ltr" translate="no">cli.js</code>, <code dir="ltr" translate="no">bootstrap.py</code>, <code dir="ltr" translate="no">config.json</code> এবং বান্ডিল নোড <code dir="ltr" translate="no">ws</code> নির্ভরতা</li>
+<li>Node.js 20+ এবং Python 3.12+ ইনস্টল করুন যদি তারা ইতিমধ্যে উপলব্ধ না থাকে।</li>
+<li>এককালীন পাইথন সেটআপ চালান:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   cd /absolute/path/to/native-bridge
+   python3 bootstrap.py</code></p>
+<p>এটি একটি স্থানীয় তৈরি করে <code dir="ltr" translate="no">.venv</code> এবং পিন করা mitmproxy 12.2.3 ইনস্টল করে। ইনস্টলেশন ইন্টারনেট অ্যাক্সেস প্রয়োজন. সাধারণ স্টার্টআপ স্ক্যানার কোড বা পেলোড তালিকা ডাউনলোড করে না।</p>
+<ol start="6">
+<li>দ্বারা দেখানো কমান্ড ব্যবহার করুন <strong>আপনার</strong> এক্সটেনশন পৃষ্ঠা:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   node cli.js --config config.json \
+     --extension-origin moz-extension://YOUR-LONGSHOT-UUID</code></p>
+<p>সম্পূর্ণ বর্তমান এক্সটেনশন মূল দিয়ে স্থানধারক প্রতিস্থাপন করুন। এটি লক্ষ্য ওয়েবসাইট, অ্যাড-অন আইডি বা অন্য ফায়ারফক্স প্রোফাইল থেকে অনুলিপি করা একটি মূল নয়।</p>
+<ol start="7">
+<li>টার্মিনাল চালু রাখুন। প্রক্সি শ্রোতা প্রস্তুত হওয়ার পরে, এটি প্রক্সি ঠিকানা, নিয়ন্ত্রণ পোর্ট, নতুন পেয়ারিং/প্রক্সি টোকেন এবং CA শংসাপত্রের পথ প্রিন্ট করে।</li>
+</ol>
+<p>বান্ডিল অ্যাডাপ্টার সংরক্ষণাগার ব্যবহার না করে উৎস ZIP থেকে বিকাশ করার সময়, অনুপস্থিত থাকলে প্রথমে এটির পিন করা নোড নির্ভরতা ইনস্টল করুন:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+npm --prefix native-bridge ci --omit=dev
+cd native-bridge
+python3 bootstrap.py
+</code></pre>
+<p><code dir="ltr" translate="no">--mitmdump /absolute/path/to/mitmdump</code> বা <code dir="ltr" translate="no">LONGSHOT_MITMDUMP</code> একটি বিদ্যমান রানটাইম নির্বাচন করে। <code dir="ltr" translate="no">--data-dir /absolute/private/run-directory</code> CA/অডিট ডিরেক্টরি নির্বাচন করে; ডিফল্ট হয় <code dir="ltr" translate="no">run</code> নেটিভ অ্যাডাপ্টারের ভিতরে। Ctrl+C অ্যাডাপ্টার বন্ধ করে।</p>
+<p>ম্যানুয়াল নেটিভ প্রক্সি এজেন্ট API হোস্ট রেজিস্ট্রেশন থেকে আলাদা। এর দরকার নেই <code dir="ltr" translate="no">node bridge/bin/longshot-bridge install</code> শুধুমাত্র প্রক্সি কার্ল/ZAP-এর জন্য। লিনাক্স/ফায়ারফক্স রিলিজ ইন্টিগ্রেশন পরীক্ষায় ব্যবহার করা হয়েছিল; এই ম্যানুয়াল নোড/পাইথন স্টার্টআপ পাথ থেকে অন্য প্ল্যাটফর্মে নেটিভ-মেসেজিং ইনস্টলার সমর্থন অনুমান করবেন না।</p>
+<h3 id="pair-the-selected-tab">নির্বাচিত ট্যাব পেয়ার করুন</h3>
+<ol>
+<li>অনুমোদিত নির্বাচন করুন <strong>টার্গেট ট্যাব</strong> ব্রাউজার ব্রিজে।</li>
+<li>এটির প্রদর্শিত উত্স এবং কুকি স্টোর যাচাই করুন৷ ব্যবহার করুন <strong>ট্যাব রিফ্রেশ করুন</strong> প্রয়োজন হলে</li>
+<li>প্রবেশ করুন <strong>কন্ট্রোল পোর্ট</strong> <code dir="ltr" translate="no">8901</code>, যদি না অ্যাডাপ্টার কনফিগারে পরিবর্তন করা হয়।</li>
+<li>কারেন্ট পেস্ট করুন <strong>পেয়ারিং/প্রক্সি টোকেন</strong> চলমান অ্যাডাপ্টার থেকে।</li>
+<li>বেছে নিন <strong>জোড়া দেশি সেতু</strong> এবং প্রস্তুত অবস্থা যাচাই করুন।</li>
+<li>টুল ট্রাফিক রাউটিং করার আগে কুকি/হেডার সুইচ পর্যালোচনা করুন।</li>
+</ol>
+<p>সফল জুটি বাঁধার পর ক্ষেত্রটি টোকেনটি সাফ করে। একটি পুনঃসূচনা একটি নতুন টোকেন তৈরি করে: আবার জোড়া এবং প্রতিটি বাহ্যিক সরঞ্জামে প্রক্সি শংসাপত্র আপডেট করুন। প্রক্সি পোর্ট <code dir="ltr" translate="no">8900</code> টুলস জন্য হয়; নিয়ন্ত্রণ বন্দর <code dir="ltr" translate="no">8901</code> ফায়ারফক্সের জন্য। উভয়ই পোর্ট 8765 থেকে Agent API বহনকারী টোকেন ব্যবহার করে না।</p>
+<h3 id="actual-target-urls-and-bridgeinvalid">প্রকৃত লক্ষ্য URL এবং bridge.invalid</h3>
+<p>আসল ঠিকানা ব্যবহার করুন, যেমন <code dir="ltr" translate="no">http://localhost:8080/search?q=apple</code>, আপনার টুলে। এইচটিটিপিএস পরীক্ষা করলে, আসল ব্যবহার করুন <code dir="ltr" translate="no">https://...</code> ঠিকানা প্রক্সির নিজস্ব ঠিকানা রয়ে গেছে <code dir="ltr" translate="no">http://127.0.0.1:8900</code> কারণ এটি হল স্থানীয় HTTP প্রক্সি লিসেনার, HTTPS CONNECT সহ।</p>
+<p><strong>না <code dir="ltr" translate="no">/etc/hosts</code> এন্ট্রি প্রয়োজন।</strong> পুরাতন <code dir="ltr" translate="no">bridge.invalid</code> ঠিকানাটি একটি নির্বাচিত ব্রাউজার-ফেচ লক্ষ্যে একটি ইউটিলিটির HTTP URL ম্যাপ করার জন্য একটি অ্যাডাপ্টার-নির্দিষ্ট উপনাম ছিল। বর্তমান নেটিভ প্রক্সি প্রকৃত লক্ষ্য URL এবং HTTPS CONNECT সমর্থন করে, যাতে ম্যাপিং অপ্রয়োজনীয়।</p>
+<p><code dir="ltr" translate="no">localhost</code> প্রতিটি টার্গেটের জন্য একটি বিনিময়যোগ্য উপনাম নয়: এটি প্রাসঙ্গিক প্রক্রিয়ার নেটওয়ার্ক পরিবেশ থেকে স্থানীয় মেশিনের নামকরণ করে। এটি তখনই সঠিক যখন লক্ষ্যটি প্রকৃতপক্ষে সেই উত্সের স্থানীয় হয়। একটি ভিন্ন হোস্টনাম একটি ভিন্ন ভার্চুয়াল হোস্ট, কুকি নীতি বা উত্স নির্বাচন করতে পারে যদিও উভয় নাম একই আইপিতে সমাধান করে।</p>
+<p>একটি বিদ্যমান অপ্রচলিত হোস্ট এন্ট্রি নতুন কর্মপ্রবাহের সাথে অপ্রাসঙ্গিক; টুল URL-এ এটি ব্যবহার করবেন না। এই টিউটোরিয়ালটি প্রস্তুত করার সময় হোস্ট-ফাইলের কোনো পরিবর্তন করা হয়নি।</p>
+<h3 id="https-trust">HTTPS বিশ্বাস</h3>
+<p>অ্যাডাপ্টার নির্বাচিত ডেটা ডিরেক্টরির অধীনে তার নিজস্ব স্থানীয় CA তৈরি করে, সাধারণত:</p>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
+run/ca/mitmproxy-ca.pem            sensitive CA material/private key
+</code></pre>
+<p>কনফিগার করুন <strong>বাহ্যিক টুলের মূল্যায়ন বিশ্বাস কনফিগারেশন</strong> স্টার্টআপে মুদ্রিত পাবলিক সার্টিফিকেট পাথ সহ। ব্যক্তিগত কী শেয়ার করবেন না বা অনুমান করবেন না যে সিস্টেম/ফায়ারফক্স ট্রাস্ট স্টোর পরিবর্তন করা হয়েছে। অ্যাডাপ্টারটি তার CA ট্রাস্ট স্টোরে ইনস্টল করে না।</p>
+<p>কার্ল জন্য:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  --cacert /absolute/path/to/native-bridge/run/ca/mitmproxy-ca-cert.pem \
+  'https://actual-target.example/search?q=apple'
+</code></pre>
+<p>প্রতিস্থাপন করুন <code dir="ltr" translate="no">CURRENT_TOKEN</code> এবং লক্ষ্য/শংসাপত্র পথ। শুধুমাত্র HTTP-র স্থানীয় লক্ষ্যের জন্য, <code dir="ltr" translate="no">--cacert</code> অপ্রয়োজনীয় <code dir="ltr" translate="no">--noproxy ''</code> একটি লুপব্যাক টার্গেটের জন্য কার্ল নিঃশব্দে প্রক্সি বাইপাস করে না তা নিশ্চিত করে।</p>
+<p>দুটি স্বতন্ত্র TLS চেক আছে:</p>
+<ul>
+<li>ক্লায়েন্ট অ্যাডাপ্টারের দ্বারা উপস্থাপিত শংসাপত্র যাচাই করে। অ্যাডাপ্টার CA দিয়ে ক্লায়েন্টের বিশ্বাস কনফিগার করুন।</li>
+<li>অ্যাডাপ্টার প্রকৃত আপস্ট্রিম সার্ভার যাচাই করে। <code dir="ltr" translate="no">tls.verifyUpstream</code> ডিফল্ট সত্য। ক্লায়েন্ট <code dir="ltr" translate="no">--cacert</code> অ্যাডাপ্টারে একটি ব্যক্তিগত মূল CA সরবরাহ করে না।</li>
+</ul>
+<p>যাচাইকরণ নিষ্ক্রিয় করাকে সার্টিফিকেট ত্রুটির জন্য স্বাভাবিক সমাধান হিসাবে বিবেচনা করবেন না। একটি মালিকানাধীন স্ব-স্বাক্ষরিত ফিক্সচারের জন্য, <code dir="ltr" translate="no">tls.verifyUpstream:false</code> অ্যাডাপ্টার কনফিগারেশনে একটি সুস্পষ্ট মূল্যায়ন ব্যতিক্রম, এর পরে পুনরায় চালু করুন; এটি সেই পৃথক আপস্ট্রিম চেককে দুর্বল করে দেয়। দেখুন <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy সার্টিফিকেট আচরণ</a>.</p>
+<h3 id="traffic-fidelity-and-limits">ট্রাফিক বিশ্বস্ততা এবং সীমা</h3>
+<table>
+<thead>
+<tr>
+<th>নেটিভ প্রক্সি সমর্থন করে</th>
+<th>প্রতিষ্ঠা বা সমর্থন করে না</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>টুল-জেনারেটেড পদ্ধতি, কোয়েরি পেলোড এবং বডি</td>
+<td>সঠিক মূল হেডার বাইট/অর্ডার/কেসিং বা বিকৃত ফ্রেমিং</td>
+</tr>
+<tr>
+<td>HTTP/1.1, HTTP/2, HTTPS সংযোগ</td>
+<td>HTTP/3, নির্বিচারে TCP বা নন-HTTP স্ক্যানার মোড</td>
+</tr>
+<tr>
+<td>কনফিগার করা সেশন/হেডার ওভাররাইড</td>
+<td>সম্পূর্ণ ব্রাউজার ফিঙ্গারপ্রিন্ট, জাভাস্ক্রিপ্ট চ্যালেঞ্জ এক্সিকিউশন বা ব্রাউজারের মালিকানাধীন TLS</td>
+</tr>
+<tr>
+<td>ওয়েবসকেট নেটিভ রুটে আপগ্রেড করে</td>
+<td>একটি জেনেরিক অ্যাপ্লিকেশন-প্রটোকল দুর্বলতা যাচাইকারী</td>
+</tr>
+<tr>
+<td>একটি অনুমোদিত HTTPS CONNECT গন্তব্য বজায় রাখার সময় টুল হোস্ট-হেডার প্রোব</td>
+<td>একটি অনিয়ন্ত্রিত ডায়াল লক্ষ্য বা স্বয়ংক্রিয় নতুন লক্ষ্য অনুমোদন</td>
+</tr>
+<tr>
+<td>ব্রাউজার সেশন রপ্তানি ছাড়াই স্কোপ করা অতিরিক্ত উত্স</td>
+<td>ব্রাউজার কুকি/হেডার শংসাপত্র স্বয়ংক্রিয়ভাবে উত্স জুড়ে শেয়ার করা হয়</td>
+</tr>
+</tbody>
+</table>
+<p>নেটিভ রুটে কোনো ব্রাউজার-ফেচ ফলব্যাক নেই। কাঁচা অনুরোধ-পাচার, অস্বাভাবিক ওয়্যার-ফ্রেমিং বা কাস্টম-টিএলএস গবেষণার জন্য, একটি উপযুক্ত পৃথক পরিবহন ব্যবহার করুন। এই পার্স করা প্রক্সি বাইট-স্বচ্ছ লেবেল করবেন না।</p>
+<h2 id="native-bridge-configuration">নেটিভ ব্রিজ কনফিগারেশন</h2>
+<p>ব্রাউজার ব্রিজ থেকে কনফিগারেশন ডাউনলোড করুন বা অ্যাডাপ্টারের সম্পাদনা করুন <code dir="ltr" translate="no">config.json</code>. অজানা কী, অবৈধ প্রকার এবং সীমার বাইরের মানগুলি প্রত্যাখ্যান করা হয়েছে৷ পুরানো অ্যাডাপ্টার ক্ষেত্রগুলি নেটিভ কনফিগার প্রতিশব্দ নয়।</p>
+<p>চলমান অ্যাডাপ্টার কনফিগ জোড়ার উপর প্রামাণিক। <strong>ওভাররাইড প্রয়োগ করুন</strong> বর্তমান পেয়ারিংয়ের জন্য সমর্থিত ব্রাউজার ওভাররাইড পছন্দ পরিবর্তন করে। <strong>কনফিগার ডাউনলোড করুন</strong> পরবর্তী শুরুর জন্য নির্বাচিত কনফিগারেশন ধরে রাখে। সাধারণ JSON ক্ষেত্রগুলি সম্পাদনা করা ইতিমধ্যে চলমান প্রক্রিয়ায় শ্রোতা পোর্ট, TLS, রাউটিং বা সীমাগুলি নীরবে পুনরায় কনফিগার করে না: সংরক্ষণ/ডাউনলোড, পুনরায় চালু এবং পুনরায় জোড়া।</p>
+<h3 id="complete-shipped-defaults">সম্পূর্ণ শিপড ডিফল্ট</h3>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "proxy": {
+    "port": 8900
+  },
+  "control": {
+    "port": 8901,
+    "timeoutMs": 10000
+  },
+  "browser": {
+    "required": true,
+    "firstPartyDomain": null
+  },
+  "cookies": {
+    "enabled": true,
+    "mode": "replace",
+    "saveResponses": true,
+    "preserveToolChanges": true,
+    "protectedNames": [],
+    "includeNames": [],
+    "excludeNames": []
+  },
+  "headers": {
+    "userAgent": {
+      "source": "tool",
+      "value": ""
+    },
+    "acceptLanguage": {
+      "source": "tool",
+      "value": ""
+    },
+    "authorization": {
+      "source": "tool",
+      "value": ""
+    },
+    "set": {},
+    "remove": [],
+    "protectedNames": []
+  },
+  "scope": {
+    "origins": [],
+    "excludePaths": [],
+    "methods": [
+      "*"
+    ]
+  },
+  "limits": {
+    "rate": 2,
+    "concurrency": 4,
+    "maxRequests": 10000,
+    "maxBodyBytes": 67108864,
+    "timeoutSeconds": 60
+  },
+  "session": {
+    "pauseStatuses": [
+      401,
+      419,
+      440
+    ],
+    "pauseOn429": true
+  },
+  "tls": {
+    "verifyUpstream": true,
+    "http2": true
+  },
+  "upstream": {
+    "url": null
+  },
+  "routing": {
+    "socks5": null
+  },
+  "audit": {
+    "enabled": true
+  }
+}
+</code></pre>
+<p>একটা খালি <code dir="ltr" translate="no">scope.origins</code> পেয়ার করা টার্গেটের সঠিক উৎপত্তিতে ডিফল্ট। একটি সাধারণ জোড়া মূল্যায়ন শুরু করার জন্য আপনাকে লক্ষ্য বা একটি শুরু/শেষ টাইমস্ট্যাম্প প্রবেশ করতে হবে না। সুযোগ প্রয়োগ এখনও বিদ্যমান; এটি একটি পুরানো বাধ্যতামূলক মূল্যায়ন ফর্মের পরিবর্তে জোড়া দিয়ে বেছে নেওয়া হয়।</p>
+<h3 id="field-reference">ক্ষেত্রের রেফারেন্স</h3>
+<table>
+<thead>
+<tr>
+<th>মাঠ</th>
+<th>প্রভাব</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">schemaVersion</code></td>
+<td>নেটিভ কনফিগার বিন্যাস; বর্তমান মান 1</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">proxy.port</code></td>
+<td>টুল-মুখী HTTP প্রক্সি পোর্ট, ডিফল্ট 8900</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.port</code></td>
+<td>ফায়ারফক্স সমন্বয়কারী পোর্ট, ডিফল্ট 8901; প্রক্সি পোর্ট থেকে আলাদা হতে হবে</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.timeoutMs</code></td>
+<td>ব্রাউজার/কন্ট্রোল রিপ্লাই টাইমআউট, ডিফল্ট 10,000 ms</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.required</code></td>
+<td>ডিফল্টরূপে জোড়া প্রয়োজন। স্বতন্ত্র ক্রিয়াকলাপের সুস্পষ্ট উত্স এবং ব্রাউজার থেকে প্রাপ্ত সমস্ত বৈশিষ্ট্য বন্ধ প্রয়োজন৷</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.firstPartyDomain</code></td>
+<td>ফায়ারফক্স কুকি API-এর প্রয়োজন হলে স্পষ্ট প্রথম-পক্ষ বিচ্ছিন্নতা ডোমেন; null স্বাভাবিক আচরণ ব্যবহার করে</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.enabled</code></td>
+<td>বহির্গামী নেটিভ অনুরোধে নির্বাচিত ফায়ারফক্স কুকি ব্যবহার করুন; ডিফল্ট সত্য</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.mode</code></td>
+<td><code dir="ltr" translate="no">replace</code> ডিফল্টরূপে; ঐচ্ছিক <code dir="ltr" translate="no">merge</code>, নীচে ব্যাখ্যা করা হয়েছে</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code></td>
+<td>নির্বাচিত ফায়ারফক্স জারে প্রতিক্রিয়া সেট-কুকি আপডেটগুলি প্রয়োগ করুন; ডিফল্ট সত্য, অনুরোধ ওভাররাইড থেকে স্বাধীন</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.preserveToolChanges</code></td>
+<td>প্রতি ক্লায়েন্ট সংযোগ/উৎস প্রতি প্রথম অনুরোধের সাথে সম্পর্কিত পরিবর্তনগুলি সংরক্ষণ করুন; ডিফল্ট সত্য</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.protectedNames</code></td>
+<td>কুকির নাম যার টুলের মান অবশ্যই টুল নিয়ন্ত্রণে থাকবে</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.includeNames</code></td>
+<td>শুধুমাত্র এই নামগুলি পরিচালনা করুন; খালি মানে সব মিলে যাওয়া ব্রাউজারের নাম</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.excludeNames</code></td>
+<td>এই ব্রাউজার কুকি নাম পরিচালনা করবেন না</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.userAgent</code>, <code dir="ltr" translate="no">acceptLanguage</code>, <code dir="ltr" translate="no">authorization</code></td>
+<td><code dir="ltr" translate="no">source</code> হয় <code dir="ltr" translate="no">tool</code>, <code dir="ltr" translate="no">browser</code> বা <code dir="ltr" translate="no">custom</code>; কাস্টম একটি খালি একক লাইন প্রয়োজন <code dir="ltr" translate="no">value</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.set</code>, <code dir="ltr" translate="no">remove</code>, <code dir="ltr" translate="no">protectedNames</code></td>
+<td>সুস্পষ্ট অতিরিক্ত হেডার পরিবর্তন এবং সুরক্ষা; সংরক্ষিত/পরিচালিত ক্ষেত্রগুলির জন্য তাদের উত্সর্গীকৃত নিয়ন্ত্রণ প্রয়োজন</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.origins</code></td>
+<td>খালি জোড়া মূল ব্যবহার করে; সুস্পষ্টভাবে তালিকাভুক্ত অতিরিক্ত সঠিক উৎপত্তি কোন ব্রাউজার থেকে প্রাপ্ত সেশন ক্ষেত্র পায় না</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.excludePaths</code></td>
+<td>বাদ দেওয়া পথ উপসর্গ, ডিকোড করা ফর্ম সহ</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.methods</code></td>
+<td>অনুমোদিত পদ্ধতি; ডিফল্ট <code dir="ltr" translate="no">["*"]</code> মানে সমস্ত নেটিভ HTTP পদ্ধতি, লংশটের ব্রাউজার লেখার অনুমোদন নয়</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.rate</code></td>
+<td>ভাগ করা নেটিভ শিডিউলিং রেট, ডিফল্ট 2 অনুরোধ/সেকেন্ড</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.concurrency</code></td>
+<td>স্থানীয় নিয়ন্ত্রণ স্লট, ডিফল্ট 4</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxRequests</code></td>
+<td>নেটিভ রিকোয়েস্ট সিলিং, ডিফল্ট 10,000; ক্লান্তি কাজ বন্ধ করে দেয়</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxBodyBytes</code></td>
+<td>বাফারিং/বডি সিলিং, ডিফল্ট 64 MiB</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.timeoutSeconds</code></td>
+<td>সমাপ্তি লিজ/টাইমআউট, ডিফল্ট 60 সেকেন্ড; ইতিমধ্যে পাঠানো একটি অনুরোধের কোন রোলব্যাক</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseStatuses</code></td>
+<td>ডিফল্ট প্রমাণীকরণ-স্থিতি বিরাম তালিকা: 401, 419, 440</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseOn429</code></td>
+<td>ডিফল্টরূপে থ্রটলিং এ বিরতি দিন</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">tls.verifyUpstream</code>, <code dir="ltr" translate="no">http2</code></td>
+<td>ডিফল্টরূপে উভয়ই সত্য</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">upstream.url</code></td>
+<td>ঐচ্ছিক HTTP(S) আপস্ট্রিম প্রক্সি; null মানে কোনটি নয়</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">routing.socks5</code></td>
+<td>ঐচ্ছিক <code dir="ltr" translate="no">socks5h://host:port</code>; ডিফল্টরূপে নাল; আপস্ট্রিম URL এর সাথে পারস্পরিক একচেটিয়া</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">audit.enabled</code></td>
+<td>শুধুমাত্র মেটাডেটা JSONL অডিট, ডিফল্ট সত্য</td>
+</tr>
+</tbody>
+</table>
+<p>নেটিভ ভ্যালিডেশন রেঞ্জ: পোর্ট 1024–65535, রেট 0.1–100, কনকারেন্সি 1–32, অনুরোধ সিলিং 1–1,000,000, বডি লিমিট 1 KB–256 MiB, টাইমআউট 1–600 সেকেন্ড, কন্ট্রোল টাইমআউট 1,000–1,000ms এগুলি স্বীকৃত কনফিগারেশন সীমা, একটি লক্ষ্যের নিরাপদ লোডের জন্য সুপারিশ নয়।</p>
+<p>হেডারের নামগুলি অক্ষর-সংবেদনশীল। কুকির নাম কেস-সংবেদনশীল। JSON বুলিয়ান ব্যবহার করুন <code dir="ltr" translate="no">true</code>/<code dir="ltr" translate="no">false</code>, স্ট্রিং নয়। সাধারণ <code dir="ltr" translate="no">headers.set</code> হোস্ট, কুকি, অনুমোদন, ফ্রেমিং বা প্রক্সি-নিয়ন্ত্রণ ক্ষেত্র প্রতিস্থাপন করতে পারে না। ডেডিকেটেড কুকি/অনুমোদন বিকল্প এবং টুলের নিজস্ব হোস্ট মান ব্যবহার করুন।</p>
+<p>একটি নেটিভ টুল রানের জন্য লোড কমাতে, একটি আংশিক কনফিগার ডিফল্ট ওভাররাইড করতে পারে, উদাহরণস্বরূপ:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "limits": {
+    "rate": 0.5,
+    "concurrency": 1,
+    "maxRequests": 500
+  }
+}
+</code></pre>
+<p>কোনও সাধারণ নেটিভ কনফিগার কী নেই যা ফর্ম বডি টোকেন রিফ্রেশ করে বা ব্রাউজার লগইন ওয়ার্কফ্লো উদ্ভাবন করে।</p>
+<h2 id="cookie-and-header-overrides-without-damaging-probes">কুকি এবং হেডার প্রোবের ক্ষতি না করে ওভাররাইড করে</h2>
+<h3 id="default-cookie-behavior">ডিফল্ট কুকি আচরণ</h3>
+<p><strong>ব্রাউজার কুকিজ ব্যবহার করুন</strong> এবং <strong>প্রতিক্রিয়া সেট-কুকি আপডেট সংরক্ষণ করুন</strong> ডিফল্টরূপে চালু আছে। ব্যবহারকারী-এজেন্ট, স্বীকার-ভাষা এবং অনুমোদন ডিফল্টরূপে টুল-নিয়ন্ত্রিত থাকে।</p>
+<p>একটি নেটিভ অনুরোধের জন্য, ফায়ারফক্স পেয়ার করা ট্যাবের কুকি স্টোর এবং ম্যাচিং পার্টিশন থেকে URL-এর জন্য প্রযোজ্য কুকি নির্বাচন করে। অন্যান্য পাত্র/প্রাইভেট স্টোর একত্রিত করা হয় না। ডোমেন/পাথ/সিকিউর/মেয়াদ শেষ হওয়ার নিয়ম এবং একই-নাম পাথ অর্ডার প্রাসঙ্গিক থাকে। মান স্থানীয় প্রক্সিতে সরবরাহ করা হয় যাতে এটি বহির্গামী কুকি হেডার তৈরি করতে পারে; সরানো ব্রাউজার-ফেচ পাথের বিপরীতে, নেটিভ হেল্পার তাই মেমরিতে সেশন সিক্রেট পরিচালনা করে।</p>
+<p>সঙ্গে <code dir="ltr" translate="no">cookies.mode:"replace"</code>, ব্রাউজার জারটি প্রামাণিক, যখন খালি থাকে। জার থেকে মুছে ফেলা একটি ব্রাউজার কুকি পরে পরিচালিত অনুরোধ থেকে সরানো হয়। স্পষ্টভাবে সুরক্ষিত নাম এবং সনাক্ত করা টুল পরিবর্তন অগ্রাধিকার নেয়. সঙ্গে <code dir="ltr" translate="no">mode:"merge"</code>, ব্রাউজার-পরিচালিত নাম আপডেট করার সময় সম্পর্কহীন টুল কুকিজ থাকতে পারে।</p>
+<p>রেসপন্স সেট-কুকি ক্ষেত্রগুলি সমর্থিত ডোমেন/পাথ/সিকিউর/HttpOnly/SameSite/expiry/deletion/partition বৈশিষ্ট্যগুলি সহ Firefox-এর কুকি API ব্যবহার করে একই নির্বাচিত স্টোরে পৃথকভাবে প্রয়োগ করা হয়। অবৈধ কুকি প্রত্যাখ্যান করা যেতে পারে; রিপোর্ট করা ত্রুটিগুলি পরিদর্শন করুন। অতিরিক্ত কনফিগার করা মূলগুলি ব্রাউজার কুকিজ বা ব্রাউজার থেকে প্রাপ্ত হেডার পায় না।</p>
+<h3 id="request-and-response-switches-are-independent">অনুরোধ এবং প্রতিক্রিয়া সুইচ স্বাধীন</h3>
+<table>
+<thead>
+<tr>
+<th>কুকি ওভাররাইডের অনুরোধ করুন</th>
+<th>প্রতিক্রিয়া সিঙ্ক্রোনাইজেশন</th>
+<th>ফলাফল</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>চালু</td>
+<td>চালু</td>
+<td>ফায়ারফক্স কুকিজ ব্যবহার করুন এবং প্রতিক্রিয়া সেট-কুকি থেকে জার আপডেট করুন</td>
+</tr>
+<tr>
+<td>বন্ধ</td>
+<td>চালু</td>
+<td>টুলের অনুরোধ কুকিজ রাখুন; টার্গেট রেসপন্স এখনও ফায়ারফক্সের জার পরিবর্তন করতে পারে</td>
+</tr>
+<tr>
+<td>চালু</td>
+<td>বন্ধ</td>
+<td>ফায়ারফক্স কুকিজ ব্যবহার করুন; এই সাহায্যকারীর মাধ্যমে প্রতিক্রিয়া কুকিজ লিখবেন না</td>
+</tr>
+<tr>
+<td>বন্ধ</td>
+<td>বন্ধ</td>
+<td>অনুরোধ কুকিজ টুল-নিয়ন্ত্রিত রাখুন এবং প্রতিক্রিয়া সিঙ্ক্রোনাইজ করবেন না</td>
+</tr>
+</tbody>
+</table>
+<p>কুকি-ফাজিং বা একটি সেশন পরীক্ষার জন্য যা অবশ্যই ব্রাউজার জারকে অপরিবর্তিত রাখতে হবে, উভয় সুইচ বিবেচনা করুন। প্রতি-অনুরোধ ওভাররাইড বাইপাস অনুরোধ-সাইড ওভাররাইডকে প্রভাবিত করে; এটি স্বাধীন বিশ্বব্যাপী প্রতিক্রিয়া-কুকি সিঙ্ক্রোনাইজেশন সেটিং অক্ষম করে না।</p>
+<h3 id="protect-fields-that-contain-attack-payloads">আক্রমণ পেলোড ধারণ করে এমন ক্ষেত্রগুলিকে সুরক্ষিত করুন</h3>
+<p>ধরুন ZAP পরীক্ষা <code dir="ltr" translate="no">session=ATTACK_PAYLOAD</code>. ব্রাউজারের বৈধ সেশনের সাথে সেই মানটিকে অন্ধভাবে প্রতিস্থাপন করা পরীক্ষাটি মুছে ফেলতে পারে। বিপরীতভাবে, প্রতিটি অনুরোধে একটি বাসি কুকি ধরে রাখা একটি প্রমাণীকৃত স্ক্যানকে অকেজো করে দিতে পারে।</p>
+<p>ডিফল্ট <strong>প্রথম অনুরোধের পরে টুল কুকি/হেডার পরিবর্তনগুলি সংরক্ষণ করুন</strong> ক্লায়েন্ট সংযোগ/উৎস প্রতি একটি বেসলাইন রেকর্ড করে এবং পরবর্তী পরিবর্তনগুলি সংরক্ষণ করে। প্রথমে একটি সাধারণ বীজের অনুরোধ পাঠান। প্রথম অনুরোধে প্রক্সি নির্ভরযোগ্যভাবে উদ্দেশ্য অনুমান করতে পারে না এবং একটি নতুন সংযোগ একটি নতুন বেসলাইন তৈরি করে৷ এই হিউরিস্টিক সম্পূর্ণ সুরক্ষা নয়।</p>
+<p>অনুমানযোগ্য পরীক্ষার জন্য, এই প্রক্রিয়াগুলির মধ্যে একটি বেছে নিন:</p>
+<ol>
+<li>পরীক্ষা করা নির্দিষ্ট কুকি/হেডার ওভাররাইড অক্ষম করুন।</li>
+<li>কুকি নাম যোগ করুন <code dir="ltr" translate="no">cookies.protectedNames</code> অথবা শিরোনাম <code dir="ltr" translate="no">headers.protectedNames</code>.</li>
+<li>অনুরোধ প্রতি একটি নির্বাচনী টীকা পাঠান:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Preserve: cookie:session, User-Agent, Authorization</code></p>
+<p>এটি টুলটির নামযুক্ত কুকি/হেডার ক্ষেত্র রাখে। <code dir="ltr" translate="no">cookie</code> নাম ছাড়া সম্পূর্ণ টুল কুকি হেডার সংরক্ষণ করে।</p>
+<ol start="4">
+<li>সেই অনুরোধের জন্য সমস্ত অনুরোধ-সাইড ওভাররাইড বাইপাস করুন:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Override: off</code></p>
+<p>অ্যাডাপ্টার ফরোয়ার্ড করার আগে এই টীকা শিরোনাম ফালা. প্রক্সি প্রমাণীকরণ, সুযোগ এবং সীমা এখনও প্রযোজ্য। অরিজিনেটিং টুলে টীকা কনফিগার করুন; এগুলিকে একটি লক্ষ্য ওয়েবপেজে রাখা একটি সেতু কনফিগারেশন প্রক্রিয়া নয়।</p>
+<p>যেমন রাখা <code dir="ltr" translate="no">session</code> সুরক্ষিত ZAP এটি পরিবর্তন করতে দেয় যখন সাহায্যকারী একটি সম্পর্কহীন আপডেট করা চালিয়ে যেতে পারে <code dir="ltr" translate="no">preferences</code> কুকি সম্পূর্ণ কুকি/অনুমোদন/ব্যবহারকারী-এজেন্ট পরীক্ষার জন্য, এই ওভাররাইডগুলি নিষ্ক্রিয় করা পরিবর্তন-সনাক্তকরণ হিউরিস্টিকসের উপর নির্ভরতা এড়ায়।</p>
+<h3 id="browser-authorization-and-other-headers">ব্রাউজার অনুমোদন এবং অন্যান্য শিরোনাম</h3>
+<p>ব্রাউজার অনুমোদন JSON কনফিগারেশনের মাধ্যমে অপ্ট-ইন করা হয়। এটি শুধুমাত্র ব্রাউজার সোর্সিং সক্ষম করার পরে জোড়া টার্গেট ট্যাব দ্বারা একটি প্রকৃত অনুরোধ থেকে ক্যাপচার করা হয়। এটি স্থানীয় স্টোরেজ বা অ্যাপ্লিকেশন মেমরির প্রতিটি টোকেনের জন্য একটি স্বয়ংক্রিয় পাঠক নয়। একটি পর্যবেক্ষিত মান বিদ্যমান আগে একটি পরবর্তী ব্রাউজার অনুরোধ প্রয়োজন হতে পারে. ব্রাউজার অনুমোদন বন্ধ করলে সাহায্যকারীর দ্বারা সরবরাহ করা ক্যাপচার করা মান বন্ধ হয়ে যায়।</p>
+<p>ব্রাউজার ব্যবহারকারী-এজেন্ট বা গ্রহণ-ভাষা নির্বাচন করা শুধুমাত্র সেই HTTP ক্ষেত্রগুলিকে পরিবর্তন করে। এটি টার্গেট জাভাস্ক্রিপ্ট চালায় না, একটি বডি CSRF টোকেন রিফ্রেশ করে, ব্রাউজার TLS পুনরুত্পাদন করে না বা WAF গ্রহণযোগ্যতার গ্যারান্টি দেয় না। আইপি/ডিভাইস-বাউন্ড প্রমাণীকরণ এবং OAuth রিফ্রেশের জন্য এখনও তাদের অ্যাপ্লিকেশন ওয়ার্কফ্লো প্রয়োজন।</p>
+<h3 id="vhost-host-handling">VHOST/হোস্ট হ্যান্ডলিং</h3>
+<p>নেটিভ হেল্পার টুলের হোস্ট ফিল্ডে একটি অভ্যন্তরীণ ব্রিজ উপনাম প্রতিস্থাপন করে না। টুলটিকে অনুমোদিত ভার্চুয়াল-হোস্ট পরীক্ষার জন্য প্রয়োজনীয় হোস্ট মান পাঠাতে দিন। HTTPS-এর জন্য, CONNECT গন্তব্যটি অনুমোদিত লক্ষ্য হিসাবে রয়ে গেছে যখন টুলের হোস্ট হেডার সংরক্ষণ করা যেতে পারে।</p>
+<p>একটি হোস্ট হেডার পরিবর্তন করা অন্য নেটওয়ার্ক গন্তব্যে অ্যাক্সেস মঞ্জুর করে না। একটি বিপরীত প্রক্সি এটি অন্য অ্যাপ্লিকেশনে রুট করতে পারে; মূল্যায়নের অনুমোদনে সেই ভার্চুয়াল-হোস্ট আচরণ অন্তর্ভুক্ত করুন। সঠিকভাবে বিকৃত হেডার বাইট এবং বিরোধপূর্ণ ফ্রেমিং এই পার্সড প্রক্সির বাইরে রয়েছে।</p>
+<h3 id="audit-and-privacy">অডিট এবং গোপনীয়তা</h3>
+<p><strong>নেটিভ ট্রাফিক</strong> অনুরোধ মেটাডেটা এবং পরিবর্তিত/সুরক্ষিত ক্ষেত্রের নাম দেখায়। অডিট কুকি/হেডার গোপন মান, ক্যোয়ারী মান এবং বডি বাদ দেয়। এর অর্থ এই নয় যে প্রক্সি কখনই গোপনীয়তা পরিচালনা করে না: এটি অবশ্যই প্রমাণিত ট্র্যাফিক পাঠাতে তাদের প্রক্রিয়া করবে। বাহ্যিক সরঞ্জামগুলি তাদের নিজস্ব ইতিহাস/ফলাফল বজায় রাখে, যাতে সেই মানগুলি থাকতে পারে।</p>
+<p>ব্যক্তিগত কনফিগারেশন টোকেন, CA কী এবং ডেটা ডিরেক্টরিগুলিকে রিপোর্ট/সোর্স আর্কাইভের বাইরে রাখুন। কাস্টম অনুমোদন মান সহ কনফিগারেশন ডাউনলোড করা সেই মানগুলি ধারণকারী একটি ফাইল তৈরি করতে পারে।</p>
+<h2 id="external-tools-and-actual-zap-scanning">বাহ্যিক সরঞ্জাম এবং প্রকৃত ZAP স্ক্যানিং</h2>
+<h3 id="start-with-one-request">একটি অনুরোধ দিয়ে শুরু করুন</h3>
+<p>সেতু জোড়া, তারপর প্রকৃত স্থানীয় লক্ষ্য পরীক্ষা:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  'http://localhost:8080/'
+</code></pre>
+<p>সেশন আচরণ পরীক্ষা করার জন্য একটি পরিচিত প্রমাণীকৃত পঠন পথ ব্যবহার করুন। একটি পাবলিক হোম পেজ থেকে একটি 200 যথেষ্ট নয়। নেটিভ ট্র্যাফিকের অনুরোধটি নিশ্চিত করুন, নির্বাচিত কুকি স্টোরটি সঠিক, এবং টুলটি প্রত্যাশিত সামগ্রী পেয়েছে৷ অনুমান করবেন না যে সমস্ত পরবর্তী অনুরোধ শুধুমাত্র প্রক্সি ব্যবহার করে কারণ এটি করেছে।</p>
+<h3 id="zap-outgoing-proxy">ZAP আউটগোয়িং প্রক্সি</h3>
+<ol>
+<li>আলাদাভাবে ZAP ইনস্টল/স্টার্ট করুন এবং একটি মূল্যায়ন-নির্দিষ্ট ZAP সেশন ব্যবহার করুন।</li>
+<li>ZAP এর মধ্যে <strong>বিকল্প → নেটওয়ার্ক → সংযোগ</strong>, সক্রিয় করুন <strong>বহির্গামী HTTP প্রক্সি</strong>.</li>
+<li>হোস্ট সেট করুন <code dir="ltr" translate="no">127.0.0.1</code>, বন্দর <code dir="ltr" translate="no">8900</code> (বা বর্তমান কনফিগার করা প্রক্সি পোর্ট)।</li>
+<li>প্রক্সি প্রমাণীকরণ সক্ষম করুন: ব্যবহারকারীর নাম <code dir="ltr" translate="no">bridge</code>, বর্তমান অ্যাডাপ্টার টোকেন পাসওয়ার্ড.</li>
+<li>এই চেইনের জন্য ZAP এর নিজস্ব SOCKS প্রক্সি নিষ্ক্রিয় করুন৷ ZAP এর SOCKS সেটিং এর HTTP প্রক্সির উপর অগ্রাধিকার নেয়।</li>
+<li>এইচটিটিপি প্রক্সি এক্সক্লুশন চেক করুন যাতে উদ্দেশ্য টার্গেটটি বাইপাস না হয়, বিশেষ করে স্থানীয় পরিষেবার জন্য।</li>
+<li>প্রয়োজনে টুলের প্রযোজ্য TLS বিশ্বাস/যাচাই সেটআপে অ্যাডাপ্টার CA কনফিগার করুন। অ্যাডাপ্টার স্টার্টআপে এর অবস্থান মুদ্রিত হয়।</li>
+<li>অ্যাক্সেস <strong>প্রকৃত লক্ষ্য URL</strong> ZAP থেকে এবং এর ইতিহাস প্লাস ব্রিজ মেটাডেটা যাচাই করুন।</li>
+<li>ZAP এর নিজস্ব লক্ষ্য/প্রসঙ্গ, স্ক্যান নীতি, বর্জন, প্রমাণীকরণ পরীক্ষা এবং বিনয়ী অনুরোধের হার সংজ্ঞায়িত করুন। অনুমোদিত হিসাবে এটির প্রকৃত মাকড়সা/সক্রিয় স্ক্যান চালান।</li>
+<li>ZAP-তে ফলাফল এবং কভারেজ পর্যালোচনা করুন। ইচ্ছাকৃতভাবে কুকি/হেডার প্রমাণীকরণ ক্ষেত্রগুলি অস্পষ্ট করার সময়, উপরের সুরক্ষা/বাইপাস প্রক্রিয়াগুলি ব্যবহার করুন।</li>
+</ol>
+<p>এই সেটিং ZAP এর <strong>বহির্গামী সংযোগ</strong>, এর স্থানীয় ইনকামিং ব্রাউজার প্রক্সি লিসেনার নয়। এই চেইনে শুধুমাত্র নির্বাচিত ট্যাবের কুকিজ সরবরাহ করার জন্য ZAP ব্যবহার করার জন্য Firefox-কে পুনরায় কনফিগার করার প্রয়োজন নেই।</p>
+<p>ZAP তার প্রকৃত সক্রিয়-বিধি পেলোড তৈরি করে; mitmproxy ফলে নেটিভ অনুরোধ পাঠায়। লংশট পরিবর্তন শুধুমাত্র অপ্ট-ইন অনুরোধ ক্ষেত্র. এটি বাহ্যিক সরঞ্জামের ব্যবহারযোগ্য সেশনের প্রসঙ্গ বাড়ায় কিন্তু উভয় সরঞ্জামের স্ক্যানকে ব্যাপক করে তোলে না। দেখুন <a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP সংযোগ সেটিংস</a>.</p>
+<h3 id="other-http-tools">অন্যান্য HTTP টুল</h3>
+<table>
+<thead>
+<tr>
+<th>টুল/ক্লায়েন্ট</th>
+<th>কিভাবে সংযোগ করতে হয়</th>
+<th>গুরুত্বপূর্ণ সীমা</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>কার্ল</td>
+<td><code dir="ltr" translate="no">--proxy</code>, <code dir="ltr" translate="no">--proxy-user</code>; <code dir="ltr" translate="no">--cacert</code> HTTPS বিশ্বাসের জন্য; যেখানে প্রয়োজন সেখানে প্রক্সি বাইপাস পরিষ্কার করুন</td>
+<td>বিভিন্ন আমন্ত্রণ/সংযোগ হিউরিস্টিক প্রোবের বেসলাইন রিসেট করতে পারে</td>
+</tr>
+<tr>
+<td>ffuf</td>
+<td>এর HTTP প্রক্সি বিকল্প (<code dir="ltr" translate="no">-x</code>) প্রমাণীকৃত প্রক্সি URL সহ; একটি সীমাবদ্ধ স্কোপড শব্দ তালিকা এবং কম হার সরবরাহ করুন</td>
+<td>একটি HTTP প্রক্সি একটি পৃথক নন-প্রক্সিড আমন্ত্রণকে বাধা দেয় না</td>
+</tr>
+<tr>
+<td>sqlmap</td>
+<td>বর্তমান শংসাপত্র সহ এর HTTP প্রক্সি বিকল্প; অনুমোদিত URL/প্যারামিটার নির্বাচন করুন এবং পরীক্ষা করা ক্ষেত্রগুলিকে সুরক্ষিত করুন</td>
+<td>আলাদা SQLi ইঞ্জিন/সেটিংস; কুকি প্রতিস্থাপন কুকি প্রোব মুছে ফেলতে পারে যদি না কনফিগার করা হয়</td>
+</tr>
+<tr>
+<td>wget</td>
+<td>প্রমাণীকৃত <code dir="ltr" translate="no">http_proxy</code>/<code dir="ltr" translate="no">https_proxy</code> অথবা এর প্রক্সি সেটিংস; সার্টিফিকেট ট্রাস্ট কনফিগার করুন</td>
+<td>চেক করুন <code dir="ltr" translate="no">no_proxy</code> এবং টুল-নির্দিষ্ট প্রক্সি আচরণ</td>
+</tr>
+<tr>
+<td>পাইথন urllib / অনুরোধ</td>
+<td>HTTPS-এর জন্য স্পষ্ট প্রমাণীকৃত প্রক্সি হ্যান্ডলার/কনফিগ প্লাস অ্যাডাপ্টার CA</td>
+<td>লাইব্রেরিগুলি পরিবেশ-পরিবর্তনশীল এবং বাইপাস হ্যান্ডলিং-এ ভিন্ন</td>
+</tr>
+<tr>
+<td>নিউক্লিয়াস CLI</td>
+<td>সমর্থিত HTTP টেমপ্লেট ট্রাফিকের জন্য এর HTTP প্রক্সি/ট্রাস্ট কনফিগার করুন</td>
+<td>নন-HTTP/কোড/হেডলেস টেমপ্লেট ট্র্যাফিক সার্বজনীনভাবে একটি HTTP প্রক্সি বিকল্প দ্বারা আচ্ছাদিত নয়</td>
+</tr>
+</tbody>
+</table>
+<p>শংসাপত্র সহ একটি প্রক্সি URL সংবেদনশীল৷ যেখানে উপলব্ধ আপনার টুলের ব্যক্তিগত মূল্যায়ন কনফিগারেশন ব্যবহার করুন। শেয়ার করা রিপোর্টে বর্তমান টোকেন পেস্ট করবেন না। প্রতিটি টুলের জন্য, প্রতিটি প্রোটোকল বা সাবপ্রসেস তার HTTP প্রক্সি সেটিংকে সম্মান করে অনুমান করার পরিবর্তে রাউটেড ট্রাফিক নিশ্চিত করুন।</p>
+<p>শুধুমাত্র পঠনযোগ্য স্থানীয় লক্ষ্যের জন্য লিনাক্স পাইথন স্ট্যান্ডার্ড-লাইব্রেরি উদাহরণ; এটি হার্ডকোড করার পরিবর্তে টোকেনের জন্য অনুরোধ করে এবং এই প্রক্রিয়াটির জন্য পরিবেশ প্রক্সি বাইপাস সাফ করে:</p>
+<pre dir="ltr" translate="no"><code class="language-python" dir="ltr" translate="no">import os
+from getpass import getpass
+from urllib.request import (
+    HTTPPasswordMgrWithDefaultRealm,
+    ProxyBasicAuthHandler, ProxyHandler, build_opener,
+)
+
+os.environ["no_proxy"] = ""
+os.environ["NO_PROXY"] = ""
+proxy = "http://127.0.0.1:8900"
+credentials = HTTPPasswordMgrWithDefaultRealm()
+credentials.add_password(None, proxy, "bridge", getpass("Bridge token: "))
+opener = build_opener(
+    ProxyHandler({"http": proxy, "https": proxy}),
+    ProxyBasicAuthHandler(credentials),
+)
+with opener.open("http://localhost:8080/", timeout=20) as response:
+    print(response.status)
+    print(response.read(200).decode("utf-8", errors="replace"))
+</code></pre>
+<p>নেটিভ ট্রাফিক অনুরোধ যাচাই; অন্যান্য প্ল্যাটফর্মে অতিরিক্ত সিস্টেম প্রক্সি-বাইপাস নিয়ম থাকতে পারে। সুস্পষ্ট সঙ্গে কার্ল উদাহরণ <code dir="ltr" translate="no">--noproxy ''</code> সহজ লুপব্যাক রুট-ভ্যালিডেশন চেক। HTTPS পাইথন ক্লায়েন্টদের অতিরিক্ত একটি SSL প্রসঙ্গ/CA বান্ডেল প্রয়োজন যা অ্যাডাপ্টার শংসাপত্রকে বিশ্বাস করে।</p>
+<h3 id="pause-and-errors">বিরতি এবং ত্রুটি</h3>
+<p><strong>নেটিভ অনুরোধ বিরাম দিন</strong> নতুন দেশীয় নির্গমনকে ব্লক করে। প্রমাণীকরণ স্থিতি 401/419/440, HTTP 429, ট্যাব বন্ধ/অফ-অরিজিন পরিবর্তন বা বাজেটের সীমাও কাজকে থামাতে পারে। <strong>ট্যাব চেক করার পরে পুনরায় শুরু করুন</strong> জোড়ার অবস্থা পর্যালোচনা করার পরেই পুনরায় শুরু হয়।</p>
+<p><strong>বন্ধ করুন এবং সংযোগ বিচ্ছিন্ন করুন</strong> ব্রাউজার পেয়ারিং শেষ করে; এটি আলাদাভাবে শুরু হওয়া নোড প্রক্রিয়াটি বন্ধ করে না। সেই প্রক্রিয়া বন্ধ করতে এর টার্মিনালে Ctrl+C ব্যবহার করুন।</p>
+<p>ইন-ফ্লাইট অনুরোধ শেষ হতে পারে. প্রক্সি ক্লায়েন্টরা অবরুদ্ধ কাজের জন্য ত্রুটি পায়; অ্যাডাপ্টার নির্বিচারে টুল প্রসেস স্থগিত করে না বা তাদের অনুরোধগুলি পুনরায় চালায় না। কোন অনুরোধগুলি সফল হয়েছে তা পরিদর্শন করুন এবং টুলের নিজস্ব পুনরায় চেষ্টা/পুনরায় শুরু করার নিয়ন্ত্রণগুলি ব্যবহার করুন৷ পুনঃসূচনা/পুনরায় জোড়া টোকেন পরিবর্তন করে এবং টুল প্রমাণীকরণ আপডেট করার প্রয়োজন হয়।</p>
+<p>ইচ্ছাকৃত নেতিবাচক প্রমাণীকরণ পরীক্ষায় 401/419/440 আশা করা যেতে পারে। প্রয়োজন হলে সামঞ্জস্য করুন <code dir="ltr" translate="no">session.pauseStatuses</code> যে পর্যালোচনা চালানো এবং পুনরায় আরম্ভ করার জন্য; অ্যাডাপ্টার দ্বারা অনুমান করা যায় না যে প্রতিটি প্রমাণীকরণ ব্যর্থতা একটি উদ্দেশ্যমূলক প্রোব কিনা।</p>
+<h2 id="tor-and-onion-routing">টর এবং পেঁয়াজ রাউটিং</h2>
+<p>ব্রাউজার-ভিত্তিক লংশট অনুরোধগুলি নির্বাচিত ব্রাউজারের নেটওয়ার্কিং অনুসরণ করে। নেটিভ অ্যাডাপ্টার একটি ভিন্ন প্রক্রিয়া এবং এটি Firefox/Tor ব্রাউজার প্রক্সি সেটিংসের উত্তরাধিকারী নয়।</p>
+<p>SOCKS/Tor হল <strong>ডিফল্টরূপে বন্ধ</strong> নেটিভ কনফিগারেশনে। একটি অনুমোদিত পেঁয়াজ মূল্যায়নের জন্য, দূরবর্তী হোস্টনাম রেজোলিউশন সহ একটি স্পষ্টভাবে কনফিগার করা বিদ্যমান SOCKS পরিষেবা ব্যবহার করুন, উদাহরণস্বরূপ এই ওভাররাইড যদি সত্যিই আপনার স্থানীয় Tor শ্রোতা হয়:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "routing": {
+    "socks5": "socks5h://127.0.0.1:9050"
+  }
+}
+</code></pre>
+<p>এই উদাহরণ টর শুরু করে না বা পোর্ট 9050 বিদ্যমান আছে তা প্রতিষ্ঠা করে না। প্রকৃত কনফিগার করা পরিষেবা নির্বাচন করুন; একটি টর ব্রাউজার উদাহরণ একটি ভিন্ন শ্রোতা ব্যবহার করতে পারে। অ্যাডাপ্টারটি পুনরায় চালু করুন এবং পুনরায় জোড়া দিন। একটি HTTP(S) <code dir="ltr" translate="no">upstream.url</code> এবং <code dir="ltr" translate="no">routing.socks5</code> পারস্পরিক একচেটিয়া।</p>
+<p>নেটিভ শিম SOCKS এর মাধ্যমে হোস্টনামগুলি সমাধান করে এবং এর কোন নীরব সরাসরি ফলব্যাক নেই। একটি স্পষ্টভাবে কনফিগার করা আপস্ট্রিম/SOCKS রুট ছাড়া, সরাসরি পেঁয়াজের গন্তব্য লক্ষ্য DNS এর আগে প্রত্যাখ্যান করা হয়। একটি SOCKS URL একটি অনুমোদিত SSH টানেল বা অন্যান্য SOCKS5 পরিষেবাকেও উল্লেখ করতে পারে; এটি টর রাউটিং এর অন্তর্নিহিত প্রমাণ নয়।</p>
+<p>কুকি শেয়ারিং নেটিভ রুটের প্রস্থান আইপি বা TLS/ব্রাউজার ফিঙ্গারপ্রিন্টকে ফায়ারফক্সের মতো করে না। চ্যালেঞ্জ বা অধিবেশন বাঁধাই এটি প্রত্যাখ্যান করতে পারে. স্বাধীনভাবে রুট এবং প্রত্যাশিত সেশন চেক করুন।</p>
+<p><strong>এজেন্ট API দ্বারা চালু করা বিচ্ছিন্ন নেটিভ নিউক্লিয়া ভিন্ন:</strong> এর অন্তর্নির্মিত রিলেতে কোন Tor/SOCKS রুট নেই এবং সিস্টেম DNS এর আগে পেঁয়াজ লক্ষ্যবস্তুকে ব্লক করে। উদ্দিষ্ট ব্রাউজারে যোগ্য ব্রাউজার-সাইড চেক ব্যবহার করুন, অথবা নেটিভ প্রক্সির মাধ্যমে আলাদাভাবে কনফিগার করা বাহ্যিক টুল ব্যবহার করুন। অনুমান করবেন না নিউক্লিয়াস চেকবক্স উত্তরাধিকারসূত্রে প্রাপ্ত <code dir="ltr" translate="no">routing.socks5</code> ব্রাউজার ব্রিজ থেকে।</p>
+<h2 id="agent-api-mcp-and-local-model-clients">এজেন্ট API, MCP এবং স্থানীয়-মডেল ক্লায়েন্ট</h2>
+<p>যখন একটি এজেন্ট/স্ক্রিপ্ট লংশট পরিচালনা করতে হবে, প্রমাণ পুনরুদ্ধার করতে হবে বা মূল্যায়ন ফাইল সংরক্ষণ করতে হবে তখন এটি ব্যবহার করুন। এটি :8900 ট্রাফিক প্রক্সি নয়।</p>
+<h3 id="register-and-connect-the-native-host">নিবন্ধন করুন এবং নেটিভ হোস্ট সংযোগ করুন</h3>
+<p>ধরে রাখা থেকে <strong>উৎস</strong> ডিরেক্টরি ধারণকারী <code dir="ltr" translate="no">manifest.json</code> এবং <code dir="ltr" translate="no">bridge/</code>:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+node bridge/bin/longshot-bridge install
+</code></pre>
+<p>এই নিবন্ধন <code dir="ltr" translate="no">longshot.bridge</code> এবং একটি লঞ্চার উৎস ফোল্ডার এবং নোড এক্সিকিউটেবল উল্লেখ করে। উভয় জায়গায় রাখুন। যদি কেউ সরে যায়, আবার নিবন্ধন করুন।</p>
+<p>খোলা <strong>সেটিংস → সংযোগ এবং সেটআপ → স্থানীয় সেতু সংযোগ করুন৷</strong> এবং ফায়ারফক্সের নেটিভ-মেসেজিং অনুমতি দিন। হোস্ট স্বয়ংক্রিয়ভাবে তার ডেমন শুরু করতে পারে। যদি ইচ্ছাকৃতভাবে ডেমন ম্যানুয়ালি চালানো হয়:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">node bridge/bin/longshot-bridge serve
+</code></pre>
+<p>একই পোর্ট/ডেটা ডিরেক্টরিতে দ্বিতীয় ডেমন এড়িয়ে চলুন। সংযোগ বিচ্ছিন্ন করা এক্সটেনশনের নেটিভ সংযোগ বন্ধ করে দেয়; এটি অগত্যা একটি স্বাধীনভাবে শুরু করা ডেমনকে থামায় না।</p>
+<p>Node.js 20+ প্রয়োজন। নেটিভ মেসেজিং MCP-এর জন্য প্রক্সির Python/mitmproxy ইনস্টলেশনের প্রয়োজন নেই। লিনাক্স হল ব্যায়াম করা সেটআপ। macOS রেজিস্ট্রেশন সমর্থন প্রদান করা হয়েছে কিন্তু এখানে রানটাইম যাচাই করা হয়নি; এই রিলিজে কোন Windows Firefox নেটিভ-হোস্ট ইনস্টলার নেই। WSL-এ নিবন্ধন করলে Windows Firefox-এর জন্য হোস্ট নিবন্ধন করা হয় না। নেটিভ নিউক্লিয়াস আইসোলেশন শুধুমাত্র লিনাক্স।</p>
+<p>ডিফল্ট পরিষেবা: <code dir="ltr" translate="no">http://127.0.0.1:8765</code>. এই স্থানীয় হোস্ট ঠিকানাটি একটি নিয়ন্ত্রণ API, <strong>স্ক্যান করা লক্ষ্য নয়</strong>. টোকেন/সকেট এতে ডিফল্ট <code dir="ltr" translate="no">$XDG_DATA_HOME/longshot</code> বা <code dir="ltr" translate="no">~/.local/share/longshot</code>. কাস্টম <code dir="ltr" translate="no">--port</code> এবং <code dir="ltr" translate="no">--data-dir</code> ইন্সটল, সার্ভ এবং এমসিপি জুড়ে অবশ্যই মেলে। একটি ছোট ইউনিক্স ডেটা পাথ ব্যবহার করুন কারণ এর সকেট পাথের 100-বাইটের সীমা রয়েছে।</p>
+<h3 id="rest-example">REST উদাহরণ</h3>
+<p>একই উত্স ফোল্ডার থেকে:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">longshot_token_file="$(node bridge/bin/longshot-bridge token-path)"
+longshot_api_token="$(cat "$longshot_token_file")"
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/health
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/targets
+</code></pre>
+<p>দ <code dir="ltr" translate="no">token-path</code> কমান্ড একটি ফাইলের নাম প্রিন্ট করে, টোকেন নয়। এপিআই প্রক্সি ব্যবহারকারীর নাম/পাসওয়ার্ড প্রমাণীকরণের বিপরীতে বাহক প্রমাণীকরণ ব্যবহার করে। এটি নন-লুপব্যাক ক্লায়েন্ট এবং ব্রাউজার অরিজিন অনুরোধ প্রত্যাখ্যান করে এবং একটি সাধারণ CORS API প্রকাশ করে না। পাবলিক রিভার্স প্রক্সির মাধ্যমে এটি প্রকাশ করবেন না।</p>
+<p>উদ্দেশ্যযুক্ত টার্গেট সংযোগ/সক্রিয় করার পরে এবং এর সংরক্ষিত বিকল্পগুলি পরীক্ষা করার পরেই একটি ছোট স্ক্যান শুরু করুন:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  -H 'Content-Type: application/json' \
+  --data '{"target_id":"PROFILE_ID","mode":"safe","budget":150}' \
+  http://127.0.0.1:8765/v1/scans
+</code></pre>
+<p>নির্বাচিত প্রোফাইল ID দিয়ে PROFILE_ID প্রতিস্থাপন করুন। <code dir="ltr" translate="no">safe</code> শুধুমাত্র মাকড়সার মানচিত্র; এটি প্রতিটি সংরক্ষিত উন্নত বিকল্পকে পুনরায় সেট করে না বা একটি সর্বজনীন ওভাররাইড হিসাবে কাজ করে না। শুরুটি অ্যাসিঙ্ক্রোনাস। ফিরে আসা রান আইডি পড়ুন, তারপর মনিটর <code dir="ltr" translate="no">/v1/scans/RUN_ID</code>, <code dir="ltr" translate="no">/eta</code>, <code dir="ltr" translate="no">/findings</code> বা <code dir="ltr" translate="no">/report?format=html</code>. POST <code dir="ltr" translate="no">/pause</code>, <code dir="ltr" translate="no">/resume</code> এবং <code dir="ltr" translate="no">/stop</code> একটি রান নিয়ন্ত্রণ। প্রমাণীকৃত পরামর্শ <code dir="ltr" translate="no">/openapi.json</code> সঠিক স্কিমার জন্য।</p>
+<p>REST/JSON-RPC সমর্থন প্রোফাইল, স্ক্যান, ফাইন্ডিং/রিপোর্ট, টেমপ্লেট, OAST এবং সেশন অপারেশন। <code dir="ltr" translate="no">/rpc</code> JSON-RPC বহন করে; <code dir="ltr" translate="no">/mcp</code> stdio এবং SSE বিকল্পগুলির সাথে MCP HTTP অফার করে। পরিষেবার প্রোটোকল/এপিআই সংস্করণ স্ট্রিংগুলি পুরানো স্কিমা সংস্করণগুলি ধরে রাখতে পারে; ইনস্টল করা UI রিলিজ সংস্করণের জন্য এক্সটেনশন ম্যানিফেস্ট ব্যবহার করুন।</p>
+<h3 id="mcp-client-setup">MCP ক্লায়েন্ট সেটআপ</h3>
+<p>stdio MCP কনফিগারেশন সমর্থনকারী একটি ক্লায়েন্টের জন্য:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "mcpServers": {
+    "longshot": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/longshot-source/bridge/bin/longshot-bridge",
+        "mcp"
+      ]
+    }
+  }
+}
+</code></pre>
+<p>ক্লায়েন্টের একটি সীমাবদ্ধ PATH থাকলে এক্সিকিউটেবল একটি পরম নোড ব্যবহার করুন। মিল যোগ করুন <code dir="ltr" translate="no">--port</code> / <code dir="ltr" translate="no">--data-dir</code> আর্গুমেন্ট যখন কাস্টমাইজড. stdio সাহায্যকারী স্থানীয় প্রমাণীকৃত পরিষেবার সাথে সংযোগ করে; এটি নিজেই ফায়ারফক্স সংযোগ প্রতিস্থাপন করে না।</p>
+<p>বর্তমান MCP টুল ক্যাটালগে 21টি টুল রয়েছে: স্ক্যান/টেমপ্লেট/রিপোর্ট/ওএএসটি টুল প্লাস UI এবং শব্দার্থক কমান্ড আবিষ্কার/নিয়ন্ত্রণ। পুরানো আট-টুল টিউটোরিয়ালের উপর নির্ভর না করে প্রকৃত ক্যাটালগ আবিষ্কার করুন।</p>
+<table>
+<thead>
+<tr>
+<th>টুল গ্রুপ</th>
+<th>কর্মপ্রবাহ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">longshot_list_targets</code>, স্ক্যান/স্টেট/ইটিএ/ফাইন্ডিংস/রিপোর্ট টুল</td>
+<td>স্পষ্ট প্রোফাইল/রান আইডি ব্যবহার করুন এবং অ্যাসিঙ্ক্রোনাস ফলাফলগুলি পরীক্ষা করুন</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_commands</code>, <code dir="ltr" translate="no">longshot_command</code></td>
+<td>শব্দার্থিক কমান্ড আবিষ্কার করুন এবং তাদের সমর্থিত আর্গুমেন্ট আহ্বান করুন</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_pages</code>, <code dir="ltr" translate="no">longshot_ui_open</code></td>
+<td>টার্গেট-বাউন্ড এক্সটেনশন ড্যাশবোর্ড আবিষ্কার/খোলা</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_snapshot</code></td>
+<td>প্রকৃত লেবেল, বর্তমান মান, ডায়ালগ এবং উপাদান রেফ পড়ুন</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_action</code>, <code dir="ltr" translate="no">navigate</code>, <code dir="ltr" translate="no">wait</code></td>
+<td>বিদ্যমান নিয়ন্ত্রণগুলি পরিচালনা করুন এবং সম্পূর্ণতা যাচাই করুন</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_downloads</code>, <code dir="ltr" translate="no">clipboard</code>, <code dir="ltr" translate="no">screenshot</code>, <code dir="ltr" translate="no">focus</code>, <code dir="ltr" translate="no">close</code></td>
+<td>সমর্থিত এক্সটেনশন-পৃষ্ঠা আউটপুট এবং UI ব্যবস্থাপনা; নির্বিচারে ওএস অ্যাক্সেস নয়</td>
+</tr>
+</tbody>
+</table>
+<p>অক্ষম নিয়ন্ত্রণ, লক্ষ্য সুযোগ, রাষ্ট্র এবং বাজেট এখনও প্রযোজ্য. বাসি রেফের জন্য একটি নতুন স্ন্যাপশট প্রয়োজন; শুধুমাত্র একটি প্রেরিত ক্লিক সাফল্য প্রমাণ করে না। ফায়ারফক্স/ওএস পারমিশন প্রম্পট আলাদা ব্রাউজার/ওএস কন্ট্রোল থাকে।</p>
+<p><strong>অনুমোদনের সীমানা:</strong> প্রত্যক্ষ শব্দার্থিক সম্মতি আদেশগুলি একটি আক্রমনাত্মক রান অনুদান দিতে পারে না। প্রমাণীকৃত সম্পূর্ণ UI অটোমেশন আবদ্ধ ড্যাশবোর্ডের অনুমোদন ডায়ালগ পরিচালনা করতে পারে, এর অনুমোদন বোতাম সহ। একটি এজেন্ট UI নিয়ন্ত্রণ দেওয়া তাই এটি UI ক্ষমতা দেয়; অনুমোদন ক্লিক করতে অক্ষম হিসাবে যেমন অ্যাক্সেস বর্ণনা করবেন না. একক-ব্যবহারের লক্ষ্য/কনফিগারেশন/সমাপ্তির চেক এখনও প্রযোজ্য।</p>
+<h3 id="hermesollama-or-another-local-model-agent">হার্মিস/ওলামা বা অন্য স্থানীয়-মডেল এজেন্ট</h3>
+<p>লংশট একটি নির্বিচারে LLM চ্যাট স্ট্রিম গ্রহণ করে না বা একটি মডেল নির্বাচন করে না৷ দ <strong>এজেন্ট আবেদন</strong> মডেল সংযোগ এবং টুল-কল লুপ সরবরাহ করে। যদি আপনার এজেন্ট MCP সমর্থন করে, তাহলে সেই এজেন্টে উপরে MCP সার্ভার কনফিগার করুন। এজেন্ট সমর্থিত টুল কল পাঠায় এবং টুল ফলাফল গ্রহণ করে; এটি উন্মুক্ত UI সরঞ্জামগুলির মাধ্যমে এক্সটেনশনটি পরিদর্শন/নেভিগেট/পূরণ করতে পারে সেইসাথে স্ক্যান কমান্ডগুলিকে আহ্বান করতে পারে।</p>
+<p>হার্মিস/এজেন্টের নিজস্ব কনফিগারেশনে ওল্লামা মডেল এবং সার্ভার বেছে নিন। একটি মডেল/ক্লায়েন্ট সংমিশ্রণ ব্যবহার করুন যা এজেন্টের টুল-কল ফর্ম্যাটকে সমর্থন করে এবং নিশ্চিত করুন যে এজেন্টকে আসলে MCP টুল ব্যবহার করার অনুমতি দেওয়া হয়েছে। লংশট এর কনফিগারেশন নেই <code dir="ltr" translate="no">model</code>, <code dir="ltr" translate="no">ollama</code> অথবা প্রদানকারী API-কী সেটিং। মডেল অ্যাক্সেস, শেল অ্যাক্সেস এবং সম্পর্কহীন ফাইল সিস্টেম নিয়ন্ত্রণ হল এজেন্ট হোস্টের ক্ষমতা, এই এক্সটেনশনটি ইনস্টল করার মাধ্যমে মঞ্জুর করা হয় না।</p>
+<p>এজেন্ট টাস্কে সুযোগ, বাজেট, অ্যাকাউন্ট এবং উদ্দিষ্ট ক্রিয়াগুলি সুস্পষ্ট রাখুন। রেকর্ডকৃত প্রমাণের বিরুদ্ধে উত্পন্ন ফলাফলগুলিকে যাচাই করুন; মডেল টেক্সট একটি স্ক্যানার ফলাফল বা অনুমতি অনুদান নয়.</p>
+<h3 id="optional-debugging-port-control">ঐচ্ছিক ডিবাগিং-পোর্ট কন্ট্রোল</h3>
+<p>উৎসের মধ্যে রয়েছে BiDi/CDP কন্ট্রোল হেল্পার এবং একটি ওয়ান-কমান্ড <code dir="ltr" translate="no">bridge/bin/longshot-ui</code> ইন্টারফেস এটি এক্সটেনশন-মালিকানাধীন পৃষ্ঠাগুলির উন্নত নিয়ন্ত্রণ। Chrome সংস্করণ একটি পৃথক ম্যানিফেস্ট V3 প্যাকেজ; এর দৃশ্যমান ওয়ার্কবেঞ্চ অবশ্যই খোলা থাকবে। একটি ব্রাউজার ডিবাগিং লিসেনার খোলা একটি পৃথক ব্রাউজার স্টার্টআপ পছন্দ; দেখুন <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">ফায়ারফক্স রিমোট এজেন্ট নিরাপত্তা</a>.</p>
+<p>ঐচ্ছিক ডিবাগিং সহায়ক পিন করা ব্যবহার করে <code dir="ltr" translate="no">ws</code> মধ্যে নির্ভরতা <code dir="ltr" translate="no">native-bridge/node_modules/ws/</code>. চালান <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code> ধরে রাখা উৎস চেকআউট থেকে প্রথম. এই পথটি 2.18 সিরিজে সংশোধন করা হয়েছিল; সরানো ঐতিহাসিক ব্রাউজার-ফেচ অ্যাডাপ্টারের প্রয়োজন নেই।</p>
+<h2 id="optional-native-nuclei">ঐচ্ছিক নেটিভ নিউক্লিয়াস</h2>
+<p>তিনটি স্বতন্ত্র টেমপ্লেট রুট আছে:</p>
+<table>
+<thead>
+<tr>
+<th>রুট</th>
+<th>ইঞ্জিন/সেশন</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ব্রাউজার-সামঞ্জস্যপূর্ণ আমদানি করা HTTP টেমপ্লেট</td>
+<td>লংশটের সমর্থিত টেমপ্লেট ইন্টারপ্রেটার এবং টার্গেট ব্রাউজার সেশন</td>
+</tr>
+<tr>
+<td>নেটিভ পূর্ণ নিউক্লিয়াস চেকবক্স</td>
+<td>এজেন্ট এপিআই লিনাক্স বিচ্ছিন্নতা পাথের ভিতরে অফিসিয়াল পৃথকভাবে ইনস্টল করা নিউক্লিয়াস; স্বয়ংক্রিয় ফায়ারফক্স লগইন নেই</td>
+</tr>
+<tr>
+<td>ব্রাউজার ব্রিজের মাধ্যমে বাহ্যিক নিউক্লিয়াস CLI</td>
+<td>আপনার স্বাধীন CLI কাজ; সমর্থিত প্রক্সি HTTP ট্রাফিক কনফিগার করা ব্রাউজার কুকি পেতে পারে</td>
+</tr>
+</tbody>
+</table>
+<p>লংশট দ্বারা চালু করা দেশীয় কাজের জন্য:</p>
+<ol>
+<li>অফিসিয়াল নিউক্লি বাইনারি আলাদাভাবে ইনস্টল করুন এবং এটি PATH বা সেটে প্রকাশ করুন <code dir="ltr" translate="no">LONGSHOT_NUCLEI</code> এজেন্ট API শুরু করার আগে।</li>
+<li>কর্মরত সুবিধাবিহীন ব্যবহারকারী/নেটওয়ার্ক নেমস্পেস সহ লিনাক্স বুদবুদ প্রদান করুন।</li>
+<li>হেডলেস টেমপ্লেটগুলির জন্য, প্রয়োজনীয় ব্রাউজার প্রদান করুন, ঐচ্ছিকভাবে মাধ্যমে <code dir="ltr" translate="no">LONGSHOT_CHROME</code>.</li>
+<li>এজেন্ট API নিবন্ধন/সংযোগ করুন এবং রিপোর্ট করা নেটিভ ক্ষমতা পরিদর্শন করুন।</li>
+<li>পর্যালোচনা করা টেমপ্লেট এবং প্রয়োজনীয় আপেক্ষিক সাহায্যকারী ফাইল আমদানি করুন।</li>
+<li>সক্ষম করুন <strong>নেটিভ পূর্ণ নিউক্লিয়াস নির্বাহ</strong> এবং শুধুমাত্র অতিরিক্ত কোড/জাভাস্ক্রিপ্ট, হেডলেস বা ফাইল ক্ষমতা প্রয়োজন।</li>
+<li>ফাইল টেমপ্লেটের জন্য, সেট করুন <code dir="ltr" translate="no">LONGSHOT_FILE_ROOT</code> হোস্ট শুরু করার আগে সুস্পষ্ট পঠন-অনুমোদিত তালিকায়।</li>
+<li>রান সংরক্ষণ, পর্যালোচনা এবং অনুমোদন; প্রস্তুত/অবরুদ্ধ কারণ এবং নির্বাহক-ট্যাগযুক্ত আউটপুট পরিদর্শন করুন।</li>
+</ol>
+<p>কর্মীদের একটি বিচ্ছিন্ন ফাইল সিস্টেম/নেটওয়ার্ক নেমস্পেস, ব্যক্তিগত অস্থায়ী স্টোরেজ এবং টার্গেট রিলে এর মাধ্যমে আবদ্ধ সম্পাদন রয়েছে। তারা স্বয়ংক্রিয়ভাবে ফায়ারফক্স কুকিজ, ব্রাউজার স্থানীয় স্টোরেজ বা ফায়ারফক্সের টর রুট গ্রহণ করে না। মাথাবিহীন সেশনগুলি বিচ্ছিন্ন। একটি অবরুদ্ধ নেটিভ টেমপ্লেট মানে নেতিবাচক দুর্বলতার ফলাফল নয়৷</p>
+<p>নেটিভ কোড/জাভাস্ক্রিপ্ট টেমপ্লেটের জন্য অফিসিয়াল ইঞ্জিন দ্বারা বিশ্বস্ত স্বাক্ষর প্রয়োজন। <code dir="ltr" translate="no">LONGSHOT_NUCLEI_CERT</code> একটি পর্যালোচনা করা পাবলিক লেখক শংসাপত্র নির্দেশ করতে পারেন; হোস্ট স্বয়ংক্রিয়ভাবে আমদানিতে স্বাক্ষর করে না বা ব্যক্তিগত স্বাক্ষর কী মাউন্ট করে না। নেটিভ ফাইল টেমপ্লেট অবাধে হোস্ট হোম ডিরেক্টরি পড়তে পারে না। অতিরিক্ত ফাইল/কোড/হেডলেস সুইচগুলি জেনেরিক টেমপ্লেট আমদানি থেকে আলাদা থাকে।</p>
+<p>নেটিভ রিলে সীমাবদ্ধ টার্গেট/প্রোভাইডার সংযোগ সমর্থন করে, নির্বিচারে নেটওয়ার্ক অ্যাক্সেস নয়। পেঁয়াজ লক্ষ্যবস্তু, অনুপলব্ধ বিচ্ছিন্নতা/রানটাইম, অসমর্থিত লক্ষ্য ঠিকানা বা অসামঞ্জস্যপূর্ণ পাথ স্কোপগুলি সম্পাদনকে অবরুদ্ধ করতে পারে। নেটিভ ইন্টারঅ্যাক্টশ রেজিস্ট্রেশন লংশটের ব্রাউজার OAST ক্লায়েন্ট থেকে আলাদাভাবে নিউক্লিয়ার অন্তর্গত। প্রকৃত ফলাফলের প্রমাণ এবং প্ল্যাটফর্ম ক্ষমতা রিপোর্ট ব্যবহার করুন, কোন "সম্পূর্ণ ইঞ্জিন" লেবেল নয়, কি চলল তা নির্ধারণ করতে।</p>
+<h2 id="manual-tools-interception-and-api-inventory">ম্যানুয়াল টুল, ইন্টারসেপশন এবং API ইনভেন্টরি</h2>
+<h3 id="page-guide">পৃষ্ঠা নির্দেশিকা</h3>
+<table>
+<thead>
+<tr>
+<th>পাতা</th>
+<th>এটা কি জন্য ব্যবহার করতে হবে</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ওভারভিউ</td>
+<td>সংযোগ করুন, অধিবেশন যাচাই করুন, নিয়ম গোষ্ঠী নির্বাচন করুন, অপারেশন চয়ন করুন এবং অগ্রগতি নিরীক্ষণ করুন</td>
+</tr>
+<tr>
+<td>স্ক্যান বিকল্প</td>
+<td>অতিরিক্ত পর্যায়, সম্মতি, বডি ফাজিং, প্রদানকারী সেটিংস এবং বাজেট</td>
+</tr>
+<tr>
+<td>টার্গেট</td>
+<td>পৃথক প্রোফাইল, একটি ব্রাউজার ট্যাব নির্বাচন/সংযুক্ত করুন এবং লক্ষ্য-নির্দিষ্ট প্রমাণ/বিকল্পগুলি পুনরুদ্ধার করুন</td>
+</tr>
+<tr>
+<td>সাইট ম্যাপ</td>
+<td>আবিষ্কৃত URL/ফর্ম/রুট; পর্যবেক্ষণের মানচিত্র, সম্পূর্ণ আবিষ্কারের প্রমাণ নয়</td>
+</tr>
+<tr>
+<td>HTTP ইতিহাস</td>
+<td>ব্রাউজার ট্রাফিক মেটাডেটা এবং স্ক্যানার/রিপিটার উত্তর; সঠিক ইনপুট এবং টাইমস্ট্যাম্প পরিদর্শন করুন</td>
+</tr>
+<tr>
+<td>API এক্সপ্লোরার</td>
+<td>পর্যবেক্ষণ করা/আমদানি করা অপারেশন এবং প্যারামিটার ইনভেন্টরি; রিপিটারে সমর্থিত রিড প্রস্তুত করুন</td>
+</tr>
+<tr>
+<td>সার্ভার স্ট্যাক</td>
+<td>আঙুলের ছাপ, স্থানীয় স্মার্ট বিশ্লেষক এবং প্রার্থী উপদেষ্টা সন্ধান</td>
+</tr>
+<tr>
+<td>নেটওয়ার্ক গ্রাফ</td>
+<td>পর্যবেক্ষিত উত্স/আইপি/রেফারেন্সড ডোমেন এবং উপলব্ধ vhost প্রমাণ; বাহ্যিক নোডগুলি জায়, অটো-স্কোপ নয়</td>
+</tr>
+<tr>
+<td>ফাইন্ডিংস</td>
+<td>প্রমাণ, রায়/আস্থা/তীব্রতা, পর্যালোচনা রাষ্ট্র এবং সিমেটিক দর্শক</td>
+</tr>
+<tr>
+<td>WSTG চেক করে</td>
+<td>রেফারেন্স কভারেজ প্রকার এবং প্রকৃত প্রতি-ইনপুট অডিট সম্পাদন</td>
+</tr>
+<tr>
+<td>টেমপ্লেট</td>
+<td>আমদানি, সামঞ্জস্য/নির্বাহক বিবরণ, ম্যানুয়াল নির্বাচন এবং রান ফলাফল</td>
+</tr>
+<tr>
+<td>রিপিটার/ফুজার</td>
+<td>ফোকাসড রিপ্লে বা বাউন্ডেড মিউটেশন</td>
+</tr>
+<tr>
+<td>ইন্টারসেপ্টর</td>
+<td>যোগ্য টার্গেট-ট্যাব URL/হেডার স্টেজ ধরে রাখুন</td>
+</tr>
+<tr>
+<td>OAST</td>
+<td>প্রদানকারী/কলব্যাক স্ট্যাটাস, টেস্ট অ্যাকশন এবং পারস্পরিক মিথস্ক্রিয়া</td>
+</tr>
+<tr>
+<td>ওয়েবসকেট/এসএসই</td>
+<td>আবদ্ধ পর্যবেক্ষণ চ্যানেল বিনিময়</td>
+</tr>
+<tr>
+<td>তুলনা করুন</td>
+<td>দুটি সংরক্ষিত প্রতিক্রিয়ার মধ্যে স্থানীয় পার্থক্য</td>
+</tr>
+<tr>
+<td>এনকোডার/ডিকোডার</td>
+<td>স্থানীয় রূপান্তর এবং টোকেন দাবি পরিদর্শন</td>
+</tr>
+<tr>
+<td>ব্রাউজার ব্রিজ</td>
+<td>নেটিভ টুল প্রক্সি পেয়ার করুন এবং সেশন ওভাররাইড কনফিগার করুন</td>
+</tr>
+<tr>
+<td>রিপোর্ট</td>
+<td>সক্রিয় প্রোফাইল এর প্রমাণ রপ্তানি</td>
+</tr>
+<tr>
+<td>সেটিংস</td>
+<td>অনুরোধ/সেশন সেটিংস, চেহারা, নেটিভ সংযোগ এবং মূল্যায়ন ফাইল</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-explorer">API এক্সপ্লোরার</h3>
+<p>সংযোগ করুন এবং প্রথমে ব্রাউজ করুন, তারপর চয়ন করুন <strong>বর্তমান পৃষ্ঠা পরিদর্শন করুন</strong>. ডেভেলপার দ্বারা সরবরাহ করা আমদানি করুন৷ <strong>OpenAPI JSON</strong> বিবরণ যখন উপলব্ধ, 2 MB পর্যন্ত। এটি স্থানীয় JSON পড়ে, একটি নির্বিচারে দূরবর্তী পৃষ্ঠা বা YAML ফাইল নয়। স্থানীয় স্পেসিফিকেশন রেফারেন্স এবং উপলব্ধ অনুরোধ উদাহরণ/ডিফল্ট কংক্রিট সমর্থিত ইনপুট সরবরাহ করতে পারে; অনুপস্থিত মান/বডি এবং অসমর্থিত নির্মাণ ফাঁক রেখে যায়।</p>
+<p>একটি শেষ বিন্দু একটি ঠিকানা; একটি অপারেশন একটি ঠিকানা প্লাস পদ্ধতি। ক্যোয়ারী ইনপুট পরে প্রদর্শিত হবে <code dir="ltr" translate="no">?</code>, ঠিকানা পাথে পাথ ইনপুট এবং জমা দেওয়া সামগ্রীতে বডি ইনপুট। একটি তালিকাভুক্ত ক্রিয়াকলাপ হল ইনভেন্টরি, প্রমাণ নয় যে বর্তমান অ্যাকাউন্ট প্রতিটি বস্তুর ঠিকানায় অ্যাক্সেস করতে পারে।</p>
+<p>ব্যবহার করুন <strong>রিপিটার</strong> একটি সমর্থিত GET/HEAD অপারেশনের পাশে একটি অনুরোধ এখনও না পাঠিয়েই প্রস্তুত করতে। URL/পদ্ধতি/ইনপুট পর্যালোচনা করুন, তারপর ইচ্ছাকৃতভাবে পাঠান। শুধুমাত্র ইনভেন্টরি লেখার ক্রিয়াকলাপগুলির জন্য আপনাকে উপযুক্ত অনুরোধ প্রস্তুত করতে এবং লেখার অনুমোদন পেতে হবে।</p>
+<h3 id="repeater-and-compare">রিপিটার এবং তুলনা</h3>
+<p>আবদ্ধ ব্রাউজার সেশন ব্যবহার করে রিপিটার একটি নতুন স্কোপড অনুরোধ করে। GET/HEAD/OPTIONS সাধারণ রুট ব্যবহার করুন। পদ্ধতি লিখুন, শরীরের পরিবর্তন এবং ধ্বংসাত্মক/আপলোড ক্ষমতা নীতি এবং অনুমোদন সাপেক্ষে থাকে। পরিচালিত কুকি/অনুমোদন/হোস্ট মান অবাধে এর হেডার সম্পাদকের মাধ্যমে প্রতিস্থাপন করা যাবে না; সুস্পষ্টভাবে কনফিগার করা হেডার/কুকি পরীক্ষার জন্য নেটিভ এক্সটার্নাল-টুল রুট ব্যবহার করুন।</p>
+<p><strong>একই-অরিজিন রিডাইরেক্ট অনুসরণ করুন</strong> আপনি নিজেই পুনঃনির্দেশ বা অনুমোদিত চূড়ান্ত প্রতিক্রিয়া পরিদর্শন করেন কিনা তা নিয়ন্ত্রণ করে। অফ-স্কোপ রিডাইরেক্ট কম্বল অনুমোদন নয়। পর্যালোচনার প্রয়োজন হলে প্রতিক্রিয়া সংস্থাগুলি ধরে রাখুন, তারপরে দুটি সংরক্ষিত প্রতিক্রিয়া বেছে নিন <strong>তুলনা করুন</strong>. তুলনা কোনো অনুরোধ পাঠায় না; গতিশীল বিষয়বস্তু, লগইন অবস্থা, থ্রটলিং বা WAF পৃষ্ঠাগুলি একটি পার্থক্য ব্যাখ্যা করতে পারে।</p>
+<h3 id="interceptor">ইন্টারসেপ্টর</h3>
+<p>ইন্টারসেপ্টর সক্ষম করুন এবং <strong>বাধা প্রয়োগ করুন</strong>. তার স্বাভাবিক ব্যবহারকারীর ক্রিয়াকলাপের মাধ্যমে ঐচ্ছিক Firefox ব্লক করার অনুমতি দিন। এক্সটেনশন পুনঃসূচনা করার পরে ইন্টারসেপশন অক্ষম করা শুরু হয়।</p>
+<table>
+<thead>
+<tr>
+<th>পর্যায় / নিয়ন্ত্রণ</th>
+<th>আচরণ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>অনুরোধ URL গুলি ধরে রাখুন</td>
+<td>অনুরোধ শিরোনাম আগে বিরতি; স্কোপড URL/কোয়েরি সম্পাদনা করুন বা ড্রপ করুন</td>
+</tr>
+<tr>
+<td>অনুরোধ শিরোনাম ধরে রাখুন</td>
+<td>ট্রান্সমিশনের আগে অনুমোদিত অনুরোধ শিরোনাম পরিদর্শন/সম্পাদনা করুন</td>
+</tr>
+<tr>
+<td>প্রতিক্রিয়া শিরোনাম ধরে রাখুন</td>
+<td>অনুরোধ সার্ভারে পৌঁছানোর পরে বিতরণ বিরতি; সার্ভার-সাইড ক্রিয়াকে পূর্বাবস্থায় ফেরাতে পারে না</td>
+</tr>
+<tr>
+<td>সম্পদ/পদ্ধতি/পথ ফিল্টার</td>
+<td>আবদ্ধ ট্যাব এবং সঠিক লক্ষ্য সুযোগে যোগ্য ট্র্যাফিক সীমাবদ্ধ করুন</td>
+</tr>
+<tr>
+<td>টাইমআউট ধরে রাখুন</td>
+<td>ডিফল্ট 0: কোন স্বয়ংক্রিয় রিলিজ নেই। ঐচ্ছিক 10-3,600 সেকেন্ড, তারপর ফরওয়ার্ড/ড্রপ অ্যাকশন বেছে নিন</td>
+</tr>
+<tr>
+<td>ফরোয়ার্ড স্টেজ</td>
+<td>এই পর্যায়ে সমাধান করুন; অন্য একটি সক্ষম পর্যায় পরে একই অনুরোধ ধরে রাখতে পারে</td>
+</tr>
+<tr>
+<td>অনুরোধ বাদ দিন</td>
+<td>এই পর্যায় বাতিল/অনুরোধ ডেলিভারি</td>
+</tr>
+<tr>
+<td>সকল মুলতুবি ফরওয়ার্ড/ড্রপ করুন</td>
+<td>ভবিষ্যত ফিল্টার পরিবর্তন না করে বর্তমান সারির সমাধান করুন</td>
+</tr>
+<tr>
+<td>বন্ধ করুন এবং মুলতুবি ফরওয়ার্ড করুন</td>
+<td>নিরস্ত্রীকরণ এবং মুক্তির অপেক্ষার পর্যায় অপরিবর্তিত</td>
+</tr>
+</tbody>
+</table>
+<p>আপনি দীর্ঘমেয়াদী অনুরোধ প্রকাশ করার আগে অ্যাপ্লিকেশন/ব্রাউজার সময় শেষ হয়ে যেতে পারে। 20 ধাপ পর্যন্ত অপেক্ষা করতে পারে; সারি সীমা অতিক্রম করা আরও মিলিত ট্রাফিক বাতিল করে। ফিল্টার পরিবর্তন করা বর্তমান পর্যায়গুলি অপরিবর্তিত প্রকাশ করে। শেষ কন্ট্রোলিং ড্যাশবোর্ড রিলিজ বন্ধ করা পর্যায়গুলি অনুষ্ঠিত হয় এবং বাধা অক্ষম করে।</p>
+<p>অনুমোদিত শিরোনাম নাম/মান জোড়ার একটি JSON অ্যারে ব্যবহার করে; সংবেদনশীল/ব্রাউজার-পরিচালিত/ফ্রেমিং ক্ষেত্রগুলি সুরক্ষিত। অনুষ্ঠিত নেটওয়ার্ক অনুরোধের পদ্ধতি/বডি/স্ট্যাটাস রিরাইটিং অনুপলব্ধ৷ <strong>রিপিটারে পাঠান</strong> ইচ্ছাকৃত সম্পাদনার জন্য একটি পৃথক অনুরোধ আকার তৈরি করে; এটা স্বচ্ছ ইন-ফ্লাইট বডি রিরাইটিং নয়।</p>
+<p>শুধুমাত্র নির্বাচিত টার্গেট-ট্যাব HTTP ট্র্যাফিক যোগ্য। অচলাবস্থা এড়াতে স্ক্যানার পরিবহন বাধাকে বাইপাস করে। বাহ্যিক নেটিভ প্রক্সি ট্র্যাফিক এই ব্রাউজার ইন্টারসেপ্টরের বাইরে। আপগ্রেড করার পরে WebSocket বার্তাগুলির জন্য তাদের পৃথক চ্যানেল ওয়ার্কবেঞ্চ প্রয়োজন।</p>
+<h3 id="websocket-sse-and-utilities">WebSocket, SSE এবং ইউটিলিটি</h3>
+<p>একটি আবিষ্কৃত ইন-স্কোপ চ্যানেল চয়ন করুন বা এর সঠিক URL লিখুন। শ্রবণ এবং কাস্টম ফ্রেম পাঠায় অনুমোদিত ক্রিয়াকলাপগুলি আবদ্ধ, সাধারণ প্রোটোকল স্ক্যানার নয়। ক্যাপচার করা ত্রুটি পাঠ্য একটি সীসা; এটি বার্তা অনুমোদন বা জাতি/যুক্তিগত ত্রুটি স্থাপন করে না।</p>
+<p>ইউটিলিটিগুলি এনকোড/ডিকোড মান, SHA-256 গণনা করে, JSON ফর্ম্যাট করে এবং স্থানীয়ভাবে JWT দাবিগুলি পরিদর্শন করে। একটি JWT ডিকোডিং স্বাক্ষর যাচাইকরণ নয় এবং সার্ভার একটি জাল টোকেন গ্রহণ করে তা প্রতিষ্ঠিত করে না। রূপান্তরিত ইনপুট স্বয়ংক্রিয়ভাবে কার্যকর বা জমা দেওয়া হয় না।</p>
+<h2 id="findings-and-the-cimematic-viewer">ফাইন্ডিং এবং সিমেটিক ভিউয়ার</h2>
+<h3 id="read-the-evidence-first">আগে প্রমাণ পড়ুন</h3>
+<p>একটি অনুসন্ধানের পৃথক ক্ষেত্র রয়েছে:</p>
+<table>
+<thead>
+<tr>
+<th>মাঠ</th>
+<th>অর্থ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>তীব্রতা</td>
+<td>সমস্যাটি ব্যবহারযোগ্য হলে সম্ভাব্য ক্ষতির আনুমানিক</td>
+</tr>
+<tr>
+<td>রায়</td>
+<td>স্ক্যানার যা পর্যবেক্ষণ করেছে: সম্ভাব্য/মিলিত/সুরক্ষিত, নেতিবাচক, অবরুদ্ধ বা অমীমাংসিত, প্রযোজ্য হিসাবে</td>
+</tr>
+<tr>
+<td>আত্মবিশ্বাস</td>
+<td>বাস্তবায়িত প্রমাণের শক্তি, ক্ষতির পরিমাণ নয়</td>
+</tr>
+<tr>
+<td>স্থিতি পর্যালোচনা করুন</td>
+<td>আপনার মূল্যায়ন: পর্যালোচনা করা হয়নি, পর্যালোচক দ্বারা নিশ্চিত, মিথ্যা ইতিবাচক বা গৃহীত ঝুঁকি</td>
+</tr>
+<tr>
+<td>WSTG/CWE</td>
+<td>রেফারেন্স শ্রেণীবিভাগ, প্রমাণ নয় যে সম্পূর্ণ পরীক্ষা/বিভাগ সম্পন্ন হয়েছে</td>
+</tr>
+</tbody>
+</table>
+<p>URL, সন্নিবেশ পয়েন্ট, অনুরোধ, বেসলাইন, পেলোড, প্রতিক্রিয়া এবং পুনরাবৃত্তি/নিয়ন্ত্রণগুলি পরিদর্শন করুন। বিষয়বস্তু ছাঁটাই করা হয়েছে কিনা বা প্রতিক্রিয়া একটি চ্যালেঞ্জ/লগইন/ত্রুটি পৃষ্ঠা ছিল কিনা তা পরীক্ষা করুন। একটি উচ্চ-বিশ্বাসের পুনরাবৃত্তি ত্রুটি এখনও একটি সম্ভাব্য ইনজেকশন হতে পারে যা পর্যালোচনার প্রয়োজন।</p>
+<p>তারপর পর্যালোচনা স্থিতি এবং নোট সেট করুন <strong>পর্যালোচনা সংরক্ষণ করুন</strong>. এটি স্ক্যানারের আসল রায়/আস্থাকে ওভাররাইট করে না। মিথ্যা ইতিবাচক প্রমাণ বজায় রাখা. ফিল্টার, সহ <strong>নেতিবাচক / অবরুদ্ধ দেখান</strong>, দৃশ্যমানতা পরিবর্তন করুন, কার্যকরী রেকর্ড নয়।</p>
+<h3 id="cimematic-viewer">cimematic দর্শক</h3>
+<p>বোতামটি ইচ্ছাকৃতভাবে নামকরণ করা হয়েছে <strong>cimematic দর্শক</strong> এই রিলিজে. এটি নির্বাচিত অনুসন্ধানের জন্য থিমযুক্ত 3D ব্যাখ্যা খোলে।</p>
+<p>ক্রমটি প্রায় 9.3 সেকেন্ড: প্রভাবিত এলাকা সনাক্ত করুন, ইনপুট দেখান, প্রক্রিয়াকরণ চিত্রিত করুন, রেকর্ডকৃত ফলাফলের প্রমাণ দেখান, তারপর তীব্রতা এবং একটি সরল-ভাষায় সম্ভাব্য-ঝুঁকির ব্যাখ্যা প্রদর্শন করুন। উপলব্ধ নিয়ন্ত্রণ অন্তর্ভুক্ত <strong>বিরতি/পুনরায় শুরু করুন</strong>, রিপ্লে, সংখ্যাযুক্ত পদক্ষেপ, প্রভাব এড়িয়ে যান, <strong>3D গভীরতা</strong> এবং <strong>ফুলস্ক্রিন</strong>. হ্রাস-গতির সেটিংস সরাসরি প্রভাবে যেতে পারে।</p>
+<table>
+<thead>
+<tr>
+<th>মোড</th>
+<th>এটা কি দেখায়</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>লাইভ / CSS + JS</td>
+<td>একটি সাধারণ ফায়ারফক্স পূর্বরূপ ট্যাব তার CSS/জাভাস্ক্রিপ্ট এবং নির্বাচিত কুকি প্রসঙ্গ সহ বর্তমান পৃষ্ঠা লোড করে; দর্শক রেন্ডার করা ফ্রেম এবং উপাদান আয়তক্ষেত্র গ্রহণ করে</td>
+</tr>
+<tr>
+<td>শুধু বন্দী</td>
+<td>স্যানিটাইজড, নন-এক্সিকিউটিং HTML বা ক্যাপচার সহ প্রমাণ রাখা; সেই অফলাইন ফলব্যাক দ্বারা কোন বাহ্যিক সংস্থান বা স্ক্রিপ্ট চালানো হয় না</td>
+</tr>
+<tr>
+<td>রেকর্ড করা ফলাফল</td>
+<td>সংরক্ষিত স্ক্যান প্রমাণ/ফলাফল সমতল, যা বর্তমান লাইভ পৃষ্ঠা থেকে আলাদা হতে পারে</td>
+</tr>
+</tbody>
+</table>
+<p>এটি একটি সিনেমাটিক ভিউপোর্ট, একটি ইন্টারেক্টিভ ক্লোন সাইট DOM নয়। <strong>লাইভ ট্যাব খুলুন</strong> মিথস্ক্রিয়া জন্য বাস্তব পৃষ্ঠা খোলে. সাধারণ লাইভ লোডিং সাইটের সাধারণ সম্পদ/অ্যাপ্লিকেশন অনুরোধ করতে পারে, কিন্তু ভিউয়ার খোলার ফলে সংরক্ষিত আক্রমণ ফর্ম জমা হয় না, একটি পোস্ট রিপ্লে করা যায় না বা শোষণটি পুনরায় চালানো হয় না।</p>
+<p>ক্যামেরার অবস্থান তখনই সঠিক হয় যখন একটি ম্যাচিং ইনপুট/নাম/আইডি সনাক্ত করা যায়। এপিআই/হেডার/কুকি অনুসন্ধানের কোনো এইচটিএমএল ফর্ম থাকতে পারে না; একটি পৃষ্ঠা-প্রসঙ্গ ভিউ যেমন লেবেল করা হয়। অ্যানিমেশন কখনই একটি সম্ভাব্য অনুসন্ধানকে শোষণ প্রমাণে আপগ্রেড করে না। লাইভ রেন্ডারিং ব্যর্থ হলে, ক্যাপচার করা প্রমাণ এবং পাঠ্য/অনুরোধের বিবরণ ব্যবহার করুন।</p>
+<p>দর্শকের মালিকানাধীন প্রিভিউ ট্যাবটি সাধারণ ভিউয়ার/ড্যাশবোর্ড ক্লিনআপে বন্ধ থাকে; একটি সুস্পষ্টভাবে খোলা ইন্টারেক্টিভ ট্যাব বন্ধ করার জন্য আপনার রয়ে গেছে। বর্তমান লগইন, সাইটের অবস্থা, নির্ভরতা লোডিং এবং CSP পরিবর্তন করতে পারে যা লাইভ মোড প্রদর্শন করে।</p>
+<h2 id="owasp-top-10-coverage">OWASP শীর্ষ 10 কভারেজ</h2>
+<p>খোলা <strong>স্ক্যান বিকল্প → তথ্য</strong> অনুসন্ধানযোগ্য/ফিল্টারযোগ্য 44-এন্ট্রি বাস্তবায়ন টেবিলের জন্য, পৃষ্ঠা তথ্য বোতামের মাধ্যমেও পৌঁছানো যায়। এটি ব্যবহার করে <a href="https://top10.owasp.org/2025/">OWASP শীর্ষ 10:2025৷</a> অভিযোজনের জন্য পুরানো 2021 রেফারেন্স সহ। SSRF এখন ব্রোকেন এক্সেস কন্ট্রোলের অধীনে গোষ্ঠীবদ্ধ। উদাহরণগুলি বিভাগগুলিকে ওভারল্যাপ করতে পারে; তালিকাটি সম্পূর্ণ CWE ক্যাটালগ নয়।</p>
+<p>সমর্থন লেবেল:</p>
+<ul>
+<li><strong>সক্রিয় চেক:</strong> সমর্থিত পৌঁছানো ইনপুটগুলির জন্য সক্রিয় থাকাকালীন একটি নিবেদিত বাস্তবায়িত নিয়ম বিদ্যমান।</li>
+<li><strong>ঐচ্ছিক যাচাইকরণ:</strong> অতিরিক্ত বিকল্প, অনুমতি, প্রদানকারী বা সঞ্চালনের পূর্বশর্ত প্রযোজ্য।</li>
+<li><strong>শুধুমাত্র সূচক:</strong> একটি প্যাসিভ সংকেত/তুলনা ম্যানুয়াল ব্যাখ্যা প্রয়োজন।</li>
+<li><strong>টেমপ্লেট-নির্ভর:</strong> আমদানি করা টেমপ্লেট এবং নির্বাহক পরীক্ষিত অবস্থা নির্ধারণ করে।</li>
+<li><strong>আচ্ছাদিত নয়:</strong> সেই শ্রেণীর জন্য কোনো ডেডিকেটেড বিল্ট-ইন যাচাইকারী নেই; জেনেরিক কাস্টম পেলোডগুলি স্বয়ংক্রিয়ভাবে কভারেজ স্থাপন করে না।</li>
+</ul>
+<p>এটি একটি উৎস-ভিত্তিক সক্ষমতা নিরীক্ষা, <strong>একটি পরিমাপ সনাক্তকরণ শতাংশ নয়</strong>. এটি লংশটের অন্তর্নির্মিত স্ক্যানার এবং এর ঐচ্ছিক পর্যায়গুলি বর্ণনা করে, সম্পূর্ণ বাহ্যিক ZAP নিয়ম সেট নয়।</p>
+<table>
+<thead>
+<tr>
+<th>OWASP 2025</th>
+<th>দুর্বলতা / দুর্বলতা</th>
+<th>সমর্থন</th>
+<th>কি রান / প্রয়োজনীয় বিকল্প</th>
+<th>সীমা</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A05</td>
+<td>এসকিউএল ইনজেকশন: ডাটাবেস ত্রুটি এবং বুলিয়ান পার্থক্য</td>
+<td>সক্রিয় চেক</td>
+<td>এসকিউএল ইনজেকশন সক্ষম করুন। বারবার ডাটাবেস-ত্রুটি অনুসন্ধান এবং সত্য/মিথ্যা তুলনা আবিষ্কৃত ইনপুটগুলিতে নতুন নিয়ন্ত্রণ ব্যবহার করে।</td>
+<td>প্রার্থীদের পর্যালোচনা প্রয়োজন. কোনো ডাটাবেস নিষ্কাশন বা ব্যাপক DBMS-নির্দিষ্ট অন্ধ কভারেজ নেই।</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>ব্লাইন্ড এসকিউএল ইনজেকশন: সময়</td>
+<td>ঐচ্ছিক যাচাইকরণ</td>
+<td>আক্রমনাত্মক অনুমোদনের সাথে বারবার টাইমিং প্রোব সক্ষম করুন। তিনটি পরিষ্কার সময়কে প্রথম সন্নিবেশ বিন্দুতে তিনটি স্লিপ প্রোবের সাথে তুলনা করা হয়।</td>
+<td>একটি সংকীর্ণ এসকিউএল সিনট্যাক্স এবং টাইমিং হিউরিস্টিক; jitter, WAFs এবং বিভিন্ন ডাটাবেস উপভাষা ফলাফল লুকাতে বা অনুকরণ করতে পারে।</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>NoSQL ইনজেকশন</td>
+<td>সক্রিয় চেক</td>
+<td>বারবার MongoDB/BSON ত্রুটি স্বাক্ষরের জন্য NoSQL ইনজেকশন সক্ষম করুন৷ ঐচ্ছিক সময় যাচাইকরণও একটি MongoDB $ চেষ্টা করে যেখানে JSON বডিতে বিলম্ব হয়।</td>
+<td>কোন সাধারণ অপারেটর-ভিত্তিক প্রমাণীকরণ বাইপাস, অন্ধ NoSQL নিষ্কাশন বা প্রতিটি NoSQL ইঞ্জিনের কভারেজ নেই।</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>প্রতিফলিত ক্রস-সাইট স্ক্রিপ্টিং (XSS)</td>
+<td>সক্রিয় চেক</td>
+<td>প্রতিফলিত XSS সক্ষম করুন। একটি অনন্য প্রতিফলন চিহ্নিতকারী এবং পুনরাবৃত্ত নিষ্ক্রিয় HTML-প্রসঙ্গ অনুসন্ধানগুলি নির্বাহযোগ্য-সুদর্শন মার্কআপ সনাক্ত করে।</td>
+<td>HTML-প্রসঙ্গ প্রমাণ একজন প্রার্থী। এটি স্ক্রিপ্ট সম্পাদন বা বাইপাস বিষয়বস্তু নিরাপত্তা নীতি স্থাপন করে না।</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>URL ক্যোয়ারী বা ফ্র্যাগমেন্ট ইনপুট থেকে DOM XSS</td>
+<td>ঐচ্ছিক যাচাইকরণ</td>
+<td>লাইভ DOM XSS যাচাইকরণ সক্ষম করুন এবং আক্রমণাত্মক অনুমতিগুলি অনুমোদন করুন৷ দুটি তাজা ক্যানারি অবশ্যই নিষ্পত্তিযোগ্য একই-কুকি-স্টোর ট্যাবে কার্যকর করতে হবে; একটি নিয়ন্ত্রণ নেতিবাচক থাকতে হবে।</td>
+<td>শুধুমাত্র আবদ্ধ URL ইনপুট. CSP এবং নির্ভরতা বলবৎ থাকে; টাইমআউট এবং অবরুদ্ধ সংস্থানগুলি ফাঁক রেখে যায়।</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>পোস্টমেসেজ, স্টোরেজ বা নির্বিচারে ডেটা প্রবাহ থেকে DOM XSS</td>
+<td>আচ্ছাদিত নয়</td>
+<td>প্যাসিভ সোর্স/সিঙ্ক ইঙ্গিত পর্যালোচনার জন্য কাছাকাছি ইনলাইন জাভাস্ক্রিপ্ট প্যাটার্ন সনাক্ত করতে পারে।</td>
+<td>কোন সাধারণ কলঙ্ক ট্র্যাকিং, নির্বিচারে বার্তা তৈরি বা স্টোরেজ-উৎস নির্বাহ পরীক্ষা।</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>সংরক্ষিত XSS এবং মাল্টি-স্টেপ সেকেন্ড-অর্ডার ইনজেকশন</td>
+<td>আচ্ছাদিত নয়</td>
+<td>একটি পরিদর্শন করা পৃষ্ঠায় সন্দেহজনক কোড বা প্রতিফলিত প্রার্থী থাকতে পারে।</td>
+<td>কোনো সাধারণ লেখা-স্টোর-পঠিত সম্পর্ক, ওয়ার্কফ্লো রিপ্লে বা সঞ্চিত-পেলোড এক্সিকিউশন যাচাইকরণ নেই।</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>সার্ভার-সাইড টেমপ্লেট ইনজেকশন (SSTI)</td>
+<td>সক্রিয় চেক</td>
+<td>সার্ভার টেমপ্লেট ইনজেকশন সক্ষম করুন। অনন্য মার্কার সহ এলোমেলো গাণিতিক ফলাফল অবশ্যই নিয়ন্ত্রণের বিরুদ্ধে পুনরাবৃত্তি করতে হবে।</td>
+<td>শুধুমাত্র সমর্থিত অভিব্যক্তি পরিবার; ব্লাইন্ড টেমপ্লেট এক্সিকিউশন এবং প্রতিটি টেমপ্লেট ইঞ্জিন কভার করা হয় না।</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>সার্ভার-সাইড কোড ইনজেকশন</td>
+<td>সক্রিয় চেক</td>
+<td>সার্ভার-সাইড কোড ইনজেকশন সক্ষম করুন। কম্পিউটেড জাভাস্ক্রিপ্ট/পিএইচপি ক্যানারি সমতল প্রতিফলন থেকে মূল্যায়নকে আলাদা করে।</td>
+<td>একটি ছোট ভাষা/প্রসঙ্গ সেট; একটি সর্বজনীন রিমোট-কোড-নির্বাহ পরীক্ষা নয়।</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>ওএস কমান্ড ইনজেকশন</td>
+<td>ঐচ্ছিক যাচাইকরণ</td>
+<td>বারবার আইডি-আউটপুট প্রোবের জন্য OS কমান্ড সূচক সক্রিয় করুন। একটি শ্রবণকারী OAST প্রদানকারীর সাথে ঐচ্ছিক কমান্ড প্রোবগুলি একটি DNS কলব্যাকের সাথে সম্পর্ক স্থাপন করতে পারে।</td>
+<td>একটি সামঞ্জস্যপূর্ণ কমান্ড প্রসঙ্গ প্রয়োজন এবং, কলব্যাকের জন্য, লক্ষ্য বহির্গমন। কোনো কলব্যাক নিরাপত্তা প্রতিষ্ঠা করে না।</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>CRLF / প্রতিক্রিয়া-হেডার ইনজেকশন</td>
+<td>সক্রিয় চেক</td>
+<td>রেসপন্স হেডার ইনজেকশন সক্ষম করুন। একটি উত্পন্ন প্রতিক্রিয়া-শিরোনাম চিহ্নিতকারী পুনরাবৃত্তি এবং নিয়ন্ত্রণ থেকে অনুপস্থিত হতে হবে.</td>
+<td>ব্রাউজার URL/হেডার হ্যান্ডলিং পেলোড সীমাবদ্ধ করে। কাঁচা প্রতিক্রিয়া বিভাজন, ক্যাশে বিষক্রিয়া এবং ফ্রেমিং আক্রমণ প্রতিষ্ঠিত হয় না।</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>LDAP, XPath এবং অন্যান্য অপ্রয়োজনীয় ইনজেকশন ভাষা</td>
+<td>আচ্ছাদিত নয়</td>
+<td>কাস্টম পেলোড, অটো-ফাজ বা একটি পর্যালোচনা করা টেমপ্লেট একটি পৃথক তদন্তে সহায়তা করতে পারে।</td>
+<td>কোনো ডেডিকেটেড বিল্ট-ইন ভাষা-নির্দিষ্ট যাচাইকারী নেই; একটি প্রতিক্রিয়া পার্থক্য নিশ্চিতকরণ নয়।</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>পাথ ট্রাভার্সাল / স্থানীয় ফাইল অন্তর্ভুক্তি</td>
+<td>সক্রিয় চেক</td>
+<td>ট্রাভার্সাল/ফাইল অন্তর্ভুক্তি সক্ষম করুন। সমর্থিত ফাইল-সামগ্রী স্বাক্ষরগুলি আবিষ্কৃত সন্নিবেশ পয়েন্টগুলিতে পুনরাবৃত্তি করতে হবে।</td>
+<td>প্রতিটি এনকোডিং, অপারেটিং সিস্টেম, দূরবর্তী অন্তর্ভুক্তি বা নির্বিচারে ফাইল কভার করে না। কোনো ডিরেক্টরি ব্রুট-ফোর্স ইনভেন্টরি নেই।</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>সার্ভার-সাইড অনুরোধ জালিয়াতি (SSRF)</td>
+<td>ঐচ্ছিক যাচাইকরণ</td>
+<td>একটি অনুমোদিত পৌঁছানোর যোগ্য প্রদানকারীর সাথে SSRF এবং OAST সক্ষম করুন। সঠিক প্রোব পারস্পরিক সম্পর্ক একটি DNS/HTTP মিথস্ক্রিয়া রেকর্ড করে।</td>
+<td>অভ্যন্তরীণ-ঠিকানা প্রতিক্রিয়া পার্থক্য শুধুমাত্র ইঙ্গিত. একটি কলব্যাক একটি মিথস্ক্রিয়া স্থাপন করে, অভ্যন্তরীণ অ্যাক্সেস বা ডেটা চুরি নয়; মধ্যস্থতাকারীরা পেলোডগুলি সমাধান করতে পারে।</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>IDOR / ভাঙা বস্তু বা ফাংশন অনুমোদন</td>
+<td>শুধুমাত্র সূচক</td>
+<td>একটি স্বতন্ত্র ফায়ারফক্স কন্টেইনার/প্রাইভেট কুকি স্টোর ব্যবহার করে সেশন B এর সাথে তুলনা সক্ষম করুন। দশটি পঠিত অনুরোধ স্ট্যাটাস এবং বডি হ্যাশের তুলনা করে।</td>
+<td>কোন বস্তু-মালিকানা বা প্রত্যাশিত-ভূমিকা মডেল; অভিন্ন পাবলিক পেজ বৈধ হতে পারে. কোন সাধারণ সুযোগ-সুবিধা বৃদ্ধির প্রমাণ নেই।</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>ক্রস-সাইট অনুরোধ জালিয়াতি (CSRF)</td>
+<td>শুধুমাত্র সূচক</td>
+<td>ফর্ম পর্যালোচনা স্বীকৃত টোকেন ক্ষেত্র ছাড়াই POST ফর্মগুলি রিপোর্ট করে এবং দৃশ্যমান কুকি বৈশিষ্ট্যগুলি পরীক্ষা করে৷</td>
+<td>কোনো ক্রস-সাইট এক্সপ্লয়েট জমা বা সার্ভার টোকেন-বৈধকরণ পরীক্ষা। একইসাইট, কাস্টম হেডার এবং ওয়ার্কফ্লো কন্ট্রোল ম্যানুয়াল পর্যালোচনা প্রয়োজন।</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>ক্রস-অরিজিন রিসোর্স শেয়ারিং (CORS) শোষণ</td>
+<td>শুধুমাত্র সূচক</td>
+<td>CORS পর্যালোচনা পর্যবেক্ষিত মঞ্জুরি-অরিজিন এবং শংসাপত্র শিরোনাম পরিদর্শন করে।</td>
+<td>কোন নির্বিচারে অরিজিন প্রতিফলন পরীক্ষা বা আক্রমণকারী-উৎস ডেটা-পড়া যাচাইকরণ নেই। শংসাপত্র সহ ওয়াইল্ডকার্ড ব্রাউজার দ্বারা প্রত্যাখ্যাত হয়।</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>রিডাইরেক্ট খুলুন</td>
+<td>সক্রিয় চেক</td>
+<td>ওপেন রিডাইরেক্ট সক্ষম করুন। লোকেশন হেডারে একটি জেনারেট করা .অবৈধ গন্তব্য অবশ্যই পুনরাবৃত্তি করতে হবে। বাহ্যিক গন্তব্য অনুসরণ করা হয় না.</td>
+<td>জাভাস্ক্রিপ্ট পুনঃনির্দেশ, বহু-পদক্ষেপ লগইন পুনঃনির্দেশ এবং প্রতিটি ইউআরএল স্বাভাবিকীকরণ বাইপাস কভার করা হয় না।</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>ভাড়াটে বিচ্ছিন্নতা, ভূমিকা বৃদ্ধি এবং কর্মপ্রবাহ অনুমোদন</td>
+<td>আচ্ছাদিত নয়</td>
+<td>সেশন তুলনা এবং আমদানি করা অনুরোধ একটি বিশ্লেষক জন্য প্রমাণ প্রদান করতে পারেন.</td>
+<td>ভাড়াটে মালিকানা, ভূমিকা, রাষ্ট্রীয় স্থানান্তর বা অনুমোদিত ব্যবসায়িক ক্রিয়াকলাপ সম্পর্কে কোনও বোঝাপড়া নেই।</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>অনুপস্থিত নিরাপত্তা শিরোনাম, দুর্বল CSP এবং ক্লিকজ্যাকিং প্রতিরক্ষা</td>
+<td>শুধুমাত্র সূচক</td>
+<td>স্ক্যানের সময় প্যাসিভ হেডার রিভিউ CSP, অনিরাপদ-ইভাল, ফ্রেমিং নীতি এবং পর্যবেক্ষণ করা প্রতিক্রিয়াগুলির নসনিফ চেক করে।</td>
+<td>অনুপস্থিত প্রতিরক্ষা কঠিন সংকেত; শোষণযোগ্যতা, নীতির সম্পূর্ণতা এবং UI-প্রতিকার প্রভাব প্রতিষ্ঠিত হয় না।</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>ডিরেক্টরি তালিকা, উৎস/কনফিগারেশন এক্সপোজার এবং ডিবাগ ট্রেস</td>
+<td>শুধুমাত্র সূচক</td>
+<td>নিষ্ক্রিয় পর্যালোচনা তালিকা মার্কআপ, পিএইচপি উত্স, কনফিগারেশন-কী অ্যাসাইনমেন্ট এবং প্রত্যাবর্তিত সামগ্রীতে নির্বাচিত স্ট্যাক ট্রেসগুলিকে স্বীকৃতি দেয়৷</td>
+<td>শুধুমাত্র পর্যবেক্ষণ বিষয়বস্তু এবং স্বাক্ষর; কোনো ব্যাপক ব্যাকআপ-ফাইল, গোপন বা লুকানো-প্রশাসক আবিষ্কার নেই।</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>XML বাহ্যিক সত্তা ইনজেকশন (XXE)</td>
+<td>ঐচ্ছিক যাচাইকরণ</td>
+<td>আক্রমনাত্মক অনুমোদন সহ XXE এবং একটি শোনার OAST প্রদানকারীকে সক্ষম করুন৷ একটি XML অনুরোধের বডি একটি বহিরাগত-সত্তা কলব্যাক ক্যানারি দিয়ে প্রতিস্থাপিত হয়।</td>
+<td>একটি ইনভেন্টরি করা XML অনুরোধের প্রয়োজন৷ কোন ব্যাপক পার্সার, SOAP, ফাইল-রিড, প্যারামিটার-সত্তা বা অন্ধ নিষ্কাশন কভারেজ নেই।</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>বিপজ্জনক HTTP পদ্ধতি</td>
+<td>শুধুমাত্র সূচক</td>
+<td>বিজ্ঞাপিত HTTP পদ্ধতি সক্রিয় করুন. OPTIONS অনুমিত প্রতিক্রিয়া শিরোনাম রেকর্ড করে।</td>
+<td>অননুমোদিত PUT/DELETE লেখার চেষ্টা করে না বা বিজ্ঞাপনের পদ্ধতিগুলি শোষণযোগ্য বলে প্রমাণ করে না।</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>ডুপ্লিকেট ক্যোয়ারী প্যারামিটার হ্যান্ডলিং</td>
+<td>শুধুমাত্র সূচক</td>
+<td>পুনরাবৃত্ত প্রথম/শেষ-ক্রম প্রতিক্রিয়া তুলনার জন্য ডুপ্লিকেট ক্যোয়ারী প্যারামিটার হ্যান্ডলিং সক্ষম করুন।</td>
+<td>পার্সিং পার্থক্য WAF বাইপাস, অ্যাক্সেস-কন্ট্রোল ব্যর্থতা বা প্রক্সি/ব্যাকএন্ড মতবিরোধ প্রমাণ করে না।</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>ক্লাউড অনুমতি, লুকানো অ্যাডমিন পরিষেবা এবং ব্যাকএন্ড কনফিগারেশন</td>
+<td>আচ্ছাদিত নয়</td>
+<td>স্ট্যাক ফিঙ্গারপ্রিন্ট এবং টপোলজি ভিউ ব্রাউজার-দৃশ্যমান হাইপোথিসিস প্রদান করে।</td>
+<td>কোনও ক্লাউড অ্যাকাউন্ট অ্যাক্সেস, অবকাঠামো নিরীক্ষা, সার্ভার কনফিগারেশন পরিদর্শন বা সম্পূর্ণ অভ্যন্তরীণ নেটওয়ার্ক আবিষ্কার নেই।</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>পরিচিত দুর্বল ব্রাউজার জাভাস্ক্রিপ্ট নির্ভরতা</td>
+<td>ঐচ্ছিক যাচাইকরণ</td>
+<td>ছোট বান্ডিল উপদেষ্টা ডাটাবেসের সাথে পর্যবেক্ষণ করা সম্পদ সংস্করণ তুলনা করতে ক্লায়েন্ট-লাইব্রেরি SCA সক্ষম করুন।</td>
+<td>শুধুমাত্র সংস্করণ/স্বাক্ষর সম্পর্ক; ব্যাকপোর্ট, পৌঁছানো যায় এমন দুর্বল কোড, সম্পূর্ণ নির্ভরতা গাছ এবং অদেখা সম্পদ যাচাই করা হয় না।</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>সার্ভার নির্ভরতা CVE এবং পণ্য দুর্বলতা</td>
+<td>টেমপ্লেট-নির্ভর</td>
+<td>CVE অটো-ফেজের জন্য যোগ্য আমদানি করা টেমপ্লেট প্রয়োজন; শুধুমাত্র তাদের রচিত অনুরোধ এবং matchers রান. নেটিভ নিউক্লিয়াস এর আলাদা ইঞ্জিন এবং অনুমোদন প্রয়োজন।</td>
+<td>আঙুলের ছাপ/পরামর্শদাতা একাই প্রার্থী। দুটি বান্ডিল কমিউনিটি স্টার্টার সার্বজনীন CVE কভারেজ প্রদান করে না।</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>আপস করা প্যাকেজ, CI/CD এবং ক্ষতিকারক সাপ্লাই-চেইন আপডেট</td>
+<td>আচ্ছাদিত নয়</td>
+<td>নির্ভরতার নাম বা সংস্করণগুলি একটি পৃথক কোড এবং পর্যালোচনা তৈরি করতে সহায়তা করতে পারে।</td>
+<td>কোন SBOM সম্পূর্ণতা, সংগ্রহস্থল/বিল্ড অডিট, প্যাকেজের সত্যতা বা সাইনিং-চেইন যাচাইকরণ নেই।</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>HTTP পাসওয়ার্ড ফর্ম, HSTS এবং অনিরাপদ সম্পদ উল্লেখ</td>
+<td>শুধুমাত্র সূচক</td>
+<td>প্যাসিভ চেকগুলি HTTP/GET, অনুপস্থিত HSTS এবং HTTPS মার্কআপ দ্বারা উল্লেখ করা নির্বাচিত HTTP সংস্থান ব্যবহার করে পাসওয়ার্ড ফর্মগুলি সনাক্ত করে৷</td>
+<td>ব্যাপক সংবেদনশীল-ডেটা আবিষ্কার নয়; বিশ্রামে ডেটা এক্সপোজার প্রমাণ করে না বা সমস্ত পরিবহন আচরণের মূল্যায়ন করে না।</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>দুর্বল TLS প্রোটোকল/সাইফার, কী ব্যবস্থাপনা এবং বিশ্রামে এনক্রিপশন</td>
+<td>আচ্ছাদিত নয়</td>
+<td>ব্রাউজারটি তার স্বাভাবিক TLS সংযোগ সরবরাহ করে।</td>
+<td>কোন সাইফার/প্রটোকল গণনা, সার্টিফিকেট ইনভেন্টরি, ক্রিপ্টোগ্রাফিক ডিজাইন পর্যালোচনা, পাসওয়ার্ড-হ্যাশ অডিট বা সার্ভার-সাইড কী অ্যাক্সেস নেই।</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>ব্যবসায়িক যুক্তি, অর্থপ্রদান/মূল্যের হেরফের এবং কর্মপ্রবাহের অপব্যবহার</td>
+<td>আচ্ছাদিত নয়</td>
+<td>পর্যবেক্ষণ করা অনুরোধ এবং রিপিটার ম্যানুয়াল পরীক্ষায় সহায়তা করে।</td>
+<td>সঠিক মূল্য, অ্যাকাউন্ট ব্যালেন্স, ব্যবসার নিয়ম, লেনদেনের আদেশ বা উদ্দেশ্যযুক্ত আবেদন আচরণের কোন মডেল নেই।</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>রেস শর্ত এবং সম্পদ-ক্লান্তি নকশা ত্রুটি</td>
+<td>আচ্ছাদিত নয়</td>
+<td>অনুরোধ সীমা এবং হার নিয়ন্ত্রণ আবদ্ধ স্ক্যানিং; হার-সীমা প্রতিক্রিয়া হল কর্মক্ষম সংকেত।</td>
+<td>কোন সিঙ্ক্রোনাইজড রেস জোতা বা ইচ্ছাকৃতভাবে অস্বীকার-অফ-সার্ভিস যাচাইকরণ।</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>দুর্বল কুকি/সেশন বৈশিষ্ট্য</td>
+<td>শুধুমাত্র সূচক</td>
+<td>কুকি পর্যালোচনা প্রতিবেদনে সুরক্ষিত, HttpOnly বা সুস্পষ্ট SameSite এবং SameSite=কোনও সুরক্ষিত ছাড়া নেই।</td>
+<td>কুকি উদ্দেশ্য এবং ব্রাউজার ডিফল্ট গুরুত্বপূর্ণ. সেশন হাইজ্যাকিং, ফিক্সেশন, লগআউট অবৈধকরণ বা টোকেন এনট্রপি স্থাপন করে না।</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>লগইন বাইপাস, MFA, পাসওয়ার্ড রিসেট, ব্রুট ফোর্স এবং অ্যাকাউন্ট টেকওভার</td>
+<td>আচ্ছাদিত নয়</td>
+<td>একটি ইনজেকশন চেক লগইন ত্রুটির একটি কারণ প্রকাশ করতে পারে। সেশন যাচাইকারী কনফিগার করা লগইন এখনও বৈধ বলে মনে হয় কিনা তা পরীক্ষা করে।</td>
+<td>কোন সাধারণ শংসাপত্র আক্রমণ, MFA/রিসেট ওয়ার্কফ্লো পরীক্ষা, লকআউট অডিট বা অ্যাকাউন্ট-টেকওভার যাচাইকরণ।</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>JWT, OAuth, OIDC এবং SAML যাচাইকরণের ত্রুটি</td>
+<td>আচ্ছাদিত নয়</td>
+<td>ইউটিলিটিগুলি ম্যানুয়াল পরিদর্শনের জন্য স্থানীয়ভাবে একটি JWT ডিকোড করতে পারে।</td>
+<td>ডিকোডিং স্বাক্ষর যাচাইকরণ নয়। কোন সাধারণ অ্যালগরিদম-বিভ্রান্তি, টোকেন-জালিয়াতি, পুনঃনির্দেশ-প্রবাহ বা ফেডারেশন পরীক্ষা।</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Log4Shell কলব্যাক পাথ</td>
+<td>ঐচ্ছিক যাচাইকরণ</td>
+<td>অনুমোদন সহ Log4Shell এবং OAST সক্ষম করুন। একটি JNDI কলব্যাক ক্যানারি প্রথম উপলব্ধ ইনপুট এবং X-Api-সংস্করণে স্থাপন করা হয়েছে৷</td>
+<td>একটি মিল মিথস্ক্রিয়া বৈশিষ্ট্য এবং পর্যালোচনা প্রয়োজন; এটা কোড এক্সিকিউশন প্রমাণ করে না। সীমিত সন্নিবেশ পয়েন্ট এবং লক্ষ্য বহির্গমন দুর্বল পথ মিস করতে পারে।</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>অনিরাপদ ডিসিরিয়ালাইজেশন</td>
+<td>টেমপ্লেট-নির্ভর</td>
+<td>ডিসিরিয়ালাইজেশন বিকল্পটি ডিসিরিয়ালাইজেশনের জন্য ট্যাগ করা যোগ্য আমদানি করা টেমপ্লেট নির্বাচন করে। তাদের নির্বাহক এবং পূর্বশর্ত পর্যালোচনা করুন।</td>
+<td>কোন সাধারণ অবজেক্ট-ফরম্যাট আবিষ্কার, গ্যাজেট-চেইন জেনারেটর বা সর্বজনীন ডিসিরিয়ালাইজেশন যাচাইকারী নেই।</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>স্বাক্ষরবিহীন আপডেট, নকল অ্যাপ্লিকেশন ডেটা এবং অখণ্ডতা নিয়ন্ত্রণ</td>
+<td>আচ্ছাদিত নয়</td>
+<td>ক্যাপচার করা প্রতিক্রিয়া এবং ডিকোড করা ডেটা ম্যানুয়াল বিশ্লেষণে সহায়তা করতে পারে।</td>
+<td>কোনো অ্যাপ্লিকেশন ট্রাস্ট মডেল, আপডেট-স্বাক্ষর যাচাইকরণ, ডেটা-স্বাক্ষর নিরীক্ষা বা সাধারণ গণ-অ্যাসাইনমেন্ট যাচাইকরণ নেই।</td>
+</tr>
+<tr>
+<td>A09</td>
+<td>নিরাপত্তা লগ অনুপস্থিত, সতর্কতা, লগ অখণ্ডতা এবং ঘটনা সনাক্তকরণ</td>
+<td>আচ্ছাদিত নয়</td>
+<td>লংশট তার নিজস্ব স্ক্যান প্রমাণ এবং স্থানীয় অনুরোধ জার্নাল রেকর্ড করে।</td>
+<td>স্ক্যানার লগগুলি অ্যাপ্লিকেশন লগ বা সতর্কতা সঠিকভাবে প্রকাশ করে না; সার্ভার/SIEM প্রমাণ পরিদর্শন করুন এবং নিরীক্ষণ করা পরিস্থিতিগুলি চালান।</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>ব্যতিক্রমী প্রতিক্রিয়া থেকে তথ্য ফাঁস</td>
+<td>শুধুমাত্র সূচক</td>
+<td>প্যাসিভ ত্রুটি প্রকাশ এবং সক্রিয় ইনজেকশন নিয়ন্ত্রণ নির্বাচিত স্ট্যাক ট্রেস এবং নতুন প্রবর্তিত ডাটাবেস ত্রুটিগুলি লক্ষ্য করতে পারে।</td>
+<td>শুধু প্রমাণ ফিরিয়ে দিয়েছে। শুধুমাত্র একটি জেনেরিক ত্রুটি বা HTTP 500 একটি যাচাই করা দুর্বলতা নয়।</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>ব্যর্থ-খোলা আচরণ, রোলব্যাক ব্যর্থতা এবং অনিরাপদ ব্যতিক্রম পুনরুদ্ধার</td>
+<td>আচ্ছাদিত নয়</td>
+<td>স্ট্যাটাস/শরীরের পার্থক্য ম্যানুয়াল তদন্তকে গাইড করতে পারে।</td>
+<td>কোন সাধারণ ফল্ট ইনজেকশন, লেনদেন রোলব্যাক দাবী, ক্র্যাশ পুনরুদ্ধার বা ব্যতিক্রম-পথ অ্যাক্সেস-কন্ট্রোল মডেল।</td>
+</tr>
+<tr>
+<td>অন্যান্য</td>
+<td>HTTP অনুরোধ চোরাচালান, বিকৃত ফ্রেমিং, ক্যাশে বিষক্রিয়া এবং হোস্ট আক্রমণ</td>
+<td>আচ্ছাদিত নয়</td>
+<td>অন্তর্নির্মিত স্ক্যানার ব্রাউজার নেটওয়ার্কিং ব্যবহার করে এবং পরিচালিত শিরোনাম রক্ষা করে।</td>
+<td>নেটিভ প্রক্সির মাধ্যমে বাহ্যিক টুল আলাদা। এর পার্স করা HTTP ট্রান্সপোর্টও বাইট-স্বচ্ছ চোরাচালান বা কাস্টম-TLS ইঞ্জিন নয়।</td>
+</tr>
+<tr>
+<td>অন্যান্য</td>
+<td>WebSocket / SSE অ্যাপ্লিকেশন দুর্বলতা</td>
+<td>শুধুমাত্র সূচক</td>
+<td>ঐচ্ছিক আবদ্ধ চ্যানেল পরীক্ষা এক্সচেঞ্জ ক্যাপচার এবং নির্বাচিত ত্রুটি পাঠ্য রিপোর্ট.</td>
+<td>কোন প্রোটোকল-সচেতন অনুমোদন, বার্তা-স্কিমা ফাজিং, ক্রস-সাইট ওয়েবসকেট হাইজ্যাকিং বা ব্যবসা-লজিক যাচাইকারী।</td>
+</tr>
+<tr>
+<td>অন্যান্য</td>
+<td>ফাইল আপলোড, GraphQL/SOAP লজিক এবং অসমর্থিত বাইনারি প্রোটোকল</td>
+<td>আচ্ছাদিত নয়</td>
+<td>আবিষ্কৃত HTTP অনুরোধগুলি জেনেরিক চেকের জন্য সমর্থিত স্কেলার ইনপুটগুলি প্রকাশ করতে পারে।</td>
+<td>কোনো ডেডিকেটেড আপলোড এক্সিকিউশন, গ্রাফকিউএল অনুমোদন/জটিলতা, ব্যাপক SOAP বা বাইনারি-প্রটোকল স্ক্যানার নেই।</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interpreting-actual-run-coverage">প্রকৃত রান কভারেজ ব্যাখ্যা করা</h3>
+<p>সম্পূর্ণ WSTG রেফারেন্স মানচিত্রে স্বয়ংক্রিয় উপসেট, সহায়ক কাজ এবং ম্যানুয়াল মূল্যায়ন অন্তর্ভুক্ত রয়েছে। ইন <strong>প্রকৃত ইনপুট কভারেজ</strong>:</p>
+<ul>
+<li><strong>সম্পন্ন</strong> মানে সেই ইনপুটে বাস্তবায়িত নিয়ম শেষ হয়েছে, এমন নয় যে ইনপুট নিরাপদ।</li>
+<li><strong>আংশিক</strong> মানে কিছু কাজ চলছিল কিন্তু একটি সীমা, বাধা বা অন্য শর্ত সমাপ্তিতে বাধা দেয়।</li>
+<li><strong>এড়িয়ে গেছে</strong> মানে নিয়ম/ইনপুট চালানো হয়নি; কারণ পরিদর্শন করুন।</li>
+</ul>
+<p>একটি WAF, অনুপস্থিত ভূমিকা, অবৈধ অধিবেশন, লুকানো/অভিদর্শিত কর্মপ্রবাহ, অনুপলব্ধ অনুরোধের অংশ, CSP বা নিঃশেষিত বাজেট একটি দুর্বল ইনপুট অপরিক্ষিত রেখে যেতে পারে। নেটিভ প্রক্সি পেয়ারিং বিল্ট-ইন স্ক্যানার থেকে সেই সীমাগুলিকে সরিয়ে দেয় না। একটি পর্যবেক্ষণ করা CVE সংস্করণ, অনুপস্থিত শিরোনাম বা ভিন্ন প্রতিক্রিয়া স্বয়ংক্রিয়ভাবে একটি শোষণ নয়।</p>
+<p>রিলিজ 2.18.1 192টি স্বয়ংক্রিয় ইউনিট/রিগ্রেশন পরীক্ষা, আটটি বাস্তব ক্রোম চেক এবং আটটি বাস্তব ফায়ারফক্স চেক, ZIP/YAML CSP যাচাইকরণ এবং মালিকানাধীন SQLite ফিক্সচারের বিরুদ্ধে নেটিভ ZAP ট্র্যাফিক সহ পাস করেছে। এর অফিসিয়াল ব্রাউজার লাইব্রেরিগুলি বাইট-ফর-বাইটে যাচাই করা হয় এবং একটি পরিষ্কার উত্স পুনর্নির্মাণ Firefox XPI-কে ঠিক পুনরুত্পাদন করে। এই পরীক্ষাগুলি নামকৃত বাস্তবায়ন আচরণকে বৈধ করে; তারা প্রতিটি জুস শপ, ওয়েবগোট, bWAPP বা NodeGoat চ্যালেঞ্জের সনাক্তকরণ দেখায় না। বাহ্যিক ZAP SQLi ফলাফল প্রক্সি পাথ যাচাই করে, লংশটের সমস্ত দুর্বলতা জুড়ে নয়।</p>
+<h2 id="recovery-assessment-files-and-reports">পুনরুদ্ধার, মূল্যায়ন ফাইল এবং রিপোর্ট</h2>
+<h3 id="keep-recovery-paths-separate">পুনরুদ্ধারের পথ আলাদা রাখুন</h3>
+<table>
+<thead>
+<tr>
+<th>পথ</th>
+<th>ব্যর্থতার পর কি করবেন</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>অন্তর্নির্মিত স্ক্যান/সেশন</td>
+<td>ড্যাশবোর্ড পুনরুদ্ধার ডায়ালগ পর্যালোচনা করুন, মূল কুকি প্রসঙ্গে আবার সাইন ইন করুন, অনুমোদন করুন এবং চালিয়ে যান</td>
+</tr>
+<tr>
+<td>নেটিভ টুল প্রক্সি</td>
+<td>অ্যাডাপ্টার, ট্যাব/স্টোর, টোকেন এবং বিরতির কারণ পরীক্ষা করুন; স্পষ্টভাবে পুনরায় শুরু/পুনরায় জোড়া, তারপর বহিরাগত টুলের নিজস্ব পুনরায় চেষ্টা/পুনরাবৃত্তি ব্যবহার করুন</td>
+</tr>
+<tr>
+<td>এজেন্ট API</td>
+<td>নেটিভ মেসেজিং/ডেমন সংযোগ পুনরুদ্ধার করুন; তারপর অন্য স্টার্ট ইস্যু করার আগে বিদ্যমান রান স্টেট পরিদর্শন করুন</td>
+</tr>
+<tr>
+<td>ব্রাউজার পুনরায় চালু / আমদানি মূল্যায়ন</td>
+<td>সংরক্ষিত প্রমাণ পুনরুদ্ধার করুন এবং লগইন পুনরায় যাচাই করুন; একটি ইন-ফ্লাইট নেটওয়ার্ক অপারেশন বা সম্পূর্ণ লাইভ স্ক্যান সারি বেঁচে আছে অনুমান করবেন না</td>
+</tr>
+</tbody>
+</table>
+<p>স্বাধীন প্রমাণীকরণ বৈধতা প্রতিটি ইচ্ছাকৃতভাবে প্রত্যাখ্যান করা লগইন মিউটেশনকে সেশনের মেয়াদ শেষ হওয়ার জন্য ভুল হওয়া থেকে বাধা দেয়। একটি অর্থপূর্ণ সুরক্ষিত যাচাইকারী কনফিগার করুন। এক্সটেনশন চলাকালীন লাইভ সারি পুনরুদ্ধারকে সমর্থন করতে পারে, কিন্তু একটি সংরক্ষিত সেশন ফাইল একটি অনিশ্চিত লেখার পুনর্গঠন করে না বা সম্পূর্ণ বিঘ্নিত স্ক্যানকে স্বয়ংক্রিয়ভাবে পুনরায় চালায় না।</p>
+<h3 id="browser-storage-and-optional-session-files">ব্রাউজার স্টোরেজ এবং ঐচ্ছিক সেশন ফাইল</h3>
+<p>ব্রাউজার স্টোরেজ স্থানীয় ব্রিজ থেকে স্বাধীনভাবে সক্রিয় থাকে। এটি প্রতি-প্রোফাইল ইতিহাস, অনুসন্ধান, পর্যালোচনা, জায় এবং বিকল্প রাখে। প্রতিক্রিয়া সংস্থাগুলি সর্বোত্তম-প্রচেষ্টা সংশোধনের সাথে ধরে রাখা যেতে পারে; ব্রাউজার-পর্যবেক্ষিত ট্র্যাফিক প্রায়ই একটি ক্যাপচার বডি ছাড়া মেটাডেটা আছে.</p>
+<p>স্বয়ংক্রিয় ফাইল চেকপয়েন্টের জন্য:</p>
+<ol>
+<li>নিবন্ধন/সংযোগ করুন <strong>এজেন্ট API</strong>, শুধু ব্রাউজার ব্রিজ নয়।</li>
+<li>খোলা <strong>সেটিংস → মূল্যায়ন সেশন → নির্দেশ</strong>.</li>
+<li>একটি পরম লিখুন <strong>সেশন ফোল্ডার</strong> এজেন্ট API কম্পিউটারে।</li>
+<li>সক্ষম করুন <strong>স্বয়ংক্রিয়ভাবে সেশন ফাইল সংরক্ষণ করুন</strong> এবং নির্বাচন করুন <strong>সেশন সেটিংস সংরক্ষণ করুন</strong>.</li>
+<li>ব্যবহার করুন <strong>এখন সেশন সংরক্ষণ করুন</strong> একটি অবিলম্বে চেকপয়েন্ট জন্য; স্বাভাবিক পরিবর্তনগুলিও সঞ্চয় করে।</li>
+<li>ব্যবহার করুন <strong>বর্তমান সেশন রপ্তানি করুন</strong> / <strong>সেশন ফাইল আমদানি করুন</strong> ম্যানুয়াল স্থানান্তরের জন্য; ম্যানুয়াল আমদানির জন্য নেটিভ হোস্টের প্রয়োজন হয় না।</li>
+</ol>
+<p>ফাইলগুলির সাথে স্থিতিশীল প্রোফাইল আইডি ব্যবহার করে <code dir="ltr" translate="no">.longshot.json</code>, একটি মূলের জন্য স্পষ্ট প্রোফাইলের অনুমতি দেয়। এগুলি পঠনযোগ্য, এনক্রিপ্ট করা মূল্যায়ন সংরক্ষণাগার এবং এতে অ্যাপ্লিকেশন ডেটা, রচিত টেমপ্লেট এবং রক্ষিত সংস্থা থাকতে পারে। ব্রাউজার-পরিচালিত কুকিজ, প্রদানকারীর টোকেন এবং কার্যকরী অনুদান বাদ দেওয়া হয়েছে।</p>
+<p>রাইটগুলি পারমাণবিক ব্যক্তিগত-ফাইল চেকপয়েন্ট। আকস্মিক সমাপ্তি শুধুমাত্র শেষ সম্পূর্ণ সংরক্ষণ পুনরুদ্ধার করতে পারে। পুনরুদ্ধার চলমান স্ক্যান বিঘ্নিত হয়. ব্রিজ সংযোগ বিচ্ছিন্ন হলে, ব্রাউজার স্টোরেজ চলতে থাকে এবং ফাইল সংরক্ষণ করে অপেক্ষা করুন; অমীমাংসিত সক্রিয় চেকপয়েন্টগুলির জন্য লক্ষ্য পরিবর্তন করার আগে ফাইল সংরক্ষণের পুনরায় সংযোগ বা নিষ্ক্রিয় করার প্রয়োজন হতে পারে। একটি স্পষ্ট ত্রুটি সহ সর্বাধিক সেশন-ফাইলের আকার 256 MB।</p>
+<p>মূল্যায়ন সংরক্ষণাগার রপ্তানি থেকে ভিন্ন <strong>কনফিগার ডাউনলোড করুন</strong> ব্রাউজার ব্রিজে। প্রাক্তন মূল্যায়ন প্রমাণ/বিকল্প সংরক্ষণ করে; পরেরটি নেটিভ প্রক্সি সেটিংস সংরক্ষণ করে।</p>
+<h3 id="reports">রিপোর্ট</h3>
+<p>এক্সপোর্ট করার আগে সক্রিয় প্রোফাইল পর্যালোচনা করুন; ঐতিহাসিক স্ক্যান রিপোর্ট এজেন্ট API-এর মাধ্যমেও পাওয়া যায়। থিম-সারিবদ্ধ প্রতিবেদনগুলিতে চার্ট এবং প্রমাণ থাকে, তবে চার্টের সংখ্যাগুলি সতর্কতা গণনা, অনন্য যাচাইকৃত শোষণযোগ্য ত্রুটিগুলির গণনা নয়।</p>
+<table>
+<thead>
+<tr>
+<th>বিন্যাস</th>
+<th>ব্যবহার/সীমা</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>ইনলাইন চার্ট, অনুসন্ধান/ফিল্টার, প্রমাণ বিবরণ, থিম এবং মুদ্রণ নিয়ন্ত্রণ সহ স্বয়ংসম্পূর্ণ অফলাইন প্রতিবেদন</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>স্ট্রাকচার্ড রিডাক্টেড এভিডেন্স, স্ক্যান কনফিগারেশন এবং রেকর্ড করা ইনপুট কভারেজ</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>ট্যাবুলার বিনিময়; নেস্টেড ক্ষেত্রগুলি সিরিয়ালাইজড এবং স্প্রেডশীট সূত্র উপসর্গ সুরক্ষিত</td>
+</tr>
+<tr>
+<td>SARIF 2.1.0</td>
+<td>তীব্রতা/আস্থা/রায়/রেফারেন্স এবং পর্যালোচনা মেটাডেটার সাথে টুলিং ইন্টিগ্রেশন</td>
+</tr>
+<tr>
+<td>প্রিন্ট/পিডিএফ</td>
+<td>এইচটিএমএল রিপোর্ট খুলুন এবং ফায়ারফক্স প্রিন্ট ব্যবহার করুন / PDF এ সংরক্ষণ করুন; এপিআই-এর পিডিএফ বিকল্পটি প্রস্তুত পিডিএফ বাইটের পরিবর্তে এইচটিএমএল প্লাস প্রিন্ট নির্দেশনা প্রদান করতে পারে</td>
+</tr>
+</tbody>
+</table>
+<p>পর্যালোচনা স্থিতি এবং নোট স্ক্যানার রায় থেকে পৃথক. মিথ্যা-ইতিবাচক/স্বীকৃত-ঝুঁকি পর্যালোচনাগুলি নিরীক্ষণযোগ্য থাকে; SARIF যেখানে প্রযোজ্য সেখানে পর্যালোচনা তথ্য এবং দমন অন্তর্ভুক্ত করে। সর্বোত্তম-প্রচেষ্টা সংশোধন একটি গ্যারান্টি নয় যে একটি ধরে রাখা পৃষ্ঠা/বডিতে কোনো অ্যাপ্লিকেশন ডেটা নেই। ভাগ করার আগে প্রকৃত রপ্তানি পর্যালোচনা করুন.</p>
+<p>বাহ্যিক ZAP/sqlmap/ffuf রিপোর্ট আলাদা থাকে। নেটিভ ট্র্যাফিক মেটাডেটা তাদের সম্পূর্ণ অনুরোধ/প্রতিক্রিয়া ইতিহাস বা ফলাফলের একটি অনুলিপি নয়।</p>
+<h2 id="appearance-language-and-help">চেহারা, ভাষা এবং সাহায্য</h2>
+<p>থিমগুলি বিশ্বব্যাপী এবং স্ক্যান অনুদান পরিবর্তন না করেই স্ক্যানের সময় পরিবর্তন হতে পারে৷ মেনুতে রয়েছে সিস্টেম, ডার্ক, লাইট, সাইবারস্টেপ, মিস্টার রোবট, আয়রন ম্যান এবং সেভ করা কাস্টম থিম। অভিযোজিত বিন্যাস নিয়ন্ত্রণকে সংকুচিত করে; বিস্তারিত কলামের জন্য কভারেজ টেবিলের নিজস্ব অনুভূমিক স্ক্রোল অঞ্চল রয়েছে।</p>
+<p>অধীন <strong>সেটিংস → থিম এবং সতর্কতা শব্দ</strong>:</p>
+<ul>
+<li>সক্রিয় থিম এবং সতর্কতা শব্দ/ভলিউম চয়ন করুন; <strong>সতর্কতা শব্দ পরীক্ষা করুন</strong> নির্বাচিত সতর্কতার পূর্বরূপ দেখায়।</li>
+<li>একটি অন্তর্নির্মিত সম্পাদনা করুন এবং <strong>নতুন থিম হিসাবে সংরক্ষণ করুন</strong> / duplicate to create a custom theme.</li>
+<li>বান্ডিল/সিস্টেম UI/কোড ফন্ট, প্যালেট, অস্বচ্ছতা, পটভূমি এবং শব্দ নির্বাচন করুন।</li>
+<li>থিম রপ্তানি/আমদানি JSON; আমদানি নির্বিচারে CSS বা স্ক্রিপ্ট চালায় না।</li>
+<li><strong>অ্যানিমেশন এবং শব্দ</strong> থিম প্রতি গতি এবং ইন্টারফেস অডিও নিয়ন্ত্রণ করে। ব্রাউজার/সিস্টেম হ্রাস-গতি এবং নিঃশব্দ সেটিংস এখনও গুরুত্বপূর্ণ।</li>
+</ul>
+<p>ডার্ক/লাইট, সাইবারস্টেপ, মিস্টার রোবট এবং আয়রন ম্যান এর বিভিন্ন ভিজ্যুয়াল/অডিও ট্রিটমেন্ট আছে। ড্রপডাউন খোলার/নির্বাচন নীরব। সার্ভো নির্বাচনের ইঙ্গিতগুলি আয়রন-ম্যান-নির্দিষ্ট; নিরাপত্তা ব্যর্থতা সতর্কতা সাধারণ ইন্টারফেস শব্দ থেকে পৃথক.</p>
+<p>ভাষা মেনু 20টি বান্ডিল ভাষা অফার করে: ইংরেজি, রাশিয়ান, জার্মান, ফরাসি, সরলীকৃত চীনা, জাপানি, স্প্যানিশ, হিন্দি, পর্তুগিজ, আরবি, বাংলা, উর্দু, ইন্দোনেশিয়ান, তুর্কি, কোরিয়ান, ইতালীয়, ভিয়েতনামী, তামিল, তেলেগু এবং মারাঠি। নতুন কভারেজ/নেটিভ UI পাঠ্য সম্পূরক ক্যাটালগগুলিতে অন্তর্ভুক্ত করা হয়েছে। এগুলি পাবলিক UI গদ্যের বান্ডিল মেশিন অনুবাদ, রানটাইম অনুবাদ পরিষেবা নয়। ক্যাপচার করা টার্গেট পেজ, পেলোড, ইউআরএল, ফিল্ড/কোডের নাম এবং কমান্ডের উদাহরণগুলি তাদের আসল টেক্সট রাখে।</p>
+<p>ব্যবহার করুন <strong>তথ্য/নির্দেশ</strong>, নিয়ন্ত্রণ ইঙ্গিত এবং <strong>এই পৃষ্ঠাটি কীভাবে ব্যবহার করবেন · শর্তাবলী ব্যাখ্যা করা হয়েছে</strong> প্রসঙ্গের জন্য। শর্তাবলী রেফারেন্স উপাদান লিঙ্ক. একটি তথ্য ফিল্টার/অনুসন্ধান শুধুমাত্র প্রদর্শিত ব্যাখ্যা পরিবর্তন করে; এটা চেক সক্রিয় করে না. <strong>শুরু হচ্ছে</strong> ঠিক আটটি স্লাইড এবং বরখাস্তের পরে পুনরায় প্লে করা যেতে পারে।</p>
+<p>বর্তমান রিলিজ স্ক্রিনশটগুলি একটি মালিকানাধীন অস্থায়ী লুপব্যাক SQLite ফিক্সচার ব্যবহার করে। তাদের এলোমেলো পোর্ট এবং নমুনা অ্যাকাউন্টের ডেটা পরীক্ষামূলক নিদর্শন, আপনার অ্যাপ্লিকেশনের জন্য প্রয়োজনীয় কনফিগারেশন নয়:</p>
+<blockquote>
+<p><strong>কভারেজ ডায়ালগ</strong>
+<img alt="কভারেজ ডেস্কটপ স্ক্যান করুন" src="/longshot-security-site/docs/assets/scan-coverage-desktop.png"/>
+<strong>রাশিয়ান কভারেজ টেক্সট সহ সংকীর্ণ আয়রন ম্যান লেআউট</strong>
+<img alt="স্ক্যান কভারেজ লোহা সংকীর্ণ ru" src="/longshot-security-site/docs/assets/scan-coverage-iron-narrow-ru.png"/>
+<strong>নেটিভ প্রক্সি পেজ</strong>
+<img alt="নেটিভ টুল প্রক্সি" src="/longshot-security-site/docs/assets/native-tool-proxy.png"/></p>
+</blockquote>
+<h2 id="troubleshooting">সমস্যা সমাধান</h2>
+<table>
+<thead>
+<tr>
+<th>উপসর্গ</th>
+<th>সঠিক এলাকা চেক করতে / পরবর্তী পদক্ষেপ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>রিস্টার্ট করার পর এক্সটেনশন চলে গেছে</td>
+<td>একটি অস্থায়ী <code dir="ltr" translate="no">about:debugging</code> পুনরায় চালু হলে ইনস্টলেশন শেষ হয়। XPI পুনরায় লোড করুন বা উপযুক্ত স্বাক্ষরিত/স্থায়ী বিকাশ ইনস্টলেশন ব্যবহার করুন</td>
+</tr>
+<tr>
+<td>আপডেটের পরে ভুল UI/সংস্করণ</td>
+<td>ম্যানিফেস্ট/প্রদর্শিত সংস্করণ চেক করুন; উদ্দিষ্ট XPI পুনরায় লোড করুন এবং অপ্রচলিত ড্যাশবোর্ড বন্ধ করুন। উৎস ডিরেক্টরির নাম পুরানো সংস্করণ বজায় রাখতে পারে</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find package 'ws'</code></td>
+<td>ত্রুটিতে পথ যাচাই করুন। একটি সম্পূর্ণ ডাউনলোড করা নেটিভ অ্যাডাপ্টারের মধ্যে রয়েছে ws; একটি তাজা নেটিভ সোর্স ডিরেক্টরি প্রয়োজন <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code>. পুরানো অ্যাডাপ্টার পাথের অধীনে একটি ত্রুটি একটি পুরানো সেটআপ, নতুন নয়৷ <code dir="ltr" translate="no">cli.js</code> আদেশ</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find module .../bridge/bin/longshot-bridge</code></td>
+<td>সোর্স রুট ধারণকারী এজেন্ট API কমান্ড চালান <code dir="ltr" translate="no">bridge/</code>, অথবা পরম স্ক্রিপ্ট পাথ ব্যবহার করুন। নেটিভ প্রক্সি জিপ সম্পূর্ণ এজেন্ট API উৎস নয়</td>
+</tr>
+<tr>
+<td>অ্যাডাপ্টার শুরু হয় না / mitmdump অনুপস্থিত</td>
+<td>চালান <code dir="ltr" translate="no">python3 bootstrap.py</code> Python 3.12+ এর সাথে অথবা এর সাথে ইন্সটল করা রানটাইম নির্বাচন করুন <code dir="ltr" translate="no">--mitmdump</code></td>
+</tr>
+<tr>
+<td>পেয়ারিং সংযোগ করতে পারে না৷</td>
+<td>কন্ট্রোল পোর্ট 8901, বর্তমান টোকেন এবং সঠিক বর্তমান ব্যবহার করুন <code dir="ltr" translate="no">moz-extension://...</code> মূল অ্যাডাপ্টার প্রক্রিয়া প্রস্তুত নিশ্চিত করুন</td>
+</tr>
+<tr>
+<td>টুল প্রক্সি প্রমাণীকরণ ব্যর্থতা পায়</td>
+<td>প্রক্সি পোর্ট 8900, ব্যবহারকারীর নাম সেতু এবং বর্তমান টোকেন ব্যবহার করুন। অ্যাডাপ্টার পুনরায় চালু করার পরে প্রতিটি টুল আপডেট করুন</td>
+</tr>
+<tr>
+<td>প্রত্যাশিত প্রক্সি অনুরোধের পরিবর্তে সরাসরি/পাবলিক কন্টেন্ট</td>
+<td>NO_PROXY/no_proxy, টুল এক্সক্লুশন এবং প্রক্সি সেটিংস চেক করুন। অনুরোধটি নেটিভ ট্র্যাফিকের মধ্যে উপস্থিত হয়েছে তা নিশ্চিত করুন</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">bridge.invalid</code> ব্যর্থ হয়</td>
+<td>পুরানো ওরফে ওয়ার্কফ্লো। আসল টার্গেট ইউআরএল ব্যবহার করুন এবং হোস্ট-ফাইল এন্ট্রি নেই</td>
+</tr>
+<tr>
+<td>কনফিগ প্রত্যাখ্যান / অজানা সম্পত্তি</td>
+<td>পুনরায় ব্যবহার করবেন না <code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, পুরানো সুযোগ/সময় ফর্ম বা পুরানো API নিয়ন্ত্রণ। নেটিভ কনফিগারেশন এক্সপোর্ট করুন এবং এর সমর্থিত কী ব্যবহার করুন</td>
+</tr>
+<tr>
+<td>শংসাপত্র যাচাইকরণ ত্রুটি৷</td>
+<td>ক্লায়েন্ট→অ্যাডাপ্টার ট্রাস্টকে অ্যাডাপ্টার→অরিজিন ভেরিফিকেশন থেকে আলাদা করুন। টুলে মুদ্রিত পাবলিক অ্যাডাপ্টার CA বিশ্বাস করুন; আসল সার্ভারের সার্টিফিকেট আলাদাভাবে চেক করুন</td>
+</tr>
+<tr>
+<td>ব্রাউজার কুকিজ টুলে পৌঁছায় না</td>
+<td>নির্বাচিত ট্যাব/স্টোর, প্রযোজ্য ডোমেন/পাথ/সিকিউর/পার্টিশন, cookies.enabled, সুরক্ষিত নাম এবং অনুরোধটি আসলে প্রক্সিকে অতিক্রম করেছে কিনা তা যাচাই করুন</td>
+</tr>
+<tr>
+<td>টুল একটি কুকি প্রোব পাঠায় কিন্তু এটি অদৃশ্য হয়ে যায়</td>
+<td>প্রাসঙ্গিক ওভাররাইড অক্ষম/সুরক্ষিত করুন বা এক্স-লংশট-সংরক্ষণ/অনুরোধ ওভাররাইড বন্ধ করুন। প্রথম-অনুরোধের অভিপ্রায় সনাক্তকরণের উপর নির্ভর করবেন না</td>
+</tr>
+<tr>
+<td>অনুরোধ ওভাররাইড বন্ধ করে ব্রাউজার কুকি এখনও পরিবর্তিত হয়</td>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code> স্বাধীন। প্রতিক্রিয়া সিঙ্ক্রোনাইজেশন অবাঞ্ছিত হলে এটি অক্ষম করুন</td>
+</tr>
+<tr>
+<td>401/419/440 বা 429 নেটিভ প্রক্সিকে বিরতি দেয়</td>
+<td>ট্যাব/সেশন/থ্রটলিং পর্যালোচনা করুন, তারপর স্পষ্টভাবে পুনরায় শুরু করুন। ইচ্ছাকৃত নেতিবাচক-প্রমাণ পরীক্ষাগুলির জন্য একটি পর্যালোচনা করা বিরাম-স্থিতি কনফিগার পরিবর্তন এবং পুনরায় চালু করার প্রয়োজন হতে পারে</td>
+</tr>
+<tr>
+<td>WAF Firefox গ্রহণ করে কিন্তু নেটিভ ট্রাফিক প্রত্যাখ্যান করে</td>
+<td>কুকি/ইউএ কপি করা TLS/IP/ব্রাউজার আচরণ পুনরুত্পাদন করে না বা JavaScript চ্যালেঞ্জ চালায় না। অনুমোদিত মূল্যায়ন রুট এবং প্রমাণ পর্যালোচনা করুন</td>
+</tr>
+<tr>
+<td>পেঁয়াজের লক্ষ্য অবরুদ্ধ</td>
+<td>নেটিভ অ্যাডাপ্টারে একটি বাস্তব স্পষ্ট SOCKS/আপস্ট্রিম রুট কনফিগার করুন। অন্তর্নির্মিত/ব্রাউজার এবং বিচ্ছিন্ন নেটিভ নিউক্লিয়াসের বিভিন্ন রাউটিং রয়েছে</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">permissions.request may only be called from a user input handler</code></td>
+<td>বর্তমান এক্সটেনশন অনুমোদন কর্মপ্রবাহ ব্যবহার করুন. সংরক্ষণ করুন, পর্যালোচনা করুন, তারপর অনুপস্থিত অনুমতির অনুরোধ করতে এই পরবর্তী রান অনুমোদন করুন ক্লিক করুন; একটি অ্যাসিঙ্ক্রোনাস এজেন্ট/ব্যাকগ্রাউন্ড সেটিং পরিবর্তন থেকে অনুমতি গ্রহণ করবেন না</td>
+</tr>
+<tr>
+<td>সর্বাধিক অনুসন্ধানের পরে জেনেরিক URL কনস্ট্রাক্টর ত্রুটি৷</td>
+<td>চেক করুন <strong>OAST প্রদানকারী URL</strong> এবং <strong>কলব্যাক ডোমেইন</strong>, টার্গেট URL থেকে স্বাধীনভাবে। মানানসই মান পূরণ করুন বা OAST অক্ষম করুন; বর্তমান বৈধতা প্রাসঙ্গিক ক্ষেত্র চিহ্নিত করে</td>
+</tr>
+<tr>
+<td>আক্রমনাত্মক বন্ধ কিন্তু উন্নত বিকল্পগুলি সক্রিয় থাকবে৷</td>
+<td>তালিকাভুক্ত বৈশিষ্ট্যগুলি অক্ষম করুন বা আক্রমণাত্মক সক্রিয়/সংরক্ষণ করুন এবং পরবর্তী রান অনুমোদন করুন</td>
+</tr>
+<tr>
+<td>সেশন B অনুপস্থিত/অবৈধ</td>
+<td>অন্য কন্টেইনার/প্রাইভেট কুকি স্টোরে একটি স্বতন্ত্র একই-অরিজিন ট্যাব নির্বাচন করুন; সাধারণ ট্যাব স্বাধীন কুকি প্রদান করে না</td>
+</tr>
+<tr>
+<td>অনুমোদনের মেয়াদ শেষ/ব্যবহৃত/পরিবর্তিত</td>
+<td>চূড়ান্ত সেটিংস সংরক্ষণ করুন এবং একটি নতুন পরবর্তী রান অনুদান অনুমোদন করুন; মেয়াদ 30 মিনিট এবং এটি একক ব্যবহার</td>
+</tr>
+<tr>
+<td>রান ফুজারের কোন দরকারী অনুরোধ নেই</td>
+<td>একটি স্কোপড ইউআরএল, ক্যোয়ারী প্যারামিটার এবং কোন খালি নির্বাচিত পেলোড সেট সরবরাহ করুন, বা ইনভেন্টরি আবিষ্কারের পরে আলাদা অটো-ফাজ ব্যবহার করুন</td>
+</tr>
+<tr>
+<td>প্রোব লাইব্রেরি আপডেট ব্যর্থ হয়েছে</td>
+<td>রিপোর্ট করা উৎস/নেটওয়ার্ক/বৈধকরণের কারণ পরীক্ষা করুন। পূর্ববর্তী ক্যাশে করা ডেটা রাখা হয়; লক্ষ্য স্ক্যান স্বয়ংক্রিয়ভাবে পুনরায় চালানো হয় না</td>
+</tr>
+<tr>
+<td>কোন খোঁজ নেই / খুব কম চেক</td>
+<td>প্রকৃত সম্পূর্ণ/আংশিক/এড়িয়ে যাওয়া ইনপুট কভারেজ পড়ুন; আবিষ্কার, লগইন, বাজেট, প্রতিক্রিয়ার ধরন, ব্লকিং এবং বর্জন পরিদর্শন করুন</td>
+</tr>
+<tr>
+<td>OPTIONS মুছে ফেলার অনুমতি দেয়</td>
+<td>শুধুমাত্র জায়. এটা প্রমাণ করে না যে অননুমোদিত লেখা বা লংশট তাদের চেষ্টা করেছে</td>
+</tr>
+<tr>
+<td>OAST সংযোগ পাস কিন্তু কোনো লক্ষ্য কলব্যাক নেই</td>
+<td>ব্রাউজার কলব্যাক পরীক্ষা চালান, ম্যাচিং প্রোভাইডার/ডোমেন, টিটিএল এবং টার্গেট এগ্রেস যাচাই করুন; অনুপস্থিতি অবান্তর থেকে যায়</td>
+</tr>
+<tr>
+<td>নেটিভ টেমপ্লেট অবরুদ্ধ</td>
+<td>নির্বাহক/ক্ষমতার কারণ পড়ুন: নিউক্লিয়াস/বিচ্ছিন্নতা/হেল্পার/স্বাক্ষর/স্কোপ/অনুমোদন/রাউটিং অনুপস্থিত হতে পারে</td>
+</tr>
+<tr>
+<td>স্মার্ট বিশ্লেষক ব্যাকএন্ডের নাম দিতে পারে না</td>
+<td>অজানা একটি বৈধ ফলাফল. WAF/প্রক্সি স্তরগুলি প্রমাণ লুকাতে বা পুনর্লিখন করতে পারে; ম্যানুয়ালি স্থাপনার তালিকা যাচাই করুন</td>
+</tr>
+<tr>
+<td>cimematic দর্শক একটি লাইভ পৃষ্ঠার অভাব</td>
+<td>সক্রিয় ট্যাব/লগইন/অরিজিন, ক্যাপচার/লোডিং সীমাবদ্ধতা এবং নির্ভরতা পরীক্ষা করুন; শুধুমাত্র ক্যাপচার করা এবং রেকর্ড করা প্রমাণ ব্যবহার করুন</td>
+</tr>
+<tr>
+<td>একটি সাধারণ পৃষ্ঠা এলাকায় দর্শক পয়েন্ট</td>
+<td>শিরোনাম/API/কুকি খোঁজার জন্য কোনো মিল HTML ক্ষেত্র নাও থাকতে পারে। পৃষ্ঠা-প্রসঙ্গ অবস্থান সঠিক ইনপুট প্রমাণ নয়</td>
+</tr>
+<tr>
+<td>মূল্যায়ন ফাইল অপেক্ষা করছে/ত্রুটি করছে</td>
+<td>এজেন্ট API সংযোগ করুন, নির্বাচিত পরম ফোল্ডার/স্থিতি এবং মুলতুবি চেকপয়েন্টগুলি পরীক্ষা করুন। ব্রাউজার স্টোরেজ আলাদা থাকে</td>
+</tr>
+<tr>
+<td>নেটিভ ট্রাফিকের কোনো প্রতিক্রিয়া সংস্থা বা ZAP অনুসন্ধান নেই৷</td>
+<td>প্রত্যাশিত মেটাডেটা শুধুমাত্র দৃশ্য; বাহ্যিক টুলের নিজস্ব ইতিহাস এবং রিপোর্ট পরিদর্শন করুন</td>
+</tr>
+<tr>
+<td>পিডিএফ এপিআই প্রতিক্রিয়া হল এইচটিএমএল/নির্দেশ</td>
+<td>পিডিএফ-এ প্রিন্ট/সেভ ব্যবহার করুন; HTML বাইটের নাম পরিবর্তন করে .pdf করবেন না</td>
+</tr>
+<tr>
+<td>অনুবাদিত UI এখনও ইংরেজি দেখায়</td>
+<td>কোড পদ, কমান্ড নমুনা, ইউআরএল, পেলোড এবং ক্যাপচার করা প্রমাণ ইচ্ছাকৃতভাবে সংরক্ষিত হয়। প্রকৃত UI গদ্যের জন্য সংস্করণ/ভাষা পরীক্ষা করুন; মেশিন অনুবাদের মান পরিবর্তিত হতে পারে</td>
+</tr>
+</tbody>
+</table>
+<p>ডায়াগনস্টিকসের জন্য, ক্ষেত্র-নির্দিষ্ট বার্তা এবং প্রাসঙ্গিক উপাদানের লগগুলি থেকে শুরু করুন। একটি নেটিভ প্রক্সি পেয়ারিং ত্রুটি, একটি ব্রাউজার স্ক্যান সেশন ব্যর্থতা এবং একটি এজেন্ট API সংযোগ ব্যর্থতার জন্য বিভিন্ন সংশোধনের প্রয়োজন৷ একটি সম্পূর্ণ UI অ্যাকশন বা সফল পেয়ারিংকে প্রমাণ হিসাবে গণ্য করবেন না যে প্রতিটি পরিকল্পিত অনুরোধ বা চেক চলে গেছে।</p>
+<h2 id="terms-and-source-references">শর্তাবলী এবং উত্স রেফারেন্স</h2>
+<table>
+<thead>
+<tr>
+<th>মেয়াদ</th>
+<th>সরল-ভাষা অর্থ / রেফারেন্স</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">HTTP অনুরোধ/প্রতিক্রিয়া</a></td>
+<td>একটি ওয়েব সার্ভারে বার্তা / এর উত্তর, পদ্ধতি, URL, শিরোনাম এবং ঐচ্ছিক বডি সহ</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/Origin">উৎপত্তি</a></td>
+<td>স্কিম, হোস্ট এবং পোর্ট একটি ওয়েব নিরাপত্তা সীমানা হিসাবে ব্যবহৃত</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies">কুকি</a></td>
+<td>ব্রাউজার-পরিচালিত অবস্থা প্রযোজ্য অনুরোধের জন্য নির্বাচিত</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Session_Management">সেশন পরিচালনা</a></td>
+<td>অ্যাপ্লিকেশনটি কীভাবে অনুরোধ জুড়ে একজন ব্যবহারকারীকে চিনতে পারে</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/essential-skills">পেলোড</a></td>
+<td>একটি ইনপুটে পাঠানো একটি পরীক্ষার মান; স্বয়ংক্রিয়ভাবে একটি সফল শোষণ না</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/sql-injection">এসকিউএল ইনজেকশন</a></td>
+<td>ইনপুট পরিবর্তন করে কিভাবে একটি ডাটাবেস কোয়েরি ব্যাখ্যা করা হয়</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/nosql-injection">NoSQL ইনজেকশন</a></td>
+<td>ইনপুট একটি নন-এসকিউএল ডাটাবেস ক্যোয়ারী বা অপারেটর আচরণ পরিবর্তন করে</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a></td>
+<td>আক্রমণকারী-নিয়ন্ত্রিত ডেটা এক্সিকিউটেবল ব্রাউজার সামগ্রীতে পৌঁছায়</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting/dom-based">DOM XSS</a></td>
+<td>ক্লায়েন্ট-সাইড জাভাস্ক্রিপ্ট একটি এক্সিকিউশন-সক্ষম সিঙ্কে অবিশ্বস্ত ডেটা বহন করে</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/server-side-template-injection">SSTI</a></td>
+<td>ইনপুট সার্ভার টেমপ্লেট নির্দেশাবলী হিসাবে ব্যাখ্যা করা হয়</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/os-command-injection">কমান্ড ইনজেকশন</a></td>
+<td>ইনপুট একটি অপারেটিং-সিস্টেম শেল/প্রোগ্রাম দ্বারা নির্বাহিত কমান্ড পরিবর্তন করে</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/file-path-traversal">পাথ ট্রাভার্সাল</a></td>
+<td>ইনপুট উদ্দিষ্ট ফাইল পাথ সীমানা এড়িয়ে যায়</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/ssrf">SSRF</a></td>
+<td>একটি সার্ভার অন্য গন্তব্যে একটি অনিচ্ছাকৃত অনুরোধ করে</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/xxe">XXE</a></td>
+<td>XML বাহ্যিক-সত্তা প্রক্রিয়াকরণ অনিচ্ছাকৃত সম্পদ অ্যাক্সেসের কারণ</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/csrf">CSRF</a></td>
+<td>অন্য একটি সাইট একটি অনিচ্ছাকৃত প্রমাণীকৃত অ্যাপ্লিকেশন ক্রিয়া প্ররোচিত করে</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cors">CORS</a></td>
+<td>ব্রাউজার নীতি ক্রস-অরিজিন প্রতিক্রিয়া অ্যাক্সেস নিয়ন্ত্রণ করে</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/access-control/idor">অ্যাক্সেস কন্ট্রোল / IDOR</a></td>
+<td>ব্যবহারকারী একটি বস্তু/অ্যাকশন অ্যাক্সেস করতে পারে কিনা, শুধুমাত্র তার URL পৌঁছানো যায় কিনা তা নয়</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/logic-flaws">ব্যবসায়িক যুক্তি</a></td>
+<td>বৈধ মূল্য, কর্মপ্রবাহ, ভারসাম্য এবং রাষ্ট্রীয় রূপান্তর সংক্রান্ত নিয়ম</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a></td>
+<td>ব্রাউজার-প্রবর্তিত সম্পদ/স্ক্রিপ্ট নীতি; একটি অনুপস্থিত শিরোনাম একা XSS সম্পাদন নয়</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Web_Application_Firewall">WAF</a></td>
+<td>HTTP ফিল্টারিং স্তর যার উপস্থিতি প্রতিটি সক্রিয় নিয়ম প্রকাশ করে না</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Reverse_proxy">বিপরীত প্রক্সি</a></td>
+<td>একটি অ্যাপ্লিকেশন সার্ভারের আগে মধ্যস্থতাকারী অনুরোধ গ্রহণ করে</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/TLS">টিএলএস/সিএ</a></td>
+<td>সংযোগ এনক্রিপশন এবং সার্টিফিকেট ট্রাস্ট এর শেষ পয়েন্ট প্রমাণীকরণ করতে ব্যবহৃত হয়</td>
+</tr>
+<tr>
+<td><a href="https://nvd.nist.gov/vuln">সিভিই/এনভিডি</a></td>
+<td>পরিচিত দুর্বলতার জন্য শনাক্তকারী/ডাটাবেস; একটি ব্যানার মেলে যাচাই শোষণ নয়</td>
+</tr>
+<tr>
+<td><a href="https://cwe.mitre.org/">CWE</a></td>
+<td>দুর্বলতার প্রকারের শ্রেণীবিভাগ</td>
+</tr>
+<tr>
+<td><a href="https://top10.owasp.org/2025/">OWASP শীর্ষ 10:2025৷</a></td>
+<td>সচেতনতা বিভাগ, একটি সম্পূর্ণ স্ক্যানার পরীক্ষার স্যুট নয়</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-project-web-security-testing-guide/">WSTG</a></td>
+<td>ওয়েব নিরাপত্তা পরীক্ষার রেফারেন্স স্বয়ংক্রিয় এবং ম্যানুয়াল কাজ কভার</td>
+</tr>
+</tbody>
+</table>
+<p>এই টিউটোরিয়ালের বাস্তবায়নের ভিত্তি: ম্যানিফেস্ট 2.18.1; <code dir="ltr" translate="no">content/checks.js</code>; <code dir="ltr" translate="no">lib/core.js</code>, <code dir="ltr" translate="no">lib/v2.js</code>, অডিট/DOM/প্রোব মডিউল; ড্যাশবোর্ড/হেল্প/কভারেজ/নেটিভ UI; নেটিভ অ্যাডাপ্টার কনফিগ, ওভাররাইড এবং CLI; এজেন্ট API/নেটিভ ক্লায়েন্ট; বৈধতা নিদর্শন প্রকাশ. যেখানে পুরানো ডকুমেন্টেশন সরানো উত্তরাধিকার পরিবহন আচরণের সাথে দ্বন্দ্ব করে, সেখানে পাঠানো 2.18.1 রানটাইম এখানে ব্যবহৃত ভিত্তি।</p>
+<p>অতিরিক্ত সেটআপ রেফারেন্স:</p>
+<ul>
+<li><a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">মোজিলা অস্থায়ী ইনস্টলেশন</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging">মজিলা নেটিভ মেসেজিং</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP আউটগোয়িং সংযোগ সেটিংস</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/">ZAP সক্রিয়-স্ক্যান নীতি এবং সীমাবদ্ধতা</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/concepts/certificates/">মিটমপ্রক্সি সার্টিফিকেট</a></li>
+<li><a href="https://github.com/projectdiscovery/interactsh">অফিসিয়াল ইন্টারঅ্যাক্টশ</a></li>
+<li><a href="https://docs.projectdiscovery.io/templates/reference/template-signing">নিউক্লিয়াস টেমপ্লেট স্বাক্ষর</a></li>
+<li><a href="#owasp-top-10-coverage">সম্পূর্ণ রিলিজ কভারেজ নথি</a></li>
+</ul>
+<p>এই টিউটোরিয়ালটি নাম প্রকাশের জন্য সাধারণ নির্দেশিকা। অ্যাপ্লিকেশন-নির্দিষ্ট ফলাফলের জন্য এখনও একটি অনুমোদিত লক্ষ্য, পৌঁছে যাওয়া ওয়ার্কফ্লো এবং পর্যালোচনা করা প্রমাণ প্রয়োজন।</p></main></div><footer>লংশট নিরাপত্তা · শুধুমাত্র অনুমোদিত মূল্যায়ন · <a href="/longshot-security-site/bn/">লংশট-এ ফেরত যান</a><p class="translation-notice">অনুবাদগুলি মেশিন দ্বারা তৈরি। ইংরেজি সংস্করণ রেফারেন্স.</p></footer></body></html>

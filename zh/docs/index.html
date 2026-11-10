@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+
+<html data-site-base="/longshot-security-site/" data-site-page="docs/" dir="ltr" lang="zh"><head><script data-language-script="" defer="" src="/longshot-security-site/language.js?v=20261110-i18n"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>完整文档 — Longshot Security 2.18.1</title><meta content="完整的 Longshot 一般教程：浏览器扫描、本机代理、cookie 覆盖、ZAP、MCP、模糊测试、结果和报告。" name="description"/><link href="/longshot-security-site/assets/mark.svg" rel="icon" type="image/svg+xml"/><link href="/longshot-security-site/style.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/docs/docs.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/localization.css?v=20261110-i18n" rel="stylesheet"/><link href="https://zzholdoshev.github.io/longshot-security-site/zh/docs/" rel="canonical"/><link href="https://zzholdoshev.github.io/longshot-security-site/docs/" hreflang="en" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ru/docs/" hreflang="ru" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/de/docs/" hreflang="de" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/fr/docs/" hreflang="fr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/zh/docs/" hreflang="zh" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ja/docs/" hreflang="ja" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/es/docs/" hreflang="es" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/hi/docs/" hreflang="hi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/pt/docs/" hreflang="pt" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ar/docs/" hreflang="ar" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/bn/docs/" hreflang="bn" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ur/docs/" hreflang="ur" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/id/docs/" hreflang="id" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/tr/docs/" hreflang="tr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ko/docs/" hreflang="ko" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/it/docs/" hreflang="it" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/vi/docs/" hreflang="vi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ta/docs/" hreflang="ta" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/te/docs/" hreflang="te" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/mr/docs/" hreflang="mr" rel="alternate"/></head><body data-ui-copy='{"Signed in already? Start from that tab. Your session is the starting point.":"已经登录了吗？从该选项卡开始。您的会议是起点。","Your tools send their own HTTP requests. Browser Bridge can supply the browser cookies.":"您的工具发送自己的 HTTP 请求。浏览器桥可以提供浏览器cookie。","Cookie override is on by default in the paired native bridge. You can turn it off.":"默认情况下，在配对的本机桥中，Cookie 覆盖处于启用状态。您可以将其关闭。","A finding is a lead. Read the request, the response and the controls before confirming it.":"一个发现就是一个线索。在确认之前阅读请求、响应和控件。","Using Chrome? Keep the Longshot workbench tab open while you scan.":"使用 Chrome？扫描时保持 Longshot 工作台选项卡打开。","Connect a compatible MCP agent to run permitted checks and examine the evidence.":"连接兼容的 MCP 代理以运行允许的检查并检查证据。","No bridge.invalid or hosts-file entry. The native proxy uses the actual target URL.":"没有bridge.invalid 或hosts 文件条目。本机代理使用实际的目标 URL。","Pause motion":"暂停动作","Resume motion":"恢复运动"}'><a class="skip" href="#documentation">跳至文档</a><nav aria-label="主导航"><a href="/longshot-security-site/zh/">LONGSHOT</a><a href="/longshot-security-site/zh/#download">下载</a><a href="/longshot-security-site/zh/support.html">支持</a><a href="/longshot-security-site/zh/privacy.html">隐私</a><label class="language-switcher"><span>语言</span><select aria-label="网站语言" id="site-language" translate="no"><option value="en">English</option><option value="ru">Русский</option><option value="de">Deutsch</option><option value="fr">Français</option><option selected="selected" value="zh">简体中文</option><option value="ja">日本語</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="pt">Português</option><option value="ar">العربية</option><option value="bn">বাংলা</option><option value="ur">اردو</option><option value="id">Bahasa Indonesia</option><option value="tr">Türkçe</option><option value="ko">한국어</option><option value="it">Italiano</option><option value="vi">Tiếng Việt</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="mr">मराठी</option></select></label></nav><div class="docs-layout"><aside class="docs-sidebar"><details open=""><summary>通用教程 / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">振动编码。已发货。被黑了。</a><a href="#firefox-and-chrome-choose-your-edition">Firefox 和 Chrome：选择您的版本</a><a href="#contents">内容</a><a href="#what-runs-where">什么在哪里运行</a><a href="#install-or-update-in-firefox-nightly">在 Firefox Nightly 中安装或更新</a><a href="#getting-started-and-target-sessions">入门和目标会话</a><a href="#light-discovery-and-a-focused-active-scan">光发现和聚焦主动扫描</a><a href="#aggressive-options-and-run-approval">积极的选择和运行批准</a><a href="#overview-checks">概览检查</a><a href="#scan-options-reference">扫描选项参考</a><a href="#budgets-selectors-and-request-settings">预算、选择器和请求设置</a><a href="#fuzzer-auto-fuzz-and-probe-library">模糊器、自动模糊器和探针库</a><a href="#your-payloads-and-imported-templates">您的有效负载和导入的模板</a><a href="#server-stack-and-smart-analyzer">服务器堆栈和智能分析器</a><a href="#oast-setup-and-interpretation">OAST 设置和解释</a><a href="#browser-bridge-native-tool-proxy">Browser Bridge：原生工具代理</a><a href="#native-bridge-configuration">本机桥接配置</a><a href="#cookie-and-header-overrides-without-damaging-probes">覆盖 Cookie 和标头而不损坏探针</a><a href="#external-tools-and-actual-zap-scanning">外部工具和实际的 ZAP 扫描</a><a href="#tor-and-onion-routing">Tor 和洋葱路由</a><a href="#agent-api-mcp-and-local-model-clients">代理 API、MCP 和本地模型客户端</a><a href="#optional-native-nuclei">可选的原生核</a><a href="#manual-tools-interception-and-api-inventory">手动工具、拦截和 API 库存</a><a href="#findings-and-the-cimematic-viewer">调查结果和动画观众</a><a href="#owasp-top-10-coverage">OWASP 前 10 名覆盖范围</a><a href="#recovery-assessment-files-and-reports">恢复、评估文件和报告</a><a href="#appearance-language-and-help">外观、语言和帮助</a><a href="#troubleshooting">故障排除</a><a href="#terms-and-source-references">术语和来源参考</a></div></details><a class="markdown-download" download="" href="/longshot-security-site/docs/longshot-general-tutorial.md">下载 Markdown ↓ · English</a></aside><main class="docs-main" id="documentation"><p class="eyebrow">完整文档 · 更新于 2026 年 11 月 10 日</p><h1 id="longshot-2181-general-tutorial-and-control-reference">Longshot 2.18.1 — 一般教程和控件参考</h1>
+<p>Longshot 更新于 2026 年 11 月 10 日 <strong>2.18.1</strong> （Firefox 和 Chrome 版本）及其 <strong>原生 HTTP/HTTPS 工具代理</strong>。这取代了一般的 2.11.1 教程。下面的说明描述了已交付的实现，包括其限制；旧的桥示例不能与此版本互换。</p>
+<p>Longshot 是一个用于授权 Web 应用程序评估的浏览器会话工作台。它结合了发现、自己的 JavaScript 主动扫描器、手动 HTTP 工具、导入的模板、结果审查和报告。可选的浏览器桥允许外部工具在发送自己的本机 HTTP 请求时使用选定的 Firefox 会话值。</p>
+<p>有用的第一遍是： <strong>打开应用程序 → 登录 → 从该选项卡启动 Longshot → 连接 → 验证会话 → 发现输入 → 运行选定的检查 → 审查证据</strong>.</p>
+<p>对于处理敏感用户数据或资金的应用程序（包括人工智能构建或振动编码的应用程序），请聘请网络安全团队进行专业评估。扩展扫描不会取代授权测试、业务逻辑审查或独立的安全评估。空的结果列表不是安全证书。</p>
+<p>本文档解释了命令；更新不会安装软件、注册主机、更改浏览器设置或运行任何扫描。仅针对您授权的评估目标运行示例。样品 <code dir="ltr" translate="no">http://localhost:8080</code> 是本地目标示例，而不是内置的 Longshot 服务。</p>
+<h2 id="vibe-coded-shipped-hacked">振动编码。已发货。被黑了。</h2>
+<p><strong>想象一下：</strong> 您的应用程序上线后，攻击者发现了该缺陷，并且用户打开帐户时余额为零。他们所有的钱都花光了。</p>
+<p>代码看起来很有说服力。人工智能表示它看起来很安全。这还不够。</p>
+<p><strong>LLM 是不确定的。他们可能会错过漏洞并犯下自信的错误。你需要第二个意见。你需要长镜头。</strong></p>
+<p>Longshot 将 Firefox 变成您构建的 Web 应用程序的安全工作台。对实际运行的应用程序运行可重复的检查，检查 HTTP 证据，并在用户付出代价之前调查弱点。</p>
+<p>支持支票封面 <strong>SQL/NoSQL 注入、服务器端代码和模板注入、反映的 XSS 候选者、路径遍历/文件包含、开放重定向和 CRLF/标头注入</strong>，具有可选的实时 DOM XSS 验证。评论 <strong>弱安全标头、cookie 和 CORS 策略、暴露的配置和错误披露</strong>，可选检查进一步的攻击类别。</p>
+<p>从您已使用的浏览器选项卡开始。保留实时 cookie、配置会话验证、会话丢失后恢复，并组织每个目标的设置、历史记录和结果。</p>
+<p><strong>让您的人工智能发挥作用，然后检查其工作情况。</strong> 通过 MCP 连接代理以运行授权检查并检查结果。使用本机浏览器桥将 ZAP、sqlmap、curl、ffuf 或 wget 引入连接的浏览器会话，而无需手动复制 cookie 值。这些工具发送自己的 HTTP 请求和有效负载；默认情况下，浏览器 cookie 覆盖处于打开状态，并且可以关闭。</p>
+<p>高级用户可以导入兼容的 <strong>CVE 模板</strong> 并关联 <strong>OAST 回调</strong> 以及引起它们的探针。审查并记录您的判决，然后导出丰富的证据 <strong>HTML、JSON、CSV 或 SARIF 报告</strong>，具有打印/PDF 输出。解释调查结果 <strong>动画观看器</strong>，包括实时 CSS/JavaScript 页面上下文、动画 3D 元素、暂停和全屏控件。选择一个鲜明的主题并自定义动作和声音以适合您的工作空间。</p>
+<p><strong>在表达信心之前，先索取证据。远射。</strong></p>
+<h3 id="quick-scan-one-sentence">快速扫描——一句话</h3>
+<p>在 Firefox 中打开您的应用程序，根据需要登录，从该选项卡启动 Longshot，单击“连接”，验证配置的会话检查，然后选择 Spider + 主动检查 → 开始扫描并查看结果。</p>
+<h3 id="short-ad">短广告</h3>
+<p>您的 vivi 编码应用程序已上线。 AI错过了什么？ Longshot 检查正在运行的应用程序是否存在注入、XSS 和其他常见弱点，添加浏览器会话测试和 AI/MCP 工作流程，并为您提供审查证据。你需要第二个意见。你需要长镜头。</p>
+<h3 id="compact-description">简洁的描述</h3>
+<p>vivi 编码应用程序的第二种意见：浏览器会话检查、AI/MCP、具有可配置浏览器 cookie 覆盖的本机工具、CVE/OAST、电影发现和报告。</p>
+<h3 id="campaign-captions">活动标题</h3>
+<ol>
+<li><strong>VIBE 编码。已发货。被黑了。</strong> 假设的启动和帐户丢失场景；发货前征求第二意见。</li>
+<li><strong>测试会话。检查应用程序。</strong> 实时 cookie、验证和特定目标的证据。</li>
+<li><strong>人工智能写的。谁检查过？</strong> 将人工智能建议纳入可审查的安全工作流程中。</li>
+<li><strong>你的工具。你的标签。您的会议。</strong> 支持本地 HTTP 实用程序的浏览器桥。</li>
+<li><strong>寻找缺陷。遵循证据。</strong> 高级兼容的 CVE 模板和 OAST 关联。</li>
+<li><strong>证据重于保证。</strong> 在您可以自定义的工作区中查看和导出报告。</li>
+<li><strong>您的人工智能不是安全判决。</strong> MCP 检查您正在运行的应用程序；您可以查看的证据。</li>
+<li><strong>会话过期。失去背景。</strong> 验证、暂停、再次登录并恢复。</li>
+</ol>
+<h3 id="selling-points-in-2181">2.18.1中的卖点</h3>
+<table>
+<thead>
+<tr>
+<th>卖点</th>
+<th>实际效益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>您登录的浏览器会话、您的工具</strong></td>
+<td>ZAP 和其他 HTTP 代理客户端默认使用选定的 Firefox cookie jar，具有响应 cookie 同步和独立的关闭开关。</td>
+</tr>
+<tr>
+<td><strong>真正的外部扫描仪引擎</strong></td>
+<td>ZAP 通过浏览器桥生成自己的本机 HTTP 请求和有效负载；选定的 cookie/标头覆盖是明确的。</td>
+</tr>
+<tr>
+<td><strong>保护探针，保持会话</strong></td>
+<td>受保护的字段和按请求绕过可让您保留工具的故意 cookie/标头突变。</td>
+</tr>
+<tr>
+<td><strong>您可以检查的证据</strong></td>
+<td>专用主动规则使用重复控制；实际输入覆盖范围区分已完成、部分和跳过的工作。</td>
+</tr>
+<tr>
+<td><strong>可以通过界面工作的人工智能</strong></td>
+<td>MCP 公开支持的扫描命令和仪表板控件，以便兼容的代理可以操作工作台并检索结果。</td>
+</tr>
+<tr>
+<td><strong>您可以解释的发现</strong></td>
+<td>动画查看器结合了当前页面上下文、记录的证据、3D 解释和简单语言的潜在风险。</td>
+</tr>
+<tr>
+<td><strong>带上自己的测试材料</strong></td>
+<td>上传特定于目标的有效负载包和经过审核的模板；从界面刷新支持的社区列表。</td>
+</tr>
+<tr>
+<td><strong>专属于您的工作空间</strong></td>
+<td>每个目标的评估数据、审查注释、可选文件检查点、离线报告、主题和 20 种捆绑的 UI 语言。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publication-notes">出版说明</h3>
+<p>账户损失的故事是假设的，不是对真实客户的索赔，也不是 Longshot 防止财务损失的保证。该扩展程序执行评估，而不是连续攻击阻止。调查结果需要审查；覆盖范围表解释了有限的支持和仅限手动的差距。 DOM 分析包括指标和支持的执行金丝雀，而不是通用 DOM 漏洞利用覆盖范围。电影序列解释了证据；它不添加利用证明。</p>
+<p>MCP 和浏览器桥需要本地设置。本机工具代理使用单独的 Node/Python/mitmproxy 进程，HTTPS 拦截需要工具对适配器 CA 的信任配置。它是经过解析的 HTTP 传输，而不是字节透明的原始 TCP。可以禁用 Cookie 覆盖；浏览器 cookie 或用户代理不保证浏览器相同的网络或 WAF 接受。外部 ZAP 仍然单独安装。模板执行取决于兼容性/运行时； OAST 需要一个已配置的提供程序。身份验证需要一个有意义的受保护端点/标记。目标概况单独的评估数据；选项卡/容器提供 cookie 会话。</p>
+<p>对于处理敏感数据或资金的应用程序，请聘请网络安全团队并使用 Longshot 作为评估的一部分。仅在您拥有或有权测试的应用程序上使用它。</p>
+<p>如果重复使用之前生成的活动图像，请将它们标记为合成，并在需要像素精确 UI 的地方使用真实的当前屏幕截图。本教程在外观部分链接了实际的2.18.1验证截图；它不包括新的八张图像活动包或声称第三方认可。</p>
+<h2 id="firefox-and-chrome-choose-your-edition">Firefox 和 Chrome：选择您的版本</h2>
+<p>本完整指南描述了 Firefox 支持的功能集。 Chrome 使用相同的核心浏览器会话工作台，但平台差异如下。本指南后面提到的 Firefox 容器、实时 DOM 执行、拦截和浏览器 VHOST 重写仅适用于 Firefox。</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>Firefox</th>
+<th>Chrome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>浏览器主动检查、手动/自动模糊测试、支持的 HTTP 模板、OAST、堆栈证据和报告</td>
+<td>受记录的先决条件支持</td>
+<td>受记录的先决条件支持</td>
+</tr>
+<tr>
+<td>具有浏览器 cookie/标头覆盖和响应 cookie 同步的本机 HTTP 代理</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>页面上下文 AJAX 检测和实时 DOM XSS 执行验证</td>
+<td>获得批准和许可后提供支持</td>
+<td>此版本中不可用</td>
+</tr>
+<tr>
+<td>分离容器Session B，进行拦截和浏览器VHOST重写</td>
+<td>配置并允许时支持</td>
+<td>此版本中不可用</td>
+</tr>
+<tr>
+<td>寻找观众</td>
+<td>捕获的证据和支持的实时页面上下文</td>
+<td>捕获的证据；实时后台页面捕获不可用</td>
+</tr>
+<tr>
+<td>发动机生命周期</td>
+<td>持久化后台页面</td>
+<td>保持可见工作台打开；关闭它会停止新的配对本机请求</td>
+</tr>
+<tr>
+<td>私人浏览</td>
+<td>选定的上下文，需获得许可和设置</td>
+<td>在此版本中禁用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-the-chrome-edition">安装Chrome版本</h3>
+<ol>
+<li>下载 <strong>铬邮政编码</strong> 从上面/下面的发布链接并将其解压到您保留的文件夹中。</li>
+<li>打开 <code dir="ltr" translate="no">chrome://extensions</code>, 启用 <strong>开发者模式</strong>，选择 <strong>装载已拆封的货物</strong>，然后选择解压后的文件夹，其中包含 <code dir="ltr" translate="no">manifest.json</code>.</li>
+<li>打开您的授权应用程序，登录，从该选项卡启动 Longshot 并连接。</li>
+<li>在扫描和本机配对期间保持工作台选项卡打开。关闭它会结束引擎的实时工作；保存的证据将保留并恢复，而无需重播不确定的请求。</li>
+<li>对于本机工具代理启动，请使用 Chrome 显示的确切来源，例如 <code dir="ltr" translate="no">chrome-extension://YOUR_INSTALLED_ID</code>，而不是 Firefox <code dir="ltr" translate="no">moz-extension://</code> 起源。代理使用真实的目标 URL；不需要主机文件条目。</li>
+</ol>
+<h3 id="chrome-agent-api-mcp-registration">Chrome 代理 API/MCP 注册</h3>
+<p>从保留的完整源代码检查中，安装固定的帮助程序依赖项后：</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev
+node bridge/bin/longshot-bridge install --browser chrome \
+  --extension-id YOUR_INSTALLED_32_LETTER_ID \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+node bridge/bin/longshot-bridge mcp \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+</code></pre>
+<p>对于铬用途 <code dir="ltr" translate="no">--browser chromium</code>。使用实际ID <code dir="ltr" translate="no">chrome://extensions</code>;如果安装商店版本给出了不同的 ID，请重新注册。单独的端口/数据目录避免与 Firefox 主机发生冲突。此代理 API 不同于 HTTP 工具代理（默认端口 8900/8901）。 Linux 是经过测试的本机主机平台； macOS 注册已实现，但此处未经测试，并且不提供 Windows 本机主机安装程序。</p>
+<p>详细的浏览器桥配置也可以在扩展的 <strong>浏览器桥 → 信息</strong> 对话框。长篇自述文件和新平台/隐私文档均为英文；捆绑的 UI 语言选择不会翻译目标证据、有效负载或可执行示例。</p>
+<h2 id="contents">内容</h2>
+<ul>
+<li><a href="#firefox-and-chrome-choose-your-edition">Firefox / Chrome 版本和设置</a></li>
+<li><a href="#vibe-coded-shipped-hacked">广告及卖点</a></li>
+</ul>
+<ol>
+<li><a href="#what-runs-where">什么在哪里运行</a></li>
+<li><a href="#install-or-update-in-firefox-nightly">在 Firefox Nightly 中安装或更新</a></li>
+<li><a href="#getting-started-and-target-sessions">入门和目标会话</a></li>
+<li><a href="#light-discovery-and-a-focused-active-scan">光发现和聚焦主动扫描</a></li>
+<li><a href="#aggressive-options-and-run-approval">积极的选择和运行批准</a></li>
+<li><a href="#overview-checks">概览检查</a></li>
+<li><a href="#scan-options-reference">扫描选项参考</a></li>
+<li><a href="#budgets-selectors-and-request-settings">预算、选择器和请求设置</a></li>
+<li><a href="#fuzzer-auto-fuzz-and-probe-library">模糊器、自动模糊器和探针库</a></li>
+<li><a href="#your-payloads-and-imported-templates">您的有效负载和导入的模板</a></li>
+<li><a href="#server-stack-and-smart-analyzer">服务器堆栈和智能分析器</a></li>
+<li><a href="#oast-setup-and-interpretation">OAST 设置和解释</a></li>
+<li><a href="#browser-bridge-native-tool-proxy">Browser Bridge：原生工具代理</a></li>
+<li><a href="#native-bridge-configuration">本机桥接配置</a></li>
+<li><a href="#cookie-and-header-overrides-without-damaging-probes">覆盖 Cookie 和标头而不损坏探针</a></li>
+<li><a href="#external-tools-and-actual-zap-scanning">外部工具和实际的 ZAP 扫描</a></li>
+<li><a href="#tor-and-onion-routing">Tor 和洋葱路由</a></li>
+<li><a href="#agent-api-mcp-and-local-model-clients">代理 API、MCP 和本地模型客户端</a></li>
+<li><a href="#optional-native-nuclei">可选的原生核</a></li>
+<li><a href="#manual-tools-interception-and-api-inventory">手动工具、拦截和 API 库存</a></li>
+<li><a href="#findings-and-the-cimematic-viewer">调查结果和动画观众</a></li>
+<li><a href="#owasp-top-10-coverage">OWASP 前 10 名覆盖范围</a></li>
+<li><a href="#recovery-assessment-files-and-reports">恢复、评估文件和报告</a></li>
+<li><a href="#appearance-language-and-help">外观、语言和帮助</a></li>
+<li><a href="#troubleshooting">故障排除</a></li>
+<li><a href="#terms-and-source-references">术语和来源参考</a></li>
+</ol>
+<h2 id="what-runs-where">什么在哪里运行</h2>
+<p>“桥”这个词指的是不同的组件。选择您的任务所需的组件。</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>运行在哪里</th>
+<th>它的作用</th>
+<th>默认连接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内置扫描仪、中继器和模糊器</td>
+<td>Firefox 扩展和绑定目标选项卡</td>
+<td>使用 Longshot 的 JavaScript 规则进行浏览器会话 HTTP 检查</td>
+<td>无需外部代理进程</td>
+</tr>
+<tr>
+<td><strong>浏览器桥/本机工具代理</strong></td>
+<td>本地节点协调器加上单独安装的mitmproxy</td>
+<td>承载外部工具自身的HTTP/HTTPS请求；可选择覆盖 Cookie 和 Firefox 中选定的标头</td>
+<td>HTTP代理 <code dir="ltr" translate="no">127.0.0.1:8900</code>;扩展控制 <code dir="ltr" translate="no">127.0.0.1:8901</code></td>
+</tr>
+<tr>
+<td><strong>代理 API / 本机消息传递桥</strong></td>
+<td>向 Firefox 注册的本地节点服务</td>
+<td>REST/MCP/UI 自动化、评估文件和可选的本机 Nuclei 执行</td>
+<td>API <code dir="ltr" translate="no">http://127.0.0.1:8765</code></td>
+</tr>
+<tr>
+<td>外部 ZAP、curl、ffuf、sqlmap 或 Nuclei CLI</td>
+<td>您安装的单独进程</td>
+<td>生成自己的流量和结果，可以选择通过本机工具代理</td>
+<td>配置每个工具的传出 HTTP 代理</td>
+</tr>
+<tr>
+<td>Longshot 推出的分离原生 Nuclei</td>
+<td>代理 API 主机和 Linux 沙箱</td>
+<td>使用官方 Nuclei 引擎运行符合条件的导入模板</td>
+<td>独立隔离的执行路径；没有自动 Firefox cookie 导出</td>
+</tr>
+</tbody>
+</table>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">Built-in scan / Repeater / Fuzzer
+        → Firefox networking + target tab's session → target
+
+External ZAP / curl / another HTTP tool
+        → authenticated native proxy :8900 → mitmproxy → target
+                        ↑
+             selected cookie/header values
+                        ↑
+              paired Firefox tab via :8901
+
+MCP or REST client → Agent API :8765 → Longshot commands / UI
+                                      └→ separately enabled native jobs
+</code></pre>
+<p><strong>开始扫描不运行 ZAP。</strong> 将 ZAP 与 Browser Bridge 配对不会取代 Longshot 的 JavaScript 扫描器或将所有 ZAP 警报导入 Longshot。检查外部工具在该工具中的发现结果；本机网桥流量显示是元数据，而不是完整的漏洞结果导入器。</p>
+<h3 id="changes-that-invalidate-old-instructions">使旧指令失效的更改</h3>
+<table>
+<thead>
+<tr>
+<th>较旧的指令</th>
+<th>在2.18.1中使用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>选择旧版浏览器获取</td>
+<td>从浏览器桥和 XPI 中删除</td>
+</tr>
+<tr>
+<td>将工具发送至 <code dir="ltr" translate="no">http://bridge.invalid</code></td>
+<td>使用实际的目标 URL</td>
+</tr>
+<tr>
+<td>添加 <code dir="ltr" translate="no">bridge.invalid</code> 到 <code dir="ltr" translate="no">/etc/hosts</code></td>
+<td>无需输入；不要为这座桥添加一个</td>
+</tr>
+<tr>
+<td>代理开启 <code dir="ltr" translate="no">8899</code>;开始 <code dir="ltr" translate="no">node ./bridge/cli.js</code> 在旧适配器中</td>
+<td>下载的本机适配器使用 <code dir="ltr" translate="no">node cli.js</code>;默认代理/控制端口是 <code dir="ltr" translate="no">8900</code> / <code dir="ltr" translate="no">8901</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, <code dir="ltr" translate="no">X-Bridge-Host</code>, <code dir="ltr" translate="no">/v1/cookies</code>，配对检查端点</td>
+<td>旧的适配器接口；不要将它们放入本机配置中或假设它们存在</td>
+</tr>
+<tr>
+<td>网桥发送字节精确的原始 TCP 或走私流量</td>
+<td>原生代理解析HTTP；不支持格式错误的帧和字节透明 TCP</td>
+</tr>
+<tr>
+<td>浏览器会话意味着外部工具不需要 CA</td>
+<td>HTTPS 拦截需要工具信任本机适配器生成的 CA</td>
+</tr>
+<tr>
+<td>Tor 路由继承自 Firefox</td>
+<td>本机适配器路由是独立的； SOCKS 默认关闭</td>
+</tr>
+<tr>
+<td>适配器挂起/重新启动外部进程组或自动重播失败的工作</td>
+<td>暂停会阻止新的代理请求；明确检查并重试/恢复该工具</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-or-update-in-firefox-nightly">在 Firefox Nightly 中安装或更新</h2>
+<p>使用 <strong>2.18.1 XPI</strong>，而不是重命名为附加组件的旧适配器 ZIP。将匹配的源存档提取到您保留的文件夹中，如下所示 <code dir="ltr" translate="no">/path/to/longshot</code> 在例子中。请勿在未重新注册的情况下移动已注册的本机主机。</p>
+<p>发布文件为：</p>
+<ul>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1.xpi">火狐XPI</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-chrome.zip">铬邮政编码</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-source.zip">匹配扩展源ZIP</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/tag/v2.18.1">发行说明和校验和</a></li>
+<li>本机适配器 ZIP：在 Browser Bridge 中下载；它包含在每个扩展包中。</li>
+</ul>
+<p>这些是开发/提交版本。 Firefox 商店签名和两个市场的批准正在等待中。请遵循适用的开发加载过程，而不是期望未签名的 XPI 在发行版 Firefox 中正常安装。</p>
+<p>该清单需要 Firefox 140 或更高版本。版本集成检查使用 Linux 上的桌面版 Firefox 159。对可选助手的平台/运行时支持与基本扩展支持是分开的。</p>
+<p>对于临时未签名安装：</p>
+<ol>
+<li>打开 <code dir="ltr" translate="no">about:debugging#/runtime/this-firefox</code>.</li>
+<li>选择 <strong>加载临时附加组件</strong> 并选择 XPI。</li>
+<li>确认 Longshot 显示的版本，然后打开目标并启动其工具栏按钮。</li>
+<li>替换解压的开发版本后重新加载扩展。</li>
+</ol>
+<p>Firefox 重新启动后，临时附加组件就会消失。这是预料之中的；这不是适配器删除扩展。持久的公共分发需要 Mozilla 签名。 Nightly 有额外的未签名开发选项，描述如下 <a href="https://www.extensionworkshop.com/documentation/publish/signing-and-distribution-overview/">Mozilla 的签名指南</a>;临时加载不需要更改这些设置。参见 <a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">临时安装</a>.</p>
+<p>XPI 将本机适配器捆绑为可下载的存档。它无法启动任意 Node/Python 进程或仅通过 Firefox 附加组件安装本机主机。启动代理和注册代理 API 是不同的可选本地设置步骤。</p>
+<h2 id="getting-started-and-target-sessions">入门和目标会话</h2>
+<h3 id="connect-the-right-tab">连接右侧选项卡</h3>
+<ol>
+<li>在Firefox中打开授权目标，例如 <code dir="ltr" translate="no">http://localhost:8080</code>.</li>
+<li>使用预期的测试帐户登录并完成任何浏览器挑战。</li>
+<li>发射远射 <strong>从该目标选项卡</strong>。保持应用程序选项卡打开。</li>
+<li>检查目标地址并选择 <strong>连接</strong>.</li>
+<li>使用 <strong>开始使用</strong> 在标题中突出显示的八步演练。可以重播；它本身不会启动扫描或更改设置。</li>
+<li>浏览代表性应用程序页面，以便 Longshot 可以观察有用的路线和输入。</li>
+</ol>
+<p>目标源由方案、主机名和端口组成。 <code dir="ltr" translate="no">http://localhost:8080</code>, <code dir="ltr" translate="no">http://127.0.0.1:8080</code> 和 <code dir="ltr" translate="no">https://localhost:8080</code> 即使它们最终达到相同的服务，但它们的来源不同。连接并使用用于评估的确切地址。在主机名后面观察到的 IP 地址不会自动成为额外的授权目标。</p>
+<h3 id="configure-session-validation">配置会话验证</h3>
+<p>打开 <strong>设置 → 扫描仪设置</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>领域</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>会话验证路径</td>
+<td>需要身份验证的范围内页面/API 路径</td>
+</tr>
+<tr>
+<td>预期经过验证的文本</td>
+<td>所选帐户登录时存在稳定标记，注销后不存在</td>
+</tr>
+<tr>
+<td>最小认证响应字节</td>
+<td>可选的附加较低尺寸阈值；零禁用它</td>
+</tr>
+<tr>
+<td>登录路径</td>
+<td>应用程序的登录路径，当需要进行拒绝检测时</td>
+</tr>
+<tr>
+<td>在这么多请求后重新验证</td>
+<td>定期独立会话检查；默认20</td>
+</tr>
+<tr>
+<td>扫描前需要成功的会话验证</td>
+<td>要求配置的验证器通过；默认关闭</td>
+</tr>
+</tbody>
+</table>
+<p>保存设置并使用 <strong>概述 → 检查会话</strong>。返回 200 的公共页面并不是身份验证的证明。重定向到登录页面后跟 200 仍然可以表示无效会话；选择受保护的端点和有意义的标记。</p>
+<p>内置扫描仪使用绑定选项卡的适用浏览器 cookie，包括 HttpOnly cookie。 Firefox 通过 URL、路径、安全属性和 cookie 存储来选择 cookie。扫描仪受保护的 Cookie/授权/主机字段不是普通的可编辑模糊输入。</p>
+<h3 id="profiles-and-accounts">个人资料和帐户</h3>
+<p><strong>目标</strong> 分离历史记录、发现结果、请求日志、发现的端点、评论和扫描配置。返回配置文件会恢复评估数据，而不是旧的经过身份验证的浏览器会话。显式配置文件可以共享一个起源。</p>
+<p>两个普通的 Firefox 选项卡通常共享 cookie。使用独立的容器或单独的私有 cookie 存储来实现真正不同的测试身份。切换配置文件不会创建第二个帐户会话。会话 B 比较需要相同的目标源和单独的存储。</p>
+<h2 id="light-discovery-and-a-focused-active-scan">光发现和聚焦主动扫描</h2>
+<h3 id="first-pass-discovery-and-passive-review">第一关：发现和被动审查</h3>
+<ol>
+<li>套装 <strong>每秒请求数</strong> 为 0.5–1，抓取深度为 1，最大发现 URL 为 25–50。</li>
+<li>离开 <strong>最大发现</strong>, <strong>好斗的</strong>、CVE 自动阶段、OAST 和本机执行关闭。</li>
+<li>套装 <strong>自动模糊 → 关闭</strong>。关闭页面点击/滚动和实时 DOM/计时/回调测试。</li>
+<li>选择被动概述组：标头、cookie、披露、表单、DOM 源/接收器审查和 CORS。</li>
+<li>选择 <strong>仅蜘蛛</strong> 并开始。</li>
+<li>检查 <strong>站点地图</strong>, <strong>HTTP 历史记录</strong>, <strong>API浏览器</strong>, <strong>服务器堆栈</strong> 和 <strong>研究结果</strong>.</li>
+</ol>
+<p>Spider 跟踪发现的范围内链接/表单，而不提交表单写入。它不知道每个隐藏端点。 GET 请求仍然会产生特定于应用程序的副作用； “阅读方法”并没有建立一个无副作用的目标。</p>
+<h3 id="second-pass-a-bounded-active-assessment">第二遍：有界主动评估</h3>
+<ol>
+<li>保留 <strong>自动模糊 → 关闭</strong> 使内置的活动规则更易于单独查看。</li>
+<li>选择相关的Overview主动检查，例如SQL注入和Reflected XSS。</li>
+<li>使用较小的限制，例如 150 个活动请求、10 个活动 URL 和 5 个活动参数。</li>
+<li>选择 <strong>仅主动检查</strong> 重用当前页面和保存的库存，或者 <strong>蜘蛛+主动检查</strong> 首先去发现。</li>
+<li>开始，查看任何所需的批准，并观察活动和请求计数。</li>
+<li>检查每个发现的要求、基线、重复探测/控制证据、结论和置信度。</li>
+<li>打开 <strong>WSTG 检查 → 实际输入覆盖率</strong> 查看已完成、部分和跳过的工作。</li>
+</ol>
+<p><strong>自动模糊关闭不会关闭活动检查。</strong> SQLi/XSS/SSTI 和其他专用规则生成自己的探针。相反，勾选活动规则不会提供缺失的输入或使仅蜘蛛运行执行通用活动阶段。</p>
+<h2 id="aggressive-options-and-run-approval">积极的选择和运行批准</h2>
+<p>积极主动启用明确批准的方法/功能；它并不执行每一次检查或保证更有力的证据。</p>
+<ol>
+<li>首先发现输入并验证身份验证。</li>
+<li>仅启用所需的高级选项和写入/上传/删除权限。</li>
+<li>保存扫描选项。</li>
+<li>选择 <strong>审查/批准下一次积极运行</strong>.</li>
+<li>查看目标、功能、方法权限和预算。</li>
+<li>点击 <strong>批准下次运行</strong>。此用户操作请求任何缺失的组合 Firefox 权限并创建下次运行授权。</li>
+<li>使用审核后的配置开始运行。</li>
+</ol>
+<p>该授权是一次性的，30 分钟后过期，并因相关目标/配置/请求设置更改而失效。新的扫描通常需要新的资助。允许保存未完成的选项；启动或批准验证必填字段。</p>
+<p>火狐浏览器需要 <code dir="ltr" translate="no">permissions.request()</code> 直接源自真实的用户操作。更改设置并不是在后台授予任意权限的理由。如果权限被拒绝，请查看确切的功能，通过批准按钮重试或禁用该功能。正常的操作系统/浏览器权限提示保留在扩展 DOM 自动化之外。</p>
+<h3 id="maximum-findings-is-a-broad-preset">最大发现是一个广泛的预设</h3>
+<p>此预设开启了许多阶段，包括高级验证、OAST 和会话 B 比较，并扩大了多个预算。它不是一个“查找所有内容”的开关。它不会创建 OAST 帐户、填写提供程序 URL/回调域、选择有效的会话 B、安装 Nuclei 或验证缺失的角色。</p>
+<p>如果批准报告为空 OAST 字段或缺少会话 B，请配置它们或关闭这些选项。这与目标 URL 是否有效无关。</p>
+<h3 id="two-command-injection-controls">两个命令注入控件</h3>
+<p><strong>概述 → 操作系统命令指示灯</strong> 启用直接面向 Unix 的命令输出探测。默认情况下它是关闭的。 <strong>扫描选项 → 命令探针</strong> 控制 OAST 监听时额外的盲回调路由。一个复选框不会自动配置另一路径。查看实际运行的授权要求。</p>
+<h2 id="overview-checks">概览检查</h2>
+<p>默认启用列表包含六个被动组以及 SQLi、NoSQLi、服务器代码注入、反射 XSS、SSTI、遍历、重定向、CRLF 和方法。 <strong>操作系统命令指示灯</strong> 和 <strong>重复查询参数处理</strong> 开始吧。</p>
+<table>
+<thead>
+<tr>
+<th>检查</th>
+<th>它的作用</th>
+<th>解读</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>安全标头和 HTTPS</td>
+<td>评论 CSP、框架策略、nosniff、HSTS 和选定的混合内容参考</td>
+<td>防御/配置指标，而非自动漏洞证明</td>
+</tr>
+<tr>
+<td>Cookie 属性</td>
+<td>评论 Secure、HttpOnly 和 SameSite，不保留 cookie 值作为结果</td>
+<td>Cookie 目的和浏览器行为需要审查</td>
+</tr>
+<tr>
+<td>错误和敏感内容</td>
+<td>识别选定的跟踪、配置/源内容和目录列表</td>
+<td>仅限于观察到的内容和签名</td>
+</tr>
+<tr>
+<td>表格和 CSRF 审核</td>
+<td>审查密码传输/GET 表单和识别的令牌字段</td>
+<td>缺少可见令牌并不能证明 CSRF</td>
+</tr>
+<tr>
+<td>DOM XSS 源/接收器审查</td>
+<td>在内联代码中查找附近的 URL 源和危险接收器</td>
+<td>启发式；不执行或完整的数据流证明</td>
+</tr>
+<tr>
+<td>CORS 政策审查</td>
+<td>审查可观察的允许来源/凭证组合</td>
+<td>不测试任意源反射或攻击者源读取</td>
+</tr>
+<tr>
+<td>SQL注入</td>
+<td>重复新的数据库错误签名以及与控件的真/假比较</td>
+<td>证据仍然限于经过测试的输入和语法系列</td>
+</tr>
+<tr>
+<td>NoSQL注入</td>
+<td>重复 MongoDB/BSON 错误签名</td>
+<td>没有一般的操作员注入或身份验证绕过验证器</td>
+</tr>
+<tr>
+<td>服务器端代码注入</td>
+<td>计算 JavaScript/PHP 金丝雀</td>
+<td>小语言/上下文集</td>
+</tr>
+<tr>
+<td>反射式 XSS</td>
+<td>反射门加上对可执行 HTML 上下文的重复惰性解析</td>
+<td>候选者直至实际执行得到验证</td>
+</tr>
+<tr>
+<td>服务器模板注入</td>
+<td>独特的算术标记和重复/控制检查</td>
+<td>不涵盖每个模板引擎或盲上下文</td>
+</tr>
+<tr>
+<td>遍历/文件包含</td>
+<td>重复的已知文件内容签名</td>
+<td>不详尽的编码、文件或平台</td>
+</tr>
+<tr>
+<td>打开重定向</td>
+<td>生成的 .invalid Location 金丝雀</td>
+<td>未遵循外部重定向目标</td>
+</tr>
+<tr>
+<td>响应头注入</td>
+<td>重复生成的标头标记</td>
+<td>浏览器 URL/标头处理限制了测试</td>
+</tr>
+<tr>
+<td>公布的 HTTP 方法</td>
+<td>选项和允许库存</td>
+<td>广告是不允许写的</td>
+</tr>
+<tr>
+<td>重复查询参数处理</td>
+<td>重复第一/最后顺序比较</td>
+<td>信息解析差异，未经证实的安全影响</td>
+</tr>
+<tr>
+<td>操作系统命令指示灯</td>
+<td>可选的重复 id 输出指示器</td>
+<td>面向 Unix、上下文相关且默认关闭</td>
+</tr>
+</tbody>
+</table>
+<p>支持的活动插入点包括查询值、嵌套 JSON/数组、表单/多部分字段、选定的可编辑导入标头和命名 API 路径输入。机构必须为人所知并获得许可。托管身份验证/框架字段、排除值和不可用的请求正文并不是默默发明的。</p>
+<p>在表单写入之前，在支持的情况下保留和刷新隐藏的表单值；不可用的令牌可能会使覆盖范围被跳过。此机制并未确定表单的 CSRF 保护是否有效。</p>
+<h2 id="scan-options-reference">扫描选项参考</h2>
+<p>除非另有说明，否则这些可选阶段都会开始。 <strong>自适应请求率</strong> 默认开启；默认自动模糊模式为关闭。 Settings restored from an existing profile can differ from fresh defaults.</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>有什么变化/先决条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CVE 自动阶段</td>
+<td>使用 CVE/全局预算内编写的请求/匹配器执行符合条件的导入 CVE 模板</td>
+</tr>
+<tr>
+<td>激进（授权）</td>
+<td>启用写入方法和高级功能的下次运行批准</td>
+</tr>
+<tr>
+<td>允许分段文件上传</td>
+<td>单独允许承载文件的多部分请求；不生成上传测试</td>
+</tr>
+<tr>
+<td>允许删除（单独同意）</td>
+<td>单独允许删除；不会自动发出删除请求</td>
+</tr>
+<tr>
+<td>AJAX / DOM 检测</td>
+<td>在有界发现期间观察动态应用程序端点和支持的页面活动</td>
+</tr>
+<tr>
+<td>选择加入页面点击/滚动</td>
+<td>添加有界交互；需要 AJAX 发现和积极批准；应用程序处理程序可以更改数据</td>
+</tr>
+<tr>
+<td>实时 DOM XSS 验证（新选项卡）</td>
+<td>在一次性同店选项卡中测试有界查询/片段查询 URL 输入；两只新鲜的当地金丝雀加阴性对照； CSP 继续执行</td>
+</tr>
+<tr>
+<td>重复定时探测</td>
+<td>从第一个插入点开始重复 SQL 延迟比较和 JSON MongoDB 计时候选；需要积极进取</td>
+</tr>
+<tr>
+<td>SSRF 金丝雀/回调</td>
+<td>内部地址响应差异加上配置后的精确 OAST 相关性；需要积极进取</td>
+</tr>
+<tr>
+<td>XML 外部实体探针</td>
+<td>已知 XML 请求主体的回调金丝雀；需要批准 OAST 设置来实施测试</td>
+</tr>
+<tr>
+<td>Log4Shell OAST 探针</td>
+<td>符合条件的输入和 X-Api-Version 中的回调金丝雀；交互并不是代码执行的证明</td>
+</tr>
+<tr>
+<td>命令探针</td>
+<td>OAST监听时的盲命令回调路由</td>
+</tr>
+<tr>
+<td>导入的反序列化模板</td>
+<td>包括符合条件的导入反序列化标记模板；没有通用的小工具生成器</td>
+</tr>
+<tr>
+<td>自适应 WAF 突变（最多 3 个）</td>
+<td>合格探针的有限替代表示；绝不保证绕过</td>
+</tr>
+<tr>
+<td>与会话B比较</td>
+<td>将最多十个符合条件的读取请求与另一个同源 cookie 存储进行比较；所有权/角色仍然是手动上下文</td>
+</tr>
+<tr>
+<td>发现 WebSocket 探针</td>
+<td>有界通道交换；没有发明特定于应用程序的攻击协议</td>
+</tr>
+<tr>
+<td>发现SSE探针</td>
+<td>有界EventSource监听；不是一般的流授权验证器</td>
+</tr>
+<tr>
+<td>离线客户端库SCA</td>
+<td>用于观察客户资产的小型捆绑已知版本/范围目录</td>
+</tr>
+<tr>
+<td>参数/标头挖掘</td>
+<td>使用从目标/API 证据中学到的名称；不是完整的隐藏输入字典</td>
+</tr>
+<tr>
+<td>原生完整 Nuclei 执行</td>
+<td>通过 Agent API 启用官方引擎模板作业，但须遵守 Linux 隔离和同意</td>
+</tr>
+<tr>
+<td>沙盒本机代码/JavaScript</td>
+<td>审核/签名本机模板的附加功能</td>
+</tr>
+<tr>
+<td>隔离无头浏览器</td>
+<td>额外的原生无头功能；与 Firefox 的登录隔离</td>
+</tr>
+<tr>
+<td>本机白名单文件读取</td>
+<td>所选白名单内的附加只读本地文件功能</td>
+</tr>
+<tr>
+<td>OAST（外部提供商）</td>
+<td>注册/轮询指定的提供者；分别选择相关漏洞探针</td>
+</tr>
+<tr>
+<td>社区 SQL 探针列表</td>
+<td>将支持的过滤 SecLists/FuzzDB 值添加到相关 SQL 检查/模糊器</td>
+</tr>
+<tr>
+<td>自适应请求率</td>
+<td>保守的节流/挑战处理；不会自动提高利率</td>
+</tr>
+<tr>
+<td>启用上传的负载包</td>
+<td>添加选定的特定目标值；需要积极加下次运行批准</td>
+</tr>
+</tbody>
+</table>
+<p>实时 DOM 验证不是一般的污点跟踪。存储的 XSS、postMessage/本地存储源、非 URL 输入和多步骤写入/读取工作流程需要额外的测试。阻塞的依赖或超时是不完整的覆盖，而不是通过。</p>
+<h2 id="budgets-selectors-and-request-settings">预算、选择器和请求设置</h2>
+<p>有 <strong>两组独立的限制</strong>：Longshot 的内置扫描限制和本机工具代理的限制。通过 :8900 的 ZAP 请求不会消耗内置 JavaScript 扫描预算，并且 Longshot 的复选框不会选择 ZAP 的扫描策略。</p>
+<h3 id="operation-and-phase-selectors">操作和相位选择器</h3>
+<table>
+<thead>
+<tr>
+<th>选择器</th>
+<th>选择和行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>操作</td>
+<td>仅蜘蛛；蜘蛛+主动检查；仅主动检查</td>
+</tr>
+<tr>
+<td>自动模糊测试</td>
+<td>关闭；激活并获得 CVE 后；扫描期间。这控制额外的阶段，而不是专用的活动规则</td>
+</tr>
+<tr>
+<td>攻击模型</td>
+<td>狙击手；攻城锤；叉;支持结构化自动/身体突变计划的集束炸弹</td>
+</tr>
+<tr>
+<td>会议B</td>
+<td>另一个具有真正独立的 cookie 存储的同源选项卡</td>
+</tr>
+<tr>
+<td>身体模糊器方法</td>
+<td>POST、GET、PUT 或 PATCH，取决于请求政策和批准</td>
+</tr>
+<tr>
+<td>正文格式</td>
+<td>JSON、形式 URL 编码、多部分或原始/XML；并非每种格式都提供通用标量插入点</td>
+</tr>
+<tr>
+<td>车身有效载荷等级</td>
+<td>SQLi、NoSQLi、代码、XSS、SSTI、遍历、CRLF、重定向、命令或自定义</td>
+</tr>
+</tbody>
+</table>
+<p>本实现中的攻击模型：</p>
+<ul>
+<li><strong>狙击手：</strong> 一次改变一个输入。</li>
+<li><strong>攻城槌：</strong> 将相同的有效负载放入所有选定的输入中。</li>
+<li><strong>干草叉：</strong> 在输入之间使用共享有效负载列表中的交错/旋转序列。这并不是 Burp 的独立列表行为的主张。</li>
+<li><strong>集束炸弹：</strong> 输入之间的有界组合；该上限可防止无限的笛卡尔扩展。</li>
+</ul>
+<h3 id="scan-option-limits">扫描选项限制</h3>
+<table>
+<thead>
+<tr>
+<th>领域</th>
+<th style="text-align: right;">新的违约</th>
+<th style="text-align: right;">接受范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全局请求预算</td>
+<td style="text-align: right;">2,000</td>
+<td style="text-align: right;">1–10,000</td>
+</tr>
+<tr>
+<td>每个参数的模糊请求</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>每个模板的 CVE 请求</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>每个目标的 CVE 请求</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1–2,000</td>
+</tr>
+<tr>
+<td>并发限制</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1-2；不承诺并行浏览器吞吐量</td>
+</tr>
+<tr>
+<td>AJAX 活动预算</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>AJAX 页面预算（毫秒）</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">500–15,000</td>
+</tr>
+<tr>
+<td>AJAX 页数</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>延迟探头（秒）</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1–5</td>
+</tr>
+<tr>
+<td>OAST 回调 TTL 秒</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">5–3,600</td>
+</tr>
+<tr>
+<td>OAST 民意调查秒数</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5–15</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scanner-settings">扫描仪设置</h3>
+<table>
+<thead>
+<tr>
+<th>设置</th>
+<th>新的默认/目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每秒请求数</td>
+<td>1; UI 支持 0.5–5</td>
+</tr>
+<tr>
+<td>最大爬行深度</td>
+<td>3； UI 支持 0–5</td>
+</tr>
+<tr>
+<td>最大发现 URL</td>
+<td>100； UI 支持 1–500</td>
+</tr>
+<tr>
+<td>每个响应的最大字节数</td>
+<td>2MB；较大/截断的回复可能会留下证据空白</td>
+</tr>
+<tr>
+<td>传输重试</td>
+<td>2；不保证可以安全地重放特定的写入</td>
+</tr>
+<tr>
+<td>每个参数的最大模糊探针数</td>
+<td>40；与额外阶段参数预算分开</td>
+</tr>
+<tr>
+<td>最大活跃请求数</td>
+<td>150</td>
+</tr>
+<tr>
+<td>最大活动 URL</td>
+<td>20</td>
+</tr>
+<tr>
+<td>最大活动查询参数</td>
+<td>10；审计还记录其他支持的插入点类型</td>
+</tr>
+<tr>
+<td>排除的路径前缀</td>
+<td>每行一个前缀；防止这些路径生成测试目标</td>
+</tr>
+<tr>
+<td>排除的参数名称</td>
+<td>每行一个名称</td>
+</tr>
+<tr>
+<td>将编辑后的扫描仪响应主体保留在本地</td>
+<td>开；支持在限制范围内进行审查/比较，并尽最大努力进行编辑</td>
+</tr>
+</tbody>
+</table>
+<p>主动审计为以后启用的规则保留有限的津贴。因此，更多的有效负载可以使某些规则变得部分，而不是测试每个变体。配置的最大值是一个上限，而不是承诺使用每个请求或完成每个输入。</p>
+<h3 id="other-selectors">其他选择器</h3>
+<table>
+<thead>
+<tr>
+<th>页面</th>
+<th>选择器和含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>研究结果</td>
+<td>严重性和审查状态；仅显示负面/受阻的可见性变化</td>
+</tr>
+<tr>
+<td>模板</td>
+<td>严重性、只读过滤器和手动选择；就绪是许可/兼容性状态，而不是漏洞判定</td>
+</tr>
+<tr>
+<td>中继器</td>
+<td>GET/HEAD/OPTIONS/POST/PUT/PATCH/DELETE 和 raw/XML、JSON 或表单主体</td>
+</tr>
+<tr>
+<td>模糊器</td>
+<td>有效负载系列和值突变：原始、URL/双编码、大小写更改、编码点、制表符/分号后缀、双斜杠前缀、尾随点/空格</td>
+</tr>
+<tr>
+<td>拦截器</td>
+<td>资源类型、方法和超时动作；这些过滤器保留流量而不是重写其方法</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>选择观察的通道协议</td>
+</tr>
+<tr>
+<td>服务器堆栈</td>
+<td>自动NVD+OSV，NVD产品/CPE或OSV封装/版本；手动 npm/PyPI 生态系统</td>
+</tr>
+<tr>
+<td>比较</td>
+<td>保存的基线和比较响应</td>
+</tr>
+<tr>
+<td>公用事业</td>
+<td>URL/Base64/hex 编码/解码、SHA-256、JSON 格式和 JWT 声明检查</td>
+</tr>
+<tr>
+<td>WSTG 检查</td>
+<td>类别和自动/辅助/手动参考过滤器</td>
+</tr>
+<tr>
+<td>主题/语言</td>
+<td>全局外观和捆绑语言，独立于扫描选项</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fuzzer-auto-fuzz-and-probe-library">模糊器、自动模糊器和探针库</h2>
+<h3 id="pick-the-right-action">选择正确的行动</h3>
+<table>
+<thead>
+<tr>
+<th>行动</th>
+<th>谁选择输入？</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主动扫描</td>
+<td>Longshot 使用发现的支持输入</td>
+<td>具有重复/控制的专用规则证据</td>
+</tr>
+<tr>
+<td>运行模糊器</td>
+<td>您选择一个 URL 和查询参数</td>
+<td>基线和选定的有效负载响应比较</td>
+</tr>
+<tr>
+<td>身体模糊器</td>
+<td>您提供结构化请求和突变选择</td>
+<td>支持的有界主体/路径/标头变化</td>
+</tr>
+<tr>
+<td>自动模糊按钮</td>
+<td>保存的当前页面/站点地图/API 库存</td>
+<td>跨符合条件的已发现输入进行额外通用有效负载探索</td>
+</tr>
+<tr>
+<td>CVE 自动阶段/运行已选择</td>
+<td>导入的模板定义</td>
+<td>特定于模板的请求和匹配器结果</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-query-fuzzer">手动查询模糊器</h3>
+<ol>
+<li>连接目标并选择范围 URL。相对 URL，例如 <code dir="ltr" translate="no">/search?q=apple</code> 被接受针对连接的源。</li>
+<li>输入现有的查询参数名称，或选择 <strong>使用</strong> 在发现的输入旁边。</li>
+<li>选择有效负载类别和值突变。</li>
+<li>对于 <strong>用户上传的自定义负载</strong>，首先启用合适的自定义包。</li>
+<li>选择 <strong>运行模糊器</strong>，然后检查基线、请求、状态、长度/时间和证据。</li>
+</ol>
+<p>缺少 URL、参数或空自定义集会生成特定的验证消息。单独改变响应并不会造成注入缺陷。服务器限制可以停止该参数，即使它发生在基线上。</p>
+<h3 id="auto-fuzz-discovered-inputs">自动模糊测试发现的输入</h3>
+<p>使用 <strong>预览发现的输入</strong> 首先。它读取保存的库存并报告符合条件/跳过的请求，而无需发送探测。自动模糊测试不需要手动模糊器的 URL/参数字段。如果库存为空，请先浏览或蜘蛛。</p>
+<p>选择有效负载类别并选择单独的 <strong>自动模糊测试</strong> 按钮。 <strong>包括发现的请求主体</strong> 开始并需要积极的加上下一次运行的批准。此自动输入选择器会跳过令牌绑定表单、不支持的方法、不可用的正文和 XML。现有的排除、请求限制和限制行为仍然适用。</p>
+<p>可用的类复选框有 SQLI、NOSQLI、CODE、XSS、SSTI、TRAVERSAL、COMMAND、SSRF、REDIRECT、CRLF 和 CUSTOM。新的默认设置启用 SQLI、SSTI、TRAVERSAL、REDIRECT 和 CRLF。通用循环跳过 SSRF；使用 <strong>SSRF 金丝雀/回调</strong> 进行验证。 CUSTOM 使用输入/启用的自定义值并报告低置信度响应差异，除非专用匹配器建立更多差异。</p>
+<h3 id="why-probe-library-belongs-here">为什么 Probe 库属于这里</h3>
+<p>图书馆供应 <strong>有效负载值和已审核的模板</strong>;模糊器控制选择 <strong>发送地点和方式</strong>。它不会取代手动 URL/参数。共享库选项还会影响保存后的主动扫描和自动阶段。</p>
+<p><strong>更新 GitHub 列表</strong> 刷新固定源，而不是任意可执行扫描程序：</p>
+<table>
+<thead>
+<tr>
+<th>来源</th>
+<th>使用的子集</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SecLists 快速 SQLi</td>
+<td>过滤标点符号/布尔值，支持的条目上限为 32 个</td>
+</tr>
+<tr>
+<td>FuzzDB跨平台SQL检测</td>
+<td>过滤标点符号/布尔值，支持的条目上限为 32 个</td>
+</tr>
+<tr>
+<td>ProjectDiscovery Nuclei 模板</td>
+<td>两个仅 GET 的 Jira 入门检查：CVE-2020-14179 和 CVE-2021-26086</td>
+</tr>
+<tr>
+<td>PayloadsAllTheThings 技术</td>
+<td>有界实现的 SQL 空白/注释/编码变体的基础；不是下载的可执行绕过脚本</td>
+</tr>
+</tbody>
+</table>
+<p>更新使用 HTTPS，省略 cookie 并在失败时保留旧快照。显示源哈希、刷新时间和支持的计数。完整输入文件的哈希并不意味着使用该文件中的每个值。下载的 SQL 列表排除破坏性/数据提取/延迟/代码/回调结构；内置规则有自己单独实现的金丝雀。</p>
+<p>更新前停止扫描。更新不会启动探测、授予批准、启用 OAST 或将目标数据/自定义包上传到 GitHub。下载的模板更改为不受支持/原始/代码/无头形式时会被拒绝，而不是默默地提升为新的执行能力。</p>
+<h2 id="your-payloads-and-imported-templates">您的有效负载和导入的模板</h2>
+<h3 id="upload-literal-lists">上传文字列表</h3>
+<p>下 <strong>扫描选项或 Fuzzer → 探针库 → 您的有效负载和 CVE 模板</strong>，选择类别，然后 <strong>上传自定义文件</strong>.</p>
+<p>接受的列表形式：</p>
+<ul>
+<li><code dir="ltr" translate="no">.txt</code>：每行一个文字非空值；空格和大小写被保留。</li>
+<li><code dir="ltr" translate="no">.json</code>：字符串数组或包含的对象 <code dir="ltr" translate="no">name</code>, <code dir="ltr" translate="no">category</code> 和 <code dir="ltr" translate="no">payloads</code>.</li>
+<li>类别： <code dir="ltr" translate="no">custom</code>, <code dir="ltr" translate="no">waf</code>, <code dir="ltr" translate="no">sqli</code>, <code dir="ltr" translate="no">nosqli</code>, <code dir="ltr" translate="no">code</code>, <code dir="ltr" translate="no">xss</code>, <code dir="ltr" translate="no">ssti</code>, <code dir="ltr" translate="no">traversal</code>, <code dir="ltr" translate="no">crlf</code>, <code dir="ltr" translate="no">redirect</code>, <code dir="ltr" translate="no">command</code>.</li>
+</ul>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "name": "My SQL review probes",
+  "category": "sqli",
+  "payloads": ["'", "\"", "' AND 1=1 -- "]
+}
+</code></pre>
+<p>包是针对特定目标的，最初 <strong>残疾人</strong>。检查预览并明确启用所需的包。启用上传的包需要积极性和批准；单独上传没有任何作用。</p>
+<p>限制：每个有效负载文件 256 KB，每个包 200 个字符串，每个值 2,000 个字符，每个目标最多 10 个包/500 个值/512 KB 包配置。包内的重复字符串将被删除。现有的方法、范围、预算和破坏性 SQL 防护仍然适用。</p>
+<p>分类包补充了内置的类别值。 WAF 包还需要智能变体和合格的过滤证据。文字自定义有效负载不是预期输出匹配器或可执行扩展代码。仅上传 CVE 编号无法验证该 CVE。</p>
+<h3 id="import-requestmatcher-templates">导入请求/匹配器模板</h3>
+<p>上传YAML/YML/JSON之前选择CVE/Nuclei模板类别；模板文件上限为 2 MB。审查它在 <strong>模板</strong>，包括执行者和具体的Ready/Blocked原因。导入的模板使用共享库；有效载荷包与目标保持一致。</p>
+<ul>
+<li><strong>运行选定的</strong> 直接执行选定的模板，不需要 CVE 自动阶段。</li>
+<li><strong>CVE 自动阶段</strong> 在配置的扫描期间考虑合格的 CVE 标记/识别的导入。</li>
+<li><strong>自动模糊测试</strong> 生成通用值；它不会重写创作的 CVE 有效负载或匹配器。</li>
+<li>仅供咨询的 JSON 关联产品/版本证据。它不会发明有效的利用请求。</li>
+<li>原始、复杂、代码、无头、文件或非 HTTP 模板可能需要单独的官方引擎和额外的授权，否则仍会被阻止。</li>
+</ul>
+<p>导入经过审核的相关帮助程序包以及需要它们的模板。不可用的本机运行时、超出范围的请求、缺少批准或不受支持的功能是检查的原因，而不是成功的负面测试。</p>
+<h2 id="server-stack-and-smart-analyzer">服务器堆栈和智能分析器</h2>
+<p>使用 <strong>检测软件</strong> 收集受支持的范围观察。当您需要身体证据时，浏览代表性页面并保留适当的答案。然后选择 <strong>分析记录的证据</strong> 用于最多 200 个最近存储的响应的本地被动关联。分析器本身不添加目标请求。</p>
+<p>该视图将浏览器组件、WAF/CDN/边缘、Web 服务器/反向代理和应用程序/运行时信号分开。产品特定的标头、cookie 名称、资产/引导结构和错误文本可以提高信心。挑战页面主体被排除在应用程序指纹识别之外。通用 403、nginx 横幅或 CDN 边缘并不表明启用了特定的 WAF 规则。</p>
+<p>可能的配置卡解释了它们的证据和建议的验证。它们是假设：浏览器响应无法精确建立源 IP、私有子网、后端数据库设置、TLS 终止、防火墙规则或代理信任列表。多个上游和重写的横幅可能会隐藏或错误识别图层。</p>
+<h3 id="waf-recommendations-and-rate-handling">WAF 建议和费率处理</h3>
+<p><strong>应用保守的扫描建议</strong> 显式启用社区 SQL 探针、智能变体和自适应速率，并将配置的速率降低至最多 0.5 个请求/秒。它不会启动扫描或授予高级功能。</p>
+<p>符合条件的调查最多考虑现有预算内的三种替代表示方式。跳过阻塞的基线。浏览器挑战需要正常的浏览器分辨率；普通的 ACL 拒绝并不能证明无休止的绕过尝试是合理的。从阻止到允许的更改是可达性证据，而不是漏洞证明。</p>
+<p>重复的显式挑战可能会使内存速率减半并导致至少等待十秒。带 Retry-After 的 HTTP 429 或 503 会停止进一步计划的探测；考虑更长的重试间隔。该比率不会再次自动增加。新的运行以配置的速率开始。</p>
+<h3 id="cve-lookup">CVE 查找</h3>
+<p><strong>在线搜索 CVE</strong> 在获得许可后查询 NVD/OSV 以获取支持的产品/包坐标。该请求发送坐标，而不是目标 URL、cookie 或页面内容。未知版本、供应商向后移植和未经验证的软件包存在限制结论。手动 npm/PyPI 条目不能证明安装。</p>
+<p>没有匹配并不意味着没有 CVE。 A 匹配为顾问候选人；检查先决条件和使用 <strong>查找验证模板</strong> 找到合适的进口支票。该按钮过滤模板而不是执行它们。</p>
+<h2 id="oast-setup-and-interpretation">OAST 设置和解释</h2>
+<p><a href="https://portswigger.net/web-security/ssrf/blind">OAST</a> 当正常响应未揭示行为时，观察由探测引起的 DNS/HTTP 交互。 Longshot 拥有其注册/关联密钥；来自另一个客户端的随机预生成回调不可互换。</p>
+<ol>
+<li>选择您控制或被允许使用的 Interactsh 兼容服务。</li>
+<li>输入 <strong>提供商网址</strong>：提供者完整的API基地址，通常是HTTPS。仅允许环回提供程序使用 HTTP。</li>
+<li>输入匹配的 <strong>回调域</strong> 没有 <code dir="ltr" translate="no">http://</code>、端口或路径。</li>
+<li>输入 <strong>提供商代币</strong> 仅当该提供商需要时。</li>
+<li>设置TTL和轮询间隔；启用 OAST 以及相关的 SSRF/XXE/Log4Shell/命令选项。</li>
+<li>使用 <strong>测试 OAST 连接</strong> 检查注册/投票。</li>
+<li>使用 <strong>测试 OAST 回调</strong> 从此浏览器发送单独的相关金丝雀。</li>
+<li>保存、审查并批准实际扫描。检查 OAST 交互中的精确相关性和协议。</li>
+</ol>
+<p>例如，如果使用匹配的公共服务 <code dir="ltr" translate="no">https://oast.pro</code>，其回调基数为 <code dir="ltr" translate="no">oast.pro</code>。这是一个示例，不是可用性保证或使用该提供商的要求。自托管提供商需要自己正确委派的可访问域、DNS/侦听器和 TLS；单独的笔记本电脑 HTTP 侦听器并不是公共回调服务。关注 <a href="https://github.com/projectdiscovery/interactsh">官方 Interactsh 设置</a>.</p>
+<table>
+<thead>
+<tr>
+<th>观察</th>
+<th>它建立了什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>连接测试通过</td>
+<td>通过浏览器的路由进行注册和轮询</td>
+</tr>
+<tr>
+<td>浏览器回调测试通过</td>
+<td>该浏览器可以触发并检索其自己的相关交互</td>
+</tr>
+<tr>
+<td>目标探针产生匹配相互作用</td>
+<td>发生了相关的相互作用；注明来源并评估其含义</td>
+</tr>
+<tr>
+<td>无回调</td>
+<td>不确定：目标出口、提供者可达性、过期、过滤或不受支持的上下文可以解释它</td>
+</tr>
+</tbody>
+</table>
+<p>DNS 解析可以来自中介/安全服务。单独的回调并不能证明任意内部访问、数据盗窃或代码执行。单独的隔离 Nuclei 引擎拥有自己的本机 Interactsh 注册；这些事件不是浏览器客户端的注册。</p>
+<p>浏览器端 OAST 客户端不需要 Go、Node 或 Agent API。发布测试执行了官方服务器注册、加密 HTTP 回调检索和环回关联；他们没有建立公共提供商的可用性或目标服务器的出口。没有主机文件编辑是正常正确委派的 OAST 设置的一部分。</p>
+<h2 id="browser-bridge-native-tool-proxy">Browser Bridge：原生工具代理</h2>
+<h3 id="what-it-sends">它发送什么</h3>
+<p>外部工具生成请求，包括其攻击负载、方法、正文和查询。本机适配器通过 mitmproxy 转发它，仅应用配置的 cookie/标头更改。确实如此 <strong>不</strong> 要求 Firefox 代表 ZAP 或其他工具执行获取。</p>
+<p>这保留了本机 HTTP 语义和工具的有效负载生成，但不保留任意原始线路字节：mitmproxy 解析/序列化 HTTP 并建立自己的出站 TLS 连接。浏览器用户代理字符串不会使本机 TLS/网络指纹与 Firefox 相同。</p>
+<h3 id="install-the-downloaded-adapter">安装下载的适配器</h3>
+<ol>
+<li>打开 <strong>浏览器桥</strong>。仅 <strong>原生工具代理</strong> 在 2.18.1 中可用。</li>
+<li>选择 <strong>下载本机适配器</strong> 并提取它。</li>
+<li>输入提取的 <code dir="ltr" translate="no">native-bridge</code> 目录。它包含 <code dir="ltr" translate="no">cli.js</code>, <code dir="ltr" translate="no">bootstrap.py</code>, <code dir="ltr" translate="no">config.json</code> 和捆绑的节点 <code dir="ltr" translate="no">ws</code> 依赖性。</li>
+<li>如果 Node.js 20+ 和 Python 3.12+ 尚不可用，请安装它们。</li>
+<li>运行一次性 Python 设置：</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   cd /absolute/path/to/native-bridge
+   python3 bootstrap.py</code></p>
+<p>这会创建一个本地 <code dir="ltr" translate="no">.venv</code> 并安装固定的 mitmproxy 12.2.3。安装需要访问互联网。正常启动不会下载扫描器代码或有效负载列表。</p>
+<ol start="6">
+<li>使用显示的命令 <strong>你的</strong> 扩展页面：</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   node cli.js --config config.json \
+     --extension-origin moz-extension://YOUR-LONGSHOT-UUID</code></p>
+<p>将占位符替换为完整的当前扩展原点。它不是目标网站、附加组件 ID 或从其他 Firefox 配置文件复制的源。</p>
+<ol start="7">
+<li>保持终端运行。代理侦听器准备就绪后，它会打印代理地址、控制端口、新配对/代理令牌和 CA 证书路径。</li>
+</ol>
+<p>当从源 ZIP 开发而不是使用捆绑的适配器存档时，请首先安装其固定的 Node 依赖项（如果不存在）：</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+npm --prefix native-bridge ci --omit=dev
+cd native-bridge
+python3 bootstrap.py
+</code></pre>
+<p><code dir="ltr" translate="no">--mitmdump /absolute/path/to/mitmdump</code> 或 <code dir="ltr" translate="no">LONGSHOT_MITMDUMP</code> 选择现有的运行时。 <code dir="ltr" translate="no">--data-dir /absolute/private/run-directory</code> 选择 CA/audit 目录；默认是 <code dir="ltr" translate="no">run</code> 在本机适配器内。 Ctrl+C 停止适配器。</p>
+<p>手动本机代理与代理 API 主机注册是分开的。它不需要 <code dir="ltr" translate="no">node bridge/bin/longshot-bridge install</code> 仅代理curl/ZAP。 Linux/Firefox 进行了发布集成测试；不要从此手动 Node/Python 启动路径推断另一个平台上的本机消息安装程序支持。</p>
+<h3 id="pair-the-selected-tab">配对选定的选项卡</h3>
+<ol>
+<li>选择授权的 <strong>目标选项卡</strong> 在浏览器桥中。</li>
+<li>验证其显示的来源和 cookie 存储。使用 <strong>刷新选项卡</strong> 如果需要的话。</li>
+<li>输入 <strong>控制端口</strong> <code dir="ltr" translate="no">8901</code>，除非在适配器配置中进行了更改。</li>
+<li>粘贴当前的 <strong>配对/代理令牌</strong> 来自正在运行的适配器。</li>
+<li>选择 <strong>配对本机桥</strong> 并验证就绪状态。</li>
+<li>在路由工具流量之前检查 cookie/标头开关。</li>
+</ol>
+<p>配对成功后，该字段会清除令牌。重新启动会产生一个新令牌：再次配对并更新每个外部工具中的代理凭据。代理端口 <code dir="ltr" translate="no">8900</code> 用于工具；控制端口 <code dir="ltr" translate="no">8901</code> 适用于火狐浏览器。两者均不使用来自端口 8765 的代理 API 不记名令牌。</p>
+<h3 id="actual-target-urls-and-bridgeinvalid">实际目标 URL 和bridge.invalid</h3>
+<p>使用真实地址，例如 <code dir="ltr" translate="no">http://localhost:8080/search?q=apple</code>，在你的工具中。如果测试 HTTPS，请使用真实的 <code dir="ltr" translate="no">https://...</code> 地址。代理自己的地址仍然存在 <code dir="ltr" translate="no">http://127.0.0.1:8900</code> 因为这是本地 HTTP 代理侦听器，包括 HTTPS CONNECT。</p>
+<p><strong>否 <code dir="ltr" translate="no">/etc/hosts</code> 需要输入。</strong> 旧的 <code dir="ltr" translate="no">bridge.invalid</code> 地址是特定于适配器的别名，用于将实用程序的 HTTP URL 映射到选定的浏览器获取目标。当前的本机代理支持实际目标 URL 和 HTTPS CONNECT，因此不需要映射。</p>
+<p><code dir="ltr" translate="no">localhost</code> 不是每个目标的可互换别名：它从相关进程的网络环境中命名本地计算机。仅当目标实际上位于该原点的本地时，它才是正确的。即使两个名称解析为相同的 IP，不同的主机名也可以选择不同的虚拟主机、cookie 策略或来源。</p>
+<p>现有的过时主机条目与新工作流程无关；不要在工具 URL 中使用它。准备本教程时未对主机文件进行任何修改。</p>
+<h3 id="https-trust">HTTPS 信任</h3>
+<p>适配器在选定的数据目录下生成自己的本地 CA，通常：</p>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
+run/ca/mitmproxy-ca.pem            sensitive CA material/private key
+</code></pre>
+<p>配置 <strong>外部工具的评估信任配置</strong> 启动时打印公共证书路径。不要共享私钥或假设系统/Firefox 信任存储已更改。适配器不会将其 CA 安装到任一信任存储中。</p>
+<p>对于卷曲：</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  --cacert /absolute/path/to/native-bridge/run/ca/mitmproxy-ca-cert.pem \
+  'https://actual-target.example/search?q=apple'
+</code></pre>
+<p>更换 <code dir="ltr" translate="no">CURRENT_TOKEN</code> 和目标/证书路径。对于仅 HTTP 本地目标， <code dir="ltr" translate="no">--cacert</code> 是不必要的。 <code dir="ltr" translate="no">--noproxy ''</code> 确保curl不会默默地绕过环回目标的代理。</p>
+<p>有两种不同的 TLS 检查：</p>
+<ul>
+<li>客户端验证适配器提供的证书。配置客户端对适配器 CA 的信任。</li>
+<li>适配器验证真实的上游服务器。 <code dir="ltr" translate="no">tls.verifyUpstream</code> 默认为真。客户 <code dir="ltr" translate="no">--cacert</code> 不向适配器提供私有原始 CA。</li>
+</ul>
+<p>不要将禁用验证视为证书错误的正常修复。对于自有的自签名装置， <code dir="ltr" translate="no">tls.verifyUpstream:false</code> 是适配器配置中的显式评估异常，然后重新启动；它削弱了单独的上游检查。参见 <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy 证书行为</a>.</p>
+<h3 id="traffic-fidelity-and-limits">流量保真度和限制</h3>
+<table>
+<thead>
+<tr>
+<th>本机代理支持</th>
+<th>不建立或不支持</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>工具生成的方法、查询负载和主体</td>
+<td>精确的原始标头字节/顺序/大小写或格式错误的帧</td>
+</tr>
+<tr>
+<td>HTTP/1.1、HTTP/2、HTTPS 连接</td>
+<td>HTTP/3、任意 TCP 或非 HTTP 扫描器模式</td>
+</tr>
+<tr>
+<td>配置的会话/标头覆盖</td>
+<td>完整的浏览器指纹、JavaScript 质询执行或浏览器拥有的 TLS</td>
+</tr>
+<tr>
+<td>原生路由上的WebSocket升级</td>
+<td>通用应用程序协议漏洞验证器</td>
+</tr>
+<tr>
+<td>工具主机标头探测，同时保留授权的 HTTPS CONNECT 目标</td>
+<td>无限制的拨号目标或自动新目标授权</td>
+</tr>
+<tr>
+<td>无需浏览器会话导出即可限定其他来源的范围</td>
+<td>浏览器 cookie/标头凭据自动跨源共享</td>
+</tr>
+</tbody>
+</table>
+<p>本机路由没有浏览器获取回退。对于原始请求走私、不寻常的线框或自定义 TLS 研究，请使用适当的单独传输。不要将此解析代理标记为字节透明。</p>
+<h2 id="native-bridge-configuration">本机桥接配置</h2>
+<p>从浏览器桥下载配置或编辑适配器的 <code dir="ltr" translate="no">config.json</code>。未知的键、无效的类型和超出范围的值都会被拒绝。旧适配器字段不是本机配置同义词。</p>
+<p>正在运行的适配器配置对配对具有权威性。 <strong>应用覆盖</strong> 更改当前配对支持的浏览器覆盖选项。 <strong>下载配置</strong> 保留下次启动时选择的配置。编辑常规 JSON 字段不会在已运行的进程中默默地重新配置侦听器端口、TLS、路由或限制：保存/下载、重新启动和重新配对。</p>
+<h3 id="complete-shipped-defaults">完整的出厂默认设置</h3>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "proxy": {
+    "port": 8900
+  },
+  "control": {
+    "port": 8901,
+    "timeoutMs": 10000
+  },
+  "browser": {
+    "required": true,
+    "firstPartyDomain": null
+  },
+  "cookies": {
+    "enabled": true,
+    "mode": "replace",
+    "saveResponses": true,
+    "preserveToolChanges": true,
+    "protectedNames": [],
+    "includeNames": [],
+    "excludeNames": []
+  },
+  "headers": {
+    "userAgent": {
+      "source": "tool",
+      "value": ""
+    },
+    "acceptLanguage": {
+      "source": "tool",
+      "value": ""
+    },
+    "authorization": {
+      "source": "tool",
+      "value": ""
+    },
+    "set": {},
+    "remove": [],
+    "protectedNames": []
+  },
+  "scope": {
+    "origins": [],
+    "excludePaths": [],
+    "methods": [
+      "*"
+    ]
+  },
+  "limits": {
+    "rate": 2,
+    "concurrency": 4,
+    "maxRequests": 10000,
+    "maxBodyBytes": 67108864,
+    "timeoutSeconds": 60
+  },
+  "session": {
+    "pauseStatuses": [
+      401,
+      419,
+      440
+    ],
+    "pauseOn429": true
+  },
+  "tls": {
+    "verifyUpstream": true,
+    "http2": true
+  },
+  "upstream": {
+    "url": null
+  },
+  "routing": {
+    "socks5": null
+  },
+  "audit": {
+    "enabled": true
+  }
+}
+</code></pre>
+<p>一个空的 <code dir="ltr" translate="no">scope.origins</code> 默认为配对目标的确切原点。您无需输入目标或开始/结束时间戳即可开始正常的配对评估。范围强制仍然存在； it is chosen by pairing rather than an old mandatory assessment form.</p>
+<h3 id="field-reference">现场参考</h3>
+<table>
+<thead>
+<tr>
+<th>领域</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">schemaVersion</code></td>
+<td>本机配置格式；当前值1</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">proxy.port</code></td>
+<td>面向工具的HTTP代理端口，默认8900</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.port</code></td>
+<td>Firefox协调器端口，默认8901；必须与代理端口不同</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.timeoutMs</code></td>
+<td>浏览器/控件回复超时，默认10,000毫秒</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.required</code></td>
+<td>默认情况下需要配对。独立操作需要明确的起源并关闭所有浏览器衍生的功能</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.firstPartyDomain</code></td>
+<td>如果 Firefox cookie API 需要，则显式第一方隔离域； null 使用正常行为</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.enabled</code></td>
+<td>在传出的本机请求中使用选定的 Firefox cookie；默认 true</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.mode</code></td>
+<td><code dir="ltr" translate="no">replace</code> 默认情况下；可选的 <code dir="ltr" translate="no">merge</code>，解释如下</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code></td>
+<td>将响应 Set-Cookie 更新应用到选定的 Firefox jar；默认 true，与请求覆盖无关</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.preserveToolChanges</code></td>
+<td>保留相对于每个客户端连接/源的第一个请求的更改；默认 true</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.protectedNames</code></td>
+<td>其工具值必须保持在工具控制之下的 Cookie 名称</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.includeNames</code></td>
+<td>只管理这些名字；空表示所有匹配的浏览器名称</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.excludeNames</code></td>
+<td>不管理这些浏览器 cookie 名称</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.userAgent</code>, <code dir="ltr" translate="no">acceptLanguage</code>, <code dir="ltr" translate="no">authorization</code></td>
+<td><code dir="ltr" translate="no">source</code> 是 <code dir="ltr" translate="no">tool</code>, <code dir="ltr" translate="no">browser</code> 或 <code dir="ltr" translate="no">custom</code>;自定义需要非空单行 <code dir="ltr" translate="no">value</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.set</code>, <code dir="ltr" translate="no">remove</code>, <code dir="ltr" translate="no">protectedNames</code></td>
+<td>显式的额外标头更改和保护；保留/托管字段需要专用控件</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.origins</code></td>
+<td>空使用配对原点；明确列出的其他确切来源不会接收浏览器派生的会话字段</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.excludePaths</code></td>
+<td>排除的路径前缀，包括解码形式</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.methods</code></td>
+<td>允许的方法；默认 <code dir="ltr" translate="no">["*"]</code> 表示所有原生HTTP方法，而不是Longshot的浏览器写入批准</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.rate</code></td>
+<td>共享原生调度速率，默认2个请求/秒</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.concurrency</code></td>
+<td>本机控制槽位，默认4个</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxRequests</code></td>
+<td>原生请求上限，默认10000；精疲力竭暂停工作</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxBodyBytes</code></td>
+<td>缓冲/主体上限，默认 64 MiB</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.timeoutSeconds</code></td>
+<td>完成租约/超时，默认60秒；不回滚已发送的请求</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseStatuses</code></td>
+<td>默认身份验证状态暂停列表：401、419、440</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseOn429</code></td>
+<td>默认情况下暂停节流</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">tls.verifyUpstream</code>, <code dir="ltr" translate="no">http2</code></td>
+<td>默认情况下均为 true</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">upstream.url</code></td>
+<td>可选的 HTTP(S) 上游代理； null 表示没有</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">routing.socks5</code></td>
+<td>可选 <code dir="ltr" translate="no">socks5h://host:port</code>;默认为空；与上游 URL 互斥</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">audit.enabled</code></td>
+<td>仅元数据 JSONL 审核，默认 true</td>
+</tr>
+</tbody>
+</table>
+<p>本机验证范围：端口 1024–65535、速率 0.1–100、并发度 1–32、请求上限 1–1,000,000、正文限制 1 KB–256 MiB、超时 1–600 秒、控制超时 1,000–120,000 毫秒。这些是可接受的配置范围，而不是针对目标安全负载的建议。</p>
+<p>标头名称不区分大小写。 Cookie 名称区分大小写。使用 JSON 布尔值 <code dir="ltr" translate="no">true</code>/<code dir="ltr" translate="no">false</code>，不是字符串。通用 <code dir="ltr" translate="no">headers.set</code> 不能替换主机、Cookie、授权、框架或代理控制字段。使用专用的 cookie/授权选项和工具自己的主机值。</p>
+<p>要降低本机工具运行的负载，部分配置可以覆盖默认值，例如：</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "limits": {
+    "rate": 0.5,
+    "concurrency": 1,
+    "maxRequests": 500
+  }
+}
+</code></pre>
+<p>没有通用的本机配置密钥可以刷新表单主体令牌或发明浏览器登录工作流程。</p>
+<h2 id="cookie-and-header-overrides-without-damaging-probes">覆盖 Cookie 和标头而不损坏探针</h2>
+<h3 id="default-cookie-behavior">默认 cookie 行为</h3>
+<p><strong>使用浏览器cookie</strong> 和 <strong>保存响应 Set-Cookie 更新</strong> 默认情况下处于打开状态。默认情况下，用户代理、接受语言和授权仍然由工具控制。</p>
+<p>对于本机请求，Firefox 从配对选项卡的 cookie 存储和匹配分区中为 URL 选择适用的 cookie。其他容器/私人商店不合并。域/路径/安全/过期规则和同名路径排序仍然相关。值被提供给本机代理，以便它可以构造传出的 Cookie 标头；与删除的浏览器获取路径不同，本机帮助程序因此在内存中处理会话机密。</p>
+<p>与 <code dir="ltr" translate="no">cookies.mode:"replace"</code>，浏览器 jar 是权威的，包括空时。从 jar 中删除的浏览器 cookie 将从以后的托管请求中删除。显式保护的名称和检测到的工具更改优先。与 <code dir="ltr" translate="no">mode:"merge"</code>，在更新浏览器管理的名称时，可以保留不相关的工具 cookie。</p>
+<p>响应 Set-Cookie 字段使用 Firefox 的 cookie API 单独应用于同一选定存储，包括支持的 Domain/path/Secure/HttpOnly/SameSite/expiry/deletion/partition 属性。无效的cookie可以被拒绝；检查报告的错误。其他配置的源不会接收浏览器 cookie 或浏览器派生的标头。</p>
+<h3 id="request-and-response-switches-are-independent">请求和响应开关是独立的</h3>
+<table>
+<thead>
+<tr>
+<th>请求 cookie 覆盖</th>
+<th>响应同步</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开</td>
+<td>开</td>
+<td>使用 Firefox cookie 并通过响应 Set-Cookie 更新 jar</td>
+</tr>
+<tr>
+<td>关闭</td>
+<td>开</td>
+<td>保留工具的请求cookie；目标响应仍然可以改变 Firefox 的 jar</td>
+</tr>
+<tr>
+<td>开</td>
+<td>关闭</td>
+<td>使用火狐cookies；不要通过此助手写回响应 cookie</td>
+</tr>
+<tr>
+<td>关闭</td>
+<td>关闭</td>
+<td>保持请求 cookie 由工具控制并且不同步响应</td>
+</tr>
+</tbody>
+</table>
+<p>对于必须保持浏览器 jar 不变的 cookie 模糊测试或会话实验，请考虑这两个开关。每个请求的覆盖绕过会影响请求端的覆盖；它不会禁用独立的全局响应 cookie 同步设置。</p>
+<h3 id="protect-fields-that-contain-attack-payloads">保护包含攻击负载的字段</h3>
+<p>假设 ZAP 测试 <code dir="ltr" translate="no">session=ATTACK_PAYLOAD</code>。盲目地用浏览器的有效会话替换该值可能会删除测试。相反，在每个请求中保留陈旧的 cookie 可能会使经过身份验证的扫描变得毫无用处。</p>
+<p>默认 <strong>在第一次请求后保留工具 cookie/标头的更改</strong> 记录每个客户端连接/源的基线并保留后续更改。首先发送普通种子请求。代理无法可靠地推断第一个请求的意图，并且新连接会创建新基线。这种启发式方法并不是完全保护。</p>
+<p>对于可预测的测试，请选择以下机制之一：</p>
+<ol>
+<li>禁用正在测试的特定 cookie/标头覆盖。</li>
+<li>将 cookie 名称添加到 <code dir="ltr" translate="no">cookies.protectedNames</code> 或标题 <code dir="ltr" translate="no">headers.protectedNames</code>.</li>
+<li>发送选择性的每个请求注释：</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Preserve: cookie:session, User-Agent, Authorization</code></p>
+<p>这会保留该工具的命名 cookie/标头字段。 <code dir="ltr" translate="no">cookie</code> 没有名称会保留完整的工具 Cookie 标头。</p>
+<ol start="4">
+<li>绕过该请求的所有请求端覆盖：</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Override: off</code></p>
+<p>适配器在转发之前剥离这些注释标头。代理身份验证、范围和限制仍然适用。在原始工具中配置注释；将它们放入目标网页不是桥接配置机制。</p>
+<p>例如，保留 <code dir="ltr" translate="no">session</code> protected 让 ZAP 改变它，而助手可以继续更新不相关的 <code dir="ltr" translate="no">preferences</code> 饼干。对于详尽的 Cookie/授权/用户代理测试，禁用这些覆盖可以避免依赖于更改检测启发式方法。</p>
+<h3 id="browser-authorization-and-other-headers">浏览器授权和其他标头</h3>
+<p>浏览器授权是通过 JSON 配置选择加入的。仅在启用浏览器源之后，配对的目标选项卡才会从实际请求中捕获它。它不是本地存储或应用程序内存中每个令牌的自动读取器。在观察到的值存在之前，可能需要稍后的浏览器请求。关闭浏览器授权会停止帮助程序提供捕获的值。</p>
+<p>选择浏览器用户代理或接受语言仅更改这些 HTTP 字段。它不运行目标 JavaScript、刷新正文 CSRF 令牌、重现浏览器 TLS 或保证 WAF 接受。 IP/设备绑定身份验证和 OAuth 刷新仍然需要其应用程序工作流程。</p>
+<h3 id="vhost-host-handling">VHOST/主机处理</h3>
+<p>本机帮助程序不会将内部桥别名替换到工具的主机字段中。让工具发送授权虚拟主机测试所需的主机值。对于 HTTPS，CONNECT 目标仍然是授权目标，同时可以保留工具的主机标头。</p>
+<p>更改主机标头不会授予对另一个网络目标的访问权限。反向代理可以将其路由到另一个应用程序；将该虚拟主机行为包含在评估的授权中。确切的格式错误的标头字节和冲突的帧位于此解析的代理之外。</p>
+<h3 id="audit-and-privacy">审计和隐私</h3>
+<p><strong>原生流量</strong> 显示请求元数据和已更改/受保护的字段名称。审核忽略 cookie/标头秘密值、查询值和主体。这并不意味着代理永远不会处理秘密：它必须处理它们才能发送经过身份验证的流量。外部工具维护自己的历史记录/结果，其中可以包含这些值。</p>
+<p>将私有配置令牌、CA 密钥和数据目录保留在报告/源档案之外。下载具有自定义授权值的配置可以创建包含这些值的文件。</p>
+<h2 id="external-tools-and-actual-zap-scanning">外部工具和实际的 ZAP 扫描</h2>
+<h3 id="start-with-one-request">从一个请求开始</h3>
+<p>配对网桥，然后测试实际的本地目标：</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  'http://localhost:8080/'
+</code></pre>
+<p>使用已知的经过身份验证的读取路径来检查会话行为。来自公共主页的 200 是不够的。确认请求出现在本机流量中，所选的 cookie 存储正确，并且该工具收到了预期的内容。不要仅仅因为这个请求使用了代理就推断所有后续请求都使用了代理。</p>
+<h3 id="zap-outgoing-proxy">ZAP 传出代理</h3>
+<ol>
+<li>单独安装/启动 ZAP 并使用特定于评估的 ZAP 会话。</li>
+<li>在ZAP的 <strong>选项 → 网络 → 连接</strong>，启用 <strong>传出 HTTP 代理</strong>.</li>
+<li>设置主机 <code dir="ltr" translate="no">127.0.0.1</code>, 端口 <code dir="ltr" translate="no">8900</code> （或当前配置的代理端口）。</li>
+<li>启用代理身份验证：用户名 <code dir="ltr" translate="no">bridge</code>，输入当前适配器令牌的密码。</li>
+<li>为此链禁用 ZAP 自己的 SOCKS 代理。 ZAP 的 SOCKS 设置优先于其 HTTP 代理。</li>
+<li>检查 HTTP 代理排除，以便不会绕过预期目标，尤其是对于本地服务。</li>
+<li>需要时，在工具的适用 TLS 信任/验证设置中配置适配器 CA。它的位置在适配器启动时打印。</li>
+<li>访问 <strong>实际目标网址</strong> 来自 ZAP 并验证其历史记录和桥接元数据。</li>
+<li>定义 ZAP 自己的目标/上下文、扫描策略、排除、身份验证检查和适度的请求率。根据授权运行其实际的蜘蛛/主动扫描。</li>
+<li>回顾 ZAP 中的调查结果和报道。当故意模糊 cookie/标头身份验证字段时，请使用上面的保护/绕过机制。</li>
+</ol>
+<p>这个设置是ZAP的 <strong>传出连接</strong>，而不是其本地传入浏览器代理侦听器。 Firefox 无需重新配置即可仅使用 ZAP 向该链提供所选选项卡的 cookie。</p>
+<p>ZAP 生成其真正的主动规则有效负载； mitmproxy 发送生成的本机请求。 Longshot 仅更改选择加入的请求字段。这增加了外部工具的可用会话上下文，但并不使任一工具的扫描变得全面。参见 <a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP 连接设置</a>.</p>
+<h3 id="other-http-tools">其他 HTTP 工具</h3>
+<table>
+<thead>
+<tr>
+<th>工具/客户端</th>
+<th>如何连接</th>
+<th>重要限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>卷曲</td>
+<td><code dir="ltr" translate="no">--proxy</code>, <code dir="ltr" translate="no">--proxy-user</code>; <code dir="ltr" translate="no">--cacert</code> 用于 HTTPS 信任；在需要时清除代理绕过</td>
+<td>不同的调用/连接可以重置启发式探测基线</td>
+</tr>
+<tr>
+<td>噗噗</td>
+<td>它的 HTTP 代理选项（<code dir="ltr" translate="no">-x</code>) 带有经过身份验证的代理 URL；提供有界范围的单词列表和低速率</td>
+<td>HTTP 代理不限制单独的非代理调用</td>
+</tr>
+<tr>
+<td>sqlmap</td>
+<td>具有当前凭据的 HTTP 代理选项；选择授权的URL/参数并保护正在测试的字段</td>
+<td>独立的 SQLi 引擎/设置；除非配置，否则 cookie 替换可以删除 cookie 探测</td>
+</tr>
+<tr>
+<td>获取</td>
+<td>已认证 <code dir="ltr" translate="no">http_proxy</code>/<code dir="ltr" translate="no">https_proxy</code> 或其代理设置；配置证书信任</td>
+<td>检查 <code dir="ltr" translate="no">no_proxy</code> 和特定于工具的代理行为</td>
+</tr>
+<tr>
+<td>Python urllib / 请求</td>
+<td>显式经过身份验证的代理处理程序/配置以及适用于 HTTPS 的适配器 CA</td>
+<td>库在环境变量和旁路处理方面有所不同</td>
+</tr>
+<tr>
+<td>核 CLI</td>
+<td>为支持的 HTTP 模板流量配置其 HTTP 代理/信任</td>
+<td>一种 HTTP 代理选项并未普遍覆盖非 HTTP/代码/无头模板流量</td>
+</tr>
+</tbody>
+</table>
+<p>包含凭据的代理 URL 是敏感的。如果可用，请使用工具的私有评估配置。不要将当前令牌粘贴到共享报告中。对于每个工具，确认路由流量，而不是假设每个协议或子进程都遵循其 HTTP 代理设置。</p>
+<p>用于只读本地目标的 Linux Python 标准库示例；它会提示输入令牌而不是对其进行硬编码，并清除此过程的环境代理绕过：</p>
+<pre dir="ltr" translate="no"><code class="language-python" dir="ltr" translate="no">import os
+from getpass import getpass
+from urllib.request import (
+    HTTPPasswordMgrWithDefaultRealm,
+    ProxyBasicAuthHandler, ProxyHandler, build_opener,
+)
+
+os.environ["no_proxy"] = ""
+os.environ["NO_PROXY"] = ""
+proxy = "http://127.0.0.1:8900"
+credentials = HTTPPasswordMgrWithDefaultRealm()
+credentials.add_password(None, proxy, "bridge", getpass("Bridge token: "))
+opener = build_opener(
+    ProxyHandler({"http": proxy, "https": proxy}),
+    ProxyBasicAuthHandler(credentials),
+)
+with opener.open("http://localhost:8080/", timeout=20) as response:
+    print(response.status)
+    print(response.read(200).decode("utf-8", errors="replace"))
+</code></pre>
+<p>验证Native流量中的请求；其他平台可以有额外的系统代理绕过规则。显式的卷曲示例 <code dir="ltr" translate="no">--noproxy ''</code> 是更简单的环回路由验证检查。 HTTPS Python 客户端还需要信任适配器证书的 SSL 上下文/CA 捆绑包。</p>
+<h3 id="pause-and-errors">暂停和错误</h3>
+<p><strong>暂停本机请求</strong> 阻止新的本机出口。身份验证状态 401/419/440、HTTP 429、选项卡关闭/离源更改或预算限制也可能暂停工作。 <strong>检查选项卡后恢复</strong> 仅在检查配对状态后才恢复。</p>
+<p><strong>停止并断开连接</strong> 结束浏览器配对；它不会终止单独启动的 Node 进程。在终端中使用 Ctrl+C 来停止该进程。</p>
+<p>飞行中的请求可能会完成。代理客户端收到阻塞工作的错误；适配器不会暂停任意工具进程或重放其请求。检查哪些请求成功并使用该工具自己的重试/恢复控件。重新启动/重新配对会更改令牌并需要更新工具身份验证。</p>
+<p>在故意的否定身份验证测试中可能会出现 401/419/440。如果需要，调整 <code dir="ltr" translate="no">session.pauseStatuses</code> 对于经过审查的运行并重新启动；适配器不会推断每次身份验证失败是否都是有意探测。</p>
+<h2 id="tor-and-onion-routing">Tor 和洋葱路由</h2>
+<p>基于浏览器的 Longshot 请求遵循所选浏览器的网络。本机适配器是一个不同的进程，不会继承 Firefox/Tor 浏览器代理设置。</p>
+<p>袜子/托尔是 <strong>默认关闭</strong> 在本机配置中。对于授权洋葱评估，请使用具有远程主机名解析的显式配置的现有 SOCKS 服务，例如，如果这确实是您的本地 Tor 侦听器，则此覆盖：</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "routing": {
+    "socks5": "socks5h://127.0.0.1:9050"
+  }
+}
+</code></pre>
+<p>此示例不会启动 Tor 或确定端口 9050 是否存在。选择实际配置的服务； Tor 浏览器实例可以使用不同的侦听器。重新启动适配器并重新配对。 HTTP(S) <code dir="ltr" translate="no">upstream.url</code> 和 <code dir="ltr" translate="no">routing.socks5</code> 是互斥的。</p>
+<p>本机 shim 通过 SOCKS 解析主机名，并且没有静默直接回退。如果没有显式配置的上游/SOCKS 路由，直接洋葱目标将在目标 DNS 之前被拒绝。 SOCKS URL 还可以指授权的 SSH 隧道或其他 SOCKS5 服务；它并不是 Tor 路由的本质证明。</p>
+<p>Cookie 共享不会使本机路由的退出 IP 或 TLS/浏览器指纹与 Firefox 相同。挑战或会话绑定可能会拒绝它。独立检查路线和预期会话。</p>
+<p><strong>Agent API 启动的隔离原生 Nuclei 则不同：</strong> 它的内置中继没有 Tor/SOCKS 路由，并且会在系统 DNS 之前阻止洋葱目标。在目标浏览器中使用符合条件的浏览器端检查，或通过本机代理单独配置的外部工具。不要假设 Nuclei 复选框继承 <code dir="ltr" translate="no">routing.socks5</code> 来自浏览器桥。</p>
+<h2 id="agent-api-mcp-and-local-model-clients">代理 API、MCP 和本地模型客户端</h2>
+<p>当代理/脚本必须操作 Longshot、检索证据或保存评估文件时使用此选项。它不是 :8900 流量代理。</p>
+<h3 id="register-and-connect-the-native-host">注册并连接本机主机</h3>
+<p>从保留的 <strong>来源</strong> 目录包含 <code dir="ltr" translate="no">manifest.json</code> 和 <code dir="ltr" translate="no">bridge/</code>:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+node bridge/bin/longshot-bridge install
+</code></pre>
+<p>这注册了 <code dir="ltr" translate="no">longshot.bridge</code> 以及引用源文件夹和 Node 可执行文件的启动器。将两者固定到位。如果其中任何一个移动，请重新注册。</p>
+<p>打开 <strong>设置→连接和设置→连接本机桥</strong> 并授予 Firefox 的本机消息传递权限。主机可以自动启动其守护进程。如果有意手动运行守护进程：</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">node bridge/bin/longshot-bridge serve
+</code></pre>
+<p>避免在同一端口/数据目录上有第二个守护程序。 Disconnect 关闭扩展的原生连接；它不一定会停止独立启动的守护进程。</p>
+<p>需要 Node.js 20+。本机消息传递 MCP 不需要安装代理的 Python/mitmproxy。 Linux 是练习的设置。此处提供了 macOS 注册支持，但未经过运行时验证；此版本没有 Windows Firefox 本机主机安装程序。在 WSL 中注册不会注册 Windows Firefox 的主机。 Native Nuclei 隔离仅适用于 Linux。</p>
+<p>默认服务： <code dir="ltr" translate="no">http://127.0.0.1:8765</code>。这个localhost地址是一个控制API， <strong>不是扫描目标</strong>。令牌/套接字默认为 <code dir="ltr" translate="no">$XDG_DATA_HOME/longshot</code> 或 <code dir="ltr" translate="no">~/.local/share/longshot</code>。定制 <code dir="ltr" translate="no">--port</code> 和 <code dir="ltr" translate="no">--data-dir</code> 必须在安装、服务和 mcp 之间匹配。使用短 Unix 数据路径，因为其套接字路径有 100 字节的限制。</p>
+<h3 id="rest-example">休息示例</h3>
+<p>从同一源文件夹：</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">longshot_token_file="$(node bridge/bin/longshot-bridge token-path)"
+longshot_api_token="$(cat "$longshot_token_file")"
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/health
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/targets
+</code></pre>
+<p>的 <code dir="ltr" translate="no">token-path</code> 命令打印文件名，而不是令牌。该 API 使用承载身份验证，与代理用户名/密码身份验证不同。 It rejects non-loopback clients and browser Origin requests and does not expose a general CORS API. Do not publish it through a public reverse proxy.</p>
+<p>仅在连接/激活预期目标并检查其保存的选项后才开始小扫描：</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  -H 'Content-Type: application/json' \
+  --data '{"target_id":"PROFILE_ID","mode":"safe","budget":150}' \
+  http://127.0.0.1:8765/v1/scans
+</code></pre>
+<p>将 PROFILE_ID 替换为选定的配置文件 ID。 <code dir="ltr" translate="no">safe</code> 仅映射到 Spider；它不会重置每个保存的高级选项或充当通用覆盖。启动是异步的。读取返回的run ID，然后监听 <code dir="ltr" translate="no">/v1/scans/RUN_ID</code>, <code dir="ltr" translate="no">/eta</code>, <code dir="ltr" translate="no">/findings</code> 或 <code dir="ltr" translate="no">/report?format=html</code>. POST <code dir="ltr" translate="no">/pause</code>, <code dir="ltr" translate="no">/resume</code> 和 <code dir="ltr" translate="no">/stop</code> 控制跑动。咨询认证 <code dir="ltr" translate="no">/openapi.json</code> 以获得精确的模式。</p>
+<p>REST/JSON-RPC 支持配置文件、扫描、结果/报告、模板、OAST 和会话操作。 <code dir="ltr" translate="no">/rpc</code> 携带JSON-RPC； <code dir="ltr" translate="no">/mcp</code> 提供 MCP HTTP，以及 stdio 和 SSE 选项。服务的协议/API 版本字符串可能会保留较旧的模式版本；使用已安装的 UI 发行版本的扩展清单。</p>
+<h3 id="mcp-client-setup">MCP 客户端设置</h3>
+<p>对于支持 stdio MCP 配置的客户端：</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "mcpServers": {
+    "longshot": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/longshot-source/bridge/bin/longshot-bridge",
+        "mcp"
+      ]
+    }
+  }
+}
+</code></pre>
+<p>如果客户端的路径受到限制，请使用绝对 Node 可执行文件。添加匹配 <code dir="ltr" translate="no">--port</code> / <code dir="ltr" translate="no">--data-dir</code> 自定义时的参数。 stdio 帮助程序连接到本地经过身份验证的服务；它本身并不取代 Firefox 连接。</p>
+<p>当前的 MCP 工具目录包含 21 个工具：扫描/模板/报告/OAST 工具以及 UI 和语义命令发现/控制。发现实际的目录，而不是依赖旧的八工具教程。</p>
+<table>
+<thead>
+<tr>
+<th>工具组</th>
+<th>工作流程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">longshot_list_targets</code>、扫描/说明/预计到达时间/调查结果/报告工具</td>
+<td>使用显式配置文件/运行 ID 并检查异步结果</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_commands</code>, <code dir="ltr" translate="no">longshot_command</code></td>
+<td>发现语义命令并调用其支持的参数</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_pages</code>, <code dir="ltr" translate="no">longshot_ui_open</code></td>
+<td>发现/打开目标绑定的扩展仪表板</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_snapshot</code></td>
+<td>读取实际标签、当前值、对话框和元素引用</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_action</code>, <code dir="ltr" translate="no">navigate</code>, <code dir="ltr" translate="no">wait</code></td>
+<td>操作现有控制并验证完成情况</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_downloads</code>, <code dir="ltr" translate="no">clipboard</code>, <code dir="ltr" translate="no">screenshot</code>, <code dir="ltr" translate="no">focus</code>, <code dir="ltr" translate="no">close</code></td>
+<td>支持扩展页面输出和UI管理；不是任意操作系统访问</td>
+</tr>
+</tbody>
+</table>
+<p>禁用控制、目标范围、状态和预算仍然适用。过时的参考需要新的快照；仅发送一次点击并不能证明成功。 Firefox/OS 权限提示仍然是独立的浏览器/操作系统控件。</p>
+<p><strong>审批范围：</strong> 直接语义同意命令无法创建积极的运行授权。经过身份验证的完整 UI 自动化可以操作绑定仪表板的批准对话框，包括其批准按钮。因此，为代理提供 UI 控制权就赋予了它 UI 功能；请勿将此类访问描述为无法单击批准。一次性目标/配置/过期检查仍然适用。</p>
+<h3 id="hermesollama-or-another-local-model-agent">Hermes/Ollama 或其他本土模特经纪人</h3>
+<p>Longshot 不接受任意的 LLM 聊天流或选择模型。的 <strong>代理申请</strong> 提供模型连接和工具调用循环。如果您的代理支持 MCP，请在该代理中配置上面的 MCP 服务器。代理发送支持的工具调用并接收工具结果；它可以通过公开的 UI 工具检查/导航/填充扩展以及调用扫描命令。</p>
+<p>在Hermes/代理自己的配置中选择Ollama模型和服务器。使用支持代理工具调用格式的模型/客户端组合，并确保代理实际上被允许调用 MCP 工具。 Longshot的配置没有 <code dir="ltr" translate="no">model</code>, <code dir="ltr" translate="no">ollama</code> 或提供商 API 密钥设置。模型访问、shell 访问和不相关的文件系统控制是代理主机的功能，不是通过安装此扩展来授予的。</p>
+<p>在代理任务中明确范围、预算、账户和预期行动。根据记录的证据验证生成的结果；模型文本不是扫描结果或许可授予。</p>
+<h3 id="optional-debugging-port-control">可选的调试端口控制</h3>
+<p>该源包括 BiDi/CDP 控制助手和一个命令 <code dir="ltr" translate="no">bridge/bin/longshot-ui</code> 界面。这是对扩展程序拥有的页面的高级控制。 Chrome版本是一个单独的Manifest V3包；其可见工作台必须保持打开状态。打开浏览器调试侦听器是一个单独的浏览器启动选择；看到 <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">Firefox 远程代理安全</a>.</p>
+<p>可选的调试助手使用固定的 <code dir="ltr" translate="no">ws</code> 依赖于 <code dir="ltr" translate="no">native-bridge/node_modules/ws/</code>。运行 <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code> 首先从保留源结帐。这个路径在2.18系列中得到了修正；不需要删除历史浏览器获取适配器。</p>
+<h2 id="optional-native-nuclei">可选的原生核</h2>
+<p>共有三种不同的模板路线：</p>
+<table>
+<thead>
+<tr>
+<th>路线</th>
+<th>引擎/会话</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>浏览器兼容的导入 HTTP 模板</td>
+<td>Longshot 支持的模板解释器和目标浏览器会话</td>
+</tr>
+<tr>
+<td>本机完整核复选框</td>
+<td>官方单独安装了Nuclei Agent API Linux隔离路径里面； Firefox 没有自动登录</td>
+</tr>
+<tr>
+<td>通过浏览器桥的外部 Nuclei CLI</td>
+<td>您的独立 CLI 工作；支持的代理 HTTP 流量可以接收配置的浏览器 cookie</td>
+</tr>
+</tbody>
+</table>
+<p>对于 Longshot 启动的本地作业：</p>
+<ol>
+<li>单独安装官方 Nuclei 二进制文件并将其暴露在 PATH 或 set 上 <code dir="ltr" translate="no">LONGSHOT_NUCLEI</code> 在启动代理 API 之前。</li>
+<li>为 Linux bubblewrap 提供工作非特权用户/网络命名空间。</li>
+<li>对于无头模板，提供所需的浏览器，可以选择通过 <code dir="ltr" translate="no">LONGSHOT_CHROME</code>.</li>
+<li>注册/连接代理 API 并检查报告的本机功能。</li>
+<li>导入经过审核的模板和任何所需的相关帮助文件。</li>
+<li>启用 <strong>原生完整 Nuclei 执行</strong> 仅需要额外的代码/JavaScript、Headless 或文件功能。</li>
+<li>对于文件模板，设置 <code dir="ltr" translate="no">LONGSHOT_FILE_ROOT</code> 在启动主机之前添加到显式只读允许列表。</li>
+<li>保存、审核并批准运行；检查就绪/阻止原因和执行者标记的输出。</li>
+</ol>
+<p>工作人员拥有独立的文件系统/网络命名空间、私有临时存储和通过目标中继的有限执行。它们不会自动接收 Firefox cookie、浏览器本地存储或 Firefox 的 Tor 路由。无头会话是隔离的。被阻止的本机模板并不意味着负面的漏洞结果。</p>
+<p>本机代码/JavaScript 模板需要官方引擎信任的签名。 <code dir="ltr" translate="no">LONGSHOT_NUCLEI_CERT</code> 可以指向经过审查的公共作者证书；主机不会自动签署导入或安装私有签名密钥。本机文件模板无法自由读取主机主目录。其他文件/代码/无头开关与通用模板导入保持分离。</p>
+<p>本机中继支持受限的目标/提供商连接，而不是任意网络访问。洋葱目标、不可用的隔离/运行时、不支持的目标寻址或不兼容的路径范围可能会阻止执行。本机 Interactsh 注册属于 Nuclei，与 Longshot 的浏览器 OAST 客户端分开。使用实际结果证据和平台功能报告，而不是“完整引擎”标签来决定运行的内容。</p>
+<h2 id="manual-tools-interception-and-api-inventory">手动工具、拦截和 API 库存</h2>
+<h3 id="page-guide">页面指南</h3>
+<table>
+<thead>
+<tr>
+<th>页面</th>
+<th>用它做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>概述</td>
+<td>连接、验证会话、选择规则组、选择操作并监控进度</td>
+</tr>
+<tr>
+<td>扫描选项</td>
+<td>额外阶段、同意、身体模糊测试、提供商设置和预算</td>
+</tr>
+<tr>
+<td>目标</td>
+<td>单独的配置文件，选择/附加浏览器选项卡并恢复特定于目标的证据/选项</td>
+</tr>
+<tr>
+<td>站点地图</td>
+<td>发现的 URL/表单/路由；观察图，而不是完整发现的证据</td>
+</tr>
+<tr>
+<td>HTTP 历史记录</td>
+<td>浏览器流量元数据和扫描仪/中继器回复；检查准确的输入和时间戳</td>
+</tr>
+<tr>
+<td>API浏览器</td>
+<td>观察/导入的操作和参数清单；在 Repeater 中准备支持的读取</td>
+</tr>
+<tr>
+<td>服务器堆栈</td>
+<td>指纹、本地智能分析器和候选人咨询查找</td>
+</tr>
+<tr>
+<td>网络图</td>
+<td>观察到的来源/IP/引用的域和可用的虚拟主机证据；外部节点是清单，而不是自动范围</td>
+</tr>
+<tr>
+<td>研究结果</td>
+<td>证据、判决/置信度/严重性、审查状态和动画观看者</td>
+</tr>
+<tr>
+<td>WSTG 检查</td>
+<td>参考覆盖率类型和实际的每输入审计执行</td>
+</tr>
+<tr>
+<td>模板</td>
+<td>导入、兼容性/执行器详细信息、手动选择和运行结果</td>
+</tr>
+<tr>
+<td>中继器/模糊器</td>
+<td>集中请求重放或有界突变</td>
+</tr>
+<tr>
+<td>拦截器</td>
+<td>保留符合条件的目标选项卡 URL/标头阶段</td>
+</tr>
+<tr>
+<td>OAST</td>
+<td>提供者/回调状态、测试操作和相关交互</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>有界观察通道交换</td>
+</tr>
+<tr>
+<td>比较</td>
+<td>两个保存的响应之间的局部差异</td>
+</tr>
+<tr>
+<td>编码器/解码器</td>
+<td>本地转换和令牌声明检查</td>
+</tr>
+<tr>
+<td>浏览器桥</td>
+<td>配对本机工具代理并配置会话覆盖</td>
+</tr>
+<tr>
+<td>报告</td>
+<td>导出活动配置文件的证据</td>
+</tr>
+<tr>
+<td>设置</td>
+<td>请求/会话设置、外观、本机连接和评估文件</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-explorer">API浏览器</h3>
+<p>先连接并浏览，然后选择 <strong>检查当前页面</strong>。导入开发者提供的 <strong>开放API JSON</strong> 描述（如有），最多 2 MB。它读取本地 JSON，而不是任意远程页面或 YAML 文件。本地规范参考和可用的请求示例/默认值可以提供具体的支持输入；缺失的值/主体和不受支持的构造会留下空白。</p>
+<p>端点是一个地址；操作是地址加方法。查询输入出现在 <code dir="ltr" translate="no">?</code>、path输入地址路径，body输入提交内容。列出的操作是清单，并不能证明当前帐户可以访问它所处理的每个对象。</p>
+<p>使用 <strong>中继器</strong> 除了受支持的 GET/HEAD 操作之外，还可以准备请求但尚未发送。检查 URL/方法/输入，然后谨慎发送。仅库存写入操作仍然需要您准备适当的请求并获得写入批准。</p>
+<h3 id="repeater-and-compare">中继器和比较</h3>
+<p>Repeater 使用绑定的浏览器会话发出新的范围请求。 GET/HEAD/OPTIONS 使用普通路由。写入方法、主体更改和破坏性/上传功能仍需遵守政策和批准。托管 Cookie/授权/主机值无法通过其标头编辑器自由替换；使用本机外部工具路由进行显式配置的标头/cookie 测试。</p>
+<p><strong>遵循同源重定向</strong> controls whether you inspect the redirect itself or the allowed final response.范围外重定向不是一揽子授权。 Retain response bodies when needed for review, then choose two saved responses in <strong>比较</strong>。比较不发送请求；动态内容、登录状态、限制或 WAF 页面可以解释差异。</p>
+<h3 id="interceptor">拦截器</h3>
+<p>启用拦截器并 <strong>应用拦截</strong>。通过其正常用户操作授予可选的 Firefox 阻止权限。扩展重启后拦截开始禁用。</p>
+<table>
+<thead>
+<tr>
+<th>舞台/控制</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>保留请求 URL</td>
+<td>在请求标头之前暂停；编辑范围 URL/查询或删除</td>
+</tr>
+<tr>
+<td>保留请求标头</td>
+<td>传输前检查/编辑允许的请求标头</td>
+</tr>
+<tr>
+<td>保留响应头</td>
+<td>请求到达服务器后暂停传送；无法撤消服务器端操作</td>
+</tr>
+<tr>
+<td>资源/方法/路径过滤器</td>
+<td>限制绑定标签页内符合条件的流量以及精确的目标范围</td>
+</tr>
+<tr>
+<td>保持超时</td>
+<td>默认0：不自动释放。可选 10–3,600 秒，然后选择前进/下降动作</td>
+</tr>
+<tr>
+<td>前进阶段</td>
+<td>解决这个阶段；另一个启用的阶段可以稍后保存相同的请求</td>
+</tr>
+<tr>
+<td>删除请求</td>
+<td>取消此阶段/请求交付</td>
+</tr>
+<tr>
+<td>转发/删除所有待处理的内容</td>
+<td>解决当前队列而不更改未来的过滤器</td>
+</tr>
+<tr>
+<td>关闭并转发待处理</td>
+<td>解除拦截和释放等待阶段不变</td>
+</tr>
+</tbody>
+</table>
+<p>在您释放长期保留的请求之前，应用程序/浏览器可能会超时。最多可等待 20 个阶段；超过队列限制将取消进一步的匹配流量。更改过滤器会释放当前阶段不变。关闭最后一个控制仪表板会释放保持的阶段并禁用拦截。</p>
+<p>允许的标头使用名称/值对的 JSON 数组；敏感/浏览器管理/框架字段受到保护。所保留的网络请求的方法/主体/状态重写不可用。 <strong>发送至中继器</strong> 创建单独的请求形状以进行有意编辑；它不是透明的飞行中主体重写。</p>
+<p>只有选定的目标选项卡 HTTP 流量才符合资格。扫描仪传输绕过拦截以避免死锁。外部本机代理流量在此浏览器拦截器之外。升级后的 WebSocket 消息需要单独的通道工作台。</p>
+<h3 id="websocket-sse-and-utilities">WebSocket、SSE 和实用程序</h3>
+<p>选择发现的范围内频道或输入其确切的 URL。监听和自定义帧发送是有界批准的操作，而不是通用协议扫描器。捕获的错误文本是线索；它不会建立消息授权或竞争/逻辑缺陷。</p>
+<p>实用程序对值进行编码/解码、计算 SHA-256、格式化 JSON 并在本地检查 JWT 声明。解码 JWT 不是签名验证，也不能确定服务器接受伪造的令牌。转换后的输入不会自动执行或提交。</p>
+<h2 id="findings-and-the-cimematic-viewer">调查结果和动画观众</h2>
+<h3 id="read-the-evidence-first">首先阅读证据</h3>
+<p>结果有单独的字段：</p>
+<table>
+<thead>
+<tr>
+<th>领域</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>严重性</td>
+<td>如果问题可被利用，估计的潜在危害</td>
+</tr>
+<tr>
+<td>判决</td>
+<td>扫描仪观察到的内容：潜在/匹配/脆弱、负面、受阻或不确定（如适用）</td>
+</tr>
+<tr>
+<td>信心</td>
+<td>所实施的证据的强度，而不是伤害的程度</td>
+</tr>
+<tr>
+<td>审核状态</td>
+<td>您的评估：未经审核、经审核者确认、误报或已接受风险</td>
+</tr>
+<tr>
+<td>WSTG/CWE</td>
+<td>参考分类，并非完整测试/类别已完成的证明</td>
+</tr>
+</tbody>
+</table>
+<p>检查 URL、插入点、请求、基线、有效负载、响应和重复/控制。检查内容是否被截断或者响应是否是质询/登录/错误页面。高置信度的重复错误仍然可能是需要审查的潜在注入结果。</p>
+<p>设置审核状态和备注，然后 <strong>保存评论</strong>。这不会覆盖扫描仪的原始判断/置信度。误报仍然是保留的证据。过滤器，包括 <strong>显示否定/阻止</strong>，更改可见性，而不是执行记录。</p>
+<h3 id="cimematic-viewer">动画观看器</h3>
+<p>该按钮是故意命名的 <strong>动画观看器</strong> 在此版本中。它会打开所选发现的主题 3D 解释。</p>
+<p>该序列大约需要 9.3 秒：找到受影响的区域，显示输入，说明处理，显示记录的结果证据，然后显示严重性和简单语言的潜在风险解释。可用的控件包括 <strong>暂停/恢复</strong>、重播、编号步骤、跳至影响、 <strong>3D深度</strong> 和 <strong>全屏</strong>。减少运动设置可以直接影响效果。</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>它显示了什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>直播 / CSS + JS</td>
+<td>普通的 Firefox 预览选项卡会加载当前页面及其 CSS/JavaScript 和选定的 cookie 上下文；查看器接收渲染的帧和元素矩形</td>
+</tr>
+<tr>
+<td>仅捕获</td>
+<td>通过经过净化的非执行 HTML 或捕获保留证据；该离线后备不会运行任何外部资源或脚本</td>
+</tr>
+<tr>
+<td>记录结果</td>
+<td>保存的扫描证据/结果平面，可能与当前实时页面不同</td>
+</tr>
+</tbody>
+</table>
+<p>它是一个电影视口，而不是一个交互式克隆站点 DOM。 <strong>打开实时选项卡</strong> 打开真实的交互页面。正常的实时加载可以发出站点的普通资源/应用程序请求，但打开查看器不会提交保存的攻击表单、重播 POST 或重新运行漏洞利用。</p>
+<p>仅当可以找到匹配的输入/名称/ID 时，相机位置才是准确的。 API/标头/cookie 结果不能有 HTML 形式；页面上下文视图就是这样标记的。动画从未将潜在发现升级为利用证据。如果实时渲染失败，请使用捕获的证据和文本/请求详细信息。</p>
+<p>查看器拥有的预览选项卡在正常查看器/仪表板清理时关闭；显式打开的交互式选项卡仍由您关闭。当前登录、站点状态、依赖项加载和 CSP 可以更改实时模式显示的内容。</p>
+<h2 id="owasp-top-10-coverage">OWASP 前 10 名覆盖范围</h2>
+<p>打开 <strong>扫描选项 → 信息</strong> 对于可搜索/可过滤的 44 条目实施表，也可通过页面信息按钮访问。它使用 <a href="https://top10.owasp.org/2025/">OWASP 前 10 名：2025</a> 包含 2021 年较旧的定位参考资料。 SSRF 现在被分组在损坏的访问控制下。示例可以重叠类别；该列表并非完整的 CWE 目录。</p>
+<p>支持标签：</p>
+<ul>
+<li><strong>主动检查：</strong> 启用后，针对支持的已达到的输入，存在专用的实施规则。</li>
+<li><strong>可选验证：</strong> 附加选项、权限、提供者或执行先决条件适用。</li>
+<li><strong>仅指标：</strong> 需要手动解释的被动信号/比较。</li>
+<li><strong>依赖于模板：</strong> 导入的模板和执行器确定测试条件。</li>
+<li><strong>不涵盖：</strong> 该类没有专用的内置验证器；通用自定义有效负载不会自动建立覆盖范围。</li>
+</ul>
+<p>这是基于源的能力审核， <strong>不是测量的检测百分比</strong>。它描述了 Longshot 的内置扫描器及其可选阶段，而不是整个外部 ZAP 规则集。</p>
+<table>
+<thead>
+<tr>
+<th>OWASP 2025</th>
+<th>弱点/弱点</th>
+<th>支持</th>
+<th>运行什么/需要的选项</th>
+<th>限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A05</td>
+<td>SQL注入：数据库错误和布尔差异</td>
+<td>主动检查</td>
+<td>启用 SQL 注入。重复的数据库错误探测和真/假比较对发现的输入使用新的控制。</td>
+<td>候选人需要审查。没有数据库提取或全面的特定于 DBMS 的盲覆盖。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>SQL盲注：时机</td>
+<td>可选验证</td>
+<td>通过积极批准启用重复定时探测。将三个干净定时与第一个插入点上的三个 SLEEP 探针进行比较。</td>
+<td>狭窄的 SQL 语法和计时启发式；抖动、WAF 和不同的数据库方言可以隐藏或模仿结果。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>NoSQL注入</td>
+<td>主动检查</td>
+<td>对重复的 MongoDB/BSON 错误签名启用 NoSQL 注入。可选的计时验证还尝试在 JSON 主体上执行 MongoDB $where 延迟。</td>
+<td>没有一般基于操作员的身份验证绕过、盲目 NoSQL 提取或覆盖每个 NoSQL 引擎。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>反射型跨站脚本 (XSS)</td>
+<td>主动检查</td>
+<td>启用反射型 XSS。独特的反射标记和重复的惰性 HTML 上下文探测可识别可执行的标记。</td>
+<td>HTML 上下文证据是一个候选者。它不会建立脚本执行或绕过内容安全策略。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>来自 URL 查询或片段输入的 DOM XSS</td>
+<td>可选验证</td>
+<td>启用 Live DOM XSS 验证并批准激进权限。两个新鲜的金丝雀必须在一次性的相同 cookie 存储选项卡中执行；对照必须保持阴性。</td>
+<td>仅限有界 URL 输入。 CSP 和依赖关系仍然强制执行；超时和阻塞的资源会留下间隙。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>来自 postMessage、存储或任意数据流的 DOM XSS</td>
+<td>未涵盖</td>
+<td>被动源/接收器提示可以识别附近的内联 JavaScript 模式以供审查。</td>
+<td>没有一般的污点跟踪、任意消息生成或存储源执行测试。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>存储型XSS和多步二阶注入</td>
+<td>未涵盖</td>
+<td>访问的页面可能包含可疑代码或反映的候选代码。</td>
+<td>没有一般的写入-存储-读取关联、工作流程重放或存储的有效负载执行验证。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>服务器端模板注入（SSTI）</td>
+<td>主动检查</td>
+<td>启用服务器模板注入。具有独特标记的随机算术结果必须针对对照重复。</td>
+<td>仅支持表达家族；盲模板执行和每个模板引擎均未涵盖。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>服务器端代码注入</td>
+<td>主动检查</td>
+<td>启用服务器端代码注入。计算的 JavaScript/PHP 金丝雀将求值与普通反射区分开来。</td>
+<td>小语言/上下文集；不是通用的远程代码执行测试。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>操作系统命令注入</td>
+<td>可选验证</td>
+<td>为重复的 id 输出探测启用操作系统命令指示器。具有侦听 OAST 提供程序的可选命令探测可以关联 DNS 回调。</td>
+<td>需要兼容的命令上下文，并且对于回调，需要目标出口。没有回调并不能保证安全。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>CRLF / 响应头注入</td>
+<td>主动检查</td>
+<td>启用响应标头注入。生成的响应标头标记必须重复且不存在于控件中。</td>
+<td>浏览器 URL/标头处理限制有效负载。未建立原始响应分裂、缓存中毒和帧攻击。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>LDAP、XPath 和其他未实现的注入语言</td>
+<td>未涵盖</td>
+<td>自定义有效负载、自动模糊测试或经过审查的模板可以协助单独调查。</td>
+<td>没有专用的内置特定语言验证器；响应差异并不构成确认。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>路径遍历/本地文件包含</td>
+<td>主动检查</td>
+<td>启用遍历/文件包含。受支持的文件内容签名必须在发现的插入点上重复。</td>
+<td>不涵盖所有编码、操作系统、远程包含或任意文件。没有目录暴力库存。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>服务器端请求伪造 (SSRF)</td>
+<td>可选验证</td>
+<td>通过经过批准的可联系提供商启用 SSRF 和 OAST。精确的探测关联记录 DNS/HTTP 交互。</td>
+<td>内部地址响应差异只是提示。回调建立交互，而不是内部访问或数据盗窃；中介机构可以解析有效负载。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>IDOR/损坏的对象或功能授权</td>
+<td>仅指标</td>
+<td>使用不同的 Firefox 容器/私有 cookie 存储启用与会话 B 的比较。最多十个读取请求会比较状态和正文哈希值。</td>
+<td>没有对象所有权或预期角色模型；相同的公共页面可以是合法的。没有一般的特权升级证明。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>跨站请求伪造（CSRF）</td>
+<td>仅指标</td>
+<td>表单审核报告没有可识别令牌字段的 POST 表单，并检查可见的 cookie 属性。</td>
+<td>没有跨站点漏洞提交或服务器令牌验证测试。 SameSite、自定义标头和工作流程控件需要手动审核。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>跨源资源共享（CORS）利用</td>
+<td>仅指标</td>
+<td>CORS 审查检查观察到的允许来源和凭证标头。</td>
+<td>没有任意的源反射测试或攻击者源数据读取验证。浏览器拒绝带有凭据的通配符。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>打开重定向</td>
+<td>主动检查</td>
+<td>启用开放重定向。 Location 标头中生成的 .invalid 目的地必须重复。不遵循外部目的地。</td>
+<td>JavaScript 重定向、多步登录重定向和每个 URL 规范化绕过均未涵盖。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>租户隔离、角色升级和工作流授权</td>
+<td>未涵盖</td>
+<td>会话比较和导入的请求可以为分析师提供证据。</td>
+<td>不了解租户所有权、角色、状态转换或允许的业务行为。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>缺少安全标头、薄弱的 CSP 和点击劫持防御</td>
+<td>仅指标</td>
+<td>扫描期间的被动标头审查会检查 CSP、不安全评估、框架策略以及对观察到的响应进行 nosniff。</td>
+<td>缺乏防御正在强化信号；可利用性、政策完整性和 UI 补救影响尚未确定。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>目录列表、源/配置公开和调试跟踪</td>
+<td>仅指标</td>
+<td>被动审查可识别返回内容中的列表标记、PHP 源代码、配置键分配和选定的堆栈跟踪。</td>
+<td>仅观察到的内容和签名；没有全面的备份文件、秘密或隐藏的管理发现。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>XML 外部实体注入 (XXE)</td>
+<td>可选验证</td>
+<td>通过积极批准启用 XXE 和侦听 OAST 提供程序。 XML 请求正文被外部实体回调金丝雀替换。</td>
+<td>需要清单 XML 请求。没有全面的解析器、SOAP、文件读取、参数实体或盲提取覆盖。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>危险的 HTTP 方法</td>
+<td>仅指标</td>
+<td>启用通告的 HTTP 方法。 OPTIONS 记录Allow 响应头。</td>
+<td>不会尝试未经授权的 PUT/DELETE 写入或证明所公布的方法是可利用的。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>重复查询参数处理</td>
+<td>仅指标</td>
+<td>启用重复查询参数处理以进行重复的第一/最后顺序响应比较。</td>
+<td>解析差异并不能证明 WAF 绕过、访问控制失败或代理/后端不一致。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>云权限、隐藏管理服务和后端配置</td>
+<td>未涵盖</td>
+<td>堆栈指纹和拓扑视图提供浏览器可见的假设。</td>
+<td>无需云帐户访问、基础设施审计、服务器配置检查或详尽的内部网络发现。</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>已知易受攻击的浏览器 JavaScript 依赖项</td>
+<td>可选验证</td>
+<td>使客户端库 SCA 能够将观察到的资产版本与小型捆绑咨询数据库进行比较。</td>
+<td>仅版本/签名相关性；向后移植、可访问的易受攻击的代码、完整的依赖树和看不见的资产都未经过验证。</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>服务器依赖项 CVE 和产品漏洞</td>
+<td>依赖模板</td>
+<td>CVE自动阶段需要符合条件的导入模板；仅运行他们编写的请求和匹配器。 Native Nuclei 需要其单独的引擎和批准。</td>
+<td>仅指纹/咨询匹配就是候选。两个捆绑的社区启动器不提供通用的 CVE 覆盖。</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>受损的软件包、CI/CD 和恶意供应链更新</td>
+<td>未涵盖</td>
+<td>依赖项名称或版本可以帮助单独的代码和构建审查。</td>
+<td>没有 SBOM 完整性、存储库/构建审核、包真实性或签名链验证。</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>HTTP 密码表单、HSTS 和不安全的资源引用</td>
+<td>仅指标</td>
+<td>被动检查使用 HTTP/GET 识别密码形式，不存在 HSTS 以及 HTTPS 标记引用的选定 HTTP 资源。</td>
+<td>不全面的敏感数据发现；不证明静态数据暴露或评估所有传输行为。</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>TLS 协议/密码、密钥管理和静态加密较弱</td>
+<td>未涵盖</td>
+<td>浏览器提供其正常的 TLS 连接。</td>
+<td>没有密码/协议枚举、证书清单、加密设计审查、密码哈希审核或服务器端密钥访问。</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>业务逻辑、支付/价格操纵和工作流程滥用</td>
+<td>未涵盖</td>
+<td>观察到的请求和中继器协助手动测试。</td>
+<td>没有正确的价格、账户余额、业务规则、交易顺序或预期应用程序行为的模型。</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>竞争条件和资源耗尽设计缺陷</td>
+<td>未涵盖</td>
+<td>请求限制和速率控制绑定扫描；速率限制响应是操作信号。</td>
+<td>没有同步的竞赛安全带或故意的拒绝服务验证。</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>弱 cookie/会话属性</td>
+<td>仅指标</td>
+<td>Cookie 审查报告缺少 Secure、HttpOnly 或显式 SameSite，并且在没有 Secure 的情况下 SameSite=None。</td>
+<td>Cookie 的目的和浏览器默认设置很重要。不建立会话劫持、固定、注销失效或令牌熵。</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>登录绕过、MFA、密码重置、暴力破解和帐户接管</td>
+<td>未涵盖</td>
+<td>注入检查可能会暴露登录缺陷的原因之一。会话验证器检查配置的登录是否仍然有效。</td>
+<td>没有一般凭证攻击、MFA/重置工作流程测试、锁定审核或帐户接管验证。</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>JWT、OAuth、OIDC 和 SAML 验证缺陷</td>
+<td>未涵盖</td>
+<td>实用程序可以在本地解码 JWT 以进行手动检查。</td>
+<td>解码不是签名验证。没有一般的算法混淆、令牌伪造、重定向流或联合测试。</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Log4Shell回调路径</td>
+<td>可选验证</td>
+<td>经批准启用 Log4Shell 和 OAST。 JNDI 回调金丝雀被放置在第一个可用的输入和 X-Api-Version 中。</td>
+<td>匹配的交互需要归因和审核；它不证明代码执行。有限的插入点和目标出口可能会错过脆弱的路径。</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>不安全的反序列化</td>
+<td>依赖模板</td>
+<td>反序列化选项选择标记为反序列化的合格导入模板。检查他们的执行者和先决条件。</td>
+<td>没有通用的对象格式发现、小工具链生成器或通用反序列化验证器。</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>未签名的更新、伪造的应用程序数据和完整性控制</td>
+<td>未涵盖</td>
+<td>捕获的响应和解码的数据可以帮助手动分析。</td>
+<td>没有应用程序信任模型、更新签名验证、数据签名审核或一般批量分配验证。</td>
+</tr>
+<tr>
+<td>A09</td>
+<td>缺少安全日志、警报、日志完整性和事件检测</td>
+<td>未涵盖</td>
+<td>Longshot 记录自己的扫描证据和本地请求日志。</td>
+<td>扫描仪日志不会显示应用程序日志或警报是否正确；检查服务器/SIEM 证据并运行受监控的场景。</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>异常响应导致信息泄露</td>
+<td>仅指标</td>
+<td>被动错误披露和主动注入控制可以注意到选定的堆栈跟踪和新引入的数据库错误。</td>
+<td>只退回证据。一般错误或 HTTP 500 本身并不是经过验证的漏洞。</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>故障开放行为、回滚故障和不安全异常恢复</td>
+<td>未涵盖</td>
+<td>状态/身体差异可以指导手动调查。</td>
+<td>没有一般的故障注入、事务回滚断言、崩溃恢复或异常路径访问控制模型。</td>
+</tr>
+<tr>
+<td>其他</td>
+<td>HTTP 请求走私、格式错误的帧、缓存中毒和主机攻击</td>
+<td>未涵盖</td>
+<td>内置扫描仪使用浏览器网络并保护托管标头。</td>
+<td>通过本机代理的外部工具是独立的。其解析的 HTTP 传输也不是字节透明的走私或自定义 TLS 引擎。</td>
+</tr>
+<tr>
+<td>其他</td>
+<td>WebSocket / SSE应用程序漏洞</td>
+<td>仅指标</td>
+<td>可选的有界通道测试捕获交换并报告选定的错误文本。</td>
+<td>没有协议感知授权、消息模式模糊测试、跨站点 WebSocket 劫持或业务逻辑验证器。</td>
+</tr>
+<tr>
+<td>其他</td>
+<td>文件上传、GraphQL/SOAP 逻辑和不支持的二进制协议</td>
+<td>未涵盖</td>
+<td>发现的 HTTP 请求可以公开支持的标量输入以进行一般检查。</td>
+<td>没有专用的上传执行、GraphQL 授权/复杂性、全面的 SOAP 或二进制协议扫描器。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interpreting-actual-run-coverage">解释实际运行覆盖率</h3>
+<p>完整的 WSTG 参考图包括自动化子集、辅助工作和手动评估。在 <strong>实际输入覆盖范围</strong>:</p>
+<ul>
+<li><strong>已完成</strong> 意味着实施的规则在该输入上完成，而不是输入是安全的。</li>
+<li><strong>部分</strong> 意味着某些工作已运行，但由于限制、中断或其他情况而无法完成。</li>
+<li><strong>跳过</strong> 表示规则/输入未运行；检查原因。</li>
+</ul>
+<p>WAF、缺少角色、无效会话、隐藏/未访问的工作流程、不可用的请求正文、CSP 或耗尽的预算可能会使易受攻击的输入未经测试。本机代理配对不会消除内置扫描程序的这些限制。观察到的 CVE 版本、缺少标头或不同的响应并不自动构成漏洞。</p>
+<p>2.18.1 版通过了 192 项自动单元/回归测试、8 项真正的 Chrome 检查和 8 项真正的 Firefox 检查，包括针对自有 SQLite 固定装置的 ZIP/YAML CSP 验证和本机 ZAP 流量。其官方浏览器库经过逐字节验证，干净的源代码重建准确地再现了 Firefox XPI。这些测试验证命名的实现行为；它们没有显示对每个 Juice Shop、WebGoat、bWAPP 或 NodeGoat 挑战的检测。外部 ZAP SQLi 结果验证代理路径，而不是 Longshot 对所有漏洞的召回。</p>
+<h2 id="recovery-assessment-files-and-reports">恢复、评估文件和报告</h2>
+<h3 id="keep-recovery-paths-separate">将恢复路径分开</h3>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>失败后该怎么办</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内置扫描/会话</td>
+<td>查看仪表板恢复对话框，在原始 cookie 上下文中再次登录，验证并在允许时继续</td>
+</tr>
+<tr>
+<td>原生工具代理</td>
+<td>检查适配器、选项卡/存储、令牌和暂停原因；显式恢复/重新配对，然后使用外部工具自己的重试/恢复</td>
+</tr>
+<tr>
+<td>代理接口</td>
+<td>恢复本机消息传递/守护程序连接；然后在发出另一个启动之前检查现有的运行状态</td>
+</tr>
+<tr>
+<td>浏览器重启/导入评估</td>
+<td>恢复保存的证据并重新验证登录；不要假设正在进行的网络操作或完整的实时扫描队列幸存下来</td>
+</tr>
+</tbody>
+</table>
+<p>独立的身份验证验证可防止每个故意拒绝的登录突变被误认为会话过期。配置有意义的受保护验证器。实时队列可能在扩展运行时支持恢复，但保存的会话文件不会重建不确定的写入或自动重播整个中断的扫描。</p>
+<h3 id="browser-storage-and-optional-session-files">浏览器存储和可选会话文件</h3>
+<p>浏览器存储保持活动状态，独立于任一本地桥。它保留每个配置文件的历史记录、调查结果、评论、库存和选项。可以通过尽力编辑来保留响应主体；浏览器观察到的流量通常具有没有捕获主体的元数据。</p>
+<p>对于自动文件检查点：</p>
+<ol>
+<li>注册/连接 <strong>代理接口</strong>，不仅仅是浏览器桥。</li>
+<li>打开 <strong>设置 → 评估课程 → 说明</strong>.</li>
+<li>输入绝对值 <strong>会话文件夹</strong> 在代理 API 计算机上。</li>
+<li>启用 <strong>自动保存会话文件</strong> 并选择 <strong>保存会话设置</strong>.</li>
+<li>使用 <strong>立即保存会话</strong> 立即检查站；正常更改也会触发保存。</li>
+<li>使用 <strong>导出当前会话</strong> / <strong>导入会话文件</strong> 用于手动传输；手动导入不需要本机主机。</li>
+</ol>
+<p>文件使用稳定的配置文件 ID <code dir="ltr" translate="no">.longshot.json</code>，允许一个来源的显式配置文件。它们是可读的、未加密的评估档案，可以包含应用程序数据、编写的模板和保留的正文。浏览器管理的 cookie、提供商令牌和执行授权不包括在内。</p>
+<p>写入是原子私有文件检查点。突然终止只能恢复最后完成的保存。恢复的运行扫描被中断。如果网桥断开，浏览器存储继续，文件保存等待；未解析的启用检查点可能需要在切换目标之前重新连接或禁用文件保存。最大会话文件大小为 256 MB，有明确错误。</p>
+<p>评估档案导出不同于 <strong>下载配置</strong> 在浏览器桥中。前者保存评估证据/选项；后者保存本机代理设置。</p>
+<h3 id="reports">报告</h3>
+<p>导出前查看活动配置文件；历史扫描报告也可通过代理 API 获得。主题一致的报告包含图表和证据，但图表计数是警报计数，而不是唯一经过验证的可利用缺陷的计数。</p>
+<table>
+<thead>
+<tr>
+<th>格式</th>
+<th>使用/限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>独立的离线报告，带有内联图表、搜索/过滤器、证据详细信息、主题和打印控件</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>结构化编辑证据、扫描配置和记录的输入覆盖范围</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>表格交换；嵌套字段序列化和电子表格公式前缀受保护</td>
+</tr>
+<tr>
+<td>SARIF 2.1.0</td>
+<td>与严重性/置信度/判决/参考和审查元数据的工具集成</td>
+</tr>
+<tr>
+<td>打印/PDF</td>
+<td>打开 HTML 报告并使用 Firefox 打印/保存为 PDF； API 的 PDF 选项可以返回 HTML 加打印指令，而不是准备好的 PDF 字节</td>
+</tr>
+</tbody>
+</table>
+<p>审核状态和注释与扫描仪结论是分开的。误报/已接受的风险审查仍然可审计； SARIF 包括审查信息和适用的禁止信息。尽力编辑并不能保证保留的页面/正文不包含应用程序数据。分享前查看实际导出情况。</p>
+<p>外部 ZAP/sqlmap/ffuf 报告保持独立。本机流量元数据不是其完整请求/响应历史记录或结果的副本。</p>
+<h2 id="appearance-language-and-help">外观、语言和帮助</h2>
+<p>主题是全局的，可以在扫描期间更改，而无需更改扫描授权。菜单包括系统、黑暗、光明、网络草原、机器人先生、钢铁侠和保存的自定义主题。自适应布局缩小了控制范围；覆盖率表有自己的详细列的水平滚动区域。</p>
+<p>下 <strong>设置 → 主题和警报声音</strong>:</p>
+<ul>
+<li>选择活动主题和警报声音/音量； <strong>测试警报声</strong> 预览选定的警报。</li>
+<li>编辑内置和 <strong>另存为新主题</strong> / duplicate to create a custom theme.</li>
+<li>选择捆绑/系统 UI/代码字体、调色板、不透明度、背景和声音。</li>
+<li>导出/导入主题 JSON；导入不会执行任意 CSS 或脚本。</li>
+<li><strong>动画和声音</strong> 控制每个主题的运动和界面音频。浏览器/系统的简化运动和静音设置仍然很重要。</li>
+</ul>
+<p>《黑暗/光明》、《赛博草原》、《机器人先生》和《钢铁侠》有不同的视觉/音频处理。下拉菜单打开/选择没有声音。伺服选择提示是钢铁侠特有的；安全故障警报与普通界面声音是分开的。</p>
+<p>语言菜单提供 20 种捆绑语言：英语、俄语、德语、法语、简体中文、日语、西班牙语、印地语、葡萄牙语、阿拉伯语、孟加拉语、乌尔都语、印度尼西亚语、土耳其语、韩语、意大利语、越南语、泰米尔语、泰卢固语和马拉地语。新的覆盖范围/本机 UI 文本包含在补充目录中。这些是公共 UI 散文的捆绑机器翻译，而不是运行时翻译服务。捕获的目标页面、有效负载、URL、字段/代码名称和命令示例保留其原始文本。</p>
+<p>使用 <strong>信息/说明</strong>，控制提示和 <strong>如何使用本页·术语解释</strong> 用于上下文。术语链接到参考材料。信息过滤/搜索仅更改显示的说明；它不启用检查。 <strong>开始使用</strong> 正好有八张幻灯片，可以在解散后重播。</p>
+<p>当前版本的屏幕截图使用拥有的临时环回 SQLite 固定装置。它们的随机端口和示例帐户数据是测试工件，而不是应用程序所需的配置：</p>
+<blockquote>
+<p><strong>覆盖范围对话框</strong>
+<img alt="扫描覆盖桌面" src="/longshot-security-site/docs/assets/scan-coverage-desktop.png"/>
+<strong>带有俄罗斯报道文本的狭窄钢铁侠布局</strong>
+<img alt="扫描覆盖范围铁窄 ru" src="/longshot-security-site/docs/assets/scan-coverage-iron-narrow-ru.png"/>
+<strong>本机代理页面</strong>
+<img alt="本机工具代理" src="/longshot-security-site/docs/assets/native-tool-proxy.png"/></p>
+</blockquote>
+<h2 id="troubleshooting">故障排除</h2>
+<table>
+<thead>
+<tr>
+<th>症状</th>
+<th>要检查的确切区域/下一步行动</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>重启后扩展消失了</td>
+<td>一个临时的 <code dir="ltr" translate="no">about:debugging</code> 安装在重新启动时结束。重新加载 XPI 或使用适当的签名/持久开发安装</td>
+</tr>
+<tr>
+<td>更新后UI/版本错误</td>
+<td>检查清单/显示的版本；重新加载预期的 XPI 并关闭过时的仪表板。源目录名称可以保留旧版本</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find package 'ws'</code></td>
+<td>验证错误中的路径。完整下载的本机适配器包括 ws;需要一个新的本机源目录 <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code>。旧适配器路径下的错误是旧设置，而不是新设置 <code dir="ltr" translate="no">cli.js</code> 命令</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find module .../bridge/bin/longshot-bridge</code></td>
+<td>从包含以下内容的源根运行代理 API 命令 <code dir="ltr" translate="no">bridge/</code>，或使用绝对脚本路径。本机代理 ZIP 不是完整的代理 API 源</td>
+</tr>
+<tr>
+<td>适配器无法启动/mitmdump 丢失</td>
+<td>运行 <code dir="ltr" translate="no">python3 bootstrap.py</code> 使用 Python 3.12+ 或选择预期安装的运行时 <code dir="ltr" translate="no">--mitmdump</code></td>
+</tr>
+<tr>
+<td>配对无法连接</td>
+<td>使用控制端口8901、当前令牌和确切的当前 <code dir="ltr" translate="no">moz-extension://...</code> 起源。确保适配器进程已准备就绪</td>
+</tr>
+<tr>
+<td>工具获取代理身份验证失败</td>
+<td>使用代理端口 8900、用户名网桥和当前令牌。适配器重新启动后更新每个工具</td>
+</tr>
+<tr>
+<td>直接/公共内容而不是预期的代理请求</td>
+<td>检查 NO_PROXY/no_proxy、工具排除和代理设置。确认请求出现在本机流量中</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">bridge.invalid</code> 失败</td>
+<td>旧的别名工作流程。使用真实的目标 URL 并且没有主机文件条目</td>
+</tr>
+<tr>
+<td>配置被拒绝/未知属性</td>
+<td>请勿重复使用 <code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>、旧的范围/时间表单或旧的 API 控件。导出本机配置并使用其支持的密钥</td>
+</tr>
+<tr>
+<td>证书验证错误</td>
+<td>区分客户端→适配器信任与适配器→来源验证。信任工具中打印的公共适配器 CA；分别检查真实服务器的证书</td>
+</tr>
+<tr>
+<td>浏览器 cookie 无法到达该工具</td>
+<td>验证所选选项卡/存储、适用的域/路径/安全/分区、cookies.enabled、受保护的名称以及请求是否实际遍历代理</td>
+</tr>
+<tr>
+<td>工具发送 cookie 探测但消失</td>
+<td>禁用/保护相关覆盖或添加 X-Longshot-Preserve / 请求覆盖关闭。不要依赖首次请求意图检测</td>
+</tr>
+<tr>
+<td>请求覆盖关闭后，浏览器 cookie 仍然会发生变化</td>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code> 是独立的。如果不需要响应同步，也将其禁用</td>
+</tr>
+<tr>
+<td>401/419/440 或 429 暂停本机代理</td>
+<td>检查选项卡/会话/限制，然后明确恢复。故意的否定身份验证测试可能需要审核暂停状态配置更改并重新启动</td>
+</tr>
+<tr>
+<td>WAF 接受 Firefox 但拒绝本机流量</td>
+<td>Cookie/UA 复制不会重现 TLS/IP/浏览器行为或执行 JavaScript 质询。审查允许的评估路线和证据</td>
+</tr>
+<tr>
+<td>洋葱目标被阻止</td>
+<td>在本机适配器中配置真正的显式 SOCKS/上游路由。内置/浏览器和隔离的本机Nuclei具有不同的路由</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">permissions.request may only be called from a user input handler</code></td>
+<td>使用当前的扩展审批工作流程。保存、检查，然后单击批准下次运行以请求缺少的权限；不从异步代理/后台设置更改调用权限</td>
+</tr>
+<tr>
+<td>最大结果后通用 URL 构造函数错误</td>
+<td>检查 <strong>OAST 提供商 URL</strong> 和 <strong>回调域</strong>，与目标 URL 无关。填写匹配值或禁用OAST；当前验证标识了相关字段</td>
+</tr>
+<tr>
+<td>攻击性已关闭，但高级选项仍保持启用状态</td>
+<td>禁用列出的功能或启用/保存“积极”并批准下次运行</td>
+</tr>
+<tr>
+<td>会话 B 丢失/无效</td>
+<td>在另一个容器/私有 cookie 存储中选择一个不同的同源选项卡；普通标签不提供独立的cookie</td>
+</tr>
+<tr>
+<td>批准已过期/已使用/已更改</td>
+<td>保存最终设置并批准新的下一次运行拨款；有效期为 30 分钟且一次性使用</td>
+</tr>
+<tr>
+<td>运行模糊器没有有用的请求</td>
+<td>提供范围 URL、查询参数和非空选择的有效负载集，或在清单发现后使用单独的自动模糊测试</td>
+</tr>
+<tr>
+<td>探针库更新失败</td>
+<td>检查报告的来源/网络/验证原因。保留之前缓存的数据；目标扫描不会自动重新运行</td>
+</tr>
+<tr>
+<td>没有发现/检查太少</td>
+<td>读取实际已完成/部分/跳过的输入覆盖范围；检查发现、登录、预算、响应类型、阻止和排除</td>
+</tr>
+<tr>
+<td>选项允许删除</td>
+<td>仅限库存。它不能证明未经身份验证的写入或 Longshot 尝试过这些写入</td>
+</tr>
+<tr>
+<td>OAST 连接通过但没有目标回调</td>
+<td>运行浏览器回调测试，验证匹配的提供商/域、TTL 和目标出口；缺席仍不确定</td>
+</tr>
+<tr>
+<td>本机模板被阻止</td>
+<td>读取执行器/能力原因：Nuclei/isolation/helper/signature/scope/approval/routing可能丢失</td>
+</tr>
+<tr>
+<td>智能分析器无法命名后端</td>
+<td>未知是有效结果。 WAF/代理层可以隐藏或重写证据；手动验证部署清单</td>
+</tr>
+<tr>
+<td>动画查看器缺少实时页面</td>
+<td>检查活动选项卡/登录/来源、捕获/加载限制和依赖性；仅使用捕获并记录的证据</td>
+</tr>
+<tr>
+<td>查看者指向一般页面区域</td>
+<td>标头/API/cookie 查找结果可能没有匹配的 HTML 字段。页面上下文定位不是精确的输入证明</td>
+</tr>
+<tr>
+<td>评估文件正在等待/出错</td>
+<td>连接代理 API，检查所选的绝对文件夹/状态和待处理的检查点。浏览器存储保持独立</td>
+</tr>
+<tr>
+<td>本机流量没有响应主体或 ZAP 结果</td>
+<td>预期仅元数据视图；检查外部工具自身的历史记录并报告</td>
+</tr>
+<tr>
+<td>PDF API 响应是 HTML/说明</td>
+<td>使用打印/保存为 PDF；不要将 HTML 字节重命名为 .pdf</td>
+</tr>
+<tr>
+<td>翻译后的 UI 仍显示英文</td>
+<td>代码术语、命令示例、URL、有效负载和捕获的证据均被有意保留。检查实际 UI 散文的版本/语言；机器翻译质量可能会有所不同</td>
+</tr>
+</tbody>
+</table>
+<p>对于诊断，请从特定于字段的消息和相关组件的日志开始。本机代理配对错误、浏览器扫描会话失败和代理 API 连接失败需要不同的修复。不要将已完成的 UI 操作或成功配对视为每个计划的请求或检查已运行的证据。</p>
+<h2 id="terms-and-source-references">术语和来源参考</h2>
+<table>
+<thead>
+<tr>
+<th>期限</th>
+<th>通俗易懂的语言含义/参考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">HTTP 请求/响应</a></td>
+<td>发送至 Web 服务器的消息/其回复，包括方法、URL、标头和可选正文</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/Origin">产地</a></td>
+<td>用作 Web 安全边界的方案、主机和端口</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies">饼干</a></td>
+<td>为适用的请求选择浏览器管理的状态</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Session_Management">会话管理</a></td>
+<td>应用程序如何跨请求识别用户</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/essential-skills">有效载荷</a></td>
+<td>发送到输入的测试值；不会自动成功利用</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/sql-injection">SQL注入</a></td>
+<td>输入改变了数据库查询的解释方式</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/nosql-injection">NoSQL注入</a></td>
+<td>输入更改非 SQL 数据库查询或运算符行为</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a></td>
+<td>攻击者控制的数据到达可执行的浏览器内容</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting/dom-based">DOM跨站脚本攻击</a></td>
+<td>客户端 JavaScript 将不受信任的数据传送到可执行的接收器中</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/server-side-template-injection">SSTI</a></td>
+<td>输入被解释为服务器模板指令</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/os-command-injection">命令注入</a></td>
+<td>输入改变操作系统 shell/程序执行的命令</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/file-path-traversal">路径遍历</a></td>
+<td>输入转义了预期的文件路径边界</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/ssrf">SSRF</a></td>
+<td>服务器向另一个目的地发出无意的请求</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/xxe">XXE</a></td>
+<td>XML 外部实体处理导致意外的资源访问</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/csrf">CSRF</a></td>
+<td>另一个站点引发了意外的经过身份验证的应用程序操作</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cors">CORS</a></td>
+<td>控制跨域响应访问的浏览器策略</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/access-control/idor">访问控制/IDOR</a></td>
+<td>用户是否可以访问对象/操作，而不仅仅是其 URL 是否可达</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/logic-flaws">业务逻辑</a></td>
+<td>有关有效价格、工作流程、余额和状态转换的规则</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a></td>
+<td>浏览器强制执行的资源/脚本策略；仅缺少标头并不是 XSS 执行</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Web_Application_Firewall">WAF</a></td>
+<td>HTTP 过滤层的存在并不能揭示每个活动规则</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Reverse_proxy">反向代理</a></td>
+<td>在应用程序服务器之前中介接收请求</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/TLS">传输层安全/CA</a></td>
+<td>连接加密和用于验证其端点的证书信任</td>
+</tr>
+<tr>
+<td><a href="https://nvd.nist.gov/vuln">CVE / NVD</a></td>
+<td>已知漏洞的标识符/数据库；匹配横幅并不是漏洞验证</td>
+</tr>
+<tr>
+<td><a href="https://cwe.mitre.org/">CWE</a></td>
+<td>弱点类型的分类</td>
+</tr>
+<tr>
+<td><a href="https://top10.owasp.org/2025/">OWASP 前 10 名：2025</a></td>
+<td>意识类别，不是完整的扫描仪测试套件</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-project-web-security-testing-guide/">WSTG</a></td>
+<td>涵盖自动化和手动工作的 Web 安全测试参考</td>
+</tr>
+</tbody>
+</table>
+<p>本教程的实现基础：manifest 2.18.1； <code dir="ltr" translate="no">content/checks.js</code>; <code dir="ltr" translate="no">lib/core.js</code>, <code dir="ltr" translate="no">lib/v2.js</code>、审计/DOM/探测模块；仪表板/帮助/覆盖范围/本机 UI；本机适配器配置、覆盖和 CLI；代理API/本机客户端；发布验证工件。如果较旧的文档与已删除的旧传输行为发生冲突，则此处使用的基础是附带的 2.18.1 运行时。</p>
+<p>其他设置参考：</p>
+<ul>
+<li><a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">Mozilla 临时安装</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging">Mozilla 原生消息传递</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP 传出连接设置</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/">ZAP 主动扫描策略和限制</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy 证书</a></li>
+<li><a href="https://github.com/projectdiscovery/interactsh">官方互动</a></li>
+<li><a href="https://docs.projectdiscovery.io/templates/reference/template-signing">核模板签名</a></li>
+<li><a href="#owasp-top-10-coverage">完整的发布覆盖文档</a></li>
+</ul>
+<p>本教程是指定版本的一般指南。特定于应用程序的结果仍然需要授权的目标、达到的工作流程和审查的证据。</p></main></div><footer>Longshot Security · 仅限授权评估 · <a href="/longshot-security-site/zh/">返回远景</a><p class="translation-notice">翻译是机器生成的。英文版为参考。</p></footer></body></html>

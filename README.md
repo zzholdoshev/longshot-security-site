@@ -18,3 +18,11 @@ The docs page adapts the full general tutorial to the web and includes Chrome ed
 ## Layered motion upgrade
 
 The landing page adds an original local canvas particle network (42 nodes on larger screens, 18 on mobile), hero orbits and floating badges, word-level headline entry, sequential workflow accents, feature scan sweeps and packet traces, download rings, button highlights, scroll progress, and Scout reactions/sparks. The canvas draws at a capped 30 frames per second with device-pixel ratio capped at 1.5. Its loop stops while motion is paused, reduced motion is requested, or the document is hidden. All visual effects are decorative and preserve the existing navigation, downloads and full tutorial.
+
+## Languages and extracted artwork
+
+The landing page, privacy policy, support page and full web tutorial are provided in 20 languages: English, Russian, German, French, Simplified Chinese, Japanese, Spanish, Hindi, Portuguese, Arabic, Bengali, Urdu, Indonesian, Turkish, Korean, Italian, Vietnamese, Tamil, Telugu and Marathi. Use the native-language selector on any page. Arabic and Urdu use right-to-left layouts; code, commands, URLs and screenshots retain their original text. The downloadable Markdown tutorial remains English and is marked accordingly.
+
+Translations are machine-generated from public website prose at build time; English is the reference. The hosted pages do not call a translation service or install a third-party widget. The language is encoded in the page URL; no cookie or language-tracking service is required.
+
+The new `*-cutout.webp` assets isolate browser-window foregrounds from the supplied campaign images. They were derived with the built-in image-editing tool, then encoded as transparent WebP; CSS clips trim remaining outer scenery. Original publisher images and the older website assets are preserved. Screenshots are illustrative views from an earlier extension interface.

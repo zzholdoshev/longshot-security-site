@@ -1,9 +1,11 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Full documentation — Longshot Security 2.18.1</title><meta name="description" content="The full Longshot general tutorial: browser scanning, native proxy, cookie overrides, ZAP, MCP, fuzzing, findings and reports."><link rel="icon" href="../assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="../style.css?v=20261110"><link rel="stylesheet" href="docs.css?v=20261110"></head><body><a class="skip" href="#documentation">Skip to documentation</a><nav aria-label="Main navigation"><a href="../index.html">LONGSHOT</a><a href="../index.html#download">Download</a><a href="../support.html">Support</a><a href="../privacy.html">Privacy</a></nav><div class="docs-layout"><aside class="docs-sidebar"><details open><summary>GENERAL TUTORIAL / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">Vibe-coded. Shipped. Hacked.</a><a href="#firefox-and-chrome-choose-your-edition">Firefox and Chrome: choose your edition</a><a href="#contents">Contents</a><a href="#what-runs-where">What runs where</a><a href="#install-or-update-in-firefox-nightly">Install or update in Firefox Nightly</a><a href="#getting-started-and-target-sessions">Getting started and target sessions</a><a href="#light-discovery-and-a-focused-active-scan">Light discovery and a focused active scan</a><a href="#aggressive-options-and-run-approval">Aggressive options and run approval</a><a href="#overview-checks">Overview checks</a><a href="#scan-options-reference">Scan options reference</a><a href="#budgets-selectors-and-request-settings">Budgets, selectors and request settings</a><a href="#fuzzer-auto-fuzz-and-probe-library">Fuzzer, Auto-fuzz and Probe library</a><a href="#your-payloads-and-imported-templates">Your payloads and imported templates</a><a href="#server-stack-and-smart-analyzer">Server stack and Smart analyzer</a><a href="#oast-setup-and-interpretation">OAST setup and interpretation</a><a href="#browser-bridge-native-tool-proxy">Browser Bridge: native tool proxy</a><a href="#native-bridge-configuration">Native bridge configuration</a><a href="#cookie-and-header-overrides-without-damaging-probes">Cookie and header overrides without damaging probes</a><a href="#external-tools-and-actual-zap-scanning">External tools and actual ZAP scanning</a><a href="#tor-and-onion-routing">Tor and onion routing</a><a href="#agent-api-mcp-and-local-model-clients">Agent API, MCP and local-model clients</a><a href="#optional-native-nuclei">Optional native Nuclei</a><a href="#manual-tools-interception-and-api-inventory">Manual tools, interception and API inventory</a><a href="#findings-and-the-cimematic-viewer">Findings and the cimematic viewer</a><a href="#owasp-top-10-coverage">OWASP Top 10 coverage</a><a href="#recovery-assessment-files-and-reports">Recovery, assessment files and reports</a><a href="#appearance-language-and-help">Appearance, language and help</a><a href="#troubleshooting">Troubleshooting</a><a href="#terms-and-source-references">Terms and source references</a></div></details><a class="markdown-download" href="longshot-general-tutorial.md" download>Download Markdown ↓</a></aside><main id="documentation" class="docs-main"><p class="eyebrow">FULL DOCUMENTATION · UPDATED 10 NOVEMBER 2026</p><h1 id="longshot-2181-general-tutorial-and-control-reference">Longshot 2.18.1 — general tutorial and control reference</h1>
+<!DOCTYPE html>
+
+<html data-site-base="/longshot-security-site/" data-site-page="docs/" dir="ltr" lang="en"><head><script data-language-script="" defer="" src="/longshot-security-site/language.js?v=20261110-i18n"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Full documentation — Longshot Security 2.18.1</title><meta content="The full Longshot general tutorial: browser scanning, native proxy, cookie overrides, ZAP, MCP, fuzzing, findings and reports." name="description"/><link href="/longshot-security-site/assets/mark.svg" rel="icon" type="image/svg+xml"/><link href="/longshot-security-site/style.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/docs/docs.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/localization.css?v=20261110-i18n" rel="stylesheet"/><link href="https://zzholdoshev.github.io/longshot-security-site/docs/" rel="canonical"/><link href="https://zzholdoshev.github.io/longshot-security-site/docs/" hreflang="en" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ru/docs/" hreflang="ru" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/de/docs/" hreflang="de" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/fr/docs/" hreflang="fr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/zh/docs/" hreflang="zh" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ja/docs/" hreflang="ja" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/es/docs/" hreflang="es" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/hi/docs/" hreflang="hi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/pt/docs/" hreflang="pt" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ar/docs/" hreflang="ar" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/bn/docs/" hreflang="bn" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ur/docs/" hreflang="ur" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/id/docs/" hreflang="id" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/tr/docs/" hreflang="tr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ko/docs/" hreflang="ko" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/it/docs/" hreflang="it" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/vi/docs/" hreflang="vi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ta/docs/" hreflang="ta" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/te/docs/" hreflang="te" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/mr/docs/" hreflang="mr" rel="alternate"/></head><body data-ui-copy='{"Signed in already? Start from that tab. Your session is the starting point.":"Signed in already? Start from that tab. Your session is the starting point.","Your tools send their own HTTP requests. Browser Bridge can supply the browser cookies.":"Your tools send their own HTTP requests. Browser Bridge can supply the browser cookies.","Cookie override is on by default in the paired native bridge. You can turn it off.":"Cookie override is on by default in the paired native bridge. You can turn it off.","A finding is a lead. Read the request, the response and the controls before confirming it.":"A finding is a lead. Read the request, the response and the controls before confirming it.","Using Chrome? Keep the Longshot workbench tab open while you scan.":"Using Chrome? Keep the Longshot workbench tab open while you scan.","Connect a compatible MCP agent to run permitted checks and examine the evidence.":"Connect a compatible MCP agent to run permitted checks and examine the evidence.","No bridge.invalid or hosts-file entry. The native proxy uses the actual target URL.":"No bridge.invalid or hosts-file entry. The native proxy uses the actual target URL.","Pause motion":"Pause motion","Resume motion":"Resume motion"}'><a class="skip" href="#documentation">Skip to documentation</a><nav aria-label="Main navigation"><a href="/longshot-security-site/">LONGSHOT</a><a href="/longshot-security-site/#download">Download</a><a href="/longshot-security-site/support.html">Support</a><a href="/longshot-security-site/privacy.html">Privacy</a><label class="language-switcher"><span>Language</span><select aria-label="Website language" id="site-language" translate="no"><option selected="selected" value="en">English</option><option value="ru">Русский</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="zh">简体中文</option><option value="ja">日本語</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="pt">Português</option><option value="ar">العربية</option><option value="bn">বাংলা</option><option value="ur">اردو</option><option value="id">Bahasa Indonesia</option><option value="tr">Türkçe</option><option value="ko">한국어</option><option value="it">Italiano</option><option value="vi">Tiếng Việt</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="mr">मराठी</option></select></label></nav><div class="docs-layout"><aside class="docs-sidebar"><details open=""><summary>GENERAL TUTORIAL / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">Vibe-coded. Shipped. Hacked.</a><a href="#firefox-and-chrome-choose-your-edition">Firefox and Chrome: choose your edition</a><a href="#contents">Contents</a><a href="#what-runs-where">What runs where</a><a href="#install-or-update-in-firefox-nightly">Install or update in Firefox Nightly</a><a href="#getting-started-and-target-sessions">Getting started and target sessions</a><a href="#light-discovery-and-a-focused-active-scan">Light discovery and a focused active scan</a><a href="#aggressive-options-and-run-approval">Aggressive options and run approval</a><a href="#overview-checks">Overview checks</a><a href="#scan-options-reference">Scan options reference</a><a href="#budgets-selectors-and-request-settings">Budgets, selectors and request settings</a><a href="#fuzzer-auto-fuzz-and-probe-library">Fuzzer, Auto-fuzz and Probe library</a><a href="#your-payloads-and-imported-templates">Your payloads and imported templates</a><a href="#server-stack-and-smart-analyzer">Server stack and Smart analyzer</a><a href="#oast-setup-and-interpretation">OAST setup and interpretation</a><a href="#browser-bridge-native-tool-proxy">Browser Bridge: native tool proxy</a><a href="#native-bridge-configuration">Native bridge configuration</a><a href="#cookie-and-header-overrides-without-damaging-probes">Cookie and header overrides without damaging probes</a><a href="#external-tools-and-actual-zap-scanning">External tools and actual ZAP scanning</a><a href="#tor-and-onion-routing">Tor and onion routing</a><a href="#agent-api-mcp-and-local-model-clients">Agent API, MCP and local-model clients</a><a href="#optional-native-nuclei">Optional native Nuclei</a><a href="#manual-tools-interception-and-api-inventory">Manual tools, interception and API inventory</a><a href="#findings-and-the-cimematic-viewer">Findings and the cimematic viewer</a><a href="#owasp-top-10-coverage">OWASP Top 10 coverage</a><a href="#recovery-assessment-files-and-reports">Recovery, assessment files and reports</a><a href="#appearance-language-and-help">Appearance, language and help</a><a href="#troubleshooting">Troubleshooting</a><a href="#terms-and-source-references">Terms and source references</a></div></details><a class="markdown-download" download="" href="/longshot-security-site/docs/longshot-general-tutorial.md">Download Markdown ↓</a></aside><main class="docs-main" id="documentation"><p class="eyebrow">FULL DOCUMENTATION · UPDATED 10 NOVEMBER 2026</p><h1 id="longshot-2181-general-tutorial-and-control-reference">Longshot 2.18.1 — general tutorial and control reference</h1>
 <p>Updated 10 November 2026 for Longshot <strong>2.18.1</strong> (Firefox and Chrome editions) and its <strong>native HTTP/HTTPS tool proxy</strong>. This replaces the general 2.11.1 tutorial. Instructions below describe the shipped implementation, including its limits; older bridge examples are not interchangeable with this release.</p>
 <p>Longshot is a browser-session workbench for authorized web application assessment. It combines discovery, its own JavaScript active scanner, manual HTTP tools, imported templates, findings review and reports. The optional Browser Bridge lets external tools use selected Firefox session values while sending their own native HTTP requests.</p>
 <p>A useful first pass is: <strong>open the application → sign in → launch Longshot from that tab → Connect → validate the session → discover inputs → run selected checks → review evidence</strong>.</p>
 <p>For an application handling sensitive user data or money, including an AI-built or vibe-coded application, hire a cybersecurity team for a professional assessment. An extension scan does not replace authorization testing, business-logic review or an independent security assessment. An empty findings list is not a security certificate.</p>
-<p>This document explains commands; updating it does not install software, register a host, alter browser settings or run any scans. Run examples only against your authorized assessment target. The sample <code>http://localhost:8080</code> is a local target example, not a built-in Longshot service.</p>
+<p>This document explains commands; updating it does not install software, register a host, alter browser settings or run any scans. Run examples only against your authorized assessment target. The sample <code dir="ltr" translate="no">http://localhost:8080</code> is a local target example, not a built-in Longshot service.</p>
 <h2 id="vibe-coded-shipped-hacked">Vibe-coded. Shipped. Hacked.</h2>
 <p><strong>Imagine this:</strong> your app goes live, an attacker finds the flaw, and a user opens their account to a balance of zero. All their money—gone.</p>
 <p>The code looked convincing. The AI said it looked secure. That was not enough.</p>
@@ -130,21 +132,21 @@
 <h3 id="install-the-chrome-edition">Install the Chrome edition</h3>
 <ol>
 <li>Download the <strong>Chrome ZIP</strong> from the release links above/below and extract it to a folder you keep.</li>
-<li>Open <code>chrome://extensions</code>, enable <strong>Developer mode</strong>, select <strong>Load unpacked</strong>, then choose the extracted folder containing <code>manifest.json</code>.</li>
+<li>Open <code dir="ltr" translate="no">chrome://extensions</code>, enable <strong>Developer mode</strong>, select <strong>Load unpacked</strong>, then choose the extracted folder containing <code dir="ltr" translate="no">manifest.json</code>.</li>
 <li>Open your authorized application, sign in, launch Longshot from that tab and Connect.</li>
 <li>Keep the workbench tab open during scanning and native pairing. Closing it ends live engine work; saved evidence remains and is restored without replaying uncertain requests.</li>
-<li>For native tool proxy startup, use the exact origin shown by Chrome, such as <code>chrome-extension://YOUR_INSTALLED_ID</code>, rather than a Firefox <code>moz-extension://</code> origin. The proxy uses real target URLs; no hosts-file entry is needed.</li>
+<li>For native tool proxy startup, use the exact origin shown by Chrome, such as <code dir="ltr" translate="no">chrome-extension://YOUR_INSTALLED_ID</code>, rather than a Firefox <code dir="ltr" translate="no">moz-extension://</code> origin. The proxy uses real target URLs; no hosts-file entry is needed.</li>
 </ol>
 <h3 id="chrome-agent-api-mcp-registration">Chrome Agent API / MCP registration</h3>
 <p>From the retained full source checkout, after installing the pinned helper dependency:</p>
-<pre><code class="language-sh">npm --prefix native-bridge ci --omit=dev
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev
 node bridge/bin/longshot-bridge install --browser chrome \
   --extension-id YOUR_INSTALLED_32_LETTER_ID \
   --port 8775 --data-dir /absolute/private/longshot-chrome
 node bridge/bin/longshot-bridge mcp \
   --port 8775 --data-dir /absolute/private/longshot-chrome
 </code></pre>
-<p>For Chromium use <code>--browser chromium</code>. Use the actual ID in <code>chrome://extensions</code>; register again if installing the store edition gives a different ID. The separate port/data directory avoids a collision with a Firefox host. This Agent API is distinct from the HTTP tool proxy (default ports 8900/8901). Linux is the tested native-host platform; macOS registration is implemented but untested here, and no Windows native-host installer is supplied.</p>
+<p>For Chromium use <code dir="ltr" translate="no">--browser chromium</code>. Use the actual ID in <code dir="ltr" translate="no">chrome://extensions</code>; register again if installing the store edition gives a different ID. The separate port/data directory avoids a collision with a Firefox host. This Agent API is distinct from the HTTP tool proxy (default ports 8900/8901). Linux is the tested native-host platform; macOS registration is implemented but untested here, and no Windows native-host installer is supplied.</p>
 <p>Detailed Browser Bridge configuration is also available in the extension's <strong>Browser Bridge → Information</strong> dialog. The long-form README and new platform/privacy documents are English; bundled UI language selection does not translate target evidence, payloads or executable examples.</p>
 <h2 id="contents">Contents</h2>
 <ul>
@@ -201,13 +203,13 @@ node bridge/bin/longshot-bridge mcp \
 <td><strong>Browser Bridge / Native tool proxy</strong></td>
 <td>Local Node coordinator plus separately installed mitmproxy</td>
 <td>Carries external tools' own HTTP/HTTPS requests; optionally overrides cookies and selected headers from Firefox</td>
-<td>HTTP proxy <code>127.0.0.1:8900</code>; extension control <code>127.0.0.1:8901</code></td>
+<td>HTTP proxy <code dir="ltr" translate="no">127.0.0.1:8900</code>; extension control <code dir="ltr" translate="no">127.0.0.1:8901</code></td>
 </tr>
 <tr>
 <td><strong>Agent API / native-messaging bridge</strong></td>
 <td>Local Node service registered with Firefox</td>
 <td>REST/MCP/UI automation, assessment files and optional native Nuclei execution</td>
-<td>API <code>http://127.0.0.1:8765</code></td>
+<td>API <code dir="ltr" translate="no">http://127.0.0.1:8765</code></td>
 </tr>
 <tr>
 <td>External ZAP, curl, ffuf, sqlmap or Nuclei CLI</td>
@@ -223,7 +225,7 @@ node bridge/bin/longshot-bridge mcp \
 </tr>
 </tbody>
 </table>
-<pre><code class="language-text">Built-in scan / Repeater / Fuzzer
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">Built-in scan / Repeater / Fuzzer
         → Firefox networking + target tab's session → target
 
 External ZAP / curl / another HTTP tool
@@ -251,19 +253,19 @@ MCP or REST client → Agent API :8765 → Longshot commands / UI
 <td>Removed from Browser Bridge and the XPI</td>
 </tr>
 <tr>
-<td>Send tools to <code>http://bridge.invalid</code></td>
+<td>Send tools to <code dir="ltr" translate="no">http://bridge.invalid</code></td>
 <td>Use the actual target URL</td>
 </tr>
 <tr>
-<td>Add <code>bridge.invalid</code> to <code>/etc/hosts</code></td>
+<td>Add <code dir="ltr" translate="no">bridge.invalid</code> to <code dir="ltr" translate="no">/etc/hosts</code></td>
 <td>No entry is needed; do not add one for this bridge</td>
 </tr>
 <tr>
-<td>Proxy on <code>8899</code>; start <code>node ./bridge/cli.js</code> in the old adapter</td>
-<td>The downloaded native adapter uses <code>node cli.js</code>; default proxy/control ports are <code>8900</code> / <code>8901</code></td>
+<td>Proxy on <code dir="ltr" translate="no">8899</code>; start <code dir="ltr" translate="no">node ./bridge/cli.js</code> in the old adapter</td>
+<td>The downloaded native adapter uses <code dir="ltr" translate="no">node cli.js</code>; default proxy/control ports are <code dir="ltr" translate="no">8900</code> / <code dir="ltr" translate="no">8901</code></td>
 </tr>
 <tr>
-<td><code>allowRaw</code>, <code>forceRaw</code>, <code>torSocks</code>, <code>X-Bridge-Host</code>, <code>/v1/cookies</code>, pair-check endpoints</td>
+<td><code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, <code dir="ltr" translate="no">X-Bridge-Host</code>, <code dir="ltr" translate="no">/v1/cookies</code>, pair-check endpoints</td>
 <td>Old adapter interfaces; do not put them in the native config or assume they exist</td>
 </tr>
 <tr>
@@ -285,7 +287,7 @@ MCP or REST client → Agent API :8765 → Longshot commands / UI
 </tbody>
 </table>
 <h2 id="install-or-update-in-firefox-nightly">Install or update in Firefox Nightly</h2>
-<p>Use the <strong>2.18.1 XPI</strong>, not an old adapter ZIP renamed as an add-on. Extract the matching source archive to a folder you keep in place, shown as <code>/path/to/longshot</code> in examples. Do not move a registered native host without registering it again.</p>
+<p>Use the <strong>2.18.1 XPI</strong>, not an old adapter ZIP renamed as an add-on. Extract the matching source archive to a folder you keep in place, shown as <code dir="ltr" translate="no">/path/to/longshot</code> in examples. Do not move a registered native host without registering it again.</p>
 <p>The release files are:</p>
 <ul>
 <li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1.xpi">Firefox XPI</a></li>
@@ -298,7 +300,7 @@ MCP or REST client → Agent API :8765 → Longshot commands / UI
 <p>The manifest requires Firefox 140 or newer. The release integration checks used desktop Firefox 159 on Linux. Platform/runtime support for optional helpers is separate from basic extension support.</p>
 <p>For a temporary unsigned installation:</p>
 <ol>
-<li>Open <code>about:debugging#/runtime/this-firefox</code>.</li>
+<li>Open <code dir="ltr" translate="no">about:debugging#/runtime/this-firefox</code>.</li>
 <li>Choose <strong>Load Temporary Add-on</strong> and select the XPI.</li>
 <li>Confirm Longshot's displayed version, then open the target and launch its toolbar button.</li>
 <li>Reload the extension after replacing an unpacked development build.</li>
@@ -308,14 +310,14 @@ MCP or REST client → Agent API :8765 → Longshot commands / UI
 <h2 id="getting-started-and-target-sessions">Getting started and target sessions</h2>
 <h3 id="connect-the-right-tab">Connect the right tab</h3>
 <ol>
-<li>Open the authorized target in Firefox, for example <code>http://localhost:8080</code>.</li>
+<li>Open the authorized target in Firefox, for example <code dir="ltr" translate="no">http://localhost:8080</code>.</li>
 <li>Sign in with the intended test account and complete any browser challenge.</li>
 <li>Launch Longshot <strong>from that target tab</strong>. Keep the application tab open.</li>
 <li>Check the target address and choose <strong>Connect</strong>.</li>
 <li>Use <strong>Getting started</strong> in the header for the eight-step highlighted walkthrough. It can be replayed; it does not start scans or change settings itself.</li>
 <li>Browse representative application pages so Longshot can observe useful routes and inputs.</li>
 </ol>
-<p>A target origin consists of scheme, hostname and port. <code>http://localhost:8080</code>, <code>http://127.0.0.1:8080</code> and <code>https://localhost:8080</code> are different origins, even if they ultimately reach the same service. Connect and use the exact address intended for the assessment. An IP address observed behind a hostname does not automatically become an additional authorized target.</p>
+<p>A target origin consists of scheme, hostname and port. <code dir="ltr" translate="no">http://localhost:8080</code>, <code dir="ltr" translate="no">http://127.0.0.1:8080</code> and <code dir="ltr" translate="no">https://localhost:8080</code> are different origins, even if they ultimately reach the same service. Connect and use the exact address intended for the assessment. An IP address observed behind a hostname does not automatically become an additional authorized target.</p>
 <h3 id="configure-session-validation">Configure session validation</h3>
 <p>Open <strong>Settings → Scanner settings</strong>:</p>
 <table>
@@ -391,7 +393,7 @@ MCP or REST client → Agent API :8765 → Longshot commands / UI
 <li>Start the run with the reviewed configuration.</li>
 </ol>
 <p>The grant is single-use, expires after 30 minutes and is invalidated by relevant target/configuration/request-setting changes. A new scan normally needs a new grant. Saving unfinished options is allowed; starting or approving validates required fields.</p>
-<p>Firefox requires <code>permissions.request()</code> to originate directly from a real user action. Changing a setting is not a reason to grant arbitrary permissions in the background. If permission is denied, review the exact feature, retry from the approval button or disable that feature. Normal OS/browser permission prompts remain outside extension DOM automation.</p>
+<p>Firefox requires <code dir="ltr" translate="no">permissions.request()</code> to originate directly from a real user action. Changing a setting is not a reason to grant arbitrary permissions in the background. If permission is denied, review the exact feature, retry from the approval button or disable that feature. Normal OS/browser permission prompts remain outside extension DOM automation.</p>
 <h3 id="maximum-findings-is-a-broad-preset">Maximum findings is a broad preset</h3>
 <p>This preset turns on many phases, including advanced verification, OAST and Session B comparison, and expands several budgets. It is not a “find everything” switch. It does not create an OAST account, fill Provider URL/Callback domain, select a valid Session B, install Nuclei or authenticate missing roles.</p>
 <p>If approval reports empty OAST fields or missing Session B, configure them or turn those options off. This is separate from whether the target URL is valid.</p>
@@ -888,7 +890,7 @@ MCP or REST client → Agent API :8765 → Longshot commands / UI
 </table>
 <h3 id="manual-query-fuzzer">Manual query fuzzer</h3>
 <ol>
-<li>Connect the target and choose a scoped URL. Relative URLs such as <code>/search?q=apple</code> are accepted against the connected origin.</li>
+<li>Connect the target and choose a scoped URL. Relative URLs such as <code dir="ltr" translate="no">/search?q=apple</code> are accepted against the connected origin.</li>
 <li>Enter the existing query parameter name, or choose <strong>Use</strong> beside a discovered input.</li>
 <li>Choose a payload class and value mutation.</li>
 <li>For <strong>User-uploaded custom payloads</strong>, enable a suitable custom pack first.</li>
@@ -935,14 +937,14 @@ MCP or REST client → Agent API :8765 → Longshot commands / UI
 <p>Under <strong>Scan options or Fuzzer → Probe library → Your payloads and CVE templates</strong>, choose the category, then <strong>Upload custom file</strong>.</p>
 <p>Accepted list forms:</p>
 <ul>
-<li><code>.txt</code>: one literal nonempty value per line; spaces and case are preserved.</li>
-<li><code>.json</code>: an array of strings or an object containing <code>name</code>, <code>category</code> and <code>payloads</code>.</li>
-<li>Categories: <code>custom</code>, <code>waf</code>, <code>sqli</code>, <code>nosqli</code>, <code>code</code>, <code>xss</code>, <code>ssti</code>, <code>traversal</code>, <code>crlf</code>, <code>redirect</code>, <code>command</code>.</li>
+<li><code dir="ltr" translate="no">.txt</code>: one literal nonempty value per line; spaces and case are preserved.</li>
+<li><code dir="ltr" translate="no">.json</code>: an array of strings or an object containing <code dir="ltr" translate="no">name</code>, <code dir="ltr" translate="no">category</code> and <code dir="ltr" translate="no">payloads</code>.</li>
+<li>Categories: <code dir="ltr" translate="no">custom</code>, <code dir="ltr" translate="no">waf</code>, <code dir="ltr" translate="no">sqli</code>, <code dir="ltr" translate="no">nosqli</code>, <code dir="ltr" translate="no">code</code>, <code dir="ltr" translate="no">xss</code>, <code dir="ltr" translate="no">ssti</code>, <code dir="ltr" translate="no">traversal</code>, <code dir="ltr" translate="no">crlf</code>, <code dir="ltr" translate="no">redirect</code>, <code dir="ltr" translate="no">command</code>.</li>
 </ul>
-<pre><code class="language-json">{
-  &quot;name&quot;: &quot;My SQL review probes&quot;,
-  &quot;category&quot;: &quot;sqli&quot;,
-  &quot;payloads&quot;: [&quot;'&quot;, &quot;\&quot;&quot;, &quot;' AND 1=1 -- &quot;]
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "name": "My SQL review probes",
+  "category": "sqli",
+  "payloads": ["'", "\"", "' AND 1=1 -- "]
 }
 </code></pre>
 <p>Packs are target-specific and initially <strong>disabled</strong>. Inspect the preview and explicitly enable the intended pack. Enabled uploaded packs require Aggressive and approval; uploading alone runs nothing.</p>
@@ -974,14 +976,14 @@ MCP or REST client → Agent API :8765 → Longshot commands / UI
 <ol>
 <li>Choose an Interactsh-compatible service you control or are permitted to use.</li>
 <li>Enter <strong>Provider URL</strong>: the provider's complete API base address, usually HTTPS. HTTP is allowed only for loopback providers.</li>
-<li>Enter the matching <strong>Callback domain</strong> without <code>http://</code>, a port or a path.</li>
+<li>Enter the matching <strong>Callback domain</strong> without <code dir="ltr" translate="no">http://</code>, a port or a path.</li>
 <li>Enter <strong>Provider token</strong> only if that provider requires it.</li>
 <li>Set TTL and poll interval; enable OAST plus the relevant SSRF/XXE/Log4Shell/command options.</li>
 <li>Use <strong>Test OAST connection</strong> to check registration/polling.</li>
 <li>Use <strong>Test OAST callback</strong> to send a separate correlated canary from this browser.</li>
 <li>Save, review and approve the actual scan. Inspect exact correlation and protocol in OAST interactions.</li>
 </ol>
-<p>For example, if using the matching public service at <code>https://oast.pro</code>, its callback base is <code>oast.pro</code>. This is an example, not an availability guarantee or a requirement to use that provider. A self-hosted provider needs its own properly delegated reachable domain, DNS/listeners and TLS; a laptop HTTP listener alone is not a public callback service. Follow <a href="https://github.com/projectdiscovery/interactsh">official Interactsh setup</a>.</p>
+<p>For example, if using the matching public service at <code dir="ltr" translate="no">https://oast.pro</code>, its callback base is <code dir="ltr" translate="no">oast.pro</code>. This is an example, not an availability guarantee or a requirement to use that provider. A self-hosted provider needs its own properly delegated reachable domain, DNS/listeners and TLS; a laptop HTTP listener alone is not a public callback service. Follow <a href="https://github.com/projectdiscovery/interactsh">official Interactsh setup</a>.</p>
 <table>
 <thead>
 <tr>
@@ -1018,18 +1020,18 @@ MCP or REST client → Agent API :8765 → Longshot commands / UI
 <ol>
 <li>Open <strong>Browser Bridge</strong>. Only <strong>Native tool proxy</strong> is available in 2.18.1.</li>
 <li>Choose <strong>Download native adapter</strong> and extract it.</li>
-<li>Enter the extracted <code>native-bridge</code> directory. It contains <code>cli.js</code>, <code>bootstrap.py</code>, <code>config.json</code> and the bundled Node <code>ws</code> dependency.</li>
+<li>Enter the extracted <code dir="ltr" translate="no">native-bridge</code> directory. It contains <code dir="ltr" translate="no">cli.js</code>, <code dir="ltr" translate="no">bootstrap.py</code>, <code dir="ltr" translate="no">config.json</code> and the bundled Node <code dir="ltr" translate="no">ws</code> dependency.</li>
 <li>Install Node.js 20+ and Python 3.12+ if they are not already available.</li>
 <li>Run the one-time Python setup:</li>
 </ol>
-<p><code>sh
+<p><code dir="ltr" translate="no">sh
    cd /absolute/path/to/native-bridge
    python3 bootstrap.py</code></p>
-<p>This creates a local <code>.venv</code> and installs pinned mitmproxy 12.2.3. Installation needs Internet access. Normal startup does not download scanner code or payload lists.</p>
+<p>This creates a local <code dir="ltr" translate="no">.venv</code> and installs pinned mitmproxy 12.2.3. Installation needs Internet access. Normal startup does not download scanner code or payload lists.</p>
 <ol start="6">
 <li>Use the command shown by <strong>your</strong> extension page:</li>
 </ol>
-<p><code>sh
+<p><code dir="ltr" translate="no">sh
    node cli.js --config config.json \
      --extension-origin moz-extension://YOUR-LONGSHOT-UUID</code></p>
 <p>Replace the placeholder with the complete current extension origin. It is not the target website, add-on ID or an origin copied from another Firefox profile.</p>
@@ -1037,48 +1039,48 @@ MCP or REST client → Agent API :8765 → Longshot commands / UI
 <li>Keep the terminal running. After the proxy listener is ready, it prints the proxy address, control port, new pairing/proxy token and CA certificate path.</li>
 </ol>
 <p>When developing from the source ZIP rather than using the bundled adapter archive, install its pinned Node dependency first if absent:</p>
-<pre><code class="language-sh">cd /absolute/path/to/longshot-source
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
 npm --prefix native-bridge ci --omit=dev
 cd native-bridge
 python3 bootstrap.py
 </code></pre>
-<p><code>--mitmdump /absolute/path/to/mitmdump</code> or <code>LONGSHOT_MITMDUMP</code> selects an existing runtime. <code>--data-dir /absolute/private/run-directory</code> selects the CA/audit directory; the default is <code>run</code> inside the native adapter. Ctrl+C stops the adapter.</p>
-<p>The manual native proxy is separate from Agent API host registration. It does not need <code>node bridge/bin/longshot-bridge install</code> merely to proxy curl/ZAP. Linux/Firefox was exercised in release integration tests; do not infer native-messaging installer support on another platform from this manual Node/Python startup path.</p>
+<p><code dir="ltr" translate="no">--mitmdump /absolute/path/to/mitmdump</code> or <code dir="ltr" translate="no">LONGSHOT_MITMDUMP</code> selects an existing runtime. <code dir="ltr" translate="no">--data-dir /absolute/private/run-directory</code> selects the CA/audit directory; the default is <code dir="ltr" translate="no">run</code> inside the native adapter. Ctrl+C stops the adapter.</p>
+<p>The manual native proxy is separate from Agent API host registration. It does not need <code dir="ltr" translate="no">node bridge/bin/longshot-bridge install</code> merely to proxy curl/ZAP. Linux/Firefox was exercised in release integration tests; do not infer native-messaging installer support on another platform from this manual Node/Python startup path.</p>
 <h3 id="pair-the-selected-tab">Pair the selected tab</h3>
 <ol>
 <li>Select the authorized <strong>Target tab</strong> in Browser Bridge.</li>
 <li>Verify its displayed origin and cookie store. Use <strong>Refresh tabs</strong> if necessary.</li>
-<li>Enter <strong>Control port</strong> <code>8901</code>, unless changed in the adapter config.</li>
+<li>Enter <strong>Control port</strong> <code dir="ltr" translate="no">8901</code>, unless changed in the adapter config.</li>
 <li>Paste the current <strong>Pairing / proxy token</strong> from the running adapter.</li>
 <li>Choose <strong>Pair native bridge</strong> and verify ready status.</li>
 <li>Review cookie/header switches before routing tool traffic.</li>
 </ol>
-<p>The field clears the token after successful pairing. A restart produces a new token: pair again and update proxy credentials in every external tool. The proxy port <code>8900</code> is for tools; the control port <code>8901</code> is for Firefox. Neither uses the Agent API bearer token from port 8765.</p>
+<p>The field clears the token after successful pairing. A restart produces a new token: pair again and update proxy credentials in every external tool. The proxy port <code dir="ltr" translate="no">8900</code> is for tools; the control port <code dir="ltr" translate="no">8901</code> is for Firefox. Neither uses the Agent API bearer token from port 8765.</p>
 <h3 id="actual-target-urls-and-bridgeinvalid">Actual target URLs and bridge.invalid</h3>
-<p>Use the real address, such as <code>http://localhost:8080/search?q=apple</code>, in your tool. If testing HTTPS, use the real <code>https://...</code> address. The proxy's own address remains <code>http://127.0.0.1:8900</code> because that is the local HTTP proxy listener, including for HTTPS CONNECT.</p>
-<p><strong>No <code>/etc/hosts</code> entry is needed.</strong> The old <code>bridge.invalid</code> address was an adapter-specific alias for mapping a utility's HTTP URL onto a selected browser-fetch target. The current native proxy supports actual target URLs and HTTPS CONNECT, so that mapping is unnecessary.</p>
-<p><code>localhost</code> is not an interchangeable alias for every target: it names the local machine from the relevant process's network environment. It is correct only when the target is actually local at that origin. A different hostname can select a different virtual host, cookie policy or origin even if both names resolve to the same IP.</p>
+<p>Use the real address, such as <code dir="ltr" translate="no">http://localhost:8080/search?q=apple</code>, in your tool. If testing HTTPS, use the real <code dir="ltr" translate="no">https://...</code> address. The proxy's own address remains <code dir="ltr" translate="no">http://127.0.0.1:8900</code> because that is the local HTTP proxy listener, including for HTTPS CONNECT.</p>
+<p><strong>No <code dir="ltr" translate="no">/etc/hosts</code> entry is needed.</strong> The old <code dir="ltr" translate="no">bridge.invalid</code> address was an adapter-specific alias for mapping a utility's HTTP URL onto a selected browser-fetch target. The current native proxy supports actual target URLs and HTTPS CONNECT, so that mapping is unnecessary.</p>
+<p><code dir="ltr" translate="no">localhost</code> is not an interchangeable alias for every target: it names the local machine from the relevant process's network environment. It is correct only when the target is actually local at that origin. A different hostname can select a different virtual host, cookie policy or origin even if both names resolve to the same IP.</p>
 <p>An existing obsolete hosts entry is irrelevant to the new workflow; do not use it in tool URLs. No hosts-file modification was made while preparing this tutorial.</p>
 <h3 id="https-trust">HTTPS trust</h3>
 <p>The adapter generates its own local CA under the selected data directory, normally:</p>
-<pre><code class="language-text">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
 run/ca/mitmproxy-ca.pem            sensitive CA material/private key
 </code></pre>
 <p>Configure the <strong>external tool's assessment trust configuration</strong> with the public certificate path printed at startup. Do not share the private key or assume the system/Firefox trust store was changed. The adapter does not install its CA into either trust store.</p>
 <p>For curl:</p>
-<pre><code class="language-sh">curl --noproxy '' \
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
   --proxy http://127.0.0.1:8900 \
   --proxy-user 'bridge:CURRENT_TOKEN' \
   --cacert /absolute/path/to/native-bridge/run/ca/mitmproxy-ca-cert.pem \
   'https://actual-target.example/search?q=apple'
 </code></pre>
-<p>Replace <code>CURRENT_TOKEN</code> and the target/certificate path. For an HTTP-only local target, <code>--cacert</code> is unnecessary. <code>--noproxy ''</code> ensures curl does not silently bypass the proxy for a loopback target.</p>
+<p>Replace <code dir="ltr" translate="no">CURRENT_TOKEN</code> and the target/certificate path. For an HTTP-only local target, <code dir="ltr" translate="no">--cacert</code> is unnecessary. <code dir="ltr" translate="no">--noproxy ''</code> ensures curl does not silently bypass the proxy for a loopback target.</p>
 <p>There are two distinct TLS checks:</p>
 <ul>
 <li>The client verifies the certificate presented by the adapter. Configure the client's trust with the adapter CA.</li>
-<li>The adapter verifies the real upstream server. <code>tls.verifyUpstream</code> defaults true. Client <code>--cacert</code> does not supply a private origin CA to the adapter.</li>
+<li>The adapter verifies the real upstream server. <code dir="ltr" translate="no">tls.verifyUpstream</code> defaults true. Client <code dir="ltr" translate="no">--cacert</code> does not supply a private origin CA to the adapter.</li>
 </ul>
-<p>Do not treat disabling verification as the normal fix for certificate errors. For an owned self-signed fixture, <code>tls.verifyUpstream:false</code> is an explicit assessment exception in the adapter config, followed by restart; it weakens that separate upstream check. See <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy certificate behavior</a>.</p>
+<p>Do not treat disabling verification as the normal fix for certificate errors. For an owned self-signed fixture, <code dir="ltr" translate="no">tls.verifyUpstream:false</code> is an explicit assessment exception in the adapter config, followed by restart; it weakens that separate upstream check. See <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy certificate behavior</a>.</p>
 <h3 id="traffic-fidelity-and-limits">Traffic fidelity and limits</h3>
 <table>
 <thead>
@@ -1116,86 +1118,86 @@ run/ca/mitmproxy-ca.pem            sensitive CA material/private key
 </table>
 <p>The native route has no browser-fetch fallback. For raw request-smuggling, unusual wire-framing or custom-TLS research, use an appropriate separate transport. Do not label this parsed proxy byte-transparent.</p>
 <h2 id="native-bridge-configuration">Native bridge configuration</h2>
-<p>Download config from Browser Bridge or edit the adapter's <code>config.json</code>. Unknown keys, invalid types and out-of-range values are rejected. Old adapter fields are not native config synonyms.</p>
+<p>Download config from Browser Bridge or edit the adapter's <code dir="ltr" translate="no">config.json</code>. Unknown keys, invalid types and out-of-range values are rejected. Old adapter fields are not native config synonyms.</p>
 <p>The running adapter config is authoritative on pairing. <strong>Apply overrides</strong> changes supported browser override choices for the current pairing. <strong>Download config</strong> retains the selected configuration for the next start. Editing general JSON fields does not silently reconfigure listener ports, TLS, routing or limits in an already running process: save/download, restart and re-pair.</p>
 <h3 id="complete-shipped-defaults">Complete shipped defaults</h3>
-<pre><code class="language-json">{
-  &quot;schemaVersion&quot;: 1,
-  &quot;proxy&quot;: {
-    &quot;port&quot;: 8900
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "proxy": {
+    "port": 8900
   },
-  &quot;control&quot;: {
-    &quot;port&quot;: 8901,
-    &quot;timeoutMs&quot;: 10000
+  "control": {
+    "port": 8901,
+    "timeoutMs": 10000
   },
-  &quot;browser&quot;: {
-    &quot;required&quot;: true,
-    &quot;firstPartyDomain&quot;: null
+  "browser": {
+    "required": true,
+    "firstPartyDomain": null
   },
-  &quot;cookies&quot;: {
-    &quot;enabled&quot;: true,
-    &quot;mode&quot;: &quot;replace&quot;,
-    &quot;saveResponses&quot;: true,
-    &quot;preserveToolChanges&quot;: true,
-    &quot;protectedNames&quot;: [],
-    &quot;includeNames&quot;: [],
-    &quot;excludeNames&quot;: []
+  "cookies": {
+    "enabled": true,
+    "mode": "replace",
+    "saveResponses": true,
+    "preserveToolChanges": true,
+    "protectedNames": [],
+    "includeNames": [],
+    "excludeNames": []
   },
-  &quot;headers&quot;: {
-    &quot;userAgent&quot;: {
-      &quot;source&quot;: &quot;tool&quot;,
-      &quot;value&quot;: &quot;&quot;
+  "headers": {
+    "userAgent": {
+      "source": "tool",
+      "value": ""
     },
-    &quot;acceptLanguage&quot;: {
-      &quot;source&quot;: &quot;tool&quot;,
-      &quot;value&quot;: &quot;&quot;
+    "acceptLanguage": {
+      "source": "tool",
+      "value": ""
     },
-    &quot;authorization&quot;: {
-      &quot;source&quot;: &quot;tool&quot;,
-      &quot;value&quot;: &quot;&quot;
+    "authorization": {
+      "source": "tool",
+      "value": ""
     },
-    &quot;set&quot;: {},
-    &quot;remove&quot;: [],
-    &quot;protectedNames&quot;: []
+    "set": {},
+    "remove": [],
+    "protectedNames": []
   },
-  &quot;scope&quot;: {
-    &quot;origins&quot;: [],
-    &quot;excludePaths&quot;: [],
-    &quot;methods&quot;: [
-      &quot;*&quot;
+  "scope": {
+    "origins": [],
+    "excludePaths": [],
+    "methods": [
+      "*"
     ]
   },
-  &quot;limits&quot;: {
-    &quot;rate&quot;: 2,
-    &quot;concurrency&quot;: 4,
-    &quot;maxRequests&quot;: 10000,
-    &quot;maxBodyBytes&quot;: 67108864,
-    &quot;timeoutSeconds&quot;: 60
+  "limits": {
+    "rate": 2,
+    "concurrency": 4,
+    "maxRequests": 10000,
+    "maxBodyBytes": 67108864,
+    "timeoutSeconds": 60
   },
-  &quot;session&quot;: {
-    &quot;pauseStatuses&quot;: [
+  "session": {
+    "pauseStatuses": [
       401,
       419,
       440
     ],
-    &quot;pauseOn429&quot;: true
+    "pauseOn429": true
   },
-  &quot;tls&quot;: {
-    &quot;verifyUpstream&quot;: true,
-    &quot;http2&quot;: true
+  "tls": {
+    "verifyUpstream": true,
+    "http2": true
   },
-  &quot;upstream&quot;: {
-    &quot;url&quot;: null
+  "upstream": {
+    "url": null
   },
-  &quot;routing&quot;: {
-    &quot;socks5&quot;: null
+  "routing": {
+    "socks5": null
   },
-  &quot;audit&quot;: {
-    &quot;enabled&quot;: true
+  "audit": {
+    "enabled": true
   }
 }
 </code></pre>
-<p>An empty <code>scope.origins</code> defaults to the paired target's exact origin. You do not need to enter the target or a start/end timestamp to begin a normal paired assessment. Scope enforcement still exists; it is chosen by pairing rather than an old mandatory assessment form.</p>
+<p>An empty <code dir="ltr" translate="no">scope.origins</code> defaults to the paired target's exact origin. You do not need to enter the target or a start/end timestamp to begin a normal paired assessment. Scope enforcement still exists; it is chosen by pairing rather than an old mandatory assessment form.</p>
 <h3 id="field-reference">Field reference</h3>
 <table>
 <thead>
@@ -1206,132 +1208,132 @@ run/ca/mitmproxy-ca.pem            sensitive CA material/private key
 </thead>
 <tbody>
 <tr>
-<td><code>schemaVersion</code></td>
+<td><code dir="ltr" translate="no">schemaVersion</code></td>
 <td>Native config format; current value 1</td>
 </tr>
 <tr>
-<td><code>proxy.port</code></td>
+<td><code dir="ltr" translate="no">proxy.port</code></td>
 <td>Tool-facing HTTP proxy port, default 8900</td>
 </tr>
 <tr>
-<td><code>control.port</code></td>
+<td><code dir="ltr" translate="no">control.port</code></td>
 <td>Firefox coordinator port, default 8901; must differ from proxy port</td>
 </tr>
 <tr>
-<td><code>control.timeoutMs</code></td>
+<td><code dir="ltr" translate="no">control.timeoutMs</code></td>
 <td>Browser/control reply timeout, default 10,000 ms</td>
 </tr>
 <tr>
-<td><code>browser.required</code></td>
+<td><code dir="ltr" translate="no">browser.required</code></td>
 <td>Pairing required by default. Standalone operation needs explicit origins and all browser-derived features off</td>
 </tr>
 <tr>
-<td><code>browser.firstPartyDomain</code></td>
+<td><code dir="ltr" translate="no">browser.firstPartyDomain</code></td>
 <td>Explicit first-party isolation domain if the Firefox cookie API requires it; null uses normal behavior</td>
 </tr>
 <tr>
-<td><code>cookies.enabled</code></td>
+<td><code dir="ltr" translate="no">cookies.enabled</code></td>
 <td>Use selected Firefox cookies in outgoing native requests; default true</td>
 </tr>
 <tr>
-<td><code>cookies.mode</code></td>
-<td><code>replace</code> by default; optional <code>merge</code>, explained below</td>
+<td><code dir="ltr" translate="no">cookies.mode</code></td>
+<td><code dir="ltr" translate="no">replace</code> by default; optional <code dir="ltr" translate="no">merge</code>, explained below</td>
 </tr>
 <tr>
-<td><code>cookies.saveResponses</code></td>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code></td>
 <td>Apply response Set-Cookie updates to the selected Firefox jar; default true, independent of request override</td>
 </tr>
 <tr>
-<td><code>cookies.preserveToolChanges</code></td>
+<td><code dir="ltr" translate="no">cookies.preserveToolChanges</code></td>
 <td>Preserve changes relative to the first request per client connection/origin; default true</td>
 </tr>
 <tr>
-<td><code>cookies.protectedNames</code></td>
+<td><code dir="ltr" translate="no">cookies.protectedNames</code></td>
 <td>Cookie names whose tool values must remain under tool control</td>
 </tr>
 <tr>
-<td><code>cookies.includeNames</code></td>
+<td><code dir="ltr" translate="no">cookies.includeNames</code></td>
 <td>Only manage these names; empty means all matching browser names</td>
 </tr>
 <tr>
-<td><code>cookies.excludeNames</code></td>
+<td><code dir="ltr" translate="no">cookies.excludeNames</code></td>
 <td>Do not manage these browser cookie names</td>
 </tr>
 <tr>
-<td><code>headers.userAgent</code>, <code>acceptLanguage</code>, <code>authorization</code></td>
-<td><code>source</code> is <code>tool</code>, <code>browser</code> or <code>custom</code>; custom needs a nonempty single-line <code>value</code></td>
+<td><code dir="ltr" translate="no">headers.userAgent</code>, <code dir="ltr" translate="no">acceptLanguage</code>, <code dir="ltr" translate="no">authorization</code></td>
+<td><code dir="ltr" translate="no">source</code> is <code dir="ltr" translate="no">tool</code>, <code dir="ltr" translate="no">browser</code> or <code dir="ltr" translate="no">custom</code>; custom needs a nonempty single-line <code dir="ltr" translate="no">value</code></td>
 </tr>
 <tr>
-<td><code>headers.set</code>, <code>remove</code>, <code>protectedNames</code></td>
+<td><code dir="ltr" translate="no">headers.set</code>, <code dir="ltr" translate="no">remove</code>, <code dir="ltr" translate="no">protectedNames</code></td>
 <td>Explicit extra header changes and protection; reserved/managed fields require their dedicated controls</td>
 </tr>
 <tr>
-<td><code>scope.origins</code></td>
+<td><code dir="ltr" translate="no">scope.origins</code></td>
 <td>Empty uses paired origin; explicitly listed additional exact origins receive no browser-derived session fields</td>
 </tr>
 <tr>
-<td><code>scope.excludePaths</code></td>
+<td><code dir="ltr" translate="no">scope.excludePaths</code></td>
 <td>Excluded path prefixes, including decoded forms</td>
 </tr>
 <tr>
-<td><code>scope.methods</code></td>
-<td>Allowed methods; default <code>["*"]</code> means all native HTTP methods, not Longshot's browser write approval</td>
+<td><code dir="ltr" translate="no">scope.methods</code></td>
+<td>Allowed methods; default <code dir="ltr" translate="no">["*"]</code> means all native HTTP methods, not Longshot's browser write approval</td>
 </tr>
 <tr>
-<td><code>limits.rate</code></td>
+<td><code dir="ltr" translate="no">limits.rate</code></td>
 <td>Shared native scheduling rate, default 2 requests/second</td>
 </tr>
 <tr>
-<td><code>limits.concurrency</code></td>
+<td><code dir="ltr" translate="no">limits.concurrency</code></td>
 <td>Native control slots, default 4</td>
 </tr>
 <tr>
-<td><code>limits.maxRequests</code></td>
+<td><code dir="ltr" translate="no">limits.maxRequests</code></td>
 <td>Native request ceiling, default 10,000; exhaustion pauses work</td>
 </tr>
 <tr>
-<td><code>limits.maxBodyBytes</code></td>
+<td><code dir="ltr" translate="no">limits.maxBodyBytes</code></td>
 <td>Buffering/body ceiling, default 64 MiB</td>
 </tr>
 <tr>
-<td><code>limits.timeoutSeconds</code></td>
+<td><code dir="ltr" translate="no">limits.timeoutSeconds</code></td>
 <td>Completion lease/timeout, default 60 seconds; no rollback of a request already sent</td>
 </tr>
 <tr>
-<td><code>session.pauseStatuses</code></td>
+<td><code dir="ltr" translate="no">session.pauseStatuses</code></td>
 <td>Default authentication-status pause list: 401, 419, 440</td>
 </tr>
 <tr>
-<td><code>session.pauseOn429</code></td>
+<td><code dir="ltr" translate="no">session.pauseOn429</code></td>
 <td>Pause on throttling by default</td>
 </tr>
 <tr>
-<td><code>tls.verifyUpstream</code>, <code>http2</code></td>
+<td><code dir="ltr" translate="no">tls.verifyUpstream</code>, <code dir="ltr" translate="no">http2</code></td>
 <td>Both true by default</td>
 </tr>
 <tr>
-<td><code>upstream.url</code></td>
+<td><code dir="ltr" translate="no">upstream.url</code></td>
 <td>Optional HTTP(S) upstream proxy; null means none</td>
 </tr>
 <tr>
-<td><code>routing.socks5</code></td>
-<td>Optional <code>socks5h://host:port</code>; null by default; mutually exclusive with upstream URL</td>
+<td><code dir="ltr" translate="no">routing.socks5</code></td>
+<td>Optional <code dir="ltr" translate="no">socks5h://host:port</code>; null by default; mutually exclusive with upstream URL</td>
 </tr>
 <tr>
-<td><code>audit.enabled</code></td>
+<td><code dir="ltr" translate="no">audit.enabled</code></td>
 <td>Metadata-only JSONL audit, default true</td>
 </tr>
 </tbody>
 </table>
 <p>Native validation ranges: ports 1024–65535, rate 0.1–100, concurrency 1–32, request ceiling 1–1,000,000, body limit 1 KB–256 MiB, timeout 1–600 seconds, control timeout 1,000–120,000 ms. These are accepted configuration bounds, not recommendations for a target's safe load.</p>
-<p>Header names are case-insensitive. Cookie names are case-sensitive. Use JSON booleans <code>true</code>/<code>false</code>, not strings. Generic <code>headers.set</code> cannot replace Host, Cookie, Authorization, framing or proxy-control fields. Use dedicated cookie/Authorization options and the tool's own Host value.</p>
+<p>Header names are case-insensitive. Cookie names are case-sensitive. Use JSON booleans <code dir="ltr" translate="no">true</code>/<code dir="ltr" translate="no">false</code>, not strings. Generic <code dir="ltr" translate="no">headers.set</code> cannot replace Host, Cookie, Authorization, framing or proxy-control fields. Use dedicated cookie/Authorization options and the tool's own Host value.</p>
 <p>To lower load for a native tool run, a partial config can override defaults, for example:</p>
-<pre><code class="language-json">{
-  &quot;schemaVersion&quot;: 1,
-  &quot;limits&quot;: {
-    &quot;rate&quot;: 0.5,
-    &quot;concurrency&quot;: 1,
-    &quot;maxRequests&quot;: 500
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "limits": {
+    "rate": 0.5,
+    "concurrency": 1,
+    "maxRequests": 500
   }
 }
 </code></pre>
@@ -1340,7 +1342,7 @@ run/ca/mitmproxy-ca.pem            sensitive CA material/private key
 <h3 id="default-cookie-behavior">Default cookie behavior</h3>
 <p><strong>Use browser cookies</strong> and <strong>Save response Set-Cookie updates</strong> are on by default. User-Agent, Accept-Language and Authorization remain tool-controlled by default.</p>
 <p>For a native request, Firefox selects applicable cookies for the URL from the paired tab's cookie store and matching partition. Other containers/private stores are not merged. Domain/path/Secure/expiry rules and same-name path ordering remain relevant. Values are supplied to the native proxy so it can construct the outgoing Cookie header; unlike the removed browser-fetch path, the native helper therefore handles session secrets in memory.</p>
-<p>With <code>cookies.mode:"replace"</code>, the browser jar is authoritative, including when empty. A browser cookie deleted from the jar is removed from later managed requests. Explicitly protected names and detected tool changes take priority. With <code>mode:"merge"</code>, unrelated tool cookies can remain while browser-managed names are updated.</p>
+<p>With <code dir="ltr" translate="no">cookies.mode:"replace"</code>, the browser jar is authoritative, including when empty. A browser cookie deleted from the jar is removed from later managed requests. Explicitly protected names and detected tool changes take priority. With <code dir="ltr" translate="no">mode:"merge"</code>, unrelated tool cookies can remain while browser-managed names are updated.</p>
 <p>Response Set-Cookie fields are applied individually to the same selected store using Firefox's cookie API, including supported Domain/path/Secure/HttpOnly/SameSite/expiry/deletion/partition attributes. Invalid cookies can be rejected; inspect reported errors. Additional configured origins do not receive browser cookies or browser-derived headers.</p>
 <h3 id="request-and-response-switches-are-independent">Request and response switches are independent</h3>
 <table>
@@ -1376,24 +1378,24 @@ run/ca/mitmproxy-ca.pem            sensitive CA material/private key
 </table>
 <p>For cookie-fuzzing or a session experiment that must leave the browser jar unchanged, consider both switches. A per-request override bypass affects the request-side overrides; it does not disable the independent global response-cookie synchronization setting.</p>
 <h3 id="protect-fields-that-contain-attack-payloads">Protect fields that contain attack payloads</h3>
-<p>Suppose ZAP tests <code>session=ATTACK_PAYLOAD</code>. Blindly replacing that value with the browser's valid session could erase the test. Conversely, retaining a stale cookie in every request could make an authenticated scan useless.</p>
+<p>Suppose ZAP tests <code dir="ltr" translate="no">session=ATTACK_PAYLOAD</code>. Blindly replacing that value with the browser's valid session could erase the test. Conversely, retaining a stale cookie in every request could make an authenticated scan useless.</p>
 <p>The default <strong>Preserve tool cookie/header changes after its first request</strong> records a baseline per client connection/origin and preserves subsequent changes. Send an ordinary seed request first. The proxy cannot reliably infer intent on the first request, and a new connection creates a new baseline. This heuristic is not complete protection.</p>
 <p>For predictable testing, choose one of these mechanisms:</p>
 <ol>
 <li>Disable the particular cookie/header override being tested.</li>
-<li>Add cookie names to <code>cookies.protectedNames</code> or headers to <code>headers.protectedNames</code>.</li>
+<li>Add cookie names to <code dir="ltr" translate="no">cookies.protectedNames</code> or headers to <code dir="ltr" translate="no">headers.protectedNames</code>.</li>
 <li>Send a selective per-request annotation:</li>
 </ol>
-<p><code>http
+<p><code dir="ltr" translate="no">http
    X-Longshot-Preserve: cookie:session, User-Agent, Authorization</code></p>
-<p>This keeps the tool's named cookie/header fields. <code>cookie</code> without a name preserves the complete tool Cookie header.</p>
+<p>This keeps the tool's named cookie/header fields. <code dir="ltr" translate="no">cookie</code> without a name preserves the complete tool Cookie header.</p>
 <ol start="4">
 <li>Bypass all request-side overrides for that request:</li>
 </ol>
-<p><code>http
+<p><code dir="ltr" translate="no">http
    X-Longshot-Override: off</code></p>
 <p>The adapter strips these annotation headers before forwarding. Proxy authentication, scope and limits still apply. Configure annotations in the originating tool; putting them into a target webpage is not a bridge configuration mechanism.</p>
-<p>For example, keeping <code>session</code> protected lets ZAP vary it while the helper can continue updating an unrelated <code>preferences</code> cookie. For exhaustive Cookie/Authorization/User-Agent testing, disabling those overrides avoids dependence on change-detection heuristics.</p>
+<p>For example, keeping <code dir="ltr" translate="no">session</code> protected lets ZAP vary it while the helper can continue updating an unrelated <code dir="ltr" translate="no">preferences</code> cookie. For exhaustive Cookie/Authorization/User-Agent testing, disabling those overrides avoids dependence on change-detection heuristics.</p>
 <h3 id="browser-authorization-and-other-headers">Browser Authorization and other headers</h3>
 <p>Browser Authorization is opt-in through JSON configuration. It is captured from an actual request by the paired target tab only after enabling browser sourcing. It is not an automatic reader for every token in localStorage or application memory. A later browser request may be needed before an observed value exists. Turning browser Authorization off stops that captured value being supplied by the helper.</p>
 <p>Choosing browser User-Agent or Accept-Language changes those HTTP fields only. It does not run target JavaScript, refresh a body CSRF token, reproduce browser TLS or guarantee WAF acceptance. IP/device-bound authentication and OAuth refresh still need their application workflow.</p>
@@ -1406,7 +1408,7 @@ run/ca/mitmproxy-ca.pem            sensitive CA material/private key
 <h2 id="external-tools-and-actual-zap-scanning">External tools and actual ZAP scanning</h2>
 <h3 id="start-with-one-request">Start with one request</h3>
 <p>Pair the bridge, then test the actual local target:</p>
-<pre><code class="language-sh">curl --noproxy '' \
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
   --proxy http://127.0.0.1:8900 \
   --proxy-user 'bridge:CURRENT_TOKEN' \
   'http://localhost:8080/'
@@ -1416,8 +1418,8 @@ run/ca/mitmproxy-ca.pem            sensitive CA material/private key
 <ol>
 <li>Install/start ZAP separately and use an assessment-specific ZAP session.</li>
 <li>In ZAP's <strong>Options → Network → Connection</strong>, enable the <strong>outgoing HTTP proxy</strong>.</li>
-<li>Set host <code>127.0.0.1</code>, port <code>8900</code> (or the current configured proxy port).</li>
-<li>Enable proxy authentication: username <code>bridge</code>, password the current adapter token.</li>
+<li>Set host <code dir="ltr" translate="no">127.0.0.1</code>, port <code dir="ltr" translate="no">8900</code> (or the current configured proxy port).</li>
+<li>Enable proxy authentication: username <code dir="ltr" translate="no">bridge</code>, password the current adapter token.</li>
 <li>Disable ZAP's own SOCKS proxy for this chain. ZAP's SOCKS setting takes precedence over its HTTP proxy.</li>
 <li>Check HTTP proxy exclusions so the intended target is not bypassed, especially for a local service.</li>
 <li>Configure the adapter CA in the tool's applicable TLS trust/verification setup when required. Its location is printed at adapter startup.</li>
@@ -1439,12 +1441,12 @@ run/ca/mitmproxy-ca.pem            sensitive CA material/private key
 <tbody>
 <tr>
 <td>curl</td>
-<td><code>--proxy</code>, <code>--proxy-user</code>; <code>--cacert</code> for HTTPS trust; clear proxy bypass where needed</td>
+<td><code dir="ltr" translate="no">--proxy</code>, <code dir="ltr" translate="no">--proxy-user</code>; <code dir="ltr" translate="no">--cacert</code> for HTTPS trust; clear proxy bypass where needed</td>
 <td>Different invocations/connections can reset heuristic probe baselines</td>
 </tr>
 <tr>
 <td>ffuf</td>
-<td>Its HTTP proxy option (<code>-x</code>) with authenticated proxy URL; supply a bounded scoped wordlist and low rate</td>
+<td>Its HTTP proxy option (<code dir="ltr" translate="no">-x</code>) with authenticated proxy URL; supply a bounded scoped wordlist and low rate</td>
 <td>An HTTP proxy does not constrain a separate non-proxied invocation</td>
 </tr>
 <tr>
@@ -1454,8 +1456,8 @@ run/ca/mitmproxy-ca.pem            sensitive CA material/private key
 </tr>
 <tr>
 <td>wget</td>
-<td>Authenticated <code>http_proxy</code>/<code>https_proxy</code> or its proxy settings; configure certificate trust</td>
-<td>Check <code>no_proxy</code> and tool-specific proxy behavior</td>
+<td>Authenticated <code dir="ltr" translate="no">http_proxy</code>/<code dir="ltr" translate="no">https_proxy</code> or its proxy settings; configure certificate trust</td>
+<td>Check <code dir="ltr" translate="no">no_proxy</code> and tool-specific proxy behavior</td>
 </tr>
 <tr>
 <td>Python urllib / Requests</td>
@@ -1471,97 +1473,97 @@ run/ca/mitmproxy-ca.pem            sensitive CA material/private key
 </table>
 <p>A proxy URL containing credentials is sensitive. Use your tool's private assessment configuration where available. Do not paste current tokens into shared reports. For each tool, confirm routed traffic rather than assuming every protocol or subprocess honors its HTTP proxy setting.</p>
 <p>Linux Python standard-library example for a read-only local target; it prompts for the token instead of hardcoding it and clears environment proxy bypass for this process:</p>
-<pre><code class="language-python">import os
+<pre dir="ltr" translate="no"><code class="language-python" dir="ltr" translate="no">import os
 from getpass import getpass
 from urllib.request import (
     HTTPPasswordMgrWithDefaultRealm,
     ProxyBasicAuthHandler, ProxyHandler, build_opener,
 )
 
-os.environ[&quot;no_proxy&quot;] = &quot;&quot;
-os.environ[&quot;NO_PROXY&quot;] = &quot;&quot;
-proxy = &quot;http://127.0.0.1:8900&quot;
+os.environ["no_proxy"] = ""
+os.environ["NO_PROXY"] = ""
+proxy = "http://127.0.0.1:8900"
 credentials = HTTPPasswordMgrWithDefaultRealm()
-credentials.add_password(None, proxy, &quot;bridge&quot;, getpass(&quot;Bridge token: &quot;))
+credentials.add_password(None, proxy, "bridge", getpass("Bridge token: "))
 opener = build_opener(
-    ProxyHandler({&quot;http&quot;: proxy, &quot;https&quot;: proxy}),
+    ProxyHandler({"http": proxy, "https": proxy}),
     ProxyBasicAuthHandler(credentials),
 )
-with opener.open(&quot;http://localhost:8080/&quot;, timeout=20) as response:
+with opener.open("http://localhost:8080/", timeout=20) as response:
     print(response.status)
-    print(response.read(200).decode(&quot;utf-8&quot;, errors=&quot;replace&quot;))
+    print(response.read(200).decode("utf-8", errors="replace"))
 </code></pre>
-<p>Verify the request in Native traffic; other platforms can have additional system proxy-bypass rules. The curl example with explicit <code>--noproxy ''</code> is the simpler loopback route-validation check. HTTPS Python clients additionally need an SSL context/CA bundle that trusts the adapter certificate.</p>
+<p>Verify the request in Native traffic; other platforms can have additional system proxy-bypass rules. The curl example with explicit <code dir="ltr" translate="no">--noproxy ''</code> is the simpler loopback route-validation check. HTTPS Python clients additionally need an SSL context/CA bundle that trusts the adapter certificate.</p>
 <h3 id="pause-and-errors">Pause and errors</h3>
 <p><strong>Pause native requests</strong> blocks new native egress. Authentication statuses 401/419/440, HTTP 429, tab closure/off-origin changes or budget limits can also pause work. <strong>Resume after checking tab</strong> resumes only after reviewing the pairing state.</p>
 <p><strong>Stop and disconnect</strong> ends the browser pairing; it does not terminate the separately started Node process. Use Ctrl+C in its terminal to stop that process.</p>
 <p>In-flight requests may finish. Proxy clients receive errors for blocked work; the adapter does not suspend arbitrary tool processes or replay their requests. Inspect which requests succeeded and use the tool's own retry/resume controls. Restarting/re-pairing changes the token and requires updating tool authentication.</p>
-<p>401/419/440 may be expected in deliberate negative authentication tests. If needed, adjust <code>session.pauseStatuses</code> for that reviewed run and restart; the adapter does not infer whether every authentication failure is an intended probe.</p>
+<p>401/419/440 may be expected in deliberate negative authentication tests. If needed, adjust <code dir="ltr" translate="no">session.pauseStatuses</code> for that reviewed run and restart; the adapter does not infer whether every authentication failure is an intended probe.</p>
 <h2 id="tor-and-onion-routing">Tor and onion routing</h2>
 <p>Browser-based Longshot requests follow the selected browser's networking. The native adapter is a different process and does not inherit Firefox/Tor Browser proxy settings.</p>
 <p>SOCKS/Tor is <strong>off by default</strong> in the native config. For an authorized onion assessment, use an explicitly configured existing SOCKS service with remote hostname resolution, for example this override if that really is your local Tor listener:</p>
-<pre><code class="language-json">{
-  &quot;routing&quot;: {
-    &quot;socks5&quot;: &quot;socks5h://127.0.0.1:9050&quot;
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "routing": {
+    "socks5": "socks5h://127.0.0.1:9050"
   }
 }
 </code></pre>
-<p>This example does not start Tor or establish that port 9050 exists. Select the actual configured service; a Tor Browser instance may use a different listener. Restart the adapter and re-pair. An HTTP(S) <code>upstream.url</code> and <code>routing.socks5</code> are mutually exclusive.</p>
+<p>This example does not start Tor or establish that port 9050 exists. Select the actual configured service; a Tor Browser instance may use a different listener. Restart the adapter and re-pair. An HTTP(S) <code dir="ltr" translate="no">upstream.url</code> and <code dir="ltr" translate="no">routing.socks5</code> are mutually exclusive.</p>
 <p>The native shim resolves hostnames through SOCKS and has no silent direct fallback. Without an explicitly configured upstream/SOCKS route, direct onion destinations are rejected before target DNS. A SOCKS URL can also refer to an authorized SSH tunnel or other SOCKS5 service; it is not intrinsically proof of Tor routing.</p>
 <p>Cookie sharing does not make the native route's exit IP or TLS/browser fingerprint identical to Firefox. Challenges or session binding may reject it. Check the route and expected session independently.</p>
-<p><strong>Isolated native Nuclei launched by Agent API is different:</strong> its built-in relay has no Tor/SOCKS route and blocks onion targets before system DNS. Use eligible browser-side checks in the intended browser, or a separately configured external tool through the native proxy. Do not assume the Nuclei checkbox inherits <code>routing.socks5</code> from Browser Bridge.</p>
+<p><strong>Isolated native Nuclei launched by Agent API is different:</strong> its built-in relay has no Tor/SOCKS route and blocks onion targets before system DNS. Use eligible browser-side checks in the intended browser, or a separately configured external tool through the native proxy. Do not assume the Nuclei checkbox inherits <code dir="ltr" translate="no">routing.socks5</code> from Browser Bridge.</p>
 <h2 id="agent-api-mcp-and-local-model-clients">Agent API, MCP and local-model clients</h2>
 <p>Use this when an agent/script must operate Longshot, retrieve evidence or save assessment files. It is not the :8900 traffic proxy.</p>
 <h3 id="register-and-connect-the-native-host">Register and connect the native host</h3>
-<p>From the retained <strong>source</strong> directory containing <code>manifest.json</code> and <code>bridge/</code>:</p>
-<pre><code class="language-sh">cd /absolute/path/to/longshot-source
+<p>From the retained <strong>source</strong> directory containing <code dir="ltr" translate="no">manifest.json</code> and <code dir="ltr" translate="no">bridge/</code>:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
 node bridge/bin/longshot-bridge install
 </code></pre>
-<p>This registers <code>longshot.bridge</code> and a launcher referencing the source folder and Node executable. Keep both in place. If either moves, register again.</p>
+<p>This registers <code dir="ltr" translate="no">longshot.bridge</code> and a launcher referencing the source folder and Node executable. Keep both in place. If either moves, register again.</p>
 <p>Open <strong>Settings → Connection &amp; setup → Connect native bridge</strong> and grant Firefox's native-messaging permission. The host can start its daemon automatically. If intentionally running the daemon manually:</p>
-<pre><code class="language-sh">node bridge/bin/longshot-bridge serve
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">node bridge/bin/longshot-bridge serve
 </code></pre>
 <p>Avoid a second daemon on the same port/data directory. Disconnect closes the extension's native connection; it does not necessarily stop an independently started daemon.</p>
 <p>Node.js 20+ is required. Native messaging MCP does not need the proxy's Python/mitmproxy installation. Linux is the exercised setup. macOS registration support is provided but not runtime-verified here; this release has no Windows Firefox native-host installer. Registering in WSL does not register a host for Windows Firefox. Native Nuclei isolation is Linux-only.</p>
-<p>Default service: <code>http://127.0.0.1:8765</code>. This localhost address is a control API, <strong>not the scanned target</strong>. The token/socket defaults to <code>$XDG_DATA_HOME/longshot</code> or <code>~/.local/share/longshot</code>. Custom <code>--port</code> and <code>--data-dir</code> must match across install, serve and mcp. Use a short Unix data path because its socket path has a 100-byte limit.</p>
+<p>Default service: <code dir="ltr" translate="no">http://127.0.0.1:8765</code>. This localhost address is a control API, <strong>not the scanned target</strong>. The token/socket defaults to <code dir="ltr" translate="no">$XDG_DATA_HOME/longshot</code> or <code dir="ltr" translate="no">~/.local/share/longshot</code>. Custom <code dir="ltr" translate="no">--port</code> and <code dir="ltr" translate="no">--data-dir</code> must match across install, serve and mcp. Use a short Unix data path because its socket path has a 100-byte limit.</p>
 <h3 id="rest-example">REST example</h3>
 <p>From that same source folder:</p>
-<pre><code class="language-sh">longshot_token_file=&quot;$(node bridge/bin/longshot-bridge token-path)&quot;
-longshot_api_token=&quot;$(cat &quot;$longshot_token_file&quot;)&quot;
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">longshot_token_file="$(node bridge/bin/longshot-bridge token-path)"
+longshot_api_token="$(cat "$longshot_token_file")"
 
 curl --fail-with-body \
-  -H &quot;Authorization: Bearer $longshot_api_token&quot; \
+  -H "Authorization: Bearer $longshot_api_token" \
   http://127.0.0.1:8765/v1/health
 
 curl --fail-with-body \
-  -H &quot;Authorization: Bearer $longshot_api_token&quot; \
+  -H "Authorization: Bearer $longshot_api_token" \
   http://127.0.0.1:8765/v1/targets
 </code></pre>
-<p>The <code>token-path</code> command prints a filename, not the token. The API uses bearer authentication, unlike proxy username/password authentication. It rejects non-loopback clients and browser Origin requests and does not expose a general CORS API. Do not publish it through a public reverse proxy.</p>
+<p>The <code dir="ltr" translate="no">token-path</code> command prints a filename, not the token. The API uses bearer authentication, unlike proxy username/password authentication. It rejects non-loopback clients and browser Origin requests and does not expose a general CORS API. Do not publish it through a public reverse proxy.</p>
 <p>Start a small scan only after connecting/activating the intended target and checking its saved options:</p>
-<pre><code class="language-sh">curl --fail-with-body \
-  -H &quot;Authorization: Bearer $longshot_api_token&quot; \
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
   -H 'Content-Type: application/json' \
-  --data '{&quot;target_id&quot;:&quot;PROFILE_ID&quot;,&quot;mode&quot;:&quot;safe&quot;,&quot;budget&quot;:150}' \
+  --data '{"target_id":"PROFILE_ID","mode":"safe","budget":150}' \
   http://127.0.0.1:8765/v1/scans
 </code></pre>
-<p>Replace PROFILE_ID with the selected profile ID. <code>safe</code> maps to Spider only; it does not reset every saved advanced option or act as a universal override. The start is asynchronous. Read the returned run ID, then monitor <code>/v1/scans/RUN_ID</code>, <code>/eta</code>, <code>/findings</code> or <code>/report?format=html</code>. POST <code>/pause</code>, <code>/resume</code> and <code>/stop</code> control a run. Consult authenticated <code>/openapi.json</code> for exact schemas.</p>
-<p>REST/JSON-RPC support profiles, scans, findings/reports, templates, OAST and session operations. <code>/rpc</code> carries JSON-RPC; <code>/mcp</code> offers MCP HTTP, with stdio and SSE options. The service's protocol/API version strings may retain older schema versions; use the extension manifest for the installed UI release version.</p>
+<p>Replace PROFILE_ID with the selected profile ID. <code dir="ltr" translate="no">safe</code> maps to Spider only; it does not reset every saved advanced option or act as a universal override. The start is asynchronous. Read the returned run ID, then monitor <code dir="ltr" translate="no">/v1/scans/RUN_ID</code>, <code dir="ltr" translate="no">/eta</code>, <code dir="ltr" translate="no">/findings</code> or <code dir="ltr" translate="no">/report?format=html</code>. POST <code dir="ltr" translate="no">/pause</code>, <code dir="ltr" translate="no">/resume</code> and <code dir="ltr" translate="no">/stop</code> control a run. Consult authenticated <code dir="ltr" translate="no">/openapi.json</code> for exact schemas.</p>
+<p>REST/JSON-RPC support profiles, scans, findings/reports, templates, OAST and session operations. <code dir="ltr" translate="no">/rpc</code> carries JSON-RPC; <code dir="ltr" translate="no">/mcp</code> offers MCP HTTP, with stdio and SSE options. The service's protocol/API version strings may retain older schema versions; use the extension manifest for the installed UI release version.</p>
 <h3 id="mcp-client-setup">MCP client setup</h3>
 <p>For a client supporting stdio MCP configuration:</p>
-<pre><code class="language-json">{
-  &quot;mcpServers&quot;: {
-    &quot;longshot&quot;: {
-      &quot;command&quot;: &quot;node&quot;,
-      &quot;args&quot;: [
-        &quot;/absolute/path/to/longshot-source/bridge/bin/longshot-bridge&quot;,
-        &quot;mcp&quot;
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "mcpServers": {
+    "longshot": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/longshot-source/bridge/bin/longshot-bridge",
+        "mcp"
       ]
     }
   }
 }
 </code></pre>
-<p>Use an absolute Node executable if the client has a restricted PATH. Add matching <code>--port</code> / <code>--data-dir</code> arguments when customized. The stdio helper connects to the local authenticated service; it does not itself replace the Firefox connection.</p>
+<p>Use an absolute Node executable if the client has a restricted PATH. Add matching <code dir="ltr" translate="no">--port</code> / <code dir="ltr" translate="no">--data-dir</code> arguments when customized. The stdio helper connects to the local authenticated service; it does not itself replace the Firefox connection.</p>
 <p>The current MCP tool catalog contains 21 tools: the scan/template/report/OAST tools plus UI and semantic command discovery/control. Discover the actual catalog rather than relying on the old eight-tool tutorial.</p>
 <table>
 <thead>
@@ -1572,27 +1574,27 @@ curl --fail-with-body \
 </thead>
 <tbody>
 <tr>
-<td><code>longshot_list_targets</code>, scan/state/ETA/findings/report tools</td>
+<td><code dir="ltr" translate="no">longshot_list_targets</code>, scan/state/ETA/findings/report tools</td>
 <td>Use explicit profile/run IDs and inspect asynchronous results</td>
 </tr>
 <tr>
-<td><code>longshot_commands</code>, <code>longshot_command</code></td>
+<td><code dir="ltr" translate="no">longshot_commands</code>, <code dir="ltr" translate="no">longshot_command</code></td>
 <td>Discover semantic commands and invoke their supported arguments</td>
 </tr>
 <tr>
-<td><code>longshot_ui_pages</code>, <code>longshot_ui_open</code></td>
+<td><code dir="ltr" translate="no">longshot_ui_pages</code>, <code dir="ltr" translate="no">longshot_ui_open</code></td>
 <td>Discover/open target-bound extension dashboards</td>
 </tr>
 <tr>
-<td><code>longshot_ui_snapshot</code></td>
+<td><code dir="ltr" translate="no">longshot_ui_snapshot</code></td>
 <td>Read actual labels, current values, dialogs and element refs</td>
 </tr>
 <tr>
-<td><code>longshot_ui_action</code>, <code>navigate</code>, <code>wait</code></td>
+<td><code dir="ltr" translate="no">longshot_ui_action</code>, <code dir="ltr" translate="no">navigate</code>, <code dir="ltr" translate="no">wait</code></td>
 <td>Operate existing controls and verify completion</td>
 </tr>
 <tr>
-<td><code>longshot_ui_downloads</code>, <code>clipboard</code>, <code>screenshot</code>, <code>focus</code>, <code>close</code></td>
+<td><code dir="ltr" translate="no">longshot_ui_downloads</code>, <code dir="ltr" translate="no">clipboard</code>, <code dir="ltr" translate="no">screenshot</code>, <code dir="ltr" translate="no">focus</code>, <code dir="ltr" translate="no">close</code></td>
 <td>Supported extension-page output and UI management; not arbitrary OS access</td>
 </tr>
 </tbody>
@@ -1601,11 +1603,11 @@ curl --fail-with-body \
 <p><strong>Approval boundary:</strong> direct semantic consent commands cannot mint an aggressive run grant. Authenticated full UI automation can operate the bound dashboard's approval dialog, including its approve button. Giving an agent UI control therefore gives it that UI capability; do not describe such access as incapable of clicking approval. Single-use target/configuration/expiry checks still apply.</p>
 <h3 id="hermesollama-or-another-local-model-agent">Hermes/Ollama or another local-model agent</h3>
 <p>Longshot does not accept an arbitrary LLM chat stream or select a model. The <strong>agent application</strong> supplies the model connection and tool-call loop. If your agent supports MCP, configure the MCP server above in that agent. The agent sends supported tool calls and receives tool results; it can inspect/navigate/fill the extension through the exposed UI tools as well as invoke scan commands.</p>
-<p>Choose the Ollama model and server in Hermes/the agent's own configuration. Use a model/client combination that supports the agent's tool-call format, and ensure the agent is actually allowed to invoke MCP tools. Longshot's config has no <code>model</code>, <code>ollama</code> or provider API-key setting. Model access, shell access and unrelated filesystem control are capabilities of the agent host, not granted by installing this extension.</p>
+<p>Choose the Ollama model and server in Hermes/the agent's own configuration. Use a model/client combination that supports the agent's tool-call format, and ensure the agent is actually allowed to invoke MCP tools. Longshot's config has no <code dir="ltr" translate="no">model</code>, <code dir="ltr" translate="no">ollama</code> or provider API-key setting. Model access, shell access and unrelated filesystem control are capabilities of the agent host, not granted by installing this extension.</p>
 <p>Keep the scope, budgets, account and intended actions explicit in the agent task. Validate generated findings against recorded evidence; model text is not a scanner result or permission grant.</p>
 <h3 id="optional-debugging-port-control">Optional debugging-port control</h3>
-<p>The source includes BiDi/CDP control helpers and a one-command <code>bridge/bin/longshot-ui</code> interface. This is advanced control of extension-owned pages. The Chrome edition is a separate Manifest V3 package; its visible workbench must stay open. Opening a browser debugging listener is a separate browser startup choice; see <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">Firefox Remote Agent security</a>.</p>
-<p>The optional debugging helper uses the pinned <code>ws</code> dependency in <code>native-bridge/node_modules/ws/</code>. Run <code>npm --prefix native-bridge ci --omit=dev</code> from the retained source checkout first. This path was corrected in the 2.18 series; the removed historical browser-fetch adapter is not required.</p>
+<p>The source includes BiDi/CDP control helpers and a one-command <code dir="ltr" translate="no">bridge/bin/longshot-ui</code> interface. This is advanced control of extension-owned pages. The Chrome edition is a separate Manifest V3 package; its visible workbench must stay open. Opening a browser debugging listener is a separate browser startup choice; see <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">Firefox Remote Agent security</a>.</p>
+<p>The optional debugging helper uses the pinned <code dir="ltr" translate="no">ws</code> dependency in <code dir="ltr" translate="no">native-bridge/node_modules/ws/</code>. Run <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code> from the retained source checkout first. This path was corrected in the 2.18 series; the removed historical browser-fetch adapter is not required.</p>
 <h2 id="optional-native-nuclei">Optional native Nuclei</h2>
 <p>There are three distinct template routes:</p>
 <table>
@@ -1632,17 +1634,17 @@ curl --fail-with-body \
 </table>
 <p>For native jobs launched by Longshot:</p>
 <ol>
-<li>Install the official Nuclei binary separately and expose it on PATH or set <code>LONGSHOT_NUCLEI</code> before starting Agent API.</li>
+<li>Install the official Nuclei binary separately and expose it on PATH or set <code dir="ltr" translate="no">LONGSHOT_NUCLEI</code> before starting Agent API.</li>
 <li>Provide Linux bubblewrap with working unprivileged user/network namespaces.</li>
-<li>For headless templates, provide the required browser, optionally through <code>LONGSHOT_CHROME</code>.</li>
+<li>For headless templates, provide the required browser, optionally through <code dir="ltr" translate="no">LONGSHOT_CHROME</code>.</li>
 <li>Register/connect Agent API and inspect reported native capabilities.</li>
 <li>Import reviewed templates and any required relative helper files.</li>
 <li>Enable <strong>Native full Nuclei execution</strong> and only the extra Code/JavaScript, Headless or File capabilities needed.</li>
-<li>For file templates, set <code>LONGSHOT_FILE_ROOT</code> to the explicit read-only allowlist before starting the host.</li>
+<li>For file templates, set <code dir="ltr" translate="no">LONGSHOT_FILE_ROOT</code> to the explicit read-only allowlist before starting the host.</li>
 <li>Save, review and approve the run; inspect Ready/Blocked reasons and executor-tagged output.</li>
 </ol>
 <p>Workers have an isolated filesystem/network namespace, private temporary storage and bounded execution through the target relay. They do not automatically receive Firefox cookies, browser local storage or Firefox's Tor route. Headless sessions are isolated. A blocked native template does not mean a negative vulnerability result.</p>
-<p>Native code/JavaScript templates require signatures trusted by the official engine. <code>LONGSHOT_NUCLEI_CERT</code> can point to a reviewed public author certificate; the host does not auto-sign imports or mount private signing keys. Native file templates cannot freely read host home directories. Additional file/code/headless switches remain separate from generic template import.</p>
+<p>Native code/JavaScript templates require signatures trusted by the official engine. <code dir="ltr" translate="no">LONGSHOT_NUCLEI_CERT</code> can point to a reviewed public author certificate; the host does not auto-sign imports or mount private signing keys. Native file templates cannot freely read host home directories. Additional file/code/headless switches remain separate from generic template import.</p>
 <p>The native relay supports constrained target/provider connections, not arbitrary network access. Onion targets, unavailable isolation/runtimes, unsupported target addressing or incompatible path scopes can block execution. Native Interactsh registration belongs to Nuclei, separately from Longshot's browser OAST client. Use actual result evidence and platform capability reports, not a “full engine” label, to decide what ran.</p>
 <h2 id="manual-tools-interception-and-api-inventory">Manual tools, interception and API inventory</h2>
 <h3 id="page-guide">Page guide</h3>
@@ -1738,7 +1740,7 @@ curl --fail-with-body \
 </table>
 <h3 id="api-explorer">API Explorer</h3>
 <p>Connect and browse first, then choose <strong>Inspect current page</strong>. Import a developer-supplied <strong>OpenAPI JSON</strong> description when available, up to 2 MB. It reads local JSON, not an arbitrary remote page or YAML file. Local specification references and available request examples/defaults can supply concrete supported inputs; missing values/bodies and unsupported constructs leave gaps.</p>
-<p>An endpoint is an address; an operation is an address plus method. Query inputs appear after <code>?</code>, path inputs in the address path, and body inputs in submitted content. A listed operation is inventory, not proof that the current account may access every object it addresses.</p>
+<p>An endpoint is an address; an operation is an address plus method. Query inputs appear after <code dir="ltr" translate="no">?</code>, path inputs in the address path, and body inputs in submitted content. A listed operation is inventory, not proof that the current account may access every object it addresses.</p>
 <p>Use <strong>Repeater</strong> beside a supported GET/HEAD operation to prepare a request without sending it yet. Review URL/method/inputs, then send deliberately. Inventory-only write operations still require you to prepare the appropriate request and obtain write approval.</p>
 <h3 id="repeater-and-compare">Repeater and Compare</h3>
 <p>Repeater makes a new scoped request using the bound browser session. GET/HEAD/OPTIONS use the ordinary route. Write methods, body changes and destructive/upload capabilities remain subject to policy and approval. Managed Cookie/Authorization/Host values cannot be freely replaced through its header editor; use the native external-tool route for explicitly configured header/cookie tests.</p>
@@ -2241,7 +2243,7 @@ curl --fail-with-body \
 <li>Use <strong>Save session now</strong> for an immediate checkpoint; normal changes also trigger saves.</li>
 <li>Use <strong>Export current session</strong> / <strong>Import session file</strong> for manual transfer; manual import does not require the native host.</li>
 </ol>
-<p>Files use stable profile IDs with <code>.longshot.json</code>, allowing explicit profiles for one origin. They are readable, unencrypted assessment archives and can contain application data, authored templates and retained bodies. Browser-managed cookies, provider tokens and execution grants are excluded.</p>
+<p>Files use stable profile IDs with <code dir="ltr" translate="no">.longshot.json</code>, allowing explicit profiles for one origin. They are readable, unencrypted assessment archives and can contain application data, authored templates and retained bodies. Browser-managed cookies, provider tokens and execution grants are excluded.</p>
 <p>Writes are atomic private-file checkpoints. Abrupt termination can recover only the last completed save. Restored running scans become interrupted. If the bridge disconnects, browser storage continues and file saves wait; unresolved enabled checkpoints can require reconnecting or disabling file saving before switching targets. Maximum session-file size is 256 MB with an explicit error.</p>
 <p>Assessment archive export is different from <strong>Download config</strong> in Browser Bridge. The former saves assessment evidence/options; the latter saves native proxy settings.</p>
 <h3 id="reports">Reports</h3>
@@ -2294,11 +2296,11 @@ curl --fail-with-body \
 <p>Current release screenshots use an owned temporary loopback SQLite fixture. Their random ports and sample account data are test artifacts, not required configuration for your application:</p>
 <blockquote>
 <p><strong>Coverage dialog</strong>
-<img alt="scan coverage desktop" src="assets/scan-coverage-desktop.png" />
+<img alt="scan coverage desktop" src="/longshot-security-site/docs/assets/scan-coverage-desktop.png"/>
 <strong>Narrow Iron Man layout with Russian coverage text</strong>
-<img alt="scan coverage iron narrow ru" src="assets/scan-coverage-iron-narrow-ru.png" />
+<img alt="scan coverage iron narrow ru" src="/longshot-security-site/docs/assets/scan-coverage-iron-narrow-ru.png"/>
 <strong>Native proxy page</strong>
-<img alt="native tool proxy" src="assets/native-tool-proxy.png" /></p>
+<img alt="native tool proxy" src="/longshot-security-site/docs/assets/native-tool-proxy.png"/></p>
 </blockquote>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <table>
@@ -2311,27 +2313,27 @@ curl --fail-with-body \
 <tbody>
 <tr>
 <td>Extension is gone after restart</td>
-<td>A temporary <code>about:debugging</code> installation ends at restart. Reload the XPI or use the appropriate signed/persistent development installation</td>
+<td>A temporary <code dir="ltr" translate="no">about:debugging</code> installation ends at restart. Reload the XPI or use the appropriate signed/persistent development installation</td>
 </tr>
 <tr>
 <td>Wrong UI/version after update</td>
 <td>Check the manifest/displayed version; reload the intended XPI and close obsolete dashboards. Source directory names can retain old versions</td>
 </tr>
 <tr>
-<td><code>Cannot find package 'ws'</code></td>
-<td>Verify the path in the error. A complete downloaded native adapter includes ws; a fresh native source directory needs <code>npm --prefix native-bridge ci --omit=dev</code>. An error under the old adapter path is an old setup, not the new <code>cli.js</code> command</td>
+<td><code dir="ltr" translate="no">Cannot find package 'ws'</code></td>
+<td>Verify the path in the error. A complete downloaded native adapter includes ws; a fresh native source directory needs <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code>. An error under the old adapter path is an old setup, not the new <code dir="ltr" translate="no">cli.js</code> command</td>
 </tr>
 <tr>
-<td><code>Cannot find module .../bridge/bin/longshot-bridge</code></td>
-<td>Run Agent API commands from the source root containing <code>bridge/</code>, or use the absolute script path. The native proxy ZIP is not the full Agent API source</td>
+<td><code dir="ltr" translate="no">Cannot find module .../bridge/bin/longshot-bridge</code></td>
+<td>Run Agent API commands from the source root containing <code dir="ltr" translate="no">bridge/</code>, or use the absolute script path. The native proxy ZIP is not the full Agent API source</td>
 </tr>
 <tr>
 <td>Adapter does not start / mitmdump missing</td>
-<td>Run <code>python3 bootstrap.py</code> with Python 3.12+ or select the intended installed runtime with <code>--mitmdump</code></td>
+<td>Run <code dir="ltr" translate="no">python3 bootstrap.py</code> with Python 3.12+ or select the intended installed runtime with <code dir="ltr" translate="no">--mitmdump</code></td>
 </tr>
 <tr>
 <td>Pairing cannot connect</td>
-<td>Use control port 8901, the current token and the exact current <code>moz-extension://...</code> origin. Ensure the adapter process is ready</td>
+<td>Use control port 8901, the current token and the exact current <code dir="ltr" translate="no">moz-extension://...</code> origin. Ensure the adapter process is ready</td>
 </tr>
 <tr>
 <td>Tool gets proxy authentication failure</td>
@@ -2342,12 +2344,12 @@ curl --fail-with-body \
 <td>Check NO_PROXY/no_proxy, tool exclusions and proxy settings. Confirm the request appears in Native traffic</td>
 </tr>
 <tr>
-<td><code>bridge.invalid</code> fails</td>
+<td><code dir="ltr" translate="no">bridge.invalid</code> fails</td>
 <td>Old alias workflow. Use the real target URL and no hosts-file entry</td>
 </tr>
 <tr>
 <td>Config rejected / unknown property</td>
-<td>Do not reuse <code>allowRaw</code>, <code>forceRaw</code>, <code>torSocks</code>, old scope/time forms or old API controls. Export native config and use its supported keys</td>
+<td>Do not reuse <code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, old scope/time forms or old API controls. Export native config and use its supported keys</td>
 </tr>
 <tr>
 <td>Certificate verification error</td>
@@ -2363,7 +2365,7 @@ curl --fail-with-body \
 </tr>
 <tr>
 <td>Browser cookie still changes with request override off</td>
-<td><code>cookies.saveResponses</code> is independent. Disable it too if response synchronization is unwanted</td>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code> is independent. Disable it too if response synchronization is unwanted</td>
 </tr>
 <tr>
 <td>401/419/440 or 429 pauses the native proxy</td>
@@ -2378,7 +2380,7 @@ curl --fail-with-body \
 <td>Configure a real explicit SOCKS/upstream route in the native adapter. Built-in/browser and isolated native Nuclei have different routing</td>
 </tr>
 <tr>
-<td><code>permissions.request may only be called from a user input handler</code></td>
+<td><code dir="ltr" translate="no">permissions.request may only be called from a user input handler</code></td>
 <td>Use the current extension approval workflow. Save, review, then click Approve this next run to request missing permissions; do not invoke permissions from an asynchronous agent/background setting change</td>
 </tr>
 <tr>
@@ -2567,7 +2569,7 @@ curl --fail-with-body \
 </tr>
 </tbody>
 </table>
-<p>Implementation basis for this tutorial: manifest 2.18.1; <code>content/checks.js</code>; <code>lib/core.js</code>, <code>lib/v2.js</code>, audit/DOM/probe modules; dashboard/help/coverage/native UI; native adapter config, overrides and CLI; Agent API/native client; release validation artifacts. Where older documentation conflicts with removed legacy transport behavior, the shipped 2.18.1 runtime is the basis used here.</p>
+<p>Implementation basis for this tutorial: manifest 2.18.1; <code dir="ltr" translate="no">content/checks.js</code>; <code dir="ltr" translate="no">lib/core.js</code>, <code dir="ltr" translate="no">lib/v2.js</code>, audit/DOM/probe modules; dashboard/help/coverage/native UI; native adapter config, overrides and CLI; Agent API/native client; release validation artifacts. Where older documentation conflicts with removed legacy transport behavior, the shipped 2.18.1 runtime is the basis used here.</p>
 <p>Additional setup references:</p>
 <ul>
 <li><a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">Mozilla temporary installation</a></li>
@@ -2579,4 +2581,4 @@ curl --fail-with-body \
 <li><a href="https://docs.projectdiscovery.io/templates/reference/template-signing">Nuclei template signing</a></li>
 <li><a href="#owasp-top-10-coverage">Complete release coverage document</a></li>
 </ul>
-<p>This tutorial is general guidance for the named release. Application-specific results still require an authorized target, reached workflows and reviewed evidence.</p></main></div><footer>Longshot Security · Authorized assessments only · <a href="../index.html">Back to Longshot</a></footer></body></html>
+<p>This tutorial is general guidance for the named release. Application-specific results still require an authorized target, reached workflows and reviewed evidence.</p></main></div><footer>Longshot Security · Authorized assessments only · <a href="/longshot-security-site/">Back to Longshot</a><p class="translation-notice">Translations are machine-generated. The English version is the reference.</p></footer></body></html>

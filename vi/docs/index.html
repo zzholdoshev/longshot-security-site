@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+
+<html data-site-base="/longshot-security-site/" data-site-page="docs/" dir="ltr" lang="vi"><head><script data-language-script="" defer="" src="/longshot-security-site/language.js?v=20261110-i18n"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Tài liệu đầy đủ — Longshot Security 2.18.1</title><meta content="Hướng dẫn chung đầy đủ của Longshot: quét trình duyệt, proxy gốc, ghi đè cookie, ZAP, MCP, làm mờ, phát hiện và báo cáo." name="description"/><link href="/longshot-security-site/assets/mark.svg" rel="icon" type="image/svg+xml"/><link href="/longshot-security-site/style.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/docs/docs.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/localization.css?v=20261110-i18n" rel="stylesheet"/><link href="https://zzholdoshev.github.io/longshot-security-site/vi/docs/" rel="canonical"/><link href="https://zzholdoshev.github.io/longshot-security-site/docs/" hreflang="en" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ru/docs/" hreflang="ru" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/de/docs/" hreflang="de" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/fr/docs/" hreflang="fr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/zh/docs/" hreflang="zh" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ja/docs/" hreflang="ja" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/es/docs/" hreflang="es" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/hi/docs/" hreflang="hi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/pt/docs/" hreflang="pt" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ar/docs/" hreflang="ar" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/bn/docs/" hreflang="bn" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ur/docs/" hreflang="ur" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/id/docs/" hreflang="id" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/tr/docs/" hreflang="tr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ko/docs/" hreflang="ko" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/it/docs/" hreflang="it" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/vi/docs/" hreflang="vi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ta/docs/" hreflang="ta" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/te/docs/" hreflang="te" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/mr/docs/" hreflang="mr" rel="alternate"/></head><body data-ui-copy='{"Signed in already? Start from that tab. Your session is the starting point.":"Đã đăng nhập rồi? Bắt đầu từ tab đó. Phiên của bạn là điểm khởi đầu.","Your tools send their own HTTP requests. Browser Bridge can supply the browser cookies.":"Công cụ của bạn gửi yêu cầu HTTP của riêng chúng. Cầu trình duyệt có thể cung cấp cookie của trình duyệt.","Cookie override is on by default in the paired native bridge. You can turn it off.":"Ghi đè cookie được bật theo mặc định trong cầu nối gốc được ghép nối. Bạn có thể tắt nó đi.","A finding is a lead. Read the request, the response and the controls before confirming it.":"Một phát hiện là một sự dẫn dắt. Đọc yêu cầu, phản hồi và điều khiển trước khi xác nhận.","Using Chrome? Keep the Longshot workbench tab open while you scan.":"Sử dụng Chrome? Giữ tab bàn làm việc Longshot mở trong khi bạn quét.","Connect a compatible MCP agent to run permitted checks and examine the evidence.":"Kết nối một tác nhân MCP tương thích để chạy các bước kiểm tra được phép và kiểm tra bằng chứng.","No bridge.invalid or hosts-file entry. The native proxy uses the actual target URL.":"Không có mục nhập bridge.invalid hoặc tập tin máy chủ. Proxy gốc sử dụng URL mục tiêu thực tế.","Pause motion":"Tạm dừng chuyển động","Resume motion":"Tiếp tục chuyển động"}'><a class="skip" href="#documentation">Chuyển đến tài liệu</a><nav aria-label="Điều hướng chính"><a href="/longshot-security-site/vi/">LONGSHOT</a><a href="/longshot-security-site/vi/#download">Tải xuống</a><a href="/longshot-security-site/vi/support.html">Hỗ trợ</a><a href="/longshot-security-site/vi/privacy.html">Quyền riêng tư</a><label class="language-switcher"><span>Ngôn ngữ</span><select aria-label="Ngôn ngữ trang web" id="site-language" translate="no"><option value="en">English</option><option value="ru">Русский</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="zh">简体中文</option><option value="ja">日本語</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="pt">Português</option><option value="ar">العربية</option><option value="bn">বাংলা</option><option value="ur">اردو</option><option value="id">Bahasa Indonesia</option><option value="tr">Türkçe</option><option value="ko">한국어</option><option value="it">Italiano</option><option selected="selected" value="vi">Tiếng Việt</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="mr">मराठी</option></select></label></nav><div class="docs-layout"><aside class="docs-sidebar"><details open=""><summary>HƯỚNG DẪN CHUNG / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">Vibe-mã hóa. Đã vận chuyển. Bị hack.</a><a href="#firefox-and-chrome-choose-your-edition">Firefox và Chrome: chọn phiên bản của bạn</a><a href="#contents">Nội dung</a><a href="#what-runs-where">Cái gì chạy đi đâu</a><a href="#install-or-update-in-firefox-nightly">Cài đặt hoặc cập nhật trong Firefox hàng đêm</a><a href="#getting-started-and-target-sessions">Bắt đầu và nhắm mục tiêu phiên</a><a href="#light-discovery-and-a-focused-active-scan">Phát hiện ánh sáng và quét hoạt động tập trung</a><a href="#aggressive-options-and-run-approval">Tùy chọn linh hoạt và phê duyệt chạy</a><a href="#overview-checks">Kiểm tra tổng quan</a><a href="#scan-options-reference">Tham khảo tùy chọn quét</a><a href="#budgets-selectors-and-request-settings">Ngân sách, bộ chọn và cài đặt yêu cầu</a><a href="#fuzzer-auto-fuzz-and-probe-library">Thư viện Fuzzer, Auto-fuzz và Probe</a><a href="#your-payloads-and-imported-templates">Tải trọng của bạn và các mẫu đã nhập</a><a href="#server-stack-and-smart-analyzer">Ngăn xếp máy chủ và máy phân tích thông minh</a><a href="#oast-setup-and-interpretation">Thiết lập và giải thích OAST</a><a href="#browser-bridge-native-tool-proxy">Cầu trình duyệt: proxy công cụ gốc</a><a href="#native-bridge-configuration">Cấu hình cầu gốc</a><a href="#cookie-and-header-overrides-without-damaging-probes">Ghi đè cookie và tiêu đề mà không làm hỏng đầu dò</a><a href="#external-tools-and-actual-zap-scanning">Các công cụ bên ngoài và quét ZAP thực tế</a><a href="#tor-and-onion-routing">Định tuyến Tor và củ hành</a><a href="#agent-api-mcp-and-local-model-clients">API đại lý, MCP và máy khách mô hình cục bộ</a><a href="#optional-native-nuclei">Hạt nhân bản địa tùy chọn</a><a href="#manual-tools-interception-and-api-inventory">Công cụ thủ công, đánh chặn và kiểm kê API</a><a href="#findings-and-the-cimematic-viewer">Những phát hiện và người xem điện ảnh</a><a href="#owasp-top-10-coverage">Bảo hiểm hàng đầu của OWASP 10</a><a href="#recovery-assessment-files-and-reports">Phục hồi, đánh giá hồ sơ và báo cáo</a><a href="#appearance-language-and-help">Ngoại hình, ngôn ngữ và sự giúp đỡ</a><a href="#troubleshooting">Khắc phục sự cố</a><a href="#terms-and-source-references">Điều khoản và nguồn tham khảo</a></div></details><a class="markdown-download" download="" href="/longshot-security-site/docs/longshot-general-tutorial.md">Tải xuống Markdown ↓ · English</a></aside><main class="docs-main" id="documentation"><p class="eyebrow">TÀI LIỆU ĐẦY ĐỦ · CẬP NHẬT NGÀY 10 THÁNG 11 NĂM 2026</p><h1 id="longshot-2181-general-tutorial-and-control-reference">Longshot 2.18.1 — tài liệu tham khảo hướng dẫn và kiểm soát chung</h1>
+<p>Cập nhật ngày 10 tháng 11 năm 2026 cho Longshot <strong>2.18.1</strong> (phiên bản Firefox và Chrome) và <strong>proxy công cụ HTTP/HTTPS gốc</strong>. Điều này thay thế hướng dẫn chung 2.11.1. Hướng dẫn bên dưới mô tả quá trình triển khai được chuyển giao, bao gồm cả các giới hạn của nó; các ví dụ về cầu cũ hơn không thể thay thế được với phiên bản này.</p>
+<p>Longshot là bàn làm việc phiên trình duyệt để đánh giá ứng dụng web được ủy quyền. Nó kết hợp khả năng khám phá, trình quét hoạt động JavaScript của riêng nó, các công cụ HTTP thủ công, các mẫu đã nhập, đánh giá kết quả và báo cáo. Cầu trình duyệt tùy chọn cho phép các công cụ bên ngoài sử dụng các giá trị phiên Firefox đã chọn trong khi gửi các yêu cầu HTTP gốc của riêng chúng.</p>
+<p>Đường chuyền đầu tiên hữu ích là: <strong>mở ứng dụng → đăng nhập → khởi chạy Longshot từ tab đó → Kết nối → xác thực phiên → khám phá đầu vào → chạy kiểm tra đã chọn → xem xét bằng chứng</strong>.</p>
+<p>Đối với một ứng dụng xử lý dữ liệu nhạy cảm của người dùng hoặc tiền, bao gồm cả ứng dụng do AI xây dựng hoặc mã hóa rung cảm, hãy thuê một nhóm an ninh mạng để đánh giá chuyên nghiệp. Quét mở rộng không thay thế việc kiểm tra ủy quyền, đánh giá logic nghiệp vụ hoặc đánh giá bảo mật độc lập. Danh sách phát hiện trống không phải là chứng chỉ bảo mật.</p>
+<p>Tài liệu này giải thích các lệnh; cập nhật nó không cài đặt phần mềm, đăng ký máy chủ, thay đổi cài đặt trình duyệt hoặc chạy bất kỳ bản quét nào. Chỉ chạy các ví dụ đối với mục tiêu đánh giá được ủy quyền của bạn. mẫu <code dir="ltr" translate="no">http://localhost:8080</code> là một ví dụ về mục tiêu cục bộ, không phải là dịch vụ Longshot tích hợp.</p>
+<h2 id="vibe-coded-shipped-hacked">Vibe-mã hóa. Đã vận chuyển. Bị hack.</h2>
+<p><strong>Hãy tưởng tượng điều này:</strong> ứng dụng của bạn hoạt động, kẻ tấn công tìm thấy lỗ hổng và người dùng mở tài khoản của họ về số dư bằng 0. Tất cả tiền của họ—đã biến mất.</p>
+<p>Đoạn mã có vẻ thuyết phục. AI cho biết nó có vẻ an toàn. Điều đó là không đủ.</p>
+<p><strong>LLM là không xác định. Họ có thể bỏ sót những lỗ hổng và tạo ra những sai lầm đáng tin cậy. Bạn cần một ý kiến ​​​​thứ hai. Bạn cần Longshot.</strong></p>
+<p>Longshot biến Firefox thành một bàn làm việc bảo mật cho các ứng dụng web bạn xây dựng. Chạy các hoạt động kiểm tra lặp lại đối với ứng dụng đang thực sự chạy, kiểm tra bằng chứng HTTP và điều tra các điểm yếu trước khi người dùng của bạn phải trả giá.</p>
+<p>Hỗ trợ bìa séc <strong>Chèn SQL/NoSQL, chèn mẫu và mã phía máy chủ, các ứng cử viên XSS được phản ánh, truyền tải đường dẫn/bao gồm tệp, chuyển hướng mở và chèn CRLF/tiêu đề</strong>, với xác minh DOM XSS trực tiếp tùy chọn. Xem lại <strong>tiêu đề bảo mật yếu, chính sách cookie và CORS, cấu hình bị lộ và tiết lộ lỗi</strong>, với các kiểm tra tùy chọn cho các lớp tấn công tiếp theo.</p>
+<p>Bắt đầu từ tab trình duyệt bạn đã sử dụng. Giữ cookie trực tiếp, định cấu hình xác thực phiên, khôi phục sau khi mất phiên và sắp xếp các cài đặt, lịch sử và phát hiện của từng mục tiêu.</p>
+<p><strong>Đưa AI của bạn vào hoạt động—sau đó kiểm tra hoạt động của nó.</strong> Kết nối một đại lý thông qua MCP để tiến hành kiểm tra được ủy quyền và kiểm tra các phát hiện. Sử dụng Cầu trình duyệt gốc để đưa ZAP, sqlmap, cuộn tròn, ffuf hoặc wget vào phiên trình duyệt được kết nối mà không cần sao chép các giá trị cookie theo cách thủ công. Các công cụ gửi yêu cầu HTTP và tải trọng của riêng chúng; ghi đè cookie trình duyệt được bật theo mặc định và có thể tắt được.</p>
+<p>Người dùng nâng cao có thể nhập tương thích <strong>mẫu CVE</strong> và tương quan <strong>Cuộc gọi lại OAST</strong> với những đầu dò đã gây ra chúng. Xem xét và ghi lại các phán quyết của bạn, sau đó xuất ra nhiều bằng chứng <strong>Báo cáo HTML, JSON, CSV hoặc SARIF</strong>, với đầu ra in/PDF. Giải thích kết quả bằng <strong>người xem phim ảnh</strong>, bao gồm ngữ cảnh trang CSS/JavaScript trực tiếp, các phần tử 3D hoạt hình, điều khiển tạm dừng và toàn màn hình. Chọn một chủ đề sắc nét và tùy chỉnh chuyển động cũng như âm thanh để phù hợp với không gian làm việc của bạn.</p>
+<p><strong>Trước khi bạn gửi đi sự tự tin, hãy yêu cầu bằng chứng. Cú sút xa.</strong></p>
+<h3 id="quick-scan-one-sentence">Quét nhanh - một câu</h3>
+<p>Mở ứng dụng của bạn trong Firefox, đăng nhập nếu cần, khởi chạy Longshot từ tab đó, nhấp vào Kết nối, xác thực kiểm tra phiên đã định cấu hình, sau đó chọn Spider + kiểm tra hoạt động → Bắt đầu quét và xem lại Kết quả.</p>
+<h3 id="short-ad">Quảng cáo ngắn</h3>
+<p>Ứng dụng mã hóa rung cảm của bạn đang hoạt động. AI đã bỏ lỡ điều gì? Longshot kiểm tra ứng dụng đang chạy để tìm nội dung, XSS và các điểm yếu phổ biến khác, bổ sung kiểm tra phiên trình duyệt và quy trình làm việc AI/MCP, đồng thời cung cấp cho bạn bằng chứng để xem xét. Bạn cần một ý kiến ​​​​thứ hai. Bạn cần Longshot.</p>
+<h3 id="compact-description">Mô tả nhỏ gọn</h3>
+<p>Ý kiến thứ hai đối với các ứng dụng được mã hóa theo cảm xúc: kiểm tra phiên trình duyệt, AI/MCP, các công cụ gốc có tính năng ghi đè cookie trình duyệt có thể định cấu hình, CVE/OAST, các phát hiện và báo cáo điện ảnh.</p>
+<h3 id="campaign-captions">Chú thích chiến dịch</h3>
+<ol>
+<li><strong>VIBE-Mã hóa. Đã vận chuyển. ĐÃ HACK.</strong> Một kịch bản giả định về việc khởi chạy và mất tài khoản; có được ý kiến ​​​​thứ hai trước khi vận chuyển.</li>
+<li><strong>KIỂM TRA PHIÊN. KIỂM TRA ỨNG DỤNG.</strong> Cookie trực tiếp, xác nhận và bằng chứng cụ thể về mục tiêu.</li>
+<li><strong>AI VIẾT NÓ. AI KIỂM TRA NÓ?</strong> Đưa các đề xuất AI vào quy trình bảo mật có thể xem xét được.</li>
+<li><strong>CÔNG CỤ CỦA BẠN. TAB CỦA BẠN. PHIÊN CỦA BẠN.</strong> Cầu trình duyệt cho các tiện ích HTTP cục bộ được hỗ trợ.</li>
+<li><strong>SĂN LỖI. THEO DÕI BẰNG CHỨNG.</strong> Các mẫu CVE tương thích nâng cao và tương quan OAST.</li>
+<li><strong>BẰNG CHỨNG VỀ SỰ ĐẢM BẢO.</strong> Xem lại và xuất báo cáo trong không gian làm việc mà bạn có thể tùy chỉnh.</li>
+<li><strong>AI CỦA BẠN KHÔNG PHẢI LÀ MỘT BẢN XÁC MINH AN NINH.</strong> MCP kiểm tra ứng dụng đang chạy của bạn; bằng chứng bạn có thể xem xét.</li>
+<li><strong>PHIÊN HẾT HẠN. BỊ MẤT BỐI CẢNH.</strong> Xác thực, tạm dừng, đăng nhập lại và tiếp tục.</li>
+</ol>
+<h3 id="selling-points-in-2181">Điểm bán hàng ở 2.18.1</h3>
+<table>
+<thead>
+<tr>
+<th>Điểm bán hàng</th>
+<th>Lợi ích thiết thực</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Phiên trình duyệt đăng nhập của bạn, công cụ của bạn</strong></td>
+<td>ZAP và các máy khách proxy HTTP khác sử dụng lọ cookie Firefox đã chọn theo mặc định, với tính năng đồng bộ hóa cookie phản hồi và các công tắc tắt độc lập.</td>
+</tr>
+<tr>
+<td><strong>Công cụ quét bên ngoài thực sự</strong></td>
+<td>ZAP tạo các yêu cầu và tải trọng HTTP gốc của riêng mình thông qua Cầu trình duyệt; ghi đè cookie/tiêu đề đã chọn là rõ ràng.</td>
+</tr>
+<tr>
+<td><strong>Bảo vệ đầu dò, giữ phiên</strong></td>
+<td>Các trường được bảo vệ và bỏ qua theo yêu cầu cho phép bạn duy trì các đột biến tiêu đề/cookie có chủ ý của công cụ.</td>
+</tr>
+<tr>
+<td><strong>Bằng chứng bạn có thể kiểm tra</strong></td>
+<td>Quy tắc hoạt động chuyên dụng sử dụng các điều khiển lặp đi lặp lại; phạm vi đầu vào thực tế phân biệt công việc đã hoàn thành, một phần và bị bỏ qua.</td>
+</tr>
+<tr>
+<td><strong>AI có thể hoạt động thông qua giao diện</strong></td>
+<td>MCP hiển thị các lệnh quét và điều khiển bảng thông tin được hỗ trợ để các tác nhân tương thích có thể vận hành bàn làm việc và truy xuất kết quả.</td>
+</tr>
+<tr>
+<td><strong>Những phát hiện bạn có thể giải thích</strong></td>
+<td>Trình xem điện ảnh kết hợp bối cảnh trang hiện tại, bằng chứng được ghi lại, giải thích 3D và các rủi ro tiềm ẩn bằng ngôn ngữ đơn giản.</td>
+</tr>
+<tr>
+<td><strong>Mang theo tài liệu kiểm tra của riêng bạn</strong></td>
+<td>Tải lên các gói tải trọng dành riêng cho mục tiêu và các mẫu đã được xem xét; làm mới danh sách cộng đồng được hỗ trợ từ giao diện.</td>
+</tr>
+<tr>
+<td><strong>Một không gian làm việc luôn là của bạn</strong></td>
+<td>Dữ liệu đánh giá theo mục tiêu, ghi chú đánh giá, điểm kiểm tra tệp tùy chọn, báo cáo ngoại tuyến, chủ đề và 20 ngôn ngữ giao diện người dùng đi kèm.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publication-notes">Ghi chú xuất bản</h3>
+<p>Câu chuyện mất tài khoản chỉ là giả định, không phải là khiếu nại về một khách hàng thực sự hay lời đảm bảo rằng Longshot sẽ ngăn ngừa tổn thất tài chính. Tiện ích mở rộng thực hiện đánh giá chứ không phải chặn tấn công liên tục. Các phát hiện cần được xem xét lại; bảng bao phủ giải thích hỗ trợ giới hạn và các khoảng trống chỉ thủ công. Phân tích DOM bao gồm các chỉ báo và các canary thực thi được hỗ trợ, không bao gồm phạm vi khai thác DOM phổ quát. Đoạn phim giải thích bằng chứng; nó không thêm bằng chứng khai thác.</p>
+<p>MCP và Cầu trình duyệt cần thiết lập cục bộ. Proxy công cụ gốc sử dụng quy trình Node/Python/mitmproxy riêng biệt và việc chặn HTTPS yêu cầu cấu hình tin cậy của công cụ cho CA bộ điều hợp. Nó được phân tích cú pháp truyền tải HTTP, không phải TCP thô trong suốt byte. Ghi đè cookie có thể bị vô hiệu hóa; cookie trình duyệt hoặc Tác nhân người dùng không đảm bảo kết nối mạng giống hệt trình duyệt hoặc chấp nhận WAF. ZAP bên ngoài vẫn được cài đặt riêng. Việc thực thi mẫu phụ thuộc vào khả năng tương thích/thời gian chạy; OAST yêu cầu nhà cung cấp được định cấu hình. Xác thực xác thực cần có điểm cuối/điểm đánh dấu được bảo vệ có ý nghĩa. Hồ sơ mục tiêu dữ liệu đánh giá riêng biệt; tab/vùng chứa cung cấp phiên cookie.</p>
+<p>Đối với các ứng dụng xử lý dữ liệu nhạy cảm hoặc tiền, hãy thuê nhóm an ninh mạng và sử dụng Longshot làm một phần của đánh giá. Chỉ sử dụng nó trên các ứng dụng bạn sở hữu hoặc được phép kiểm tra.</p>
+<p>Nếu sử dụng lại hình ảnh chiến dịch đã tạo trước đó, hãy gắn nhãn chúng dưới dạng bố cục và sử dụng ảnh chụp màn hình thực tế hiện tại ở bất kỳ nơi nào yêu cầu giao diện người dùng chính xác đến pixel. Hướng dẫn này liên kết các ảnh chụp màn hình xác thực 2.18.1 thực tế trong phần giao diện; nó không bao gồm gói chiến dịch tám hình ảnh mới hoặc yêu cầu chứng thực của bên thứ ba.</p>
+<h2 id="firefox-and-chrome-choose-your-edition">Firefox và Chrome: chọn phiên bản của bạn</h2>
+<p>Hướng dẫn đầy đủ này mô tả bộ tính năng được hỗ trợ của Firefox. Chrome sử dụng cùng một bàn làm việc phiên trình duyệt cốt lõi với những khác biệt về nền tảng bên dưới. Các tham chiếu đến bộ chứa Firefox, thực thi DOM trực tiếp, chặn và viết lại trình duyệt VHOST ở phần sau của hướng dẫn này chỉ dành cho Firefox.</p>
+<table>
+<thead>
+<tr>
+<th>Khả năng</th>
+<th>Firefox</th>
+<th>Chrome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kiểm tra hoạt động của trình duyệt, làm mờ thủ công/tự động, các mẫu HTTP được hỗ trợ, OAST, bằng chứng và báo cáo ngăn xếp</td>
+<td>Được hỗ trợ với các điều kiện tiên quyết được ghi lại</td>
+<td>Được hỗ trợ với các điều kiện tiên quyết được ghi lại</td>
+</tr>
+<tr>
+<td>Proxy HTTP gốc có ghi đè cookie/tiêu đề của trình duyệt và đồng bộ hóa cookie phản hồi</td>
+<td>Được hỗ trợ</td>
+<td>Được hỗ trợ</td>
+</tr>
+<tr>
+<td>Công cụ AJAX ngữ cảnh trang và xác minh thực thi DOM XSS trực tiếp</td>
+<td>Được hỗ trợ khi được phê duyệt và cho phép</td>
+<td>Không có sẵn trong phiên bản này</td>
+</tr>
+<tr>
+<td>Thùng chứa riêng Phiên B, chặn và viết lại trình duyệt VHOST</td>
+<td>Được hỗ trợ khi được cấu hình và cho phép</td>
+<td>Không có sẵn trong phiên bản này</td>
+</tr>
+<tr>
+<td>Tìm người xem</td>
+<td>Bằng chứng thu được và bối cảnh trang trực tiếp được hỗ trợ</td>
+<td>Bằng chứng bị bắt giữ; chụp trang nền trực tiếp không có sẵn</td>
+</tr>
+<tr>
+<td>Vòng đời động cơ</td>
+<td>Trang nền liên tục</td>
+<td>Giữ bàn làm việc có thể nhìn thấy được mở; việc đóng nó sẽ dừng các yêu cầu gốc được ghép nối mới</td>
+</tr>
+<tr>
+<td>Duyệt web riêng tư</td>
+<td>Bối cảnh được chọn, tùy thuộc vào sự cho phép và thiết lập</td>
+<td>Bị vô hiệu hóa trong phiên bản này</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-the-chrome-edition">Cài đặt phiên bản Chrome</h3>
+<ol>
+<li>Tải xuống <strong>ZIP của Chrome</strong> từ các liên kết phát hành ở trên/bên dưới và giải nén nó vào một thư mục bạn giữ.</li>
+<li>Mở <code dir="ltr" translate="no">chrome://extensions</code>, kích hoạt <strong>Chế độ nhà phát triển</strong>, chọn <strong>Tải đã giải nén</strong>, sau đó chọn thư mục giải nén chứa <code dir="ltr" translate="no">manifest.json</code>.</li>
+<li>Mở ứng dụng được ủy quyền của bạn, đăng nhập, khởi chạy Longshot từ tab đó và Kết nối.</li>
+<li>Luôn mở tab bàn làm việc trong quá trình quét và ghép nối gốc. Việc đóng nó sẽ kết thúc hoạt động của động cơ trực tiếp; bằng chứng đã lưu vẫn còn và được khôi phục mà không phát lại các yêu cầu không chắc chắn.</li>
+<li>Để khởi động proxy công cụ gốc, hãy sử dụng nguồn gốc chính xác do Chrome hiển thị, chẳng hạn như <code dir="ltr" translate="no">chrome-extension://YOUR_INSTALLED_ID</code>, chứ không phải là Firefox <code dir="ltr" translate="no">moz-extension://</code> nguồn gốc. Proxy sử dụng URL mục tiêu thực; không cần nhập tập tin máy chủ.</li>
+</ol>
+<h3 id="chrome-agent-api-mcp-registration">Đăng ký API Chrome Agent/MCP</h3>
+<p>Từ kiểm tra nguồn đầy đủ được giữ lại, sau khi cài đặt phần phụ thuộc của trình trợ giúp được ghim:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev
+node bridge/bin/longshot-bridge install --browser chrome \
+  --extension-id YOUR_INSTALLED_32_LETTER_ID \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+node bridge/bin/longshot-bridge mcp \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+</code></pre>
+<p>Để sử dụng crom <code dir="ltr" translate="no">--browser chromium</code>. Sử dụng ID thực tế trong <code dir="ltr" translate="no">chrome://extensions</code>; đăng ký lại nếu cài đặt phiên bản cửa hàng có ID khác. Thư mục cổng/dữ liệu riêng biệt tránh xung đột với máy chủ Firefox. API tác nhân này khác với proxy công cụ HTTP (cổng mặc định 8900/8901). Linux là nền tảng máy chủ gốc đã được thử nghiệm; Đăng ký macOS được triển khai nhưng chưa được kiểm tra tại đây và không có trình cài đặt máy chủ gốc Windows nào được cung cấp.</p>
+<p>Cấu hình Cầu trình duyệt chi tiết cũng có sẵn trong tiện ích mở rộng <strong>Cầu trình duyệt → Thông tin</strong> hộp thoại. README dạng dài và các tài liệu về nền tảng/quyền riêng tư mới là tiếng Anh; Lựa chọn ngôn ngữ giao diện người dùng đi kèm không dịch bằng chứng mục tiêu, tải trọng hoặc ví dụ thực thi.</p>
+<h2 id="contents">Nội dung</h2>
+<ul>
+<li><a href="#firefox-and-chrome-choose-your-edition">Phiên bản và thiết lập Firefox / Chrome</a></li>
+<li><a href="#vibe-coded-shipped-hacked">Điểm quảng cáo và bán hàng</a></li>
+</ul>
+<ol>
+<li><a href="#what-runs-where">Cái gì chạy đi đâu</a></li>
+<li><a href="#install-or-update-in-firefox-nightly">Cài đặt hoặc cập nhật trong Firefox hàng đêm</a></li>
+<li><a href="#getting-started-and-target-sessions">Bắt đầu và nhắm mục tiêu phiên</a></li>
+<li><a href="#light-discovery-and-a-focused-active-scan">Phát hiện ánh sáng và quét hoạt động tập trung</a></li>
+<li><a href="#aggressive-options-and-run-approval">Tùy chọn linh hoạt và phê duyệt chạy</a></li>
+<li><a href="#overview-checks">Kiểm tra tổng quan</a></li>
+<li><a href="#scan-options-reference">Tham khảo tùy chọn quét</a></li>
+<li><a href="#budgets-selectors-and-request-settings">Ngân sách, bộ chọn và cài đặt yêu cầu</a></li>
+<li><a href="#fuzzer-auto-fuzz-and-probe-library">Thư viện Fuzzer, Auto-fuzz và Probe</a></li>
+<li><a href="#your-payloads-and-imported-templates">Tải trọng của bạn và các mẫu đã nhập</a></li>
+<li><a href="#server-stack-and-smart-analyzer">Ngăn xếp máy chủ và máy phân tích thông minh</a></li>
+<li><a href="#oast-setup-and-interpretation">Thiết lập và giải thích OAST</a></li>
+<li><a href="#browser-bridge-native-tool-proxy">Cầu trình duyệt: proxy công cụ gốc</a></li>
+<li><a href="#native-bridge-configuration">Cấu hình cầu gốc</a></li>
+<li><a href="#cookie-and-header-overrides-without-damaging-probes">Ghi đè cookie và tiêu đề mà không làm hỏng đầu dò</a></li>
+<li><a href="#external-tools-and-actual-zap-scanning">Các công cụ bên ngoài và quét ZAP thực tế</a></li>
+<li><a href="#tor-and-onion-routing">Định tuyến Tor và củ hành</a></li>
+<li><a href="#agent-api-mcp-and-local-model-clients">API đại lý, MCP và máy khách mô hình cục bộ</a></li>
+<li><a href="#optional-native-nuclei">Hạt nhân bản địa tùy chọn</a></li>
+<li><a href="#manual-tools-interception-and-api-inventory">Công cụ thủ công, đánh chặn và kiểm kê API</a></li>
+<li><a href="#findings-and-the-cimematic-viewer">Những phát hiện và người xem điện ảnh</a></li>
+<li><a href="#owasp-top-10-coverage">Bảo hiểm hàng đầu của OWASP 10</a></li>
+<li><a href="#recovery-assessment-files-and-reports">Phục hồi, đánh giá hồ sơ và báo cáo</a></li>
+<li><a href="#appearance-language-and-help">Ngoại hình, ngôn ngữ và sự giúp đỡ</a></li>
+<li><a href="#troubleshooting">Khắc phục sự cố</a></li>
+<li><a href="#terms-and-source-references">Điều khoản và nguồn tham khảo</a></li>
+</ol>
+<h2 id="what-runs-where">Cái gì chạy đi đâu</h2>
+<p>Từ "cầu" đề cập đến các thành phần khác nhau. Chọn thành phần cần thiết cho nhiệm vụ của bạn.</p>
+<table>
+<thead>
+<tr>
+<th>thành phần</th>
+<th>Chạy ở đâu</th>
+<th>Nó làm gì</th>
+<th>Kết nối mặc định</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Máy quét tích hợp, Repeater và Fuzzer</td>
+<td>Tiện ích mở rộng của Firefox và tab mục tiêu bị ràng buộc</td>
+<td>Kiểm tra HTTP phiên trình duyệt bằng quy tắc JavaScript của Longshot</td>
+<td>Không cần quá trình proxy bên ngoài</td>
+</tr>
+<tr>
+<td><strong>Cầu trình duyệt / Proxy công cụ gốc</strong></td>
+<td>Điều phối viên Node cục bộ cộng với mitmproxy được cài đặt riêng</td>
+<td>Mang theo các yêu cầu HTTP/HTTPS của chính các công cụ bên ngoài; tùy chọn ghi đè cookie và các tiêu đề đã chọn từ Firefox</td>
+<td>Proxy HTTP <code dir="ltr" translate="no">127.0.0.1:8900</code>; kiểm soát mở rộng <code dir="ltr" translate="no">127.0.0.1:8901</code></td>
+</tr>
+<tr>
+<td><strong>API tác nhân/cầu nối tin nhắn gốc</strong></td>
+<td>Dịch vụ nút cục bộ đã đăng ký với Firefox</td>
+<td>Tự động hóa REST/MCP/UI, các tệp đánh giá và thực thi Nuclei gốc tùy chọn</td>
+<td>API <code dir="ltr" translate="no">http://127.0.0.1:8765</code></td>
+</tr>
+<tr>
+<td>ZAP bên ngoài, cuộn tròn, ffuf, sqlmap hoặc Nuclei CLI</td>
+<td>Các tiến trình riêng biệt do bạn cài đặt</td>
+<td>Tạo lưu lượng truy cập và kết quả của riêng họ, tùy chọn thông qua proxy công cụ gốc</td>
+<td>Định cấu hình proxy HTTP gửi đi của từng công cụ</td>
+</tr>
+<tr>
+<td>Hạt nhân bản địa bị cô lập do Longshot đưa ra</td>
+<td>Máy chủ API đại lý và hộp cát Linux</td>
+<td>Chạy các mẫu đã nhập đủ điều kiện với công cụ Nuclei chính thức</td>
+<td>Lộ trình thực hiện biệt lập; không xuất cookie Firefox tự động</td>
+</tr>
+</tbody>
+</table>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">Built-in scan / Repeater / Fuzzer
+        → Firefox networking + target tab's session → target
+
+External ZAP / curl / another HTTP tool
+        → authenticated native proxy :8900 → mitmproxy → target
+                        ↑
+             selected cookie/header values
+                        ↑
+              paired Firefox tab via :8901
+
+MCP or REST client → Agent API :8765 → Longshot commands / UI
+                                      └→ separately enabled native jobs
+</code></pre>
+<p><strong>Bắt đầu quét không chạy ZAP.</strong> Ghép nối ZAP với Cầu trình duyệt không thay thế trình quét JavaScript của Longshot hoặc nhập tất cả cảnh báo ZAP vào Longshot. Xem lại những phát hiện của công cụ bên ngoài trong công cụ đó; hiển thị lưu lượng truy cập cầu gốc là siêu dữ liệu, không phải là trình nhập kết quả lỗ hổng bảo mật hoàn chỉnh.</p>
+<h3 id="changes-that-invalidate-old-instructions">Những thay đổi làm mất hiệu lực các hướng dẫn cũ</h3>
+<table>
+<thead>
+<tr>
+<th>Hướng dẫn cũ hơn</th>
+<th>Sử dụng trong 2.18.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chọn tìm nạp trình duyệt cũ</td>
+<td>Đã bị xóa khỏi Cầu trình duyệt và XPI</td>
+</tr>
+<tr>
+<td>Gửi công cụ tới <code dir="ltr" translate="no">http://bridge.invalid</code></td>
+<td>Sử dụng URL mục tiêu thực tế</td>
+</tr>
+<tr>
+<td>Thêm <code dir="ltr" translate="no">bridge.invalid</code> để <code dir="ltr" translate="no">/etc/hosts</code></td>
+<td>Không cần nhập; đừng thêm một cái cho cây cầu này</td>
+</tr>
+<tr>
+<td>Bật proxy <code dir="ltr" translate="no">8899</code>; bắt đầu <code dir="ltr" translate="no">node ./bridge/cli.js</code> trong bộ chuyển đổi cũ</td>
+<td>Bộ điều hợp gốc đã tải xuống sử dụng <code dir="ltr" translate="no">node cli.js</code>; cổng proxy/điều khiển mặc định là <code dir="ltr" translate="no">8900</code> / <code dir="ltr" translate="no">8901</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, <code dir="ltr" translate="no">X-Bridge-Host</code>, <code dir="ltr" translate="no">/v1/cookies</code>, điểm cuối kiểm tra cặp</td>
+<td>Giao diện bộ chuyển đổi cũ; không đặt chúng trong cấu hình gốc hoặc cho rằng chúng tồn tại</td>
+</tr>
+<tr>
+<td>Bridge gửi TCP thô chính xác theo byte hoặc lưu lượng truy cập lậu</td>
+<td>Proxy gốc phân tích cú pháp HTTP; khung không đúng định dạng và TCP trong suốt byte không được hỗ trợ</td>
+</tr>
+<tr>
+<td>Phiên trình duyệt có nghĩa là các công cụ bên ngoài không cần CA</td>
+<td>Việc chặn HTTPS cần có công cụ để tin cậy CA được tạo bởi bộ điều hợp gốc</td>
+</tr>
+<tr>
+<td>Định tuyến Tor được kế thừa từ Firefox</td>
+<td>Định tuyến bộ điều hợp gốc là riêng biệt; SOCKS bị tắt theo mặc định</td>
+</tr>
+<tr>
+<td>Bộ điều hợp tạm dừng/khởi động lại các nhóm quy trình bên ngoài hoặc tự động phát lại công việc không thành công</td>
+<td>Tạm dừng chặn các yêu cầu proxy mới; kiểm tra và thử lại/tiếp tục công cụ một cách rõ ràng</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-or-update-in-firefox-nightly">Cài đặt hoặc cập nhật trong Firefox hàng đêm</h2>
+<p>Sử dụng <strong>2.18.1 XPI</strong>, không phải một bộ chuyển đổi ZIP cũ được đổi tên thành một tiện ích bổ sung. Trích xuất kho lưu trữ nguồn phù hợp vào một thư mục mà bạn giữ nguyên, được hiển thị dưới dạng <code dir="ltr" translate="no">/path/to/longshot</code> trong các ví dụ. Không di chuyển máy chủ gốc đã đăng ký mà không đăng ký lại.</p>
+<p>Các tập tin phát hành là:</p>
+<ul>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1.xpi">Firefox XPI</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-chrome.zip">ZIP của Chrome</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-source.zip">Phù hợp với nguồn mở rộng ZIP</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/tag/v2.18.1">Ghi chú phát hành và tổng kiểm tra</a></li>
+<li>Bộ điều hợp gốc ZIP: tải xuống bên trong Cầu trình duyệt; nó được bao gồm trong mỗi gói mở rộng.</li>
+</ul>
+<p>Đây là các bản dựng phát triển/đệ trình. Việc ký kết cửa hàng Firefox và sự chấp thuận của cả hai thị trường đang chờ xử lý. Thực hiện theo quy trình tải phát triển hiện hành thay vì mong đợi XPI chưa được ký sẽ cài đặt bình thường trong bản phát hành Firefox.</p>
+<p>Tệp kê khai yêu cầu Firefox 140 hoặc mới hơn. Kiểm tra tích hợp phát hành đã sử dụng máy tính để bàn Firefox 159 trên Linux. Hỗ trợ nền tảng/thời gian chạy cho người trợ giúp tùy chọn tách biệt với hỗ trợ tiện ích mở rộng cơ bản.</p>
+<p>Đối với cài đặt tạm thời chưa được ký:</p>
+<ol>
+<li>Mở <code dir="ltr" translate="no">about:debugging#/runtime/this-firefox</code>.</li>
+<li>chọn <strong>Tải tiện ích bổ sung tạm thời</strong> và chọn XPI.</li>
+<li>Xác nhận phiên bản được hiển thị của Longshot, sau đó mở mục tiêu và khởi chạy nút thanh công cụ của nó.</li>
+<li>Tải lại tiện ích mở rộng sau khi thay thế bản dựng phát triển đã giải nén.</li>
+</ol>
+<p>Tiện ích bổ sung tạm thời sẽ biến mất sau khi Firefox khởi động lại. Đó là điều được mong đợi; nó không phải là bộ điều hợp xóa phần mở rộng. Việc phân phối công khai liên tục cần có sự ký kết của Mozilla. Hàng đêm có thêm các tùy chọn phát triển chưa được ký được mô tả bởi <a href="https://www.extensionworkshop.com/documentation/publish/signing-and-distribution-overview/">Hướng dẫn ký của Mozilla</a>; tải tạm thời không yêu cầu thay đổi các cài đặt đó. Xem <a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">cài đặt tạm thời</a>.</p>
+<p>XPI gói bộ điều hợp gốc dưới dạng kho lưu trữ có thể tải xuống. Nó không thể bắt đầu quá trình Node/Python tùy ý hoặc cài đặt máy chủ gốc chỉ thông qua Tiện ích bổ sung của Firefox. Khởi động proxy và đăng ký API tác nhân là các bước thiết lập cục bộ tùy chọn riêng biệt.</p>
+<h2 id="getting-started-and-target-sessions">Bắt đầu và nhắm mục tiêu phiên</h2>
+<h3 id="connect-the-right-tab">Kết nối tab bên phải</h3>
+<ol>
+<li>Mở mục tiêu được ủy quyền trong Firefox, ví dụ <code dir="ltr" translate="no">http://localhost:8080</code>.</li>
+<li>Đăng nhập bằng tài khoản thử nghiệm dự định và hoàn thành mọi thử thách trình duyệt.</li>
+<li>Khởi động cú đánh xa <strong>từ tab mục tiêu đó</strong>. Giữ tab ứng dụng mở.</li>
+<li>Kiểm tra địa chỉ mục tiêu và chọn <strong>Kết nối</strong>.</li>
+<li>sử dụng <strong>Bắt đầu</strong> trong tiêu đề của hướng dẫn được đánh dấu tám bước. Nó có thể được phát lại; nó không bắt đầu quét hoặc tự thay đổi cài đặt.</li>
+<li>Duyệt qua các trang ứng dụng đại diện để Longshot có thể quan sát các tuyến đường và thông tin đầu vào hữu ích.</li>
+</ol>
+<p>Nguồn gốc mục tiêu bao gồm lược đồ, tên máy chủ và cổng. <code dir="ltr" translate="no">http://localhost:8080</code>, <code dir="ltr" translate="no">http://127.0.0.1:8080</code> và <code dir="ltr" translate="no">https://localhost:8080</code> có nguồn gốc khác nhau, ngay cả khi cuối cùng chúng đạt được cùng một dịch vụ. Kết nối và sử dụng địa chỉ chính xác dành cho việc đánh giá. Địa chỉ IP được quan sát đằng sau tên máy chủ không tự động trở thành mục tiêu được ủy quyền bổ sung.</p>
+<h3 id="configure-session-validation">Định cấu hình xác thực phiên</h3>
+<p>Mở <strong>Cài đặt → Cài đặt máy quét</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>trường</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Đường dẫn xác thực phiên</td>
+<td>Đường dẫn trang/API trong phạm vi yêu cầu xác thực</td>
+</tr>
+<tr>
+<td>Văn bản được xác thực dự kiến</td>
+<td>Điểm đánh dấu ổn định xuất hiện khi tài khoản đã chọn đăng nhập và vắng mặt sau khi đăng xuất</td>
+</tr>
+<tr>
+<td>Số byte phản hồi được xác thực tối thiểu</td>
+<td>Ngưỡng kích thước thấp hơn bổ sung tùy chọn; số không vô hiệu hóa nó</td>
+</tr>
+<tr>
+<td>Đường dẫn đăng nhập</td>
+<td>Đường dẫn đăng nhập của ứng dụng, khi cần thiết để phát hiện từ chối</td>
+</tr>
+<tr>
+<td>Xác nhận lại sau nhiều yêu cầu này</td>
+<td>Kiểm tra phiên độc lập định kỳ; mặc định 20</td>
+</tr>
+<tr>
+<td>Yêu cầu xác thực phiên thành công trước khi quét</td>
+<td>Yêu cầu trình xác nhận được định cấu hình phải vượt qua; tắt mặc định</td>
+</tr>
+</tbody>
+</table>
+<p>Lưu cài đặt và sử dụng <strong>Tổng quan → Kiểm tra phiên</strong>. Trang công khai trả về 200 không phải là bằng chứng xác thực. Chuyển hướng đến một trang đăng nhập theo sau là 200 vẫn có thể biểu thị một phiên không hợp lệ; chọn một điểm cuối được bảo vệ và điểm đánh dấu có ý nghĩa.</p>
+<p>Trình quét tích hợp sử dụng cookie trình duyệt hiện hành của tab bị ràng buộc, bao gồm cả cookie HttpOnly. Firefox chọn cookie theo URL, đường dẫn, thuộc tính bảo mật và kho cookie. Các trường Cookie/Ủy quyền/Máy chủ được bảo vệ của máy quét không phải là các đầu vào lông tơ có thể chỉnh sửa thông thường.</p>
+<h3 id="profiles-and-accounts">Hồ sơ và tài khoản</h3>
+<p><strong>Mục tiêu</strong> phân tách lịch sử, phát hiện, nhật ký yêu cầu, điểm cuối được phát hiện, đánh giá và cấu hình quét. Việc quay lại hồ sơ sẽ khôi phục dữ liệu đánh giá chứ không phải phiên trình duyệt đã được xác thực cũ. Hồ sơ rõ ràng có thể chia sẻ nguồn gốc.</p>
+<p>Hai tab Firefox thông thường thường chia sẻ cookie. Sử dụng các vùng chứa độc lập hoặc một kho cookie riêng biệt để nhận dạng thử nghiệm thực sự khác nhau. Việc chuyển đổi hồ sơ không tạo ra phiên tài khoản thứ hai. So sánh phiên B yêu cầu cùng một nguồn gốc mục tiêu và một cửa hàng riêng biệt.</p>
+<h2 id="light-discovery-and-a-focused-active-scan">Phát hiện ánh sáng và quét hoạt động tập trung</h2>
+<h3 id="first-pass-discovery-and-passive-review">Vượt qua đầu tiên: khám phá và đánh giá thụ động</h3>
+<ol>
+<li>Đặt <strong>Yêu cầu mỗi giây</strong> đến 0,5–1, độ sâu thu thập dữ liệu lên 1 và số URL được phát hiện tối đa là 25–50.</li>
+<li>Rời khỏi <strong>Phát hiện tối đa</strong>, <strong>hung hãn</strong>, Tắt tự động pha CVE, OAST và thực thi gốc.</li>
+<li>Đặt <strong>Tự động làm mờ → Tắt</strong>. Tắt các lần nhấp/cuộn trang và tắt các bài kiểm tra DOM/thời gian/gọi lại trực tiếp.</li>
+<li>Chọn các nhóm Tổng quan thụ động: tiêu đề, cookie, tiết lộ, biểu mẫu, đánh giá nguồn/phần chìm DOM và CORS.</li>
+<li>chọn <strong>Chỉ nhện</strong> và bắt đầu.</li>
+<li>Kiểm tra <strong>Sơ đồ trang web</strong>, <strong>Lịch sử HTTP</strong>, <strong>Trình khám phá API</strong>, <strong>Ngăn xếp máy chủ</strong> và <strong>Những phát hiện</strong>.</li>
+</ol>
+<p>Spider theo dõi các liên kết/biểu mẫu được phát hiện trong phạm vi mà không gửi biểu mẫu ghi. Nó không biết mọi điểm cuối ẩn. Yêu cầu GET vẫn có thể có tác dụng phụ dành riêng cho ứng dụng; “Phương pháp đọc” không đặt ra mục tiêu không có tác dụng phụ.</p>
+<h3 id="second-pass-a-bounded-active-assessment">Đạt lần thứ hai: đánh giá tích cực có giới hạn</h3>
+<ol>
+<li>Giữ <strong>Tự động làm mờ → Tắt</strong> để làm cho các quy tắc hoạt động tích hợp dễ dàng hơn khi xem xét riêng lẻ.</li>
+<li>Chọn các kiểm tra hoạt động Tổng quan có liên quan, chẳng hạn như SQL SQL và XSS phản ánh.</li>
+<li>Sử dụng các giới hạn nhỏ, ví dụ: 150 yêu cầu hiện hoạt, 10 URL hoạt động và 5 thông số hoạt động.</li>
+<li>chọn <strong>Chỉ kiểm tra hoạt động</strong> để sử dụng lại trang hiện tại và khoảng không quảng cáo đã lưu hoặc <strong>Spider + kiểm tra hoạt động</strong> để khám phá đầu tiên.</li>
+<li>Bắt đầu, xem xét mọi phê duyệt cần thiết và xem số lượng Hoạt động và yêu cầu.</li>
+<li>Kiểm tra từng yêu cầu của phát hiện, đường cơ sở, bằng chứng thăm dò/kiểm soát lặp đi lặp lại, phán quyết và độ tin cậy.</li>
+<li>Mở <strong>Kiểm tra WSTG → Phạm vi đầu vào thực tế</strong> để xem công việc đã hoàn thành, một phần và bị bỏ qua.</li>
+</ol>
+<p><strong>Auto-fuzz Off không tắt các kiểm tra đang hoạt động.</strong> SQLi/XSS/SSTI và các quy tắc chuyên dụng khác tạo ra các thăm dò riêng. Ngược lại, việc đánh dấu vào một quy tắc đang hoạt động sẽ không cung cấp đầu vào bị thiếu hoặc khiến quá trình chạy chỉ dành cho Spider thực hiện giai đoạn hoạt động chung.</p>
+<h2 id="aggressive-options-and-run-approval">Tùy chọn linh hoạt và phê duyệt chạy</h2>
+<p>Tích cực cho phép các phương pháp/khả năng được phê duyệt rõ ràng; nó không thực hiện mọi cuộc kiểm tra hoặc đảm bảo bằng chứng mạnh mẽ hơn.</p>
+<ol>
+<li>Khám phá đầu vào và xác thực xác thực trước tiên.</li>
+<li>Chỉ bật các tùy chọn nâng cao cần thiết và quyền ghi/tải lên/xóa.</li>
+<li>Lưu tùy chọn quét.</li>
+<li>chọn <strong>Xem xét/phê duyệt lần chạy tích cực tiếp theo</strong>.</li>
+<li>Xem xét mục tiêu, tính năng, quyền của phương pháp và ngân sách.</li>
+<li>nhấp chuột <strong>Phê duyệt lần chạy tiếp theo này</strong>. Hành động này của người dùng yêu cầu bất kỳ quyền kết hợp nào bị thiếu của Firefox và tạo quyền cấp phép cho lần chạy tiếp theo.</li>
+<li>Bắt đầu chạy với cấu hình đã xem xét.</li>
+</ol>
+<p>Khoản trợ cấp này chỉ sử dụng một lần, hết hạn sau 30 phút và bị vô hiệu do các thay đổi về mục tiêu/cấu hình/cài đặt yêu cầu có liên quan. Một lần quét mới thường cần một khoản trợ cấp mới. Được phép lưu các phương án chưa hoàn thành; bắt đầu hoặc phê duyệt xác nhận các trường bắt buộc.</p>
+<p>Firefox yêu cầu <code dir="ltr" translate="no">permissions.request()</code> bắt nguồn trực tiếp từ hành động thực sự của người dùng. Thay đổi cài đặt không phải là lý do để cấp quyền tùy ý trong nền. Nếu quyền bị từ chối, hãy xem lại tính năng chính xác, thử lại từ nút phê duyệt hoặc tắt tính năng đó. Lời nhắc cấp phép trình duyệt/hệ điều hành thông thường vẫn nằm ngoài tự động hóa DOM mở rộng.</p>
+<h3 id="maximum-findings-is-a-broad-preset">Phát hiện tối đa là một giá trị đặt trước rộng rãi</h3>
+<p>Giá trị đặt trước này bật nhiều giai đoạn, bao gồm xác minh nâng cao, so sánh OAST và Phiên B, đồng thời mở rộng một số ngân sách. Nó không phải là nút chuyển “tìm mọi thứ”. Nó không tạo tài khoản OAST, điền URL nhà cung cấp/miền gọi lại, chọn Phiên B hợp lệ, cài đặt Nuclei hoặc xác thực các vai trò còn thiếu.</p>
+<p>Nếu phê duyệt báo cáo các trường OAST trống hoặc thiếu Phiên B, hãy định cấu hình chúng hoặc tắt các tùy chọn đó. Điều này tách biệt với việc URL mục tiêu có hợp lệ hay không.</p>
+<h3 id="two-command-injection-controls">Hai điều khiển tiêm lệnh</h3>
+<p><strong>Tổng quan → Chỉ báo lệnh hệ điều hành</strong> cho phép thăm dò đầu ra lệnh theo định hướng Unix trực tiếp. Nó được tắt theo mặc định. <strong>Tùy chọn quét → Đầu dò lệnh</strong> kiểm soát tuyến gọi lại mù bổ sung khi OAST đang lắng nghe. Một hộp kiểm không tự động định cấu hình đường dẫn khác. Xem lại các yêu cầu ủy quyền cho lần chạy thực tế.</p>
+<h2 id="overview-checks">Kiểm tra tổng quan</h2>
+<p>Danh sách được bật mặc định chứa sáu nhóm thụ động và SQLi, NoSQLi, chèn mã máy chủ, XSS được phản ánh, SSTI, truyền tải, chuyển hướng, CRLF và các phương thức. <strong>Chỉ báo lệnh hệ điều hành</strong> và <strong>Xử lý tham số truy vấn trùng lặp</strong> bắt đầu.</p>
+<table>
+<thead>
+<tr>
+<th>Kiểm tra</th>
+<th>Nó làm gì</th>
+<th>Phiên dịch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tiêu đề bảo mật &amp; HTTPS</td>
+<td>Đánh giá CSP, chính sách đóng khung, nosniff, HSTS và các tài liệu tham khảo có nội dung hỗn hợp được chọn</td>
+<td>Chỉ báo bảo vệ/cấu hình, không phải bằng chứng khai thác tự động</td>
+</tr>
+<tr>
+<td>Thuộc tính cookie</td>
+<td>Đánh giá Bảo mật, HttpOnly và SameSite mà không giữ lại các giá trị cookie làm phát hiện</td>
+<td>Mục đích của cookie và hành vi của trình duyệt cần được xem xét lại</td>
+</tr>
+<tr>
+<td>Lỗi và nội dung nhạy cảm</td>
+<td>Nhận dạng các dấu vết đã chọn, nội dung cấu hình/nguồn và danh sách thư mục</td>
+<td>Giới hạn ở nội dung và chữ ký được quan sát</td>
+</tr>
+<tr>
+<td>Đánh giá biểu mẫu &amp; CSRF</td>
+<td>Xem lại các biểu mẫu vận chuyển mật khẩu/GET và các trường mã thông báo được công nhận</td>
+<td>Thiếu mã thông báo hiển thị không chứng minh CSRF</td>
+</tr>
+<tr>
+<td>Đánh giá nguồn/chìm DOM XSS</td>
+<td>Tìm các nguồn URL lân cận và các phần chìm nguy hiểm trong mã nội tuyến</td>
+<td>Heuristic; không thực thi hoặc hoàn thành bằng chứng luồng dữ liệu</td>
+</tr>
+<tr>
+<td>Đánh giá chính sách CORS</td>
+<td>Đánh giá các kết hợp cho phép xuất xứ/thông tin xác thực có thể quan sát được</td>
+<td>Không kiểm tra phản ánh nguồn gốc tùy ý hoặc đọc nguồn gốc của kẻ tấn công</td>
+</tr>
+<tr>
+<td>SQL tiêm</td>
+<td>Lặp lại các chữ ký lỗi cơ sở dữ liệu mới và so sánh đúng/sai với các điều khiển</td>
+<td>Bằng chứng vẫn bị giới hạn ở các đầu vào và họ cú pháp đã được kiểm tra</td>
+</tr>
+<tr>
+<td>Tiêm NoSQL</td>
+<td>Lặp lại chữ ký lỗi MongoDB/BSON</td>
+<td>Không có trình xác minh thao tác tiêm hoặc bỏ qua xác thực chung</td>
+</tr>
+<tr>
+<td>Chèn mã phía máy chủ</td>
+<td>Chim hoàng yến JavaScript/PHP được tính toán</td>
+<td>Bộ ngôn ngữ/ngữ cảnh nhỏ</td>
+</tr>
+<tr>
+<td>XSS phản ánh</td>
+<td>Cổng phản chiếu cộng với việc phân tích cú pháp trơ lặp đi lặp lại của các ngữ cảnh HTML trông có thể thực thi được</td>
+<td>Ứng viên cho đến khi việc thực thi thực tế được xác minh</td>
+</tr>
+<tr>
+<td>Tiêm mẫu máy chủ</td>
+<td>Đánh dấu số học duy nhất và kiểm tra lặp lại/kiểm soát</td>
+<td>Không bao gồm mọi công cụ mẫu hoặc bối cảnh mù</td>
+</tr>
+<tr>
+<td>Truyền tải/bao gồm tập tin</td>
+<td>Chữ ký nội dung tệp đã biết lặp lại</td>
+<td>Không mã hóa, tệp hoặc nền tảng đầy đủ</td>
+</tr>
+<tr>
+<td>Mở chuyển hướng</td>
+<td>Đã tạo .invalid Vị trí canary</td>
+<td>Đích chuyển hướng bên ngoài không được theo dõi</td>
+</tr>
+<tr>
+<td>Chèn tiêu đề phản hồi</td>
+<td>Điểm đánh dấu tiêu đề được tạo lặp lại</td>
+<td>Việc xử lý URL/tiêu đề của trình duyệt giới hạn việc kiểm tra</td>
+</tr>
+<tr>
+<td>Phương thức HTTP được quảng cáo</td>
+<td>TÙY CHỌN và Cho phép hàng tồn kho</td>
+<td>Quảng cáo không được phép viết</td>
+</tr>
+<tr>
+<td>Xử lý tham số truy vấn trùng lặp</td>
+<td>So sánh thứ tự đầu tiên/thứ tự cuối cùng lặp đi lặp lại</td>
+<td>Sự khác biệt về phân tích thông tin, tác động bảo mật chưa được chứng minh</td>
+</tr>
+<tr>
+<td>Chỉ báo lệnh hệ điều hành</td>
+<td>Các chỉ báo đầu ra id lặp lại tùy chọn</td>
+<td>Định hướng Unix, phụ thuộc vào ngữ cảnh và tắt theo mặc định</td>
+</tr>
+</tbody>
+</table>
+<p>Các điểm chèn hoạt động được hỗ trợ bao gồm các giá trị truy vấn, JSON/mảng lồng nhau, trường biểu mẫu/nhiều phần, các tiêu đề đã nhập có thể chỉnh sửa được chọn và đầu vào đường dẫn API được đặt tên. Các cơ quan phải được biết đến và được phép. Các trường xác thực/đóng khung được quản lý, các giá trị bị loại trừ và nội dung yêu cầu không khả dụng không được phát minh một cách âm thầm.</p>
+<p>Các giá trị biểu mẫu ẩn được giữ nguyên và làm mới ở những nơi được hỗ trợ trước khi ghi biểu mẫu; mã thông báo không có sẵn có thể khiến phạm vi bảo hiểm bị bỏ qua. Cơ chế này không chứng minh rằng tính năng bảo vệ CSRF của biểu mẫu có hoạt động hay không.</p>
+<h2 id="scan-options-reference">Tham khảo tùy chọn quét</h2>
+<p>Trừ khi có ghi chú khác, các giai đoạn tùy chọn này sẽ bắt đầu. <strong>Tỷ lệ yêu cầu thích ứng</strong> mặc định bật; chế độ Tự động làm mờ mặc định là Tắt. Các cài đặt được khôi phục từ cấu hình hiện có có thể khác với các cài đặt mặc định mới.</p>
+<table>
+<thead>
+<tr>
+<th>Tùy chọn</th>
+<th>Những thay đổi/điều kiện tiên quyết</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pha tự động CVE</td>
+<td>Thực thi các mẫu CVE đã nhập đủ điều kiện bằng cách sử dụng các yêu cầu/công cụ so khớp được tạo trong CVE/ngân sách toàn cầu</td>
+</tr>
+<tr>
+<td>Tích cực (được ủy quyền)</td>
+<td>Cho phép phê duyệt lần chạy tiếp theo đối với các phương pháp ghi và các khả năng nâng cao</td>
+</tr>
+<tr>
+<td>Cho phép tải lên tập tin nhiều phần</td>
+<td>Cho phép riêng biệt các yêu cầu nhiều phần chứa tệp; không tạo ra một bài kiểm tra tải lên</td>
+</tr>
+<tr>
+<td>Cho phép XÓA (đồng ý riêng)</td>
+<td>Cho phép riêng biệt DELETE; không tự động đưa ra yêu cầu xóa</td>
+</tr>
+<tr>
+<td>Công cụ AJAX / DOM</td>
+<td>Quan sát các điểm cuối ứng dụng động và hoạt động của trang được hỗ trợ trong quá trình khám phá bị giới hạn</td>
+</tr>
+<tr>
+<td>Chọn tham gia trang nhấp chuột / cuộn</td>
+<td>Thêm các tương tác giới hạn; yêu cầu phát hiện AJAX và phê duyệt tích cực; trình xử lý ứng dụng có thể thay đổi dữ liệu</td>
+</tr>
+<tr>
+<td>Xác minh XSS DOM trực tiếp (tab mới)</td>
+<td>Kiểm tra các đầu vào URL truy vấn/truy vấn đoạn được giới hạn trong các tab cùng cửa hàng dùng một lần; hai con chim hoàng yến địa phương tươi cộng với một đối chứng âm tính; CSP vẫn được thực thi</td>
+</tr>
+<tr>
+<td>Đầu dò thời gian lặp đi lặp lại</td>
+<td>So sánh độ trễ SQL lặp lại và ứng cử viên thời gian JSON MongoDB, bắt đầu từ điểm chèn đầu tiên; đòi hỏi phải tích cực</td>
+</tr>
+<tr>
+<td>Chim hoàng yến/gọi lại SSRF</td>
+<td>Sự khác biệt về phản hồi địa chỉ nội bộ cộng với mối tương quan OAST chính xác khi được định cấu hình; đòi hỏi phải tích cực</td>
+</tr>
+<tr>
+<td>Thăm dò thực thể bên ngoài XML</td>
+<td>Canary gọi lại cho các nội dung yêu cầu XML đã biết; yêu cầu thiết lập OAST đã được phê duyệt cho thử nghiệm đã triển khai</td>
+</tr>
+<tr>
+<td>Đầu dò OAST Log4Shell</td>
+<td>Canary gọi lại trong đầu vào đủ điều kiện và Phiên bản X-Api; một sự tương tác không phải là bằng chứng của việc thực thi mã</td>
+</tr>
+<tr>
+<td>Đầu dò lệnh</td>
+<td>Lộ trình gọi lại lệnh mù khi OAST đang nghe</td>
+</tr>
+<tr>
+<td>Mẫu khử lưu huỳnh đã nhập</td>
+<td>Bao gồm các mẫu được gắn thẻ khử lưu huỳnh được nhập đủ điều kiện; không có máy phát điện tiện ích phổ quát</td>
+</tr>
+<tr>
+<td>Đột biến WAF thích ứng (tối đa 3)</td>
+<td>Các biểu diễn thay thế có giới hạn của các thăm dò đủ điều kiện; không bao giờ đảm bảo bỏ qua</td>
+</tr>
+<tr>
+<td>So sánh với phiên B</td>
+<td>So sánh tối đa mười yêu cầu đọc đủ điều kiện với một cửa hàng cookie có cùng nguồn gốc khác; quyền sở hữu/vai trò vẫn là bối cảnh thủ công</td>
+</tr>
+<tr>
+<td>Các đầu dò WebSocket được phát hiện</td>
+<td>Trao đổi kênh bị giới hạn; không có giao thức tấn công dành riêng cho ứng dụng nào được phát minh</td>
+</tr>
+<tr>
+<td>Đầu dò SSE được phát hiện</td>
+<td>Nghe nguồn sự kiện bị ràng buộc; không phải là trình xác minh ủy quyền luồng chung</td>
+</tr>
+<tr>
+<td>Thư viện khách hàng ngoại tuyến SCA</td>
+<td>Danh mục phiên bản/phạm vi đã biết được đóng gói nhỏ dành cho nội dung của khách hàng được quan sát</td>
+</tr>
+<tr>
+<td>Khai thác tham số/tiêu đề</td>
+<td>Sử dụng tên đã học được từ bằng chứng mục tiêu/API; không phải là một từ điển đầu vào ẩn hoàn chỉnh</td>
+</tr>
+<tr>
+<td>Thực thi Nuclei đầy đủ gốc</td>
+<td>Cho phép các công việc mẫu của công cụ chính thức thông qua API tác nhân, tuân theo sự đồng ý và cách ly của Linux</td>
+</tr>
+<tr>
+<td>Mã gốc / JavaScript được đóng hộp cát</td>
+<td>Khả năng bổ sung cho các mẫu gốc được đánh giá/ký</td>
+</tr>
+<tr>
+<td>Trình duyệt không đầu bị cô lập</td>
+<td>Khả năng không đầu bổ sung; bị cô lập khỏi thông tin đăng nhập của Firefox</td>
+</tr>
+<tr>
+<td>Số lượt đọc tệp gốc trong danh sách cho phép</td>
+<td>Khả năng tệp cục bộ chỉ đọc bổ sung trong danh sách cho phép đã chọn</td>
+</tr>
+<tr>
+<td>OAST (nhà cung cấp bên ngoài)</td>
+<td>Đăng ký/thăm dò ý kiến nhà cung cấp được chỉ định; chọn riêng các thăm dò lỗ hổng có liên quan</td>
+</tr>
+<tr>
+<td>Danh sách thăm dò SQL cộng đồng</td>
+<td>Thêm các giá trị SecLists/FuzzDB được lọc được hỗ trợ vào các bộ kiểm tra/bộ lọc SQL có liên quan</td>
+</tr>
+<tr>
+<td>Tỷ lệ yêu cầu thích ứng</td>
+<td>Điều chỉnh thận trọng/xử lý thử thách; không tự động tăng lãi suất</td>
+</tr>
+<tr>
+<td>Đã bật gói tải trọng đã tải lên</td>
+<td>Thêm các giá trị dành riêng cho mục tiêu đã chọn; yêu cầu tích cực cộng với phê duyệt lần chạy tiếp theo</td>
+</tr>
+</tbody>
+</table>
+<p>Xác minh DOM trực tiếp không phải là theo dõi vết bẩn chung. XSS được lưu trữ, nguồn postMessage/bộ nhớ cục bộ, đầu vào không phải URL và quy trình công việc ghi/đọc nhiều bước yêu cầu thử nghiệm bổ sung. Phần phụ thuộc hoặc thời gian chờ bị chặn là phạm vi phủ sóng không đầy đủ chứ không phải là vượt qua.</p>
+<h2 id="budgets-selectors-and-request-settings">Ngân sách, bộ chọn và cài đặt yêu cầu</h2>
+<p>có <strong>hai bộ giới hạn riêng biệt</strong>: Giới hạn quét tích hợp của Longshot và giới hạn của proxy công cụ gốc. Yêu cầu ZAP thông qua :8900 không tiêu tốn ngân sách quét JavaScript tích hợp và các hộp kiểm của Longshot không chọn chính sách quét của ZAP.</p>
+<h3 id="operation-and-phase-selectors">Bộ chọn hoạt động và pha</h3>
+<table>
+<thead>
+<tr>
+<th>Bộ chọn</th>
+<th>Lựa chọn và hành vi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hoạt động</td>
+<td>Chỉ nhện; Spider + kiểm tra tích cực; Chỉ kiểm tra hoạt động</td>
+</tr>
+<tr>
+<td>Tự động làm mờ</td>
+<td>Tắt; Sau khi hoạt động và CVE; Trong quá trình quét. Điều này kiểm soát một giai đoạn bổ sung, không dành riêng cho các quy tắc hoạt động</td>
+</tr>
+<tr>
+<td>Mô hình tấn công</td>
+<td>Bắn tỉa; Đập ram; Cây chĩa; Bom chùm để lập kế hoạch đột biến cơ thể/tự động có cấu trúc được hỗ trợ</td>
+</tr>
+<tr>
+<td>Phiên B</td>
+<td>Một tab có cùng nguồn gốc khác có cửa hàng cookie độc lập thực sự</td>
+</tr>
+<tr>
+<td>Phương pháp làm mờ cơ thể</td>
+<td>ĐĂNG, NHẬN, PUT hoặc PATCH, tùy thuộc vào chính sách yêu cầu và phê duyệt</td>
+</tr>
+<tr>
+<td>Định dạng nội dung</td>
+<td>JSON, dạng mã hóa URL, nhiều phần hoặc thô/XML; không phải mọi định dạng đều cung cấp các điểm chèn vô hướng chung</td>
+</tr>
+<tr>
+<td>Lớp tải trọng cơ thể</td>
+<td>SQLi, NoSQLi, mã, XSS, SSTI, truyền tải, CRLF, chuyển hướng, lệnh hoặc tùy chỉnh</td>
+</tr>
+</tbody>
+</table>
+<p>Các mô hình tấn công trong quá trình triển khai này:</p>
+<ul>
+<li><strong>Lính bắn tỉa:</strong> thay đổi một đầu vào tại một thời điểm.</li>
+<li><strong>Ram đập:</strong> đặt cùng một tải trọng vào tất cả các đầu vào đã chọn.</li>
+<li><strong>Cây chĩa:</strong> sử dụng trình tự so le/xoay từ danh sách tải trọng được chia sẻ trên các đầu vào. Đây không phải là lời khẳng định về hành vi trong danh sách độc lập của Burp.</li>
+<li><strong>Bom chùm:</strong> kết hợp giới hạn giữa các đầu vào; giới hạn ngăn chặn sự mở rộng Descartes không giới hạn.</li>
+</ul>
+<h3 id="scan-option-limits">Giới hạn tùy chọn quét</h3>
+<table>
+<thead>
+<tr>
+<th>trường</th>
+<th style="text-align: right;">Mặc định mới</th>
+<th style="text-align: right;">Phạm vi được chấp nhận</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ngân sách yêu cầu toàn cầu</td>
+<td style="text-align: right;">2,000</td>
+<td style="text-align: right;">1–10,000</td>
+</tr>
+<tr>
+<td>Yêu cầu mờ cho mỗi tham số</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>Yêu cầu CVE trên mỗi mẫu</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>Yêu cầu CVE cho mỗi mục tiêu</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1–2,000</td>
+</tr>
+<tr>
+<td>Giới hạn đồng thời</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1–2; không hứa hẹn thông lượng trình duyệt song song</td>
+</tr>
+<tr>
+<td>Ngân sách sự kiện AJAX</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>Ngân sách trang AJAX (ms)</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">500–15,000</td>
+</tr>
+<tr>
+<td>Số trang AJAX</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>Đầu dò độ trễ (giây)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1–5</td>
+</tr>
+<tr>
+<td>OAST Gọi lại TTL giây</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">5–3,600</td>
+</tr>
+<tr>
+<td>OAST Số giây thăm dò ý kiến</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5–15</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scanner-settings">Cài đặt máy quét</h3>
+<table>
+<thead>
+<tr>
+<th>Cài đặt</th>
+<th>Mặc định/mục đích mới</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Yêu cầu mỗi giây</td>
+<td>1; Giao diện người dùng hỗ trợ 0,5–5</td>
+</tr>
+<tr>
+<td>Độ sâu thu thập dữ liệu tối đa</td>
+<td>3; Giao diện người dùng hỗ trợ 0–5</td>
+</tr>
+<tr>
+<td>URL được phát hiện tối đa</td>
+<td>100; Giao diện người dùng hỗ trợ 1–500</td>
+</tr>
+<tr>
+<td>Số byte tối đa cho mỗi phản hồi</td>
+<td>2 MB; câu trả lời lớn hơn/cắt ngắn có thể để lại khoảng trống bằng chứng</td>
+</tr>
+<tr>
+<td>Thử lại việc vận chuyển</td>
+<td>2; không đảm bảo một lần viết cụ thể có thể được phát lại một cách an toàn</td>
+</tr>
+<tr>
+<td>Đầu dò lông tơ tối đa cho mỗi tham số</td>
+<td>40; tách biệt với ngân sách tham số ngoài pha</td>
+</tr>
+<tr>
+<td>Số yêu cầu hoạt động tối đa</td>
+<td>150</td>
+</tr>
+<tr>
+<td>URL hoạt động tối đa</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Tham số truy vấn hoạt động tối đa</td>
+<td>10; quá trình kiểm tra cũng ghi lại các loại điểm chèn được hỗ trợ khác</td>
+</tr>
+<tr>
+<td>Tiền tố đường dẫn bị loại trừ</td>
+<td>Một tiền tố trên mỗi dòng; ngăn chặn những đường dẫn đó được tạo ra mục tiêu thử nghiệm</td>
+</tr>
+<tr>
+<td>Tên thông số bị loại trừ</td>
+<td>Một tên trên mỗi dòng</td>
+</tr>
+<tr>
+<td>Giữ các nội dung phản hồi của máy quét được xử lý lại cục bộ</td>
+<td>Bật; hỗ trợ đánh giá/So sánh trong giới hạn, với khả năng biên tập nỗ lực nhất</td>
+</tr>
+</tbody>
+</table>
+<p>Hoạt động kiểm tra dự trữ giới hạn phụ cấp cho các quy tắc được kích hoạt sau này. Do đó, nhiều tải trọng hơn có thể khiến một số quy tắc trở thành một phần thay vì thử nghiệm mọi biến thể. Mức tối đa được định cấu hình là mức trần, không phải là lời hứa sẽ sử dụng mọi yêu cầu hoặc hoàn thành mọi đầu vào.</p>
+<h3 id="other-selectors">Bộ chọn khác</h3>
+<table>
+<thead>
+<tr>
+<th>Trang</th>
+<th>Bộ chọn và ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Những phát hiện</td>
+<td>Mức độ nghiêm trọng và tình trạng xem xét; chỉ hiển thị những thay đổi về khả năng hiển thị tiêu cực/bị chặn</td>
+</tr>
+<tr>
+<td>Mẫu</td>
+<td>Mức độ nghiêm trọng, bộ lọc chỉ sẵn sàng và lựa chọn thủ công; Sẵn sàng là trạng thái cho phép/tương thích, không phải là bản án về lỗ hổng</td>
+</tr>
+<tr>
+<td>Bộ lặp</td>
+<td>NHẬN/ĐẦU/TÙY CHỌN/ĐĂNG/PUT/PATCH/XÓA và nội dung thô/XML, JSON hoặc biểu mẫu</td>
+</tr>
+<tr>
+<td>bộ làm mờ</td>
+<td>Nhóm tải trọng và đột biến giá trị: gốc, mã hóa URL/kép, thay đổi kiểu chữ, dấu chấm được mã hóa, hậu tố tab/dấu chấm phẩy, tiền tố dấu gạch chéo kép, dấu chấm/dấu cách</td>
+</tr>
+<tr>
+<td>đánh chặn</td>
+<td>Loại tài nguyên, phương thức và hành động hết thời gian chờ; những bộ lọc này giữ lưu lượng truy cập thay vì viết lại phương thức của nó</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>Chọn giao thức kênh được quan sát</td>
+</tr>
+<tr>
+<td>Ngăn xếp máy chủ</td>
+<td>Tự động NVD+OSV, sản phẩm NVD/gói/phiên bản CPE hoặc OSV; hướng dẫn sử dụng hệ sinh thái npm/PyPI</td>
+</tr>
+<tr>
+<td>So sánh</td>
+<td>Đã lưu đường cơ sở và phản hồi so sánh</td>
+</tr>
+<tr>
+<td>Tiện ích</td>
+<td>Mã hóa/giải mã URL/Base64/hex, SHA-256, định dạng JSON và kiểm tra xác nhận quyền sở hữu JWT</td>
+</tr>
+<tr>
+<td>kiểm tra WSTG</td>
+<td>Danh mục và bộ lọc tham chiếu tự động/được hỗ trợ/thủ công</td>
+</tr>
+<tr>
+<td>Chủ đề/ngôn ngữ</td>
+<td>Giao diện toàn cầu và ngôn ngữ đi kèm, độc lập với các tùy chọn quét</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fuzzer-auto-fuzz-and-probe-library">Thư viện Fuzzer, Auto-fuzz và Probe</h2>
+<h3 id="pick-the-right-action">Chọn hành động đúng</h3>
+<table>
+<thead>
+<tr>
+<th>hành động</th>
+<th>Ai chọn đầu vào?</th>
+<th>đầu ra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quét hoạt động</td>
+<td>Longshot sử dụng các đầu vào được hỗ trợ đã phát hiện</td>
+<td>Bằng chứng quy tắc chuyên dụng với tính năng lặp lại/kiểm soát</td>
+</tr>
+<tr>
+<td>Chạy bộ làm mờ</td>
+<td>Bạn chọn một URL và tham số truy vấn</td>
+<td>So sánh cơ bản và phản hồi tải trọng đã chọn</td>
+</tr>
+<tr>
+<td>Bộ làm mờ cơ thể</td>
+<td>Bạn cung cấp một yêu cầu có cấu trúc và các lựa chọn đột biến</td>
+<td>Các biến thể nội dung/đường dẫn/tiêu đề bị giới hạn khi được hỗ trợ</td>
+</tr>
+<tr>
+<td>Nút tự động làm mờ</td>
+<td>Đã lưu khoảng không quảng cáo trang hiện tại/sơ đồ trang web/API</td>
+<td>Khám phá tải trọng chung bổ sung trên các đầu vào được phát hiện đủ điều kiện</td>
+</tr>
+<tr>
+<td>Pha tự động CVE / Đã chọn chạy</td>
+<td>Định nghĩa mẫu đã nhập</td>
+<td>Yêu cầu theo mẫu cụ thể và kết quả so khớp</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-query-fuzzer">Bộ làm mờ truy vấn thủ công</h3>
+<ol>
+<li>Kết nối mục tiêu và chọn một URL có phạm vi. Các URL tương đối như <code dir="ltr" translate="no">/search?q=apple</code> được chấp nhận dựa trên nguồn gốc được kết nối.</li>
+<li>Nhập tên tham số truy vấn hiện có hoặc chọn <strong>sử dụng</strong> bên cạnh một đầu vào được phát hiện.</li>
+<li>Chọn một lớp tải trọng và đột biến giá trị.</li>
+<li>cho <strong>Tải trọng tùy chỉnh do người dùng tải lên</strong>, trước tiên hãy bật gói tùy chỉnh phù hợp.</li>
+<li>chọn <strong>Chạy bộ làm mờ</strong>, sau đó kiểm tra đường cơ sở, yêu cầu, trạng thái, thời lượng/thời gian và bằng chứng.</li>
+</ol>
+<p>URL, tham số hoặc bộ tùy chỉnh trống bị thiếu sẽ tạo ra thông báo xác thực cụ thể. Chỉ thay đổi phản hồi không tạo ra lỗ hổng chèn. Việc điều chỉnh máy chủ có thể dừng tham số ngay cả khi nó xảy ra trên đường cơ sở.</p>
+<h3 id="auto-fuzz-discovered-inputs">Đầu vào được phát hiện tự động làm mờ</h3>
+<p>sử dụng <strong>Xem trước đầu vào được phát hiện</strong> đầu tiên. Nó đọc khoảng không quảng cáo đã lưu và báo cáo các yêu cầu đủ điều kiện/bị bỏ qua mà không gửi thông tin thăm dò. Tự động làm mờ không cần các trường URL/tham số của bộ làm mờ thủ công. Duyệt hoặc Spider trước nếu kho trống.</p>
+<p>Chọn các lớp tải trọng và chọn riêng <strong>Tự động làm mờ</strong> nút. <strong>Bao gồm các cơ quan yêu cầu được phát hiện</strong> bắt đầu và yêu cầu tích cực cộng với phê duyệt cho lần chạy tiếp theo. Các biểu mẫu gắn với mã thông báo, các phương thức không được hỗ trợ, nội dung không có sẵn và XML đều bị bộ chọn đầu vào tự động này bỏ qua. Các loại trừ hiện tại, giới hạn yêu cầu và hành vi điều tiết vẫn được áp dụng.</p>
+<p>Các hộp kiểm lớp có sẵn là SQLI, NOSQLI, CODE, XSS, SSTI, TRAVERSAL, COMMAND, SSRF, REDIRECT, CRLF và CUSTOM. Các giá trị mặc định mới cho phép SQLI, SSTI, TRAVERSAL, REDIRECT và CRLF. Vòng lặp chung bỏ qua SSRF; sử dụng <strong>Chim hoàng yến/gọi lại SSRF</strong> để xác minh việc thực hiện của nó. CUSTOM sử dụng các giá trị tùy chỉnh đã nhập/bật và báo cáo những khác biệt về phản hồi có độ tin cậy thấp trừ khi một công cụ so khớp chuyên dụng thiết lập nhiều hơn.</p>
+<h3 id="why-probe-library-belongs-here">Tại sao thư viện Probe thuộc về nơi này</h3>
+<p>Thư viện cung cấp <strong>giá trị tải trọng và các mẫu được xem xét</strong>; chọn điều khiển bộ làm mờ <strong>gửi chúng ở đâu và bằng cách nào</strong>. Nó không thay thế URL/tham số thủ công. Các tùy chọn thư viện chia sẻ cũng ảnh hưởng tới Active scan và các giai đoạn tự động sau khi lưu.</p>
+<p><strong>Cập nhật danh sách GitHub</strong> làm mới các nguồn cố định, không phải máy quét thực thi tùy ý:</p>
+<table>
+<thead>
+<tr>
+<th>Nguồn</th>
+<th>Tập hợp con đã sử dụng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SQLi nhanh chóng của SecLists</td>
+<td>Đã lọc các giá trị dấu câu/boolean, giới hạn ở 32 mục được hỗ trợ</td>
+</tr>
+<tr>
+<td>Phát hiện SQL đa nền tảng FuzzDB</td>
+<td>Đã lọc các giá trị dấu câu/boolean, giới hạn ở 32 mục được hỗ trợ</td>
+</tr>
+<tr>
+<td>Mẫu hạt nhân ProjectDiscovery</td>
+<td>Hai kiểm tra khởi động Jira chỉ GET: CVE-2020-14179 và CVE-2021-26086</td>
+</tr>
+<tr>
+<td>Kỹ thuật PayloadsAllTheThings</td>
+<td>Cơ sở cho các biến thể khoảng trắng/nhận xét/mã hóa SQL được triển khai có giới hạn; không phải là tập lệnh bỏ qua thực thi được tải xuống</td>
+</tr>
+</tbody>
+</table>
+<p>Các bản cập nhật sử dụng HTTPS, bỏ qua cookie và giữ lại ảnh chụp nhanh cũ khi bị lỗi. Băm nguồn, thời gian làm mới và số lượng được hỗ trợ được hiển thị. Hàm băm của toàn bộ tệp đầu vào không có nghĩa là mọi giá trị trong tệp đó đều được sử dụng. Danh sách SQL đã tải xuống loại trừ các cấu trúc phá hoại/trích xuất dữ liệu/độ trễ/mã/gọi lại; các quy tắc tích hợp có các chim hoàng yến được triển khai riêng.</p>
+<p>Dừng quét trước khi cập nhật. Việc cập nhật không bắt đầu thăm dò, cấp phê duyệt, bật OAST hoặc tải dữ liệu mục tiêu/gói tùy chỉnh lên GitHub. Mẫu đã tải xuống thay đổi thành dạng không được hỗ trợ/thô/mã/không đầu sẽ bị từ chối thay vì được âm thầm nâng cấp lên khả năng thực thi mới.</p>
+<h2 id="your-payloads-and-imported-templates">Tải trọng của bạn và các mẫu đã nhập</h2>
+<h3 id="upload-literal-lists">Tải lên danh sách theo nghĩa đen</h3>
+<p>Dưới <strong>Tùy chọn quét hoặc Fuzzer → Thư viện thăm dò → Tải trọng và mẫu CVE của bạn</strong>, chọn danh mục, sau đó <strong>Tải lên tập tin tùy chỉnh</strong>.</p>
+<p>Các mẫu danh sách được chấp nhận:</p>
+<ul>
+<li><code dir="ltr" translate="no">.txt</code>: một giá trị không trống trên mỗi dòng; không gian và trường hợp được bảo tồn.</li>
+<li><code dir="ltr" translate="no">.json</code>: một mảng các chuỗi hoặc một đối tượng chứa <code dir="ltr" translate="no">name</code>, <code dir="ltr" translate="no">category</code> và <code dir="ltr" translate="no">payloads</code>.</li>
+<li>Thể loại: <code dir="ltr" translate="no">custom</code>, <code dir="ltr" translate="no">waf</code>, <code dir="ltr" translate="no">sqli</code>, <code dir="ltr" translate="no">nosqli</code>, <code dir="ltr" translate="no">code</code>, <code dir="ltr" translate="no">xss</code>, <code dir="ltr" translate="no">ssti</code>, <code dir="ltr" translate="no">traversal</code>, <code dir="ltr" translate="no">crlf</code>, <code dir="ltr" translate="no">redirect</code>, <code dir="ltr" translate="no">command</code>.</li>
+</ul>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "name": "My SQL review probes",
+  "category": "sqli",
+  "payloads": ["'", "\"", "' AND 1=1 -- "]
+}
+</code></pre>
+<p>Các gói dành riêng cho mục tiêu và ban đầu <strong>bị vô hiệu hóa</strong>. Kiểm tra bản xem trước và kích hoạt gói dự định một cách rõ ràng. Các gói đã tải lên được kích hoạt yêu cầu Tích cực và phê duyệt; tải lên một mình không chạy gì cả.</p>
+<p>Giới hạn: 256 KB cho mỗi tệp tải trọng, 200 chuỗi mỗi gói, 2.000 ký tự cho mỗi giá trị và tối đa 10 gói / 500 giá trị / 512 KB cấu hình gói cho mỗi mục tiêu. Các chuỗi trùng lặp trong một gói sẽ bị loại bỏ. Phương pháp, phạm vi, ngân sách và các biện pháp bảo vệ SQL phá hoại hiện có vẫn được áp dụng.</p>
+<p>Các gói được phân loại bổ sung các giá trị lớp được tích hợp sẵn. Các gói WAF cũng cần có các phiên bản thông minh và bằng chứng lọc đủ điều kiện. Tải trọng tùy chỉnh theo nghĩa đen không phải là trình so khớp đầu ra dự kiến ​​hoặc mã mở rộng có thể thực thi được. Chỉ tải lên số CVE không thể xác minh CVE đó.</p>
+<h3 id="import-requestmatcher-templates">Nhập mẫu yêu cầu/đối sánh</h3>
+<p>Chọn danh mục mẫu CVE/Nuclei trước khi tải lên YAML/YML/JSON; giới hạn tệp mẫu là 2 MB. Xem lại nó trong <strong>Mẫu</strong>, bao gồm cả người thi hành và lý do Sẵn sàng/Bị chặn cụ thể. Các mẫu đã nhập sử dụng thư viện dùng chung; gói tải trọng vẫn ở đúng mục tiêu của chúng.</p>
+<ul>
+<li><strong>Chạy đã chọn</strong> thực thi trực tiếp các mẫu đã chọn và không yêu cầu pha tự động CVE.</li>
+<li><strong>Pha tự động CVE</strong> xem xét các mục nhập được xác định/được gắn thẻ CVE đủ điều kiện trong quá trình quét được định cấu hình.</li>
+<li><strong>Tự động làm mờ</strong> tạo ra các giá trị chung; nó không viết lại các tải trọng hoặc trình so khớp CVE được tác giả.</li>
+<li>JSON chỉ mang tính tư vấn tương quan với bằng chứng về sản phẩm/phiên bản. Nó không phát minh ra một yêu cầu khai thác đang hoạt động.</li>
+<li>Các mẫu thô, phức tạp, mã, không đầu, tệp hoặc không phải HTTP có thể yêu cầu công cụ chính thức riêng biệt và các khoản trợ cấp bổ sung hoặc vẫn bị chặn.</li>
+</ul>
+<p>Nhập các gói trợ giúp tương đối đã được đánh giá kèm theo các mẫu cần chúng. Thời gian chạy gốc không khả dụng, yêu cầu ngoài phạm vi, thiếu phê duyệt hoặc tính năng không được hỗ trợ là lý do để kiểm tra chứ không phải là thử nghiệm tiêu cực thành công.</p>
+<h2 id="server-stack-and-smart-analyzer">Ngăn xếp máy chủ và máy phân tích thông minh</h2>
+<p>sử dụng <strong>Phát hiện phần mềm</strong> để thu thập các quan sát có phạm vi được hỗ trợ. Duyệt qua các trang đại diện và giữ lại phản hồi phù hợp khi bạn cần bằng chứng cơ thể. Sau đó chọn <strong>Phân tích bằng chứng được ghi lại</strong> để có được mối tương quan thụ động cục bộ lên tới 200 phản hồi được lưu trữ gần đây. Bản thân bộ phân tích không thêm yêu cầu mục tiêu nào.</p>
+<p>Chế độ xem phân tách các thành phần trình duyệt, WAF/CDN/edge, máy chủ web/proxy ngược và tín hiệu ứng dụng/thời gian chạy. Tiêu đề dành riêng cho sản phẩm, tên cookie, cấu trúc nội dung/bootstrap và văn bản lỗi có thể nâng cao độ tin cậy. Nội dung của trang thử thách được loại trừ khỏi quá trình lấy dấu vân tay của ứng dụng. 403 chung, biểu ngữ nginx hoặc cạnh CDN không xác định rằng quy tắc WAF cụ thể đã được bật.</p>
+<p>Thẻ cấu hình có thể giải thích bằng chứng của họ và xác minh được đề xuất. Chúng là những giả thuyết: phản hồi của trình duyệt không thể thiết lập chính xác IP gốc, mạng con riêng tư, cài đặt cơ sở dữ liệu phụ trợ, chấm dứt TLS, quy tắc tường lửa hoặc danh sách ủy thác proxy. Nhiều biểu ngữ ngược dòng và viết lại có thể ẩn hoặc xác định sai các lớp.</p>
+<h3 id="waf-recommendations-and-rate-handling">Khuyến nghị và xử lý tỷ lệ của WAF</h3>
+<p><strong>Áp dụng các đề xuất quét thận trọng</strong> rõ ràng cho phép các thăm dò SQL cộng đồng, các biến thể thông minh và tốc độ thích ứng, đồng thời giảm tốc độ được định cấu hình xuống tối đa 0,5 yêu cầu/giây. Nó không bắt đầu quét hoặc cấp các khả năng nâng cao.</p>
+<p>Các cuộc thăm dò đủ điều kiện xem xét tối đa ba cách trình bày thay thế trong phạm vi ngân sách hiện có. Đường cơ sở bị chặn sẽ bị bỏ qua. Các thử thách của trình duyệt cần có độ phân giải trình duyệt bình thường; Việc từ chối ACL thông thường không biện minh cho những nỗ lực bỏ qua vô tận. Thay đổi chặn để cho phép là bằng chứng về khả năng tiếp cận, không phải bằng chứng về lỗ hổng.</p>
+<p>Các thử thách rõ ràng lặp đi lặp lại có thể giảm một nửa tốc độ trong bộ nhớ và khiến bạn phải chờ ít nhất 10 giây. HTTP 429 hoặc 503 với tính năng Thử lại sau sẽ dừng các thăm dò được lên lịch tiếp theo; Khoảng thời gian Thử lại-Sau dài hơn được tôn trọng. Tỷ lệ không tự động tăng trở lại. Các lần chạy mới bắt đầu với tốc độ đã định cấu hình.</p>
+<h3 id="cve-lookup">Tra cứu CVE</h3>
+<p><strong>Tìm kiếm CVE trực tuyến</strong> truy vấn NVD/OSV để biết tọa độ sản phẩm/gói được hỗ trợ sau khi được phép. Yêu cầu gửi tọa độ chứ không phải URL mục tiêu, cookie hoặc nội dung trang. Phiên bản không xác định, bản sao lại của nhà cung cấp và kết luận giới hạn hiện diện gói chưa được xác minh. Các mục nhập npm/PyPI thủ công không chứng minh được việc cài đặt.</p>
+<p>Không có kết quả trùng khớp không có nghĩa là không có CVE. Một trận đấu là một ứng cử viên cố vấn; kiểm tra các điều kiện tiên quyết và sử dụng <strong>Tìm mẫu xác minh</strong> để xác định các séc nhập khẩu phù hợp. Nút đó lọc các mẫu thay vì thực thi chúng.</p>
+<h2 id="oast-setup-and-interpretation">Thiết lập và giải thích OAST</h2>
+<p><a href="https://portswigger.net/web-security/ssrf/blind">OAST</a> quan sát các tương tác DNS/HTTP do đầu dò gây ra khi phản hồi bình thường không tiết lộ hành vi. Longshot sở hữu các khóa đăng ký/tương quan của nó; một lệnh gọi lại ngẫu nhiên được tạo trước từ một ứng dụng khách khác không thể thay thế cho nhau.</p>
+<ol>
+<li>Chọn dịch vụ tương thích với Interactsh mà bạn kiểm soát hoặc được phép sử dụng.</li>
+<li>Nhập <strong>URL nhà cung cấp</strong>: địa chỉ cơ sở API hoàn chỉnh của nhà cung cấp, thường là HTTPS. HTTP chỉ được phép đối với các nhà cung cấp loopback.</li>
+<li>Nhập kết quả phù hợp <strong>Miền gọi lại</strong> không có <code dir="ltr" translate="no">http://</code>, một cổng hoặc một đường dẫn.</li>
+<li>Nhập <strong>Mã thông báo nhà cung cấp</strong> chỉ khi nhà cung cấp đó yêu cầu.</li>
+<li>Đặt TTL và khoảng thời gian thăm dò ý kiến; bật OAST cộng với các tùy chọn SSRF/XXE/Log4Shell/lệnh có liên quan.</li>
+<li>sử dụng <strong>Kiểm tra kết nối OAST</strong> để kiểm tra việc đăng ký/bỏ phiếu.</li>
+<li>sử dụng <strong>Kiểm tra cuộc gọi lại OAST</strong> để gửi một chú chim hoàng yến tương quan riêng biệt từ trình duyệt này.</li>
+<li>Lưu, xem xét và phê duyệt quá trình quét thực tế. Kiểm tra mối tương quan và giao thức chính xác trong các tương tác OAST.</li>
+</ol>
+<p>Ví dụ: nếu sử dụng dịch vụ công cộng phù hợp tại <code dir="ltr" translate="no">https://oast.pro</code>, cơ sở gọi lại của nó là <code dir="ltr" translate="no">oast.pro</code>. Đây là một ví dụ, không phải là sự đảm bảo về tính khả dụng hoặc yêu cầu sử dụng nhà cung cấp đó. Nhà cung cấp tự lưu trữ cần có miền, DNS/trình nghe và TLS có thể được ủy quyền chính xác của riêng mình; riêng trình nghe HTTP trên máy tính xách tay không phải là dịch vụ gọi lại công khai. Theo dõi <a href="https://github.com/projectdiscovery/interactsh">thiết lập Interactsh chính thức</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Quan sát</th>
+<th>Những gì nó thiết lập</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Đã vượt qua kiểm tra kết nối</td>
+<td>Đăng ký và bỏ phiếu hoạt động thông qua lộ trình của trình duyệt</td>
+</tr>
+<tr>
+<td>Vượt qua kiểm tra gọi lại trình duyệt</td>
+<td>Trình duyệt này có thể kích hoạt và truy xuất sự tương tác tương quan của chính nó</td>
+</tr>
+<tr>
+<td>Thăm dò mục tiêu tạo ra sự tương tác phù hợp</td>
+<td>Một tương tác tương quan đã xảy ra; ghi nguồn và đánh giá ý nghĩa của nó</td>
+</tr>
+<tr>
+<td>Không gọi lại</td>
+<td>Không thể kết luận: đầu ra mục tiêu, khả năng tiếp cận của nhà cung cấp, hết hạn, lọc hoặc bối cảnh không được hỗ trợ có thể giải thích điều đó</td>
+</tr>
+</tbody>
+</table>
+<p>Độ phân giải DNS có thể đến từ dịch vụ trung gian/bảo mật. Chỉ một cuộc gọi lại không chứng minh được quyền truy cập nội bộ tùy ý, đánh cắp dữ liệu hoặc thực thi mã. Công cụ Nuclei biệt lập riêng biệt sở hữu đăng ký Interactsh riêng; những sự kiện đó không phải là đăng ký của trình duyệt khách hàng.</p>
+<p>Ứng dụng khách OAST phía trình duyệt không yêu cầu API Go, Node hoặc Agent. Các thử nghiệm phát hành đã thực hiện đăng ký máy chủ chính thức, truy xuất lệnh gọi lại HTTP được mã hóa và mối tương quan trên vòng lặp; họ không thiết lập tính khả dụng của nhà cung cấp công cộng hoặc đầu ra của máy chủ mục tiêu của bạn. Không có chỉnh sửa tệp máy chủ nào là một phần của thiết lập OAST được ủy quyền chính xác thông thường.</p>
+<h2 id="browser-bridge-native-tool-proxy">Cầu trình duyệt: proxy công cụ gốc</h2>
+<h3 id="what-it-sends">Những gì nó gửi</h3>
+<p>Một công cụ bên ngoài tạo ra yêu cầu, bao gồm tải trọng tấn công, phương thức, nội dung và truy vấn. Bộ điều hợp gốc chuyển tiếp nó thông qua mitmproxy, chỉ áp dụng các thay đổi về cookie/tiêu đề đã định cấu hình. Nó có <strong>không</strong> yêu cầu Firefox thực hiện tìm nạp thay mặt cho ZAP hoặc một công cụ khác.</p>
+<p>Điều đó bảo tồn ngữ nghĩa HTTP gốc và việc tạo tải trọng của công cụ, chứ không phải các byte dây gốc tùy ý: mitmproxy phân tích/tuần tự hóa HTTP và thiết lập kết nối TLS gửi đi của riêng nó. Chuỗi tác nhân người dùng của trình duyệt không làm cho dấu vân tay TLS/mạng gốc giống với Firefox.</p>
+<h3 id="install-the-downloaded-adapter">Cài đặt bộ điều hợp đã tải xuống</h3>
+<ol>
+<li>Mở <strong>Cầu trình duyệt</strong>. Chỉ <strong>Proxy công cụ gốc</strong> có sẵn trong 2.18.1.</li>
+<li>chọn <strong>Tải xuống bộ chuyển đổi gốc</strong> và giải nén nó.</li>
+<li>Nhập kết quả đã trích xuất <code dir="ltr" translate="no">native-bridge</code> thư mục. Nó chứa <code dir="ltr" translate="no">cli.js</code>, <code dir="ltr" translate="no">bootstrap.py</code>, <code dir="ltr" translate="no">config.json</code> và nút đi kèm <code dir="ltr" translate="no">ws</code> sự phụ thuộc.</li>
+<li>Cài đặt Node.js 20+ và Python 3.12+ nếu chúng chưa có sẵn.</li>
+<li>Chạy thiết lập Python một lần:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   cd /absolute/path/to/native-bridge
+   python3 bootstrap.py</code></p>
+<p>Điều này tạo ra một địa phương <code dir="ltr" translate="no">.venv</code> và cài đặt mitmproxy 12.2.3 được ghim. Cài đặt cần truy cập Internet. Khởi động bình thường không tải xuống mã máy quét hoặc danh sách tải trọng.</p>
+<ol start="6">
+<li>Sử dụng lệnh được hiển thị bởi <strong>của bạn</strong> trang mở rộng:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   node cli.js --config config.json \
+     --extension-origin moz-extension://YOUR-LONGSHOT-UUID</code></p>
+<p>Thay thế trình giữ chỗ bằng nguồn gốc tiện ích mở rộng hiện tại hoàn chỉnh. Nó không phải là trang web mục tiêu, ID tiện ích bổ sung hoặc nguồn gốc được sao chép từ một cấu hình Firefox khác.</p>
+<ol start="7">
+<li>Giữ cho thiết bị đầu cuối chạy. Sau khi trình nghe proxy sẵn sàng, nó sẽ in địa chỉ proxy, cổng điều khiển, mã thông báo ghép nối/proxy mới và đường dẫn chứng chỉ CA.</li>
+</ol>
+<p>Khi phát triển từ ZIP nguồn thay vì sử dụng kho lưu trữ bộ điều hợp đi kèm, trước tiên hãy cài đặt phần phụ thuộc Nút được ghim của nó nếu không có:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+npm --prefix native-bridge ci --omit=dev
+cd native-bridge
+python3 bootstrap.py
+</code></pre>
+<p><code dir="ltr" translate="no">--mitmdump /absolute/path/to/mitmdump</code> hoặc <code dir="ltr" translate="no">LONGSHOT_MITMDUMP</code> chọn thời gian chạy hiện có. <code dir="ltr" translate="no">--data-dir /absolute/private/run-directory</code> chọn thư mục CA/kiểm toán; mặc định là <code dir="ltr" translate="no">run</code> bên trong bộ chuyển đổi gốc. Ctrl+C dừng bộ chuyển đổi.</p>
+<p>Proxy gốc thủ công tách biệt với đăng ký máy chủ API đại lý. Nó không cần <code dir="ltr" translate="no">node bridge/bin/longshot-bridge install</code> chỉ đơn thuần là proxy Curl/ZAP. Linux/Firefox đã được thực hiện trong các thử nghiệm tích hợp phát hành; không suy ra sự hỗ trợ của trình cài đặt nhắn tin gốc trên nền tảng khác từ đường dẫn khởi động Node/Python thủ công này.</p>
+<h3 id="pair-the-selected-tab">Ghép nối tab đã chọn</h3>
+<ol>
+<li>Chọn người được ủy quyền <strong>Tab mục tiêu</strong> trong Cầu trình duyệt.</li>
+<li>Xác minh nguồn gốc được hiển thị và cửa hàng cookie của nó. sử dụng <strong>Làm mới tab</strong> nếu cần thiết.</li>
+<li>Nhập <strong>Cổng điều khiển</strong> <code dir="ltr" translate="no">8901</code>, trừ khi được thay đổi trong cấu hình bộ điều hợp.</li>
+<li>Dán hiện tại <strong>Mã thông báo ghép nối / proxy</strong> từ bộ điều hợp đang chạy.</li>
+<li>chọn <strong>Cặp cầu quê hương</strong> và xác minh trạng thái sẵn sàng.</li>
+<li>Xem lại các chuyển đổi cookie/tiêu đề trước khi định tuyến lưu lượng truy cập của công cụ.</li>
+</ol>
+<p>Trường sẽ xóa mã thông báo sau khi ghép nối thành công. Khởi động lại sẽ tạo ra mã thông báo mới: ghép nối lại và cập nhật thông tin xác thực proxy trong mọi công cụ bên ngoài. Cổng proxy <code dir="ltr" translate="no">8900</code> dành cho các công cụ; cổng điều khiển <code dir="ltr" translate="no">8901</code> dành cho Firefox. Không sử dụng mã thông báo mang API tác nhân từ cổng 8765.</p>
+<h3 id="actual-target-urls-and-bridgeinvalid">URL mục tiêu thực tế và bridge.invalid</h3>
+<p>Sử dụng địa chỉ thực, chẳng hạn như <code dir="ltr" translate="no">http://localhost:8080/search?q=apple</code>, trong công cụ của bạn. Nếu kiểm tra HTTPS, hãy sử dụng <code dir="ltr" translate="no">https://...</code> địa chỉ. Địa chỉ riêng của proxy vẫn còn <code dir="ltr" translate="no">http://127.0.0.1:8900</code> vì đó là trình nghe proxy HTTP cục bộ, bao gồm cả HTTPS CONNECT.</p>
+<p><strong>Không <code dir="ltr" translate="no">/etc/hosts</code> đầu vào là cần thiết.</strong> cái cũ <code dir="ltr" translate="no">bridge.invalid</code> address là bí danh dành riêng cho bộ điều hợp để ánh xạ URL HTTP của tiện ích vào mục tiêu tìm nạp trình duyệt đã chọn. Proxy gốc hiện tại hỗ trợ các URL mục tiêu thực tế và KẾT NỐI HTTPS, do đó việc ánh xạ là không cần thiết.</p>
+<p><code dir="ltr" translate="no">localhost</code> không phải là bí danh có thể hoán đổi cho mọi mục tiêu: nó đặt tên cho máy cục bộ từ môi trường mạng của quy trình liên quan. Nó chỉ đúng khi mục tiêu thực sự là cục bộ tại điểm gốc đó. Tên máy chủ khác có thể chọn máy chủ ảo, chính sách cookie hoặc nguồn gốc khác ngay cả khi cả hai tên đều phân giải thành cùng một IP.</p>
+<p>Mục nhập máy chủ lỗi thời hiện có không liên quan đến quy trình làm việc mới; không sử dụng nó trong URL công cụ. Không có sửa đổi tập tin máy chủ nào được thực hiện trong khi chuẩn bị hướng dẫn này.</p>
+<h3 id="https-trust">Niềm tin HTTPS</h3>
+<p>Bộ điều hợp tạo CA cục bộ của riêng nó trong thư mục dữ liệu đã chọn, thông thường:</p>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
+run/ca/mitmproxy-ca.pem            sensitive CA material/private key
+</code></pre>
+<p>Cấu hình <strong>cấu hình tin cậy đánh giá của công cụ bên ngoài</strong> với đường dẫn chứng chỉ công cộng được in khi khởi động. Không chia sẻ khóa riêng tư hoặc cho rằng kho tin cậy của hệ thống/Firefox đã bị thay đổi. Bộ điều hợp không cài đặt CA của nó vào kho tin cậy.</p>
+<p>Đối với uốn cong:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  --cacert /absolute/path/to/native-bridge/run/ca/mitmproxy-ca-cert.pem \
+  'https://actual-target.example/search?q=apple'
+</code></pre>
+<p>Thay thế <code dir="ltr" translate="no">CURRENT_TOKEN</code> và đường dẫn đích/chứng chỉ. Đối với mục tiêu cục bộ chỉ có HTTP, <code dir="ltr" translate="no">--cacert</code> là không cần thiết. <code dir="ltr" translate="no">--noproxy ''</code> đảm bảo cuộn tròn không âm thầm bỏ qua proxy cho mục tiêu lặp lại.</p>
+<p>Có hai cách kiểm tra TLS riêng biệt:</p>
+<ul>
+<li>Máy khách xác minh chứng chỉ được trình bày bởi bộ chuyển đổi. Định cấu hình độ tin cậy của máy khách bằng bộ chuyển đổi CA.</li>
+<li>Bộ điều hợp xác minh máy chủ ngược tuyến thực sự. <code dir="ltr" translate="no">tls.verifyUpstream</code> mặc định là đúng. khách hàng <code dir="ltr" translate="no">--cacert</code> không cung cấp CA gốc riêng cho bộ điều hợp.</li>
+</ul>
+<p>Đừng coi việc vô hiệu hóa xác minh là cách khắc phục thông thường đối với các lỗi chứng chỉ. Đối với một thiết bị cố định tự ký sở hữu, <code dir="ltr" translate="no">tls.verifyUpstream:false</code> là một ngoại lệ đánh giá rõ ràng trong cấu hình bộ điều hợp, sau đó là khởi động lại; nó làm suy yếu việc kiểm tra ngược dòng riêng biệt. Xem <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">hành vi chứng chỉ mitmproxy</a>.</p>
+<h3 id="traffic-fidelity-and-limits">Độ trung thực và giới hạn lưu lượng truy cập</h3>
+<table>
+<thead>
+<tr>
+<th>Hỗ trợ proxy gốc</th>
+<th>Không thiết lập hoặc hỗ trợ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Các phương thức, tải trọng truy vấn và nội dung do công cụ tạo</td>
+<td>Chính xác các byte/thứ tự/vỏ tiêu đề ban đầu hoặc khung không đúng định dạng</td>
+</tr>
+<tr>
+<td>HTTP/1.1, HTTP/2, HTTPS KẾT NỐI</td>
+<td>Chế độ quét HTTP/3, TCP tùy ý hoặc không phải HTTP</td>
+</tr>
+<tr>
+<td>Ghi đè phiên/tiêu đề được định cấu hình</td>
+<td>Dấu vân tay đầy đủ của trình duyệt, thực thi thử thách JavaScript hoặc TLS do trình duyệt sở hữu</td>
+</tr>
+<tr>
+<td>Nâng cấp WebSocket trên tuyến gốc</td>
+<td>Trình xác minh lỗ hổng giao thức ứng dụng chung</td>
+</tr>
+<tr>
+<td>Công cụ thăm dò tiêu đề máy chủ trong khi vẫn giữ đích HTTPS CONNECT được ủy quyền</td>
+<td>Mục tiêu quay số không hạn chế hoặc ủy quyền mục tiêu mới tự động</td>
+</tr>
+<tr>
+<td>Phạm vi nguồn gốc bổ sung mà không xuất phiên trình duyệt</td>
+<td>Cookie trình duyệt/thông tin xác thực tiêu đề được tự động chia sẻ trên các nguồn gốc</td>
+</tr>
+</tbody>
+</table>
+<p>Tuyến gốc không có dự phòng tìm nạp trình duyệt. Đối với nghiên cứu về buôn lậu yêu cầu thô, tạo khung dây bất thường hoặc nghiên cứu TLS tùy chỉnh, hãy sử dụng phương tiện vận chuyển riêng thích hợp. Không gắn nhãn proxy được phân tích cú pháp byte trong suốt này.</p>
+<h2 id="native-bridge-configuration">Cấu hình cầu gốc</h2>
+<p>Tải xuống cấu hình từ Cầu trình duyệt hoặc chỉnh sửa bộ điều hợp <code dir="ltr" translate="no">config.json</code>. Khóa không xác định, loại không hợp lệ và giá trị ngoài phạm vi đều bị từ chối. Các trường bộ điều hợp cũ không phải là từ đồng nghĩa với cấu hình gốc.</p>
+<p>Cấu hình bộ điều hợp đang chạy có thẩm quyền ghép nối. <strong>Áp dụng ghi đè</strong> những thay đổi được hỗ trợ trong trình duyệt sẽ ghi đè các lựa chọn cho ghép nối hiện tại. <strong>Tải xuống cấu hình</strong> giữ lại cấu hình đã chọn cho lần khởi động tiếp theo. Việc chỉnh sửa các trường JSON chung không âm thầm cấu hình lại các cổng trình nghe, TLS, định tuyến hoặc giới hạn trong một quy trình đã chạy: lưu/tải xuống, khởi động lại và ghép nối lại.</p>
+<h3 id="complete-shipped-defaults">Hoàn thành các mặc định được vận chuyển</h3>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "proxy": {
+    "port": 8900
+  },
+  "control": {
+    "port": 8901,
+    "timeoutMs": 10000
+  },
+  "browser": {
+    "required": true,
+    "firstPartyDomain": null
+  },
+  "cookies": {
+    "enabled": true,
+    "mode": "replace",
+    "saveResponses": true,
+    "preserveToolChanges": true,
+    "protectedNames": [],
+    "includeNames": [],
+    "excludeNames": []
+  },
+  "headers": {
+    "userAgent": {
+      "source": "tool",
+      "value": ""
+    },
+    "acceptLanguage": {
+      "source": "tool",
+      "value": ""
+    },
+    "authorization": {
+      "source": "tool",
+      "value": ""
+    },
+    "set": {},
+    "remove": [],
+    "protectedNames": []
+  },
+  "scope": {
+    "origins": [],
+    "excludePaths": [],
+    "methods": [
+      "*"
+    ]
+  },
+  "limits": {
+    "rate": 2,
+    "concurrency": 4,
+    "maxRequests": 10000,
+    "maxBodyBytes": 67108864,
+    "timeoutSeconds": 60
+  },
+  "session": {
+    "pauseStatuses": [
+      401,
+      419,
+      440
+    ],
+    "pauseOn429": true
+  },
+  "tls": {
+    "verifyUpstream": true,
+    "http2": true
+  },
+  "upstream": {
+    "url": null
+  },
+  "routing": {
+    "socks5": null
+  },
+  "audit": {
+    "enabled": true
+  }
+}
+</code></pre>
+<p>trống rỗng <code dir="ltr" translate="no">scope.origins</code> mặc định về nguồn gốc chính xác của mục tiêu được ghép nối. Bạn không cần phải nhập mục tiêu hoặc dấu thời gian bắt đầu/kết thúc để bắt đầu đánh giá theo cặp thông thường. Việc thực thi phạm vi vẫn tồn tại; nó được chọn bằng cách ghép nối chứ không phải là một hình thức đánh giá bắt buộc cũ.</p>
+<h3 id="field-reference">Tham chiếu trường</h3>
+<table>
+<thead>
+<tr>
+<th>trường</th>
+<th>Hiệu ứng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">schemaVersion</code></td>
+<td>Định dạng cấu hình gốc; giá trị hiện tại 1</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">proxy.port</code></td>
+<td>Cổng proxy HTTP hướng tới công cụ, mặc định 8900</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.port</code></td>
+<td>Cổng điều phối Firefox, mặc định 8901; phải khác với cổng proxy</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.timeoutMs</code></td>
+<td>Hết thời gian chờ trả lời của trình duyệt/điều khiển, mặc định 10.000 mili giây</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.required</code></td>
+<td>Yêu cầu ghép nối theo mặc định. Hoạt động độc lập cần có nguồn gốc rõ ràng và tắt tất cả các tính năng bắt nguồn từ trình duyệt</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.firstPartyDomain</code></td>
+<td>Miền cách ly rõ ràng của bên thứ nhất nếu API cookie Firefox yêu cầu nó; null sử dụng hành vi bình thường</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.enabled</code></td>
+<td>Sử dụng cookie Firefox đã chọn trong các yêu cầu gốc gửi đi; mặc định đúng</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.mode</code></td>
+<td><code dir="ltr" translate="no">replace</code> theo mặc định; tùy chọn <code dir="ltr" translate="no">merge</code>, được giải thích bên dưới</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code></td>
+<td>Áp dụng các bản cập nhật Set-Cookie phản hồi cho bình Firefox đã chọn; mặc định là đúng, độc lập với việc ghi đè yêu cầu</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.preserveToolChanges</code></td>
+<td>Giữ nguyên các thay đổi liên quan đến yêu cầu đầu tiên trên mỗi kết nối/nguồn gốc của máy khách; mặc định đúng</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.protectedNames</code></td>
+<td>Tên cookie có giá trị công cụ phải nằm trong tầm kiểm soát của công cụ</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.includeNames</code></td>
+<td>Chỉ quản lý những tên này; trống có nghĩa là tất cả tên trình duyệt phù hợp</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.excludeNames</code></td>
+<td>Không quản lý các tên cookie trình duyệt này</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.userAgent</code>, <code dir="ltr" translate="no">acceptLanguage</code>, <code dir="ltr" translate="no">authorization</code></td>
+<td><code dir="ltr" translate="no">source</code> là <code dir="ltr" translate="no">tool</code>, <code dir="ltr" translate="no">browser</code> hoặc <code dir="ltr" translate="no">custom</code>; tùy chỉnh cần một dòng đơn không trống <code dir="ltr" translate="no">value</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.set</code>, <code dir="ltr" translate="no">remove</code>, <code dir="ltr" translate="no">protectedNames</code></td>
+<td>Rõ ràng các thay đổi và bảo vệ tiêu đề bổ sung; các trường dành riêng/được quản lý yêu cầu các điều khiển chuyên dụng của chúng</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.origins</code></td>
+<td>Trống sử dụng nguồn gốc ghép nối; Nguồn gốc chính xác bổ sung được liệt kê rõ ràng không nhận được trường phiên có nguồn gốc từ trình duyệt</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.excludePaths</code></td>
+<td>Tiền tố đường dẫn bị loại trừ, bao gồm các dạng được giải mã</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.methods</code></td>
+<td>Phương pháp được phép; mặc định <code dir="ltr" translate="no">["*"]</code> có nghĩa là tất cả các phương thức HTTP gốc, không phải phê duyệt ghi của trình duyệt Longshot</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.rate</code></td>
+<td>Tốc độ lập lịch gốc được chia sẻ, mặc định 2 yêu cầu/giây</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.concurrency</code></td>
+<td>Khe điều khiển gốc, mặc định 4</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxRequests</code></td>
+<td>Mức trần yêu cầu gốc, mặc định là 10.000; kiệt sức tạm dừng công việc</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxBodyBytes</code></td>
+<td>Đệm/trần thân, mặc định 64 MiB</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.timeoutSeconds</code></td>
+<td>Hoàn thành thuê/hết thời gian, mặc định là 60 giây; không khôi phục yêu cầu đã được gửi</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseStatuses</code></td>
+<td>Danh sách tạm dừng trạng thái xác thực mặc định: 401, 419, 440</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseOn429</code></td>
+<td>Tạm dừng điều tiết theo mặc định</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">tls.verifyUpstream</code>, <code dir="ltr" translate="no">http2</code></td>
+<td>Cả hai đều đúng theo mặc định</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">upstream.url</code></td>
+<td>Proxy ngược dòng HTTP(S) tùy chọn; null có nghĩa là không có</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">routing.socks5</code></td>
+<td>Tùy chọn <code dir="ltr" translate="no">socks5h://host:port</code>; null theo mặc định; loại trừ lẫn nhau với URL ngược dòng</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">audit.enabled</code></td>
+<td>Kiểm tra JSONL chỉ siêu dữ liệu, mặc định là đúng</td>
+</tr>
+</tbody>
+</table>
+<p>Phạm vi xác thực gốc: cổng 1024–65535, tốc độ 0,1–100, đồng thời 1–32, trần yêu cầu 1–1.000.000, giới hạn nội dung 1 KB–256 MiB, thời gian chờ 1–600 giây, thời gian chờ kiểm soát 1.000–120.000 mili giây. Đây là các giới hạn cấu hình được chấp nhận, không phải khuyến nghị về mức tải an toàn của mục tiêu.</p>
+<p>Tên tiêu đề không phân biệt chữ hoa chữ thường. Tên cookie có phân biệt chữ hoa chữ thường. Sử dụng boolean JSON <code dir="ltr" translate="no">true</code>/<code dir="ltr" translate="no">false</code>, không phải chuỗi. Chung <code dir="ltr" translate="no">headers.set</code> không thể thay thế các trường Máy chủ, Cookie, Ủy quyền, đóng khung hoặc kiểm soát proxy. Sử dụng các tùy chọn cookie/Ủy quyền chuyên dụng và giá trị Máy chủ riêng của công cụ.</p>
+<p>Để giảm tải khi chạy công cụ gốc, cấu hình một phần có thể ghi đè các giá trị mặc định, ví dụ:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "limits": {
+    "rate": 0.5,
+    "concurrency": 1,
+    "maxRequests": 500
+  }
+}
+</code></pre>
+<p>Không có khóa cấu hình gốc chung để làm mới mã thông báo nội dung biểu mẫu hoặc phát minh ra quy trình đăng nhập trình duyệt.</p>
+<h2 id="cookie-and-header-overrides-without-damaging-probes">Ghi đè cookie và tiêu đề mà không làm hỏng đầu dò</h2>
+<h3 id="default-cookie-behavior">Hành vi cookie mặc định</h3>
+<p><strong>Sử dụng cookie của trình duyệt</strong> và <strong>Lưu phản hồi cập nhật Set-Cookie</strong> được bật theo mặc định. Tác nhân người dùng, Ngôn ngữ chấp nhận và Ủy quyền vẫn được công cụ kiểm soát theo mặc định.</p>
+<p>Đối với yêu cầu gốc, Firefox chọn các cookie có thể áp dụng cho URL từ kho lưu trữ cookie của tab được ghép nối và phân vùng phù hợp. Các container/cửa hàng tư nhân khác không được hợp nhất. Các quy tắc về miền/đường dẫn/Bảo mật/hết hạn và thứ tự đường dẫn cùng tên vẫn có liên quan. Các giá trị được cung cấp cho proxy gốc để nó có thể tạo tiêu đề Cookie gửi đi; Không giống như đường dẫn tìm nạp trình duyệt đã bị xóa, trình trợ giúp gốc sẽ xử lý các bí mật phiên trong bộ nhớ.</p>
+<p>Với <code dir="ltr" translate="no">cookies.mode:"replace"</code>, jar trình duyệt có thẩm quyền, kể cả khi trống. Cookie trình duyệt bị xóa khỏi jar sẽ bị xóa khỏi các yêu cầu được quản lý sau này. Tên được bảo vệ rõ ràng và các thay đổi công cụ được phát hiện được ưu tiên. Với <code dir="ltr" translate="no">mode:"merge"</code>, cookie công cụ không liên quan có thể vẫn còn trong khi cập nhật tên do trình duyệt quản lý.</p>
+<p>Các trường Bộ cookie phản hồi được áp dụng riêng lẻ cho cùng một cửa hàng đã chọn bằng API cookie của Firefox, bao gồm các thuộc tính Miền/đường dẫn/Secure/HttpOnly/SameSite/hết hạn/xóa/phân vùng được hỗ trợ. Cookie không hợp lệ có thể bị từ chối; kiểm tra các lỗi được báo cáo. Nguồn gốc được định cấu hình bổ sung không nhận cookie trình duyệt hoặc tiêu đề có nguồn gốc từ trình duyệt.</p>
+<h3 id="request-and-response-switches-are-independent">Công tắc yêu cầu và phản hồi độc lập</h3>
+<table>
+<thead>
+<tr>
+<th>Yêu cầu ghi đè cookie</th>
+<th>Đồng bộ hóa phản hồi</th>
+<th>kết quả</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bật</td>
+<td>Bật</td>
+<td>Sử dụng cookie Firefox và cập nhật jar từ phản hồi Set-Cookie</td>
+</tr>
+<tr>
+<td>Tắt</td>
+<td>Bật</td>
+<td>Giữ cookie yêu cầu của công cụ; phản hồi mục tiêu vẫn có thể thay đổi jar của Firefox</td>
+</tr>
+<tr>
+<td>Bật</td>
+<td>Tắt</td>
+<td>Sử dụng cookie Firefox; không viết lại cookie phản hồi thông qua người trợ giúp này</td>
+</tr>
+<tr>
+<td>Tắt</td>
+<td>Tắt</td>
+<td>Giữ cookie yêu cầu được kiểm soát bằng công cụ và không đồng bộ hóa phản hồi</td>
+</tr>
+</tbody>
+</table>
+<p>Đối với việc làm mờ cookie hoặc thử nghiệm phiên phải giữ nguyên khung trình duyệt, hãy xem xét cả hai công tắc. Bỏ qua ghi đè theo yêu cầu sẽ ảnh hưởng đến ghi đè bên yêu cầu; nó không tắt cài đặt đồng bộ hóa cookie phản hồi toàn cầu độc lập.</p>
+<h3 id="protect-fields-that-contain-attack-payloads">Bảo vệ các trường có tải trọng tấn công</h3>
+<p>Giả sử kiểm tra ZAP <code dir="ltr" translate="no">session=ATTACK_PAYLOAD</code>. Việc thay thế một cách mù quáng giá trị đó bằng phiên hợp lệ của trình duyệt có thể xóa bài kiểm tra. Ngược lại, việc giữ lại cookie cũ trong mọi yêu cầu có thể khiến quá trình quét xác thực trở nên vô ích.</p>
+<p>Mặc định <strong>Giữ nguyên các thay đổi về cookie/tiêu đề của công cụ sau yêu cầu đầu tiên</strong> ghi lại đường cơ sở cho mỗi kết nối/nguồn gốc của khách hàng và lưu giữ các thay đổi tiếp theo. Trước tiên hãy gửi yêu cầu hạt giống thông thường. Proxy không thể suy ra ý định một cách đáng tin cậy trong yêu cầu đầu tiên và kết nối mới sẽ tạo ra đường cơ sở mới. Heuristic này không phải là sự bảo vệ hoàn toàn.</p>
+<p>Để kiểm tra có thể dự đoán được, hãy chọn một trong các cơ chế sau:</p>
+<ol>
+<li>Vô hiệu hóa ghi đè cookie/tiêu đề cụ thể đang được thử nghiệm.</li>
+<li>Thêm tên cookie vào <code dir="ltr" translate="no">cookies.protectedNames</code> hoặc tiêu đề tới <code dir="ltr" translate="no">headers.protectedNames</code>.</li>
+<li>Gửi chú thích có chọn lọc theo yêu cầu:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Preserve: cookie:session, User-Agent, Authorization</code></p>
+<p>Điều này giữ lại các trường cookie/tiêu đề được đặt tên của công cụ. <code dir="ltr" translate="no">cookie</code> không có tên sẽ giữ nguyên toàn bộ tiêu đề Cookie của công cụ.</p>
+<ol start="4">
+<li>Bỏ qua tất cả các phần ghi đè phía yêu cầu cho yêu cầu đó:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Override: off</code></p>
+<p>Bộ điều hợp loại bỏ các tiêu đề chú thích này trước khi chuyển tiếp. Xác thực proxy, phạm vi và giới hạn vẫn được áp dụng. Định cấu hình chú thích trong công cụ gốc; đưa chúng vào trang web mục tiêu không phải là cơ chế cấu hình cầu nối.</p>
+<p>Ví dụ, giữ <code dir="ltr" translate="no">session</code> protected cho phép ZAP thay đổi nó trong khi người trợ giúp có thể tiếp tục cập nhật một phần không liên quan <code dir="ltr" translate="no">preferences</code> bánh quy. Để kiểm tra Cookie/Ủy quyền/Tác nhân người dùng toàn diện, việc vô hiệu hóa các phần ghi đè đó sẽ tránh sự phụ thuộc vào phương pháp phỏng đoán phát hiện thay đổi.</p>
+<h3 id="browser-authorization-and-other-headers">Ủy quyền trình duyệt và các tiêu đề khác</h3>
+<p>Ủy quyền trình duyệt được chọn tham gia thông qua cấu hình JSON. Nó chỉ được ghi lại từ một yêu cầu thực tế bởi tab mục tiêu được ghép nối sau khi bật nguồn trình duyệt. Nó không phải là trình đọc tự động cho mọi mã thông báo trong localStorage hoặc bộ nhớ ứng dụng. Có thể cần một yêu cầu trình duyệt sau này trước khi tồn tại giá trị quan sát được. Việc tắt Ủy quyền trình duyệt sẽ dừng việc người trợ giúp cung cấp giá trị thu được.</p>
+<p>Việc chọn Tác nhân người dùng hoặc Ngôn ngữ chấp nhận của trình duyệt chỉ thay đổi các trường HTTP đó. Nó không chạy JavaScript mục tiêu, làm mới mã thông báo CSRF nội dung, tái tạo TLS của trình duyệt hoặc đảm bảo chấp nhận WAF. Xác thực giới hạn IP/thiết bị và làm mới OAuth vẫn cần quy trình làm việc ứng dụng của chúng.</p>
+<h3 id="vhost-host-handling">VHOST/Xử lý máy chủ</h3>
+<p>Trình trợ giúp gốc không thay thế bí danh cầu nối nội bộ vào trường Máy chủ của công cụ. Hãy để công cụ gửi giá trị Máy chủ cần thiết cho quá trình kiểm tra máy chủ ảo được ủy quyền. Đối với HTTPS, đích CONNECT vẫn là mục tiêu được ủy quyền trong khi tiêu đề Máy chủ của công cụ có thể được giữ nguyên.</p>
+<p>Việc thay đổi tiêu đề Máy chủ không cấp quyền truy cập vào đích mạng khác. Một proxy ngược có thể định tuyến nó tới một ứng dụng khác; bao gồm hành vi của máy chủ ảo đó trong ủy quyền của đánh giá. Các byte tiêu đề không đúng định dạng chính xác và khung xung đột nằm ngoài proxy được phân tích cú pháp này.</p>
+<h3 id="audit-and-privacy">Kiểm toán và quyền riêng tư</h3>
+<p><strong>Lưu lượng truy cập gốc</strong> hiển thị siêu dữ liệu yêu cầu và tên trường đã thay đổi/được bảo vệ. Kiểm tra bỏ qua các giá trị bí mật của cookie/tiêu đề, giá trị truy vấn và nội dung. Điều này không có nghĩa là proxy không bao giờ xử lý bí mật: nó phải xử lý chúng để gửi lưu lượng được xác thực. Các công cụ bên ngoài duy trì lịch sử/kết quả của riêng chúng, có thể chứa các giá trị đó.</p>
+<p>Giữ mã thông báo cấu hình riêng tư, khóa CA và thư mục dữ liệu khỏi kho lưu trữ nguồn/báo cáo. Tải xuống cấu hình với các giá trị Ủy quyền tùy chỉnh có thể tạo một tệp chứa các giá trị đó.</p>
+<h2 id="external-tools-and-actual-zap-scanning">Các công cụ bên ngoài và quét ZAP thực tế</h2>
+<h3 id="start-with-one-request">Bắt đầu với một yêu cầu</h3>
+<p>Ghép nối cầu, sau đó kiểm tra mục tiêu cục bộ thực tế:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  'http://localhost:8080/'
+</code></pre>
+<p>Sử dụng đường dẫn đọc được xác thực đã biết để kiểm tra hoạt động của phiên. 200 từ một trang chủ công cộng là không đủ. Xác nhận yêu cầu xuất hiện trong Lưu lượng truy cập gốc, kho cookie đã chọn là chính xác và công cụ đã nhận được nội dung mong đợi. Đừng suy luận rằng tất cả các yêu cầu sau này đều sử dụng proxy chỉ vì yêu cầu này đã làm như vậy.</p>
+<h3 id="zap-outgoing-proxy">Proxy gửi đi ZAP</h3>
+<ol>
+<li>Cài đặt/khởi động ZAP riêng biệt và sử dụng phiên ZAP dành riêng cho đánh giá.</li>
+<li>Trong ZAP <strong>Tùy chọn → Mạng → Kết nối</strong>, kích hoạt <strong>proxy HTTP gửi đi</strong>.</li>
+<li>Đặt máy chủ <code dir="ltr" translate="no">127.0.0.1</code>, cổng <code dir="ltr" translate="no">8900</code> (hoặc cổng proxy được cấu hình hiện tại).</li>
+<li>Kích hoạt xác thực proxy: tên người dùng <code dir="ltr" translate="no">bridge</code>, mật khẩu mã thông báo bộ điều hợp hiện tại.</li>
+<li>Vô hiệu hóa proxy SOCKS của ZAP cho chuỗi này. Cài đặt SOCKS của ZAP được ưu tiên hơn proxy HTTP của nó.</li>
+<li>Kiểm tra các loại trừ proxy HTTP để mục tiêu dự định không bị bỏ qua, đặc biệt đối với dịch vụ cục bộ.</li>
+<li>Định cấu hình CA bộ điều hợp trong thiết lập xác minh/tin cậy TLS hiện hành của công cụ khi được yêu cầu. Vị trí của nó được in khi khởi động bộ chuyển đổi.</li>
+<li>Truy cập <strong>URL mục tiêu thực tế</strong> từ ZAP và xác minh lịch sử của nó cùng với siêu dữ liệu cầu nối.</li>
+<li>Xác định mục tiêu/bối cảnh, chính sách quét, loại trừ, kiểm tra xác thực và tỷ lệ yêu cầu khiêm tốn của ZAP. Chạy hoạt động quét/quét hoạt động thực tế của nó theo ủy quyền.</li>
+<li>Xem xét các phát hiện và phạm vi bảo hiểm trong ZAP. Khi cố tình làm mờ các trường xác thực cookie/tiêu đề, hãy sử dụng các cơ chế bảo vệ/bỏ qua ở trên.</li>
+</ol>
+<p>Cài đặt này là của ZAP <strong>kết nối đi</strong>, không phải trình nghe proxy trình duyệt đến cục bộ của nó. Firefox không cần phải cấu hình lại để sử dụng ZAP chỉ nhằm cung cấp cookie của tab đã chọn cho chuỗi này.</p>
+<p>ZAP tạo ra tải trọng quy tắc hoạt động thực sự của nó; mitmproxy gửi các yêu cầu gốc kết quả. Những thay đổi trong thời gian dài chỉ có các trường yêu cầu được chọn tham gia. Điều này làm tăng bối cảnh phiên sử dụng được của công cụ bên ngoài nhưng không làm cho quá trình quét của cả hai công cụ trở nên toàn diện. Xem <a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">Cài đặt kết nối ZAP</a>.</p>
+<h3 id="other-http-tools">Các công cụ HTTP khác</h3>
+<table>
+<thead>
+<tr>
+<th>Công cụ/khách hàng</th>
+<th>Làm thế nào để kết nối</th>
+<th>Giới hạn quan trọng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cuộn tròn</td>
+<td><code dir="ltr" translate="no">--proxy</code>, <code dir="ltr" translate="no">--proxy-user</code>; <code dir="ltr" translate="no">--cacert</code> vì sự tin cậy của HTTPS; xóa bỏ qua proxy khi cần thiết</td>
+<td>Các lệnh gọi/kết nối khác nhau có thể thiết lập lại đường cơ sở thăm dò heuristic</td>
+</tr>
+<tr>
+<td>fufu</td>
+<td>Tùy chọn proxy HTTP của nó (<code dir="ltr" translate="no">-x</code>) với URL proxy được xác thực; cung cấp một danh sách từ có phạm vi giới hạn và tỷ lệ thấp</td>
+<td>Proxy HTTP không hạn chế lệnh gọi không có proxy riêng biệt</td>
+</tr>
+<tr>
+<td>bản đồ sql</td>
+<td>Tùy chọn proxy HTTP của nó với thông tin xác thực hiện tại; chọn URL/tham số được ủy quyền và bảo vệ các trường đang được kiểm tra</td>
+<td>Công cụ/cài đặt SQLi riêng biệt; thay thế cookie có thể xóa các thăm dò cookie trừ khi được định cấu hình</td>
+</tr>
+<tr>
+<td>quên</td>
+<td>Đã xác thực <code dir="ltr" translate="no">http_proxy</code>/<code dir="ltr" translate="no">https_proxy</code> hoặc cài đặt proxy của nó; cấu hình chứng chỉ tin cậy</td>
+<td>Kiểm tra <code dir="ltr" translate="no">no_proxy</code> và hành vi proxy dành riêng cho công cụ</td>
+</tr>
+<tr>
+<td>Python urllib/Yêu cầu</td>
+<td>Trình xử lý/cấu hình proxy được xác thực rõ ràng cộng với CA bộ điều hợp cho HTTPS</td>
+<td>Các thư viện khác nhau về cách xử lý biến đổi môi trường và bỏ qua</td>
+</tr>
+<tr>
+<td>Hạt nhân CLI</td>
+<td>Định cấu hình proxy/tin cậy HTTP của nó cho lưu lượng mẫu HTTP được hỗ trợ</td>
+<td>Lưu lượng truy cập mẫu không phải HTTP/mã/không đầu không được bao phủ phổ biến bởi một tùy chọn proxy HTTP</td>
+</tr>
+</tbody>
+</table>
+<p>URL proxy chứa thông tin xác thực là nhạy cảm. Sử dụng cấu hình đánh giá riêng của công cụ của bạn nếu có. Không dán mã thông báo hiện tại vào báo cáo được chia sẻ. Đối với mỗi công cụ, hãy xác nhận lưu lượng truy cập được định tuyến thay vì giả sử mọi giao thức hoặc quy trình con đều tôn trọng cài đặt proxy HTTP của nó.</p>
+<p>Ví dụ về thư viện chuẩn Linux Python cho mục tiêu cục bộ chỉ đọc; nó nhắc mã thông báo thay vì mã hóa cứng và xóa bỏ qua proxy môi trường cho quá trình này:</p>
+<pre dir="ltr" translate="no"><code class="language-python" dir="ltr" translate="no">import os
+from getpass import getpass
+from urllib.request import (
+    HTTPPasswordMgrWithDefaultRealm,
+    ProxyBasicAuthHandler, ProxyHandler, build_opener,
+)
+
+os.environ["no_proxy"] = ""
+os.environ["NO_PROXY"] = ""
+proxy = "http://127.0.0.1:8900"
+credentials = HTTPPasswordMgrWithDefaultRealm()
+credentials.add_password(None, proxy, "bridge", getpass("Bridge token: "))
+opener = build_opener(
+    ProxyHandler({"http": proxy, "https": proxy}),
+    ProxyBasicAuthHandler(credentials),
+)
+with opener.open("http://localhost:8080/", timeout=20) as response:
+    print(response.status)
+    print(response.read(200).decode("utf-8", errors="replace"))
+</code></pre>
+<p>Xác minh yêu cầu trong lưu lượng truy cập gốc; các nền tảng khác có thể có các quy tắc bỏ qua proxy hệ thống bổ sung. Ví dụ về đường cong rõ ràng <code dir="ltr" translate="no">--noproxy ''</code> là kiểm tra xác thực tuyến đường vòng lặp đơn giản hơn. Ngoài ra, các máy khách HTTPS Python cần có gói SSL ngữ cảnh/CA tin cậy chứng chỉ bộ điều hợp.</p>
+<h3 id="pause-and-errors">Tạm dừng và lỗi</h3>
+<p><strong>Tạm dừng yêu cầu gốc</strong> chặn lối ra bản địa mới. Các trạng thái xác thực 401/419/440, HTTP 429, các thay đổi đóng tab/ngoài nguồn gốc hoặc giới hạn ngân sách cũng có thể tạm dừng công việc. <strong>Tiếp tục sau khi kiểm tra tab</strong> chỉ tiếp tục sau khi xem lại trạng thái ghép nối.</p>
+<p><strong>Dừng và ngắt kết nối</strong> kết thúc việc ghép nối trình duyệt; nó không chấm dứt quá trình Node được bắt đầu riêng biệt. Sử dụng Ctrl+C trong thiết bị đầu cuối của nó để dừng quá trình đó.</p>
+<p>Yêu cầu trên chuyến bay có thể kết thúc. Máy khách proxy nhận được lỗi do công việc bị chặn; bộ điều hợp không tạm dừng các quy trình công cụ tùy ý hoặc phát lại các yêu cầu của chúng. Kiểm tra xem yêu cầu nào đã thành công và sử dụng các điều khiển thử lại/tiếp tục của chính công cụ đó. Việc khởi động lại/ghép nối lại sẽ thay đổi mã thông báo và yêu cầu cập nhật xác thực công cụ.</p>
+<p>401/419/440 có thể xuất hiện trong các thử nghiệm xác thực âm tính có chủ ý. Nếu cần thì điều chỉnh <code dir="ltr" translate="no">session.pauseStatuses</code> đối với lần chạy và khởi động lại đã được xem xét đó; bộ chuyển đổi không suy ra liệu mọi lỗi xác thực có phải là một thăm dò dự kiến ​​hay không.</p>
+<h2 id="tor-and-onion-routing">Định tuyến Tor và củ hành</h2>
+<p>Yêu cầu Longshot dựa trên trình duyệt tuân theo mạng của trình duyệt đã chọn. Bộ điều hợp gốc là một quy trình khác và không kế thừa cài đặt proxy của Trình duyệt Firefox/Tor.</p>
+<p>VỚ/Tor là <strong>tắt theo mặc định</strong> trong cấu hình gốc. Để đánh giá hành tây được ủy quyền, hãy sử dụng dịch vụ SOCKS hiện có được định cấu hình rõ ràng với độ phân giải tên máy chủ từ xa, ví dụ: ghi đè này nếu đó thực sự là trình nghe Tor cục bộ của bạn:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "routing": {
+    "socks5": "socks5h://127.0.0.1:9050"
+  }
+}
+</code></pre>
+<p>Ví dụ này không khởi động Tor hoặc chứng minh rằng cổng 9050 tồn tại. Chọn dịch vụ được cấu hình thực tế; một phiên bản Tor Browser có thể sử dụng một trình nghe khác. Khởi động lại bộ chuyển đổi và ghép nối lại. Một HTTP(S) <code dir="ltr" translate="no">upstream.url</code> và <code dir="ltr" translate="no">routing.socks5</code> là loại trừ lẫn nhau.</p>
+<p>Shim gốc phân giải tên máy chủ thông qua SOCKS và không có dự phòng trực tiếp thầm lặng. Nếu không có tuyến đường ngược dòng/SOCKS được định cấu hình rõ ràng, các đích hành tây trực tiếp sẽ bị từ chối trước DNS mục tiêu. URL SOCKS cũng có thể đề cập đến đường hầm SSH được ủy quyền hoặc dịch vụ SOCKS5 khác; về bản chất nó không phải là bằng chứng về định tuyến Tor.</p>
+<p>Chia sẻ cookie không làm cho IP thoát hoặc TLS/dấu vân tay trình duyệt của tuyến đường gốc giống hệt với Firefox. Những thách thức hoặc ràng buộc phiên có thể từ chối nó. Kiểm tra lộ trình và phiên dự kiến ​​một cách độc lập.</p>
+<p><strong>Nuclei gốc riêng biệt do API tác nhân khởi chạy thì khác:</strong> rơle tích hợp của nó không có tuyến Tor/SOCKS và chặn các mục tiêu củ hành trước DNS hệ thống. Sử dụng các biện pháp kiểm tra phía trình duyệt đủ điều kiện trong trình duyệt dự định hoặc công cụ bên ngoài được định cấu hình riêng thông qua proxy gốc. Đừng cho rằng hộp kiểm Nuclei kế thừa <code dir="ltr" translate="no">routing.socks5</code> từ Cầu trình duyệt.</p>
+<h2 id="agent-api-mcp-and-local-model-clients">API đại lý, MCP và máy khách mô hình cục bộ</h2>
+<p>Sử dụng tính năng này khi tác nhân/tập lệnh phải vận hành Longshot, truy xuất bằng chứng hoặc lưu tệp đánh giá. Nó không phải là proxy lưu lượng :8900.</p>
+<h3 id="register-and-connect-the-native-host">Đăng ký và kết nối máy chủ gốc</h3>
+<p>Từ phần được giữ lại <strong>nguồn</strong> thư mục chứa <code dir="ltr" translate="no">manifest.json</code> và <code dir="ltr" translate="no">bridge/</code>:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+node bridge/bin/longshot-bridge install
+</code></pre>
+<p>Điều này đăng ký <code dir="ltr" translate="no">longshot.bridge</code> và một trình khởi chạy tham chiếu đến thư mục nguồn và nút thực thi. Giữ cả hai tại chỗ. Nếu một trong hai di chuyển, hãy đăng ký lại.</p>
+<p>Mở <strong>Cài đặt → Kết nối và thiết lập → Kết nối cầu nối gốc</strong> và cấp quyền nhắn tin gốc của Firefox. Máy chủ có thể khởi động daemon của nó một cách tự động. Nếu cố tình chạy daemon theo cách thủ công:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">node bridge/bin/longshot-bridge serve
+</code></pre>
+<p>Tránh dùng daemon thứ hai trên cùng thư mục cổng/dữ liệu. Ngắt kết nối sẽ đóng kết nối gốc của tiện ích mở rộng; nó không nhất thiết phải dừng một daemon được khởi động độc lập.</p>
+<p>Cần có Node.js 20+. MCP nhắn tin gốc không cần cài đặt Python/mitmproxy của proxy. Linux là thiết lập được thực hiện. Hỗ trợ đăng ký macOS được cung cấp nhưng không được xác minh trong thời gian chạy tại đây; bản phát hành này không có trình cài đặt máy chủ gốc Windows Firefox. Đăng ký trong WSL không đăng ký máy chủ cho Windows Firefox. Cách ly Nuclei gốc chỉ dành cho Linux.</p>
+<p>Dịch vụ mặc định: <code dir="ltr" translate="no">http://127.0.0.1:8765</code>. Địa chỉ localhost này là API kiểm soát, <strong>không phải mục tiêu được quét</strong>. Mã thông báo/ổ cắm mặc định là <code dir="ltr" translate="no">$XDG_DATA_HOME/longshot</code> hoặc <code dir="ltr" translate="no">~/.local/share/longshot</code>. tùy chỉnh <code dir="ltr" translate="no">--port</code> và <code dir="ltr" translate="no">--data-dir</code> phải khớp với cài đặt, phục vụ và mcp. Sử dụng đường dẫn dữ liệu Unix ngắn vì đường dẫn ổ cắm của nó có giới hạn 100 byte.</p>
+<h3 id="rest-example">ví dụ REST</h3>
+<p>Từ cùng thư mục nguồn đó:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">longshot_token_file="$(node bridge/bin/longshot-bridge token-path)"
+longshot_api_token="$(cat "$longshot_token_file")"
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/health
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/targets
+</code></pre>
+<p>các <code dir="ltr" translate="no">token-path</code> lệnh in tên tệp chứ không phải mã thông báo. API sử dụng xác thực không ghi tên, không giống như xác thực tên người dùng/mật khẩu proxy. Nó từ chối các ứng dụng khách không vòng lặp và các yêu cầu Xuất xứ của trình duyệt và không hiển thị API CORS chung. Không xuất bản nó thông qua proxy ngược công khai.</p>
+<p>Chỉ bắt đầu quét nhỏ sau khi kết nối/kích hoạt mục tiêu dự định và kiểm tra các tùy chọn đã lưu của nó:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  -H 'Content-Type: application/json' \
+  --data '{"target_id":"PROFILE_ID","mode":"safe","budget":150}' \
+  http://127.0.0.1:8765/v1/scans
+</code></pre>
+<p>Thay thế PROFILE_ID bằng ID hồ sơ đã chọn. <code dir="ltr" translate="no">safe</code> chỉ bản đồ tới Spider; nó không đặt lại mọi tùy chọn nâng cao đã lưu hoặc hoạt động như một tùy chọn ghi đè chung. Sự khởi đầu không đồng bộ. Đọc ID chạy được trả về, sau đó theo dõi <code dir="ltr" translate="no">/v1/scans/RUN_ID</code>, <code dir="ltr" translate="no">/eta</code>, <code dir="ltr" translate="no">/findings</code> hoặc <code dir="ltr" translate="no">/report?format=html</code>. POST <code dir="ltr" translate="no">/pause</code>, <code dir="ltr" translate="no">/resume</code> và <code dir="ltr" translate="no">/stop</code> kiểm soát một cuộc chạy. Tư vấn xác thực <code dir="ltr" translate="no">/openapi.json</code> cho các lược đồ chính xác.</p>
+<p>Cấu hình hỗ trợ REST/JSON-RPC, bản quét, phát hiện/báo cáo, mẫu, OAST và hoạt động phiên. <code dir="ltr" translate="no">/rpc</code> mang JSON-RPC; <code dir="ltr" translate="no">/mcp</code> cung cấp MCP HTTP, với các tùy chọn stdio và SSE. Chuỗi phiên bản giao thức/API của dịch vụ có thể giữ lại các phiên bản lược đồ cũ hơn; sử dụng tệp kê khai tiện ích mở rộng cho phiên bản phát hành giao diện người dùng đã cài đặt.</p>
+<h3 id="mcp-client-setup">Thiết lập máy khách MCP</h3>
+<p>Đối với máy khách hỗ trợ cấu hình stdio MCP:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "mcpServers": {
+    "longshot": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/longshot-source/bridge/bin/longshot-bridge",
+        "mcp"
+      ]
+    }
+  }
+}
+</code></pre>
+<p>Sử dụng nút thực thi tuyệt đối nếu máy khách có PATH bị hạn chế. Thêm kết quả phù hợp <code dir="ltr" translate="no">--port</code> / <code dir="ltr" translate="no">--data-dir</code> đối số khi được tùy chỉnh. Trình trợ giúp stdio kết nối với dịch vụ được xác thực cục bộ; bản thân nó không thay thế kết nối Firefox.</p>
+<p>Danh mục công cụ MCP hiện tại chứa 21 công cụ: công cụ quét/mẫu/báo cáo/OAST cùng với giao diện người dùng và phát hiện/điều khiển lệnh ngữ nghĩa. Khám phá danh mục thực tế thay vì dựa vào hướng dẫn tám công cụ cũ.</p>
+<table>
+<thead>
+<tr>
+<th>Nhóm công cụ</th>
+<th>Quy trình làm việc</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">longshot_list_targets</code>, công cụ quét/trạng thái/ETA/kết quả/báo cáo</td>
+<td>Sử dụng ID hồ sơ/chạy rõ ràng và kiểm tra kết quả không đồng bộ</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_commands</code>, <code dir="ltr" translate="no">longshot_command</code></td>
+<td>Khám phá các lệnh ngữ nghĩa và gọi các đối số được hỗ trợ của chúng</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_pages</code>, <code dir="ltr" translate="no">longshot_ui_open</code></td>
+<td>Khám phá/mở bảng điều khiển tiện ích mở rộng giới hạn mục tiêu</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_snapshot</code></td>
+<td>Đọc nhãn thực tế, giá trị hiện tại, hộp thoại và tham chiếu phần tử</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_action</code>, <code dir="ltr" translate="no">navigate</code>, <code dir="ltr" translate="no">wait</code></td>
+<td>Vận hành các biện pháp kiểm soát hiện có và xác minh việc hoàn thành</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_downloads</code>, <code dir="ltr" translate="no">clipboard</code>, <code dir="ltr" translate="no">screenshot</code>, <code dir="ltr" translate="no">focus</code>, <code dir="ltr" translate="no">close</code></td>
+<td>Hỗ trợ đầu ra trang mở rộng và quản lý giao diện người dùng; không truy cập hệ điều hành tùy ý</td>
+</tr>
+</tbody>
+</table>
+<p>Các biện pháp kiểm soát bị vô hiệu hóa, phạm vi mục tiêu, trạng thái và ngân sách vẫn được áp dụng. Các giới thiệu cũ yêu cầu một ảnh chụp nhanh mới; chỉ một cú nhấp chuột được gửi đi không chứng tỏ được sự thành công. Lời nhắc cấp phép của Firefox/OS vẫn giữ nguyên các điều khiển trình duyệt/HĐH riêng biệt.</p>
+<p><strong>Ranh giới phê duyệt:</strong> các lệnh đồng ý ngữ nghĩa trực tiếp không thể tạo ra một khoản trợ cấp chạy tích cực. Tự động hóa giao diện người dùng đầy đủ đã được xác thực có thể vận hành hộp thoại phê duyệt của trang tổng quan được liên kết, bao gồm cả nút phê duyệt. Do đó, việc cung cấp quyền kiểm soát giao diện người dùng của tác nhân sẽ mang lại cho nó khả năng giao diện người dùng đó; không mô tả quyền truy cập đó là không có khả năng nhấp vào phê duyệt. Việc kiểm tra mục tiêu/cấu hình/thời hạn sử dụng một lần vẫn được áp dụng.</p>
+<h3 id="hermesollama-or-another-local-model-agent">Hermes/Ollama hoặc một đại lý người mẫu địa phương khác</h3>
+<p>Longshot không chấp nhận luồng trò chuyện LLM tùy ý hoặc chọn mô hình. các <strong>ứng dụng đại lý</strong> cung cấp kết nối mô hình và vòng lặp gọi công cụ. Nếu tác nhân của bạn hỗ trợ MCP, hãy định cấu hình máy chủ MCP ở trên trong tác nhân đó. Tác nhân gửi các lệnh gọi công cụ được hỗ trợ và nhận kết quả về công cụ; nó có thể kiểm tra/điều hướng/điền tiện ích mở rộng thông qua các công cụ giao diện người dùng được hiển thị cũng như gọi các lệnh quét.</p>
+<p>Chọn mô hình và máy chủ Ollama trong cấu hình riêng của Hermes/đại lý. Sử dụng kết hợp mô hình/máy khách hỗ trợ định dạng lệnh gọi công cụ của tổng đài viên và đảm bảo tổng đài viên thực sự được phép gọi các công cụ MCP. Cấu hình của Longshot không có <code dir="ltr" translate="no">model</code>, <code dir="ltr" translate="no">ollama</code> hoặc cài đặt khóa API của nhà cung cấp. Quyền truy cập mô hình, quyền truy cập shell và kiểm soát hệ thống tệp không liên quan là các khả năng của máy chủ tác nhân, không được cấp khi cài đặt tiện ích mở rộng này.</p>
+<p>Giữ phạm vi, ngân sách, tài khoản và hành động dự định rõ ràng trong nhiệm vụ của tổng đài viên. Xác nhận các phát hiện được tạo ra dựa trên bằng chứng được ghi lại; văn bản mô hình không phải là kết quả quét hoặc cấp phép.</p>
+<h3 id="optional-debugging-port-control">Kiểm soát cổng gỡ lỗi tùy chọn</h3>
+<p>Nguồn bao gồm các trình trợ giúp điều khiển BiDi/CDP và một lệnh <code dir="ltr" translate="no">bridge/bin/longshot-ui</code> giao diện. Đây là tính năng kiểm soát nâng cao của các trang thuộc sở hữu của tiện ích mở rộng. Phiên bản Chrome là gói Manifest V3 riêng biệt; bàn làm việc có thể nhìn thấy của nó phải luôn mở. Mở trình nghe gỡ lỗi trình duyệt là một lựa chọn khởi động trình duyệt riêng biệt; xem <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">Bảo mật tác nhân từ xa của Firefox</a>.</p>
+<p>Trình trợ giúp gỡ lỗi tùy chọn sử dụng <code dir="ltr" translate="no">ws</code> sự phụ thuộc vào <code dir="ltr" translate="no">native-bridge/node_modules/ws/</code>. Chạy <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code> từ kiểm tra nguồn được giữ lại đầu tiên. Đường dẫn này đã được sửa trong loạt 2.18; không cần có bộ chuyển đổi tìm nạp trình duyệt lịch sử đã bị loại bỏ.</p>
+<h2 id="optional-native-nuclei">Hạt nhân bản địa tùy chọn</h2>
+<p>Có ba tuyến mẫu riêng biệt:</p>
+<table>
+<thead>
+<tr>
+<th>Tuyến đường</th>
+<th>Động cơ/phiên</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mẫu HTTP được nhập tương thích với trình duyệt</td>
+<td>Trình thông dịch mẫu được hỗ trợ của Longshot và phiên trình duyệt đích</td>
+</tr>
+<tr>
+<td>Hộp kiểm Nuclei đầy đủ gốc</td>
+<td>Nuclei được cài đặt riêng chính thức bên trong đường dẫn cách ly Agent API Linux; không đăng nhập Firefox tự động</td>
+</tr>
+<tr>
+<td>Hạt nhân CLI bên ngoài thông qua Cầu trình duyệt</td>
+<td>Công việc CLI độc lập của bạn; lưu lượng HTTP proxy được hỗ trợ có thể nhận cookie trình duyệt được định cấu hình</td>
+</tr>
+</tbody>
+</table>
+<p>Đối với các công việc gốc do Longshot đưa ra:</p>
+<ol>
+<li>Cài đặt riêng nhị phân Nuclei chính thức và hiển thị nó trên PATH hoặc đặt <code dir="ltr" translate="no">LONGSHOT_NUCLEI</code> trước khi bắt đầu API đại lý.</li>
+<li>Cung cấp cho Linux bubblewrap các không gian tên mạng/người dùng không có đặc quyền đang hoạt động.</li>
+<li>Đối với các mẫu không có đầu, hãy cung cấp trình duyệt được yêu cầu, tùy chọn thông qua <code dir="ltr" translate="no">LONGSHOT_CHROME</code>.</li>
+<li>Đăng ký/kết nối API tác nhân và kiểm tra các khả năng gốc được báo cáo.</li>
+<li>Nhập các mẫu đã được đánh giá và mọi tệp trợ giúp tương đối cần thiết.</li>
+<li>Kích hoạt <strong>Thực thi Nuclei đầy đủ gốc</strong> và chỉ cần có thêm các khả năng Code/JavaScript, Headless hoặc File.</li>
+<li>Đối với các mẫu tệp, hãy đặt <code dir="ltr" translate="no">LONGSHOT_FILE_ROOT</code> vào danh sách cho phép chỉ đọc rõ ràng trước khi khởi động máy chủ.</li>
+<li>Lưu, xem xét và phê duyệt lần chạy; kiểm tra lý do Sẵn sàng/Bị chặn và đầu ra được gắn thẻ người thực thi.</li>
+</ol>
+<p>Công nhân có một không gian tên hệ thống tệp/mạng bị cô lập, bộ lưu trữ tạm thời riêng tư và thực thi giới hạn thông qua rơle đích. Chúng không tự động nhận cookie Firefox, bộ nhớ cục bộ của trình duyệt hoặc tuyến Tor của Firefox. Phiên không đầu bị cô lập. Mẫu gốc bị chặn không có nghĩa là kết quả là có lỗ hổng bảo mật tiêu cực.</p>
+<p>Mã gốc/mẫu JavaScript yêu cầu chữ ký được công cụ chính thức tin cậy. <code dir="ltr" translate="no">LONGSHOT_NUCLEI_CERT</code> có thể trỏ đến chứng chỉ tác giả công đã được xem xét; máy chủ không tự động ký nhập hoặc gắn khóa ký riêng. Các mẫu tệp gốc không thể tự do đọc các thư mục chính của máy chủ. Các công tắc tệp/mã/không đầu bổ sung vẫn tách biệt với việc nhập mẫu chung.</p>
+<p>Rơle gốc hỗ trợ các kết nối mục tiêu/nhà cung cấp bị hạn chế, không hỗ trợ truy cập mạng tùy ý. Mục tiêu Onion, thời gian chạy/cách ly không khả dụng, địa chỉ mục tiêu không được hỗ trợ hoặc phạm vi đường dẫn không tương thích có thể chặn việc thực thi. Đăng ký Native Interactsh thuộc về Nuclei, tách biệt với ứng dụng khách OAST của trình duyệt Longshot. Sử dụng bằng chứng kết quả thực tế và báo cáo về khả năng của nền tảng, chứ không phải nhãn “động cơ đầy đủ” để quyết định những gì đã chạy.</p>
+<h2 id="manual-tools-interception-and-api-inventory">Công cụ thủ công, đánh chặn và kiểm kê API</h2>
+<h3 id="page-guide">Hướng dẫn trang</h3>
+<table>
+<thead>
+<tr>
+<th>Trang</th>
+<th>Dùng nó để làm gì</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tổng quan</td>
+<td>Kết nối, xác thực phiên, chọn nhóm quy tắc, chọn thao tác và theo dõi tiến trình</td>
+</tr>
+<tr>
+<td>Tùy chọn quét</td>
+<td>Các giai đoạn bổ sung, sự đồng ý, làm mờ nội dung, cài đặt nhà cung cấp và ngân sách</td>
+</tr>
+<tr>
+<td>Mục tiêu</td>
+<td>Tách các cấu hình, chọn/đính kèm tab trình duyệt và khôi phục bằng chứng/tùy chọn dành riêng cho mục tiêu</td>
+</tr>
+<tr>
+<td>Sơ đồ trang web</td>
+<td>Các URL/biểu mẫu/tuyến đường được phát hiện; bản đồ quan sát, không phải bằng chứng về sự khám phá hoàn chỉnh</td>
+</tr>
+<tr>
+<td>Lịch sử HTTP</td>
+<td>Siêu dữ liệu lưu lượng truy cập trình duyệt và phản hồi của máy quét/Bộ lặp; kiểm tra đầu vào và dấu thời gian chính xác</td>
+</tr>
+<tr>
+<td>Trình khám phá API</td>
+<td>Hoạt động được quan sát/nhập và kiểm kê tham số; chuẩn bị các lần đọc được hỗ trợ trong Repeater</td>
+</tr>
+<tr>
+<td>Ngăn xếp máy chủ</td>
+<td>Dấu vân tay, máy phân tích thông minh cục bộ và tra cứu tư vấn ứng viên</td>
+</tr>
+<tr>
+<td>Biểu đồ mạng</td>
+<td>Nguồn gốc/IP/miền tham chiếu được quan sát và bằng chứng vhost có sẵn; các nút bên ngoài là khoảng không quảng cáo, không phải phạm vi tự động</td>
+</tr>
+<tr>
+<td>Những phát hiện</td>
+<td>Bằng chứng, phán quyết/độ tin cậy/mức độ nghiêm trọng, trạng thái đánh giá và người xem cimatic</td>
+</tr>
+<tr>
+<td>kiểm tra WSTG</td>
+<td>Các loại phạm vi bảo hiểm tham chiếu và thực hiện kiểm toán trên mỗi đầu vào thực tế</td>
+</tr>
+<tr>
+<td>Mẫu</td>
+<td>Nhập, chi tiết về khả năng tương thích/người thực thi, lựa chọn thủ công và chạy kết quả</td>
+</tr>
+<tr>
+<td>Bộ lặp / Bộ làm mờ</td>
+<td>Phát lại yêu cầu tập trung hoặc đột biến giới hạn</td>
+</tr>
+<tr>
+<td>đánh chặn</td>
+<td>Giữ các giai đoạn URL/tiêu đề của tab mục tiêu đủ điều kiện</td>
+</tr>
+<tr>
+<td>OAST</td>
+<td>Trạng thái nhà cung cấp/gọi lại, hành động thử nghiệm và tương tác tương quan</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>Trao đổi kênh được quan sát bị giới hạn</td>
+</tr>
+<tr>
+<td>So sánh</td>
+<td>Sự khác biệt cục bộ giữa hai câu trả lời đã lưu</td>
+</tr>
+<tr>
+<td>Bộ mã hóa/giải mã</td>
+<td>Chuyển đổi cục bộ và kiểm tra yêu cầu mã thông báo</td>
+</tr>
+<tr>
+<td>Cầu trình duyệt</td>
+<td>Ghép nối proxy công cụ gốc và định cấu hình ghi đè phiên</td>
+</tr>
+<tr>
+<td>Báo cáo</td>
+<td>Xuất bằng chứng của hồ sơ đang hoạt động</td>
+</tr>
+<tr>
+<td>Cài đặt</td>
+<td>Cài đặt yêu cầu/phiên, giao diện, kết nối gốc và tệp đánh giá</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-explorer">Trình khám phá API</h3>
+<p>Kết nối và duyệt trước, sau đó chọn <strong>Kiểm tra trang hiện tại</strong>. Nhập tệp do nhà phát triển cung cấp <strong>JSON API mở</strong> mô tả khi có sẵn, tối đa 2 MB. Nó đọc JSON cục bộ, không phải một trang từ xa tùy ý hoặc tệp YAML. Các tài liệu tham khảo thông số kỹ thuật cục bộ và các ví dụ/mặc định yêu cầu có sẵn có thể cung cấp đầu vào được hỗ trợ cụ thể; các giá trị/nội dung bị thiếu và các cấu trúc không được hỗ trợ để lại các khoảng trống.</p>
+<p>Điểm cuối là một địa chỉ; một hoạt động là một địa chỉ cộng với phương pháp. Đầu vào truy vấn xuất hiện sau <code dir="ltr" translate="no">?</code>, đầu vào đường dẫn trong đường dẫn địa chỉ và đầu vào nội dung trong nội dung được gửi. Hoạt động được liệt kê là hàng tồn kho, không phải bằng chứng cho thấy tài khoản hiện tại có thể truy cập mọi đối tượng mà nó xử lý.</p>
+<p>sử dụng <strong>Bộ lặp</strong> bên cạnh thao tác GET/HEAD được hỗ trợ để chuẩn bị yêu cầu mà chưa gửi yêu cầu. Xem lại URL/phương thức/thông tin đầu vào rồi gửi đi một cách có chủ đích. Hoạt động ghi chỉ dành cho khoảng không quảng cáo vẫn yêu cầu bạn chuẩn bị yêu cầu thích hợp và nhận được phê duyệt ghi.</p>
+<h3 id="repeater-and-compare">Bộ lặp và so sánh</h3>
+<p>Bộ lặp thực hiện một yêu cầu có phạm vi mới bằng cách sử dụng phiên trình duyệt bị ràng buộc. GET/HEAD/OPTIONS sử dụng tuyến đường thông thường. Phương pháp viết, thay đổi nội dung và khả năng phá hủy/tải lên vẫn phải tuân theo chính sách và phê duyệt. Các giá trị Cookie/Ủy quyền/Máy chủ được quản lý không thể được thay thế tự do thông qua trình chỉnh sửa tiêu đề của nó; sử dụng tuyến công cụ bên ngoài gốc để kiểm tra tiêu đề/cookie được định cấu hình rõ ràng.</p>
+<p><strong>Thực hiện theo các chuyển hướng cùng nguồn gốc</strong> kiểm soát việc bạn kiểm tra chính chuyển hướng hay phản hồi cuối cùng được phép. Chuyển hướng ngoài phạm vi không phải là ủy quyền chung. Giữ lại nội dung phản hồi khi cần để xem xét, sau đó chọn hai phản hồi đã lưu trong <strong>So sánh</strong>. So sánh không gửi yêu cầu; nội dung động, trạng thái đăng nhập, điều chỉnh hoặc các trang WAF có thể giải thích sự khác biệt.</p>
+<h3 id="interceptor">đánh chặn</h3>
+<p>Kích hoạt tính năng chặn và <strong>Áp dụng đánh chặn</strong>. Cấp quyền chặn Firefox tùy chọn thông qua hành động thông thường của người dùng. Tính năng chặn bắt đầu bị vô hiệu hóa sau khi khởi động lại tiện ích mở rộng.</p>
+<table>
+<thead>
+<tr>
+<th>Giai đoạn/kiểm soát</th>
+<th>Hành vi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Giữ URL yêu cầu</td>
+<td>Tạm dừng trước tiêu đề yêu cầu; chỉnh sửa URL/truy vấn trong phạm vi hoặc thả</td>
+</tr>
+<tr>
+<td>Giữ tiêu đề yêu cầu</td>
+<td>Kiểm tra/chỉnh sửa các tiêu đề yêu cầu được phép trước khi truyền</td>
+</tr>
+<tr>
+<td>Giữ tiêu đề phản hồi</td>
+<td>Tạm dừng gửi sau khi yêu cầu đến máy chủ; không thể hoàn tác hành động phía máy chủ</td>
+</tr>
+<tr>
+<td>Bộ lọc tài nguyên/phương thức/đường dẫn</td>
+<td>Hạn chế lưu lượng truy cập đủ điều kiện trong tab bị ràng buộc và phạm vi mục tiêu chính xác</td>
+</tr>
+<tr>
+<td>Giữ thời gian chờ</td>
+<td>Mặc định 0: không tự động phát hành. Tùy chọn 10–3.600 giây, sau đó chọn hành động tiến/thả</td>
+</tr>
+<tr>
+<td>Giai đoạn chuyển tiếp</td>
+<td>Giải quyết giai đoạn này; một giai đoạn được kích hoạt khác có thể chứa cùng một yêu cầu sau đó</td>
+</tr>
+<tr>
+<td>Bỏ yêu cầu</td>
+<td>Hủy giai đoạn này/yêu cầu giao hàng</td>
+</tr>
+<tr>
+<td>Chuyển tiếp/thả tất cả đang chờ xử lý</td>
+<td>Giải quyết hàng đợi hiện tại mà không thay đổi bộ lọc trong tương lai</td>
+</tr>
+<tr>
+<td>Tắt và chuyển tiếp đang chờ xử lý</td>
+<td>Vô hiệu hóa việc chặn và giải phóng các giai đoạn chờ không thay đổi</td>
+</tr>
+</tbody>
+</table>
+<p>Ứng dụng/trình duyệt có thể hết thời gian chờ trước khi bạn đưa ra yêu cầu đã tồn tại từ lâu. Có thể chờ tới 20 màn; vượt quá giới hạn hàng đợi sẽ hủy bỏ lưu lượng truy cập phù hợp hơn nữa. Việc thay đổi bộ lọc sẽ giải phóng các giai đoạn hiện tại không thay đổi. Việc đóng bảng điều khiển cuối cùng sẽ phát hành các giai đoạn đã giữ và vô hiệu hóa tính năng chặn.</p>
+<p>Các tiêu đề được phép sử dụng một mảng JSON gồm các cặp tên/giá trị; các trường nhạy cảm/do trình duyệt quản lý/đóng khung đều được bảo vệ. Việc ghi lại phương thức/nội dung/trạng thái của yêu cầu mạng bị giữ lại không khả dụng. <strong>Gửi tới bộ lặp</strong> tạo một hình dạng yêu cầu riêng để chỉnh sửa có chủ ý; nó không minh bạch trong việc viết lại cơ thể trong chuyến bay.</p>
+<p>Chỉ lưu lượng truy cập HTTP tab mục tiêu đã chọn mới đủ điều kiện. Vận chuyển máy quét bỏ qua việc chặn để tránh bế tắc. Lưu lượng proxy gốc bên ngoài nằm ngoài trình chặn chặn trình duyệt này. Thông báo WebSocket sau khi nâng cấp cần có kênh làm việc riêng.</p>
+<h3 id="websocket-sse-and-utilities">WebSocket, SSE và các tiện ích</h3>
+<p>Chọn một kênh trong phạm vi được phát hiện hoặc nhập URL chính xác của kênh đó. Việc nghe và gửi khung tùy chỉnh là các hoạt động được phê duyệt có giới hạn, không phải là trình quét giao thức chung. Văn bản lỗi đã ghi lại là khách hàng tiềm năng; nó không thiết lập ủy quyền tin nhắn hoặc lỗ hổng chủng tộc/logic.</p>
+<p>Các tiện ích mã hóa/giải mã các giá trị, tính toán SHA-256, định dạng JSON và kiểm tra các xác nhận quyền sở hữu JWT cục bộ. Giải mã JWT không phải là xác minh chữ ký và không chứng minh rằng máy chủ chấp nhận mã thông báo giả mạo. Đầu vào được chuyển đổi không được thực hiện hoặc gửi tự động.</p>
+<h2 id="findings-and-the-cimematic-viewer">Những phát hiện và người xem điện ảnh</h2>
+<h3 id="read-the-evidence-first">Đọc bằng chứng trước</h3>
+<p>Một phát hiện có các trường riêng biệt:</p>
+<table>
+<thead>
+<tr>
+<th>trường</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mức độ nghiêm trọng</td>
+<td>Ước tính tác hại tiềm tàng nếu vấn đề có thể khai thác được</td>
+</tr>
+<tr>
+<td>Phán quyết</td>
+<td>Những gì máy quét quan sát được: tiềm ẩn/khớp/dễ bị tổn thương, tiêu cực, bị chặn hoặc không thể kết luận, nếu có</td>
+</tr>
+<tr>
+<td>sự tự tin</td>
+<td>Sức mạnh của bằng chứng được thực hiện, không phải mức độ tổn hại</td>
+</tr>
+<tr>
+<td>Xem lại trạng thái</td>
+<td>Đánh giá của bạn: Chưa được xem xét, Đã được người đánh giá xác nhận, Dương tính giả hoặc Rủi ro được chấp nhận</td>
+</tr>
+<tr>
+<td>WSTG / CWE</td>
+<td>Phân loại tham chiếu, không phải bằng chứng cho thấy bài kiểm tra/danh mục đầy đủ đã được hoàn thành</td>
+</tr>
+</tbody>
+</table>
+<p>Kiểm tra URL, điểm chèn, yêu cầu, đường cơ sở, tải trọng, phản hồi và lặp lại/điều khiển. Kiểm tra xem nội dung có bị cắt bớt hay phản hồi là trang thử thách/đăng nhập/lỗi. Lỗi lặp lại có độ tin cậy cao vẫn có thể là một phát hiện tiêm tiềm ẩn cần được xem xét.</p>
+<p>Đặt trạng thái xem xét và ghi chú, sau đó <strong>Lưu đánh giá</strong>. Điều này không ghi đè lên kết quả/độ tin cậy ban đầu của máy quét. Kết quả dương tính giả vẫn được giữ lại bằng chứng. Bộ lọc, bao gồm <strong>Hiển thị phủ định/bị chặn</strong>, thay đổi mức độ hiển thị chứ không phải bản ghi thực thi.</p>
+<h3 id="cimematic-viewer">người xem phim ảnh</h3>
+<p>Nút được đặt tên có chủ ý <strong>người xem phim ảnh</strong> trong phiên bản này. Nó mở ra phần giải thích 3D theo chủ đề cho kết quả đã chọn.</p>
+<p>Trình tự này dài khoảng 9,3 giây: xác định vị trí khu vực bị ảnh hưởng, hiển thị thông tin đầu vào, minh họa quá trình xử lý, hiển thị bằng chứng kết quả được ghi lại, sau đó hiển thị mức độ nghiêm trọng và giải thích rủi ro tiềm ẩn bằng ngôn ngữ đơn giản. Các điều khiển có sẵn bao gồm <strong>Tạm dừng/tiếp tục</strong>, phát lại, đánh số bước, bỏ qua tác động, <strong>chiều sâu 3D</strong> và <strong>Toàn màn hình</strong>. Cài đặt giảm chuyển động có thể ảnh hưởng trực tiếp đến tác động.</p>
+<table>
+<thead>
+<tr>
+<th>Chế độ</th>
+<th>Những gì nó cho thấy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trực tiếp / CSS + JS</td>
+<td>Tab xem trước Firefox thông thường tải trang hiện tại bằng CSS/JavaScript và ngữ cảnh cookie đã chọn; người xem nhận được các khung được hiển thị và các phần tử hình chữ nhật</td>
+</tr>
+<tr>
+<td>Chỉ được chụp</td>
+<td>Giữ lại bằng chứng bằng HTML đã được làm sạch, không thực thi hoặc bị thu thập; không có tài nguyên hoặc tập lệnh bên ngoài nào được chạy bởi dự phòng ngoại tuyến đó</td>
+</tr>
+<tr>
+<td>Kết quả được ghi lại</td>
+<td>Bằng chứng quét/mặt phẳng kết quả đã lưu, có thể khác với trang trực tiếp hiện tại</td>
+</tr>
+</tbody>
+</table>
+<p>Nó là một khung nhìn điện ảnh, không phải là một trang web nhân bản tương tác DOM. <strong>Mở tab trực tiếp</strong> mở trang thực sự để tương tác. Tải trực tiếp thông thường có thể thực hiện các yêu cầu tài nguyên/ứng dụng thông thường của trang web, nhưng việc mở trình xem sẽ không gửi biểu mẫu tấn công đã lưu, phát lại POST hoặc chạy lại hoạt động khai thác.</p>
+<p>Vị trí camera chỉ chính xác khi có thể định vị được đầu vào/tên/id phù hợp. Các phát hiện về API/tiêu đề/cookie không được có dạng HTML; chế độ xem ngữ cảnh trang được gắn nhãn như vậy. Hoạt hình không bao giờ nâng cấp một phát hiện tiềm năng thành bằng chứng khai thác. Nếu hiển thị trực tiếp không thành công, hãy sử dụng bằng chứng đã thu thập và chi tiết văn bản/yêu cầu.</p>
+<p>Tab xem trước thuộc sở hữu của người xem bị đóng khi dọn dẹp trình xem/trang tổng quan thông thường; một tab tương tác được mở rõ ràng vẫn là của bạn để đóng. Thông tin đăng nhập hiện tại, trạng thái trang web, tải phụ thuộc và CSP có thể thay đổi nội dung hiển thị ở chế độ trực tiếp.</p>
+<h2 id="owasp-top-10-coverage">Bảo hiểm hàng đầu của OWASP 10</h2>
+<p>Mở <strong>Tùy chọn quét → Thông tin</strong> đối với bảng triển khai 44 mục nhập có thể tìm kiếm/có thể lọc, cũng có thể truy cập được thông qua nút Thông tin trang. Nó sử dụng <a href="https://top10.owasp.org/2025/">OWASP Top 10:2025</a> với các tài liệu tham khảo cũ hơn năm 2021 để định hướng. SSRF hiện được nhóm trong Kiểm soát truy cập bị hỏng. Các ví dụ có thể chồng chéo các danh mục; danh sách này không phải là danh mục CWE hoàn chỉnh.</p>
+<p>Nhãn hỗ trợ:</p>
+<ul>
+<li><strong>Kiểm tra tích cực:</strong> tồn tại một quy tắc được triển khai chuyên dụng khi được bật, đối với các đầu vào đã đạt được hỗ trợ.</li>
+<li><strong>Xác minh tùy chọn:</strong> áp dụng các tùy chọn, quyền, nhà cung cấp hoặc điều kiện tiên quyết bổ sung.</li>
+<li><strong>Chỉ các chỉ số:</strong> một tín hiệu/so sánh thụ động yêu cầu giải thích thủ công.</li>
+<li><strong>Phụ thuộc vào mẫu:</strong> mẫu đã nhập và người thực thi xác định điều kiện được kiểm tra.</li>
+<li><strong>Không được bảo hiểm:</strong> không có trình xác minh tích hợp chuyên dụng cho lớp đó; tải trọng tùy chỉnh chung không tự động thiết lập phạm vi bảo hiểm.</li>
+</ul>
+<p>Đây là cuộc kiểm tra năng lực dựa trên nguồn, <strong>không phải là phần trăm phát hiện đo được</strong>. Nó mô tả máy quét tích hợp của Longshot và các giai đoạn tùy chọn của nó, không phải toàn bộ bộ quy tắc ZAP bên ngoài.</p>
+<table>
+<thead>
+<tr>
+<th>OWASP 2025</th>
+<th>Tính dễ bị tổn thương/điểm yếu</th>
+<th>Hỗ trợ</th>
+<th>Những gì chạy/tùy chọn bắt buộc</th>
+<th>Giới hạn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A05</td>
+<td>SQL SQL: lỗi cơ sở dữ liệu và sự khác biệt boolean</td>
+<td>Kiểm tra tích cực</td>
+<td>Kích hoạt tính năng tiêm SQL. Các thăm dò lỗi cơ sở dữ liệu lặp đi lặp lại và so sánh đúng/sai sử dụng các điều khiển mới trên các đầu vào được phát hiện.</td>
+<td>Ứng viên cần xem xét. Không có trích xuất cơ sở dữ liệu hoặc phạm vi bao phủ mù toàn diện dành riêng cho DBMS.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Tiêm SQL mù: thời gian</td>
+<td>Xác minh tùy chọn</td>
+<td>Bật thăm dò thời gian lặp lại với phê duyệt linh hoạt. Ba thời điểm làm sạch được so sánh với ba đầu dò SLEEP ở điểm chèn đầu tiên.</td>
+<td>Cú pháp SQL hẹp và phương pháp phỏng đoán thời gian; jitter, WAF và các phương ngữ cơ sở dữ liệu khác nhau có thể ẩn hoặc bắt chước kết quả.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Tiêm NoSQL</td>
+<td>Kiểm tra tích cực</td>
+<td>Bật tính năng chèn NoSQL cho các chữ ký lỗi MongoDB/BSON lặp lại. Xác minh thời gian tùy chọn cũng thử độ trễ MongoDB $where trên các nội dung JSON.</td>
+<td>Không bỏ qua xác thực dựa trên nhà điều hành chung, trích xuất NoSQL mù quáng hoặc bao phủ mọi công cụ NoSQL.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Tập lệnh chéo trang được phản ánh (XSS)</td>
+<td>Kiểm tra tích cực</td>
+<td>Kích hoạt XSS được phản ánh. Một điểm đánh dấu phản chiếu duy nhất và các đầu dò ngữ cảnh HTML trơ lặp đi lặp lại xác định các đánh dấu trông có vẻ thực thi được.</td>
+<td>Bằng chứng ngữ cảnh HTML là một ứng cử viên. Nó không thiết lập việc thực thi tập lệnh hoặc bỏ qua Chính sách bảo mật nội dung.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>DOM XSS từ truy vấn URL hoặc đầu vào phân đoạn</td>
+<td>Xác minh tùy chọn</td>
+<td>Bật xác minh XSS DOM trực tiếp và phê duyệt các quyền linh hoạt. Hai con chim hoàng yến mới phải thực thi trong các tab lưu trữ cookie giống nhau dùng một lần; một điều khiển phải ở mức âm.</td>
+<td>Chỉ đầu vào URL bị giới hạn. CSP và các phần phụ thuộc vẫn được thực thi; thời gian chờ và tài nguyên bị chặn để lại khoảng trống.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>DOM XSS từ postMessage, lưu trữ hoặc luồng dữ liệu tùy ý</td>
+<td>Không được bảo hiểm</td>
+<td>Gợi ý nguồn/phần chìm thụ động có thể xác định các mẫu JavaScript nội tuyến gần đó để xem xét.</td>
+<td>Không theo dõi vết bẩn chung, tạo thông báo tùy ý hoặc kiểm tra thực thi nguồn lưu trữ.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>XSS được lưu trữ và tiêm lệnh thứ hai nhiều bước</td>
+<td>Không được bảo hiểm</td>
+<td>Một trang đã truy cập có thể chứa mã đáng ngờ hoặc một ứng cử viên được phản ánh.</td>
+<td>Không có mối tương quan chung về ghi-lưu trữ-đọc, phát lại quy trình công việc hoặc xác minh thực thi tải trọng được lưu trữ.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Chèn mẫu phía máy chủ (SSTI)</td>
+<td>Kiểm tra tích cực</td>
+<td>Bật tính năng chèn mẫu máy chủ. Kết quả số học ngẫu nhiên với các điểm đánh dấu duy nhất phải lặp lại đối với các điều khiển.</td>
+<td>Chỉ các họ biểu thức được hỗ trợ; thực thi mẫu mù và mọi công cụ tạo mẫu không được đề cập.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Chèn mã phía máy chủ</td>
+<td>Kiểm tra tích cực</td>
+<td>Bật tính năng chèn mã phía máy chủ. Các chim hoàng yến JavaScript/PHP được tính toán giúp phân biệt đánh giá với phản ánh đơn giản.</td>
+<td>Một bộ ngôn ngữ/ngữ cảnh nhỏ; không phải là một thử nghiệm thực thi mã từ xa phổ quát.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Chèn lệnh hệ điều hành</td>
+<td>Xác minh tùy chọn</td>
+<td>Bật chỉ báo lệnh hệ điều hành cho các đầu dò đầu ra id lặp lại. Các đầu dò lệnh tùy chọn với nhà cung cấp OAST đang lắng nghe có thể tương quan với lệnh gọi lại DNS.</td>
+<td>Yêu cầu ngữ cảnh lệnh tương thích và đối với lệnh gọi lại, đầu ra mục tiêu. Không gọi lại không thiết lập sự an toàn.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>CRLF/tiêu đề phản hồi</td>
+<td>Kiểm tra tích cực</td>
+<td>Bật tính năng chèn tiêu đề phản hồi. Điểm đánh dấu tiêu đề phản hồi được tạo phải lặp lại và vắng mặt trong các điều khiển.</td>
+<td>Việc xử lý URL/tiêu đề của trình duyệt giới hạn tải trọng. Việc phân tách phản hồi thô, đầu độc bộ đệm và các cuộc tấn công đóng khung không được thiết lập.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>LDAP, XPath và các ngôn ngữ chèn chưa được triển khai khác</td>
+<td>Không được bảo hiểm</td>
+<td>Tải trọng tùy chỉnh, Tự động làm mờ hoặc mẫu được xem xét có thể hỗ trợ điều tra riêng.</td>
+<td>Không có trình xác minh dành riêng cho từng ngôn ngữ được tích hợp sẵn; sự khác biệt trong phản hồi không phải là sự xác nhận.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Truyền tải đường dẫn/bao gồm tệp cục bộ</td>
+<td>Kiểm tra tích cực</td>
+<td>Bật Truyền tải/bao gồm tệp. Chữ ký nội dung tệp được hỗ trợ phải lặp lại trên các điểm chèn được phát hiện.</td>
+<td>Không bao gồm mọi mã hóa, hệ điều hành, bao gồm từ xa hoặc tệp tùy ý. Không có thư mục kiểm kê vũ phu.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Giả mạo yêu cầu phía máy chủ (SSRF)</td>
+<td>Xác minh tùy chọn</td>
+<td>Kích hoạt SSRF và OAST với nhà cung cấp có thể truy cập được phê duyệt. Tương quan thăm dò chính xác ghi lại tương tác DNS/HTTP.</td>
+<td>Sự khác biệt về phản hồi địa chỉ nội bộ chỉ là gợi ý. Lệnh gọi lại thiết lập sự tương tác chứ không phải quyền truy cập nội bộ hoặc đánh cắp dữ liệu; trung gian có thể giải quyết tải trọng.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>IDOR / ủy quyền đối tượng hoặc chức năng bị hỏng</td>
+<td>Chỉ các chỉ số</td>
+<td>Bật So sánh với Phiên B bằng cách sử dụng kho lưu trữ cookie riêng/bộ chứa Firefox riêng biệt. Tối đa mười yêu cầu đọc so sánh trạng thái và nội dung băm.</td>
+<td>Không có quyền sở hữu đối tượng hoặc mô hình vai trò mong đợi; các trang công khai giống hệt nhau có thể hợp pháp. Không có bằng chứng leo thang đặc quyền chung.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Giả mạo yêu cầu chéo trang (CSRF)</td>
+<td>Chỉ các chỉ số</td>
+<td>Báo cáo đánh giá biểu mẫu Biểu mẫu POST không có trường mã thông báo được nhận dạng và kiểm tra các thuộc tính cookie hiển thị.</td>
+<td>Không gửi khai thác chéo trang web hoặc kiểm tra xác thực mã thông báo máy chủ. SameSite, tiêu đề tùy chỉnh và điều khiển quy trình làm việc cần được xem xét thủ công.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Khai thác chia sẻ tài nguyên chéo nguồn gốc (CORS)</td>
+<td>Chỉ các chỉ số</td>
+<td>Quá trình xem xét CORS kiểm tra các tiêu đề nguồn gốc cho phép và thông tin xác thực được quan sát.</td>
+<td>Không có kiểm tra phản ánh nguồn gốc tùy ý hoặc xác minh đọc dữ liệu nguồn gốc của kẻ tấn công. Ký tự đại diện có thông tin xác thực bị trình duyệt từ chối.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Mở chuyển hướng</td>
+<td>Kiểm tra tích cực</td>
+<td>Bật chuyển hướng mở. Đích .invalid được tạo trong tiêu đề Vị trí phải lặp lại. Các điểm đến bên ngoài không được theo dõi.</td>
+<td>Chuyển hướng JavaScript, chuyển hướng đăng nhập nhiều bước và mọi bỏ qua chuẩn hóa URL không được đề cập.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Cách ly đối tượng thuê, tăng vai trò và ủy quyền quy trình làm việc</td>
+<td>Không được bảo hiểm</td>
+<td>So sánh phiên và các yêu cầu được nhập có thể cung cấp bằng chứng cho nhà phân tích.</td>
+<td>Không hiểu rõ về quyền sở hữu, vai trò của người thuê, chuyển đổi trạng thái hoặc các hoạt động kinh doanh được phép.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Thiếu tiêu đề bảo mật, CSP yếu và khả năng phòng thủ bằng cách nhấp chuột</td>
+<td>Chỉ các chỉ số</td>
+<td>Đánh giá tiêu đề thụ động trong quá trình quét sẽ kiểm tra CSP, đánh giá không an toàn, chính sách đóng khung và không đánh hơi các phản hồi được quan sát.</td>
+<td>Thiếu phòng thủ là những tín hiệu đang tăng cường; khả năng khai thác, tính hoàn chỉnh của chính sách và tác động khắc phục giao diện người dùng chưa được thiết lập.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Danh sách thư mục, hiển thị nguồn/cấu hình và dấu vết gỡ lỗi</td>
+<td>Chỉ các chỉ số</td>
+<td>Đánh giá thụ động nhận ra đánh dấu danh sách, nguồn PHP, bài tập khóa cấu hình và dấu vết ngăn xếp đã chọn trong nội dung được trả về.</td>
+<td>Chỉ quan sát nội dung và chữ ký; không có tập tin sao lưu toàn diện, bí mật hoặc khám phá quản trị viên ẩn.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Chèn thực thể bên ngoài XML (XXE)</td>
+<td>Xác minh tùy chọn</td>
+<td>Kích hoạt XXE và nhà cung cấp OAST lắng nghe với sự phê duyệt linh hoạt. Nội dung yêu cầu XML được thay thế bằng canary gọi lại thực thể bên ngoài.</td>
+<td>Yêu cầu một yêu cầu XML được kiểm kê. Không có trình phân tích cú pháp toàn diện, SOAP, đọc tệp, thực thể tham số hoặc phạm vi trích xuất mù.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Các phương thức HTTP nguy hiểm</td>
+<td>Chỉ các chỉ số</td>
+<td>Kích hoạt các phương thức HTTP được quảng cáo. OPTIONS ghi lại tiêu đề Cho phép phản hồi.</td>
+<td>Không cố gắng ghi PUT/DELETE trái phép hoặc chứng minh các phương pháp được quảng cáo có thể khai thác được.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Xử lý tham số truy vấn trùng lặp</td>
+<td>Chỉ các chỉ số</td>
+<td>Bật xử lý tham số truy vấn trùng lặp để so sánh phản hồi thứ tự đầu tiên/thứ tự cuối cùng lặp lại.</td>
+<td>Sự khác biệt về phân tích cú pháp không chứng minh được việc bỏ qua WAF, lỗi kiểm soát truy cập hoặc sự bất đồng về proxy/phụ trợ.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Quyền trên đám mây, dịch vụ quản trị ẩn và cấu hình phụ trợ</td>
+<td>Không được bảo hiểm</td>
+<td>Dấu vân tay ngăn xếp và chế độ xem cấu trúc liên kết cung cấp các giả thuyết có thể nhìn thấy được trên trình duyệt.</td>
+<td>Không có quyền truy cập tài khoản đám mây, kiểm tra cơ sở hạ tầng, kiểm tra cấu hình máy chủ hoặc khám phá mạng nội bộ toàn diện.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Các phần phụ thuộc JavaScript của trình duyệt dễ bị tấn công đã biết</td>
+<td>Xác minh tùy chọn</td>
+<td>Cho phép SCA thư viện khách hàng so sánh các phiên bản tài sản được quan sát với cơ sở dữ liệu tư vấn đi kèm nhỏ.</td>
+<td>Chỉ tương quan phiên bản/chữ ký; backport, mã dễ bị tấn công có thể truy cập, cây phụ thuộc đầy đủ và nội dung không nhìn thấy không được xác minh.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>CVE phụ thuộc máy chủ và lỗ hổng sản phẩm</td>
+<td>Phụ thuộc vào mẫu</td>
+<td>Giai đoạn tự động CVE yêu cầu các mẫu được nhập đủ điều kiện; chỉ những yêu cầu và đối sánh được soạn thảo của họ mới chạy. Hạt nhân bản địa yêu cầu công cụ và sự phê duyệt riêng.</td>
+<td>Chỉ riêng dấu vân tay/tư vấn phù hợp là ứng cử viên. Hai phần mềm khởi động cộng đồng đi kèm không cung cấp phạm vi bảo hiểm CVE phổ quát.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Các gói bị xâm phạm, CI/CD và các bản cập nhật chuỗi cung ứng độc hại</td>
+<td>Không được bảo hiểm</td>
+<td>Tên hoặc phiên bản phụ thuộc có thể hỗ trợ đánh giá mã và bản dựng riêng biệt.</td>
+<td>Không có tính hoàn chỉnh của SBOM, kiểm tra kho lưu trữ/xây dựng, tính xác thực của gói hoặc xác minh chuỗi ký kết.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>Biểu mẫu mật khẩu HTTP, HSTS và tài liệu tham khảo tài nguyên không an toàn</td>
+<td>Chỉ các chỉ số</td>
+<td>Kiểm tra thụ động nhận dạng các biểu mẫu mật khẩu bằng HTTP/GET, HSTS vắng mặt và các tài nguyên HTTP được chọn được tham chiếu bởi đánh dấu HTTPS.</td>
+<td>Khám phá dữ liệu nhạy cảm không toàn diện; không chứng minh việc tiếp xúc dữ liệu khi nghỉ ngơi hoặc đánh giá mọi hành vi vận chuyển.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>Giao thức/mật mã TLS yếu, quản lý khóa và mã hóa ở trạng thái lưu trữ</td>
+<td>Không được bảo hiểm</td>
+<td>Trình duyệt cung cấp kết nối TLS bình thường.</td>
+<td>Không liệt kê mật mã/giao thức, kiểm kê chứng chỉ, đánh giá thiết kế mật mã, kiểm tra hàm băm mật khẩu hoặc truy cập khóa phía máy chủ.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>Logic kinh doanh, thao túng thanh toán/giá và lạm dụng quy trình làm việc</td>
+<td>Không được bảo hiểm</td>
+<td>Các yêu cầu được quan sát và Repeater hỗ trợ kiểm tra thủ công.</td>
+<td>Không có mô hình chính xác về giá, số dư tài khoản, quy tắc kinh doanh, lệnh giao dịch hoặc hành vi ứng dụng dự kiến.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>Điều kiện chạy đua và sai sót trong thiết kế cạn kiệt tài nguyên</td>
+<td>Không được bảo hiểm</td>
+<td>Yêu cầu giới hạn và kiểm soát tốc độ quét giới hạn; phản hồi giới hạn tốc độ là tín hiệu hoạt động.</td>
+<td>Không có dây đai đua đồng bộ hoặc xác minh từ chối dịch vụ có chủ ý.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Thuộc tính cookie/phiên yếu</td>
+<td>Chỉ các chỉ số</td>
+<td>Báo cáo đánh giá cookie thiếu Bảo mật, HttpOnly hoặc SameSite rõ ràng và SameSite=None nếu không có Bảo mật.</td>
+<td>Mục đích của cookie và mặc định của trình duyệt rất quan trọng. Không thiết lập việc chiếm quyền điều khiển phiên, cố định, vô hiệu hóa đăng xuất hoặc entropy mã thông báo.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Bỏ qua đăng nhập, MFA, đặt lại mật khẩu, bạo lực và chiếm đoạt tài khoản</td>
+<td>Không được bảo hiểm</td>
+<td>Việc kiểm tra nội dung có thể phát hiện ra một nguyên nhân gây ra lỗi đăng nhập. Trình xác thực phiên kiểm tra xem thông tin đăng nhập được định cấu hình có còn hợp lệ hay không.</td>
+<td>Không có cuộc tấn công thông tin xác thực chung, kiểm tra quy trình làm việc MFA/đặt lại, kiểm tra khóa hoặc xác minh tiếp quản tài khoản.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Lỗi xác minh JWT, OAuth, OIDC và SAML</td>
+<td>Không được bảo hiểm</td>
+<td>Các tiện ích có thể giải mã JWT cục bộ để kiểm tra thủ công.</td>
+<td>Giải mã không phải là xác minh chữ ký. Không có thử nghiệm chung về nhầm lẫn thuật toán, giả mạo mã thông báo, luồng chuyển hướng hoặc liên kết.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Đường dẫn gọi lại Log4Shell</td>
+<td>Xác minh tùy chọn</td>
+<td>Kích hoạt Log4Shell và OAST khi được phê duyệt. Một canary gọi lại JNDI được đặt trong đầu vào có sẵn đầu tiên và Phiên bản X-Api.</td>
+<td>Tương tác phù hợp cần được ghi nhận và đánh giá; nó không chứng minh việc thực thi mã. Các điểm chèn và đầu ra mục tiêu bị hạn chế có thể bỏ lỡ các đường dẫn dễ bị tấn công.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Quá trình khử lưu huỳnh không an toàn</td>
+<td>Phụ thuộc vào mẫu</td>
+<td>Tùy chọn khử lưu huỳnh sẽ chọn các mẫu đã nhập đủ điều kiện được gắn thẻ để khử lưu huỳnh. Xem lại người thực thi và các điều kiện tiên quyết của họ.</td>
+<td>Không có tính năng khám phá định dạng đối tượng chung, trình tạo chuỗi tiện ích hoặc trình xác minh giải tuần tự hóa phổ quát.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Cập nhật chưa được ký, dữ liệu ứng dụng giả mạo và kiểm soát tính toàn vẹn</td>
+<td>Không được bảo hiểm</td>
+<td>Các phản hồi được ghi lại và dữ liệu được giải mã có thể hỗ trợ phân tích thủ công.</td>
+<td>Không có mô hình tin cậy ứng dụng, xác thực chữ ký cập nhật, kiểm tra chữ ký dữ liệu hoặc xác minh chuyển nhượng hàng loạt chung.</td>
+</tr>
+<tr>
+<td>A09</td>
+<td>Thiếu nhật ký bảo mật, cảnh báo, tính toàn vẹn của nhật ký và phát hiện sự cố</td>
+<td>Không được bảo hiểm</td>
+<td>Longshot ghi lại bằng chứng quét của riêng mình và nhật ký yêu cầu địa phương.</td>
+<td>Nhật ký của máy quét không tiết lộ liệu ứng dụng có ghi nhật ký hoặc cảnh báo chính xác hay không; kiểm tra bằng chứng máy chủ/SIEM và chạy các kịch bản được giám sát.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>Rò rỉ thông tin từ các phản hồi đặc biệt</td>
+<td>Chỉ các chỉ số</td>
+<td>Việc tiết lộ lỗi thụ động và các biện pháp kiểm soát chèn chủ động có thể nhận thấy các dấu vết ngăn xếp đã chọn và các lỗi cơ sở dữ liệu mới xuất hiện.</td>
+<td>Chỉ trả lại bằng chứng. Chỉ một lỗi chung hoặc riêng HTTP 500 không phải là lỗ hổng đã được xác minh.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>Hành vi không mở được, lỗi khôi phục và khôi phục ngoại lệ không an toàn</td>
+<td>Không được bảo hiểm</td>
+<td>Sự khác biệt về tình trạng/cơ thể có thể hướng dẫn việc điều tra thủ công.</td>
+<td>Không có lỗi chung, xác nhận khôi phục giao dịch, khôi phục sự cố hoặc mô hình kiểm soát truy cập đường dẫn ngoại lệ.</td>
+</tr>
+<tr>
+<td>Khác</td>
+<td>Chuyển lậu yêu cầu HTTP, tạo khung không đúng định dạng, đầu độc bộ đệm và tấn công máy chủ</td>
+<td>Không được bảo hiểm</td>
+<td>Trình quét tích hợp sử dụng mạng trình duyệt và bảo vệ các tiêu đề được quản lý.</td>
+<td>Các công cụ bên ngoài thông qua proxy gốc là riêng biệt. Quá trình truyền tải HTTP được phân tích cú pháp của nó cũng không phải là một công cụ buôn lậu minh bạch byte hoặc công cụ TLS tùy chỉnh.</td>
+</tr>
+<tr>
+<td>Khác</td>
+<td>Lỗ hổng ứng dụng WebSocket/SSE</td>
+<td>Chỉ các chỉ số</td>
+<td>Kiểm tra kênh giới hạn tùy chọn nắm bắt các trao đổi và báo cáo văn bản lỗi đã chọn.</td>
+<td>Không có ủy quyền nhận biết giao thức, làm mờ lược đồ thông báo, chiếm quyền điều khiển WebSocket trên nhiều trang web hoặc trình xác minh logic nghiệp vụ.</td>
+</tr>
+<tr>
+<td>Khác</td>
+<td>Tải tệp lên, logic GraphQL/SOAP và các giao thức nhị phân không được hỗ trợ</td>
+<td>Không được bảo hiểm</td>
+<td>Các yêu cầu HTTP được phát hiện có thể hiển thị đầu vào vô hướng được hỗ trợ để kiểm tra chung.</td>
+<td>Không có thực thi tải lên chuyên dụng, ủy quyền/độ phức tạp của GraphQL, SOAP toàn diện hoặc trình quét giao thức nhị phân.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interpreting-actual-run-coverage">Giải thích phạm vi chạy thực tế</h3>
+<p>Bản đồ tham chiếu WSTG hoàn chỉnh bao gồm các tập hợp con tự động, công việc được hỗ trợ và đánh giá thủ công. trong <strong>Phạm vi đầu vào thực tế</strong>:</p>
+<ul>
+<li><strong>Đã hoàn thành</strong> có nghĩa là quy tắc được triển khai đã hoàn tất trên đầu vào đó chứ không phải đầu vào đó được bảo mật.</li>
+<li><strong>một phần</strong> có nghĩa là một số công việc đã được thực hiện nhưng bị giới hạn, bị gián đoạn hoặc tình trạng khác đã ngăn cản việc hoàn thành.</li>
+<li><strong>Đã bỏ qua</strong> có nghĩa là quy tắc/đầu vào không chạy; kiểm tra lý do.</li>
+</ul>
+<p>WAF, vai trò bị thiếu, phiên không hợp lệ, quy trình làm việc bị ẩn/không được truy cập, nội dung yêu cầu không khả dụng, CSP hoặc ngân sách đã cạn kiệt có thể khiến đầu vào dễ bị tấn công chưa được kiểm tra. Ghép nối proxy gốc không loại bỏ những giới hạn đó khỏi máy quét tích hợp. Phiên bản CVE được phát hiện, thiếu tiêu đề hoặc phản hồi khác không tự động bị coi là hành vi khai thác.</p>
+<p>Bản phát hành 2.18.1 đã vượt qua 192 bài kiểm tra đơn vị/hồi quy tự động, 8 bài kiểm tra thực tế của Chrome và 8 bài kiểm tra thực tế của Firefox, bao gồm xác minh ZIP/YAML CSP và lưu lượng truy cập ZAP gốc đối với một bản cố định SQLite được sở hữu. Các thư viện trình duyệt chính thức của nó được xác minh từng byte và việc xây dựng lại nguồn sạch sẽ tái tạo chính xác Firefox XPI. Những thử nghiệm đó xác nhận hành vi triển khai được đặt tên; chúng không hiển thị khả năng phát hiện mọi thử thách Juice Shop, WebGoat, bWAPP hoặc NodeGoat. Kết quả ZAP SQLi bên ngoài xác minh đường dẫn proxy chứ không phải việc thu hồi Longshot trên tất cả các lỗ hổng.</p>
+<h2 id="recovery-assessment-files-and-reports">Phục hồi, đánh giá hồ sơ và báo cáo</h2>
+<h3 id="keep-recovery-paths-separate">Giữ đường dẫn khôi phục riêng biệt</h3>
+<table>
+<thead>
+<tr>
+<th>Đường dẫn</th>
+<th>Phải làm gì sau thất bại</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quét/phiên tích hợp</td>
+<td>Xem lại hộp thoại khôi phục trang tổng quan, đăng nhập lại trong ngữ cảnh cookie ban đầu, xác thực và tiếp tục khi được phép</td>
+</tr>
+<tr>
+<td>Proxy công cụ gốc</td>
+<td>Kiểm tra lý do bộ điều hợp, tab/cửa hàng, mã thông báo và tạm dừng; tiếp tục/ghép nối lại một cách rõ ràng, sau đó sử dụng thử lại/tiếp tục của chính công cụ bên ngoài</td>
+</tr>
+<tr>
+<td>API đại lý</td>
+<td>Khôi phục kết nối tin nhắn/daemon gốc; sau đó kiểm tra trạng thái chạy hiện tại trước khi thực hiện một lần khởi động khác</td>
+</tr>
+<tr>
+<td>Khởi động lại trình duyệt/đánh giá đã nhập</td>
+<td>Khôi phục bằng chứng đã lưu và xác thực lại thông tin đăng nhập; không cho rằng hoạt động của mạng trên chuyến bay hoặc hàng đợi quét trực tiếp đầy đủ vẫn tồn tại</td>
+</tr>
+</tbody>
+</table>
+<p>Xác thực xác thực độc lập ngăn chặn mọi đột biến đăng nhập bị từ chối có chủ ý khỏi bị nhầm lẫn khi hết hạn phiên. Định cấu hình trình xác thực được bảo vệ có ý nghĩa. Hàng đợi trực tiếp có thể hỗ trợ khôi phục trong khi tiện ích mở rộng đang chạy nhưng tệp phiên đã lưu không tái tạo lại quá trình ghi không chắc chắn hoặc tự động phát lại toàn bộ quá trình quét bị gián đoạn.</p>
+<h3 id="browser-storage-and-optional-session-files">Lưu trữ trình duyệt và các tệp phiên tùy chọn</h3>
+<p>Bộ nhớ trình duyệt vẫn hoạt động độc lập với cầu nối cục bộ. Nó lưu giữ lịch sử, phát hiện, đánh giá, kiểm kê và các tùy chọn trên mỗi hồ sơ. Cơ quan phản hồi có thể được giữ lại với nỗ lực biên tập tốt nhất; Lưu lượng truy cập do trình duyệt quan sát thường có siêu dữ liệu mà không có nội dung được ghi lại.</p>
+<p>Đối với các điểm kiểm tra tập tin tự động:</p>
+<ol>
+<li>Đăng ký/kết nối <strong>API đại lý</strong>, không chỉ Cầu trình duyệt.</li>
+<li>Mở <strong>Cài đặt → Buổi đánh giá → Hướng dẫn</strong>.</li>
+<li>Nhập giá trị tuyệt đối <strong>Thư mục phiên</strong> trên máy tính API đại lý.</li>
+<li>Kích hoạt <strong>Tự động lưu tập tin phiên</strong> và chọn <strong>Lưu cài đặt phiên</strong>.</li>
+<li>sử dụng <strong>Lưu phiên ngay bây giờ</strong> để có điểm kiểm tra ngay lập tức; những thay đổi bình thường cũng kích hoạt lưu.</li>
+<li>sử dụng <strong>Xuất phiên hiện tại</strong> / <strong>Nhập tệp phiên</strong> để chuyển thủ công; nhập thủ công không yêu cầu máy chủ gốc.</li>
+</ol>
+<p>Các tệp sử dụng ID hồ sơ ổn định với <code dir="ltr" translate="no">.longshot.json</code>, cho phép hồ sơ rõ ràng cho một nguồn gốc. Chúng là các kho lưu trữ đánh giá có thể đọc được, không được mã hóa và có thể chứa dữ liệu ứng dụng, các mẫu được biên soạn và nội dung được giữ lại. Các cookie do trình duyệt quản lý, mã thông báo của nhà cung cấp và các khoản trợ cấp thực thi đều bị loại trừ.</p>
+<p>Viết là điểm kiểm tra tập tin riêng tư nguyên tử. Việc chấm dứt đột ngột chỉ có thể khôi phục lần lưu đã hoàn thành cuối cùng. Quá trình quét đang được khôi phục sẽ bị gián đoạn. Nếu cầu nối bị ngắt kết nối, việc lưu trữ trình duyệt vẫn tiếp tục và chờ lưu tệp; các điểm kiểm tra đã bật chưa được giải quyết có thể yêu cầu kết nối lại hoặc vô hiệu hóa tính năng lưu tệp trước khi chuyển đổi mục tiêu. Kích thước tệp phiên tối đa là 256 MB có lỗi rõ ràng.</p>
+<p>Xuất kho lưu trữ đánh giá khác với <strong>Tải xuống cấu hình</strong> trong Cầu trình duyệt. Cái trước lưu bằng chứng/tùy chọn đánh giá; cái sau lưu cài đặt proxy gốc.</p>
+<h3 id="reports">Báo cáo</h3>
+<p>Xem lại hồ sơ đang hoạt động trước khi xuất; báo cáo quét lịch sử cũng có sẵn thông qua API đại lý. Các báo cáo phù hợp với chủ đề chứa các biểu đồ và bằng chứng, nhưng số lượng biểu đồ là số lượng cảnh báo chứ không phải số lượng các lỗ hổng có thể khai thác được xác minh duy nhất.</p>
+<table>
+<thead>
+<tr>
+<th>định dạng</th>
+<th>Sử dụng/giới hạn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>Báo cáo ngoại tuyến độc lập với biểu đồ nội tuyến, tìm kiếm/bộ lọc, chi tiết bằng chứng, chủ đề và điều khiển in</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>Bằng chứng được sắp xếp lại có cấu trúc, cấu hình quét và phạm vi đầu vào được ghi lại</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>Trao đổi dạng bảng; các trường lồng nhau được tuần tự hóa và tiền tố công thức bảng tính được bảo vệ</td>
+</tr>
+<tr>
+<td>SARIF 2.1.0</td>
+<td>Tích hợp công cụ với siêu dữ liệu về mức độ nghiêm trọng/độ tin cậy/kết luận/tham chiếu và đánh giá</td>
+</tr>
+<tr>
+<td>In / PDF</td>
+<td>Mở báo cáo HTML và sử dụng Firefox print/Save to PDF; tùy chọn PDF của API có thể trả về HTML cộng với các hướng dẫn in thay vì các byte PDF sẵn sàng</td>
+</tr>
+</tbody>
+</table>
+<p>Trạng thái xem xét và ghi chú tách biệt với kết quả của máy quét. Đánh giá dương tính giả/rủi ro được chấp nhận vẫn có thể kiểm tra được; SARIF bao gồm thông tin đánh giá và các biện pháp ngăn chặn nếu có. Biên tập nỗ lực nhất không đảm bảo rằng trang/nội dung được giữ lại không chứa dữ liệu ứng dụng. Xem lại việc xuất thực tế trước khi chia sẻ.</p>
+<p>Các báo cáo ZAP/sqlmap/ffuf bên ngoài vẫn tách biệt. Siêu dữ liệu lưu lượng truy cập gốc không phải là bản sao toàn bộ lịch sử hoặc kết quả yêu cầu/phản hồi của chúng.</p>
+<h2 id="appearance-language-and-help">Ngoại hình, ngôn ngữ và sự giúp đỡ</h2>
+<p>Chủ đề mang tính toàn cầu và có thể thay đổi trong quá trình quét mà không thay đổi quyền quét. Menu bao gồm System, Dark, Light, Cybersteppe, Mr. Robot, Iron Man và các chủ đề tùy chỉnh đã lưu. Bố cục thích ứng thu hẹp các điều khiển; bảng bao phủ có vùng cuộn ngang riêng cho các cột chi tiết.</p>
+<p>Dưới <strong>Cài đặt → Chủ đề và âm thanh cảnh báo</strong>:</p>
+<ul>
+<li>Chọn chủ đề đang hoạt động và âm thanh/âm lượng cảnh báo; <strong>Kiểm tra âm thanh cảnh báo</strong> xem trước cảnh báo đã chọn.</li>
+<li>Chỉnh sửa tích hợp sẵn và <strong>Lưu làm chủ đề mới</strong> / duplicate to create a custom theme.</li>
+<li>Chọn phông chữ, bảng màu, độ mờ, nền và âm thanh theo gói/giao diện người dùng hệ thống/mã.</li>
+<li>Xuất/nhập JSON chủ đề; quá trình nhập không thực thi CSS hoặc tập lệnh tùy ý.</li>
+<li><strong>Hình ảnh động và âm thanh</strong> điều khiển chuyển động và giao diện âm thanh theo chủ đề. Cài đặt giảm chuyển động và tắt tiếng của trình duyệt/hệ thống vẫn còn quan trọng.</li>
+</ul>
+<p>Dark/Light, Cybersteppe, Mr. Robot và Iron Man có cách xử lý hình ảnh/âm thanh khác nhau. Việc mở/lựa chọn thả xuống là im lặng. Các tín hiệu lựa chọn servo dành riêng cho Người Sắt; cảnh báo lỗi bảo mật tách biệt với âm thanh giao diện thông thường.</p>
+<p>Menu ngôn ngữ cung cấp 20 ngôn ngữ đi kèm: tiếng Anh, tiếng Nga, tiếng Đức, tiếng Pháp, tiếng Trung giản thể, tiếng Nhật, tiếng Tây Ban Nha, tiếng Hindi, tiếng Bồ Đào Nha, tiếng Ả Rập, tiếng Bengali, tiếng Urdu, tiếng Indonesia, tiếng Thổ Nhĩ Kỳ, tiếng Hàn, tiếng Ý, tiếng Việt, tiếng Tamil, tiếng Telugu và tiếng Marathi. Nội dung mới/văn bản giao diện người dùng gốc được bao gồm trong danh mục bổ sung. Đây là các bản dịch máy kèm theo văn xuôi giao diện người dùng công cộng, không phải dịch vụ dịch thời gian chạy. Các trang mục tiêu, tải trọng, URL, tên trường/mã và ví dụ lệnh đã được ghi lại sẽ giữ nguyên văn bản gốc của chúng.</p>
+<p>sử dụng <strong>Thông tin/Hướng dẫn</strong>, gợi ý điều khiển và <strong>Cách sử dụng trang này · giải thích các điều khoản</strong> cho bối cảnh. Điều khoản liên kết đến tài liệu tham khảo. Bộ lọc/tìm kiếm thông tin chỉ thay đổi phần giải thích được hiển thị; nó không cho phép kiểm tra. <strong>Bắt đầu</strong> chính xác là tám slide và có thể được phát lại sau khi tan học.</p>
+<p>Ảnh chụp màn hình bản phát hành hiện tại sử dụng bản cố định SQLite loopback tạm thời được sở hữu. Các cổng ngẫu nhiên và dữ liệu tài khoản mẫu của họ là các tạo phẩm thử nghiệm, không phải cấu hình bắt buộc cho ứng dụng của bạn:</p>
+<blockquote>
+<p><strong>Hộp thoại bảo hiểm</strong>
+<img alt="quét vùng phủ sóng máy tính để bàn" src="/longshot-security-site/docs/assets/scan-coverage-desktop.png"/>
+<strong>Bố cục Iron Man thu hẹp với văn bản đưa tin bằng tiếng Nga</strong>
+<img alt="quét vùng phủ sóng sắt hẹp ru" src="/longshot-security-site/docs/assets/scan-coverage-iron-narrow-ru.png"/>
+<strong>Trang proxy gốc</strong>
+<img alt="proxy công cụ gốc" src="/longshot-security-site/docs/assets/native-tool-proxy.png"/></p>
+</blockquote>
+<h2 id="troubleshooting">Khắc phục sự cố</h2>
+<table>
+<thead>
+<tr>
+<th>Triệu chứng</th>
+<th>Khu vực chính xác cần kiểm tra/hành động tiếp theo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tiện ích mở rộng không còn sau khi khởi động lại</td>
+<td>Tạm thời <code dir="ltr" translate="no">about:debugging</code> quá trình cài đặt kết thúc khi khởi động lại. Tải lại XPI hoặc sử dụng cài đặt phát triển đã ký/liên tục thích hợp</td>
+</tr>
+<tr>
+<td>Giao diện người dùng/phiên bản sai sau khi cập nhật</td>
+<td>Kiểm tra bản kê khai/phiên bản được hiển thị; tải lại XPI dự định và đóng các bảng thông tin lỗi thời. Tên thư mục nguồn có thể giữ lại các phiên bản cũ</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find package 'ws'</code></td>
+<td>Xác minh đường dẫn bị lỗi. Bộ điều hợp gốc được tải xuống hoàn chỉnh bao gồm ws; cần một thư mục nguồn gốc mới <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code>. Lỗi ở đường dẫn adapter cũ là setup cũ chứ không phải mới <code dir="ltr" translate="no">cli.js</code> lệnh</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find module .../bridge/bin/longshot-bridge</code></td>
+<td>Chạy các lệnh API tác nhân từ gốc nguồn có chứa <code dir="ltr" translate="no">bridge/</code>hoặc sử dụng đường dẫn tập lệnh tuyệt đối. ZIP proxy gốc không phải là nguồn API đại lý đầy đủ</td>
+</tr>
+<tr>
+<td>Bộ điều hợp không khởi động/thiếu mitmdump</td>
+<td>Chạy <code dir="ltr" translate="no">python3 bootstrap.py</code> với Python 3.12+ hoặc chọn thời gian chạy được cài đặt dự định với <code dir="ltr" translate="no">--mitmdump</code></td>
+</tr>
+<tr>
+<td>Ghép nối không thể kết nối</td>
+<td>Sử dụng cổng điều khiển 8901, mã thông báo hiện tại và dòng điện chính xác <code dir="ltr" translate="no">moz-extension://...</code> nguồn gốc. Đảm bảo quá trình chuyển đổi đã sẵn sàng</td>
+</tr>
+<tr>
+<td>Công cụ gặp lỗi xác thực proxy</td>
+<td>Sử dụng cổng proxy 8900, cầu nối tên người dùng và mã thông báo hiện tại. Cập nhật mọi công cụ sau khi khởi động lại bộ chuyển đổi</td>
+</tr>
+<tr>
+<td>Nội dung trực tiếp/công khai thay vì yêu cầu proxy dự kiến</td>
+<td>Kiểm tra NO_PROXY/no_proxy, loại trừ công cụ và cài đặt proxy. Xác nhận yêu cầu xuất hiện trong Native Traffic</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">bridge.invalid</code> thất bại</td>
+<td>Quy trình làm việc bí danh cũ. Sử dụng URL mục tiêu thực và không có mục nhập tệp máy chủ</td>
+</tr>
+<tr>
+<td>Cấu hình thuộc tính bị từ chối/không xác định</td>
+<td>Không tái sử dụng <code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, biểu mẫu phạm vi/thời gian cũ hoặc điều khiển API cũ. Xuất cấu hình gốc và sử dụng các khóa được hỗ trợ của nó</td>
+</tr>
+<tr>
+<td>Lỗi xác minh chứng chỉ</td>
+<td>Phân biệt ứng dụng khách→sự tin cậy của bộ điều hợp với bộ điều hợp→xác minh nguồn gốc. Tin cậy CA bộ điều hợp công cộng được in trong công cụ; kiểm tra riêng chứng chỉ của máy chủ thực</td>
+</tr>
+<tr>
+<td>Cookie của trình duyệt không đến được công cụ</td>
+<td>Xác minh tab/cửa hàng đã chọn, Miền/đường dẫn/Bảo mật/phân vùng, cookie.enabled, tên được bảo vệ và liệu yêu cầu có thực sự đi qua proxy hay không</td>
+</tr>
+<tr>
+<td>Công cụ gửi thăm dò cookie nhưng nó biến mất</td>
+<td>Vô hiệu hóa/bảo vệ ghi đè có liên quan hoặc thêm X-Longshot-Preserve/tắt ghi đè yêu cầu. Không dựa vào việc phát hiện ý định yêu cầu đầu tiên</td>
+</tr>
+<tr>
+<td>Cookie của trình duyệt vẫn thay đổi khi tắt yêu cầu ghi đè</td>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code> là độc lập. Vô hiệu hóa nó nếu không muốn đồng bộ hóa phản hồi</td>
+</tr>
+<tr>
+<td>401/419/440 hoặc 429 tạm dừng proxy gốc</td>
+<td>Xem lại tab/phiên/điều chỉnh, sau đó tiếp tục một cách rõ ràng. Các thử nghiệm xác thực phủ định có chủ ý có thể cần thay đổi cấu hình trạng thái tạm dừng được xem xét và khởi động lại</td>
+</tr>
+<tr>
+<td>WAF chấp nhận Firefox nhưng từ chối lưu lượng truy cập gốc</td>
+<td>Sao chép cookie/UA không tái tạo hành vi TLS/IP/trình duyệt hoặc thực thi các thử thách JavaScript. Xem xét lộ trình đánh giá được phép và bằng chứng</td>
+</tr>
+<tr>
+<td>Mục tiêu hành tây bị chặn</td>
+<td>Định cấu hình tuyến đường ngược dòng/SOCKS thực sự rõ ràng trong bộ điều hợp gốc. Trình duyệt/tích hợp sẵn và Nuclei gốc bị cô lập có định tuyến khác nhau</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">permissions.request may only be called from a user input handler</code></td>
+<td>Sử dụng quy trình phê duyệt tiện ích mở rộng hiện tại. Lưu, xem lại, sau đó nhấp vào Phê duyệt lần chạy tiếp theo này để yêu cầu các quyền còn thiếu; không gọi các quyền từ thay đổi cài đặt nền/tác nhân không đồng bộ</td>
+</tr>
+<tr>
+<td>Lỗi xây dựng URL chung sau khi phát hiện tối đa</td>
+<td>Kiểm tra <strong>URL nhà cung cấp OAST</strong> và <strong>Miền gọi lại</strong>, độc lập với URL mục tiêu. Điền các giá trị phù hợp hoặc tắt OAST; xác nhận hiện tại xác định trường có liên quan</td>
+</tr>
+<tr>
+<td>Tính linh hoạt đã tắt nhưng các tùy chọn nâng cao vẫn được bật</td>
+<td>Tắt các tính năng được liệt kê hoặc bật/lưu Aggressive và phê duyệt lần chạy tiếp theo</td>
+</tr>
+<tr>
+<td>Phần B bị thiếu/không hợp lệ</td>
+<td>Chọn một tab có cùng nguồn gốc riêng biệt trong một kho lưu trữ cookie riêng tư/vùng chứa khác; các tab thông thường không cung cấp cookie độc ​​lập</td>
+</tr>
+<tr>
+<td>Phê duyệt đã hết hạn/đã sử dụng/đã thay đổi</td>
+<td>Lưu cài đặt cuối cùng và phê duyệt khoản trợ cấp mới cho lần chạy tiếp theo; thời hạn sử dụng là 30 phút và chỉ dùng một lần</td>
+</tr>
+<tr>
+<td>Chạy fuzzer không có yêu cầu hữu ích</td>
+<td>Cung cấp URL trong phạm vi, tham số truy vấn và bộ tải trọng được chọn không trống hoặc sử dụng tính năng Tự động làm mờ riêng biệt sau khi phát hiện khoảng không quảng cáo</td>
+</tr>
+<tr>
+<td>Cập nhật thư viện thăm dò không thành công</td>
+<td>Kiểm tra lý do nguồn/mạng/xác thực được báo cáo. Dữ liệu được lưu trong bộ nhớ đệm trước đó được giữ lại; quét mục tiêu không tự động chạy lại</td>
+</tr>
+<tr>
+<td>Không có phát hiện/quá ít lần kiểm tra</td>
+<td>Đọc phạm vi đầu vào đã hoàn thành/một phần/bị bỏ qua thực tế; kiểm tra việc khám phá, đăng nhập, ngân sách, loại phản hồi, chặn và loại trừ</td>
+</tr>
+<tr>
+<td>TÙY CHỌN cho phép XÓA</td>
+<td>Chỉ có hàng tồn kho. Nó không chứng minh được việc viết không được xác thực hoặc Longshot đã cố gắng thực hiện chúng</td>
+</tr>
+<tr>
+<td>Kết nối OAST vượt qua nhưng không có cuộc gọi lại mục tiêu</td>
+<td>Chạy thử nghiệm gọi lại trình duyệt, xác minh nhà cung cấp/miền phù hợp, TTL và đầu ra mục tiêu; sự vắng mặt vẫn không thể kết luận</td>
+</tr>
+<tr>
+<td>Mẫu gốc bị chặn</td>
+<td>Đọc lý do về người thực thi/khả năng: Hạt nhân/cách ly/người trợ giúp/chữ ký/phạm vi/phê duyệt/định tuyến có thể bị thiếu</td>
+</tr>
+<tr>
+<td>Máy phân tích thông minh không thể đặt tên cho phần phụ trợ</td>
+<td>Không xác định là kết quả hợp lệ. Các lớp WAF/proxy có thể ẩn hoặc viết lại bằng chứng; xác minh khoảng không quảng cáo triển khai theo cách thủ công</td>
+</tr>
+<tr>
+<td>trình xem cimematic thiếu trang trực tiếp</td>
+<td>Kiểm tra tab hoạt động/đăng nhập/nguồn gốc, các hạn chế chụp/tải và các phụ thuộc; chỉ sử dụng Bằng chứng được thu thập và ghi lại</td>
+</tr>
+<tr>
+<td>Người xem trỏ vào một khu vực trang chung</td>
+<td>Có thể không có trường HTML phù hợp để tìm kiếm tiêu đề/API/cookie. Định vị ngữ cảnh trang không phải là bằng chứng đầu vào chính xác</td>
+</tr>
+<tr>
+<td>Hồ sơ đánh giá đang chờ/lỗi</td>
+<td>Kết nối API tác nhân, kiểm tra thư mục/trạng thái tuyệt đối đã chọn và các điểm kiểm tra đang chờ xử lý. Bộ nhớ trình duyệt vẫn riêng biệt</td>
+</tr>
+<tr>
+<td>Lưu lượng truy cập gốc không có nội dung phản hồi hoặc phát hiện ZAP</td>
+<td>Chế độ xem chỉ có siêu dữ liệu dự kiến; kiểm tra lịch sử và báo cáo của chính công cụ bên ngoài</td>
+</tr>
+<tr>
+<td>Phản hồi API PDF là HTML/hướng dẫn</td>
+<td>Sử dụng In / Lưu thành PDF; không đổi tên byte HTML thành .pdf</td>
+</tr>
+<tr>
+<td>Giao diện người dùng được dịch vẫn hiển thị tiếng Anh</td>
+<td>Các thuật ngữ mã, mẫu lệnh, URL, tải trọng và bằng chứng thu được đều được bảo tồn có chủ ý. Kiểm tra phiên bản/ngôn ngữ để biết văn xuôi giao diện người dùng thực tế; chất lượng dịch máy có thể khác nhau</td>
+</tr>
+</tbody>
+</table>
+<p>Để chẩn đoán, hãy bắt đầu từ thông báo dành riêng cho từng trường và nhật ký của thành phần liên quan. Lỗi ghép nối proxy gốc, lỗi phiên quét trình duyệt và lỗi kết nối API tác nhân yêu cầu các cách khắc phục khác nhau. Không coi hành động giao diện người dùng đã hoàn thành hoặc ghép nối thành công là bằng chứng cho thấy mọi yêu cầu hoặc kiểm tra theo kế hoạch đều đã chạy.</p>
+<h2 id="terms-and-source-references">Điều khoản và nguồn tham khảo</h2>
+<table>
+<thead>
+<tr>
+<th>kỳ hạn</th>
+<th>Ý nghĩa/tham chiếu ngôn ngữ đơn giản</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">Yêu cầu/phản hồi HTTP</a></td>
+<td>Tin nhắn tới máy chủ web/trả lời của nó, bao gồm phương thức, URL, tiêu đề và nội dung tùy chọn</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/Origin">Xuất xứ</a></td>
+<td>Lược đồ, máy chủ và cổng được sử dụng làm ranh giới bảo mật web</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies">bánh quy</a></td>
+<td>Đã chọn trạng thái do trình duyệt quản lý cho các yêu cầu có thể áp dụng</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Session_Management">Quản lý phiên</a></td>
+<td>Cách ứng dụng nhận ra người dùng qua các yêu cầu</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/essential-skills">Tải trọng</a></td>
+<td>Giá trị kiểm tra được gửi đến đầu vào; không tự động khai thác thành công</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/sql-injection">SQL tiêm</a></td>
+<td>Đầu vào thay đổi cách diễn giải truy vấn cơ sở dữ liệu</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/nosql-injection">Tiêm NoSQL</a></td>
+<td>Đầu vào thay đổi hành vi của toán tử hoặc truy vấn cơ sở dữ liệu không phải SQL</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a></td>
+<td>Dữ liệu do kẻ tấn công kiểm soát tiếp cận nội dung trình duyệt thực thi</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting/dom-based">DOM XSS</a></td>
+<td>JavaScript phía máy khách mang dữ liệu không đáng tin cậy vào một vùng chứa có khả năng thực thi</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/server-side-template-injection">SSTI</a></td>
+<td>Đầu vào được hiểu là hướng dẫn mẫu máy chủ</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/os-command-injection">Lệnh tiêm</a></td>
+<td>Đầu vào thay đổi các lệnh được thực thi bởi shell/chương trình của hệ điều hành</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/file-path-traversal">Truyền tải đường đi</a></td>
+<td>Đầu vào thoát khỏi ranh giới đường dẫn tệp dự định</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/ssrf">SSRF</a></td>
+<td>Máy chủ đưa ra yêu cầu ngoài ý muốn tới một đích khác</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/xxe">XXE</a></td>
+<td>Việc xử lý thực thể bên ngoài XML gây ra truy cập tài nguyên ngoài ý muốn</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/csrf">CSRF</a></td>
+<td>Một trang web khác gây ra hành động ứng dụng được xác thực ngoài ý muốn</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cors">CORS</a></td>
+<td>Chính sách trình duyệt kiểm soát quyền truy cập phản hồi nhiều nguồn gốc</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/access-control/idor">Kiểm soát truy cập/IDOR</a></td>
+<td>Liệu người dùng có thể truy cập vào một đối tượng/hành động hay không, không chỉ liệu URL của nó có thể truy cập được hay không</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/logic-flaws">Logic kinh doanh</a></td>
+<td>Quy tắc về giá hợp lệ, quy trình làm việc, số dư và chuyển đổi trạng thái</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a></td>
+<td>Chính sách tài nguyên/tập lệnh do trình duyệt thực thi; chỉ một tiêu đề bị thiếu thôi thì không phải là thực thi XSS</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Web_Application_Firewall">WAF</a></td>
+<td>Lớp lọc HTTP có sự hiện diện không tiết lộ mọi quy tắc hoạt động</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Reverse_proxy">Proxy ngược</a></td>
+<td>Trung gian nhận yêu cầu trước máy chủ ứng dụng</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/TLS">TLS / CA</a></td>
+<td>Mã hóa kết nối và chứng chỉ tin cậy được sử dụng để xác thực điểm cuối của nó</td>
+</tr>
+<tr>
+<td><a href="https://nvd.nist.gov/vuln">CVE / NVD</a></td>
+<td>Mã định danh/cơ sở dữ liệu cho các lỗ hổng đã biết; việc khớp một biểu ngữ không phải là khai thác xác minh</td>
+</tr>
+<tr>
+<td><a href="https://cwe.mitre.org/">CWE</a></td>
+<td>Phân loại các loại điểm yếu</td>
+</tr>
+<tr>
+<td><a href="https://top10.owasp.org/2025/">OWASP Top 10:2025</a></td>
+<td>Các danh mục nhận thức, không phải là bộ kiểm tra máy quét hoàn chỉnh</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-project-web-security-testing-guide/">WSTG</a></td>
+<td>Tài liệu tham khảo kiểm tra bảo mật web bao gồm công việc tự động và thủ công</td>
+</tr>
+</tbody>
+</table>
+<p>Cơ sở triển khai hướng dẫn này: bản kê khai 2.18.1; <code dir="ltr" translate="no">content/checks.js</code>; <code dir="ltr" translate="no">lib/core.js</code>, <code dir="ltr" translate="no">lib/v2.js</code>, mô-đun kiểm toán/DOM/thăm dò; bảng điều khiển/trợ giúp/phạm vi bảo hiểm/giao diện người dùng gốc; cấu hình bộ điều hợp gốc, ghi đè và CLI; API đại lý/khách hàng gốc; phát hành các tạo phẩm xác thực. Khi tài liệu cũ xung đột với hành vi vận chuyển cũ đã bị loại bỏ, thời gian chạy 2.18.1 đã vận chuyển là cơ sở được sử dụng ở đây.</p>
+<p>Tài liệu tham khảo thiết lập bổ sung:</p>
+<ul>
+<li><a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">Cài đặt tạm thời Mozilla</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging">Nhắn tin gốc của Mozilla</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">Cài đặt kết nối đi ZAP</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/">Chính sách và các hạn chế của quét hoạt động ZAP</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/concepts/certificates/">chứng chỉ mitmproxy</a></li>
+<li><a href="https://github.com/projectdiscovery/interactsh">Tương tác chính thức</a></li>
+<li><a href="https://docs.projectdiscovery.io/templates/reference/template-signing">Ký mẫu hạt nhân</a></li>
+<li><a href="#owasp-top-10-coverage">Hoàn thành tài liệu bảo hiểm phát hành</a></li>
+</ul>
+<p>Hướng dẫn này là hướng dẫn chung cho bản phát hành được đặt tên. Các kết quả dành riêng cho ứng dụng vẫn yêu cầu mục tiêu được ủy quyền, quy trình làm việc đạt được và bằng chứng được xem xét.</p></main></div><footer>Bảo mật lâu dài · Chỉ đánh giá được ủy quyền · <a href="/longshot-security-site/vi/">Quay lại Longshot</a><p class="translation-notice">Bản dịch được tạo ra bằng máy. Phiên bản tiếng Anh là tài liệu tham khảo.</p></footer></body></html>

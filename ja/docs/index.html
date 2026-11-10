@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+
+<html data-site-base="/longshot-security-site/" data-site-page="docs/" dir="ltr" lang="ja"><head><script data-language-script="" defer="" src="/longshot-security-site/language.js?v=20261110-i18n"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>完全なドキュメント — Longshot Security 2.18.1</title><meta content="Longshot の完全な一般チュートリアル: ブラウザー スキャン、ネイティブ プロキシ、Cookie オーバーライド、ZAP、MCP、ファジング、検出結果とレポート。" name="description"/><link href="/longshot-security-site/assets/mark.svg" rel="icon" type="image/svg+xml"/><link href="/longshot-security-site/style.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/docs/docs.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/localization.css?v=20261110-i18n" rel="stylesheet"/><link href="https://zzholdoshev.github.io/longshot-security-site/ja/docs/" rel="canonical"/><link href="https://zzholdoshev.github.io/longshot-security-site/docs/" hreflang="en" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ru/docs/" hreflang="ru" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/de/docs/" hreflang="de" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/fr/docs/" hreflang="fr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/zh/docs/" hreflang="zh" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ja/docs/" hreflang="ja" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/es/docs/" hreflang="es" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/hi/docs/" hreflang="hi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/pt/docs/" hreflang="pt" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ar/docs/" hreflang="ar" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/bn/docs/" hreflang="bn" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ur/docs/" hreflang="ur" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/id/docs/" hreflang="id" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/tr/docs/" hreflang="tr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ko/docs/" hreflang="ko" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/it/docs/" hreflang="it" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/vi/docs/" hreflang="vi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ta/docs/" hreflang="ta" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/te/docs/" hreflang="te" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/mr/docs/" hreflang="mr" rel="alternate"/></head><body data-ui-copy='{"Signed in already? Start from that tab. Your session is the starting point.":"すでにサインインしていますか?そのタブから開始します。あなたのセッションが出発点です。","Your tools send their own HTTP requests. Browser Bridge can supply the browser cookies.":"ツールは独自の HTTP リクエストを送信します。ブラウザ ブリッジはブラウザの Cookie を提供できます。","Cookie override is on by default in the paired native bridge. You can turn it off.":"Cookie オーバーライドは、ペアになっているネイティブ ブリッジではデフォルトでオンになっています。オフにすることもできます。","A finding is a lead. Read the request, the response and the controls before confirming it.":"発見は手がかりです。確認する前に、リクエスト、レスポンス、コントロールを読んでください。","Using Chrome? Keep the Longshot workbench tab open while you scan.":"Chrome を使用していますか?スキャン中は、Longshot ワークベンチ タブを開いたままにしてください。","Connect a compatible MCP agent to run permitted checks and examine the evidence.":"互換性のある MCP エージェントに接続して、許可されたチェックを実行し、証拠を調べます。","No bridge.invalid or hosts-file entry. The native proxy uses the actual target URL.":"Bridge.invalid または hosts-file エントリがありません。ネイティブ プロキシは、実際のターゲット URL を使用します。","Pause motion":"モーションを一時停止する","Resume motion":"動作を再開する"}'><a class="skip" href="#documentation">ドキュメントにスキップ</a><nav aria-label="メインナビゲーション"><a href="/longshot-security-site/ja/">LONGSHOT</a><a href="/longshot-security-site/ja/#download">ダウンロード</a><a href="/longshot-security-site/ja/support.html">サポート</a><a href="/longshot-security-site/ja/privacy.html">プライバシー</a><label class="language-switcher"><span>言語</span><select aria-label="ウェブサイトの言語" id="site-language" translate="no"><option value="en">English</option><option value="ru">Русский</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="zh">简体中文</option><option selected="selected" value="ja">日本語</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="pt">Português</option><option value="ar">العربية</option><option value="bn">বাংলা</option><option value="ur">اردو</option><option value="id">Bahasa Indonesia</option><option value="tr">Türkçe</option><option value="ko">한국어</option><option value="it">Italiano</option><option value="vi">Tiếng Việt</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="mr">मराठी</option></select></label></nav><div class="docs-layout"><aside class="docs-sidebar"><details open=""><summary>一般チュートリアル / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">バイブコーディング。出荷されました。ハッキングされました。</a><a href="#firefox-and-chrome-choose-your-edition">Firefox と Chrome: エディションを選択してください</a><a href="#contents">内容</a><a href="#what-runs-where">何がどこで走るのか</a><a href="#install-or-update-in-firefox-nightly">Firefox Nightly でのインストールまたは更新</a><a href="#getting-started-and-target-sessions">開始方法と対象セッション</a><a href="#light-discovery-and-a-focused-active-scan">光の発見と集中的なアクティブスキャン</a><a href="#aggressive-options-and-run-approval">積極的なオプションと実行承認</a><a href="#overview-checks">概要のチェック</a><a href="#scan-options-reference">スキャンオプションのリファレンス</a><a href="#budgets-selectors-and-request-settings">予算、セレクター、リクエスト設定</a><a href="#fuzzer-auto-fuzz-and-probe-library">ファザー、自動ファズ、プローブ ライブラリ</a><a href="#your-payloads-and-imported-templates">ペイロードとインポートされたテンプレート</a><a href="#server-stack-and-smart-analyzer">サーバースタックとスマートアナライザー</a><a href="#oast-setup-and-interpretation">OAST のセットアップと解釈</a><a href="#browser-bridge-native-tool-proxy">ブラウザ ブリッジ: ネイティブ ツール プロキシ</a><a href="#native-bridge-configuration">ネイティブブリッジ構成</a><a href="#cookie-and-header-overrides-without-damaging-probes">プローブを損傷することなく Cookie とヘッダーをオーバーライドします</a><a href="#external-tools-and-actual-zap-scanning">外部ツールと実際のZAPスキャン</a><a href="#tor-and-onion-routing">Tor とオニオン ルーティング</a><a href="#agent-api-mcp-and-local-model-clients">エージェント API、MCP、およびローカル モデル クライアント</a><a href="#optional-native-nuclei">オプションのネイティブ核</a><a href="#manual-tools-interception-and-api-inventory">手動ツール、インターセプト、API インベントリ</a><a href="#findings-and-the-cimematic-viewer">調査結果と cimematic ビューア</a><a href="#owasp-top-10-coverage">OWASP トップ 10 のカバレッジ</a><a href="#recovery-assessment-files-and-reports">リカバリ、評価ファイルおよびレポート</a><a href="#appearance-language-and-help">外見、言語、ヘルプ</a><a href="#troubleshooting">トラブルシューティング</a><a href="#terms-and-source-references">用語と出典参照</a></div></details><a class="markdown-download" download="" href="/longshot-security-site/docs/longshot-general-tutorial.md">マークダウンをダウンロード↓ · English</a></aside><main class="docs-main" id="documentation"><p class="eyebrow">完全なドキュメント · 2026 年 11 月 10 日に更新</p><h1 id="longshot-2181-general-tutorial-and-control-reference">Longshot 2.18.1 — 一般的なチュートリアルとコントロールのリファレンス</h1>
+<p>ロングショットについて 2026 年 11 月 10 日更新 <strong>2.18.1</strong> (Firefox および Chrome エディション) とその <strong>ネイティブ HTTP/HTTPS ツール プロキシ</strong>。これは、一般的な 2.11.1 チュートリアルを置き換えます。以下の手順では、出荷された実装について、その制限も含めて説明します。古いブリッジの例は、このリリースと互換性がありません。</p>
+<p>Longshot は、承認された Web アプリケーションを評価するためのブラウザー セッション ワークベンチです。これは、検出、独自の JavaScript アクティブ スキャナー、手動 HTTP ツール、インポートされたテンプレート、検出結果のレビューとレポートを組み合わせたものです。オプションのブラウザ ブリッジを使用すると、外部ツールが独自のネイティブ HTTP リクエストを送信しながら、選択された Firefox セッション値を使用できるようになります。</p>
+<p>便利な最初のパスは次のとおりです。 <strong>アプリケーションを開く → サインイン → そのタブから Longshot を起動 → 接続 → セッションを検証 → 入力を検出 → 選択したチェックを実行 → 証拠を確認</strong>.</p>
+<p>AI で構築されたアプリケーションやバイブコーディングされたアプリケーションなど、ユーザーの機密データや金銭を扱うアプリケーションの場合は、サイバーセキュリティ チームを雇って専門的な評価を依頼してください。拡張スキャンは、認可テスト、ビジネス ロジック レビュー、または独立したセキュリティ評価に代わるものではありません。空の所見リストはセキュリティ証明書ではありません。</p>
+<p>このドキュメントではコマンドについて説明します。更新しても、ソフトウェアのインストール、ホストの登録、ブラウザ設定の変更、スキャンの実行は行われません。許可された評価ターゲットに対してのみサンプルを実行してください。サンプル <code dir="ltr" translate="no">http://localhost:8080</code> これはローカル ターゲットの例であり、組み込みの Longshot サービスではありません。</p>
+<h2 id="vibe-coded-shipped-hacked">バイブコーディング。出荷されました。ハッキングされました。</h2>
+<p><strong>これを想像してみてください:</strong> アプリが公開され、攻撃者が欠陥を発見し、ユーザーがアカウントを開いて残高がゼロになるとします。 All their money—gone.</p>
+<p>コードは説得力があるように見えました。 AIは安全そうだと言いました。それだけでは十分ではありませんでした。</p>
+<p><strong>LLM は非決定的です。脆弱性を見落としたり、自信を持って間違いを犯したりする可能性があります。セカンドオピニオンが必要です。ロングショットが必要だ。</strong></p>
+<p>Longshot は、Firefox を、構築する Web アプリのセキュリティ ワークベンチに変えます。ユーザーが料金を支払う前に、実際に実行されているアプリケーションに対して反復可能なチェックを実行し、HTTP 証拠を検査し、弱点を調査します。</p>
+<p>小切手カバーがサポートされています <strong>SQL/NoSQL インジェクション、サーバー側コードとテンプレート インジェクション、反映された XSS 候補、パス トラバーサル/ファイル インクルード、オープン リダイレクト、CRLF/ヘッダー インジェクション</strong>、オプションのライブ DOM XSS 検証を使用します。レビュー <strong>脆弱なセキュリティヘッダー、Cookie および CORS ポリシー、公開された構成およびエラーの開示</strong>、オプションでさらなる攻撃クラスのチェックを行います。</p>
+<p>すでに使用しているブラウザタブから開始します。ライブ Cookie を保持し、セッション検証を構成し、セッション損失後に回復し、各ターゲットの設定、履歴、結果を整理します。</p>
+<p><strong>AI を稼働させて、その動作を確認します。</strong> MCP 経由でエージェントに接続し、承認されたチェックを実行し、結果を調べます。ネイティブ ブラウザ ブリッジを使用すると、Cookie 値を手動でコピーすることなく、ZAP、sqlmap、curl、ffuf、または wget を接続されたブラウザ セッションに導入できます。これらのツールは独自の HTTP リクエストとペイロードを送信します。ブラウザー Cookie のオーバーライドはデフォルトでオンになっており、オフに切り替えることができます。</p>
+<p>上級ユーザーは互換性のあるものをインポートできます <strong>CVE テンプレート</strong> そして相関させる <strong>OAST コールバック</strong> それらを引き起こしたプローブとともに。評決を確認して記録し、豊富な証拠をエクスポートします <strong>HTML、JSON、CSV、または SARIF レポート</strong>、印刷/PDF 出力付き。調査結果を説明する <strong>シネマティックビューア</strong>、ライブ CSS/JavaScript ページ コンテキスト、アニメーション化された 3D 要素、一時停止および全画面コントロールが含まれます。シャープなテーマを選択し、ワークスペースに合わせてモーションとサウンドをカスタマイズします。</p>
+<p><strong>自信を示す前に、証拠を要求してください。ロングショット。</strong></p>
+<h3 id="quick-scan-one-sentence">クイックスキャン - 一文</h3>
+<p>Firefox でアプリを開き、必要に応じてサインインし、そのタブから Longshot を起動して、[接続] をクリックし、設定されたセッション チェックを検証して、[Spider + active checks] → [Start scan] を選択し、[Findings] を確認します。</p>
+<h3 id="short-ad">短い広告</h3>
+<p>バイブコーディングされたアプリが公開されました。 AIは何を見逃したのでしょうか？ Longshot は、実行中のアプリのインジェクション、XSS、その他の一般的な弱点をチェックし、ブラウザー セッション テストと AI/MCP ワークフローを追加して、レビューするための証拠を提供します。セカンドオピニオンが必要です。ロングショットが必要だ。</p>
+<h3 id="compact-description">コンパクトな説明</h3>
+<p>バイブコーディングされたアプリのセカンドオピニオン: ブラウザーセッションチェック、AI/MCP、構成可能なブラウザー Cookie オーバーライドを備えたネイティブツール、CVE/OAST、映画のような調査結果とレポート。</p>
+<h3 id="campaign-captions">キャンペーンのキャプション</h3>
+<ol>
+<li><strong>バイブコーディング。発送済み。ハッキングされました。</strong> 仮想の起動とアカウント喪失のシナリオ。発送前にセカンドオピニオンを受けてください。</li>
+<li><strong>セッションをテストします。アプリをチェックしてください。</strong> ライブ Cookie、検証、ターゲット固有の証拠。</li>
+<li><strong>AI が書きました。誰がチェックしたの？</strong> AI による提案をレビュー可能なセキュリティ ワークフローに組み込みます。</li>
+<li><strong>あなたのツール。あなたのタブ。あなたのセッション。</strong> サポートされているローカル HTTP ユーティリティ用のブラウザ ブリッジ。</li>
+<li><strong>欠陥を狩れ。証拠に従ってください。</strong> 高度な互換性のある CVE テンプレートと OAST 相関。</li>
+<li><strong>安心感よりも証拠を。</strong> カスタマイズ可能なワークスペースでレポートを確認し、エクスポートします。</li>
+<li><strong>あなたの AI はセキュリティの判断を下すものではありません。</strong> MCP は実行中のアプリをチェックします。確認できる証拠。</li>
+<li><strong>セッションの有効期限が切れました。失われたコンテキスト。</strong> 検証し、一時停止し、再度サインインして再開します。</li>
+</ol>
+<h3 id="selling-points-in-2181">2.18.1 のセールス ポイント</h3>
+<table>
+<thead>
+<tr>
+<th>セールスポイント</th>
+<th>実益</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>サインインしたブラウザー セッション、ツール</strong></td>
+<td>ZAP およびその他の HTTP プロキシ クライアントは、デフォルトで選択された Firefox Cookie jar を使用し、応答 Cookie の同期と独立したオフ スイッチを備えています。</td>
+</tr>
+<tr>
+<td><strong>実際の外部スキャナ エンジン</strong></td>
+<td>ZAP は、ブラウザ ブリッジを通じて独自のネイティブ HTTP リクエストとペイロードを生成します。選択された Cookie/ヘッダーのオーバーライドは明示的です。</td>
+</tr>
+<tr>
+<td><strong>プローブを保護し、セッションを維持します</strong></td>
+<td>保護されたフィールドとリクエストごとのバイパスにより、ツールの意図的な Cookie/ヘッダーの変更を保存できます。</td>
+</tr>
+<tr>
+<td><strong>検査できる証拠</strong></td>
+<td>専用のアクティブ ルールは繰り返しコントロールを使用します。実際の入力カバレッジは、完了した作業、部分的な作業、およびスキップされた作業を区別します。</td>
+</tr>
+<tr>
+<td><strong>インターフェースを介して動作するAI</strong></td>
+<td>MCP は、サポートされているスキャン コマンドとダッシュボード コントロールを公開しているため、互換性のあるエージェントがワークベンチを操作して結果を取得できます。</td>
+</tr>
+<tr>
+<td><strong>説明できる調査結果</strong></td>
+<td>cimematic ビューアは、現在のページのコンテキスト、記録された証拠、3D 説明、および平易な言語での潜在的なリスクを組み合わせます。</td>
+</tr>
+<tr>
+<td><strong>自分のテスト材料を持参してください</strong></td>
+<td>ターゲット固有のペイロード パックとレビュー済みのテンプレートをアップロードします。インターフェイスからサポートされているコミュニティのリストを更新します。</td>
+</tr>
+<tr>
+<td><strong>あなただけのワークスペース</strong></td>
+<td>ターゲットごとの評価データ、レビューノート、オプションのファイルチェックポイント、オフラインレポート、テーマ、バンドルされている 20 の UI 言語。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publication-notes">出版ノート</h3>
+<p>アカウント損失の話は仮説であり、実際の顧客に関する主張や、ロングショットが経済的損失を防ぐという保証ではありません。この拡張機能は、継続的な攻撃のブロックではなく、評価を実行します。調査結果は再検討が必要です。カバレッジ表では、限定されたサポートと手動のみのギャップについて説明します。 DOM 分析には、普遍的な DOM エクスプロイトをカバーするものではなく、インジケーターとサポートされている実行カナリアが含まれます。映画のようなシーケンスは証拠を説明します。悪用の証拠は追加されません。</p>
+<p>MCP とブラウザ ブリッジはローカル設定が必要です。ネイティブ ツール プロキシは別の Node/Python/mitmproxy プロセスを使用し、HTTPS インターセプトにはアダプター CA に対するツールの信頼構成が必要です。これは、バイト透過的な生の TCP ではなく、解析された HTTP トランスポートです。 Cookie の上書きは無効にすることができます。ブラウザの Cookie やユーザー エージェントは、ブラウザと同一のネットワークや WAF の受け入れを保証しません。外部 ZAP は別途インストールされたままになります。テンプレートの実行は互換性/ランタイムに依存します。 OAST には構成されたプロバイダーが必要です。認証検証には、意味のある保護されたエンドポイント/マーカーが必要です。ターゲット プロファイルは評価データを分離します。タブ/コンテナは Cookie セッションを提供します。</p>
+<p>機密データや金銭を扱うアプリケーションの場合は、サイバーセキュリティ チームを雇い、評価の一部として Longshot を使用します。自分が所有するアプリケーション、またはテストを許可されているアプリケーションでのみ使用してください。</p>
+<p>以前に生成されたキャンペーン画像を再利用する場合は、それらをコンポジションとしてラベル付けし、ピクセル精度の UI が必要な場合は常に実際の現在のスクリーンショットを使用します。このチュートリアルでは、外観セクションに実際の 2.18.1 検証スクリーンショットをリンクしています。新しい 8 枚の画像キャンペーン パックやサードパーティの承認は含まれていません。</p>
+<h2 id="firefox-and-chrome-choose-your-edition">Firefox と Chrome: エディションを選択してください</h2>
+<p>この完全なガイドでは、Firefox でサポートされている機能セットについて説明します。 Chrome は同じコア ブラウザ セッション ワークベンチを使用しますが、以下のプラットフォームの違いがあります。このガイドの後半で説明する Firefox コンテナ、ライブ DOM 実行、保留されたインターセプト、およびブラウザ VHOST 書き換えへの参照は、Firefox のみです。</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>Firefox</th>
+<th>Chrome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ブラウザーのアクティブチェック、手動/自動ファジング、サポートされている HTTP テンプレート、OAST、スタック証拠およびレポート</td>
+<td>文書化された前提条件でサポートされています</td>
+<td>文書化された前提条件でサポートされています</td>
+</tr>
+<tr>
+<td>ブラウザーの Cookie/ヘッダーのオーバーライドと応答と Cookie の同期を備えたネイティブ HTTP プロキシ</td>
+<td>サポートされています</td>
+<td>サポートされています</td>
+</tr>
+<tr>
+<td>ページコンテキストの AJAX インストルメンテーションとライブ DOM XSS 実行の検証</td>
+<td>承認および許可された場合にサポートされます</td>
+<td>このリリースでは使用できません</td>
+</tr>
+<tr>
+<td>別のコンテナのセッション B、保留されたインターセプトとブラウザの VHOST 書き換え</td>
+<td>構成および許可されている場合にサポートされます</td>
+<td>このリリースでは使用できません</td>
+</tr>
+<tr>
+<td>ビューアを探しています</td>
+<td>キャプチャされた証拠とサポートされているライブ ページ コンテキスト</td>
+<td>捕らえられた証拠。ライブ背景ページのキャプチャは利用できません</td>
+</tr>
+<tr>
+<td>エンジンのライフサイクル</td>
+<td>永続的な背景ページ</td>
+<td>表示されているワークベンチを開いたままにしてください。閉じると、新しいペアになったネイティブ リクエストが停止します</td>
+</tr>
+<tr>
+<td>プライベートブラウジング</td>
+<td>選択されたコンテキスト (許可と設定の対象)</td>
+<td>このリリースでは無効になっています</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-the-chrome-edition">Chrome エディションをインストールする</h3>
+<ol>
+<li>ダウンロード <strong>クロムZIP</strong> 上記または下記のリリース リンクからダウンロードし、保存したフォルダーに解凍します。</li>
+<li>開く <code dir="ltr" translate="no">chrome://extensions</code>、有効にする <strong>開発者モード</strong>、選択します <strong>開梱した状態でロードする</strong>を選択し、解凍したフォルダーを選択します。 <code dir="ltr" translate="no">manifest.json</code>.</li>
+<li>承認されたアプリケーションを開いてサインインし、そのタブから Longshot を起動して接続します。</li>
+<li>スキャン中およびネイティブ ペアリング中は、ワークベンチ タブを開いたままにしてください。これを閉じると、ライブ エンジンの作業が終了します。保存された証拠は残り、不確実なリクエストを再実行することなく復元されます。</li>
+<li>ネイティブ ツール プロキシの起動には、Chrome によって表示される正確なオリジンを使用します。 <code dir="ltr" translate="no">chrome-extension://YOUR_INSTALLED_ID</code>Firefox ではなく <code dir="ltr" translate="no">moz-extension://</code> 起源。プロキシは実際のターゲット URL を使用します。 hosts ファイルのエントリは必要ありません。</li>
+</ol>
+<h3 id="chrome-agent-api-mcp-registration">Chrome エージェント API / MCP 登録</h3>
+<p>固定されたヘルパー依存関係をインストールした後、保持されている完全なソース チェックアウトから:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev
+node bridge/bin/longshot-bridge install --browser chrome \
+  --extension-id YOUR_INSTALLED_32_LETTER_ID \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+node bridge/bin/longshot-bridge mcp \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+</code></pre>
+<p>クロム用 <code dir="ltr" translate="no">--browser chromium</code>。実際のIDを使用してください <code dir="ltr" translate="no">chrome://extensions</code>;ストア版をインストールすると別の ID が与えられる場合は、再度登録してください。別のポート/データ ディレクトリにより、Firefox ホストとの衝突が回避されます。このエージェント API は、HTTP ツール プロキシ (デフォルトのポート 8900/8901) とは異なります。 Linux はテスト済みのネイティブ ホスト プラットフォームです。 macOS の登録は実装されていますが、ここではテストされておらず、Windows ネイティブ ホスト インストーラーは提供されていません。</p>
+<p>詳細なブラウザ ブリッジ設定は、拡張機能の拡張機能でも利用できます。 <strong>ブラウザブリッジ → 情報</strong> ダイアログ。長い形式の README と新しいプラットフォーム/プライバシー ドキュメントは英語です。バンドルされている UI 言語の選択では、ターゲットの証拠、ペイロード、または実行可能サンプルは翻訳されません。</p>
+<h2 id="contents">内容</h2>
+<ul>
+<li><a href="#firefox-and-chrome-choose-your-edition">Firefox / Chrome のエディションとセットアップ</a></li>
+<li><a href="#vibe-coded-shipped-hacked">広告とセールスポイント</a></li>
+</ul>
+<ol>
+<li><a href="#what-runs-where">何がどこで走るのか</a></li>
+<li><a href="#install-or-update-in-firefox-nightly">Firefox Nightly でのインストールまたは更新</a></li>
+<li><a href="#getting-started-and-target-sessions">開始方法と対象セッション</a></li>
+<li><a href="#light-discovery-and-a-focused-active-scan">光の発見と集中的なアクティブスキャン</a></li>
+<li><a href="#aggressive-options-and-run-approval">積極的なオプションと実行承認</a></li>
+<li><a href="#overview-checks">概要のチェック</a></li>
+<li><a href="#scan-options-reference">スキャンオプションのリファレンス</a></li>
+<li><a href="#budgets-selectors-and-request-settings">予算、セレクター、リクエスト設定</a></li>
+<li><a href="#fuzzer-auto-fuzz-and-probe-library">ファザー、自動ファズ、プローブ ライブラリ</a></li>
+<li><a href="#your-payloads-and-imported-templates">ペイロードとインポートされたテンプレート</a></li>
+<li><a href="#server-stack-and-smart-analyzer">サーバースタックとスマートアナライザー</a></li>
+<li><a href="#oast-setup-and-interpretation">OAST のセットアップと解釈</a></li>
+<li><a href="#browser-bridge-native-tool-proxy">ブラウザ ブリッジ: ネイティブ ツール プロキシ</a></li>
+<li><a href="#native-bridge-configuration">ネイティブブリッジ構成</a></li>
+<li><a href="#cookie-and-header-overrides-without-damaging-probes">プローブを損傷することなく Cookie とヘッダーをオーバーライドします</a></li>
+<li><a href="#external-tools-and-actual-zap-scanning">外部ツールと実際のZAPスキャン</a></li>
+<li><a href="#tor-and-onion-routing">Tor とオニオン ルーティング</a></li>
+<li><a href="#agent-api-mcp-and-local-model-clients">エージェント API、MCP、およびローカル モデル クライアント</a></li>
+<li><a href="#optional-native-nuclei">オプションのネイティブ核</a></li>
+<li><a href="#manual-tools-interception-and-api-inventory">手動ツール、インターセプト、API インベントリ</a></li>
+<li><a href="#findings-and-the-cimematic-viewer">調査結果と cimematic ビューア</a></li>
+<li><a href="#owasp-top-10-coverage">OWASP トップ 10 のカバレッジ</a></li>
+<li><a href="#recovery-assessment-files-and-reports">リカバリ、評価ファイルおよびレポート</a></li>
+<li><a href="#appearance-language-and-help">外見、言語、ヘルプ</a></li>
+<li><a href="#troubleshooting">トラブルシューティング</a></li>
+<li><a href="#terms-and-source-references">用語と出典参照</a></li>
+</ol>
+<h2 id="what-runs-where">何がどこで走るのか</h2>
+<p>「ブリッジ」という言葉はさまざまなコンポーネントを指します。タスクに必要なコンポーネントを選択してください。</p>
+<table>
+<thead>
+<tr>
+<th>コンポーネント</th>
+<th>どこで実行しますか</th>
+<th>何をするのか</th>
+<th>デフォルトの接続</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>スキャナー、リピーター、ファザーを内蔵</td>
+<td>Firefox 拡張機能とバインドされたターゲット タブ</td>
+<td>Longshot の JavaScript ルールを使用したブラウザー セッションの HTTP チェック</td>
+<td>外部プロキシプロセスは必要ありません</td>
+</tr>
+<tr>
+<td><strong>ブラウザブリッジ / ネイティブツールプロキシ</strong></td>
+<td>ローカル ノード コーディネーターと別途インストールされた mitmproxy</td>
+<td>外部ツール独自の HTTP/HTTPS リクエストを伝送します。オプションで Cookie と選択されたヘッダーを Firefox からオーバーライドします</td>
+<td>HTTPプロキシ <code dir="ltr" translate="no">127.0.0.1:8900</code>;拡張コントロール <code dir="ltr" translate="no">127.0.0.1:8901</code></td>
+</tr>
+<tr>
+<td><strong>エージェント API / ネイティブ メッセージング ブリッジ</strong></td>
+<td>Firefox に登録されたローカル ノード サービス</td>
+<td>REST/MCP/UI 自動化、評価ファイル、およびオプションのネイティブ Nuclei 実行</td>
+<td>API <code dir="ltr" translate="no">http://127.0.0.1:8765</code></td>
+</tr>
+<tr>
+<td>外部 ZAP、curl、ffuf、sqlmap、または Nuclei CLI</td>
+<td>ユーザーがインストールした個別のプロセス</td>
+<td>独自のトラフィックと結果を生成（オプションでネイティブ ツール プロキシ経由）</td>
+<td>各ツールの送信 HTTP プロキシを構成する</td>
+</tr>
+<tr>
+<td>Longshot によって打ち上げられた分離されたネイティブ核</td>
+<td>エージェント API ホストと Linux サンドボックス</td>
+<td>公式の Nuclei エンジンを使用して対象となるインポートされたテンプレートを実行します</td>
+<td>分離された実行ルートを分離します。 Firefox Cookie の自動エクスポートはありません</td>
+</tr>
+</tbody>
+</table>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">Built-in scan / Repeater / Fuzzer
+        → Firefox networking + target tab's session → target
+
+External ZAP / curl / another HTTP tool
+        → authenticated native proxy :8900 → mitmproxy → target
+                        ↑
+             selected cookie/header values
+                        ↑
+              paired Firefox tab via :8901
+
+MCP or REST client → Agent API :8765 → Longshot commands / UI
+                                      └→ separately enabled native jobs
+</code></pre>
+<p><strong>スキャンを開始しても ZAP は実行されません。</strong> ZAP とブラウザ ブリッジをペアリングしても、Longshot の JavaScript スキャナが置き換えられたり、すべての ZAP アラートが Longshot にインポートされたりするわけではありません。外部ツールの結果をそのツールで確認します。ネイティブ ブリッジのトラフィック表示はメタデータであり、完全な脆弱性結果インポーターではありません。</p>
+<h3 id="changes-that-invalidate-old-instructions">古い命令を無効にする変更</h3>
+<table>
+<thead>
+<tr>
+<th>古い命令</th>
+<th>2.18.1で使用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「レガシーブラウザの取得」を選択します</td>
+<td>ブラウザ ブリッジと XPI から削除</td>
+</tr>
+<tr>
+<td>ツールの送信先 <code dir="ltr" translate="no">http://bridge.invalid</code></td>
+<td>実際のターゲット URL を使用する</td>
+</tr>
+<tr>
+<td>追加 <code dir="ltr" translate="no">bridge.invalid</code> に <code dir="ltr" translate="no">/etc/hosts</code></td>
+<td>入力は必要ありません。このブリッジには追加しないでください</td>
+</tr>
+<tr>
+<td>プロキシオン <code dir="ltr" translate="no">8899</code>;始める <code dir="ltr" translate="no">node ./bridge/cli.js</code> 古いアダプターでは</td>
+<td>ダウンロードされたネイティブ アダプターは、 <code dir="ltr" translate="no">node cli.js</code>;デフォルトのプロキシ/制御ポートは次のとおりです。 <code dir="ltr" translate="no">8900</code> / <code dir="ltr" translate="no">8901</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, <code dir="ltr" translate="no">X-Bridge-Host</code>, <code dir="ltr" translate="no">/v1/cookies</code>、エンドポイントのペアチェック</td>
+<td>古いアダプター インターフェイス。それらをネイティブ構成に入れたり、それらが存在すると仮定したりしないでください。</td>
+</tr>
+<tr>
+<td>ブリッジはバイト正確な生の TCP または密輸トラフィックを送信します</td>
+<td>ネイティブ プロキシは HTTP を解析します。不正なフレーミングとバイト透過 TCP はサポートされていません</td>
+</tr>
+<tr>
+<td>ブラウザ セッションでは外部ツールに CA が必要ないことを意味します</td>
+<td>HTTPS インターセプトには、ネイティブ アダプターの生成された CA を信頼するツールが必要です</td>
+</tr>
+<tr>
+<td>Tor ルーティングは Firefox から継承されています</td>
+<td>ネイティブ アダプターのルーティングは別個です。 SOCKS はデフォルトでオフになっています</td>
+</tr>
+<tr>
+<td>アダプターは外部プロセス グループを一時停止/再起動するか、失敗した作業を自動的に再生します。</td>
+<td>一時停止すると、新しいプロキシ リクエストがブロックされます。ツールを明示的に検査して再試行/再開する</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-or-update-in-firefox-nightly">Firefox Nightly でのインストールまたは更新</h2>
+<p>を使用します。 <strong>2.18.1 XPI</strong>、アドオンとして名前変更された古いアダプターの ZIP ではありません。次のように、一致するソース アーカイブを所定の場所に保存したフォルダーに抽出します。 <code dir="ltr" translate="no">/path/to/longshot</code> 例で。登録済みのネイティブ ホストを再登録せずに移動しないでください。</p>
+<p>リリースファイルは次のとおりです。</p>
+<ul>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1.xpi">Firefox XPI</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-chrome.zip">クロムZIP</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-source.zip">一致する拡張子のソース ZIP</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/tag/v2.18.1">リリースノートとチェックサム</a></li>
+<li>ネイティブ アダプターの ZIP: ブラウザ ブリッジ内にダウンロードします。各拡張パッケージに含まれています。</li>
+</ul>
+<p>これらは開発/提出ビルドです。 Firefox ストアの署名と両方のマーケットプレイスの承認は保留中です。署名されていない XPI がリリース Firefox に通常どおりインストールされることを期待するのではなく、該当する開発読み込み手順に従ってください。</p>
+<p>マニフェストには Firefox 140 以降が必要です。リリース統合チェックでは、Linux 上のデスクトップ Firefox 159 を使用しました。オプションのヘルパーのプラットフォーム/ランタイム サポートは、基本的な拡張機能のサポートとは別のものです。</p>
+<p>署名されていない一時的なインストールの場合:</p>
+<ol>
+<li>開く <code dir="ltr" translate="no">about:debugging#/runtime/this-firefox</code>.</li>
+<li>選択してください <strong>一時アドオンをロードする</strong> XPI を選択します。</li>
+<li>表示されている Longshot のバージョンを確認し、ターゲットを開いてツールバー ボタンを起動します。</li>
+<li>解凍された開発ビルドを置き換えた後、拡張機能をリロードします。</li>
+</ol>
+<p>Firefox を再起動すると、一時的なアドオンが消えます。それは予想通りです。アダプターが拡張機能を削除するわけではありません。永続的なパブリック配布には Mozilla の署名が必要です。 Nightly には、以下で説明されている追加の未署名開発オプションがあります。 <a href="https://www.extensionworkshop.com/documentation/publish/signing-and-distribution-overview/">Mozilla の署名ガイド</a>;一時的なロードでは、これらの設定を変更する必要はありません。参照 <a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">仮設置</a>.</p>
+<p>XPI は、ネイティブ アダプターをダウンロード可能なアーカイブとしてバンドルします。任意の Node/Python プロセスを開始したり、Firefox アドオンのみを介してネイティブ ホストをインストールしたりすることはできません。プロキシの開始とエージェント API の登録は、個別のオプションのローカル セットアップ手順です。</p>
+<h2 id="getting-started-and-target-sessions">開始方法と対象セッション</h2>
+<h3 id="connect-the-right-tab">右側のタブを接続します</h3>
+<ol>
+<li>たとえば、Firefox で承認されたターゲットを開きます。 <code dir="ltr" translate="no">http://localhost:8080</code>.</li>
+<li>目的のテスト アカウントでサインインし、ブラウザー チャレンジを完了します。</li>
+<li>ロングショットを起動 <strong>そのターゲットタブから</strong>。アプリケーションタブを開いたままにしてください。</li>
+<li>宛先アドレスを確認して選択してください <strong>接続する</strong>.</li>
+<li>使用する <strong>はじめに</strong> 8 つのステップで強調表示されたウォークスルーのヘッダーにあります。再生することができます。スキャンを開始したり、設定自体を変更したりすることはありません。</li>
+<li>代表的なアプリケーション ページを参照して、Longshot が有用なルートと入力を観察できるようにします。</li>
+</ol>
+<p>ターゲットのオリジンは、スキーム、ホスト名、ポートで構成されます。 <code dir="ltr" translate="no">http://localhost:8080</code>, <code dir="ltr" translate="no">http://127.0.0.1:8080</code> そして <code dir="ltr" translate="no">https://localhost:8080</code> 最終的に同じサービスに到達する場合でも、起源は異なります。評価用に意図された正確なアドレスに接続して使用します。ホスト名の背後にある IP アドレスは、自動的に追加の承認されたターゲットにはなりません。</p>
+<h3 id="configure-session-validation">セッション検証を構成する</h3>
+<p>開く <strong>設定→スキャナー設定</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>セッション検証パス</td>
+<td>認証が必要なスコープ内のページ/API パス</td>
+</tr>
+<tr>
+<td>期待される認証済みテキスト</td>
+<td>選択したアカウントがサインインしている場合は安定したマーカーが表示され、ログアウトすると表示されなくなります。</td>
+</tr>
+<tr>
+<td>認証済み応答の最小バイト数</td>
+<td>オプションの追加の下位サイズしきい値。ゼロはそれを無効にします</td>
+</tr>
+<tr>
+<td>ログインパス</td>
+<td>アプリケーションのログイン パス（拒否の検出に必要な場合）</td>
+</tr>
+<tr>
+<td>これだけのリクエストがあった場合は再検証する</td>
+<td>定期的な独立したセッションのチェック。デフォルト 20</td>
+</tr>
+<tr>
+<td>スキャンの前にセッション検証の成功を要求する</td>
+<td>設定されたバリデータが通過することを要求します。デフォルトはオフ</td>
+</tr>
+</tbody>
+</table>
+<p>設定を保存して使用する <strong>概要→セッションの確認</strong>。 200 を返す公開ページは認証の証拠ではありません。 200 が続くログイン ページへのリダイレクトは、無効なセッションを表す可能性があります。保護されたエンドポイントと意味のあるマーカーを選択します。</p>
+<p>内蔵スキャナーは、バインドされたタブの該当するブラウザー Cookie (HttpOnly Cookie など) を使用します。 Firefox は、URL、パス、セキュリティ属性、Cookie ストアに基づいて Cookie を選択します。スキャナーの保護された Cookie/認可/ホスト フィールドは、通常の編集可能なファズ入力ではありません。</p>
+<h3 id="profiles-and-accounts">プロフィールとアカウント</h3>
+<p><strong>ターゲット</strong> 履歴、検出結果、リクエストジャーナル、検出されたエンドポイント、レビュー、スキャン設定を分離します。プロファイルに戻ると、古い認証済みブラウザ セッションではなく、評価データが復元されます。明示的なプロファイルは起点を共有できます。</p>
+<p>通常、Firefox の 2 つのタブは Cookie を共有します。完全に異なるテスト ID に対しては、独立したコンテナーまたは別個のプライベート Cookie ストアを使用します。プロファイルを切り替えても、2 番目のアカウント セッションは作成されません。セッション B の比較には、同じターゲット起点と別のストアが必要です。</p>
+<h2 id="light-discovery-and-a-focused-active-scan">光の発見と集中的なアクティブスキャン</h2>
+<h3 id="first-pass-discovery-and-passive-review">最初のパス: 発見と受動的レビュー</h3>
+<ol>
+<li>セット <strong>1秒あたりのリクエスト数</strong> 0.5 ～ 1、クロールの深さは 1、検出される URL の最大数は 25 ～ 50 に設定されます。</li>
+<li>休暇を取る <strong>最大の発見</strong>, <strong>アグレッシブ</strong>、CVE 自動フェーズ、OAST、ネイティブ実行がオフ。</li>
+<li>セット <strong>オートファズ → オフ</strong>。ページのクリック/スクロールとライブ DOM/タイミング/コールバック テストはオフのままにしておきます。</li>
+<li>パッシブな概要グループ (ヘッダー、Cookie、開示、フォーム、DOM ソース/シンク レビュー、CORS) を選択します。</li>
+<li>選択してください <strong>スパイダーのみ</strong> そして始めます。</li>
+<li>検査する <strong>サイトマップ</strong>, <strong>HTTP履歴</strong>, <strong>APIエクスプローラー</strong>, <strong>サーバースタック</strong> そして <strong>調査結果</strong>.</li>
+</ol>
+<p>Spider は、フォームの書き込みを送信せずに、検出されたスコープ内のリンク/フォームに従います。すべての隠れたエンドポイントを認識しているわけではありません。 GET リクエストには依然としてアプリケーション固有の副作用が存在する可能性があります。 「読み取りメソッド」は副作用のない目標を設定するものではありません。</p>
+<h3 id="second-pass-a-bounded-active-assessment">2 番目のパス: 境界のあるアクティブな評価</h3>
+<ol>
+<li>キープする <strong>オートファズ → オフ</strong> 組み込みのアクティブなルールを個別に確認しやすくします。</li>
+<li>SQL インジェクションやリフレクト XSS など、関連する概要アクティブ チェックを選択します。</li>
+<li>小さい制限 (たとえば、150 個のアクティブなリクエスト、10 個のアクティブな URL、および 5 個のアクティブなパラメーター) を使用します。</li>
+<li>選択してください <strong>アクティブなチェックのみ</strong> 現在のページと保存されたインベントリを再利用する、または <strong>スパイダー + アクティブ チェック</strong> まず発見すること。</li>
+<li>開始し、必要な承認を確認し、アクティビティとリクエストの数を監視します。</li>
+<li>各調査結果のリクエスト、ベースライン、繰り返し行われた調査/制御証拠、評決、および信頼度を検査します。</li>
+<li>開く <strong>WSTG チェック → 実際の入力カバレッジ</strong> 完了した作業、部分的な作業、およびスキップされた作業を確認します。</li>
+</ol>
+<p><strong>Auto-fuzz Off はアクティブなチェックをオフにしません。</strong> SQLi/XSS/SSTI およびその他の専用ルールは、独自のプローブを生成します。逆に、アクティブなルールにチェックを入れても、欠落している入力が提供されたり、スパイダーのみの実行で一般的なアクティブ フェーズが実行されたりすることはありません。</p>
+<h2 id="aggressive-options-and-run-approval">積極的なオプションと実行承認</h2>
+<p>アグレッシブでは、明示的に承認されたメソッド/機能が有効になります。すべてのチェックを実行したり、より強力な証拠を保証したりするものではありません。</p>
+<ol>
+<li>最初に入力を検出し、認証を検証します。</li>
+<li>必要な詳細オプションと書き込み/アップロード/削除権限のみを有効にします。</li>
+<li>スキャン オプションを保存します。</li>
+<li>選択してください <strong>次の積極的な実行をレビュー/承認する</strong>.</li>
+<li>ターゲット、機能、メソッドの権限、予算を確認します。</li>
+<li>クリック <strong>次回の実行を承認する</strong>。このユーザーアクションは、不足している統合された Firefox 権限を要求し、次回実行の許可を作成します。</li>
+<li>確認した構成で実行を開始します。</li>
+</ol>
+<p>この付与は 1 回限りの使用で、30 分後に期限切れになり、関連するターゲット/構成/リクエスト設定の変更によって無効になります。通常、新しいスキャンには新しい許可が必要です。未完成のオプションを保存することは許可されています。開始または承認では、必須フィールドが検証されます。</p>
+<p>Firefox に必要なもの <code dir="ltr" translate="no">permissions.request()</code> 実際のユーザーのアクションから直接発生します。設定の変更は、バックグラウンドで任意の権限を付与する理由にはなりません。権限が拒否された場合は、正確な機能を確認し、承認ボタンから再試行するか、その機能を無効にしてください。通常の OS/ブラウザ許可プロンプトは、拡張機能 DOM オートメーションの範囲外のままです。</p>
+<h3 id="maximum-findings-is-a-broad-preset">最大の検出結果は広範囲にプリセットされています</h3>
+<p>このプリセットは、高度な検証、OAST およびセッション B の比較を含む多くのフェーズを有効にし、いくつかの予算を拡張します。これは「すべてを見つける」スイッチではありません。 OAST アカウントの作成、プロバイダー URL/コールバック ドメインの入力、有効なセッション B の選択、Nuclei のインストール、不足しているロールの認証は行われません。</p>
+<p>承認によって空の OAST フィールドまたはセッション B の欠落が報告された場合は、それらを設定するか、それらのオプションをオフにします。これは、ターゲット URL が有効かどうかとは別のものです。</p>
+<h3 id="two-command-injection-controls">2 つのコマンド インジェクション コントロール</h3>
+<p><strong>概要 → OSコマンドインジケーター</strong> 直接の Unix 指向のコマンド出力プローブを有効にします。デフォルトではオフになっています。 <strong>スキャンオプション → コマンドプローブ</strong> OAST がリッスンしているときの追加のブラインド コールバック ルートを制御します。 1 つのチェックボックスは、もう 1 つのパスを自動的に構成しません。実際の実行の認可要件を確認してください。</p>
+<h2 id="overview-checks">概要のチェック</h2>
+<p>デフォルトの有効リストには、6 つのパッシブ グループと SQLi、NoSQLi、サーバー コード インジェクション、リフレクト XSS、SSTI、トラバーサル、リダイレクト、CRLF、およびメソッドが含まれています。 <strong>OSコマンドインジケーター</strong> そして <strong>重複したクエリパラメータの処理</strong> 始めます。</p>
+<table>
+<thead>
+<tr>
+<th>チェックする</th>
+<th>何をするのか</th>
+<th>解釈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>セキュリティヘッダーとHTTPS</td>
+<td>CSP、フレーミング ポリシー、nosniff、HSTS、および選択された混合コンテンツのリファレンスをレビューします。</td>
+<td>自動エクスプロイト証明ではなく、防御/構成インジケーター</td>
+</tr>
+<tr>
+<td>クッキーの属性</td>
+<td>Cookie 値を調査結果として保持せずに Secure、HttpOnly、SameSite をレビューします</td>
+<td>Cookieの目的とブラウザの動作を確認する必要があります</td>
+</tr>
+<tr>
+<td>エラーと機密コンテンツ</td>
+<td>選択したトレース、構成/ソースのコンテンツ、およびディレクトリのリストを認識します。</td>
+<td>観察されたコンテンツと署名に限定される</td>
+</tr>
+<tr>
+<td>フォームと CSRF のレビュー</td>
+<td>パスワードトランスポート/GETフォームと認識されたトークンフィールドをレビューします</td>
+<td>可視トークンが欠落していると CSRF が証明されない</td>
+</tr>
+<tr>
+<td>DOM XSS ソース/シンクのレビュー</td>
+<td>インラインコード内の近くの URL ソースと危険なシンクを検索します</td>
+<td>ヒューリスティック。実行または完全なデータフロー証明ではない</td>
+</tr>
+<tr>
+<td>CORS ポリシーのレビュー</td>
+<td>監視可能な許可元と認証情報の組み合わせをレビューする</td>
+<td>任意のオリジン リフレクションまたは攻撃者のオリジン読み取りをテストしません</td>
+</tr>
+<tr>
+<td>SQLインジェクション</td>
+<td>新しいデータベースエラー署名とコントロールに対する真/偽比較を繰り返します。</td>
+<td>証拠はテストされた入力と構文ファミリーに限定されます</td>
+</tr>
+<tr>
+<td>NoSQLインジェクション</td>
+<td>MongoDB/BSON エラー署名を繰り返す</td>
+<td>一般的なオペレーターインジェクションまたは認証バイパス検証機能はありません</td>
+</tr>
+<tr>
+<td>サーバーサイドのコードインジェクション</td>
+<td>計算された JavaScript/PHP カナリア</td>
+<td>小さな言語/コンテキストのセット</td>
+</tr>
+<tr>
+<td>反射型 XSS</td>
+<td>リフレクション ゲートと、実行可能に見える HTML コンテキストの不活性な解析の繰り返し</td>
+<td>実際の実行が確認されるまでの候補</td>
+</tr>
+<tr>
+<td>サーバーテンプレートインジェクション</td>
+<td>独自の算術マーカーとリピート/コントロールチェック</td>
+<td>すべてのテンプレート エンジンやブラインド コンテキストをカバーしているわけではありません</td>
+</tr>
+<tr>
+<td>トラバーサル/ファイルのインクルード</td>
+<td>既知のファイルコンテンツ署名の繰り返し</td>
+<td>エンコーディング、ファイル、プラットフォームが網羅されていない</td>
+</tr>
+<tr>
+<td>オープンリダイレクト</td>
+<td>生成された .invalid ロケーションのカナリア</td>
+<td>外部リダイレクト先は追跡されません</td>
+</tr>
+<tr>
+<td>レスポンスヘッダーインジェクション</td>
+<td>繰り返し生成されるヘッダー マーカー</td>
+<td>ブラウザの URL/ヘッダー処理によりテストが制限される</td>
+</tr>
+<tr>
+<td>アドバタイズされた HTTP メソッド</td>
+<td>オプションとインベントリの許可</td>
+<td>広告は書き込みの許可がありません</td>
+</tr>
+<tr>
+<td>重複したクエリパラメータの処理</td>
+<td>最初/最後の順序の比較を繰り返す</td>
+<td>情報解析の違い、セキュリティへの影響は証明されていない</td>
+</tr>
+<tr>
+<td>OSコマンドインジケーター</td>
+<td>オプションの反復 ID 出力インジケーター</td>
+<td>Unix 指向、コンテキスト依存、デフォルトでオフ</td>
+</tr>
+</tbody>
+</table>
+<p>サポートされているアクティブな挿入ポイントには、クエリ値、ネストされた JSON/配列、フォーム/マルチパート フィールド、選択された編集可能なインポートされたヘッダー、および名前付き API パス入力が含まれます。遺体は周知され、許可されなければなりません。管理された認証/フレーミング フィールド、除外された値、および使用できないリクエスト本文は、サイレントに作成されるわけではありません。</p>
+<p>非表示のフォーム値は保持され、サポートされている場合はフォームの書き込み前に更新されます。トークンが利用できない場合、カバレッジがスキップされる可能性があります。このメカニズムは、フォームの CSRF 保護が機能することを確立するものではありません。</p>
+<h2 id="scan-options-reference">スキャンオプションのリファレンス</h2>
+<p>特に明記されていない限り、これらのオプションのフェーズが開始されます。 <strong>適応リクエストレート</strong> デフォルトはオンです。デフォルトの自動ファズモードはオフです。既存のプロファイルから復元された設定は、新しいデフォルトとは異なる場合があります。</p>
+<table>
+<thead>
+<tr>
+<th>オプション</th>
+<th>変更点/前提条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CVEオートフェーズ</td>
+<td>CVE/グローバル予算内で作成されたリクエスト/マッチャーを使用して、インポートされた適格な CVE テンプレートを実行します</td>
+</tr>
+<tr>
+<td>アグレッシブ（認可済み）</td>
+<td>書き込みメソッドと高度な機能に対する次回実行の承認を有効にします</td>
+</tr>
+<tr>
+<td>マルチパートファイルのアップロードを許可する</td>
+<td>ファイルを含むマルチパートリクエストを個別に許可します。アップロードテストは生成されません</td>
+</tr>
+<tr>
+<td>DELETE を許可する (別途同意)</td>
+<td>別途 DELETE を許可します。削除リクエストは自動的には発行されません</td>
+</tr>
+<tr>
+<td>AJAX / DOM インストルメンテーション</td>
+<td>境界付き検出中に動的アプリケーションエンドポイントとサポートされるページアクティビティを監視します。</td>
+</tr>
+<tr>
+<td>オプトインページのクリック数/スクロール数</td>
+<td>境界のあるインタラクションを追加します。 AJAX 検出と積極的な承認が必要です。アプリケーションハンドラーはデータを変更できる</td>
+</tr>
+<tr>
+<td>ライブ DOM XSS 検証 (新しいタブ)</td>
+<td>使い捨ての同一ストアタブで、境界付きクエリ/フラグメントクエリ URL 入力をテストします。 2 つの新鮮な地元のカナリアとネガティブ コントロール。 CSP は引き続き適用されます</td>
+</tr>
+<tr>
+<td>繰り返しのタイミングプローブ</td>
+<td>最初の挿入ポイントから始まる、SQL 遅延比較と JSON MongoDB タイミング候補の繰り返し。アグレッシブさが必要</td>
+</tr>
+<tr>
+<td>SSRF カナリア / コールバック</td>
+<td>内部アドレス応答の差異に加え、設定時の正確な OAST 相関。アグレッシブさが必要</td>
+</tr>
+<tr>
+<td>XML 外部エンティティ プローブ</td>
+<td>既知の XML リクエスト本文のコールバック カナリア。実装されたテストには承認された OAST セットアップが必要です</td>
+</tr>
+<tr>
+<td>Log4Shell OAST プローブ</td>
+<td>対象となる入力および X-Api-Version 内のコールバック カナリア。インタラクションはコード実行の証拠ではありません</td>
+</tr>
+<tr>
+<td>コマンドプローブ</td>
+<td>OAST がリッスンしているときのブラインド コマンド コールバック ルート</td>
+</tr>
+<tr>
+<td>インポートされた逆シリアル化テンプレート</td>
+<td>インポートされたデシリアライゼーションタグ付きの適格なテンプレートが含まれます。ユニバーサルガジェットジェネレーターはありません</td>
+</tr>
+<tr>
+<td>適応型 WAF 突然変異 (最大 3)</td>
+<td>適格なプローブの限定された代替表現。バイパスの保証はありません</td>
+</tr>
+<tr>
+<td>セッションBとの比較</td>
+<td>最大 10 個の対象となる読み取りリクエストを別の同じオリジン Cookie ストアと比較します。所有権/役割は手動コンテキストのまま</td>
+</tr>
+<tr>
+<td>検出された WebSocket プローブ</td>
+<td>限定されたチャネル交換。アプリケーション固有の攻撃プロトコルは発明されていない</td>
+</tr>
+<tr>
+<td>発見された SSE プローブ</td>
+<td>境界付き EventSource リスニング。一般的なストリーム認可検証器ではありません</td>
+</tr>
+<tr>
+<td>オフラインクライアントライブラリSCA</td>
+<td>監視されたクライアント資産用の小規模なバンドルされた既知のバージョン/範囲カタログ</td>
+</tr>
+<tr>
+<td>パラメータ/ヘッダーマイニング</td>
+<td>ターゲット/API の証拠から学習した名前を使用します。完全な隠し入力辞書ではない</td>
+</tr>
+<tr>
+<td>ネイティブの完全な Nuclei 実行</td>
+<td>Linux の分離と同意を条件として、エージェント API を介して公式エンジン テンプレート ジョブを有効にします</td>
+</tr>
+<tr>
+<td>サンドボックス化されたネイティブ コード / JavaScript</td>
+<td>レビュー/署名されたネイティブ テンプレートの追加機能</td>
+</tr>
+<tr>
+<td>分離されたヘッドレスブラウザ</td>
+<td>追加のネイティブヘッドレス機能。 Firefox のログインから隔離される</td>
+</tr>
+<tr>
+<td>ネイティブのホワイトリストに登録されたファイルの読み取り</td>
+<td>選択した許可リスト内の追加の読み取り専用ローカル ファイル機能</td>
+</tr>
+<tr>
+<td>OAST (外部プロバイダー)</td>
+<td>指定されたプロバイダーを登録/ポーリングします。関連する脆弱性プローブを個別に選択する</td>
+</tr>
+<tr>
+<td>コミュニティ SQL プローブ リスト</td>
+<td>サポートされているフィルター処理された SecLists/FuzzDB 値を関連する SQL チェック/ファザーに追加します。</td>
+</tr>
+<tr>
+<td>適応リクエストレート</td>
+<td>保守的なスロットリング/チャレンジの処理。自動的にレートが上がるわけではない</td>
+</tr>
+<tr>
+<td>アップロードされたペイロード パックを有効にしました</td>
+<td>選択したターゲット固有の値を追加します。アグレッシブなプラス次回実行の承認が必要</td>
+</tr>
+</tbody>
+</table>
+<p>ライブ DOM 検証は、一般的な汚染追跡ではありません。保存された XSS、postMessage/ローカル ストレージ ソース、非 URL 入力、および複数ステップの書き込み/読み取りワークフローには、追加のテストが必要です。ブロックされた依存関係またはタイムアウトは、不完全なカバレッジであり、パスではありません。</p>
+<h2 id="budgets-selectors-and-request-settings">予算、セレクター、リクエスト設定</h2>
+<p>あります <strong>2 つの別個の制限セット</strong>: Longshot の組み込みスキャン制限とネイティブ ツール プロキシの制限。 :8900 を介した ZAP リクエストは、組み込みの JavaScript スキャン バジェットを消費せず、Lo​​ngshot のチェックボックスは ZAP のスキャン ポリシーを選択しません。</p>
+<h3 id="operation-and-phase-selectors">動作および位相セレクター</h3>
+<table>
+<thead>
+<tr>
+<th>セレクター</th>
+<th>選択と行動</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>操作</td>
+<td>スパイダーのみ。スパイダー + アクティブ チェック。アクティブなチェックのみ</td>
+</tr>
+<tr>
+<td>オートファズ</td>
+<td>オフ;アクティブおよび CVE 後。スキャン中。これは専用のアクティブ ルールではなく、追加のフェーズを制御します</td>
+</tr>
+<tr>
+<td>攻撃モデル</td>
+<td>スナイパー;破城槌;熊手;構造化された自動/身体突然変異計画をサポートするためのクラスター爆弾</td>
+</tr>
+<tr>
+<td>セッションB</td>
+<td>完全に独立した Cookie ストアを備えた別の同一オリジン タブ</td>
+</tr>
+<tr>
+<td>ボディファザー方式</td>
+<td>POST、GET、PUT、または PATCH (リクエストポリシーと承認の対象)</td>
+</tr>
+<tr>
+<td>本文フォーマット</td>
+<td>JSON、URL エンコード形式、マルチパートまたは raw/XML。すべての形式が汎用スカラー挿入ポイントを提供するわけではありません</td>
+</tr>
+<tr>
+<td>ボディペイロードクラス</td>
+<td>SQLi、NoSQLi、コード、XSS、SSTI、トラバーサル、CRLF、リダイレクト、コマンドまたはカスタム</td>
+</tr>
+</tbody>
+</table>
+<p>この実装における攻撃モデルは次のとおりです。</p>
+<ul>
+<li><strong>スナイパー:</strong> 一度に 1 つの入力を変更します。</li>
+<li><strong>破城槌:</strong> 選択したすべての入力に同じペイロードを置きます。</li>
+<li><strong>熊手:</strong> 入力全体で共有ペイロード リストからの交互/回転シーケンスを使用します。これは、Burp の独立リストの動作を主張するものではありません。</li>
+<li><strong>クラスター爆弾:</strong> 入力全体にわたる制限された組み合わせ。キャップは無制限のデカルト展開を防ぎます。</li>
+</ul>
+<h3 id="scan-option-limits">スキャンオプションの制限</h3>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th style="text-align: right;">フレッシュなデフォルト</th>
+<th style="text-align: right;">許容範囲</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>グローバルリクエスト予算</td>
+<td style="text-align: right;">2,000</td>
+<td style="text-align: right;">1–10,000</td>
+</tr>
+<tr>
+<td>パラメータごとのファズリクエスト</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>テンプレートごとの CVE リクエスト</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>ターゲットごとの CVE リクエスト</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1–2,000</td>
+</tr>
+<tr>
+<td>同時実行制限</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1-2;並列ブラウザのスループットを保証するものではありません</td>
+</tr>
+<tr>
+<td>AJAX イベントの予算</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>AJAX ページ バジェット (ミリ秒)</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">500–15,000</td>
+</tr>
+<tr>
+<td>AJAX ページ数</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>遅延プローブ (秒)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1–5</td>
+</tr>
+<tr>
+<td>OAST コールバック TTL 秒</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">5–3,600</td>
+</tr>
+<tr>
+<td>OAST ポーリング秒数</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5–15</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scanner-settings">スキャナーの設定</h3>
+<table>
+<thead>
+<tr>
+<th>設定</th>
+<th>新しいデフォルト/目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1秒あたりのリクエスト数</td>
+<td>1; UI は 0.5 ～ 5 をサポートします</td>
+</tr>
+<tr>
+<td>最大クロール深さ</td>
+<td>3; UI は 0 ～ 5 をサポートします</td>
+</tr>
+<tr>
+<td>検出された URL の最大数</td>
+<td>100; UI は 1 ～ 500 をサポートします</td>
+</tr>
+<tr>
+<td>応答ごとの最大バイト数</td>
+<td>2MB;より大きな応答や切り捨てられた応答は証拠のギャップを残す可能性があります</td>
+</tr>
+<tr>
+<td>トランスポートの再試行</td>
+<td>2;特定の書き込みを安全に再生できることを保証するものではありません</td>
+</tr>
+<tr>
+<td>パラメーターごとの最大ファズプローブ数</td>
+<td>40;追加フェーズパラメータバジェットとは別に</td>
+</tr>
+<tr>
+<td>アクティブなリクエストの最大数</td>
+<td>150</td>
+</tr>
+<tr>
+<td>アクティブな URL の最大数</td>
+<td>20</td>
+</tr>
+<tr>
+<td>アクティブなクエリパラメータの最大数</td>
+<td>10;監査では、サポートされている他の挿入ポイントの種類も記録されます。</td>
+</tr>
+<tr>
+<td>除外されるパスプレフィックス</td>
+<td>1 行に 1 つのプレフィックス。それらのパスがテスト ターゲットとして生成されるのを防ぎます</td>
+</tr>
+<tr>
+<td>除外されるパラメータ名</td>
+<td>1 行に 1 つの名前</td>
+</tr>
+<tr>
+<td>編集されたスキャナ応答本文をローカルに保持する</td>
+<td>オン。ベストエフォートの編集を使用して、制限内でのレビュー/比較をサポートします</td>
+</tr>
+</tbody>
+</table>
+<p>アクティブな監査は、後で有効になるルールのために制限された許容量を予約します。したがって、ペイロードが増えると、すべてのバリアントをテストするのではなく、一部のルールが部分的になる可能性があります。設定された最大値は上限であり、すべてのリクエストを使用したり、すべての入力を完了したりすることを保証するものではありません。</p>
+<h3 id="other-selectors">その他のセレクター</h3>
+<table>
+<thead>
+<tr>
+<th>ページ</th>
+<th>セレクターと意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>調査結果</td>
+<td>重大度とレビューステータス。ネガティブ/ブロックされた可視性の変更は表示のみ</td>
+</tr>
+<tr>
+<td>テンプレート</td>
+<td>重大度、レディオンリーフィルター、および手動選択。準備完了とは、脆弱性の判定ではなく、許可/互換性の状態です。</td>
+</tr>
+<tr>
+<td>リピータ</td>
+<td>GET/HEAD/OPTIONS/POST/PUT/PATCH/DELETE および raw/XML、JSON、またはフォーム本体</td>
+</tr>
+<tr>
+<td>ファザー</td>
+<td>ペイロード ファミリと値の変更: オリジナル、URL/二重エンコード、大文字と小文字の変更、エンコードされたドット、タブ/セミコロン接尾辞、二重スラッシュ接頭辞、末尾のドット/スペース</td>
+</tr>
+<tr>
+<td>インターセプター</td>
+<td>リソースタイプ、メソッド、タイムアウトアクション。これらのフィルターはメソッドを書き換えるのではなく、トラフィックを保持します。</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>監視されているチャネル プロトコルを選択します</td>
+</tr>
+<tr>
+<td>サーバースタック</td>
+<td>自動 NVD+OSV、NVD 製品/CPE、または OSV パッケージ/バージョン。手動 npm/PyPI エコシステム</td>
+</tr>
+<tr>
+<td>比較する</td>
+<td>保存されたベースラインと比較応答</td>
+</tr>
+<tr>
+<td>公共事業</td>
+<td>URL/Base64/hex エンコード/デコード、SHA-256、JSON フォーマット、JWT クレーム検査</td>
+</tr>
+<tr>
+<td>WSTGチェック</td>
+<td>カテゴリおよび自動/補助/手動参照フィルター</td>
+</tr>
+<tr>
+<td>テーマ/言語</td>
+<td>スキャン オプションに依存しない、グローバルな外観とバンドル言語</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fuzzer-auto-fuzz-and-probe-library">ファザー、自動ファズ、プローブ ライブラリ</h2>
+<h3 id="pick-the-right-action">適切なアクションを選択してください</h3>
+<table>
+<thead>
+<tr>
+<th>アクション</th>
+<th>入力を選択するのは誰ですか?</th>
+<th>出力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>アクティブスキャン</td>
+<td>ロングショットは、検出されたサポートされている入力を使用します</td>
+<td>リピート/コントロールを備えた専用のルール証拠</td>
+</tr>
+<tr>
+<td>ファザーを実行する</td>
+<td>1 つの URL とクエリ パラメータを選択します</td>
+<td>ベースラインと選択されたペイロード応答の比較</td>
+</tr>
+<tr>
+<td>ボディファザー</td>
+<td>構造化されたリクエストと突然変異の選択肢を提供します</td>
+<td>サポートされている場合、境界のあるボディ/パス/ヘッダーのバリエーション</td>
+</tr>
+<tr>
+<td>オートファズボタン</td>
+<td>保存された現在のページ/サイトマップ/API インベントリ</td>
+<td>適格な検出された入力全体にわたる追加の汎用ペイロード探索</td>
+</tr>
+<tr>
+<td>CVE オートフェーズ / 実行が選択されました</td>
+<td>インポートされたテンプレート定義</td>
+<td>テンプレート固有のリクエストとマッチャーの結果</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-query-fuzzer">手動クエリファザー</h3>
+<ol>
+<li>ターゲットを接続し、スコープ付き URL を選択します。次のような相対 URL <code dir="ltr" translate="no">/search?q=apple</code> 接続されたオリジンに対して受け入れられます。</li>
+<li>既存のクエリパラメータ名を入力するか、 <strong>使用する</strong> 発見された入力の横にあります。</li>
+<li>ペイロード クラスと値の突然変異を選択します。</li>
+<li>のために <strong>ユーザーがアップロードしたカスタム ペイロード</strong>、まず適切なカスタム パックを有効にします。</li>
+<li>選択してください <strong>ファザーを実行する</strong>、次に、ベースライン、リクエスト、ステータス、長さ/タイミング、および証拠を検査します。</li>
+</ol>
+<p>URL、パラメータ、または空のカスタム セットが欠落している場合は、特定の検証メッセージが生成されます。応答を変更するだけでは、注入の欠陥は確立されません。サーバーのスロットリングにより、パラメータがベースラインで発生した場合でも停止する可能性があります。</p>
+<h3 id="auto-fuzz-discovered-inputs">自動ファズが検出した入力</h3>
+<p>使用する <strong>検出された入力をプレビューする</strong> まず。保存されたインベントリを読み取り、プローブを送信せずに対象となるリクエスト/スキップされたリクエストをレポートします。自動ファザーには、手動ファザーの URL/パラメーター フィールドは必要ありません。インベントリが空の場合は、最初にブラウズまたはスパイダーを実行します。</p>
+<p>ペイロード クラスを選択し、別のペイロード クラスを選択します <strong>オートファズ</strong> ボタン。 <strong>検出されたリクエストボディを含める</strong> 開始すると、積極的な承認と次回の実行の承認が必要になります。トークン バインドされたフォーム、サポートされていないメソッド、使用できない本文、および XML は、この自動入力セレクターによってスキップされます。既存の除外、リクエスト制限、スロットリング動作は引き続き適用されます。</p>
+<p>使用可能なクラス チェックボックスは、SQLI、NOSQLI、CODE、XSS、SSTI、TRAVERSAL、COMMAND、SSRF、REDIRECT、CRLF、および CUSTOM です。新しいデフォルトでは、SQLI、SSTI、TRAVERSAL、REDIRECT、および CRLF が有効になります。一般的なループは SSRF をスキップします。使う <strong>SSRF カナリア / コールバック</strong> 実装された検証のために。 CUSTOM は、入力/有効化されたカスタム値を使用し、専用のマッチャーがさらに確立しない限り、信頼性の低い応答の差異を報告します。</p>
+<h3 id="why-probe-library-belongs-here">プローブ ライブラリがここに属する理由</h3>
+<p>図書館の備品 <strong>ペイロード値とレビューされたテンプレート</strong>;ファザーコントロールで選択する <strong>どこに、どのように送るか</strong>。手動の URL/パラメータを置き換えるものではありません。共有ライブラリのオプションは、アクティブ スキャンと保存後の自動フェーズにも影響します。</p>
+<p><strong>GitHub リストを更新する</strong> 任意の実行可能スキャナではなく、固定ソースを更新します。</p>
+<table>
+<thead>
+<tr>
+<th>ソース</th>
+<th>使用されたサブセット</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SecLists クイック SQLi</td>
+<td>フィルタリングされた句読点/ブール値、サポートされるエントリの上限は 32 です</td>
+</tr>
+<tr>
+<td>FuzzDB のクロスプラットフォーム SQL 検出</td>
+<td>フィルタリングされた句読点/ブール値、サポートされるエントリの上限は 32 です</td>
+</tr>
+<tr>
+<td>ProjectDiscovery Nuclei テンプレート</td>
+<td>2 つの GET 専用 Jira スターター チェック: CVE-2020-14179 および CVE-2021-26086</td>
+</tr>
+<tr>
+<td>ペイロードAllTheThingsのテクニック</td>
+<td>制限付きで実装された SQL ホワイトスペース/コメント/エンコーディングのバリエーションの基礎。ダウンロードされた実行可能バイパス スクリプトではありません</td>
+</tr>
+</tbody>
+</table>
+<p>更新では HTTPS を使用し、Cookie を省略し、失敗時に古いスナップショットを保存します。ソース ハッシュ、リフレッシュ時間、サポートされる数が表示されます。入力ファイルの完全なハッシュは、そのファイル内のすべての値が使用されることを意味するわけではありません。ダウンロードされた SQL リストには、破壊的/データ抽出/遅延/コード/コールバック構造は含まれません。組み込みルールには、個別に実装された独自のカナリアがあります。</p>
+<p>更新する前にスキャンを停止してください。更新しても、プローブの開始、承認の付与、OAST の有効化、またはターゲット データ/カスタム パックの GitHub へのアップロードは行われません。ダウンロードされたテンプレートがサポートされていない/生の/コード/ヘッドレス形式に変更されると、新しい実行機能に自動的に昇格されるのではなく、拒否されます。</p>
+<h2 id="your-payloads-and-imported-templates">ペイロードとインポートされたテンプレート</h2>
+<h3 id="upload-literal-lists">リテラルリストをアップロードする</h3>
+<p>下 <strong>スキャン オプションまたはファザー → プローブ ライブラリ → ペイロードと CVE テンプレート</strong>、カテゴリを選択してから、 <strong>カスタムファイルをアップロードする</strong>.</p>
+<p>受け入れられるリスト形式:</p>
+<ul>
+<li><code dir="ltr" translate="no">.txt</code>: 1 行につき 1 つの空ではないリテラル値。スペースと大文字小文字は保持されます。</li>
+<li><code dir="ltr" translate="no">.json</code>: 文字列の配列、または以下を含むオブジェクト <code dir="ltr" translate="no">name</code>, <code dir="ltr" translate="no">category</code> そして <code dir="ltr" translate="no">payloads</code>.</li>
+<li>カテゴリ: <code dir="ltr" translate="no">custom</code>, <code dir="ltr" translate="no">waf</code>, <code dir="ltr" translate="no">sqli</code>, <code dir="ltr" translate="no">nosqli</code>, <code dir="ltr" translate="no">code</code>, <code dir="ltr" translate="no">xss</code>, <code dir="ltr" translate="no">ssti</code>, <code dir="ltr" translate="no">traversal</code>, <code dir="ltr" translate="no">crlf</code>, <code dir="ltr" translate="no">redirect</code>, <code dir="ltr" translate="no">command</code>.</li>
+</ul>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "name": "My SQL review probes",
+  "category": "sqli",
+  "payloads": ["'", "\"", "' AND 1=1 -- "]
+}
+</code></pre>
+<p>パックはターゲット固有であり、最初は <strong>無効化された</strong>。プレビューを確認し、目的のパックを明示的に有効にします。有効化されたアップロードされたパックには、積極的な承認が必要です。アップロードだけでは何も実行されません。</p>
+<p>制限: ペイロード ファイルあたり 256 KB、パックあたり 200 文字列、値あたり 2,000 文字、ターゲットあたり最大 10 パック / 500 値 / 512 KB のパック構成。パック内の重複する文字列は削除されます。既存の方法、範囲、予算、および破壊的 SQL ガードは引き続き適用されます。</p>
+<p>分類されたパックは、組み込みのクラス値を補完します。 WAF パックにはさらに、スマート バリエーションと適格なフィルタリングの証拠が必要です。リテラル カスタム ペイロードは、予期される出力マッチャーや実行可能な拡張コードではありません。 CVE 番号をアップロードするだけでは、その CVE を検証できません。</p>
+<h3 id="import-requestmatcher-templates">インポートリクエスト/マッチャーテンプレート</h3>
+<p>YAML/YML/JSON をアップロードする前に、CVE/Nuclei テンプレート カテゴリを選択してください。テンプレート ファイルの上限は 2 MB です。でレビューしてください <strong>テンプレート</strong>、実行者と具体的な準備完了/ブロックされた理由を含む。インポートされたテンプレートは共有ライブラリを使用します。ペイロード パックはターゲットに留まります。</p>
+<ul>
+<li><strong>選択したものを実行</strong> 選択したテンプレートを直接実行し、CVE 自動フェーズを必要としません。</li>
+<li><strong>CVEオートフェーズ</strong> 構成されたスキャン中に、適格な CVE タグ付き/識別されたインポートを考慮します。</li>
+<li><strong>オートファズ</strong> 一般的な値を生成します。作成された CVE ペイロードやマッチャーは書き換えられません。</li>
+<li>アドバイザリー専用 JSON は、製品/バージョンの証拠を関連付けます。機能するエクスプロイト リクエストを作成するわけではありません。</li>
+<li>未加工、複雑なコード、ヘッドレス、ファイル、または非 HTTP テンプレートは、別個の公式エンジンと追加の許可が必要になるか、ブロックされたままになる場合があります。</li>
+</ul>
+<p>レビュー済みの相対ヘルパー バンドルを、それらを必要とするテンプレートとともにインポートします。使用できないネイティブ ランタイム、範囲外のリクエスト、承認の欠如、またはサポートされていない機能は検査の理由であり、ネガティブ テストの成功ではありません。</p>
+<h2 id="server-stack-and-smart-analyzer">サーバースタックとスマートアナライザー</h2>
+<p>使用する <strong>ソフトウェアの検出</strong> サポートされている範囲の観察を収集します。遺体の証拠が必要な場合は、代表的なページを閲覧し、適切な応答を保存してください。次に選択します <strong>記録された証拠を分析する</strong> 最大 200 件の最近保存された応答のローカルな受動的相関。アナライザー自体はターゲット リクエストを追加しません。</p>
+<p>このビューでは、ブラウザー コンポーネント、WAF/CDN/エッジ、Web サーバー/リバース プロキシ、およびアプリケーション/ランタイム信号が分離されています。製品固有のヘッダー、Cookie 名、アセット/ブートストラップ構造、およびエラー テキストにより、信頼性が高まります。チャレンジ ページの本文は、アプリケーションのフィンガープリンティングから除外されます。一般的な 403、nginx バナー、または CDN エッジは、特定の WAF ルールが有効であることを確立しません。</p>
+<p>考えられる構成カードでは、その証拠と推奨される検証について説明します。これらは仮説です。ブラウザーの応答では、発信元 IP、プライベート サブネット、バックエンド データベース設定、TLS 終端、ファイアウォール ルール、またはプロキシ信頼リストを正確に確立することはできません。複数のアップストリームと書き換えられたバナーにより、レイヤーが隠蔽されたり、誤って認識されたりする可能性があります。</p>
+<h3 id="waf-recommendations-and-rate-handling">WAF の推奨事項とレート処理</h3>
+<p><strong>保守的なスキャン推奨事項を適用する</strong> コミュニティ SQL プローブ、スマート バリエーション、および適応レートを明示的に有効にし、設定されたレートを最大 0.5 リクエスト/秒に下げます。スキャンを開始したり、高度な機能を付与したりすることはありません。</p>
+<p>適格な調査は、既存の予算内で最大 3 つの代替案を考慮します。ブロックされたベースラインはスキップされます。ブラウザチャレンジには通常のブラウザ解像度が必要です。通常の ACL 拒否では、無限のバイパス試行が正当化されるわけではありません。ブロックから許可への変更は到達可能性の証拠であり、脆弱性の証拠ではありません。</p>
+<p>明示的なチャレンジを繰り返すと、メモリ内レートが半減し、少なくとも 10 秒の待ち時間が発生する可能性があります。 Retry-After を使用した HTTP 429 または 503 は、スケジュールされたさらなるプローブを停止します。より長い Retry-After 間隔が尊重されます。レートが自動的に再び上昇することはありません。新しい実行は設定されたレートで開始されます。</p>
+<h3 id="cve-lookup">CVEルックアップ</h3>
+<p><strong>オンライン CVE を検索する</strong> 許可後にサポートされる製品/パッケージの座標を NVD/OSV にクエリします。リクエストでは、ターゲット URL、Cookie、ページ コンテンツではなく、座標が送信されます。不明なバージョン、ベンダーのバックポート、未検証のパッケージの存在により、結論は限定されます。手動の npm/PyPI エントリはインストールを証明しません。</p>
+<p>一致しないことは、CVE がないことを意味するわけではありません。一致は助言候補です。前提条件を調べて使用する <strong>検証テンプレートを見つける</strong> 適切なインポートされた小切手を見つけます。このボタンは、テンプレートを実行するのではなくフィルタリングします。</p>
+<h2 id="oast-setup-and-interpretation">OAST のセットアップと解釈</h2>
+<p><a href="https://portswigger.net/web-security/ssrf/blind">OAST</a> 通常の応答では動作が明らかにならない場合に、プローブによって引き起こされる DNS/HTTP インタラクションを観察します。 Longshot はその登録/相関キーを所有します。別のクライアントからのランダムな事前生成コールバックは交換可能ではありません。</p>
+<ol>
+<li>あなたが制御する、または使用を許可されている Interactsh 互換サービスを選択します。</li>
+<li>入力してください <strong>プロバイダーURL</strong>: プロバイダーの完全な API ベース アドレス (通常は HTTPS)。 HTTP はループバック プロバイダーにのみ許可されます。</li>
+<li>一致するものを入力してください <strong>コールバックドメイン</strong> なしで <code dir="ltr" translate="no">http://</code>、ポートまたはパス。</li>
+<li>入力してください <strong>プロバイダートークン</strong> そのプロバイダーが要求した場合のみ。</li>
+<li>TTL とポーリング間隔を設定します。 OAST と関連する SSRF/XXE/Log4Shell/コマンド オプションを有効にします。</li>
+<li>使用する <strong>OAST接続をテストする</strong> 登録/投票を確認します。</li>
+<li>使用する <strong>OAST コールバックをテストする</strong> このブラウザから別の相関カナリアを送信します。</li>
+<li>実際のスキャンを保存、確認、承認します。 OAST インタラクションにおける正確な相関関係とプロトコルを検査します。</li>
+</ol>
+<p>たとえば、次の場所で一致する公共サービスを使用する場合、 <code dir="ltr" translate="no">https://oast.pro</code>、そのコールバックベースは <code dir="ltr" translate="no">oast.pro</code>。これは一例であり、可用性の保証やそのプロバイダーの使用要件ではありません。セルフホステッド プロバイダーには、適切に委任された独自の到達可能なドメイン、DNS/リスナー、および TLS が必要です。ラップトップの HTTP リスナーだけではパブリック コールバック サービスではありません。フォローする <a href="https://github.com/projectdiscovery/interactsh">公式Interactshセットアップ</a>.</p>
+<table>
+<thead>
+<tr>
+<th>観察</th>
+<th>それが確立するもの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>接続テストに合格しました</td>
+<td>登録とポーリングはブラウザのルートを通じて機能しました</td>
+</tr>
+<tr>
+<td>ブラウザのコールバックテストに合格しました</td>
+<td>このブラウザは、独自の相関インタラクションをトリガーして取得できます。</td>
+</tr>
+<tr>
+<td>ターゲットプローブは一致する相互作用を生成します</td>
+<td>相関関係のある相互作用が発生しました。出典を特定し、その意味を評価する</td>
+</tr>
+<tr>
+<td>コールバックなし</td>
+<td>決定的ではありません: ターゲットの出力、プロバイダーの到達可能性、有効期限、フィルタリング、またはサポートされていないコンテキストによって説明される可能性があります</td>
+</tr>
+</tbody>
+</table>
+<p>DNS 解決は、仲介/セキュリティ サービスから提供される場合があります。コールバックだけでは、恣意的な内部アクセス、データの盗難、またはコードの実行を証明することはできません。個別に分離された Nuclei エンジンは、独自のネイティブ Interactsh 登録を所有します。これらのイベントはブラウザ クライアントの登録ではありません。</p>
+<p>ブラウザ側の OAST クライアントには、Go、Node、または Agent API は必要ありません。リリース テストでは、公式サーバーの登録、暗号化された HTTP コールバックの取得、およびループバックでの相関関係が実行されました。パブリックプロバイダーの可用性やターゲットサーバーの出力は確立されませんでした。ホスト ファイルの編集は、通常の正しく委任された OAST セットアップの一部ではありません。</p>
+<h2 id="browser-bridge-native-tool-proxy">ブラウザ ブリッジ: ネイティブ ツール プロキシ</h2>
+<h3 id="what-it-sends">送信内容</h3>
+<p>外部ツールは、攻撃ペイロード、メソッド、本文、クエリを含むリクエストを生成します。ネイティブ アダプターは、mitmproxy を介してそれを転送し、構成された Cookie/ヘッダーの変更のみを適用します。それはあります <strong>そうではない</strong> Firefox に、ZAP または別のツールに代わってフェッチを実行するように依頼します。</p>
+<p>これにより、ネイティブ HTTP セマンティクスとツールのペイロード生成が保持されますが、任意の元のワイヤ バイトは保持されません。mitmproxy は HTTP を解析/シリアル化し、独自の送信 TLS 接続を確立します。ブラウザーのユーザー エージェント文字列によって、ネイティブ TLS/ネットワーク フィンガープリントが Firefox と同一になるわけではありません。</p>
+<h3 id="install-the-downloaded-adapter">ダウンロードしたアダプターをインストールします</h3>
+<ol>
+<li>開く <strong>ブラウザブリッジ</strong>。のみ <strong>ネイティブツールプロキシ</strong> 2.18.1 で利用可能になります。</li>
+<li>選択してください <strong>ネイティブアダプターをダウンロードする</strong> そしてそれを抽出します。</li>
+<li>抽出したものを入力します <code dir="ltr" translate="no">native-bridge</code> ディレクトリ。含まれています <code dir="ltr" translate="no">cli.js</code>, <code dir="ltr" translate="no">bootstrap.py</code>, <code dir="ltr" translate="no">config.json</code> バンドルされたノード <code dir="ltr" translate="no">ws</code> 依存性。</li>
+<li>Node.js 20 以降と Python 3.12 以降がまだ利用できない場合は、インストールします。</li>
+<li>ワンタイム Python セットアップを実行します。</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   cd /absolute/path/to/native-bridge
+   python3 bootstrap.py</code></p>
+<p>これによりローカルな <code dir="ltr" translate="no">.venv</code> そして、固定された mitmproxy 12.2.3 をインストールします。インストールにはインターネットへのアクセスが必要です。通常の起動では、スキャナ コードやペイロード リストはダウンロードされません。</p>
+<ol start="6">
+<li>に示されているコマンドを使用します。 <strong>あなたの</strong> 拡張ページ:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   node cli.js --config config.json \
+     --extension-origin moz-extension://YOUR-LONGSHOT-UUID</code></p>
+<p>プレースホルダーを現在の拡張子の完全な起点に置き換えます。これは、ターゲット Web サイト、アドオン ID、または別の Firefox プロファイルからコピーされたオリジンではありません。</p>
+<ol start="7">
+<li>ターミナルを実行したままにしてください。プロキシ リスナーの準備が完了すると、プロキシ アドレス、制御ポート、新しいペアリング/プロキシ トークン、および CA 証明書のパスが出力されます。</li>
+</ol>
+<p>バンドルされたアダプター アーカイブを使用するのではなく、ソース ZIP から開発する場合、ピン留めされたノードの依存関係が存在しない場合は、最初にインストールします。</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+npm --prefix native-bridge ci --omit=dev
+cd native-bridge
+python3 bootstrap.py
+</code></pre>
+<p><code dir="ltr" translate="no">--mitmdump /absolute/path/to/mitmdump</code> または <code dir="ltr" translate="no">LONGSHOT_MITMDUMP</code> 既存のランタイムを選択します。 <code dir="ltr" translate="no">--data-dir /absolute/private/run-directory</code> CA/audit ディレクトリを選択します。デフォルトは <code dir="ltr" translate="no">run</code> ネイティブアダプター内。 Ctrl+C でアダプターを停止します。</p>
+<p>手動ネイティブ プロキシは、エージェント API ホストの登録とは別のものです。必要ありません <code dir="ltr" translate="no">node bridge/bin/longshot-bridge install</code> 単にcurl/ZAPをプロキシするだけです。 Linux/Firefox はリリース統合テストで実行されました。このマニュアルの Node/Python 起動パスから、別のプラットフォームでのネイティブ メッセージング インストーラーのサポートを推測しないでください。</p>
+<h3 id="pair-the-selected-tab">選択したタブをペアリングします</h3>
+<ol>
+<li>許可されたものを選択してください <strong>ターゲットタブ</strong> ブラウザブリッジで。</li>
+<li>表示されたオリジンと Cookie ストアを確認します。使用する <strong>タブを更新する</strong> 必要に応じて。</li>
+<li>入力してください <strong>制御ポート</strong> <code dir="ltr" translate="no">8901</code>アダプター構成で変更されない限り。</li>
+<li>現在のものを貼り付けます <strong>ペアリング/プロキシトークン</strong> 実行中のアダプターから。</li>
+<li>選択してください <strong>ペアネイティブブリッジ</strong> 準備完了ステータスを確認します。</li>
+<li>ツールのトラフィックをルーティングする前に、Cookie/ヘッダーのスイッチを確認してください。</li>
+</ol>
+<p>ペアリングが成功すると、フィールドはトークンをクリアします。再起動すると新しいトークンが生成されます。再度ペアリングして、すべての外部ツールでプロキシ資格情報を更新します。プロキシポート <code dir="ltr" translate="no">8900</code> 工具用です。制御ポート <code dir="ltr" translate="no">8901</code> Firefox用です。どちらもポート 8765 からのエージェント API ベアラー トークンを使用しません。</p>
+<h3 id="actual-target-urls-and-bridgeinvalid">実際のターゲット URL と Bridge.invalid</h3>
+<p>次のような実際のアドレスを使用します。 <code dir="ltr" translate="no">http://localhost:8080/search?q=apple</code>、ツール内で。 HTTPS をテストする場合は、実際の <code dir="ltr" translate="no">https://...</code> 住所。プロキシ自身のアドレスは残ります <code dir="ltr" translate="no">http://127.0.0.1:8900</code> これは、HTTPS CONNECT を含むローカル HTTP プロキシ リスナーであるためです。</p>
+<p><strong>いいえ <code dir="ltr" translate="no">/etc/hosts</code> エントリーが必要です。</strong> 古い <code dir="ltr" translate="no">bridge.invalid</code> address は、ユーティリティの HTTP URL を選択したブラウザフェッチ ターゲットにマッピングするためのアダプタ固有のエイリアスでした。現在のネイティブ プロキシは実際のターゲット URL と HTTPS CONNECT をサポートしているため、マッピングは不要です。</p>
+<p><code dir="ltr" translate="no">localhost</code> これは、すべてのターゲットで交換可能なエイリアスではありません。関連するプロセスのネットワーク環境からローカル マシンに名前を付けます。これは、ターゲットがその原点で実際にローカルにある場合にのみ正しいです。両方の名前が同じ IP に解決される場合でも、ホスト名が異なると、異なる仮想ホスト、Cookie ポリシー、またはオリジンを選択できます。</p>
+<p>既存の廃止されたホスト エントリは、新しいワークフローとは無関係です。ツールの URL では使用しないでください。このチュートリアルの準備中に、hosts ファイルの変更は行われませんでした。</p>
+<h3 id="https-trust">HTTPSの信頼</h3>
+<p>アダプターは、通常、選択されたデータ ディレクトリの下に独自のローカル CA を生成します。</p>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
+run/ca/mitmproxy-ca.pem            sensitive CA material/private key
+</code></pre>
+<p>を設定します。 <strong>外部ツールの評価信頼構成</strong> 起動時に公開証明書パスが出力されます。秘密キーを共有したり、システム/Firefox トラスト ストアが変更されたと想定したりしないでください。アダプターは、その CA をどちらの信頼ストアにもインストールしません。</p>
+<p>カールの場合:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  --cacert /absolute/path/to/native-bridge/run/ca/mitmproxy-ca-cert.pem \
+  'https://actual-target.example/search?q=apple'
+</code></pre>
+<p>交換する <code dir="ltr" translate="no">CURRENT_TOKEN</code> およびターゲット/証明書のパス。 HTTP のみのローカル ターゲットの場合、 <code dir="ltr" translate="no">--cacert</code> は不要です。 <code dir="ltr" translate="no">--noproxy ''</code> これは、curl がループバック ターゲットのプロキシをサイレントにバイパスしないことを保証します。</p>
+<p>2 つの異なる TLS チェックがあります。</p>
+<ul>
+<li>クライアントは、アダプターによって提示された証明書を検証します。アダプター CA とのクライアントの信頼を構成します。</li>
+<li>アダプターは実際の上流サーバーを検証します。 <code dir="ltr" translate="no">tls.verifyUpstream</code> デフォルトは true です。クライアント <code dir="ltr" translate="no">--cacert</code> プライベートの起点 CA をアダプターに提供しません。</li>
+</ul>
+<p>検証の無効化を証明書エラーの通常の修正として扱わないでください。所有されている自己署名フィクスチャの場合、 <code dir="ltr" translate="no">tls.verifyUpstream:false</code> アダプター構成内の明示的な評価例外であり、その後に再起動が続きます。個別の上流チェックが弱体化します。参照 <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy 証明書の動作</a>.</p>
+<h3 id="traffic-fidelity-and-limits">トラフィックの忠実度と制限</h3>
+<table>
+<thead>
+<tr>
+<th>ネイティブプロキシのサポート</th>
+<th>確立またはサポートしません</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ツール生成のメソッド、クエリのペイロードおよび本体</td>
+<td>正確な元のヘッダーのバイト/順序/大文字小文字または不正なフレーム構成</td>
+</tr>
+<tr>
+<td>HTTP/1.1、HTTP/2、HTTPS接続</td>
+<td>HTTP/3、任意の TCP または非 HTTP スキャナ モード</td>
+</tr>
+<tr>
+<td>設定されたセッション/ヘッダーのオーバーライド</td>
+<td>ブラウザーの完全なフィンガープリント、JavaScript チャレンジの実行、またはブラウザー所有の TLS</td>
+</tr>
+<tr>
+<td>ネイティブ ルートでの WebSocket のアップグレード</td>
+<td>汎用のアプリケーション プロトコル脆弱性検証ツール</td>
+</tr>
+<tr>
+<td>承認された HTTPS CONNECT 宛先を保持しながらホストヘッダーをプローブするツール</td>
+<td>無制限のダイヤル ターゲットまたは自動新規ターゲット認証</td>
+</tr>
+<tr>
+<td>ブラウザーセッションのエクスポートを行わないスコープ指定された追加のオリジン</td>
+<td>ブラウザの Cookie/ヘッダー認証情報がオリジン間で自動的に共有される</td>
+</tr>
+</tbody>
+</table>
+<p>ネイティブ ルートにはブラウザフェッチ フォールバックがありません。生のリクエストの密輸、異常なワイヤーフレーム化、またはカスタム TLS 調査の場合は、適切な別のトランスポートを使用してください。この解析されたプロキシにバイト透過というラベルを付けないでください。</p>
+<h2 id="native-bridge-configuration">ネイティブブリッジ構成</h2>
+<p>ブラウザ ブリッジから設定をダウンロードするか、アダプタの設定を編集します <code dir="ltr" translate="no">config.json</code>。不明なキー、無効なタイプ、範囲外の値は拒否されます。古いアダプターのフィールドは、ネイティブ構成の同義語ではありません。</p>
+<p>実行中のアダプター構成は、ペアリングに関して権限を持ちます。 <strong>オーバーライドを適用する</strong> 現在のペアリングでサポートされているブラウザーの上書きの選択肢が変更されます。 <strong>構成をダウンロードする</strong> 選択した構成を次回の起動まで保持します。一般的な JSON フィールドを編集しても、既に実行されているプロセスのリスナー ポート、TLS、ルーティング、または制限がサイレントに再構成されることはありません (保存/ダウンロード、再起動、再ペアリング)。</p>
+<h3 id="complete-shipped-defaults">完全な出荷時のデフォルト設定</h3>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "proxy": {
+    "port": 8900
+  },
+  "control": {
+    "port": 8901,
+    "timeoutMs": 10000
+  },
+  "browser": {
+    "required": true,
+    "firstPartyDomain": null
+  },
+  "cookies": {
+    "enabled": true,
+    "mode": "replace",
+    "saveResponses": true,
+    "preserveToolChanges": true,
+    "protectedNames": [],
+    "includeNames": [],
+    "excludeNames": []
+  },
+  "headers": {
+    "userAgent": {
+      "source": "tool",
+      "value": ""
+    },
+    "acceptLanguage": {
+      "source": "tool",
+      "value": ""
+    },
+    "authorization": {
+      "source": "tool",
+      "value": ""
+    },
+    "set": {},
+    "remove": [],
+    "protectedNames": []
+  },
+  "scope": {
+    "origins": [],
+    "excludePaths": [],
+    "methods": [
+      "*"
+    ]
+  },
+  "limits": {
+    "rate": 2,
+    "concurrency": 4,
+    "maxRequests": 10000,
+    "maxBodyBytes": 67108864,
+    "timeoutSeconds": 60
+  },
+  "session": {
+    "pauseStatuses": [
+      401,
+      419,
+      440
+    ],
+    "pauseOn429": true
+  },
+  "tls": {
+    "verifyUpstream": true,
+    "http2": true
+  },
+  "upstream": {
+    "url": null
+  },
+  "routing": {
+    "socks5": null
+  },
+  "audit": {
+    "enabled": true
+  }
+}
+</code></pre>
+<p>空の <code dir="ltr" translate="no">scope.origins</code> デフォルトは、ペアになったターゲットの正確な原点になります。通常のペア評価を開始するために、ターゲットまたは開始/終了タイムスタンプを入力する必要はありません。範囲の強制はまだ存在します。これは、古い必須の評価フォームではなく、ペアリングによって選択されます。</p>
+<h3 id="field-reference">フィールド参照</h3>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>効果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">schemaVersion</code></td>
+<td>ネイティブ構成フォーマット。現在値1</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">proxy.port</code></td>
+<td>ツール側の HTTP プロキシ ポート、デフォルトは 8900</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.port</code></td>
+<td>Firefox コーディネーター ポート、デフォルトは 8901。プロキシポートとは異なる必要があります</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.timeoutMs</code></td>
+<td>ブラウザ/コントロールの応答タイムアウト、デフォルトは 10,000 ミリ秒</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.required</code></td>
+<td>デフォルトではペアリングが必要です。スタンドアロン操作では、明示的なオリジンとすべてのブラウザー派生機能をオフにする必要があります</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.firstPartyDomain</code></td>
+<td>Firefox Cookie API で必要な場合は、明示的なファーストパーティ分離ドメイン。 null は通常の動作を使用します</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.enabled</code></td>
+<td>送信ネイティブ リクエストで選択した Firefox Cookie を使用します。デフォルトの真</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.mode</code></td>
+<td><code dir="ltr" translate="no">replace</code> デフォルトでは;オプション <code dir="ltr" translate="no">merge</code>、以下で説明します</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code></td>
+<td>応答 Set-Cookie 更新を選択した Firefox jar に適用します。デフォルトは true、リクエストのオーバーライドとは無関係</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.preserveToolChanges</code></td>
+<td>クライアント接続/オリジンごとに最初のリクエストに関連した変更を保持します。デフォルトの真</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.protectedNames</code></td>
+<td>ツール値をツールの制御下に置く必要がある Cookie 名</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.includeNames</code></td>
+<td>これらの名前のみを管理してください。空は、一致するすべてのブラウザ名を意味します</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.excludeNames</code></td>
+<td>これらのブラウザの Cookie 名を管理しないでください</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.userAgent</code>, <code dir="ltr" translate="no">acceptLanguage</code>, <code dir="ltr" translate="no">authorization</code></td>
+<td><code dir="ltr" translate="no">source</code> です <code dir="ltr" translate="no">tool</code>, <code dir="ltr" translate="no">browser</code> または <code dir="ltr" translate="no">custom</code>;カスタムには空ではない単一行が必要です <code dir="ltr" translate="no">value</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.set</code>, <code dir="ltr" translate="no">remove</code>, <code dir="ltr" translate="no">protectedNames</code></td>
+<td>明示的な追加のヘッダー変更と保護。予約/管理フィールドには専用のコントロールが必要です</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.origins</code></td>
+<td>空の場合は、ペアになった原点を使用します。明示的にリストされた追加の正確なオリジンは、ブラウザー由来のセッション フィールドを受け取りません</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.excludePaths</code></td>
+<td>除外されたパスプレフィックス（デコードされた形式を含む）</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.methods</code></td>
+<td>許可されるメソッド。デフォルト <code dir="ltr" translate="no">["*"]</code> Longshot のブラウザ書き込み承認ではなく、すべてのネイティブ HTTP メソッドを意味します</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.rate</code></td>
+<td>共有ネイティブ スケジューリング レート、デフォルトは 2 リクエスト/秒</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.concurrency</code></td>
+<td>ネイティブ制御スロット、デフォルトは 4</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxRequests</code></td>
+<td>ネイティブのリクエスト上限、デフォルトは 10,000。疲労により仕事が中断される</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxBodyBytes</code></td>
+<td>バッファリング/本体上限、デフォルト 64 MiB</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.timeoutSeconds</code></td>
+<td>完了リース/タイムアウト、デフォルトは 60 秒。すでに送信されたリクエストのロールバックはありません</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseStatuses</code></td>
+<td>デフォルトの認証ステータス一時停止リスト: 401、419、440</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseOn429</code></td>
+<td>デフォルトでスロットリング時に一時停止する</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">tls.verifyUpstream</code>, <code dir="ltr" translate="no">http2</code></td>
+<td>デフォルトでは両方とも true</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">upstream.url</code></td>
+<td>オプションの HTTP(S) アップストリーム プロキシ。 null は何もないことを意味します</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">routing.socks5</code></td>
+<td>オプション <code dir="ltr" translate="no">socks5h://host:port</code>;デフォルトでは null 。アップストリーム URL と相互排他的</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">audit.enabled</code></td>
+<td>メタデータのみの JSONL 監査、デフォルトは true</td>
+</tr>
+</tbody>
+</table>
+<p>ネイティブ検証範囲: ポート 1024 ～ 65535、レート 0.1 ～ 100、同時実行性 1 ～ 32、リクエスト上限 1 ～ 1,000,000、本体制限 1 KB ～ 256 MiB、タイムアウト 1 ～ 600 秒、制御タイムアウト 1,000 ～ 120,000 ミリ秒。これらは許容される構成の範囲であり、ターゲットの安全な負荷に関する推奨事項ではありません。</p>
+<p>ヘッダー名では大文字と小文字が区別されません。 Cookie 名では大文字と小文字が区別されます。 JSON ブール値を使用する <code dir="ltr" translate="no">true</code>/<code dir="ltr" translate="no">false</code>、文字列ではありません。ジェネリック <code dir="ltr" translate="no">headers.set</code> ホスト、クッキー、認証、フレーミング、またはプロキシ制御フィールドを置き換えることはできません。専用の Cookie/認可オプションとツール独自のホスト値を使用します。</p>
+<p>ネイティブ ツール実行の負荷を軽減するために、部分的な構成でデフォルトをオーバーライドできます。次に例を示します。</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "limits": {
+    "rate": 0.5,
+    "concurrency": 1,
+    "maxRequests": 500
+  }
+}
+</code></pre>
+<p>フォーム本文のトークンを更新したり、ブラウザーのログイン ワークフローを作成したりする一般的なネイティブ構成キーはありません。</p>
+<h2 id="cookie-and-header-overrides-without-damaging-probes">プローブを損傷することなく Cookie とヘッダーをオーバーライドします</h2>
+<h3 id="default-cookie-behavior">デフォルトの Cookie の動作</h3>
+<p><strong>ブラウザの Cookie を使用する</strong> そして <strong>応答を保存 Set-Cookie 更新</strong> はデフォルトでオンになっています。 User-Agent、Accept-Language、および Authorization はデフォルトでツール制御のままです。</p>
+<p>ネイティブ リクエストの場合、Firefox はペアになったタブの Cookie ストアと一致するパーティションから URL に該当する Cookie を選択します。他のコンテナ/プライベート ストアはマージされません。ドメイン/パス/セキュア/有効期限ルールと同名パスの順序は引き続き関連します。値はネイティブ プロキシに提供されるので、ネイティブ プロキシは送信 Cookie ヘッダーを構築できます。したがって、削除されたブラウザーフェッチパスとは異なり、ネイティブヘルパーはメモリ内のセッションシークレットを処理します。</p>
+<p>と <code dir="ltr" translate="no">cookies.mode:"replace"</code>、空の場合も含め、ブラウザーの jar には権限があります。 jar から削除されたブラウザー Cookie は、その後の管理リクエストから削除されます。明示的に保護された名前と検出されたツールの変更が優先されます。と <code dir="ltr" translate="no">mode:"merge"</code>、ブラウザで管理される名前が更新されている間、無関係なツールの Cookie が残ることがあります。</p>
+<p>Response Set-Cookie フィールドは、サポートされている Domain/path/Secure/HttpOnly/SameSite/expiry/deletion/partition 属性を含む、Firefox の Cookie API を使用して、選択した同じストアに個別に適用されます。無効な Cookie は拒否できます。報告されたエラーを検査します。追加で構成されたオリジンは、ブラウザーの Cookie やブラウザー由来のヘッダーを受け取りません。</p>
+<h3 id="request-and-response-switches-are-independent">リクエストスイッチとレスポンススイッチは独立しています</h3>
+<table>
+<thead>
+<tr>
+<th>Cookie のオーバーライドをリクエストする</th>
+<th>応答の同期</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>オン</td>
+<td>オン</td>
+<td>Firefox Cookie を使用し、応答 Set-Cookie から jar を更新します</td>
+</tr>
+<tr>
+<td>オフ</td>
+<td>オン</td>
+<td>ツールのリクエスト Cookie を保持します。ターゲットの応答は依然として Firefox の jar を変更する可能性があります</td>
+</tr>
+<tr>
+<td>オン</td>
+<td>オフ</td>
+<td>Firefox の Cookie を使用します。このヘルパーを通じて応答 Cookie を書き戻さないでください</td>
+</tr>
+<tr>
+<td>オフ</td>
+<td>オフ</td>
+<td>リクエスト Cookie をツールで制御し、応答を同期しない</td>
+</tr>
+</tbody>
+</table>
+<p>Cookie ファジングや、ブラウザーの jar を変更しない必要があるセッション実験の場合は、両方のスイッチを検討してください。リクエストごとのオーバーライド バイパスは、リクエスト側のオーバーライドに影響します。独立したグローバルな応答 Cookie 同期設定は無効になりません。</p>
+<h3 id="protect-fields-that-contain-attack-payloads">攻撃ペイロードを含むフィールドを保護する</h3>
+<p>ZAP テストを想定します <code dir="ltr" translate="no">session=ATTACK_PAYLOAD</code>。その値をブラウザの有効なセッションに盲目的に置き換えると、テストが消去される可能性があります。逆に、すべてのリクエストで古い Cookie が保持されると、認証スキャンが役に立たなくなる可能性があります。</p>
+<p>デフォルト <strong>最初のリクエスト後にツールの Cookie/ヘッダーの変更を保持する</strong> クライアント接続/起点ごとのベースラインを記録し、その後の変更を保存します。最初に通常のシードリクエストを送信します。プロキシは最初のリクエストの意図を確実に推測することができず、新しい接続によって新しいベースラインが作成されます。このヒューリスティックは完全な保護ではありません。</p>
+<p>予測可能なテストを行うには、次のメカニズムのいずれかを選択します。</p>
+<ol>
+<li>テストされている特定の Cookie/ヘッダー オーバーライドを無効にします。</li>
+<li>Cookie 名を追加する <code dir="ltr" translate="no">cookies.protectedNames</code> またはヘッダーに <code dir="ltr" translate="no">headers.protectedNames</code>.</li>
+<li>選択したリクエストごとのアノテーションを送信します。</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Preserve: cookie:session, User-Agent, Authorization</code></p>
+<p>これにより、ツールの名前付き Cookie/ヘッダー フィールドが保持されます。 <code dir="ltr" translate="no">cookie</code> 名前を指定しないと、完全なツールの Cookie ヘッダーが保存されます。</p>
+<ol start="4">
+<li>そのリクエストのリクエスト側のオーバーライドをすべてバイパスします。</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Override: off</code></p>
+<p>アダプターは、転送する前にこれらの注釈ヘッダーを削除します。プロキシ認証、範囲、制限は引き続き適用されます。元のツールで注釈を構成します。これらをターゲット Web ページに配置することは、ブリッジ構成メカニズムではありません。</p>
+<p>たとえば、 <code dir="ltr" translate="no">session</code> protected を使用すると、ヘルパーが無関係の更新を継続できる間、ZAP が変更できるようになります。 <code dir="ltr" translate="no">preferences</code> クッキー。徹底的な Cookie/認可/ユーザー エージェント テストの場合、これらのオーバーライドを無効にすると、変更検出ヒューリスティックへの依存が回避されます。</p>
+<h3 id="browser-authorization-and-other-headers">ブラウザ認証とその他のヘッダー</h3>
+<p>ブラウザ認証は、JSON 構成を通じてオプトインされます。これは、ブラウザーのソーシングを有効にした後にのみ、ペアになったターゲット タブによって実際のリクエストからキャプチャされます。これは、localStorage またはアプリケーション メモリ内のすべてのトークンを自動的に読み取るものではありません。観測値が存在する前に、後のブラウザー要求が必要になる場合があります。ブラウザーの認証をオフにすると、キャプチャされた値がヘルパーによって提供されなくなります。</p>
+<p>ブラウザーの User-Agent または Accept-Language を選択すると、これらの HTTP フィールドのみが変更されます。ターゲット JavaScript の実行、本文 CSRF トークンの更新、ブラウザ TLS の再現、WAF の受け入れの保証は行いません。 IP/デバイスバインド認証と OAuth 更新には、引き続きアプリケーション ワークフローが必要です。</p>
+<h3 id="vhost-host-handling">VHOST / ホスト処理</h3>
+<p>ネイティブ ヘルパーは、ツールの [ホスト] フィールドに内部ブリッジ エイリアスを置き換えません。承認された仮想ホスト テストに必要なホスト値をツールに送信させます。 HTTPS の場合、CONNECT 宛先は承認されたターゲットのままですが、ツールの Host ヘッダーは保持できます。</p>
+<p>Host ヘッダーを変更しても、別のネットワーク宛先へのアクセスは許可されません。リバース プロキシは、それを別のアプリケーションにルーティングする場合があります。仮想ホストの動作を評価の承認に含めます。正確に不正なヘッダー バイトと競合するフレームは、この解析されたプロキシの外側にあります。</p>
+<h3 id="audit-and-privacy">監査とプライバシー</h3>
+<p><strong>ネイティブトラフィック</strong> リクエストのメタデータと変更/保護されたフィールド名を示します。監査では、Cookie/ヘッダーのシークレット値、クエリ値、および本文が省略されます。これは、プロキシがシークレットをまったく処理しないという意味ではなく、認証されたトラフィックを送信するためにシークレットを処理する必要があります。外部ツールは独自の履歴/結果を保持しており、それらの値が含まれる場合があります。</p>
+<p>プライベート構成トークン、CA キー、およびデータ ディレクトリをレポート/ソース アーカイブから遠ざけてください。カスタム認証値を含む構成をダウンロードすると、それらの値を含むファイルを作成できます。</p>
+<h2 id="external-tools-and-actual-zap-scanning">外部ツールと実際のZAPスキャン</h2>
+<h3 id="start-with-one-request">まずは1つのリクエストから</h3>
+<p>ブリッジをペアリングしてから、実際のローカル ターゲットをテストします。</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  'http://localhost:8080/'
+</code></pre>
+<p>既知の認証された読み取りパスを使用して、セッションの動作を確認します。公開ホームページの 200 では十分ではありません。リクエストがネイティブ トラフィックに表示され、選択された Cookie ストアが正しく、ツールが予期したコンテンツを受信したことを確認します。このリクエストがプロキシを使用したからといって、以降のすべてのリクエストがプロキシを使用すると推測しないでください。</p>
+<h3 id="zap-outgoing-proxy">ZAP 送信プロキシ</h3>
+<ol>
+<li>ZAP を個別にインストール/起動し、評価固有の ZAP セッションを使用します。</li>
+<li>ZAPでは <strong>オプション → ネットワーク → 接続</strong>を有効にすると、 <strong>送信HTTPプロキシ</strong>.</li>
+<li>ホストの設定 <code dir="ltr" translate="no">127.0.0.1</code>、ポート <code dir="ltr" translate="no">8900</code> (または現在設定されているプロキシ ポート)。</li>
+<li>プロキシ認証を有効にする: ユーザー名 <code dir="ltr" translate="no">bridge</code>、現在のアダプター トークンのパスワード。</li>
+<li>このチェーンに対して ZAP 独自の SOCKS プロキシを無効にします。 ZAP の SOCKS 設定は、HTTP プロキシよりも優先されます。</li>
+<li>特にローカル サービスの場合、意図したターゲットがバイパスされないように、HTTP プロキシの除外を確認してください。</li>
+<li>必要に応じて、ツールの該当する TLS 信頼/検証セットアップでアダプター CA を構成します。その場所はアダプターの起動時に出力されます。</li>
+<li>にアクセスしてください <strong>実際のターゲット URL</strong> ZAP から取得し、その履歴とブリッジ メタデータを確認します。</li>
+<li>ZAP 独自のターゲット/コンテキスト、スキャン ポリシー、除外、認証チェック、適度なリクエスト レートを定義します。承認されたとおりに実際のスパイダー/アクティブ スキャンを実行します。</li>
+<li>ZAP で調査結果と報道内容を確認します。 Cookie/ヘッダー認証フィールドを意図的にファジングする場合は、上記の保護/バイパス メカニズムを使用してください。</li>
+</ol>
+<p>この設定はZAPのものです <strong>発信接続</strong>ローカルの受信ブラウザ プロキシ リスナーではありません。選択したタブの Cookie をこのチェーンに提供するためだけに ZAP を使用するように Firefox を再構成する必要はありません。</p>
+<p>ZAP は実際のアクティブ ルール ペイロードを生成します。 mitmproxy は、結果のネイティブ要求を送信します。ロングショットは、オプトインされたリクエスト フィールドのみを変更します。これにより、外部ツールで使用できるセッション コンテキストが増加しますが、どちらのツールのスキャンも包括的になるわけではありません。参照 <a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP接続設定</a>.</p>
+<h3 id="other-http-tools">その他のHTTPツール</h3>
+<table>
+<thead>
+<tr>
+<th>ツール/クライアント</th>
+<th>接続方法</th>
+<th>重要な制限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>カールする</td>
+<td><code dir="ltr" translate="no">--proxy</code>, <code dir="ltr" translate="no">--proxy-user</code>; <code dir="ltr" translate="no">--cacert</code> HTTPS 信頼の場合。必要に応じてプロキシ バイパスをクリアします</td>
+<td>さまざまな呼び出し/接続により、ヒューリスティック プローブのベースラインがリセットされる可能性があります</td>
+</tr>
+<tr>
+<td>ふふふ</td>
+<td>HTTP プロキシ オプション (<code dir="ltr" translate="no">-x</code>) 認証されたプロキシ URL を使用します。範囲が限定されたワードリストと低レートを提供します</td>
+<td>HTTP プロキシは、プロキシを使用しない個別の呼び出しを制限しません。</td>
+</tr>
+<tr>
+<td>sqlmap</td>
+<td>現在の認証情報を使用した HTTP プロキシ オプション。承認された URL/パラメータを選択し、テスト中のフィールドを保護します</td>
+<td>個別の SQLi エンジン/設定。 Cookie の置換により、設定されていない限り Cookie プローブが消去される可能性があります</td>
+</tr>
+<tr>
+<td>ウィゲット</td>
+<td>認証済み <code dir="ltr" translate="no">http_proxy</code>/<code dir="ltr" translate="no">https_proxy</code> またはそのプロキシ設定。証明書の信頼を構成する</td>
+<td>チェックする <code dir="ltr" translate="no">no_proxy</code> およびツール固有のプロキシ動作</td>
+</tr>
+<tr>
+<td>Python urllib / リクエスト</td>
+<td>明示的に認証されたプロキシ ハンドラー/構成と HTTPS 用のアダプター CA</td>
+<td>ライブラリは環境変数とバイパス処理が異なります</td>
+</tr>
+<tr>
+<td>核 CLI</td>
+<td>サポートされている HTTP テンプレート トラフィックに対する HTTP プロキシ/トラストを構成します。</td>
+<td>非 HTTP/コード/ヘッドレス テンプレート トラフィックは、1 つの HTTP プロキシ オプションで普遍的にカバーされるわけではありません</td>
+</tr>
+</tbody>
+</table>
+<p>資格情報を含むプロキシ URL は機密です。利用可能な場合は、ツールのプライベート評価構成を使用します。現在のトークンを共有レポートに貼り付けないでください。すべてのプロトコルまたはサブプロセスが HTTP プロキシ設定に従っていると仮定するのではなく、ツールごとに、ルーティングされたトラフィックを確認します。</p>
+<p>読み取り専用ローカル ターゲットの Linux Python 標準ライブラリの例。トークンをハードコーディングする代わりにトークンの入力を求め、このプロセスの環境プロキシ バイパスをクリアします。</p>
+<pre dir="ltr" translate="no"><code class="language-python" dir="ltr" translate="no">import os
+from getpass import getpass
+from urllib.request import (
+    HTTPPasswordMgrWithDefaultRealm,
+    ProxyBasicAuthHandler, ProxyHandler, build_opener,
+)
+
+os.environ["no_proxy"] = ""
+os.environ["NO_PROXY"] = ""
+proxy = "http://127.0.0.1:8900"
+credentials = HTTPPasswordMgrWithDefaultRealm()
+credentials.add_password(None, proxy, "bridge", getpass("Bridge token: "))
+opener = build_opener(
+    ProxyHandler({"http": proxy, "https": proxy}),
+    ProxyBasicAuthHandler(credentials),
+)
+with opener.open("http://localhost:8080/", timeout=20) as response:
+    print(response.status)
+    print(response.read(200).decode("utf-8", errors="replace"))
+</code></pre>
+<p>ネイティブ トラフィックでリクエストを確認します。他のプラットフォームには、追加のシステム プロキシ バイパス ルールを設定できます。明示的なカールの例 <code dir="ltr" translate="no">--noproxy ''</code> は、より単純なループバック ルート検証チェックです。 HTTPS Python クライアントには、アダプター証明書を信頼する SSL コンテキスト/CA バンドルがさらに必要です。</p>
+<h3 id="pause-and-errors">一時停止とエラー</h3>
+<p><strong>ネイティブリクエストを一時停止する</strong> 新しいネイティブ出力をブロックします。認証ステータス 401/419/440、HTTP 429、タブの閉鎖/オリジン外の変更、または予算制限によっても、作業が一時停止される可能性があります。 <strong>タブを確認したら再開</strong> ペアリング状態を確認した後にのみ再開します。</p>
+<p><strong>停止して切断する</strong> ブラウザのペアリングを終了します。個別に開始されたノード プロセスは終了しません。ターミナルで Ctrl+C を使用して、そのプロセスを停止します。</p>
+<p>実行中のリクエストは終了する可能性があります。プロキシ クライアントは、ブロックされた作業に対してエラーを受け取ります。アダプターは、任意のツール プロセスを一時停止したり、そのリクエストを再実行したりしません。どのリクエストが成功したかを検査し、ツール独自の再試行/再開制御を使用します。再起動/再ペアリングするとトークンが変更され、ツール認証の更新が必要になります。</p>
+<p>意図的な否定的な認証テストでは 401/419/440 が予想される場合があります。必要に応じて調整します <code dir="ltr" translate="no">session.pauseStatuses</code> レビューした実行と再起動について。アダプターは、すべての認証失敗が意図されたプローブであるかどうかを推論しません。</p>
+<h2 id="tor-and-onion-routing">Tor とオニオン ルーティング</h2>
+<p>ブラウザベースの Longshot リクエストは、選択したブラウザのネットワークに従います。ネイティブ アダプターは別のプロセスであり、Firefox/Tor ブラウザーのプロキシ設定を継承しません。</p>
+<p>SOCKS/トールは <strong>デフォルトではオフになっています</strong> ネイティブ構成で。承認されたオニオン評価の場合は、明示的に構成された既存の SOCKS サービスをリモート ホスト名解決で使用します。たとえば、それが実際にローカル Tor リスナーである場合は、次のようにオーバーライドします。</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "routing": {
+    "socks5": "socks5h://127.0.0.1:9050"
+  }
+}
+</code></pre>
+<p>この例では、Tor を起動したり、ポート 9050 が存在することを確立したりしません。実際に構成されたサービスを選択します。 Tor ブラウザ インスタンスは別のリスナーを使用する場合があります。アダプターを再起動し、再度ペアリングします。 HTTP(S) <code dir="ltr" translate="no">upstream.url</code> そして <code dir="ltr" translate="no">routing.socks5</code> 相互に排他的です。</p>
+<p>ネイティブ シムは SOCKS を通じてホスト名を解決し、サイレントな直接フォールバックはありません。明示的に構成されたアップストリーム/SOCKS ルートがないと、ダイレクト オニオン宛先はターゲット DNS の前で拒否されます。 SOCKS URL は、承認された SSH トンネルまたは他の SOCKS5 サービスを参照することもできます。これは本質的に Tor ルーティングを証明するものではありません。</p>
+<p>Cookie 共有によって、ネイティブ ルートの出口 IP または TLS/ブラウザ フィンガープリントが Firefox と同一になるわけではありません。チャレンジまたはセッション バインディングによって拒否される可能性があります。ルートと予想されるセッションを個別に確認します。</p>
+<p><strong>エージェント API によって起動される分離されたネイティブ Nuclei は異なります。</strong> 内蔵リレーには Tor/SOCKS ルートがなく、システム DNS の前にオニオン ターゲットをブロックします。目的のブラウザで対象となるブラウザ側チェックを使用するか、ネイティブ プロキシ経由で個別に構成された外部ツールを使用します。 Nuclei チェックボックスが継承すると想定しないでください。 <code dir="ltr" translate="no">routing.socks5</code> ブラウザブリッジから。</p>
+<h2 id="agent-api-mcp-and-local-model-clients">エージェント API、MCP、およびローカル モデル クライアント</h2>
+<p>エージェント/スクリプトが Longshot を操作したり、証拠を取得したり、評価ファイルを保存したりする必要がある場合にこれを使用します。これは :8900 トラフィック プロキシではありません。</p>
+<h3 id="register-and-connect-the-native-host">ネイティブホストを登録して接続する</h3>
+<p>保有しているものから <strong>ソース</strong> を含むディレクトリ <code dir="ltr" translate="no">manifest.json</code> そして <code dir="ltr" translate="no">bridge/</code>:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+node bridge/bin/longshot-bridge install
+</code></pre>
+<p>これは登録します <code dir="ltr" translate="no">longshot.bridge</code> ソースフォルダーとノード実行可能ファイルを参照するランチャー。両方とも所定の位置に保管してください。どちらかが移動した場合は、再度登録してください。</p>
+<p>開く <strong>設定 → 接続とセットアップ → ネイティブブリッジに接続</strong> Firefox のネイティブ メッセージング権限を付与します。ホストはデーモンを自動的に起動できます。意図的にデーモンを手動で実行する場合:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">node bridge/bin/longshot-bridge serve
+</code></pre>
+<p>同じポート/データ ディレクトリ上に 2 番目のデーモンを配置しないでください。 「切断」は拡張機能のネイティブ接続を閉じます。必ずしも、独立して起動されたデーモンを停止するとは限りません。</p>
+<p>Node.js 20 以降が必要です。ネイティブ メッセージング MCP では、プロキシの Python/mitmproxy のインストールは必要ありません。 Linux は実際に使用されるセットアップです。 macOS 登録サポートは提供されていますが、ここではランタイム検証されていません。このリリースには、Windows Firefox ネイティブホスト インストーラーがありません。 WSL に登録しても、Windows Firefox のホストは登録されません。ネイティブ Nuclei 分離は Linux のみです。</p>
+<p>デフォルトのサービス: <code dir="ltr" translate="no">http://127.0.0.1:8765</code>。このローカルホスト アドレスは制御 API であり、 <strong>スキャン対象ではありません</strong>。トークン/ソケットのデフォルトは <code dir="ltr" translate="no">$XDG_DATA_HOME/longshot</code> または <code dir="ltr" translate="no">~/.local/share/longshot</code>。カスタム <code dir="ltr" translate="no">--port</code> そして <code dir="ltr" translate="no">--data-dir</code> install、serve、mcp 全体で一致する必要があります。ソケット パスには 100 バイトの制限があるため、短い Unix データ パスを使用してください。</p>
+<h3 id="rest-example">RESTの例</h3>
+<p>同じソース フォルダーから:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">longshot_token_file="$(node bridge/bin/longshot-bridge token-path)"
+longshot_api_token="$(cat "$longshot_token_file")"
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/health
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/targets
+</code></pre>
+<p>の <code dir="ltr" translate="no">token-path</code> コマンドはトークンではなくファイル名を出力します。 API は、プロキシのユーザー名/パスワード認証とは異なり、ベアラー認証を使用します。非ループバック クライアントとブラウザーの Origin リクエストは拒否され、一般的な CORS API は公開されません。パブリック リバース プロキシを介して公開しないでください。</p>
+<p>目的のターゲットを接続/アクティブ化し、その保存されたオプションを確認した後でのみ、小規模なスキャンを開始します。</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  -H 'Content-Type: application/json' \
+  --data '{"target_id":"PROFILE_ID","mode":"safe","budget":150}' \
+  http://127.0.0.1:8765/v1/scans
+</code></pre>
+<p>PROFILE_ID を選択したプロファイル ID に置き換えます。 <code dir="ltr" translate="no">safe</code> Spider のみにマップします。保存されているすべての詳細オプションをリセットしたり、ユニバーサル オーバーライドとして機能したりするわけではありません。開始は非同期です。返された実行 ID を読み取り、監視します <code dir="ltr" translate="no">/v1/scans/RUN_ID</code>, <code dir="ltr" translate="no">/eta</code>, <code dir="ltr" translate="no">/findings</code> または <code dir="ltr" translate="no">/report?format=html</code>. POST <code dir="ltr" translate="no">/pause</code>, <code dir="ltr" translate="no">/resume</code> そして <code dir="ltr" translate="no">/stop</code> 走りをコントロールする。認証済みのコンサルト <code dir="ltr" translate="no">/openapi.json</code> 正確なスキーマについては。</p>
+<p>REST/JSON-RPC は、プロファイル、スキャン、所見/レポート、テンプレート、OAST、およびセッション操作をサポートします。 <code dir="ltr" translate="no">/rpc</code> JSON-RPC を伝送します。 <code dir="ltr" translate="no">/mcp</code> は、stdio および SSE オプションを備えた MCP HTTP を提供します。サービスのプロトコル/API バージョン文字列には、古いスキーマ バージョンが保持されている場合があります。インストールされている UI リリース バージョンの拡張マニフェストを使用します。</p>
+<h3 id="mcp-client-setup">MCP クライアントのセットアップ</h3>
+<p>標準入出力 MCP 構成をサポートするクライアントの場合:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "mcpServers": {
+    "longshot": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/longshot-source/bridge/bin/longshot-bridge",
+        "mcp"
+      ]
+    }
+  }
+}
+</code></pre>
+<p>クライアントに制限された PATH がある場合は、絶対ノード実行可能ファイルを使用します。マッチングを追加 <code dir="ltr" translate="no">--port</code> / <code dir="ltr" translate="no">--data-dir</code> カスタマイズ時の引数。 stdio ヘルパーはローカルの認証されたサービスに接続します。それ自体は Firefox 接続を置き換えるものではありません。</p>
+<p>現在の MCP ツール カタログには、スキャン/テンプレート/レポート/OAST ツールに加え、UI およびセマンティック コマンドの検出/制御の 21 のツールが含まれています。古い 8 つのツールのチュートリアルに頼るのではなく、実際のカタログを見つけてください。</p>
+<table>
+<thead>
+<tr>
+<th>ツールグループ</th>
+<th>ワークフロー</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">longshot_list_targets</code>、スキャン/状態/ETA/調査結果/レポート ツール</td>
+<td>明示的なプロファイル/実行 ID を使用し、非同期結果を検査する</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_commands</code>, <code dir="ltr" translate="no">longshot_command</code></td>
+<td>セマンティック コマンドを検出し、サポートされている引数を呼び出します</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_pages</code>, <code dir="ltr" translate="no">longshot_ui_open</code></td>
+<td>ターゲットバインドされた拡張機能ダッシュボードを検出して開く</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_snapshot</code></td>
+<td>実際のラベル、現在の値、ダイアログ、要素参照を読み取ります。</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_action</code>, <code dir="ltr" translate="no">navigate</code>, <code dir="ltr" translate="no">wait</code></td>
+<td>既存のコントロールを操作し、完了を確認する</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_downloads</code>, <code dir="ltr" translate="no">clipboard</code>, <code dir="ltr" translate="no">screenshot</code>, <code dir="ltr" translate="no">focus</code>, <code dir="ltr" translate="no">close</code></td>
+<td>拡張ページの出力と UI 管理をサポートしました。任意のOSアクセスではない</td>
+</tr>
+</tbody>
+</table>
+<p>無効化されたコントロール、ターゲット範囲、状態、および予算は引き続き適用されます。古い参照には新しいスナップショットが必要です。ディスパッチされたクリックだけでは成功とは証明されません。 Firefox/OS の許可プロンプトは、別個のブラウザ/OS コントロールのままです。</p>
+<p><strong>承認境界:</strong> 直接セマンティック同意コマンドは、積極的な実行許可を作成できません。認証された完全な UI オートメーションにより、バインドされたダッシュボードの承認ダイアログ (承認ボタンを含む) を操作できます。したがって、エージェントに UI コントロールを与えると、その UI 機能が与えられます。このようなアクセスを承認をクリックできないものとして説明しないでください。単一使用のターゲット/構成/有効期限チェックは引き続き適用されます。</p>
+<h3 id="hermesollama-or-another-local-model-agent">ヘルメス/オラマまたは別の地元モデルのエージェント</h3>
+<p>Longshot は、任意の LLM チャット ストリームを受け入れたり、モデルを選択したりすることはありません。の <strong>エージェントアプリケーション</strong> モデル接続とツール呼び出しループを提供します。エージェントが MCP をサポートしている場合は、そのエージェントで上記の MCP サーバーを構成します。エージェントはサポートされているツール呼び出しを送信し、ツール結果を受信します。公開された UI ツールを使用して拡張機能を検査/ナビゲート/入力したり、スキャン コマンドを呼び出したりすることができます。</p>
+<p>Hermes/エージェント独自の構成で Ollama モデルとサーバーを選択します。エージェントのツール呼び出し形式をサポートするモデルとクライアントの組み合わせを使用し、エージェントが実際に MCP ツールの呼び出しを許可されていることを確認します。 Longshot の設定には何もありません <code dir="ltr" translate="no">model</code>, <code dir="ltr" translate="no">ollama</code> またはプロバイダーの API キーの設定。モデル アクセス、シェル アクセス、および関連のないファイル システム制御はエージェント ホストの機能であり、この拡張機能をインストールすることで付与されるものではありません。</p>
+<p>エージェントのタスクでは、範囲、予算、アカウント、および意図するアクションを明示的に保ちます。生成された結果を記録された証拠に照らして検証します。モデル テキストはスキャナーの結果や許可の付与ではありません。</p>
+<h3 id="optional-debugging-port-control">オプションのデバッグポート制御</h3>
+<p>ソースには BiDi/CDP 制御ヘルパーと 1 つのコマンドが含まれています <code dir="ltr" translate="no">bridge/bin/longshot-ui</code> インターフェース。これは、拡張機能が所有するページの高度な制御です。 Chrome エディションは別個の Manifest V3 パッケージです。目に見えるワークベンチは開いたままにする必要があります。ブラウザのデバッグ リスナーを開くことは、ブラウザの起動時に個別に選択されます。参照してください <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">Firefox リモート エージェントのセキュリティ</a>.</p>
+<p>オプションのデバッグ ヘルパーは、固定された <code dir="ltr" translate="no">ws</code> 依存関係 <code dir="ltr" translate="no">native-bridge/node_modules/ws/</code>。走る <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code> 最初に保持されているソースのチェックアウトから実行します。このパスは 2.18 シリーズで修正されました。削除された履歴ブラウザー取得アダプターは必要ありません。</p>
+<h2 id="optional-native-nuclei">オプションのネイティブ核</h2>
+<p>3 つの異なるテンプレート ルートがあります。</p>
+<table>
+<thead>
+<tr>
+<th>ルート</th>
+<th>エンジン/セッション</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ブラウザ互換のインポートされた HTTP テンプレート</td>
+<td>Longshot がサポートするテンプレート インタープリターとターゲット ブラウザー セッション</td>
+</tr>
+<tr>
+<td>ネイティブ完全核チェックボックス</td>
+<td>エージェント API Linux 分離パス内に個別にインストールされた公式の Nuclei。 Firefox の自動ログインはありません</td>
+</tr>
+<tr>
+<td>ブラウザ ブリッジを介した外部 Nuclei CLI</td>
+<td>独立した CLI ジョブ。サポートされているプロキシされた HTTP トラフィックは、設定されたブラウザー Cookie を受信できます</td>
+</tr>
+</tbody>
+</table>
+<p>Longshot によって起動されたネイティブ ジョブの場合:</p>
+<ol>
+<li>公式の Nuclei バイナリを別途インストールし、PATH 上で公開するか、 <code dir="ltr" translate="no">LONGSHOT_NUCLEI</code> エージェント API を開始する前に。</li>
+<li>動作する非特権ユーザー/ネットワーク名前空間を備えた Linux bubblewrap を提供します。</li>
+<li>ヘッドレス テンプレートの場合は、必要なブラウザを提供します。オプションで、 <code dir="ltr" translate="no">LONGSHOT_CHROME</code>.</li>
+<li>エージェント API を登録/接続し、報告されたネイティブ機能を検査します。</li>
+<li>レビュー済みのテンプレートと必要な関連ヘルパー ファイルをインポートします。</li>
+<li>有効にする <strong>ネイティブの完全な Nuclei 実行</strong> 追加のコード/JavaScript、ヘッドレス、またはファイル機能のみが必要です。</li>
+<li>ファイルテンプレートの場合は、 <code dir="ltr" translate="no">LONGSHOT_FILE_ROOT</code> ホストを起動する前に、明示的な読み取り専用許可リストに追加します。</li>
+<li>実行を保存、確認、承認します。 Ready/Blocked の理由と executor タグ付き出力を検査します。</li>
+</ol>
+<p>ワーカーには、分離されたファイルシステム/ネットワーク名前空間、プライベート一時ストレージ、およびターゲット リレーを介した制限付き実行があります。 Firefox Cookie、ブラウザのローカル ストレージ、または Firefox の Tor ルートを自動的に受信しません。ヘッドレスセッションは分離されます。ネイティブ テンプレートがブロックされても、脆弱性の結果がマイナスになるわけではありません。</p>
+<p>ネイティブ コード/JavaScript テンプレートには、公式エンジンによって信頼された署名が必要です。 <code dir="ltr" translate="no">LONGSHOT_NUCLEI_CERT</code> レビュー済みの公開著者証明書を指すことができます。ホストはインポートに自動署名したり、秘密署名キーをマウントしたりしません。ネイティブ ファイル テンプレートは、ホストのホーム ディレクトリを自由に読み取ることができません。追加のファイル/コード/ヘッドレス スイッチは、汎用テンプレートのインポートとは別に残ります。</p>
+<p>ネイティブ リレーは、任意のネットワーク アクセスではなく、制約されたターゲット/プロバイダー接続をサポートします。オニオン ターゲット、利用できない分離/ランタイム、サポートされていないターゲット アドレス指定、または互換性のないパス スコープにより、実行がブロックされる可能性があります。ネイティブ Interactsh 登録は、Longshot のブラウザ OAST クライアントとは別に、Nuclei に属します。何が実行されたかを判断するには、「完全なエンジン」というラベルではなく、実際の結果の証拠とプラットフォーム機能レポートを使用してください。</p>
+<h2 id="manual-tools-interception-and-api-inventory">手動ツール、インターセプト、API インベントリ</h2>
+<h3 id="page-guide">ページガイド</h3>
+<table>
+<thead>
+<tr>
+<th>ページ</th>
+<th>何に使うか</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>概要</td>
+<td>接続、セッションの検証、ルール グループの選択、操作の選択、進行状況の監視</td>
+</tr>
+<tr>
+<td>スキャンオプション</td>
+<td>追加フェーズ、同意、ボディファジング、プロバイダーの設定と予算</td>
+</tr>
+<tr>
+<td>ターゲット</td>
+<td>個別のプロファイル、ブラウザタブの選択/添付、ターゲット固有の証拠/オプションの復元</td>
+</tr>
+<tr>
+<td>サイトマップ</td>
+<td>検出された URL/フォーム/ルート。完全な発見の証拠ではなく、観察の地図</td>
+</tr>
+<tr>
+<td>HTTP履歴</td>
+<td>ブラウザ トラフィック メタデータとスキャナ/リピータ応答。正確な入力とタイムスタンプを検査する</td>
+</tr>
+<tr>
+<td>APIエクスプローラー</td>
+<td>観察/インポートされた操作とパラメータのインベントリ。リピーターでサポートされている読み取りを準備する</td>
+</tr>
+<tr>
+<td>サーバースタック</td>
+<td>フィンガープリント、ローカルスマートアナライザー、候補アドバイザリールックアップ</td>
+</tr>
+<tr>
+<td>ネットワークグラフ</td>
+<td>観察されたオリジン/IP/参照ドメインと利用可能な仮想ホストの証拠。外部ノードはインベントリであり、自動スコープではありません</td>
+</tr>
+<tr>
+<td>調査結果</td>
+<td>証拠、評決/信頼度/重大度、レビュー状態、および cimematic ビューア</td>
+</tr>
+<tr>
+<td>WSTGチェック</td>
+<td>参照カバレッジ タイプと実際の入力ごとの監査の実行</td>
+</tr>
+<tr>
+<td>テンプレート</td>
+<td>インポート、互換性/実行プログラムの詳細、手動選択および実行結果</td>
+</tr>
+<tr>
+<td>リピーター/ファザー</td>
+<td>集中的なリクエストのリプレイまたは制限されたミューテーション</td>
+</tr>
+<tr>
+<td>インターセプター</td>
+<td>対象となるターゲット タブ URL/ヘッダー ステージを保持する</td>
+</tr>
+<tr>
+<td>OAST</td>
+<td>プロバイダー/コールバックのステータス、テスト アクション、および相関関係のあるインタラクション</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>制限された観測チャネル交換</td>
+</tr>
+<tr>
+<td>比較する</td>
+<td>保存された 2 つの応答間の局所的な違い</td>
+</tr>
+<tr>
+<td>エンコーダ/デコーダ</td>
+<td>ローカル変換とトークン要求の検査</td>
+</tr>
+<tr>
+<td>ブラウザブリッジ</td>
+<td>ネイティブ ツール プロキシをペアリングし、セッション オーバーライドを構成する</td>
+</tr>
+<tr>
+<td>レポート</td>
+<td>アクティブなプロファイルの証拠をエクスポートする</td>
+</tr>
+<tr>
+<td>設定</td>
+<td>リクエスト/セッション設定、外観、ネイティブ接続および評価ファイル</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-explorer">APIエクスプローラー</h3>
+<p>まず接続して参照し、次に選択します <strong>現在のページを検査する</strong>。開発者が提供するものをインポートする <strong>OpenAPI JSON</strong> 可能な場合は説明 (最大 2 MB)。任意のリモート ページや YAML ファイルではなく、ローカルの JSON を読み取ります。ローカル仕様参照と利用可能なリクエストの例/デフォルトは、サポートされる具体的な入力を提供できます。欠損値/本体およびサポートされていない構成によりギャップが残ります。</p>
+<p>エンドポイントはアドレスです。演算はアドレスプラスメソッドです。クエリ入力はその後に表示されます <code dir="ltr" translate="no">?</code>、アドレス パスにパス入力、送信されたコンテンツに本文を入力します。リストされた操作はインベントリであり、現在のアカウントがアドレス指定するすべてのオブジェクトにアクセスできることを証明するものではありません。</p>
+<p>使用する <strong>リピータ</strong> サポートされている GET/HEAD 操作の横に、まだ送信せずにリクエストを準備する機能があります。 URL/メソッド/入力を確認し、慎重に送信してください。インベントリのみの書き込み操作では、引き続き適切なリクエストを準備し、書き込み承認を取得する必要があります。</p>
+<h3 id="repeater-and-compare">リピーターとコンペア</h3>
+<p>リピーターは、バインドされたブラウザー セッションを使用して、新しいスコープ指定されたリクエストを作成します。 GET/HEAD/OPTIONS は通常のルートを使用します。書き込みメソッド、本文の変更、および破壊/アップロード機能は、引き続きポリシーと承認の対象となります。管理された Cookie/認可/ホストの値は、ヘッダー エディターを使用して自由に置き換えることはできません。明示的に構成されたヘッダー/Cookie テストにはネイティブの外部ツール ルートを使用します。</p>
+<p><strong>同一オリジンのリダイレクトを追跡する</strong> リダイレクト自体を検査するか、許可された最終応答を検査するかを制御します。スコープ外のリダイレクトは包括的な承認ではありません。レビューに必要な場合は応答本文を保持し、保存された応答を 2 つ選択します。 <strong>比較する</strong>。 Compare はリクエストを送信しません。違いは、動的コンテンツ、ログイン状態、スロットリング、または WAF ページによって説明される可能性があります。</p>
+<h3 id="interceptor">インターセプター</h3>
+<p>インターセプターを有効にし、 <strong>インターセプトを適用する</strong>。通常のユーザー操作を通じて、オプションの Firefox ブロック権限を付与します。拡張機能の再起動後、インターセプトは無効に開始されます。</p>
+<table>
+<thead>
+<tr>
+<th>ステージ/コントロール</th>
+<th>行動</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>リクエストURLの保留</td>
+<td>リクエストヘッダーの前に一時停止します。スコープ指定された URL/クエリを編集するか、削除します</td>
+</tr>
+<tr>
+<td>リクエストヘッダーを保持する</td>
+<td>送信前に許可されたリクエストヘッダーを検査/編集する</td>
+</tr>
+<tr>
+<td>応答ヘッダーを保持する</td>
+<td>リクエストがサーバーに到着した後、配信を一時停止します。サーバー側のアクションを元に戻すことはできません</td>
+</tr>
+<tr>
+<td>リソース/メソッド/パスフィルター</td>
+<td>バインドされたタブと正確なターゲット スコープで対象となるトラフィックを制限する</td>
+</tr>
+<tr>
+<td>ホールドタイムアウト</td>
+<td>デフォルト 0: 自動リリースなし。オプションの 10 ～ 3,600 秒、その後選択された転送/ドロップ アクション</td>
+</tr>
+<tr>
+<td>前段</td>
+<td>この段階を解決してください。別の有効なステージは後で同じリクエストを保持できます</td>
+</tr>
+<tr>
+<td>ドロップリクエスト</td>
+<td>このステージをキャンセル/配信をリクエスト</td>
+</tr>
+<tr>
+<td>保留中のすべてを転送/ドロップ</td>
+<td>今後のフィルタを変更せずに現在のキューを解決します</td>
+</tr>
+<tr>
+<td>オフにして転送を保留します</td>
+<td>迎撃解除と待機ステージの解除は変更なし</td>
+</tr>
+</tbody>
+</table>
+<p>長時間保持されていたリクエストを解放する前に、アプリケーション/ブラウザがタイムアウトになる可能性があります。最大 20 ステージまで待機できます。キュー制限を超えると、それ以降の一致するトラフィックがキャンセルされます。フィルターを変更すると、現在のステージが変更されずに解放されます。最後の制御ダッシュボードを閉じると、保持されていたステージが解放され、インターセプトが無効になります。</p>
+<p>許可されたヘッダーでは、名前と値のペアの JSON 配列が使用されます。機密/ブラウザ管理/フレーミング フィールドは保護されます。保留されたネットワークリクエストのメソッド/ボディ/ステータスの書き換えはできません。 <strong>リピーターに送信</strong> 意図的な編集のために別のリクエスト シェイプを作成します。これは、透過的な実行中のボディ書き換えではありません。</p>
+<p>選択されたターゲット タブの HTTP トラフィックのみが対象となります。スキャナー転送は、デッドロックを回避するためにインターセプトをバイパスします。外部ネイティブ プロキシ トラフィックは、このブラウザ インターセプタの外側にあります。アップグレード後の WebSocket メッセージには、別のチャネル ワークベンチが必要です。</p>
+<h3 id="websocket-sse-and-utilities">WebSocket、SSE、およびユーティリティ</h3>
+<p>検出された範囲内のチャネルを選択するか、その正確な URL を入力します。リスニングとカスタム フレームの送信は、一般的なプロトコル スキャナーではなく、制限付きの承認済み操作です。キャプチャされたエラー テキストはリードです。メッセージの承認や競合/論理の欠陥は確立されません。</p>
+<p>ユーティリティは値をエンコード/デコードし、SHA-256 を計算し、JSON をフォーマットし、JWT クレームをローカルで検査します。 JWT のデコードは署名検証ではなく、サーバーが偽造トークンを受け入れるかどうかを確認するものではありません。変換された入力は自動的に実行または送信されません。</p>
+<h2 id="findings-and-the-cimematic-viewer">調査結果と cimematic ビューア</h2>
+<h3 id="read-the-evidence-first">まず証拠を読んでください</h3>
+<p>検出結果には個別のフィールドがあります。</p>
+<table>
+<thead>
+<tr>
+<th>フィールド</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>重大度</td>
+<td>問題が悪用可能である場合に推定される潜在的な損害</td>
+</tr>
+<tr>
+<td>評決</td>
+<td>スキャナーが観察した内容: 潜在的/一致/脆弱、否定的、ブロックされている、または決定的でない (該当する場合)</td>
+</tr>
+<tr>
+<td>自信</td>
+<td>害の量ではなく、実行された証拠の強さ</td>
+</tr>
+<tr>
+<td>レビュー状況</td>
+<td>あなたの評価: 未レビュー、レビュー担当者によって確認済み、誤検知または承認されたリスク</td>
+</tr>
+<tr>
+<td>WSTG / CWE</td>
+<td>参照分類。完全なテスト/カテゴリが完了したことを証明するものではありません</td>
+</tr>
+</tbody>
+</table>
+<p>URL、挿入ポイント、リクエスト、ベースライン、ペイロード、レスポンス、リピート/コントロールを検査します。コンテンツが切り詰められていないか、応答がチャレンジ/ログイン/エラー ページであったかどうかを確認してください。信頼性の高い反復エラーは、依然として検討が必要な潜在的な注射所見である可能性があります。</p>
+<p>レビューステータスとメモを設定し、 <strong>レビューを保存する</strong>。これにより、スキャナの元の判定/信頼度が上書きされることはありません。誤検知は証拠として残ります。フィルターなど <strong>ネガティブ/ブロック済みを表示</strong>、実行記録ではなく、可視性を変更します。</p>
+<h3 id="cimematic-viewer">シネマティックビューア</h3>
+<p>ボタンには意図的に名前が付けられています <strong>シネマティックビューア</strong> このリリースでは。選択した所見のテーマ別 3D 説明が開きます。</p>
+<p>このシーケンスは約 9.3 秒です。影響を受ける領域の位置を特定し、入力を表示し、処理を説明し、記録された結果の証拠を表示し、その後、重大度および平易な言語での潜在的リスクの説明を表示します。利用可能なコントロールには次のものが含まれます <strong>一時停止/再開</strong>、リプレイ、番号付きステップ、インパクトまでスキップ、 <strong>3D 奥行き</strong> そして <strong>フルスクリーン</strong>。モーションを減らした設定は、直接インパクトに影響を与えることができます。</p>
+<table>
+<thead>
+<tr>
+<th>モード</th>
+<th>それが示すもの</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ライブ / CSS + JS</td>
+<td>通常の Firefox プレビュー タブでは、CSS/JavaScript および選択した Cookie コンテキストを含む現在のページがロードされます。ビューアはレンダリングされたフレームと要素の四角形を受け取ります</td>
+</tr>
+<tr>
+<td>キャプチャのみ</td>
+<td>サニタイズされた非実行 HTML またはキャプチャによる証拠の保持。外部リソースやスクリプトはオフライン フォールバックによって実行されません。</td>
+</tr>
+<tr>
+<td>記録結果</td>
+<td>保存されたスキャン証拠/結果プレーン。現在のライブ ページとは異なる場合があります。</td>
+</tr>
+</tbody>
+</table>
+<p>これは映画のようなビューポートであり、インタラクティブな複製サイト DOM ではありません。 <strong>ライブタブを開く</strong> インタラクション用に実際のページを開きます。通常のライブ ロードでは、サイトの通常のリソース/アプリケーション リクエストを行うことができますが、ビューアを開いても、保存された攻撃フォームの送信、POST の再生、エクスプロイトの再実行は行われません。</p>
+<p>カメラの位置は、一致する入力/名前/ID が見つかった場合にのみ正確になります。 API/ヘッダー/Cookie の結果には HTML フォームを含めることはできません。ページコンテキストビューにはそのようにラベルが付けられます。このアニメーションは、潜在的な発見を悪用の証拠にアップグレードすることはありません。ライブ レンダリングが失敗した場合は、キャプチャされた証拠とテキスト/リクエストの詳細を使用します。</p>
+<p>ビューアが所有するプレビュー タブは、通常のビューア/ダッシュボードのクリーンアップでは閉じられます。明示的に開かれた対話型タブは、そのまま閉じることができます。現在のログイン、サイトの状態、依存関係の読み込み、および CSP によって、ライブ モードで表示される内容が変更される場合があります。</p>
+<h2 id="owasp-top-10-coverage">OWASP トップ 10 のカバレッジ</h2>
+<p>開く <strong>スキャンオプション → 情報</strong> 検索/フィルタリング可能な 44 エントリの実装テーブルについては、ページの [情報] ボタンからもアクセスできます。使用します <a href="https://top10.owasp.org/2025/">OWASP トップ 10:2025</a> オリエンテーション用の古い 2021 年のリファレンスを使用します。 SSRF は現在、Broken Access Control の下にグループ化されています。例はカテゴリと重複する場合があります。このリストは完全な CWE カタログではありません。</p>
+<p>サポートラベル:</p>
+<ul>
+<li><strong>アクティブなチェック:</strong> サポートされている到達入力に対して、専用の実装ルールが有効になっている場合に存在します。</li>
+<li><strong>オプションの検証:</strong> 追加のオプション、権限、プロバイダー、または実行の前提条件が適用されます。</li>
+<li><strong>インジケーターのみ:</strong> 手動による解釈が必要な受動的信号/比較。</li>
+<li><strong>テンプレートに依存:</strong> インポートされたテンプレートとエグゼキュータによって、テストされる条件が決まります。</li>
+<li><strong>対象外:</strong> そのクラス専用の組み込みベリファイアはありません。一般的なカスタム ペイロードは、カバレッジを自動的に確立しません。</li>
+</ul>
+<p>これはソースベースの機能監査です。 <strong>測定された検出率ではありません</strong>。ここでは、外部 ZAP ルール セット全体ではなく、Longshot の組み込みスキャナーとそのオプションのフェーズについて説明します。</p>
+<table>
+<thead>
+<tr>
+<th>OWASP 2025</th>
+<th>脆弱性/弱点</th>
+<th>サポート</th>
+<th>実行内容 / 必要なオプション</th>
+<th>限界</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A05</td>
+<td>SQL インジェクション: データベース エラーとブール値の違い</td>
+<td>アクティブチェック</td>
+<td>SQLインジェクションを有効にします。データベースエラーの調査と真偽の比較を繰り返すと、発見された入力に対して新しい制御が使用されます。</td>
+<td>候補者には審査が必要です。データベース抽出や包括的な DBMS 固有のブラインド カバレッジはありません。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>ブラインド SQL インジェクション: タイミング</td>
+<td>オプションの検証</td>
+<td>積極的な承認による反復タイミング プローブを有効にします。 3 つのクリーンなタイミングが、最初の挿入ポイントの 3 つの SLEEP プローブと比較されます。</td>
+<td>狭い SQL 構文とタイミング ヒューリスティック。ジッター、WAF、およびさまざまなデータベース言語により、結果が隠蔽されたり模倣されたりする可能性があります。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>NoSQLインジェクション</td>
+<td>アクティブチェック</td>
+<td>繰り返される MongoDB/BSON エラー シグネチャに対して NoSQL インジェクションを有効にします。オプションのタイミング検証では、JSON 本文の MongoDB $where 遅延も試行します。</td>
+<td>一般的なオペレーターベースの認証バイパス、ブラインド NoSQL 抽出、またはすべての NoSQL エンジンのカバレッジはありません。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>リフレクトクロスサイトスクリプティング (XSS)</td>
+<td>アクティブチェック</td>
+<td>反射型 XSS を有効にします。固有のリフレクション マーカーと繰り返される不活性な HTML コンテキスト プローブにより、実行可能ファイルのように見えるマークアップが識別されます。</td>
+<td>HTML コンテキストの証拠が候補です。スクリプトの実行を確立したり、コンテンツ セキュリティ ポリシーをバイパスしたりすることはありません。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>URL クエリまたはフラグメント入力からの DOM XSS</td>
+<td>オプションの検証</td>
+<td>ライブ DOM XSS 検証を有効にし、積極的なアクセス許可を承認します。 2 つの新しい Canary は、使い捨ての同じ Cookie ストア タブで実行する必要があります。コントロールは陰性のままでなければなりません。</td>
+<td>制限された URL 入力のみ。 CSP と依存関係は引き続き適用されます。タイムアウトやブロックされたリソースによりギャップが残ります。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>postMessage、ストレージ、または任意のデータ フローからの DOM XSS</td>
+<td>対象外</td>
+<td>受動的ソース/シンク ヒントは、レビューのために近くのインライン JavaScript パターンを特定する場合があります。</td>
+<td>一般的な汚染追跡、任意のメッセージ生成、またはストレージ ソースの実行テストはありません。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>保存された XSS とマルチステップの 2 次注入</td>
+<td>対象外</td>
+<td>訪問したページには、疑わしいコードまたは反映された候補が含まれている可能性があります。</td>
+<td>一般的な書き込み、保存、読み取りの相関関係、ワークフローの再生、または保存されたペイロードの実行検証はありません。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>サーバーサイドテンプレートインジェクション (SSTI)</td>
+<td>アクティブチェック</td>
+<td>サーバー テンプレート インジェクションを有効にします。固有のマーカーを使用したランダムな算術結果は、コントロールに対して繰り返す必要があります。</td>
+<td>式ファミリーのみがサポートされています。ブラインド テンプレートの実行とすべてのテンプレート エンジンはカバーされていません。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>サーバーサイドのコードインジェクション</td>
+<td>アクティブチェック</td>
+<td>サーバーサイドのコードインジェクションを有効にします。計算された JavaScript/PHP カナリアは、評価と単純な反映を区別します。</td>
+<td>小さな言語/コンテキストのセット。普遍的なリモートコード実行テストではありません。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>OSコマンドインジェクション</td>
+<td>オプションの検証</td>
+<td>繰り返される ID 出力プローブの OS コマンド インジケーターを有効にします。リッスン OAST プロバイダーを使用したオプションのコマンド プローブは、DNS コールバックを関連付けることができます。</td>
+<td>互換性のあるコマンド コンテキストと、コールバックの場合はターゲット出力が必要です。コールバックがない場合、安全性は確立されません。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>CRLF / レスポンスヘッダーインジェクション</td>
+<td>アクティブチェック</td>
+<td>レスポンスヘッダーインジェクションを有効にします。生成された応答ヘッダー マーカーは繰り返され、コントロールには存在しない必要があります。</td>
+<td>ブラウザの URL/ヘッダー処理によりペイロードが制限されます。生の応答の分割、キャッシュポイズニング、およびフレーミング攻撃は確立されていません。</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>LDAP、XPath、およびその他の未実装のインジェクション言語</td>
+<td>対象外</td>
+<td>カスタム ペイロード、自動ファズ、またはレビューされたテンプレートは、個別の調査に役立ちます。</td>
+<td>専用の組み込み言語固有の検証機能はありません。レスポンスの違いは確認できません。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>パストラバーサル/ローカルファイルの組み込み</td>
+<td>アクティブチェック</td>
+<td>トラバーサル/ファイルの組み込みを有効にします。サポートされているファイル コンテンツの署名は、検出された挿入ポイントで繰り返す必要があります。</td>
+<td>すべてのエンコーディング、オペレーティング システム、リモート インクルード、または任意のファイルをカバーしているわけではありません。ディレクトリの総当たりインベントリはありません。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>サーバー側リクエスト フォージェリ (SSRF)</td>
+<td>オプションの検証</td>
+<td>承認された到達可能なプロバイダーを使用して SSRF と OAST を有効にします。正確なプローブ相関により、DNS/HTTP インタラクションが記録されます。</td>
+<td>内部アドレス応答の違いはヒントにすぎません。コールバックは対話を確立するものであり、内部アクセスやデータ盗難ではありません。仲介者がペイロードを解決する場合があります。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>IDOR / 壊れたオブジェクトまたは関数の認可</td>
+<td>インジケーターのみ</td>
+<td>個別の Firefox コンテナ/プライベート Cookie ストアを使用して、セッション B との比較を有効にします。最大 10 個の読み取りリクエストでステータスと本文のハッシュを比較します。</td>
+<td>オブジェクトの所有権や期待される役割モデルはありません。同一の公開ページは正規のものである可能性があります。一般的な権限昇格の証拠はありません。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>クロスサイト リクエスト フォージェリ (CSRF)</td>
+<td>インジケーターのみ</td>
+<td>フォームレビューは、認識されたトークンフィールドのない POST フォームを報告し、表示される Cookie 属性をチェックします。</td>
+<td>クロスサイトエクスプロイトの送信やサーバートークン検証テストはありません。 SameSite、カスタム ヘッダー、およびワークフロー コントロールは手動で確認する必要があります。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>クロスオリジンリソース共有 (CORS) の悪用</td>
+<td>インジケーターのみ</td>
+<td>CORS レビューでは、観察されたallow-origin ヘッダーと資格情報ヘッダーを検査します。</td>
+<td>恣意的なオリジンリフレクションテストや攻撃者オリジンのデータ読み取り検証はありません。認証情報を含むワイルドカードはブラウザによって拒否されます。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>オープンリダイレクト</td>
+<td>アクティブチェック</td>
+<td>オープンリダイレクトを有効にします。 Location ヘッダーに生成された .invalid 宛先は繰り返す必要があります。外部宛先は追跡されません。</td>
+<td>JavaScript リダイレクト、マルチステップ ログイン リダイレクト、およびすべての URL 正規化バイパスはカバーされていません。</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>テナントの分離、役割のエスカレーション、およびワークフローの承認</td>
+<td>対象外</td>
+<td>セッションの比較とインポートされたリクエストは、アナリストに証拠を提供できます。</td>
+<td>テナントの所有権、役割、状態遷移、または許可されているビジネス アクションについて理解していません。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>セキュリティヘッダーの欠落、CSP の脆弱性、およびクリックジャッキング防御</td>
+<td>インジケーターのみ</td>
+<td>スキャン中のパッシブなヘッダー レビューでは、CSP、unsafe-eval、フレーミング ポリシー、および観察された応答の nosniff がチェックされます。</td>
+<td>防御の欠如は強化のシグナルです。悪用可能性、ポリシーの完全性、UI 救済の影響は確立されていません。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>ディレクトリのリスト、ソース/構成の公開、およびデバッグ トレース</td>
+<td>インジケーターのみ</td>
+<td>パッシブ レビューでは、返されたコンテンツ内のマークアップ、PHP ソース、構成キーの割り当て、および選択されたスタック トレースのリストが認識されます。</td>
+<td>観察されたコンテンツと署名のみ。包括的なバックアップ ファイル、シークレット、または非表示の管理者の検出はありません。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>XML 外部エンティティ インジェクション (XXE)</td>
+<td>オプションの検証</td>
+<td>XXE とリッスン OAST プロバイダーを積極的な承認で有効にします。 XML リクエストの本文は、外部エンティティ コールバック カナリアに置き換えられます。</td>
+<td>インベントリされた XML リクエストが必要です。包括的なパーサー、SOAP、ファイル読み取り、パラメーター エンティティ、またはブラインド抽出のカバレッジはありません。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>危険なHTTPメソッド</td>
+<td>インジケーターのみ</td>
+<td>アドバタイズされた HTTP メソッドを有効にします。 OPTIONS は、Allow 応答ヘッダーを記録します。</td>
+<td>不正な PUT/DELETE 書き込みを試行したり、宣伝されたメソッドが悪用可能であることを証明したりしません。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>重複したクエリパラメータの処理</td>
+<td>インジケーターのみ</td>
+<td>最初/最後の応答比較を繰り返す場合は、重複クエリ パラメーターの処理を有効にします。</td>
+<td>解析の違いは、WAF のバイパス、アクセス制御の失敗、またはプロキシ/バックエンドの不一致を証明するものではありません。</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>クラウド権限、非表示の管理サービス、バックエンド構成</td>
+<td>対象外</td>
+<td>スタック フィンガープリントとトポロジ ビューにより、ブラウザーに表示される仮説が提供されます。</td>
+<td>クラウド アカウントへのアクセス、インフラストラクチャ監査、サーバー構成検査、または徹底的な内部ネットワーク検出は必要ありません。</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>既知の脆弱なブラウザーの JavaScript 依存関係</td>
+<td>オプションの検証</td>
+<td>クライアント ライブラリ SCA を有効にして、監視された資産バージョンをバンドルされた小規模なアドバイザリ データベースと比較します。</td>
+<td>バージョン/署名の相関のみ。バックポート、到達可能な脆弱なコード、完全な依存関係ツリー、および目に見えないアセットは検証されていません。</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>サーバーの依存関係 CVE と製品の脆弱性</td>
+<td>テンプレートに依存する</td>
+<td>CVE 自動フェーズには、適格なインポートされたテンプレートが必要です。作成されたリクエストとマッチャーのみが実行されます。 Native Nuclei には別のエンジンと承認が必要です。</td>
+<td>フィンガープリント/アドバイスの一致だけが候補です。バンドルされている 2 つのコミュニティ スターターは、ユニバーサル CVE をカバーしません。</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>侵害されたパッケージ、CI/CD、悪意のあるサプライチェーンのアップデート</td>
+<td>対象外</td>
+<td>依存関係の名前またはバージョンは、個別のコードとビルドのレビューに役立ちます。</td>
+<td>SBOM の完全性、リポジトリ/ビルドの監査、パッケージの信頼性、または署名チェーンの検証はありません。</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>HTTP パスワード フォーム、HSTS、および安全でないリソース参照</td>
+<td>インジケーターのみ</td>
+<td>パッシブ チェックでは、HTTP/GET を使用したパスワード フォーム、HSTS の不在、および HTTPS マークアップによって参照される選択された HTTP リソースが認識されます。</td>
+<td>包括的な機密データの検出ではありません。保存時のデータ漏洩を証明したり、すべての転送動作を評価したりするものではありません。</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>弱い TLS プロトコル/暗号、キー管理、保存時の暗号化</td>
+<td>対象外</td>
+<td>ブラウザは通常の TLS 接続を提供します。</td>
+<td>暗号/プロトコルの列挙、証明書のインベントリ、暗号設計のレビュー、パスワード ハッシュの監査、サーバー側のキー アクセスは必要ありません。</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>ビジネス ロジック、支払い/価格操作、ワークフローの悪用</td>
+<td>対象外</td>
+<td>観察されたリクエストとリピーターは手動テストを支援します。</td>
+<td>正しい価格、口座残高、ビジネス ルール、トランザクション順序、または意図されたアプリケーション動作のモデルがありません。</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>競合状態とリソース枯渇の設計上の欠陥</td>
+<td>対象外</td>
+<td>リクエスト制限とレート制御の境界スキャン。レート制限応答は動作信号です。</td>
+<td>同期レース ハーネスや意図的なサービス拒否検証はありません。</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>弱い Cookie/セッション属性</td>
+<td>インジケーターのみ</td>
+<td>Cookie レビューでは、Secure、HttpOnly、または明示的な SameSite および Secure なしの SameSite=None が欠落していると報告されています。</td>
+<td>Cookie の目的とブラウザのデフォルトは重要です。セッションハイジャック、固定化、ログアウト無効化、またはトークンエントロピーを確立しません。</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>ログインバイパス、MFA、パスワードリセット、ブルートフォース、アカウント乗っ取り</td>
+<td>対象外</td>
+<td>インジェクションチェックにより、ログイン欠陥の原因の 1 つが明らかになる可能性があります。セッション検証ツールは、設定されたログインが依然として有効であるかどうかをチェックします。</td>
+<td>一般的な認証情報攻撃、MFA/リセット ワークフロー テスト、ロックアウト監査、アカウント乗っ取りの検証はありません。</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>JWT、OAuth、OIDC、SAML 検証の欠陥</td>
+<td>対象外</td>
+<td>ユーティリティは、手動検査のために JWT をローカルでデコードできます。</td>
+<td>デコードは署名検証ではありません。一般的なアルゴリズムの混乱、トークン偽造、リダイレクト フロー、フェデレーション テストはありません。</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Log4Shell コールバック パス</td>
+<td>オプションの検証</td>
+<td>承認を得て Log4Shell と OAST を有効にします。 JNDI コールバック カナリアは、最初に使用可能な入力と X-Api-Version に配置されます。</td>
+<td>一致するインタラクションには帰属とレビューが必要です。コードの実行を証明するものではありません。挿入ポイントとターゲットの出口が限られていると、脆弱なパスを見逃す可能性があります。</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>安全でない逆シリアル化</td>
+<td>テンプレートに依存する</td>
+<td>逆シリアル化オプションは、逆シリアル化用にタグ付けされた適格なインポートされたテンプレートを選択します。実行者と前提条件を確認してください。</td>
+<td>一般的なオブジェクト形式の検出、ガジェット チェーン ジェネレーター、またはユニバーサル 逆シリアル化検証機能はありません。</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>署名のない更新、偽造されたアプリケーション データ、および整合性制御</td>
+<td>対象外</td>
+<td>キャプチャされた応答とデコードされたデータは手動分析に役立つ場合があります。</td>
+<td>アプリケーション信頼モデル、更新署名の検証、データ署名の監査、または一般的な一括割り当ての検証はありません。</td>
+</tr>
+<tr>
+<td>A09</td>
+<td>セキュリティ ログの欠落、アラート、ログの整合性、およびインシデントの検出</td>
+<td>対象外</td>
+<td>Longshot は、独自のスキャン証拠とローカル リクエスト ジャーナルを記録します。</td>
+<td>スキャナーのログでは、アプリケーションのログやアラートが正しく行われたかどうかはわかりません。サーバー/SIEM の証拠を検査し、監視されたシナリオを実行します。</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>例外的な対応による情報漏洩</td>
+<td>インジケーターのみ</td>
+<td>パッシブなエラー開示とアクティブなインジェクション制御により、選択されたスタック トレースや新たに導入されたデータベース エラーを認識できます。</td>
+<td>証拠だけは返した。一般的なエラーまたは HTTP 500 単独では、検証された脆弱性ではありません。</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>フェールオープン動作、ロールバック失敗、および安全でない例外の回復</td>
+<td>対象外</td>
+<td>ステータス/ボディの違いにより、手動調査が行われる可能性があります。</td>
+<td>一般的なフォールト挿入、トランザクション ロールバック アサーション、クラッシュ回復、または例外パスのアクセス制御モデルはありません。</td>
+</tr>
+<tr>
+<td>その他</td>
+<td>HTTP リクエストの密輸、不正なフレーミング、キャッシュ ポイズニング、ホスト攻撃</td>
+<td>対象外</td>
+<td>内蔵スキャナーはブラウザー ネットワークを使用し、管理されたヘッダーを保護します。</td>
+<td>ネイティブ プロキシを介した外部ツールは別のものです。その解析された HTTP トランスポートは、バイト透過的な密輸エンジンやカスタム TLS エンジンでもありません。</td>
+</tr>
+<tr>
+<td>その他</td>
+<td>WebSocket / SSE アプリケーションの脆弱性</td>
+<td>インジケーターのみ</td>
+<td>オプションの境界付きチャネル テストは、交換をキャプチャし、選択したエラー テキストを報告します。</td>
+<td>プロトコルを認識した承認、メッセージ スキーマ ファジング、クロスサイト WebSocket ハイジャック、ビジネス ロジック検証機能はありません。</td>
+</tr>
+<tr>
+<td>その他</td>
+<td>ファイルのアップロード、GraphQL/SOAP ロジック、およびサポートされていないバイナリ プロトコル</td>
+<td>対象外</td>
+<td>検出された HTTP リクエストは、汎用チェックのためにサポートされているスカラー入力を公開する可能性があります。</td>
+<td>専用のアップロード実行、GraphQL 認証/複雑さ、包括的な SOAP またはバイナリ プロトコル スキャナーは必要ありません。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interpreting-actual-run-coverage">実際の実行カバレッジの解釈</h3>
+<p>完全な WSTG リファレンス マップには、自動化されたサブセット、支援された作業、手動評価が含まれています。で <strong>実際の入力カバレッジ</strong>:</p>
+<ul>
+<li><strong>完了</strong> 入力が安全であるということではなく、実装されたルールがその入力上で終了したことを意味します。</li>
+<li><strong>部分的</strong> 何らかの作業が実行されたものの、制限、中断、またはその他の条件により完了が妨げられたことを意味します。</li>
+<li><strong>スキップされました</strong> ルール/入力が実行されなかったことを意味します。理由を調べます。</li>
+</ul>
+<p>WAF、ロールの不足、無効なセッション、非表示/未訪問のワークフロー、利用できないリクエスト本文、CSP、または予算の枯渇により、脆弱な入力がテストされないままになる可能性があります。ネイティブ プロキシ ペアリングでは、組み込みスキャナーからこれらの制限が削除されません。観察された CVE バージョン、ヘッダーの欠落、または異なる応答は、自動的にはエクスプロイトとはなりません。</p>
+<p>リリース 2.18.1 は、ZIP/YAML CSP 検証と所有されている SQLite フィクスチャに対するネイティブ ZAP トラフィックを含む、192 の自動単体/回帰テスト、8 つの実際の Chrome チェック、および 8 つの実際の Firefox チェックに合格しました。公式ブラウザ ライブラリはバイトごとに検証されており、クリーンなソースの再構築により Firefox XPI が正確に再現されます。これらのテストは、名前付き実装の動作を検証します。すべての Juice Shop、WebGoat、bWAPP、または NodeGoat チャレンジの検出は示されていません。外部 ZAP SQLi の結果は、すべての脆弱性にわたる Longshot のリコールではなく、プロキシ パスを検証します。</p>
+<h2 id="recovery-assessment-files-and-reports">リカバリ、評価ファイルおよびレポート</h2>
+<h3 id="keep-recovery-paths-separate">回復パスを分離する</h3>
+<table>
+<thead>
+<tr>
+<th>パス</th>
+<th>失敗した後に何をすべきか</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内蔵スキャン/セッション</td>
+<td>ダッシュボードの回復ダイアログを確認し、元の Cookie コンテキストで再度サインインし、許可されている場合は検証して続行します。</td>
+</tr>
+<tr>
+<td>ネイティブツールプロキシ</td>
+<td>アダプター、タブ/ストア、トークン、および一時停止の理由を確認してください。明示的に再開/再ペアリングしてから、外部ツール独自の再試行/再開を使用します。</td>
+</tr>
+<tr>
+<td>エージェントAPI</td>
+<td>ネイティブ メッセージング/デーモン接続を復元します。次に、別の開始を発行する前に、既存の実行状態を検査します。</td>
+</tr>
+<tr>
+<td>ブラウザの再起動 / インポートされた評価</td>
+<td>保存された証拠を復元し、ログインを再検証します。実行中のネットワーク操作や完全なライブ スキャン キューが生き残ったとは想定しないでください。</td>
+</tr>
+</tbody>
+</table>
+<p>独立した認証検証により、意図的に拒否されたログインの変更がセッションの期限切れと誤認されるのを防ぎます。意味のある保護されたバリデーターを構成します。ライブ キューは、拡張機能の実行中にリカバリをサポートする場合がありますが、保存されたセッション ファイルは不確実な書き込みを再構築したり、中断されたスキャン全体を自動的に再生したりすることはありません。</p>
+<h3 id="browser-storage-and-optional-session-files">ブラウザストレージとオプションのセッションファイル</h3>
+<p>ブラウザのストレージは、どちらのローカル ブリッジからも独立してアクティブなままになります。プロファイルごとの履歴、調査結果、レビュー、インベントリ、オプションが保存されます。レスポンスボディはベストエフォートの編集で保持できます。ブラウザで観察されるトラフィックには、キャプチャされた本文のないメタデータが含まれることがよくあります。</p>
+<p>自動ファイル チェックポイントの場合:</p>
+<ol>
+<li>登録・接続 <strong>エージェントAPI</strong>ブラウザブリッジだけではありません。</li>
+<li>開く <strong>設定 → 評価セッション → 指示</strong>.</li>
+<li>絶対値を入力してください <strong>セッションフォルダー</strong> エージェント API コンピューター上。</li>
+<li>有効にする <strong>セッションファイルを自動的に保存する</strong> そして選択してください <strong>セッション設定を保存する</strong>.</li>
+<li>使用する <strong>今すぐセッションを保存</strong> 即時のチェックポイントの場合。通常の変更も保存をトリガーします。</li>
+<li>使用する <strong>現在のセッションをエクスポートする</strong> / <strong>セッションファイルをインポートする</strong> 手動転送の場合。手動インポートにはネイティブ ホストは必要ありません。</li>
+</ol>
+<p>ファイルは安定したプロファイル ID を使用します。 <code dir="ltr" translate="no">.longshot.json</code>、1 つのオリジンに対して明示的なプロファイルを許可します。これらは読み取り可能な暗号化されていない評価アーカイブであり、アプリケーション データ、作成されたテンプレート、および保持された本体を含めることができます。ブラウザ管理の Cookie、プロバイダー トークン、実行許可は除外されます。</p>
+<p>書き込みはアトミックなプライベート ファイル チェックポイントです。突然終了した場合、最後に完了した保存内容のみを復元できます。復元された実行中のスキャンは中断されます。ブリッジが切断された場合、ブラウザの保存は続行され、ファイルの保存は待機します。未解決の有効なチェックポイントでは、ターゲットを切り替える前に再接続するか、ファイル保存を無効にする必要がある場合があります。セッション ファイルの最大サイズは 256 MB で、明示的なエラーが発生します。</p>
+<p>評価アーカイブのエクスポートは異なります <strong>構成をダウンロードする</strong> ブラウザブリッジで。前者は評価の証拠/オプションを保存します。後者はネイティブ プロキシ設定を保存します。</p>
+<h3 id="reports">レポート</h3>
+<p>エクスポートする前にアクティブなプロファイルを確認してください。履歴スキャン レポートは、エージェント API からも入手できます。テーマに合わせたレポートにはチャートと証拠が含まれていますが、チャートの数はアラートの数であり、検証された悪用可能な固有の欠陥の数ではありません。</p>
+<table>
+<thead>
+<tr>
+<th>フォーマット</th>
+<th>使用・制限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>インライン グラフ、検索/フィルター、証拠の詳細、テーマおよび印刷コントロールを備えた自己完結型のオフライン レポート</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>構造化された編集された証拠、スキャン構成、および記録された入力カバレッジ</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>表形式の交換。ネストされたフィールドはシリアル化され、スプレッドシートの数式プレフィックスは保護されます</td>
+</tr>
+<tr>
+<td>SARIF 2.1.0</td>
+<td>重大度/信頼性/判定/参照およびレビューメタデータとのツール統合</td>
+</tr>
+<tr>
+<td>印刷/PDF</td>
+<td>HTML レポートを開き、Firefox の印刷/PDF への保存を使用します。 API の PDF オプションは、準備ができた PDF バイトではなく、HTML と印刷命令を返すことができます。</td>
+</tr>
+</tbody>
+</table>
+<p>レビューのステータスとメモは、スキャナーの判定とは別のものです。誤検知/許容リスクのレビューは引き続き監査可能です。 SARIF には、該当する場合、レビュー情報と抑制が含まれます。ベストエフォートのリダクションは、保持されたページ/本文にアプリケーション データが含まれていないことを保証するものではありません。共有する前に、実際のエクスポートを確認してください。</p>
+<p>外部 ZAP/sqlmap/ffuf レポートは分離されたままになります。ネイティブ トラフィック メタデータは、完全なリクエスト/レスポンス履歴や調査結果のコピーではありません。</p>
+<h2 id="appearance-language-and-help">外見、言語、ヘルプ</h2>
+<p>テーマはグローバルであり、スキャン許可を変更せずにスキャン中に変更できます。メニューには、システム、ダーク、ライト、サイバーステップ、ミスター ロボット、アイアンマン、および保存されたカスタム テーマが含まれます。アダプティブ レイアウトによりコントロールが絞り込まれます。カバレッジ テーブルには、詳細列用の独自の水平スクロール領域があります。</p>
+<p>下 <strong>設定→テーマと警告音</strong>:</p>
+<ul>
+<li>アクティブなテーマと警告音/音量を選択します。 <strong>警告音のテスト</strong> 選択したアラートをプレビューします。</li>
+<li>組み込みおよび <strong>新しいテーマとして保存</strong> / duplicate to create a custom theme.</li>
+<li>バンドル/システム UI/コード フォント、パレット、不透明度、背景、サウンドを選択します。</li>
+<li>テーマの JSON をエクスポート/インポートします。インポートでは、任意の CSS やスクリプトは実行されません。</li>
+<li><strong>アニメーションとサウンド</strong> テーマごとにモーションとインターフェースオーディオを制御します。ブラウザ/システムのモーション軽減設定とミュート設定は依然として重要です。</li>
+</ul>
+<p>ダーク/ライト、サイバーステップ、ミスター・ロボット、アイアンマンには、異なるビジュアル/オーディオ処理があります。ドロップダウンの開始/選択はサイレントで行われます。サーボ選択キューはアイアンマン固有のものです。セキュリティ障害アラートは、通常のインターフェイス音とは別のものです。</p>
+<p>言語メニューには、英語、ロシア語、ドイツ語、フランス語、簡体字中国語、日本語、スペイン語、ヒンディー語、ポルトガル語、アラビア語、ベンガル語、ウルドゥー語、インドネシア語、トルコ語、韓国語、イタリア語、ベトナム語、タミル語、テルグ語、マラーティー語の 20 のバンドル言語が用意されています。新しいカバレッジ/ネイティブ UI テキストが補足カタログに含まれています。これらは、ランタイム翻訳サービスではなく、パブリック UI 散文のバンドルされた機械翻訳です。キャプチャされたターゲット ページ、ペイロード、URL、フィールド/コード名、コマンド例は、元のテキストを保持します。</p>
+<p>使用する <strong>情報/指示</strong>、コントロールヒント、 <strong>このページの使い方・用語説明</strong> 文脈のために。用語は参考資料へのリンクです。情報フィルタ/検索では、表示される説明のみが変更されます。チェックは有効になりません。 <strong>はじめに</strong> ちょうど 8 枚のスライドで、終了後に再生できます。</p>
+<p>現在のリリースのスクリーンショットでは、所有されている一時ループバック SQLite フィクスチャが使用されています。これらのランダム ポートとサンプル アカウント データはテスト成果物であり、アプリケーションに必要な構成ではありません。</p>
+<blockquote>
+<p><strong>カバレッジダイアログ</strong>
+<img alt="スキャンカバレッジデスクトップ" src="/longshot-security-site/docs/assets/scan-coverage-desktop.png"/>
+<strong>ロシア語の報道テキストを含む狭いアイアンマン レイアウト</strong>
+<img alt="スキャン範囲鉄狭いru" src="/longshot-security-site/docs/assets/scan-coverage-iron-narrow-ru.png"/>
+<strong>ネイティブプロキシページ</strong>
+<img alt="ネイティブツールプロキシ" src="/longshot-security-site/docs/assets/native-tool-proxy.png"/></p>
+</blockquote>
+<h2 id="troubleshooting">トラブルシューティング</h2>
+<table>
+<thead>
+<tr>
+<th>症状</th>
+<th>チェックすべき正確な領域/次のアクション</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>再起動したら拡張子が消えた</td>
+<td>一時的な <code dir="ltr" translate="no">about:debugging</code> 再起動するとインストールが終了します。 XPI をリロードするか、適切な署名付き/永続的な開発インストールを使用します。</td>
+</tr>
+<tr>
+<td>アップデート後のUI/バージョンが間違っている</td>
+<td>マニフェスト/表示されたバージョンを確認します。目的の XPI をリロードし、古いダッシュボードを閉じます。ソース ディレクトリ名は古いバージョンを保持できる</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find package 'ws'</code></td>
+<td>エラー内のパスを確認してください。ダウンロードされた完全なネイティブ アダプターには ws が含まれています。新しいネイティブ ソース ディレクトリが必要です <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code>。古いアダプター パスでのエラーは、新しいセットアップではなく、古いセットアップです。 <code dir="ltr" translate="no">cli.js</code> コマンド</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find module .../bridge/bin/longshot-bridge</code></td>
+<td>以下を含むソース ルートからエージェント API コマンドを実行します。 <code dir="ltr" translate="no">bridge/</code>、またはスクリプトの絶対パスを使用します。ネイティブ プロキシ ZIP は完全なエージェント API ソースではありません</td>
+</tr>
+<tr>
+<td>アダプターが起動しない / mitmdump が見つからない</td>
+<td>走る <code dir="ltr" translate="no">python3 bootstrap.py</code> Python 3.12+ を使用するか、目的のインストール済みランタイムを選択します <code dir="ltr" translate="no">--mitmdump</code></td>
+</tr>
+<tr>
+<td>ペアリングしても接続できない</td>
+<td>制御ポート 8901、現在のトークン、および正確な電流を使用します。 <code dir="ltr" translate="no">moz-extension://...</code> 起源。アダプタープロセスの準備ができていることを確認してください</td>
+</tr>
+<tr>
+<td>ツールがプロキシ認証に失敗する</td>
+<td>プロキシ ポート 8900、ユーザー名ブリッジ、および現在のトークンを使用します。アダプターの再起動後にすべてのツールを更新します</td>
+</tr>
+<tr>
+<td>予想されるプロキシ リクエストではなく、直接/パブリック コンテンツ</td>
+<td>NO_PROXY/no_proxy、ツールの除外、およびプロキシ設定を確認します。リクエストがネイティブ トラフィックに表示されることを確認します</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">bridge.invalid</code> 失敗する</td>
+<td>古いエイリアスのワークフロー。実際のターゲット URL を使用し、ホスト ファイル エントリは使用しません。</td>
+</tr>
+<tr>
+<td>構成が拒否されました/不明なプロパティ</td>
+<td>再利用しないでください <code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>、古いスコープ/時間フォームまたは古い API コントロール。ネイティブ構成をエクスポートし、サポートされているキーを使用する</td>
+</tr>
+<tr>
+<td>証明書検証エラー</td>
+<td>クライアント→アダプターの信頼とアダプター→オリジン検証を区別します。ツール内の印刷されたパブリック アダプター CA を信頼します。実サーバーの証明書を個別に確認してください</td>
+</tr>
+<tr>
+<td>ブラウザの Cookie がツールに到達しない</td>
+<td>選択したタブ/ストア、該当するドメイン/パス/セキュア/パーティション、cookie.enabled、保護された名前、およびリクエストが実際にプロキシを通過したかどうかを確認します。</td>
+</tr>
+<tr>
+<td>ツールが Cookie プローブを送信しましたが、消えてしまいました</td>
+<td>関連するオーバーライドを無効化/保護するか、X-Longshot-Preserve / リクエスト オーバーライド オフを追加します。最初のリクエストの意図検出に依存しない</td>
+</tr>
+<tr>
+<td>リクエストのオーバーライドをオフにしてもブラウザの Cookie が変更される</td>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code> 独立しています。応答の同期が不要な場合はこれも無効にします</td>
+</tr>
+<tr>
+<td>401/419/440 または 429 はネイティブ プロキシを一時停止します</td>
+<td>タブ/セッション/スロットリングを確認し、明示的に再開します。意図的なネガティブ認証テストでは、一時停止ステータスの設定を見直して再起動する必要がある場合があります</td>
+</tr>
+<tr>
+<td>WAF は Firefox を受け入れますが、ネイティブ トラフィックを拒否します</td>
+<td>Cookie/UA のコピーでは、TLS/IP/ブラウザーの動作が再現されたり、JavaScript チャレンジが実行されたりすることはありません。許可された評価ルートと証拠を確認する</td>
+</tr>
+<tr>
+<td>タマネギターゲットがブロックされました</td>
+<td>ネイティブ アダプターで実際の明示的な SOCKS/アップストリーム ルートを構成します。組み込み/ブラウザーと分離されたネイティブ Nuclei は異なるルーティングを持ちます</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">permissions.request may only be called from a user input handler</code></td>
+<td>現在の拡張機能の承認ワークフローを使用します。保存して確認し、[次回の実行を承認する] をクリックして不足している権限をリクエストします。非同期エージェント/バックグラウンド設定変更から権限を呼び出さない</td>
+</tr>
+<tr>
+<td>最大検出後の一般的な URL コンストラクター エラー</td>
+<td>チェックする <strong>OAST プロバイダーの URL</strong> そして <strong>コールバックドメイン</strong>、ターゲット URL とは関係ありません。一致する値を入力するか、OAST を無効にします。現在の検証により関連フィールドが特定されます</td>
+</tr>
+<tr>
+<td>アグレッシブはオフですが、詳細オプションは有効のままです</td>
+<td>リストされた機能を無効にするか、アグレッシブを有効/保存して次回の実行を承認します</td>
+</tr>
+<tr>
+<td>セッション B が見つからない/無効です</td>
+<td>別のコンテナ/プライベート Cookie ストアにある別の同一オリジン タブを選択します。通常のタブは独立した Cookie を提供しません</td>
+</tr>
+<tr>
+<td>承認が期限切れ/使用/変更されました</td>
+<td>最終設定を保存し、新しい次回実行の許可を承認します。有効期限は30分で使い捨てです</td>
+</tr>
+<tr>
+<td>ファザーの実行には有用なリクエストがありません</td>
+<td>スコープ指定された URL、クエリ パラメータ、選択された空でないペイロード セットを指定するか、インベントリ検出後に別の自動ファズを使用します</td>
+</tr>
+<tr>
+<td>プローブライブラリのアップデートが失敗する</td>
+<td>報告されたソース/ネットワーク/検証理由を確認してください。以前にキャッシュされたデータは保持されます。ターゲット スキャンは自動的には再実行されません</td>
+</tr>
+<tr>
+<td>所見がない / チェックが少なすぎる</td>
+<td>実際の完了/部分的/スキップされた入力カバレッジを読み取ります。検出、ログイン、予算、応答タイプ、ブロックと除外を検査します</td>
+</tr>
+<tr>
+<td>OPTIONS では DELETE が可能です</td>
+<td>在庫のみ。認証されていない書き込み、またはロングショットが書き込みを試みたことを証明するものではありません。</td>
+</tr>
+<tr>
+<td>OAST 接続は成功しますが、ターゲット コールバックはありません</td>
+<td>ブラウザーのコールバック テストを実行し、一致するプロバイダー/ドメイン、TTL、およびターゲットの出力を確認します。欠席はまだ決定的ではない</td>
+</tr>
+<tr>
+<td>ネイティブ テンプレートはブロックされています</td>
+<td>読み取り実行者/機能の理由: ニュークリア/分離/ヘルパー/署名/スコープ/承認/ルーティングが欠落している可能性があります</td>
+</tr>
+<tr>
+<td>スマート アナライザーはバックエンドに名前を付けることができません</td>
+<td>不明は有効な結果です。 WAF/プロキシ層は証拠を隠蔽したり書き換えたりすることができます。導入インベントリを手動で確認する</td>
+</tr>
+<tr>
+<td>cimematic ビューアにはライブ ページがありません</td>
+<td>アクティブなタブ/ログイン/オリジン、キャプチャ/ロードの制限と依存関係を確認します。キャプチャされた証拠と記録された証拠のみを使用する</td>
+</tr>
+<tr>
+<td>閲覧者が一般的なページ領域をポイントする</td>
+<td>ヘッダー/API/Cookie の検出結果に一致する HTML フィールドが存在しない可能性があります。ページコンテキストの配置は正確な入力証明ではありません</td>
+</tr>
+<tr>
+<td>評価ファイルが待機中またはエラー中です</td>
+<td>エージェント API に接続し、選択した絶対フォルダー/ステータスと保留中のチェックポイントを確認します。ブラウザのストレージは分離されたままになります</td>
+</tr>
+<tr>
+<td>ネイティブ トラフィックには応答本文や ZAP 結果がありません</td>
+<td>予期されるメタデータのみのビュー。外部ツール自体の履歴とレポートを検査する</td>
+</tr>
+<tr>
+<td>PDF API の応答は HTML/命令です</td>
+<td>印刷/PDF への保存を使用します。 HTML バイトの名前を .pdf に変更しないでください。</td>
+</tr>
+<tr>
+<td>翻訳された UI にはまだ英語が表示されます</td>
+<td>コード用語、コマンド サンプル、URL、ペイロード、およびキャプチャされた証拠は意図的に保存されます。実際の UI の文章のバージョン/言語を確認してください。機械翻訳の品質は異なる場合があります</td>
+</tr>
+</tbody>
+</table>
+<p>診断の場合は、フィールド固有のメッセージと関連コンポーネントのログから開始します。ネイティブ プロキシ ペアリング エラー、ブラウザ スキャン セッションの失敗、およびエージェント API 接続の失敗には、異なる修正が必要です。完了した UI アクションやペアリングの成功を、計画されたすべてのリクエストやチェックが実行された証拠として扱わないでください。</p>
+<h2 id="terms-and-source-references">用語と出典参照</h2>
+<table>
+<thead>
+<tr>
+<th>期間</th>
+<th>平易な意味・参照先</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">HTTPリクエスト/レスポンス</a></td>
+<td>Web サーバーへのメッセージ / その応答 (メソッド、URL、ヘッダー、およびオプションの本文を含む)</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/Origin">起源</a></td>
+<td>Web セキュリティ境界として使用されるスキーム、ホスト、ポート</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies">クッキー</a></td>
+<td>該当するリクエストに対して選択されたブラウザ管理の状態</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Session_Management">セッション管理</a></td>
+<td>アプリケーションが複数のリクエストにわたってユーザーを認識する方法</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/essential-skills">ペイロード</a></td>
+<td>入力に送信されるテスト値。自動的にエクスプロイトが成功するわけではない</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/sql-injection">SQLインジェクション</a></td>
+<td>入力はデータベースクエリの解釈方法を変更します</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/nosql-injection">NoSQLインジェクション</a></td>
+<td>入力により非 SQL データベース クエリまたはオペレータの動作が変更される</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a></td>
+<td>攻撃者が制御するデータがブラウザの実行可能なコンテンツに到達する</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting/dom-based">DOM XSS</a></td>
+<td>クライアント側の JavaScript は信頼できないデータを実行可能なシンクに運びます</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/server-side-template-injection">SSTI</a></td>
+<td>入力はサーバーテンプレートの命令として解釈されます</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/os-command-injection">コマンドインジェクション</a></td>
+<td>入力により、オペレーティング システムのシェル/プログラムによって実行されるコマンドが変更されます</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/file-path-traversal">パストラバーサル</a></td>
+<td>入力が意図したファイル パス境界をエスケープする</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/ssrf">SSRF</a></td>
+<td>サーバーが別の宛先に意図しないリクエストを行う</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/xxe">XXE</a></td>
+<td>XML 外部エンティティ処理により、意図しないリソース アクセスが発生する</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/csrf">CSRF</a></td>
+<td>別のサイトが意図しない認証アプリケーションの動作を誘発する</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cors">CORS</a></td>
+<td>クロスオリジン応答アクセスを制御するブラウザ ポリシー</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/access-control/idor">アクセス制御 / IDOR</a></td>
+<td>単に URL が到達可能かどうかではなく、ユーザーがオブジェクト/アクションにアクセスできるかどうか</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/logic-flaws">ビジネスロジック</a></td>
+<td>有効な価格、ワークフロー、残高、状態遷移に関するルール</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a></td>
+<td>ブラウザ強制のリソース/スクリプト ポリシー。ヘッダーが欠落しているだけでは XSS は実行されません</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Web_Application_Firewall">WAF</a></td>
+<td>存在してもアクティブなルールがすべて明らかにされるわけではない HTTP フィルタリング層</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Reverse_proxy">リバースプロキシ</a></td>
+<td>アプリケーションサーバーの前でリクエストを受信する仲介者</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/TLS">TLS/CA</a></td>
+<td>接続の暗号化とそのエンドポイントの認証に使用される証明書の信頼</td>
+</tr>
+<tr>
+<td><a href="https://nvd.nist.gov/vuln">CVE/NVD</a></td>
+<td>既知の脆弱性の識別子/データベース。バナーの一致はエクスプロイトの検証ではありません</td>
+</tr>
+<tr>
+<td><a href="https://cwe.mitre.org/">CWE</a></td>
+<td>弱点タイプの分類</td>
+</tr>
+<tr>
+<td><a href="https://top10.owasp.org/2025/">OWASP トップ 10:2025</a></td>
+<td>完全なスキャナー テスト スイートではなく、認識カテゴリー</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-project-web-security-testing-guide/">WSTG</a></td>
+<td>自動化された作業と手動作業をカバーする Web セキュリティ テストのリファレンス</td>
+</tr>
+</tbody>
+</table>
+<p>このチュートリアルの実装ベース: マニフェスト 2.18.1。 <code dir="ltr" translate="no">content/checks.js</code>; <code dir="ltr" translate="no">lib/core.js</code>, <code dir="ltr" translate="no">lib/v2.js</code>、監査/DOM/プローブモジュール。ダッシュボード/ヘルプ/カバレッジ/ネイティブ UI;ネイティブ アダプターの構成、オーバーライド、および CLI。エージェント API/ネイティブ クライアント。検証アーティファクトをリリースします。古いドキュメントが削除された従来のトランスポート動作と競合する場合、ここでは出荷された 2.18.1 ランタイムが使用されます。</p>
+<p>追加のセットアップ参照:</p>
+<ul>
+<li><a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">Mozilla の一時インストール</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging">Mozilla ネイティブ メッセージング</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP発信接続設定</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/">ZAP アクティブ スキャン ポリシーと制限事項</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy 証明書</a></li>
+<li><a href="https://github.com/projectdiscovery/interactsh">公式インタラクトシュ</a></li>
+<li><a href="https://docs.projectdiscovery.io/templates/reference/template-signing">核テンプレートの署名</a></li>
+<li><a href="#owasp-top-10-coverage">完全なリリース カバレッジ ドキュメント</a></li>
+</ul>
+<p>このチュートリアルは、指定されたリリースに関する一般的なガイダンスです。アプリケーション固有の結果には、依然として承認されたターゲット、到達したワークフロー、およびレビューされた証拠が必要です。</p></main></div><footer>ロングショット セキュリティ · 承認された評価のみ · <a href="/longshot-security-site/ja/">ロングショットに戻る</a><p class="translation-notice">翻訳は機械によって生成されます。英語版が参考になります。</p></footer></body></html>

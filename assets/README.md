@@ -6,3 +6,5 @@
 - memory-threads.svg: from the extension’s bundled default theme.
 - Rajdhani-SemiBold.woff2 and IBMPlexMono-Regular.woff2: WOFF2 encodings of bundled font files; their original OFL licenses are retained in this directory.
 - Documentation screenshots under docs/assets are owned-fixture captures from the 2.18.1 Firefox validation run.
+
+- *-cutout.webp: website-only browser-window extractions made with the built-in image generation tool from the publisher-provided campaign copies. Surrounding promotional artwork/lettering is removed. Native CSS clips trim residual exterior haze for the agent/report illustrations. The original PNG files in ~/Pictures remain unchanged.

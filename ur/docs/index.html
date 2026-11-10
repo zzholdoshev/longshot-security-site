@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+
+<html data-site-base="/longshot-security-site/" data-site-page="docs/" dir="rtl" lang="ur"><head><script data-language-script="" defer="" src="/longshot-security-site/language.js?v=20261110-i18n"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>مکمل دستاویزات — لانگ شاٹ سیکیورٹی 2.18.1</title><meta content="مکمل لانگ شاٹ جنرل ٹیوٹوریل: براؤزر اسکیننگ، مقامی پراکسی، کوکی اوور رائیڈز، ZAP، MCP، فزنگ، فائنڈنگز اور رپورٹس۔" name="description"/><link href="/longshot-security-site/assets/mark.svg" rel="icon" type="image/svg+xml"/><link href="/longshot-security-site/style.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/docs/docs.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/localization.css?v=20261110-i18n" rel="stylesheet"/><link href="https://zzholdoshev.github.io/longshot-security-site/ur/docs/" rel="canonical"/><link href="https://zzholdoshev.github.io/longshot-security-site/docs/" hreflang="en" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ru/docs/" hreflang="ru" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/de/docs/" hreflang="de" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/fr/docs/" hreflang="fr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/zh/docs/" hreflang="zh" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ja/docs/" hreflang="ja" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/es/docs/" hreflang="es" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/hi/docs/" hreflang="hi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/pt/docs/" hreflang="pt" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ar/docs/" hreflang="ar" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/bn/docs/" hreflang="bn" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ur/docs/" hreflang="ur" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/id/docs/" hreflang="id" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/tr/docs/" hreflang="tr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ko/docs/" hreflang="ko" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/it/docs/" hreflang="it" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/vi/docs/" hreflang="vi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ta/docs/" hreflang="ta" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/te/docs/" hreflang="te" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/mr/docs/" hreflang="mr" rel="alternate"/></head><body data-ui-copy='{"Signed in already? Start from that tab. Your session is the starting point.":"پہلے ہی سائن ان ہے؟ اس ٹیب سے شروع کریں۔ آپ کا سیشن نقطہ آغاز ہے۔","Your tools send their own HTTP requests. Browser Bridge can supply the browser cookies.":"آپ کے ٹولز اپنی HTTP درخواستیں بھیجتے ہیں۔ براؤزر برج براؤزر کوکیز فراہم کر سکتا ہے۔","Cookie override is on by default in the paired native bridge. You can turn it off.":"جوڑے والے مقامی پل میں کوکی اوور رائیڈ ڈیفالٹ کے طور پر آن ہے۔ آپ اسے آف کر سکتے ہیں۔","A finding is a lead. Read the request, the response and the controls before confirming it.":"تلاش ایک برتری ہے۔ اس کی تصدیق کرنے سے پہلے درخواست، جواب اور کنٹرولز کو پڑھیں۔","Using Chrome? Keep the Longshot workbench tab open while you scan.":"کروم استعمال کر رہے ہیں؟ اسکین کرتے وقت لانگ شاٹ ورک بینچ ٹیب کو کھلا رکھیں۔","Connect a compatible MCP agent to run permitted checks and examine the evidence.":"اجازت یافتہ چیک چلانے اور شواہد کی جانچ کے لیے ایک ہم آہنگ MCP ایجنٹ سے رابطہ کریں۔","No bridge.invalid or hosts-file entry. The native proxy uses the actual target URL.":"کوئی bridge.invalid یا hosts-file انٹری نہیں ہے۔ مقامی پراکسی اصل ہدف URL استعمال کرتی ہے۔","Pause motion":"موشن موقوف کریں۔","Resume motion":"تحریک دوبارہ شروع کریں۔"}'><a class="skip" href="#documentation">دستاویزات پر جائیں۔</a><nav aria-label="مین نیویگیشن"><a href="/longshot-security-site/ur/">LONGSHOT</a><a href="/longshot-security-site/ur/#download">ڈاؤن لوڈ کریں۔</a><a href="/longshot-security-site/ur/support.html">حمایت</a><a href="/longshot-security-site/ur/privacy.html">رازداری</a><label class="language-switcher"><span>زبان</span><select aria-label="ویب سائٹ کی زبان" id="site-language" translate="no"><option value="en">English</option><option value="ru">Русский</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="zh">简体中文</option><option value="ja">日本語</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="pt">Português</option><option value="ar">العربية</option><option value="bn">বাংলা</option><option selected="selected" value="ur">اردو</option><option value="id">Bahasa Indonesia</option><option value="tr">Türkçe</option><option value="ko">한국어</option><option value="it">Italiano</option><option value="vi">Tiếng Việt</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="mr">मराठी</option></select></label></nav><div class="docs-layout"><aside class="docs-sidebar"><details open=""><summary>جنرل ٹیوٹوریل / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">وائب کوڈڈ۔ بھیج دیا گیا۔ ہیک۔</a><a href="#firefox-and-chrome-choose-your-edition">فائر فاکس اور کروم: اپنا ایڈیشن منتخب کریں۔</a><a href="#contents">مشمولات</a><a href="#what-runs-where">کیا کہاں چلتا ہے</a><a href="#install-or-update-in-firefox-nightly">فائر فاکس نائٹلی میں انسٹال یا اپ ڈیٹ کریں۔</a><a href="#getting-started-and-target-sessions">شروع کرنا اور ٹارگٹ سیشنز</a><a href="#light-discovery-and-a-focused-active-scan">روشنی کی دریافت اور ایک مرکوز فعال اسکین</a><a href="#aggressive-options-and-run-approval">جارحانہ اختیارات اور رن کی منظوری</a><a href="#overview-checks">جائزہ چیک</a><a href="#scan-options-reference">اسکین اختیارات کا حوالہ</a><a href="#budgets-selectors-and-request-settings">بجٹ، سلیکٹرز اور درخواست کی ترتیبات</a><a href="#fuzzer-auto-fuzz-and-probe-library">فزر، آٹو فز اور پروب لائبریری</a><a href="#your-payloads-and-imported-templates">آپ کے پے لوڈز اور امپورٹڈ ٹیمپلیٹس</a><a href="#server-stack-and-smart-analyzer">سرور اسٹیک اور سمارٹ تجزیہ کار</a><a href="#oast-setup-and-interpretation">OAST سیٹ اپ اور تشریح</a><a href="#browser-bridge-native-tool-proxy">براؤزر برج: مقامی ٹول پراکسی</a><a href="#native-bridge-configuration">مقامی پل کی ترتیب</a><a href="#cookie-and-header-overrides-without-damaging-probes">کوکی اور ہیڈر تحقیقات کو نقصان پہنچائے بغیر اوور رائیڈ کرتا ہے۔</a><a href="#external-tools-and-actual-zap-scanning">بیرونی ٹولز اور اصل ZAP اسکیننگ</a><a href="#tor-and-onion-routing">ٹور اور پیاز کی روٹنگ</a><a href="#agent-api-mcp-and-local-model-clients">ایجنٹ API، MCP اور مقامی ماڈل کلائنٹس</a><a href="#optional-native-nuclei">اختیاری مقامی نیوکلی</a><a href="#manual-tools-interception-and-api-inventory">دستی ٹولز، انٹرسیپشن اور API انوینٹری</a><a href="#findings-and-the-cimematic-viewer">فائنڈنگز اور دی سیمیٹک ویور</a><a href="#owasp-top-10-coverage">OWASP ٹاپ 10 کوریج</a><a href="#recovery-assessment-files-and-reports">ریکوری، اسسمنٹ فائلز اور رپورٹس</a><a href="#appearance-language-and-help">ظاہری شکل، زبان اور مدد</a><a href="#troubleshooting">خرابی کا سراغ لگانا</a><a href="#terms-and-source-references">شرائط اور ماخذ حوالہ جات</a></div></details><a class="markdown-download" download="" href="/longshot-security-site/docs/longshot-general-tutorial.md">مارک ڈاؤن ڈاؤن لوڈ کریں ↓ · English</a></aside><main class="docs-main" id="documentation"><p class="eyebrow">مکمل دستاویزات · 10 نومبر 2026 کو اپ ڈیٹ کیا گیا۔</p><h1 id="longshot-2181-general-tutorial-and-control-reference">لانگ شاٹ 2.18.1 — عمومی ٹیوٹوریل اور کنٹرول حوالہ</h1>
+<p>لانگ شاٹ کے لیے 10 نومبر 2026 کو اپ ڈیٹ کیا گیا۔ <strong>2.18.1</strong> (فائر فاکس اور کروم ایڈیشن) اور اس کے <strong>مقامی HTTP/HTTPS ٹول پراکسی</strong>. یہ عام 2.11.1 ٹیوٹوریل کی جگہ لے لیتا ہے۔ نیچے دی گئی ہدایات اس کی حدود سمیت بھیجے گئے نفاذ کی وضاحت کرتی ہیں۔ پرانے پل کی مثالیں اس ریلیز کے ساتھ قابل تبادلہ نہیں ہیں۔</p>
+<p>لانگ شاٹ مجاز ویب ایپلیکیشن کی تشخیص کے لیے براؤزر سیشن ورک بینچ ہے۔ یہ دریافت، اس کا اپنا جاوا اسکرپٹ ایکٹو اسکینر، دستی HTTP ٹولز، امپورٹڈ ٹیمپلیٹس، فائنڈنگ ریویو اور رپورٹس کو یکجا کرتا ہے۔ اختیاری براؤزر برج بیرونی ٹولز کو منتخب فائر فاکس سیشن ویلیوز کو استعمال کرنے دیتا ہے جبکہ ان کی اپنی مقامی HTTP درخواستیں بھیجتے ہیں۔</p>
+<p>ایک مفید پہلا پاس ہے: <strong>ایپلیکیشن کھولیں → سائن ان کریں → اس ٹیب سے لانگ شاٹ لانچ کریں → جڑیں → سیشن کی توثیق کریں → ان پٹ دریافت کریں → منتخب چیک چلائیں → ثبوت کا جائزہ لیں</strong>.</p>
+<p>حساس صارف کے ڈیٹا یا پیسے کو سنبھالنے والی ایپلیکیشن کے لیے، بشمول AI بلٹ یا وائب کوڈڈ ایپلیکیشن، پیشہ ورانہ تشخیص کے لیے سائبر سیکیورٹی ٹیم کی خدمات حاصل کریں۔ ایک توسیعی اسکین اجازت کی جانچ، کاروباری منطق کا جائزہ یا ایک آزاد سیکورٹی تشخیص کی جگہ نہیں لیتا۔ خالی نتائج کی فہرست سیکیورٹی سرٹیفکیٹ نہیں ہے۔</p>
+<p>یہ دستاویز احکام کی وضاحت کرتی ہے۔ اسے اپ ڈیٹ کرنے سے سافٹ ویئر انسٹال نہیں ہوتا، میزبان رجسٹر نہیں ہوتا، براؤزر کی سیٹنگز میں تبدیلی یا کوئی اسکین نہیں چلتی۔ صرف اپنے مجاز تشخیصی ہدف کے خلاف مثالیں چلائیں۔ نمونہ <code dir="ltr" translate="no">http://localhost:8080</code> مقامی ہدف کی مثال ہے، بلٹ ان لانگ شاٹ سروس نہیں۔</p>
+<h2 id="vibe-coded-shipped-hacked">وائب کوڈڈ۔ بھیج دیا گیا۔ ہیک۔</h2>
+<p><strong>اس کا تصور کریں:</strong> آپ کی ایپ لائیو ہو جاتی ہے، ایک حملہ آور کو خامی معلوم ہوتی ہے، اور صارف اپنا اکاؤنٹ صفر کے بیلنس پر کھولتا ہے۔ ان کا سارا پیسہ - چلا گیا۔</p>
+<p>کوڈ قائل لگ رہا تھا. اے آئی نے کہا کہ یہ محفوظ لگ رہا ہے۔ یہ کافی نہیں تھا۔</p>
+<p><strong>ایل ایل ایم غیر مقررہ ہیں۔ وہ کمزوریوں کو کھو سکتے ہیں اور پراعتماد غلطیاں پیدا کر سکتے ہیں۔ آپ کو دوسری رائے درکار ہے۔ آپ کو لانگ شاٹ کی ضرورت ہے۔</strong></p>
+<p>لانگ شاٹ آپ کی بنائی ہوئی ویب ایپس کے لیے فائر فاکس کو سیکیورٹی ورک بینچ میں بدل دیتا ہے۔ اس ایپلیکیشن کے خلاف دوبارہ قابل جانچ پڑتال کریں جو حقیقت میں چل رہی ہے، HTTP ثبوت کا معائنہ کریں، اور اس سے پہلے کہ آپ کے صارفین قیمت ادا کریں کمزوریوں کی چھان بین کریں۔</p>
+<p>چیک کرتا ہے کور کی حمایت کی <strong>SQL/NoSQL انجیکشن، سرور سائیڈ کوڈ اور ٹیمپلیٹ انجیکشن، عکاس XSS امیدوار، پاتھ ٹراورسل/فائل انکلوژن، اوپن ری ڈائریکٹس اور CRLF/ہیڈر انجیکشن</strong>اختیاری لائیو DOM XSS تصدیق کے ساتھ۔ جائزہ لیں <strong>کمزور سیکورٹی ہیڈر، کوکی اور CORS پالیسیاں، بے نقاب کنفیگریشن اور غلطی کے انکشافات</strong>مزید حملے کی کلاسوں کے لیے اختیاری چیک کے ساتھ۔</p>
+<p>براؤزر کے ٹیب سے شروع کریں جو آپ پہلے سے استعمال کر رہے ہیں۔ لائیو کوکیز رکھیں، سیشن کی توثیق کو ترتیب دیں، سیشن کے نقصان کے بعد بازیافت کریں، اور ہر ہدف کی ترتیبات، تاریخ اور نتائج کو منظم رکھیں۔</p>
+<p><strong>اپنے AI کو کام پر لگائیں - پھر اس کا کام چیک کریں۔</strong> مجاز چیک چلانے اور نتائج کی جانچ کرنے کے لیے MCP کے ذریعے ایجنٹ سے رابطہ کریں۔ کوکی ویلیوز کو دستی طور پر کاپی کیے بغیر جڑے ہوئے براؤزر سیشن میں ZAP، sqlmap، curl، ffuf یا wget لانے کے لیے مقامی براؤزر برج کا استعمال کریں۔ ٹولز اپنی HTTP درخواستیں اور پے لوڈ بھیجتے ہیں۔ براؤزر کوکی اوور رائیڈز بطور ڈیفالٹ آن ہوتے ہیں اور اسے بند کیا جا سکتا ہے۔</p>
+<p>اعلی درجے کے صارفین ہم آہنگ درآمد کرسکتے ہیں۔ <strong>CVE ٹیمپلیٹس</strong> اور تعلق <strong>OAST کال بیکس</strong> ان تحقیقات کے ساتھ جو ان کا سبب بنے۔ اپنے فیصلوں کا جائزہ لیں اور ریکارڈ کریں، پھر ثبوتوں سے بھرپور برآمد کریں۔ <strong>HTML، JSON، CSV یا SARIF رپورٹس</strong>پرنٹ/پی ڈی ایف آؤٹ پٹ کے ساتھ۔ کے ساتھ نتائج کی وضاحت کریں۔ <strong>cimematic ناظر</strong>بشمول لائیو CSS/JavaScript صفحہ سیاق و سباق، اینیمیٹڈ 3D عناصر، توقف اور پورے اسکرین کنٹرولز۔ ایک تیز تھیم چنیں اور اپنے کام کی جگہ کے مطابق حرکت اور آواز کو حسب ضرورت بنائیں۔</p>
+<p><strong>اس سے پہلے کہ آپ اعتماد بھیجیں، ثبوت مانگیں۔ لانگ شاٹ۔</strong></p>
+<h3 id="quick-scan-one-sentence">فوری اسکین - ایک جملہ</h3>
+<p>فائر فاکس میں اپنی ایپ کھولیں، ضرورت پڑنے پر سائن ان کریں، اس ٹیب سے لانگ شاٹ لانچ کریں، کنیکٹ پر کلک کریں، کنفیگرڈ سیشن چیک کی توثیق کریں، پھر اسپائیڈر + ایکٹو چیکس کا انتخاب کریں → اسکین شروع کریں اور فائنڈنگز کا جائزہ لیں۔</p>
+<h3 id="short-ad">مختصر اشتہار</h3>
+<p>آپ کی وائب کوڈڈ ایپ لائیو ہے۔ اے آئی نے کیا کھویا؟ لانگ شاٹ انجیکشن، XSS اور دیگر عام کمزوریوں کے لیے چل رہی ایپ کو چیک کرتا ہے، براؤزر سیشن ٹیسٹنگ اور AI/MCP ورک فلو شامل کرتا ہے، اور آپ کو جائزہ لینے کا ثبوت دیتا ہے۔ آپ کو دوسری رائے درکار ہے۔ آپ کو لانگ شاٹ کی ضرورت ہے۔</p>
+<h3 id="compact-description">کومپیکٹ تفصیل</h3>
+<p>وائب کوڈڈ ایپس کے لیے دوسری رائے: براؤزر سیشن چیک، AI/MCP، کنفیگر ایبل براؤزر کوکی اوور رائیڈز کے ساتھ مقامی ٹولز، CVE/OAST، سنیما کی تلاش اور رپورٹس۔</p>
+<h3 id="campaign-captions">مہم کے عنوانات</h3>
+<ol>
+<li><strong>VIBE-coded۔ بھیج دیا گیا۔ HACKED</strong> ایک فرضی لانچ اور اکاؤنٹ کے نقصان کا منظرنامہ؛ شپنگ سے پہلے دوسری رائے حاصل کریں۔</li>
+<li><strong>سیشن کی جانچ کریں۔ ایپ کو چیک کریں۔</strong> لائیو کوکیز، توثیق اور ہدف کے لیے مخصوص ثبوت۔</li>
+<li><strong>AI نے اسے لکھا۔ اسے کس نے چیک کیا؟</strong> AI تجاویز کو قابلِ جائزہ سیکیورٹی ورک فلو میں شامل کریں۔</li>
+<li><strong>آپ کے اوزار. آپ کا ٹیب۔ آپ کا سیشن۔</strong> معاون مقامی HTTP یوٹیلیٹیز کے لیے براؤزر برج۔</li>
+<li><strong>خامیوں کو تلاش کریں۔ ثبوت پر عمل کریں۔</strong> اعلی درجے کی ہم آہنگ CVE ٹیمپلیٹس اور OAST ارتباط۔</li>
+<li><strong>یقین دہانی پر ثبوت۔</strong> ایک ورک اسپیس میں رپورٹس کا جائزہ لیں اور برآمد کریں جسے آپ اپنی مرضی کے مطابق بنا سکتے ہیں۔</li>
+<li><strong>آپ کا AI سیکیورٹی کا فیصلہ نہیں ہے۔</strong> MCP آپ کی چل رہی ایپ کی جانچ کرتا ہے۔ ثبوت جو آپ جائزہ لے سکتے ہیں۔</li>
+<li><strong>میعاد ختم ہونے والا سیشن۔ گمشدہ سیاق و سباق۔</strong> توثیق کریں، روکیں، دوبارہ سائن ان کریں اور دوبارہ شروع کریں۔</li>
+</ol>
+<h3 id="selling-points-in-2181">2.18.1 میں پوائنٹس کی فروخت</h3>
+<table>
+<thead>
+<tr>
+<th>سیلنگ پوائنٹ</th>
+<th>عملی فائدہ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>آپ کا سائن ان کردہ براؤزر سیشن، آپ کے ٹولز</strong></td>
+<td>ZAP اور دیگر HTTP-proxy کلائنٹس منتخب فائر فاکس کوکی جار کو بطور ڈیفالٹ، رسپانس کوکی سنکرونائزیشن اور آزاد آف سوئچز کے ساتھ استعمال کرتے ہیں۔</td>
+</tr>
+<tr>
+<td><strong>اصلی بیرونی سکینر انجن</strong></td>
+<td>ZAP براؤزر برج کے ذریعے اپنی مقامی HTTP درخواستیں اور پے لوڈ تیار کرتا ہے۔ منتخب کردہ کوکی/ہیڈر اوور رائیڈز واضح ہیں۔</td>
+</tr>
+<tr>
+<td><strong>تحقیقات کی حفاظت کریں، سیشن رکھیں</strong></td>
+<td>پروٹیکٹڈ فیلڈز اور فی درخواست بائی پاس آپ کو ٹول کی جان بوجھ کر کوکی/ہیڈر میوٹیشنز کو محفوظ رکھنے دیتے ہیں۔</td>
+</tr>
+<tr>
+<td><strong>ثبوت جس کا آپ معائنہ کر سکتے ہیں۔</strong></td>
+<td>وقف شدہ فعال قواعد بار بار کنٹرول کا استعمال کرتے ہیں؛ اصل ان پٹ کوریج مکمل، جزوی اور چھوڑے گئے کام کی تمیز کرتی ہے۔</td>
+</tr>
+<tr>
+<td><strong>AI جو انٹرفیس کے ذریعے کام کر سکتا ہے۔</strong></td>
+<td>MCP معاون اسکین کمانڈز اور ڈیش بورڈ کنٹرولز کو بے نقاب کرتا ہے تاکہ ہم آہنگ ایجنٹ ورک بینچ کو چلا سکیں اور نتائج کو بازیافت کر سکیں۔</td>
+</tr>
+<tr>
+<td><strong>نتائج جن کی آپ وضاحت کر سکتے ہیں۔</strong></td>
+<td>سیمیٹک ناظر موجودہ صفحہ کے سیاق و سباق، ریکارڈ شدہ ثبوت، 3D وضاحتیں اور سادہ زبان میں ممکنہ خطرات کو یکجا کرتا ہے۔</td>
+</tr>
+<tr>
+<td><strong>اپنا ٹیسٹنگ مواد لائیں۔</strong></td>
+<td>ہدف کے لیے مخصوص پے لوڈ پیک اور نظرثانی شدہ ٹیمپلیٹس اپ لوڈ کریں۔ انٹرفیس سے تعاون یافتہ کمیونٹی کی فہرستوں کو تازہ کریں۔</td>
+</tr>
+<tr>
+<td><strong>ایک کام کی جگہ جو آپ کی رہتی ہے۔</strong></td>
+<td>فی ہدف تشخیصی ڈیٹا، جائزہ نوٹس، اختیاری فائل چیک پوائنٹس، آف لائن رپورٹس، تھیمز اور 20 بنڈل UI زبانیں۔</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publication-notes">اشاعت کے نوٹس</h3>
+<p>اکاؤنٹ کے نقصان کی کہانی فرضی ہے، کسی حقیقی گاہک کے بارے میں کوئی دعویٰ یا اس بات کی ضمانت نہیں کہ لانگ شاٹ مالی نقصان کو روکتا ہے۔ ایکسٹینشن تشخیص کرتی ہے، نہ کہ مسلسل حملے کو روکنا۔ نتائج کا جائزہ لینے کی ضرورت ہے؛ کوریج ٹیبل باؤنڈڈ سپورٹ اور مینوئل گیپس کی وضاحت کرتا ہے۔ DOM تجزیے میں اشارے اور تعاون یافتہ عملدرآمد کینریز شامل ہیں، نہ کہ یونیورسل DOM ایکسپلائٹ کوریج۔ سنیما کی ترتیب ثبوت کی وضاحت کرتی ہے؛ یہ استحصال کے ثبوت کو شامل نہیں کرتا ہے۔</p>
+<p>MCP اور براؤزر برج کو مقامی سیٹ اپ کی ضرورت ہے۔ مقامی ٹول پراکسی ایک علیحدہ Node/Python/mitmproxy عمل کا استعمال کرتی ہے، اور HTTPS مداخلت کے لیے اڈاپٹر CA کے لیے ٹول کی ٹرسٹ کنفیگریشن کی ضرورت ہوتی ہے۔ یہ پارس HTTP ٹرانسپورٹ ہے، بائٹ شفاف خام TCP نہیں۔ کوکی اوور رائیڈز کو غیر فعال کیا جا سکتا ہے۔ براؤزر کوکی یا صارف ایجنٹ براؤزر جیسی نیٹ ورکنگ یا WAF قبولیت کی ضمانت نہیں دیتا ہے۔ بیرونی ZAP الگ سے انسٹال رہتا ہے۔ ٹیمپلیٹ پر عمل درآمد مطابقت/رن ٹائمز پر منحصر ہے۔ OAST کو کنفیگر کردہ فراہم کنندہ کی ضرورت ہے۔ توثیق کی توثیق کے لیے ایک بامعنی محفوظ اختتامی نقطہ/مارکر کی ضرورت ہے۔ ٹارگٹ پروفائلز الگ الگ تشخیصی ڈیٹا؛ ٹیب/کنٹینر کوکی سیشن فراہم کرتا ہے۔</p>
+<p>حساس ڈیٹا یا رقم کو سنبھالنے والی ایپلیکیشنز کے لیے، سائبر سیکیورٹی ٹیم کی خدمات حاصل کریں اور لانگ شاٹ کو تشخیص کے ایک حصے کے طور پر استعمال کریں۔ اسے صرف ان ایپلیکیشنز پر استعمال کریں جو آپ کے مالک ہیں یا آپ کو جانچنے کی اجازت ہے۔</p>
+<p>اگر پہلے سے تیار کردہ مہم کی تصاویر کو دوبارہ استعمال کر رہے ہیں، تو انہیں کمپوزیشن کے طور پر لیبل کریں اور جہاں بھی پکسل کے عین مطابق UI کی ضرورت ہو وہاں حقیقی موجودہ اسکرین شاٹس استعمال کریں۔ یہ ٹیوٹوریل ظاہری حصے میں اصل 2.18.1 توثیق کے اسکرین شاٹس کو جوڑتا ہے۔ اس میں آٹھ تصویری مہم کا نیا پیک شامل نہیں ہے یا تیسرے فریق کی توثیق کا دعویٰ نہیں ہے۔</p>
+<h2 id="firefox-and-chrome-choose-your-edition">فائر فاکس اور کروم: اپنا ایڈیشن منتخب کریں۔</h2>
+<p>یہ مکمل گائیڈ فائر فاکس کے تعاون یافتہ فیچر سیٹ کی وضاحت کرتا ہے۔ Chrome ذیل میں پلیٹ فارم کے فرق کے ساتھ وہی بنیادی براؤزر سیشن ورک بینچ استعمال کرتا ہے۔ فائر فاکس کنٹینرز کے حوالہ جات، براہ راست DOM عمل درآمد، منعقدہ مداخلت اور براؤزر VHOST کو بعد میں اس گائیڈ میں دوبارہ لکھنا صرف Firefox کے لیے ہیں۔</p>
+<table>
+<thead>
+<tr>
+<th>قابلیت</th>
+<th>Firefox</th>
+<th>Chrome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>براؤزر ایکٹو چیکس، دستی/خودکار فزنگ، معاون HTTP ٹیمپلیٹس، OAST، اسٹیک ثبوت اور رپورٹس</td>
+<td>دستاویزی شرائط کے ساتھ تعاون یافتہ</td>
+<td>دستاویزی شرائط کے ساتھ تعاون یافتہ</td>
+</tr>
+<tr>
+<td>براؤزر کوکیز/ہیڈر اوور رائیڈز اور رسپانس کوکی سنکرونائزیشن کے ساتھ مقامی HTTP پراکسی</td>
+<td>حمایت یافتہ</td>
+<td>حمایت یافتہ</td>
+</tr>
+<tr>
+<td>صفحہ سیاق و سباق AJAX انسٹرومینٹیشن اور لائیو DOM XSS عملدرآمد کی تصدیق</td>
+<td>جب منظور شدہ اور اجازت ہو تو اس کی تائید کی جاتی ہے۔</td>
+<td>اس ریلیز میں دستیاب نہیں ہے۔</td>
+</tr>
+<tr>
+<td>علیحدہ کنٹینر سیشن B، منعقدہ مداخلت اور براؤزر VHOST دوبارہ لکھنا</td>
+<td>کنفیگر اور اجازت ہونے پر تعاون یافتہ</td>
+<td>اس ریلیز میں دستیاب نہیں ہے۔</td>
+</tr>
+<tr>
+<td>ناظر کی تلاش</td>
+<td>حاصل شدہ ثبوت اور لائیو صفحہ کے سیاق و سباق کی حمایت کی۔</td>
+<td>پکڑے گئے ثبوت؛ لائیو بیک گراؤنڈ پیج کیپچر دستیاب نہیں ہے۔</td>
+</tr>
+<tr>
+<td>انجن لائف سائیکل</td>
+<td>مستقل پس منظر کا صفحہ</td>
+<td>نظر آنے والے ورک بینچ کو کھلا رکھیں؛ اسے بند کرنے سے نئی جوڑی والی مقامی درخواستیں رک جاتی ہیں۔</td>
+</tr>
+<tr>
+<td>نجی براؤزنگ</td>
+<td>منتخب سیاق و سباق، اجازت اور سیٹ اپ سے مشروط</td>
+<td>اس ریلیز میں غیر فعال ہے۔</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-the-chrome-edition">کروم ایڈیشن انسٹال کریں۔</h3>
+<ol>
+<li>ڈاؤن لوڈ کریں۔ <strong>کروم زپ</strong> اوپر/نیچے ریلیز لنکس سے اور اسے اپنے رکھے ہوئے فولڈر میں نکالیں۔</li>
+<li>کھولیں۔ <code dir="ltr" translate="no">chrome://extensions</code>، فعال کریں۔ <strong>ڈویلپر موڈ</strong>، منتخب کریں۔ <strong>پیک بغیر لوڈ کریں۔</strong>، پھر نکالا ہوا فولڈر منتخب کریں۔ <code dir="ltr" translate="no">manifest.json</code>.</li>
+<li>اپنی مجاز ایپلیکیشن کھولیں، سائن ان کریں، اس ٹیب سے لانگ شاٹ لانچ کریں اور کنیکٹ کریں۔</li>
+<li>اسکیننگ اور مقامی جوڑی کے دوران ورک بینچ ٹیب کو کھلا رکھیں۔ اسے بند کرنے سے انجن کا لائیو کام ختم ہو جاتا ہے۔ محفوظ شدہ شواہد باقی ہیں اور غیر یقینی درخواستوں کو دوبارہ چلائے بغیر بحال کیا جاتا ہے۔</li>
+<li>مقامی ٹول پراکسی اسٹارٹ اپ کے لیے، کروم کی طرف سے دکھائے گئے عین اصل کا استعمال کریں، جیسے <code dir="ltr" translate="no">chrome-extension://YOUR_INSTALLED_ID</code>فائر فاکس کے بجائے <code dir="ltr" translate="no">moz-extension://</code> اصل پراکسی اصلی ٹارگٹ یو آر ایل استعمال کرتی ہے۔ میزبان فائل کے اندراج کی ضرورت نہیں ہے۔</li>
+</ol>
+<h3 id="chrome-agent-api-mcp-registration">کروم ایجنٹ API / MCP رجسٹریشن</h3>
+<p>برقرار رکھے ہوئے مکمل سورس چیک آؤٹ سے، پن کردہ مددگار انحصار کو انسٹال کرنے کے بعد:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev
+node bridge/bin/longshot-bridge install --browser chrome \
+  --extension-id YOUR_INSTALLED_32_LETTER_ID \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+node bridge/bin/longshot-bridge mcp \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+</code></pre>
+<p>کرومیم کے استعمال کے لیے <code dir="ltr" translate="no">--browser chromium</code>. میں اصل ID استعمال کریں۔ <code dir="ltr" translate="no">chrome://extensions</code>; دوبارہ رجسٹر کریں اگر اسٹور ایڈیشن انسٹال کرنے سے ایک مختلف ID ملتی ہے۔ علیحدہ پورٹ/ڈیٹا ڈائرکٹری فائر فاکس ہوسٹ کے ساتھ تصادم سے بچتی ہے۔ یہ ایجنٹ API HTTP ٹول پراکسی (ڈیفالٹ پورٹس 8900/8901) سے الگ ہے۔ لینکس ٹیسٹ شدہ مقامی میزبان پلیٹ فارم ہے۔ macOS رجسٹریشن لاگو کی گئی ہے لیکن یہاں جانچ نہیں کی گئی ہے، اور کوئی ونڈوز مقامی میزبان انسٹالر فراہم نہیں کیا گیا ہے۔</p>
+<p>تفصیلی براؤزر برج کنفیگریشن ایکسٹینشن میں بھی دستیاب ہے۔ <strong>براؤزر برج → معلومات</strong> ڈائیلاگ لمبی شکل والی README اور نئے پلیٹ فارم/پرائیویسی دستاویزات انگریزی ہیں۔ بنڈل UI زبان کا انتخاب ہدف کے ثبوت، پے لوڈز یا قابل عمل مثالوں کا ترجمہ نہیں کرتا ہے۔</p>
+<h2 id="contents">مشمولات</h2>
+<ul>
+<li><a href="#firefox-and-chrome-choose-your-edition">فائر فاکس / کروم ایڈیشن اور سیٹ اپ</a></li>
+<li><a href="#vibe-coded-shipped-hacked">اشتہار اور فروخت پوائنٹس</a></li>
+</ul>
+<ol>
+<li><a href="#what-runs-where">کیا کہاں چلتا ہے</a></li>
+<li><a href="#install-or-update-in-firefox-nightly">فائر فاکس نائٹلی میں انسٹال یا اپ ڈیٹ کریں۔</a></li>
+<li><a href="#getting-started-and-target-sessions">شروع کرنا اور ٹارگٹ سیشنز</a></li>
+<li><a href="#light-discovery-and-a-focused-active-scan">روشنی کی دریافت اور ایک مرکوز فعال اسکین</a></li>
+<li><a href="#aggressive-options-and-run-approval">جارحانہ اختیارات اور رن کی منظوری</a></li>
+<li><a href="#overview-checks">جائزہ چیک</a></li>
+<li><a href="#scan-options-reference">اسکین اختیارات کا حوالہ</a></li>
+<li><a href="#budgets-selectors-and-request-settings">بجٹ، سلیکٹرز اور درخواست کی ترتیبات</a></li>
+<li><a href="#fuzzer-auto-fuzz-and-probe-library">فزر، آٹو فز اور پروب لائبریری</a></li>
+<li><a href="#your-payloads-and-imported-templates">آپ کے پے لوڈز اور امپورٹڈ ٹیمپلیٹس</a></li>
+<li><a href="#server-stack-and-smart-analyzer">سرور اسٹیک اور سمارٹ تجزیہ کار</a></li>
+<li><a href="#oast-setup-and-interpretation">OAST سیٹ اپ اور تشریح</a></li>
+<li><a href="#browser-bridge-native-tool-proxy">براؤزر برج: مقامی ٹول پراکسی</a></li>
+<li><a href="#native-bridge-configuration">مقامی پل کی ترتیب</a></li>
+<li><a href="#cookie-and-header-overrides-without-damaging-probes">کوکی اور ہیڈر تحقیقات کو نقصان پہنچائے بغیر اوور رائیڈ کرتا ہے۔</a></li>
+<li><a href="#external-tools-and-actual-zap-scanning">بیرونی ٹولز اور اصل ZAP اسکیننگ</a></li>
+<li><a href="#tor-and-onion-routing">ٹور اور پیاز کی روٹنگ</a></li>
+<li><a href="#agent-api-mcp-and-local-model-clients">ایجنٹ API، MCP اور مقامی ماڈل کلائنٹس</a></li>
+<li><a href="#optional-native-nuclei">اختیاری مقامی نیوکلی</a></li>
+<li><a href="#manual-tools-interception-and-api-inventory">دستی ٹولز، انٹرسیپشن اور API انوینٹری</a></li>
+<li><a href="#findings-and-the-cimematic-viewer">فائنڈنگز اور دی سیمیٹک ویور</a></li>
+<li><a href="#owasp-top-10-coverage">OWASP ٹاپ 10 کوریج</a></li>
+<li><a href="#recovery-assessment-files-and-reports">ریکوری، اسسمنٹ فائلز اور رپورٹس</a></li>
+<li><a href="#appearance-language-and-help">ظاہری شکل، زبان اور مدد</a></li>
+<li><a href="#troubleshooting">خرابی کا سراغ لگانا</a></li>
+<li><a href="#terms-and-source-references">شرائط اور ماخذ حوالہ جات</a></li>
+</ol>
+<h2 id="what-runs-where">کیا کہاں چلتا ہے</h2>
+<p>لفظ "پل" مختلف اجزاء سے مراد ہے۔ اپنے کام کے لیے ضروری اجزاء کا انتخاب کریں۔</p>
+<table>
+<thead>
+<tr>
+<th>جزو</th>
+<th>جہاں چلتا ہے۔</th>
+<th>یہ کیا کرتا ہے</th>
+<th>ڈیفالٹ کنکشن</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>بلٹ ان سکینر، ریپیٹر اور فزر</td>
+<td>فائر فاکس ایکسٹینشن اور باؤنڈ ٹارگٹ ٹیب</td>
+<td>براؤزر سیشن HTTP لانگ شاٹ کے جاوا اسکرپٹ کے قواعد کا استعمال کرتے ہوئے چیک کرتا ہے۔</td>
+<td>کسی بیرونی پراکسی عمل کی ضرورت نہیں ہے۔</td>
+</tr>
+<tr>
+<td><strong>براؤزر برج / مقامی ٹول پراکسی</strong></td>
+<td>مقامی نوڈ کوآرڈینیٹر کے علاوہ الگ سے نصب شدہ mitmproxy</td>
+<td>بیرونی ٹولز کی اپنی HTTP/HTTPS درخواستیں رکھتا ہے۔ اختیاری طور پر فائر فاکس سے کوکیز اور منتخب ہیڈر کو اوور رائیڈ کرتا ہے۔</td>
+<td>HTTP پراکسی <code dir="ltr" translate="no">127.0.0.1:8900</code>; توسیع کنٹرول <code dir="ltr" translate="no">127.0.0.1:8901</code></td>
+</tr>
+<tr>
+<td><strong>ایجنٹ API / مقامی پیغام رسانی کا پل</strong></td>
+<td>فائر فاکس کے ساتھ رجسٹرڈ لوکل نوڈ سروس</td>
+<td>REST/MCP/UI آٹومیشن، اسسمنٹ فائلز اور اختیاری مقامی نیوکلی ایگزیکیوشن</td>
+<td>API <code dir="ltr" translate="no">http://127.0.0.1:8765</code></td>
+</tr>
+<tr>
+<td>بیرونی ZAP، curl، ffuf، sqlmap یا Nuclei CLI</td>
+<td>آپ کے ذریعہ انسٹال کردہ الگ الگ عمل</td>
+<td>اختیاری طور پر مقامی ٹول پراکسی کے ذریعے اپنی ٹریفک اور نتائج پیدا کریں۔</td>
+<td>ہر ٹول کی آؤٹ گوئنگ HTTP پراکسی کو کنفیگر کریں۔</td>
+</tr>
+<tr>
+<td>الگ تھلگ مقامی نیوکلی لانگ شاٹ کے ذریعہ لانچ کیا گیا۔</td>
+<td>ایجنٹ API میزبان اور لینکس سینڈ باکس</td>
+<td>آفیشل نیوکلی انجن کے ساتھ اہل امپورٹڈ ٹیمپلیٹس چلاتا ہے۔</td>
+<td>الگ الگ الگ الگ پھانسی کا راستہ؛ کوئی خودکار فائر فاکس کوکی ایکسپورٹ نہیں ہے۔</td>
+</tr>
+</tbody>
+</table>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">Built-in scan / Repeater / Fuzzer
+        → Firefox networking + target tab's session → target
+
+External ZAP / curl / another HTTP tool
+        → authenticated native proxy :8900 → mitmproxy → target
+                        ↑
+             selected cookie/header values
+                        ↑
+              paired Firefox tab via :8901
+
+MCP or REST client → Agent API :8765 → Longshot commands / UI
+                                      └→ separately enabled native jobs
+</code></pre>
+<p><strong>شروع اسکین ZAP نہیں چلاتا۔</strong> ZAP کو براؤزر برج کے ساتھ جوڑنا Longshot کے JavaScript سکینر کو تبدیل نہیں کرتا ہے یا تمام ZAP الرٹس لانگ شاٹ میں درآمد نہیں کرتا ہے۔ اس ٹول میں ایک بیرونی ٹول کے نتائج کا جائزہ لیں؛ مقامی برج ٹریفک ڈسپلے میٹا ڈیٹا ہے، مکمل خطرات سے متعلق نتائج درآمد کرنے والا نہیں۔</p>
+<h3 id="changes-that-invalidate-old-instructions">تبدیلیاں جو پرانی ہدایات کو باطل کرتی ہیں۔</h3>
+<table>
+<thead>
+<tr>
+<th>پرانی ہدایت</th>
+<th>2.18.1 میں استعمال کریں۔</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>لیگیسی براؤزر بازیافت کو منتخب کریں۔</td>
+<td>براؤزر برج اور XPI سے ہٹا دیا گیا۔</td>
+</tr>
+<tr>
+<td>کو ٹولز بھیجیں۔ <code dir="ltr" translate="no">http://bridge.invalid</code></td>
+<td>اصل ہدف URL استعمال کریں۔</td>
+</tr>
+<tr>
+<td>شامل کریں۔ <code dir="ltr" translate="no">bridge.invalid</code> کو <code dir="ltr" translate="no">/etc/hosts</code></td>
+<td>داخلے کی ضرورت نہیں ہے؛ اس پل کے لیے ایک نہ شامل کریں۔</td>
+</tr>
+<tr>
+<td>پراکسی آن <code dir="ltr" translate="no">8899</code>; شروع <code dir="ltr" translate="no">node ./bridge/cli.js</code> پرانے اڈاپٹر میں</td>
+<td>ڈاؤن لوڈ کردہ مقامی اڈاپٹر استعمال کرتا ہے۔ <code dir="ltr" translate="no">node cli.js</code>; پہلے سے طے شدہ پراکسی/کنٹرول پورٹس ہیں۔ <code dir="ltr" translate="no">8900</code> / <code dir="ltr" translate="no">8901</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, <code dir="ltr" translate="no">X-Bridge-Host</code>, <code dir="ltr" translate="no">/v1/cookies</code>, جوڑا چیک اینڈ پوائنٹس</td>
+<td>پرانے اڈاپٹر انٹرفیس؛ انہیں مقامی ترتیب میں نہ رکھیں یا فرض کریں کہ وہ موجود ہیں۔</td>
+</tr>
+<tr>
+<td>برج بائٹ کے مطابق خام TCP یا اسمگلنگ ٹریفک بھیجتا ہے۔</td>
+<td>مقامی پراکسی HTTP کو پارس کرتی ہے۔ خراب فریمنگ اور بائٹ شفاف TCP غیر تعاون یافتہ ہیں۔</td>
+</tr>
+<tr>
+<td>براؤزر سیشن کا مطلب ہے کہ بیرونی ٹولز کو CA کی ضرورت نہیں ہے۔</td>
+<td>HTTPS مداخلت کو مقامی اڈاپٹر کے تیار کردہ CA پر بھروسہ کرنے کے لیے ٹول کی ضرورت ہے۔</td>
+</tr>
+<tr>
+<td>ٹور روٹنگ فائر فاکس سے وراثت میں ملی ہے۔</td>
+<td>مقامی اڈاپٹر روٹنگ الگ ہے؛ SOCKS بطور ڈیفالٹ آف ہے۔</td>
+</tr>
+<tr>
+<td>اڈاپٹر خارجی پروسیس گروپس کو معطل/دوبارہ شروع کرتا ہے یا ناکام کام کو خود بخود دوبارہ چلاتا ہے۔</td>
+<td>موقوف نئی پراکسی درخواستوں کو روکتا ہے۔ ٹول کو واضح طور پر معائنہ کریں اور دوبارہ کوشش کریں/دوبارہ شروع کریں۔</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-or-update-in-firefox-nightly">فائر فاکس نائٹلی میں انسٹال یا اپ ڈیٹ کریں۔</h2>
+<p>استعمال کریں۔ <strong>2.18.1 XPI</strong>پرانے اڈاپٹر زپ کا نام تبدیل نہیں کیا گیا ہے مماثل ماخذ آرکائیو کو ایک فولڈر میں نکالیں جسے آپ اپنی جگہ پر رکھتے ہیں، جیسا کہ دکھایا گیا ہے۔ <code dir="ltr" translate="no">/path/to/longshot</code> مثالوں میں. رجسٹرڈ مقامی میزبان کو دوبارہ رجسٹر کیے بغیر منتقل نہ کریں۔</p>
+<p>ریلیز فائلیں ہیں:</p>
+<ul>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1.xpi">فائر فاکس ایکس پی آئی</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-chrome.zip">کروم زپ</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-source.zip">مماثل ایکسٹینشن سورس زپ</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/tag/v2.18.1">ریلیز نوٹ اور چیکسم</a></li>
+<li>مقامی اڈاپٹر زپ: اسے براؤزر برج کے اندر ڈاؤن لوڈ کریں۔ یہ ہر ایکسٹینشن پیکج میں شامل ہے۔</li>
+</ul>
+<p>یہ ڈویلپمنٹ/سبمیشن بلڈز ہیں۔ فائر فاکس اسٹور پر دستخط اور دونوں بازاروں کی منظوری زیر التواء ہے۔ ریلیز فائر فاکس میں غیر دستخط شدہ XPI کے عام طور پر انسٹال ہونے کی توقع کرنے کے بجائے قابل اطلاق ڈویلپمنٹ لوڈنگ طریقہ کار پر عمل کریں۔</p>
+<p>مینی فیسٹ کو Firefox 140 یا جدید تر درکار ہے۔ ریلیز انٹیگریشن لینکس پر استعمال شدہ ڈیسک ٹاپ فائر فاکس 159 کو چیک کرتا ہے۔ اختیاری مددگاروں کے لیے پلیٹ فارم/رن ٹائم سپورٹ بنیادی ایکسٹینشن سپورٹ سے الگ ہے۔</p>
+<p>ایک عارضی غیر دستخط شدہ تنصیب کے لیے:</p>
+<ol>
+<li>کھولیں۔ <code dir="ltr" translate="no">about:debugging#/runtime/this-firefox</code>.</li>
+<li>منتخب کریں۔ <strong>عارضی اضافہ لوڈ کریں۔</strong> اور XPI کو منتخب کریں۔</li>
+<li>لانگ شاٹ کے ڈسپلے شدہ ورژن کی تصدیق کریں، پھر ہدف کو کھولیں اور اس کا ٹول بار بٹن لانچ کریں۔</li>
+<li>بغیر پیک شدہ ڈیولپمنٹ بلڈ کو تبدیل کرنے کے بعد ایکسٹینشن کو دوبارہ لوڈ کریں۔</li>
+</ol>
+<p>فائر فاکس کے دوبارہ شروع ہونے کے بعد ایک عارضی اضافہ غائب ہو جاتا ہے۔ اس کی توقع ہے؛ یہ توسیع کو حذف کرنے والا اڈاپٹر نہیں ہے۔ مسلسل عوامی تقسیم کے لیے Mozilla کے دستخط کی ضرورت ہے۔ نائٹلی میں غیر دستخط شدہ ترقی کے اضافی اختیارات ہیں جن کی وضاحت کی گئی ہے۔ <a href="https://www.extensionworkshop.com/documentation/publish/signing-and-distribution-overview/">موزیلا کی دستخطی گائیڈ</a>; عارضی لوڈنگ کے لیے ان ترتیبات کو تبدیل کرنے کی ضرورت نہیں ہے۔ دیکھیں <a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">عارضی تنصیب</a>.</p>
+<p>XPI مقامی اڈاپٹر کو ڈاؤن لوڈ کے قابل محفوظ شدہ دستاویزات کے طور پر بنڈل کرتا ہے۔ یہ صوابدیدی نوڈ/ازگر کا عمل شروع نہیں کر سکتا یا مقامی میزبان کو مکمل طور پر Firefox Add-ons کے ذریعے انسٹال نہیں کر سکتا۔ پراکسی شروع کرنا اور ایجنٹ API کو رجسٹر کرنا الگ الگ اختیاری مقامی سیٹ اپ کے اقدامات ہیں۔</p>
+<h2 id="getting-started-and-target-sessions">شروع کرنا اور ٹارگٹ سیشنز</h2>
+<h3 id="connect-the-right-tab">دائیں ٹیب کو جوڑیں۔</h3>
+<ol>
+<li>مثال کے طور پر فائر فاکس میں مجاز ہدف کھولیں۔ <code dir="ltr" translate="no">http://localhost:8080</code>.</li>
+<li>مطلوبہ ٹیسٹ اکاؤنٹ کے ساتھ سائن ان کریں اور کسی بھی براؤزر چیلنج کو مکمل کریں۔</li>
+<li>لانگ شاٹ لانچ کریں۔ <strong>اس ہدف والے ٹیب سے</strong>. ایپلیکیشن ٹیب کو کھلا رکھیں۔</li>
+<li>ہدف کا پتہ چیک کریں اور منتخب کریں۔ <strong>جڑیں۔</strong>.</li>
+<li>استعمال کریں۔ <strong>شروع کرنا</strong> آٹھ قدموں پر روشنی ڈالی گئی واک تھرو کے ہیڈر میں۔ اسے دوبارہ چلایا جا سکتا ہے؛ یہ اسکین شروع نہیں کرتا اور نہ ہی ترتیبات کو تبدیل کرتا ہے۔</li>
+<li>نمائندہ ایپلیکیشن کے صفحات کو براؤز کریں تاکہ لانگ شاٹ مفید راستوں اور ان پٹ کا مشاہدہ کر سکے۔</li>
+</ol>
+<p>ہدف کی اصل اسکیم، میزبان نام اور بندرگاہ پر مشتمل ہوتی ہے۔ <code dir="ltr" translate="no">http://localhost:8080</code>, <code dir="ltr" translate="no">http://127.0.0.1:8080</code> اور <code dir="ltr" translate="no">https://localhost:8080</code> مختلف اصل ہیں، چاہے وہ بالآخر ایک ہی سروس تک پہنچ جائیں۔ جڑیں اور درست پتہ استعمال کریں جو تشخیص کے لیے ہے۔ میزبان نام کے پیچھے مشاہدہ کیا گیا IP پتہ خود بخود ایک اضافی مجاز ہدف نہیں بن جاتا ہے۔</p>
+<h3 id="configure-session-validation">سیشن کی توثیق کو ترتیب دیں۔</h3>
+<p>کھولیں۔ <strong>سیٹنگز ← سکینر سیٹنگز</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>میدان</th>
+<th>مطلب</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>سیشن کی توثیق کا راستہ</td>
+<td>دائرہ کار کا ایک صفحہ/API پاتھ جس کے لیے تصدیق کی ضرورت ہے۔</td>
+</tr>
+<tr>
+<td>متوقع توثیق شدہ متن</td>
+<td>ایک مستحکم مارکر موجود ہوتا ہے جب منتخب اکاؤنٹ سائن ان ہوتا ہے اور لاگ آؤٹ کے بعد غیر حاضر ہوتا ہے۔</td>
+</tr>
+<tr>
+<td>کم از کم تصدیق شدہ جوابی بائٹس</td>
+<td>اختیاری اضافی کم سائز کی حد؛ صفر اسے غیر فعال کرتا ہے۔</td>
+</tr>
+<tr>
+<td>لاگ ان کا راستہ</td>
+<td>درخواست کا لاگ ان پاتھ، جب مسترد ہونے کا پتہ لگانے کی ضرورت ہو۔</td>
+</tr>
+<tr>
+<td>اس بہت سی درخواستوں کے بعد دوبارہ تصدیق کریں۔</td>
+<td>وقتا فوقتا آزاد سیشن چیک؛ پہلے سے طے شدہ 20</td>
+</tr>
+<tr>
+<td>اسکینز سے پہلے کامیاب سیشن کی توثیق کی ضرورت ہے۔</td>
+<td>پاس کرنے کے لیے کنفیگر شدہ تصدیق کنندہ کی ضرورت ہے؛ پہلے سے طے شدہ</td>
+</tr>
+</tbody>
+</table>
+<p>ترتیبات کو محفوظ کریں اور استعمال کریں۔ <strong>جائزہ → سیشن چیک کریں۔</strong>. 200 واپس کرنے والا عوامی صفحہ تصدیق کا ثبوت نہیں ہے۔ 200 کے بعد لاگ ان صفحہ پر ری ڈائریکٹ اب بھی ایک غلط سیشن کی نمائندگی کر سکتا ہے۔ ایک محفوظ اختتامی نقطہ اور معنی خیز مارکر کا انتخاب کریں۔</p>
+<p>بلٹ ان سکینر باؤنڈ ٹیب کی قابل اطلاق براؤزر کوکیز کا استعمال کرتا ہے، بشمول HttpOnly کوکیز۔ فائر فاکس یو آر ایل، پاتھ، سیکورٹی اوصاف اور کوکی اسٹور کے ذریعے کوکیز کا انتخاب کرتا ہے۔ سکینر کے محفوظ کردہ کوکی/آتھورائزیشن/میزبان فیلڈز عام قابل تدوین فز ان پٹس نہیں ہیں۔</p>
+<h3 id="profiles-and-accounts">پروفائلز اور اکاؤنٹس</h3>
+<p><strong>اہداف</strong> تاریخ، نتائج، درخواست جرنل، دریافت شدہ اختتامی نکات، جائزے اور اسکین کنفیگریشن کو الگ کرتا ہے۔ پروفائل پر واپس آنے سے تشخیصی ڈیٹا بحال ہوتا ہے، نہ کہ پرانے تصدیق شدہ براؤزر سیشن۔ واضح پروفائلز اصل کا اشتراک کر سکتے ہیں۔</p>
+<p>دو عام فائر فاکس ٹیبز عام طور پر کوکیز کا اشتراک کرتے ہیں۔ حقیقی طور پر مختلف ٹیسٹ شناختوں کے لیے آزاد کنٹینرز یا علیحدہ نجی کوکی اسٹور استعمال کریں۔ پروفائلز کو تبدیل کرنے سے اکاؤنٹ کا دوسرا سیشن نہیں بنتا ہے۔ سیشن B کے مقابلے کے لیے ایک ہی ہدف کی اصل اور ایک الگ اسٹور کی ضرورت ہے۔</p>
+<h2 id="light-discovery-and-a-focused-active-scan">روشنی کی دریافت اور ایک مرکوز فعال اسکین</h2>
+<h3 id="first-pass-discovery-and-passive-review">پہلا پاس: دریافت اور غیر فعال جائزہ</h3>
+<ol>
+<li>سیٹ <strong>فی سیکنڈ کی درخواستیں</strong> 0.5–1 تک، کرال گہرائی 1 تک اور زیادہ سے زیادہ دریافت شدہ URLs 25–50 تک۔</li>
+<li>چھوڑو <strong>زیادہ سے زیادہ نتائج</strong>, <strong>جارحانہ</strong>، CVE آٹو فیز، OAST اور مقامی عملدرآمد بند۔</li>
+<li>سیٹ <strong>آٹو فز → آف</strong>. صفحہ کلکس/اسکرول اور لائیو DOM/ٹائمنگ/کال بیک ٹیسٹ آف چھوڑ دیں۔</li>
+<li>غیر فعال جائزہ گروپس کو منتخب کریں: ہیڈر، کوکیز، انکشاف، فارم، DOM سورس/سنک ریویو اور CORS۔</li>
+<li>منتخب کریں۔ <strong>صرف مکڑی</strong> اور شروع کریں.</li>
+<li>معائنہ کریں۔ <strong>سائٹ کا نقشہ</strong>, <strong>HTTP کی تاریخ</strong>, <strong>API ایکسپلورر</strong>, <strong>سرور اسٹیک</strong> اور <strong>نتائج</strong>.</li>
+</ol>
+<p>اسپائیڈر فارم رائٹ جمع کرائے بغیر دریافت کردہ دائرہ کار کے لنکس/فارمز کی پیروی کرتا ہے۔ یہ ہر پوشیدہ اختتامی نقطہ کو نہیں جانتا ہے۔ GET درخواستوں کے اب بھی درخواست کے مخصوص ضمنی اثرات ہو سکتے ہیں۔ "پڑھنے کا طریقہ" ضمنی اثرات سے پاک ہدف قائم نہیں کرتا ہے۔</p>
+<h3 id="second-pass-a-bounded-active-assessment">دوسرا پاس: ایک پابند فعال تشخیص</h3>
+<ol>
+<li>رکھو <strong>آٹو فز → آف</strong> بلٹ ان فعال قواعد کا الگ سے جائزہ لینے کے لیے آسان بنانے کے لیے۔</li>
+<li>متعلقہ جائزہ فعال چیکس کو منتخب کریں، جیسے کہ SQL انجیکشن اور Reflected XSS۔</li>
+<li>چھوٹی حدود استعمال کریں، مثال کے طور پر 150 فعال درخواستیں، 10 فعال یو آر ایل اور پانچ فعال پیرامیٹرز۔</li>
+<li>منتخب کریں۔ <strong>صرف فعال چیک</strong> موجودہ صفحہ اور محفوظ کردہ انوینٹری کو دوبارہ استعمال کرنے کے لیے، یا <strong>مکڑی + فعال چیک</strong> سب سے پہلے دریافت کرنے کے لئے.</li>
+<li>شروع کریں، کسی بھی مطلوبہ منظوری کا جائزہ لیں، اور سرگرمی اور درخواست کی گنتی دیکھیں۔</li>
+<li>ہر تلاش کی درخواست، بیس لائن، بار بار تحقیقات/کنٹرول ثبوت، فیصلے اور اعتماد کا معائنہ کریں۔</li>
+<li>کھولیں۔ <strong>WSTG چیک کرتا ہے → اصل ان پٹ کوریج</strong> مکمل، جزوی اور چھوڑا ہوا کام دیکھنے کے لیے۔</li>
+</ol>
+<p><strong>آٹو فز آف فعال چیک کو بند نہیں کرتا ہے۔</strong> SQLi/XSS/SSTI اور دیگر وقف شدہ قواعد اپنی اپنی تحقیقات تیار کرتے ہیں۔ اس کے برعکس، ایک فعال اصول کو ٹک کرنے سے کوئی گمشدہ ان پٹ فراہم نہیں ہوتا ہے یا اسپائیڈر اونلی رن کو عام ایکٹیو فیز پر عمل درآمد نہیں ہوتا ہے۔</p>
+<h2 id="aggressive-options-and-run-approval">جارحانہ اختیارات اور رن کی منظوری</h2>
+<p>جارحانہ واضح طور پر منظور شدہ طریقوں/صلاحیتوں کو قابل بناتا ہے۔ یہ ہر چیک کو چلانے یا مضبوط ثبوت کی ضمانت نہیں دیتا ہے۔</p>
+<ol>
+<li>ان پٹ دریافت کریں اور پہلے توثیق کریں۔</li>
+<li>صرف مطلوبہ جدید اختیارات کو فعال کریں اور اجازت لکھیں/اپ لوڈ کریں/حذف کریں۔</li>
+<li>سکین کے اختیارات کو محفوظ کریں۔</li>
+<li>منتخب کریں۔ <strong>اگلے جارحانہ رن کا جائزہ لیں / منظور کریں۔</strong>.</li>
+<li>ہدف، خصوصیات، طریقہ کی اجازت اور بجٹ کا جائزہ لیں۔</li>
+<li>کلک کریں۔ <strong>اس اگلی رن کو منظور کریں۔</strong>. یہ صارف کا عمل فائر فاکس کی کسی بھی گمشدہ مشترکہ اجازتوں کی درخواست کرتا ہے اور اگلی رن گرانٹ تخلیق کرتا ہے۔</li>
+<li>نظرثانی شدہ ترتیب کے ساتھ رن شروع کریں۔</li>
+</ol>
+<p>گرانٹ واحد استعمال ہے، 30 منٹ کے بعد ختم ہو جاتی ہے اور متعلقہ ہدف/کنفیگریشن/درخواست کی ترتیب کی تبدیلیوں کے ذریعے باطل ہو جاتی ہے۔ ایک نئے اسکین کے لیے عام طور پر ایک نئی گرانٹ کی ضرورت ہوتی ہے۔ نامکمل اختیارات کو محفوظ کرنے کی اجازت ہے۔ شروع کرنا یا منظور کرنا ضروری فیلڈز کی توثیق کرتا ہے۔</p>
+<p>فائر فاکس کی ضرورت ہے۔ <code dir="ltr" translate="no">permissions.request()</code> ایک حقیقی صارف کی کارروائی سے براہ راست شروع کرنا۔ ترتیب کو تبدیل کرنا پس منظر میں صوابدیدی اجازت دینے کی کوئی وجہ نہیں ہے۔ اگر اجازت سے انکار کیا جاتا ہے تو، عین مطابق خصوصیت کا جائزہ لیں، منظوری کے بٹن سے دوبارہ کوشش کریں یا اس خصوصیت کو غیر فعال کریں۔ عمومی OS/براؤزر کی اجازت کے اشارے ایکسٹینشن DOM آٹومیشن سے باہر رہتے ہیں۔</p>
+<h3 id="maximum-findings-is-a-broad-preset">زیادہ سے زیادہ نتائج ایک وسیع پیش سیٹ ہے۔</h3>
+<p>یہ پیش سیٹ بہت سے مراحل کو چالو کرتا ہے، بشمول ایڈوانس تصدیق، OAST اور سیشن B کا موازنہ، اور کئی بجٹ کو بڑھاتا ہے۔ یہ "سب کچھ تلاش کریں" سوئچ نہیں ہے۔ یہ OAST اکاؤنٹ نہیں بناتا، فراہم کنندہ URL/کال بیک ڈومین کو بھرتا ہے، ایک درست سیشن B منتخب کرتا ہے، نیوکلی انسٹال کرتا ہے یا گمشدہ کرداروں کی تصدیق نہیں کرتا ہے۔</p>
+<p>اگر منظوری خالی OAST فیلڈز یا سیشن B غائب ہونے کی اطلاع دیتی ہے، تو انہیں کنفیگر کریں یا ان اختیارات کو آف کریں۔ یہ اس سے الگ ہے کہ آیا ہدف URL درست ہے۔</p>
+<h3 id="two-command-injection-controls">دو کمانڈ انجیکشن کنٹرول</h3>
+<p><strong>جائزہ → OS کمانڈ اشارے</strong> براہ راست یونکس پر مبنی کمانڈ آؤٹ پٹ تحقیقات کو قابل بناتا ہے۔ یہ بطور ڈیفالٹ آف ہے۔ <strong>اسکین کے اختیارات ← کمانڈ پروبس</strong> OAST سننے پر اضافی بلائنڈ کال بیک روٹ کو کنٹرول کرتا ہے۔ ایک چیک باکس دوسرے راستے کو خود بخود کنفیگر نہیں کرتا ہے۔ اصل رن کے لیے اجازت کی ضروریات کا جائزہ لیں۔</p>
+<h2 id="overview-checks">جائزہ چیک</h2>
+<p>پہلے سے طے شدہ فعال فہرست میں چھ غیر فعال گروپس اور SQLi، NoSQLi، سرور کوڈ انجیکشن، عکاس XSS، SSTI، ٹراورسل، ری ڈائریکٹ، CRLF اور طریقے شامل ہیں۔ <strong>OS کمانڈ اشارے</strong> اور <strong>ڈپلیکیٹ استفسار پیرامیٹر ہینڈلنگ</strong> شروع کرو</p>
+<table>
+<thead>
+<tr>
+<th>چیک کریں۔</th>
+<th>یہ کیا کرتا ہے</th>
+<th>تشریح</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>سیکیورٹی ہیڈر اور HTTPS</td>
+<td>CSP، فریمنگ پالیسی، nosniff، HSTS اور منتخب مخلوط مواد کے حوالہ جات کا جائزہ لیتا ہے</td>
+<td>دفاع / ترتیب کے اشارے، خودکار استحصال ثبوت نہیں۔</td>
+</tr>
+<tr>
+<td>کوکی کی خصوصیات</td>
+<td>کوکی اقدار کو نتائج کے طور پر برقرار رکھے بغیر Secure، HttpOnly اور SameSite کا جائزہ لیں</td>
+<td>کوکی کے مقصد اور براؤزر کے رویے کا جائزہ لینے کی ضرورت ہے۔</td>
+</tr>
+<tr>
+<td>غلطیاں اور حساس مواد</td>
+<td>منتخب نشانات، ترتیب/ذریعہ مواد اور ڈائریکٹری کی فہرستوں کو پہچانتا ہے۔</td>
+<td>مشاہدہ شدہ مواد اور دستخطوں تک محدود</td>
+</tr>
+<tr>
+<td>فارم اور CSRF کا جائزہ</td>
+<td>پاس ورڈ ٹرانسپورٹ/GET فارمز اور تسلیم شدہ ٹوکن فیلڈز کا جائزہ لیتا ہے۔</td>
+<td>غائب دکھائی دینے والا ٹوکن CSRF کو ثابت نہیں کرتا ہے۔</td>
+</tr>
+<tr>
+<td>DOM XSS سورس/سنک کا جائزہ</td>
+<td>ان لائن کوڈ میں قریبی URL کے ذرائع اور خطرناک ڈوبوں کو تلاش کرتا ہے۔</td>
+<td>تحقیقی عمل درآمد یا مکمل ڈیٹا فلو پروف نہیں۔</td>
+</tr>
+<tr>
+<td>CORS پالیسی کا جائزہ</td>
+<td>مشاہدہ کرنے کے قابل اجازت-اصل/ اسناد کے مجموعوں کا جائزہ</td>
+<td>صوابدیدی اصلیت کی عکاسی یا حملہ آور کی اصل پڑھنے کی جانچ نہیں کرتا ہے۔</td>
+</tr>
+<tr>
+<td>ایس کیو ایل انجیکشن</td>
+<td>نئے ڈیٹا بیس کی غلطی کے دستخطوں اور کنٹرولز کے خلاف درست/غلط موازنہ کو دہراتا ہے۔</td>
+<td>ثبوت ٹیسٹ شدہ آدانوں اور نحوی خاندانوں کے پابند ہیں۔</td>
+</tr>
+<tr>
+<td>NoSQL انجیکشن</td>
+<td>MongoDB/BSON غلطی کے دستخطوں کو دہراتا ہے۔</td>
+<td>کوئی جنرل آپریٹر-انجیکشن یا تصدیق بائی پاس تصدیق کنندہ نہیں ہے۔</td>
+</tr>
+<tr>
+<td>سرور سائیڈ کوڈ انجیکشن</td>
+<td>کمپیوٹیڈ جاوا اسکرپٹ/پی ایچ پی کینریز</td>
+<td>چھوٹی زبان / سیاق و سباق سیٹ</td>
+</tr>
+<tr>
+<td>عکاسی شدہ XSS</td>
+<td>ریفلیکشن گیٹ کے علاوہ قابل عمل نظر آنے والے ایچ ٹی ایم ایل سیاق و سباق کی بار بار غیر فعال تجزیہ</td>
+<td>جب تک حقیقی عمل درآمد کی تصدیق نہ ہو جائے امیدوار</td>
+</tr>
+<tr>
+<td>سرور ٹیمپلیٹ انجیکشن</td>
+<td>منفرد ریاضی کے مارکر اور دوبارہ/کنٹرول چیک</td>
+<td>ہر ٹیمپلیٹ انجن یا اندھے سیاق و سباق کا احاطہ نہیں کرتا ہے۔</td>
+</tr>
+<tr>
+<td>ٹراورسل / فائل شامل کرنا</td>
+<td>بار بار معلوم فائل کے مواد کے دستخط</td>
+<td>مکمل انکوڈنگز، فائلز یا پلیٹ فارمز نہیں۔</td>
+</tr>
+<tr>
+<td>ری ڈائریکٹ کھولیں۔</td>
+<td>تیار کردہ .غلط مقام کینری</td>
+<td>بیرونی ری ڈائریکٹ منزل کی پیروی نہیں کی جاتی ہے۔</td>
+</tr>
+<tr>
+<td>رسپانس ہیڈر انجیکشن</td>
+<td>بار بار تیار کردہ ہیڈر مارکر</td>
+<td>براؤزر URL/ہیڈر ہینڈلنگ ٹیسٹ کو محدود کرتا ہے۔</td>
+</tr>
+<tr>
+<td>مشتہر HTTP طریقوں</td>
+<td>اختیارات اور انوینٹری کی اجازت دیں۔</td>
+<td>اشتہار لکھنے کی اجازت نہیں۔</td>
+</tr>
+<tr>
+<td>ڈپلیکیٹ استفسار پیرامیٹر ہینڈلنگ</td>
+<td>دہرائے گئے پہلے/آخری آرڈر کے موازنہ</td>
+<td>معلوماتی تجزیہ فرق، ثابت شدہ حفاظتی اثر نہیں۔</td>
+</tr>
+<tr>
+<td>OS کمانڈ اشارے</td>
+<td>اختیاری بار بار آئی ڈی آؤٹ پٹ اشارے</td>
+<td>یونکس پر مبنی، سیاق و سباق پر منحصر اور بطور ڈیفالٹ آف</td>
+</tr>
+</tbody>
+</table>
+<p>تعاون یافتہ ایکٹو انسرشن پوائنٹس میں استفسار کی قدریں، نیسٹڈ JSON/ارے، فارم/ملٹی پارٹ فیلڈز، منتخب کردہ قابل تدوین امپورٹڈ ہیڈر اور نامزد API پاتھ ان پٹس شامل ہیں۔ لاشوں کو جانا اور اجازت ہونی چاہیے۔ منظم توثیق/فریمنگ فیلڈز، خارج شدہ اقدار اور غیر دستیاب درخواست کی باڈیز خاموشی سے ایجاد نہیں کی جاتی ہیں۔</p>
+<p>پوشیدہ شکل کی اقدار کو محفوظ اور تازہ کیا جاتا ہے جہاں فارم لکھنے سے پہلے تعاون کیا جاتا ہے۔ غیر دستیاب ٹوکن کوریج کو چھوڑ سکتے ہیں۔ یہ طریقہ کار یہ ثابت نہیں کرتا ہے کہ فارم کا CSRF تحفظ کام کرتا ہے۔</p>
+<h2 id="scan-options-reference">اسکین اختیارات کا حوالہ</h2>
+<p>جب تک کہ دوسری صورت میں نوٹ نہ کیا جائے، یہ اختیاری مراحل شروع ہوتے ہیں۔ <strong>انکولی درخواست کی شرح</strong> پہلے سے طے شدہ پر؛ ڈیفالٹ آٹو فز موڈ آف ہے۔ موجودہ پروفائل سے بحال کی گئی ترتیبات تازہ ڈیفالٹس سے مختلف ہو سکتی ہیں۔</p>
+<table>
+<thead>
+<tr>
+<th>آپشن</th>
+<th>کیا تبدیلیاں / شرط</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CVE آٹو فیز</td>
+<td>اہل درآمد شدہ CVE ٹیمپلیٹس کو CVE/عالمی بجٹ میں ان کی تصنیف کردہ درخواستوں/مماثلتوں کا استعمال کرتے ہوئے عمل میں لاتا ہے</td>
+</tr>
+<tr>
+<td>جارحانہ (مجاز)</td>
+<td>لکھنے کے طریقوں اور اعلی درجے کی صلاحیتوں کے لیے اگلی بار کی منظوری کو قابل بناتا ہے۔</td>
+</tr>
+<tr>
+<td>ملٹی پارٹ فائل اپ لوڈ کی اجازت دیں۔</td>
+<td>فائل بیئرنگ ملٹی پارٹ درخواستوں کو الگ سے اجازت دیتا ہے۔ اپ لوڈ ٹیسٹ تیار نہیں کرتا ہے۔</td>
+</tr>
+<tr>
+<td>DELETE کی اجازت دیں (علیحدہ رضامندی)</td>
+<td>الگ سے DELETE کی اجازت دیتا ہے؛ حذف کرنے کی درخواست خود بخود جاری نہیں کرتا ہے۔</td>
+</tr>
+<tr>
+<td>AJAX / DOM آلات</td>
+<td>باؤنڈڈ دریافت کے دوران متحرک ایپلیکیشن اینڈ پوائنٹس اور معاون صفحہ کی سرگرمی کا مشاہدہ کرتا ہے۔</td>
+</tr>
+<tr>
+<td>آپٹ ان پیج کلکس / سکرول</td>
+<td>پابند تعاملات جوڑتا ہے؛ AJAX دریافت اور جارحانہ منظوری کی ضرورت ہے؛ ایپلیکیشن ہینڈلرز ڈیٹا کو تبدیل کر سکتے ہیں۔</td>
+</tr>
+<tr>
+<td>براہ راست DOM XSS تصدیق (نئے ٹیبز)</td>
+<td>ڈسپوزایبل سیم سٹور ٹیبز میں باؤنڈڈ استفسار/فریگمنٹ-استفسار URL ان پٹ کی جانچ کرتا ہے۔ دو تازہ مقامی کینریز کے علاوہ ایک منفی کنٹرول؛ CSP نافذ رہتا ہے۔</td>
+</tr>
+<tr>
+<td>بار بار ٹائمنگ پروبس</td>
+<td>بار بار SQL تاخیر کا موازنہ اور ایک JSON MongoDB ٹائمنگ امیدوار، پہلے انسرشن پوائنٹ سے شروع ہوتا ہے۔ جارحانہ کی ضرورت ہے</td>
+</tr>
+<tr>
+<td>ایس ایس آر ایف کینریز / کال بیکس</td>
+<td>داخلی پتے کے جوابی اختلافات کے علاوہ ترتیب دینے پر عین OAST ارتباط؛ جارحانہ کی ضرورت ہے</td>
+</tr>
+<tr>
+<td>XML بیرونی ہستی کی تحقیقات</td>
+<td>معلوم XML درخواست باڈیز کے لیے کال بیک کینری؛ لاگو ٹیسٹ کے لیے منظور شدہ OAST سیٹ اپ کی ضرورت ہے۔</td>
+</tr>
+<tr>
+<td>Log4Shell OAST تحقیقات</td>
+<td>ایک اہل ان پٹ اور X-Api-ورژن میں کال بیک کینری؛ تعامل کوڈ پر عمل درآمد کا ثبوت نہیں ہے۔</td>
+</tr>
+<tr>
+<td>کمانڈ تحقیقات</td>
+<td>جب OAST سن رہا ہو تو بلائنڈ کمانڈ کال بیک روٹ</td>
+</tr>
+<tr>
+<td>درآمد شدہ ڈیسیریلائزیشن ٹیمپلیٹس</td>
+<td>اہل درآمد شدہ ڈیسیریلائزیشن ٹیگ شدہ ٹیمپلیٹس پر مشتمل ہے۔ کوئی یونیورسل گیجٹ جنریٹر نہیں ہے۔</td>
+</tr>
+<tr>
+<td>موافقت پذیر WAF تغیرات (زیادہ سے زیادہ 3)</td>
+<td>اہل تحقیقات کی پابند متبادل نمائندگی؛ بائی پاس کی ضمانت کبھی نہیں</td>
+</tr>
+<tr>
+<td>سیشن B کے ساتھ موازنہ کریں۔</td>
+<td>دس اہل پڑھنے کی درخواستوں کا موازنہ دوسرے ایک ہی اصل کوکی اسٹور سے کرتا ہے۔ ملکیت/ کردار دستی سیاق و سباق ہی رہتے ہیں۔</td>
+</tr>
+<tr>
+<td>ویب ساکٹ پروبس دریافت ہوئے۔</td>
+<td>پابند چینل ایکسچینج؛ کوئی ایجاد کردہ ایپلیکیشن مخصوص اٹیک پروٹوکول نہیں۔</td>
+</tr>
+<tr>
+<td>SSE تحقیقات دریافت کیں۔</td>
+<td>باؤنڈڈ ایونٹ سورس سننا؛ عام سلسلہ کی اجازت دینے والا نہیں ہے۔</td>
+</tr>
+<tr>
+<td>آف لائن کلائنٹ لائبریری SCA</td>
+<td>مشاہدہ شدہ کلائنٹ کے اثاثوں کے لیے چھوٹا بنڈل معلوم ورژن/رینج کیٹلاگ</td>
+</tr>
+<tr>
+<td>پیرامیٹر / ہیڈر کان کنی</td>
+<td>ہدف/API ثبوت سے سیکھے گئے ناموں کا استعمال کرتا ہے۔ ایک مکمل پوشیدہ ان پٹ ڈکشنری نہیں ہے۔</td>
+</tr>
+<tr>
+<td>مقامی مکمل نیوکلی پھانسی</td>
+<td>ایجنٹ API کے ذریعے آفیشل انجن ٹیمپلیٹ جابز کو فعال کرتا ہے، لینکس کی تنہائی اور رضامندی سے مشروط</td>
+</tr>
+<tr>
+<td>سینڈ باکسڈ مقامی کوڈ / جاوا اسکرپٹ</td>
+<td>جائزہ شدہ/ دستخط شدہ مقامی ٹیمپلیٹس کے لیے اضافی صلاحیت</td>
+</tr>
+<tr>
+<td>الگ تھلگ ہیڈ لیس براؤزر</td>
+<td>اضافی مقامی سر کے بغیر صلاحیت؛ فائر فاکس کے لاگ ان سے الگ تھلگ</td>
+</tr>
+<tr>
+<td>مقامی اجازت یافتہ فائل پڑھتی ہے۔</td>
+<td>منتخب کردہ اجازت کی فہرست کے اندر اضافی صرف پڑھنے کی مقامی فائل کی اہلیت</td>
+</tr>
+<tr>
+<td>OAST (بیرونی فراہم کنندہ)</td>
+<td>مخصوص فراہم کنندہ کو رجسٹر/پولز کرتا ہے؛ متعلقہ خطرے کی تحقیقات کو الگ سے منتخب کریں۔</td>
+</tr>
+<tr>
+<td>کمیونٹی ایس کیو ایل تحقیقات کی فہرستیں۔</td>
+<td>معاون فلٹر شدہ SecLists/FuzzDB اقدار کو متعلقہ SQL چیکس/fuzzers میں شامل کرتا ہے</td>
+</tr>
+<tr>
+<td>انکولی درخواست کی شرح</td>
+<td>قدامت پسند تھروٹلنگ/چیلنج ہینڈلنگ؛ خود بخود شرح نہیں بڑھاتا ہے۔</td>
+</tr>
+<tr>
+<td>اپ لوڈ کردہ پے لوڈ پیک کو فعال کر دیا گیا۔</td>
+<td>منتخب کردہ ہدف کے لیے مخصوص اقدار شامل کرتا ہے۔ جارحانہ پلس اگلی رن کی منظوری درکار ہے۔</td>
+</tr>
+</tbody>
+</table>
+<p>براہ راست DOM تصدیق عام داغدار ٹریکنگ نہیں ہے۔ ذخیرہ شدہ XSS، پوسٹ میسج/لوکل-سٹوریج کے ذرائع، غیر URL ان پٹ اور ملٹی سٹیپ رائٹ/ریڈ ورک فلوز کو اضافی جانچ کی ضرورت ہوتی ہے۔ ایک مسدود انحصار یا ٹائم آؤٹ نامکمل کوریج ہے، پاس نہیں۔</p>
+<h2 id="budgets-selectors-and-request-settings">بجٹ، سلیکٹرز اور درخواست کی ترتیبات</h2>
+<p>ہیں <strong>حدود کے دو الگ الگ سیٹ</strong>: لانگ شاٹ کی بلٹ ان اسکین کی حدود اور مقامی ٹول پراکسی کی حدود۔ :8900 کے ذریعے ZAP کی درخواست بلٹ ان جاوا اسکرپٹ اسکین بجٹ کو استعمال نہیں کرتی ہے، اور لانگ شاٹ کے چیک باکسز ZAP کی اسکین پالیسی کا انتخاب نہیں کرتے ہیں۔</p>
+<h3 id="operation-and-phase-selectors">آپریشن اور فیز سلیکٹرز</h3>
+<table>
+<thead>
+<tr>
+<th>سلیکٹر</th>
+<th>انتخاب اور سلوک</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>آپریشن</td>
+<td>صرف مکڑی؛ مکڑی + فعال چیک؛ صرف فعال چیک</td>
+</tr>
+<tr>
+<td>آٹو فز</td>
+<td>بند; فعال اور CVE کے بعد؛ اسکین کے دوران۔ یہ ایک اضافی مرحلے کو کنٹرول کرتا ہے، وقف شدہ فعال قواعد نہیں۔</td>
+</tr>
+<tr>
+<td>حملہ ماڈل</td>
+<td>سپنر بیٹرنگ رام؛ پچ فورک معاون ساختہ خودکار/باڈی میوٹیشن پلاننگ کے لیے کلسٹر بم</td>
+</tr>
+<tr>
+<td>سیشن بی</td>
+<td>حقیقی طور پر آزاد کوکی اسٹور کے ساتھ ایک ہی اصل کا ایک اور ٹیب</td>
+</tr>
+<tr>
+<td>باڈی فزر کا طریقہ</td>
+<td>POST، GET، PUT یا PATCH، درخواست کی پالیسی اور منظوری سے مشروط</td>
+</tr>
+<tr>
+<td>باڈی فارمیٹ</td>
+<td>JSON، فارم یو آر ایل انکوڈ شدہ، ملٹی پارٹ یا خام/XML؛ ہر فارمیٹ عام اسکیلر اندراج پوائنٹس فراہم نہیں کرتا ہے۔</td>
+</tr>
+<tr>
+<td>باڈی پے لوڈ کلاس</td>
+<td>SQLi، NoSQLi، کوڈ، XSS، SSTI، ٹراورسل، CRLF، ری ڈائریکٹ، کمانڈ یا کسٹم</td>
+</tr>
+</tbody>
+</table>
+<p>اس نفاذ میں اٹیک ماڈل:</p>
+<ul>
+<li><strong>سپنر:</strong> ایک وقت میں ایک ان پٹ کو تبدیل کریں۔</li>
+<li><strong>بیٹرنگ رام:</strong> تمام منتخب ان پٹ میں ایک ہی پے لوڈ ڈالیں۔</li>
+<li><strong>پچ فورک:</strong> ان پٹس میں مشترکہ پے لوڈ لسٹ سے ایک لڑکھڑا ہوا/گھومنے والی ترتیب استعمال کریں۔ یہ برپ کے آزاد فہرست کے طرز عمل کا دعویٰ نہیں ہے۔</li>
+<li><strong>کلسٹر بم:</strong> تمام آدانوں میں پابند امتزاج؛ ٹوپی لامحدود کارٹیشین توسیع کو روکتی ہے۔</li>
+</ul>
+<h3 id="scan-option-limits">اسکین آپشن کی حدود</h3>
+<table>
+<thead>
+<tr>
+<th>میدان</th>
+<th style="text-align: right;">تازہ طے شدہ</th>
+<th style="text-align: right;">قبول شدہ رینج</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>عالمی درخواست بجٹ</td>
+<td style="text-align: right;">2,000</td>
+<td style="text-align: right;">1–10,000</td>
+</tr>
+<tr>
+<td>فی پیرامیٹر فیز درخواستیں</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>فی ٹیمپلیٹ CVE درخواستیں۔</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>فی ہدف CVE درخواستیں۔</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1–2,000</td>
+</tr>
+<tr>
+<td>ہم آہنگی کی حد</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1-2؛ متوازی براؤزر تھرو پٹ کا وعدہ نہیں کرتا ہے۔</td>
+</tr>
+<tr>
+<td>AJAX ایونٹ کا بجٹ</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>AJAX صفحہ بجٹ (ms)</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">500–15,000</td>
+</tr>
+<tr>
+<td>AJAX صفحہ کی گنتی</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>تحقیقات میں تاخیر (سیکنڈ)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1–5</td>
+</tr>
+<tr>
+<td>OAST کال بیک TTL سیکنڈز</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">5–3,600</td>
+</tr>
+<tr>
+<td>OAST پول سیکنڈز</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5–15</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scanner-settings">سکینر کی ترتیبات</h3>
+<table>
+<thead>
+<tr>
+<th>ترتیب</th>
+<th>تازہ طے شدہ / مقصد</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>فی سیکنڈ کی درخواستیں</td>
+<td>1; UI 0.5-5 کو سپورٹ کرتا ہے۔</td>
+</tr>
+<tr>
+<td>کرال کی زیادہ سے زیادہ گہرائی</td>
+<td>3; UI 0-5 کو سپورٹ کرتا ہے۔</td>
+</tr>
+<tr>
+<td>زیادہ سے زیادہ دریافت شدہ URLs</td>
+<td>100; UI 1-500 کو سپورٹ کرتا ہے۔</td>
+</tr>
+<tr>
+<td>فی جواب زیادہ سے زیادہ بائٹس</td>
+<td>2 ایم بی؛ بڑے/منقطع جوابات شواہد کے خلا کو چھوڑ سکتے ہیں۔</td>
+</tr>
+<tr>
+<td>نقل و حمل کی دوبارہ کوششیں</td>
+<td>2; اس بات کی ضمانت نہیں ہے کہ کسی خاص تحریر کو محفوظ طریقے سے دوبارہ چلایا جاسکتا ہے۔</td>
+</tr>
+<tr>
+<td>فی پیرامیٹر زیادہ سے زیادہ فز پروبس</td>
+<td>40; اضافی فیز پیرامیٹر بجٹ سے الگ</td>
+</tr>
+<tr>
+<td>زیادہ سے زیادہ فعال درخواستیں۔</td>
+<td>150</td>
+</tr>
+<tr>
+<td>زیادہ سے زیادہ فعال URLs</td>
+<td>20</td>
+</tr>
+<tr>
+<td>زیادہ سے زیادہ فعال استفسار کے پیرامیٹرز</td>
+<td>10; آڈٹ دیگر معاون انسرشن پوائنٹ اقسام کو بھی ریکارڈ کرتا ہے۔</td>
+</tr>
+<tr>
+<td>خارج کردہ راستے کے سابقے</td>
+<td>فی سطر ایک سابقہ؛ ان راستوں کو ٹیسٹ کے اہداف تیار کرنے سے روکتا ہے۔</td>
+</tr>
+<tr>
+<td>خارج کردہ پیرامیٹر کے نام</td>
+<td>فی سطر ایک نام</td>
+</tr>
+<tr>
+<td>ترمیم شدہ سکینر ریسپانس باڈیز کو مقامی طور پر رکھیں</td>
+<td>پر بہترین کوشش کے ساتھ، حد کے اندر جائزہ/موازنہ کی حمایت کرتا ہے۔</td>
+</tr>
+</tbody>
+</table>
+<p>فعال آڈٹ بعد میں فعال قوانین کے لیے پابند الاؤنسز محفوظ رکھتا ہے۔ اس لیے زیادہ پے لوڈز ہر قسم کی جانچ کرنے کے بجائے کچھ اصولوں کو جزوی بنا سکتے ہیں۔ ایک ترتیب شدہ زیادہ سے زیادہ حد ہے، ہر درخواست کو استعمال کرنے یا ہر ان پٹ کو ختم کرنے کا وعدہ نہیں ہے۔</p>
+<h3 id="other-selectors">دوسرے سلیکٹرز</h3>
+<table>
+<thead>
+<tr>
+<th>صفحہ</th>
+<th>انتخاب کرنے والے اور معنی</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>نتائج</td>
+<td>شدت اور جائزہ کی حیثیت؛ منفی/مسدود مرئیت کی تبدیلیاں صرف ڈسپلے کرتی ہیں۔</td>
+</tr>
+<tr>
+<td>ٹیمپلیٹس</td>
+<td>شدت، صرف ریڈی فلٹر اور دستی انتخاب؛ تیار ہے اجازت/مطابقت کی حالت، نہ کہ خطرے کا فیصلہ</td>
+</tr>
+<tr>
+<td>ریپیٹر</td>
+<td>حاصل کریں/ہیڈ/آپشنز/پوسٹ/پوٹ/پیچ/ڈیلیٹ اور خام/XML، JSON یا فارم باڈیز</td>
+</tr>
+<tr>
+<td>فزر</td>
+<td>پے لوڈ فیملی اور ویلیو میوٹیشن: اصل، یو آر ایل/ڈبل انکوڈنگ، کیس کی تبدیلی، انکوڈڈ ڈاٹس، ٹیب/سیمی کالون لاحقہ، ڈبل سلیش پریفکس، ٹریلنگ ڈاٹ/اسپیس</td>
+</tr>
+<tr>
+<td>انٹرسیپٹر</td>
+<td>وسائل کی قسم، طریقہ اور ٹائم آؤٹ ایکشن؛ یہ فلٹر اپنے طریقہ کار کو دوبارہ لکھنے کے بجائے ٹریفک کو روکتا ہے۔</td>
+</tr>
+<tr>
+<td>ویب ساکٹ / ایس ایس ای</td>
+<td>مشاہدہ شدہ چینل پروٹوکول کو منتخب کریں۔</td>
+</tr>
+<tr>
+<td>سرور اسٹیک</td>
+<td>خودکار NVD+OSV، NVD پروڈکٹ/CPE یا OSV پیکیج/ورژن؛ دستی npm/PyPI ماحولیاتی نظام</td>
+</tr>
+<tr>
+<td>موازنہ کریں۔</td>
+<td>محفوظ کردہ بنیادی لائن اور موازنہ جواب</td>
+</tr>
+<tr>
+<td>افادیت</td>
+<td>URL/Base64/hex encoding/decoding, SHA-256, JSON فارمیٹنگ اور JWT دعوی معائنہ</td>
+</tr>
+<tr>
+<td>WSTG چیک کرتا ہے۔</td>
+<td>زمرہ اور خودکار/مدد یافتہ/دستی حوالہ فلٹرز</td>
+</tr>
+<tr>
+<td>تھیمز/زبان</td>
+<td>عالمی شکل اور بنڈل زبان، اسکین کے اختیارات سے آزاد</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fuzzer-auto-fuzz-and-probe-library">فزر، آٹو فز اور پروب لائبریری</h2>
+<h3 id="pick-the-right-action">صحیح عمل کا انتخاب کریں۔</h3>
+<table>
+<thead>
+<tr>
+<th>ایکشن</th>
+<th>کون ان پٹ کا انتخاب کرتا ہے؟</th>
+<th>آؤٹ پٹ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>فعال اسکین</td>
+<td>لانگ شاٹ دریافت شدہ معاون ان پٹ استعمال کرتا ہے۔</td>
+<td>دہرانے/کنٹرول کے ساتھ وقف اصول ثبوت</td>
+</tr>
+<tr>
+<td>فزر چلائیں۔</td>
+<td>آپ ایک URL اور استفسار پیرامیٹر کا انتخاب کرتے ہیں۔</td>
+<td>بیس لائن اور منتخب پے لوڈ رسپانس موازنہ</td>
+</tr>
+<tr>
+<td>باڈی فزر</td>
+<td>آپ ایک منظم درخواست اور اتپریورتن کے انتخاب فراہم کرتے ہیں۔</td>
+<td>پابند باڈی/پاتھ/ہیڈر کی مختلف حالتیں جہاں تعاون یافتہ ہوں۔</td>
+</tr>
+<tr>
+<td>آٹو فز بٹن</td>
+<td>موجودہ صفحہ/سائٹ کا نقشہ/API انوینٹری محفوظ کی گئی۔</td>
+<td>اہل دریافت شدہ ان پٹس میں اضافی عام پے لوڈ کی تلاش</td>
+</tr>
+<tr>
+<td>CVE آٹو فیز / چلائیں منتخب</td>
+<td>امپورٹڈ ٹیمپلیٹ کی تعریفیں</td>
+<td>ٹیمپلیٹ کے لیے مخصوص درخواستیں اور میچر کے نتائج</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-query-fuzzer">دستی استفسار فزر</h3>
+<ol>
+<li>ہدف کو جوڑیں اور ایک دائرہ کار URL منتخب کریں۔ متعلقہ یو آر ایل جیسے <code dir="ltr" translate="no">/search?q=apple</code> منسلک اصل کے خلاف قبول کیا جاتا ہے.</li>
+<li>موجودہ استفسار پیرامیٹر کا نام درج کریں، یا منتخب کریں۔ <strong>استعمال کریں۔</strong> ایک دریافت شدہ ان پٹ کے ساتھ۔</li>
+<li>پے لوڈ کلاس اور ویلیو میوٹیشن کا انتخاب کریں۔</li>
+<li>کے لیے <strong>صارف کے ذریعے اپ لوڈ کردہ حسب ضرورت پے لوڈز</strong>پہلے ایک مناسب کسٹم پیک کو فعال کریں۔</li>
+<li>منتخب کریں۔ <strong>فزر چلائیں۔</strong>، پھر بیس لائن، درخواست، حیثیت، لمبائی/وقت اور ثبوت کا معائنہ کریں۔</li>
+</ol>
+<p>ایک غائب یو آر ایل، پیرامیٹر یا خالی حسب ضرورت سیٹ ایک مخصوص توثیق پیغام تیار کرتا ہے۔ اکیلے ردعمل کو تبدیل کرنے سے انجکشن کی خرابی قائم نہیں ہوتی ہے۔ سرور تھروٹلنگ پیرامیٹر کو روک سکتا ہے چاہے یہ بیس لائن پر ہی کیوں نہ ہو۔</p>
+<h3 id="auto-fuzz-discovered-inputs">آٹو فز دریافت شدہ ان پٹس</h3>
+<p>استعمال کریں۔ <strong>دریافت شدہ ان پٹس کا پیش نظارہ کریں۔</strong> پہلے یہ محفوظ شدہ انوینٹری کو پڑھتا ہے اور تحقیقات بھیجے بغیر اہل/چھوڑ دی گئی درخواستوں کی رپورٹ کرتا ہے۔ آٹو فز کو مینوئل فزر کے URL/پیرامیٹر فیلڈز کی ضرورت نہیں ہے۔ اگر انوینٹری خالی ہے تو پہلے براؤز کریں یا اسپائیڈر۔</p>
+<p>پے لوڈ کلاسز کو منتخب کریں اور الگ منتخب کریں۔ <strong>آٹو فز</strong> بٹن <strong>دریافت شدہ درخواست کی لاشیں شامل کریں۔</strong> شروع ہوتا ہے اور جارحانہ پلس اگلی رن کی منظوری کی ضرورت ہوتی ہے۔ ٹوکن باؤنڈ فارمز، غیر تعاون یافتہ طریقے، غیر دستیاب باڈیز اور XML کو اس خودکار ان پٹ سلیکٹر نے چھوڑ دیا ہے۔ موجودہ اخراج، درخواست کی حدود اور تھروٹلنگ رویہ اب بھی لاگو ہوتا ہے۔</p>
+<p>دستیاب کلاس چیک باکسز SQLI، NOSQLI، CODE، XSS، SSTI، TRAVERSAL، COMMAND، SSRF، REDIRECT، CRLF اور کسٹم ہیں۔ تازہ ڈیفالٹس SQLI، SSTI، TRAVERSAL، REDIRECT اور CRLF کو فعال کرتے ہیں۔ عام لوپ SSRF کو چھوڑ دیتا ہے۔ استعمال کریں <strong>ایس ایس آر ایف کینریز / کال بیکس</strong> اس کے نفاذ کی تصدیق کے لیے۔ CUSTOM درج کردہ/فعال کردہ حسب ضرورت اقدار کا استعمال کرتا ہے اور کم اعتماد ردعمل کے فرق کی اطلاع دیتا ہے جب تک کہ کوئی وقف شدہ میچر زیادہ قائم نہ کرے۔</p>
+<h3 id="why-probe-library-belongs-here">پروب لائبریری یہاں کیوں ہے۔</h3>
+<p>لائبریری کی فراہمی <strong>پے لوڈ ویلیوز اور نظرثانی شدہ ٹیمپلیٹس</strong>; فزر کنٹرولز منتخب کرتے ہیں۔ <strong>انہیں کہاں اور کیسے بھیجنا ہے۔</strong>. یہ دستی URL/پیرامیٹر کو تبدیل نہیں کرتا ہے۔ مشترکہ لائبریری کے اختیارات محفوظ کرنے کے بعد فعال اسکین اور خودکار مراحل کو بھی متاثر کرتے ہیں۔</p>
+<p><strong>GitHub فہرستوں کو اپ ڈیٹ کریں۔</strong> مقررہ ذرائع کو ریفریش کرتا ہے، نہ کہ من مانی قابل عمل اسکینرز:</p>
+<table>
+<thead>
+<tr>
+<th>ماخذ</th>
+<th>استعمال شدہ سب سیٹ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SecLists فوری SQLi</td>
+<td>فلٹر شدہ اوقاف/بولین اقدار، 32 معاون اندراجات پر کیپ</td>
+</tr>
+<tr>
+<td>FuzzDB کراس پلیٹ فارم SQL کا پتہ لگانا</td>
+<td>فلٹر شدہ اوقاف/بولین اقدار، 32 معاون اندراجات پر کیپ</td>
+</tr>
+<tr>
+<td>پروجیکٹ ڈسکوری نیوکلی ٹیمپلیٹس</td>
+<td>دو GET صرف جیرا اسٹارٹر چیکس: CVE-2020-14179 اور CVE-2021-26086</td>
+</tr>
+<tr>
+<td>PayloadsAllThe Things کی تکنیک</td>
+<td>پابند لاگو SQL وائٹ اسپیس/تبصرہ/انکوڈنگ مختلف حالتوں کی بنیاد؛ ڈاؤن لوڈ کردہ قابل عمل بائی پاس اسکرپٹ نہیں ہے۔</td>
+</tr>
+</tbody>
+</table>
+<p>اپ ڈیٹس HTTPS کا استعمال کرتے ہیں، کوکیز کو چھوڑ دیتے ہیں اور ناکامی پر پرانے اسنیپ شاٹ کو محفوظ رکھتے ہیں۔ ماخذ ہیشز، ریفریش ٹائم اور معاون شمار دکھائے گئے ہیں۔ مکمل ان پٹ فائل کی ہیش کا مطلب یہ نہیں ہے کہ اس فائل میں ہر قدر استعمال کی گئی ہے۔ ڈاؤن لوڈ کردہ SQL فہرستیں تباہ کن/ڈیٹا نکالنے/تاخیر/کوڈ/کال بیک تعمیرات کو خارج کرتی ہیں۔ بلٹ ان رولز کی اپنی الگ سے لاگو کینریز ہیں۔</p>
+<p>اپ ڈیٹ کرنے سے پہلے اسکین بند کریں۔ اپ ڈیٹ کرنے سے تحقیقات شروع نہیں ہوتی ہیں، منظوری نہیں ملتی ہے، OAST کو فعال نہیں ہوتا ہے یا GitHub پر ٹارگٹ ڈیٹا/کسٹم پیک اپ لوڈ نہیں ہوتا ہے۔ ایک ڈاؤن لوڈ کردہ ٹیمپلیٹ جو غیر تعاون یافتہ/را/کوڈ/ہیڈ لیس شکل میں تبدیل ہو جاتا ہے اسے خاموشی سے ایک نئی قابل عمل صلاحیت میں فروغ دینے کے بجائے مسترد کر دیا جاتا ہے۔</p>
+<h2 id="your-payloads-and-imported-templates">آپ کے پے لوڈز اور امپورٹڈ ٹیمپلیٹس</h2>
+<h3 id="upload-literal-lists">لغوی فہرستیں اپ لوڈ کریں۔</h3>
+<p>کے تحت <strong>اسکین کے اختیارات یا Fuzzer → پروب لائبریری → آپ کے پے لوڈز اور CVE ٹیمپلیٹس</strong>زمرہ منتخب کریں، پھر <strong>اپنی مرضی کی فائل اپ لوڈ کریں۔</strong>.</p>
+<p>قبول شدہ فہرست فارم:</p>
+<ul>
+<li><code dir="ltr" translate="no">.txt</code>: فی سطر ایک لفظی غیر خالی قیمت؛ خالی جگہیں اور کیس محفوظ ہیں۔</li>
+<li><code dir="ltr" translate="no">.json</code>: تاروں کی ایک صف یا کسی چیز پر مشتمل ہے۔ <code dir="ltr" translate="no">name</code>, <code dir="ltr" translate="no">category</code> اور <code dir="ltr" translate="no">payloads</code>.</li>
+<li>زمرہ جات: <code dir="ltr" translate="no">custom</code>, <code dir="ltr" translate="no">waf</code>, <code dir="ltr" translate="no">sqli</code>, <code dir="ltr" translate="no">nosqli</code>, <code dir="ltr" translate="no">code</code>, <code dir="ltr" translate="no">xss</code>, <code dir="ltr" translate="no">ssti</code>, <code dir="ltr" translate="no">traversal</code>, <code dir="ltr" translate="no">crlf</code>, <code dir="ltr" translate="no">redirect</code>, <code dir="ltr" translate="no">command</code>.</li>
+</ul>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "name": "My SQL review probes",
+  "category": "sqli",
+  "payloads": ["'", "\"", "' AND 1=1 -- "]
+}
+</code></pre>
+<p>پیک ہدف کے لیے مخصوص اور ابتدائی طور پر ہیں۔ <strong>معذور</strong>. پیش نظارہ کا معائنہ کریں اور واضح طور پر مطلوبہ پیک کو فعال کریں۔ فعال اپ لوڈ کردہ پیک کو جارحانہ اور منظوری درکار ہوتی ہے۔ اکیلے اپ لوڈ کرنے سے کچھ نہیں چلتا۔</p>
+<p>حدود: 256 KB فی پے لوڈ فائل، 200 سٹرنگ فی پیک، 2,000 حروف فی قدر، اور زیادہ سے زیادہ 10 پیک / 500 ویلیوز / 512 KB پیک کنفیگریشن فی ہدف۔ ایک پیک کے اندر موجود ڈپلیکیٹ تار ہٹا دیے جاتے ہیں۔ موجودہ طریقہ، دائرہ کار، بجٹ اور تباہ کن-SQL گارڈز اب بھی لاگو ہیں۔</p>
+<p>زمرہ بندی شدہ پیک بلٹ ان کلاس ویلیوز کو پورا کرتے ہیں۔ ڈبلیو اے ایف پیکز کو بھی سمارٹ تغیرات اور اہل فلٹرنگ ثبوت کی ضرورت ہوتی ہے۔ ایک لفظی کسٹم پے لوڈ متوقع آؤٹ پٹ میچر یا قابل عمل توسیعی کوڈ نہیں ہے۔ صرف ایک CVE نمبر اپ لوڈ کرنے سے اس CVE کی تصدیق نہیں ہو سکتی۔</p>
+<h3 id="import-requestmatcher-templates">درخواست / میچر ٹیمپلیٹس درآمد کریں۔</h3>
+<p>YAML/YML/JSON اپ لوڈ کرنے سے پہلے CVE/Nuclei ٹیمپلیٹ کے زمرے کا انتخاب کریں۔ ٹیمپلیٹ فائل کیپ 2 MB ہے۔ میں اس کا جائزہ لیں۔ <strong>ٹیمپلیٹس</strong>بشمول ایگزیکیوٹر اور کنکریٹ ریڈی/ بلاک شدہ وجہ۔ امپورٹڈ ٹیمپلیٹس مشترکہ لائبریری کا استعمال کرتے ہیں۔ پے لوڈ پیک اپنے ہدف کے ساتھ رہتے ہیں۔</p>
+<ul>
+<li><strong>منتخب چلائیں</strong> منتخب ٹیمپلیٹس کو براہ راست عمل میں لاتا ہے اور CVE آٹو فیز کی ضرورت نہیں ہے۔</li>
+<li><strong>CVE آٹو فیز</strong> ترتیب شدہ اسکین کے دوران اہل CVE-ٹیگ شدہ/شناخت شدہ درآمدات پر غور کرتا ہے۔</li>
+<li><strong>آٹو فز</strong> عام اقدار پیدا کرتا ہے؛ یہ تصنیف شدہ CVE پے لوڈز یا میچرز کو دوبارہ نہیں لکھتا ہے۔</li>
+<li>صرف ایڈوائزری JSON پروڈکٹ/ورژن کے ثبوت کو مربوط کرتا ہے۔ یہ کام کرنے والے استحصال کی درخواست کو ایجاد نہیں کرتا ہے۔</li>
+<li>خام، پیچیدہ، کوڈ، ہیڈ لیس، فائل یا نان ایچ ٹی ٹی پی ٹیمپلیٹس کو علیحدہ آفیشل انجن اور اضافی گرانٹس کی ضرورت پڑ سکتی ہے، یا بلاک رہ سکتے ہیں۔</li>
+</ul>
+<p>ان ٹیمپلیٹس کے ساتھ نظرثانی شدہ رشتہ دار مددگار بنڈل درآمد کریں جن کی ضرورت ہے۔ ایک غیر دستیاب مقامی رن ٹائم، دائرہ کار سے باہر کی درخواست، منظور شدہ منظوری یا غیر تعاون یافتہ خصوصیت معائنہ کرنے کی وجہ ہے، کامیاب منفی ٹیسٹ نہیں۔</p>
+<h2 id="server-stack-and-smart-analyzer">سرور اسٹیک اور سمارٹ تجزیہ کار</h2>
+<p>استعمال کریں۔ <strong>سافٹ ویئر کا پتہ لگائیں۔</strong> تعاون یافتہ دائرہ کار والے مشاہدات کو جمع کرنے کے لیے۔ جب آپ کو جسمانی ثبوت کی ضرورت ہو تو نمائندہ صفحات کو براؤز کریں اور مناسب جوابات کو برقرار رکھیں۔ پھر منتخب کریں۔ <strong>ریکارڈ شدہ شواہد کا تجزیہ کریں۔</strong> 200 تک حالیہ ذخیرہ شدہ جوابات کے مقامی غیر فعال ارتباط کے لیے۔ تجزیہ کار خود کوئی ہدف کی درخواستیں شامل نہیں کرتا ہے۔</p>
+<p>یہ منظر براؤزر کے اجزاء، WAF/CDN/edge، ویب سرور/ریورس پراکسی اور ایپلیکیشن/رن ٹائم سگنلز کو الگ کرتا ہے۔ پروڈکٹ کے مخصوص ہیڈر، کوکی کے نام، اثاثہ/بوٹسٹریپ ڈھانچے اور غلطی کا متن اعتماد بڑھا سکتا ہے۔ چیلنج پیج باڈیز کو ایپلیکیشن فنگر پرنٹنگ سے خارج کر دیا گیا ہے۔ ایک عام 403، nginx بینر یا CDN edge یہ ثابت نہیں کرتا کہ WAF کا کوئی خاص اصول فعال ہے۔</p>
+<p>ممکنہ کنفیگریشن کارڈ اپنے ثبوت اور تجویز کردہ تصدیق کی وضاحت کرتے ہیں۔ وہ مفروضے ہیں: براؤزر کے جوابات اصل IP، پرائیویٹ سب نیٹس، بیک اینڈ ڈیٹا بیس کی ترتیبات، TLS ختم کرنے، فائر وال کے قواعد یا پراکسی ٹرسٹ کی فہرستوں کو قطعی طور پر قائم نہیں کر سکتے ہیں۔ متعدد اپ اسٹریم اور دوبارہ لکھے ہوئے بینرز تہوں کو چھپا یا غلط شناخت کرسکتے ہیں۔</p>
+<h3 id="waf-recommendations-and-rate-handling">ڈبلیو اے ایف کی سفارشات اور ریٹ ہینڈلنگ</h3>
+<p><strong>قدامت پسند اسکین کی سفارشات کا اطلاق کریں۔</strong> واضح طور پر کمیونٹی ایس کیو ایل پروبس، سمارٹ تغیرات اور انکولی شرح کو قابل بناتا ہے اور کنفیگر شدہ شرح کو زیادہ سے زیادہ 0.5 درخواستیں/سیکنڈ تک کم کرتا ہے۔ یہ اسکین شروع نہیں کرتا ہے یا اعلی درجے کی صلاحیتیں نہیں دیتا ہے۔</p>
+<p>اہل تحقیقات موجودہ بجٹ میں زیادہ سے زیادہ تین متبادل نمائندگیوں پر غور کرتی ہیں۔ ایک مسدود بیس لائن کو چھوڑ دیا گیا ہے۔ براؤزر کے چیلنجوں کو عام براؤزر ریزولوشن کی ضرورت ہے۔ عام ACL انکار لامتناہی بائی پاس کی کوششوں کا جواز پیش نہیں کرتا ہے۔ بلاک کرنے کی اجازت دینے والی تبدیلی قابل رسائی ثبوت ہے، خطرے کا ثبوت نہیں۔</p>
+<p>بار بار واضح چیلنجز ان میموری کی شرح کو آدھا کر سکتے ہیں اور کم از کم دس سیکنڈ کے انتظار کا سبب بن سکتے ہیں۔ HTTP 429 یا 503 Retry-After کے ساتھ مزید طے شدہ تحقیقات کو روکتا ہے۔ طویل دوبارہ کوشش کے بعد وقفوں کا احترام کیا جاتا ہے۔ شرح خود بخود دوبارہ نہیں بڑھتی ہے۔ نئے رنز ترتیب شدہ شرح کے ساتھ شروع ہوتے ہیں۔</p>
+<h3 id="cve-lookup">CVE تلاش کریں۔</h3>
+<p><strong>آن لائن CVEs تلاش کریں۔</strong> اجازت کے بعد معاون پروڈکٹ/پیکیج کوآرڈینیٹس کے لیے NVD/OSV کے سوالات۔ درخواست کوآرڈینیٹ بھیجتی ہے، URLs، کوکیز یا صفحہ کے مواد کو نشانہ نہیں بناتی۔ نامعلوم ورژن، وینڈر بیک پورٹ اور غیر تصدیق شدہ پیکیج کی موجودگی کی حد کے نتائج۔ دستی npm/PyPI اندراجات انسٹالیشن کو ثابت نہیں کرتی ہیں۔</p>
+<p>کسی میچ کا مطلب یہ نہیں ہے کہ کوئی CVE نہیں ہے۔ ایک میچ ایک مشاورتی امیدوار ہے؛ شرائط اور استعمال کا معائنہ کریں۔ <strong>تصدیقی ٹیمپلیٹس تلاش کریں۔</strong> مناسب درآمد شدہ چیک تلاش کرنے کے لیے۔ وہ بٹن ٹیمپلیٹس کو عمل میں لانے کے بجائے فلٹر کرتا ہے۔</p>
+<h2 id="oast-setup-and-interpretation">OAST سیٹ اپ اور تشریح</h2>
+<p><a href="https://portswigger.net/web-security/ssrf/blind">OAST</a> جانچ کی وجہ سے ہونے والے DNS/HTTP تعاملات کا مشاہدہ کرتا ہے جب عام ردعمل رویے کو ظاہر نہیں کرتا ہے۔ لانگ شاٹ اپنی رجسٹریشن/ ارتباط کی چابیاں رکھتا ہے۔ دوسرے کلائنٹ کی طرف سے بے ترتیب پہلے سے تیار کردہ کال بیک قابل تبادلہ نہیں ہے۔</p>
+<ol>
+<li>ایک Interactsh سے مطابقت رکھنے والی سروس کا انتخاب کریں جسے آپ کنٹرول کرتے ہیں یا اسے استعمال کرنے کی اجازت ہے۔</li>
+<li>داخل کریں۔ <strong>فراہم کنندہ URL</strong>: فراہم کنندہ کا مکمل API بیس ایڈریس، عام طور پر HTTPS۔ HTTP کی اجازت صرف لوپ بیک فراہم کنندگان کے لیے ہے۔</li>
+<li>مماثلت درج کریں۔ <strong>کال بیک ڈومین</strong> بغیر <code dir="ltr" translate="no">http://</code>ایک بندرگاہ یا راستہ۔</li>
+<li>داخل کریں۔ <strong>فراہم کنندہ ٹوکن</strong> صرف اس صورت میں جب اس فراہم کنندہ کو اس کی ضرورت ہو۔</li>
+<li>TTL اور پول کا وقفہ مقرر کریں؛ OAST کے علاوہ متعلقہ SSRF/XXE/Log4Shell/کمانڈ کے اختیارات کو فعال کریں۔</li>
+<li>استعمال کریں۔ <strong>OAST کنکشن کی جانچ کریں۔</strong> رجسٹریشن/پولنگ چیک کرنے کے لیے۔</li>
+<li>استعمال کریں۔ <strong>OAST کال بیک کی جانچ کریں۔</strong> اس براؤزر سے الگ سے متعلقہ کینری بھیجنے کے لیے۔</li>
+<li>محفوظ کریں، جائزہ لیں اور اصل اسکین کو منظور کریں۔ OAST تعاملات میں قطعی ارتباط اور پروٹوکول کا معائنہ کریں۔</li>
+</ol>
+<p>مثال کے طور پر، اگر مماثل پبلک سروس استعمال کر رہے ہیں۔ <code dir="ltr" translate="no">https://oast.pro</code>، اس کا کال بیک بیس ہے۔ <code dir="ltr" translate="no">oast.pro</code>. یہ ایک مثال ہے، دستیابی کی ضمانت یا اس فراہم کنندہ کو استعمال کرنے کی ضرورت نہیں۔ ایک خود میزبان فراہم کنندہ کو اس کے اپنے مناسب طریقے سے تفویض کردہ قابل رسائی ڈومین، DNS/سننے والوں اور TLS کی ضرورت ہوتی ہے۔ صرف ایک لیپ ٹاپ HTTP سننے والا عوامی کال بیک سروس نہیں ہے۔ پیروی کریں۔ <a href="https://github.com/projectdiscovery/interactsh">باضابطہ Interactsh سیٹ اپ</a>.</p>
+<table>
+<thead>
+<tr>
+<th>مشاہدہ</th>
+<th>جو یہ قائم کرتا ہے۔</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>کنکشن ٹیسٹ پاس کرتا ہے۔</td>
+<td>رجسٹریشن اور پولنگ کا کام براؤزر کے راستے سے ہوا۔</td>
+</tr>
+<tr>
+<td>براؤزر کال بیک ٹیسٹ پاس کرتا ہے۔</td>
+<td>یہ براؤزر اپنے متعلقہ باہمی تعامل کو متحرک اور بازیافت کرسکتا ہے۔</td>
+</tr>
+<tr>
+<td>ٹارگٹ پروب مماثل تعامل پیدا کرتا ہے۔</td>
+<td>ایک باہمی تعامل ہوا؛ ماخذ کو منسوب کریں اور اس کے معنی کا اندازہ کریں۔</td>
+</tr>
+<tr>
+<td>کوئی کال بیک نہیں۔</td>
+<td>غیر نتیجہ خیز: ٹارگٹ ایگریس، فراہم کنندہ کی رسائی، میعاد ختم، فلٹرنگ یا غیر تعاون یافتہ سیاق و سباق اس کی وضاحت کر سکتے ہیں</td>
+</tr>
+</tbody>
+</table>
+<p>ڈی این ایس ریزولیوشن بیچوان/سیکیورٹی سروس سے آ سکتا ہے۔ اکیلے کال بیک سے من مانی داخلی رسائی، ڈیٹا کی چوری یا کوڈ پر عمل درآمد ثابت نہیں ہوتا ہے۔ الگ الگ الگ نیوکلی انجن کا اپنا مقامی Interactsh رجسٹریشن ہے۔ وہ واقعات براؤزر کلائنٹ کی رجسٹریشن نہیں ہیں۔</p>
+<p>براؤزر سائیڈ OAST کلائنٹ کو Go، Node یا Agent API کی ضرورت نہیں ہے۔ ریلیز ٹیسٹوں میں استعمال کیا گیا آفیشل-سرور رجسٹریشن، انکرپٹڈ HTTP کال بیک بازیافت اور لوپ بیک پر ارتباط؛ انہوں نے عوامی فراہم کنندہ کی دستیابی یا آپ کے ٹارگٹ سرور کے اخراج کو قائم نہیں کیا۔ کوئی میزبان فائل میں ترمیم عام طور پر درست طریقے سے تفویض کردہ OAST سیٹ اپ کا حصہ نہیں ہے۔</p>
+<h2 id="browser-bridge-native-tool-proxy">براؤزر برج: مقامی ٹول پراکسی</h2>
+<h3 id="what-it-sends">یہ کیا بھیجتا ہے۔</h3>
+<p>ایک بیرونی ٹول درخواست تیار کرتا ہے، بشمول اس کا حملہ پے لوڈ، طریقہ، باڈی اور استفسار۔ مقامی اڈاپٹر اسے mitmproxy کے ذریعے آگے بھیجتا ہے، صرف کنفیگر شدہ کوکی/ہیڈر تبدیلیوں کو لاگو کرتا ہے۔ یہ کرتا ہے <strong>نہیں</strong> فائر فاکس سے ZAP یا کسی اور ٹول کی جانب سے بازیافت کرنے کو کہیں۔</p>
+<p>یہ مقامی HTTP سیمنٹکس اور ٹول کی پے لوڈ جنریشن کو محفوظ رکھتا ہے، لیکن صوابدیدی اصل وائر بائٹس کو نہیں: mitmproxy HTTP کو پارس/سیریلائز کرتا ہے اور اپنا آؤٹ باؤنڈ TLS کنکشن قائم کرتا ہے۔ ایک براؤزر یوزر ایجنٹ سٹرنگ مقامی TLS/نیٹ ورک فنگر پرنٹ کو Firefox سے مماثل نہیں بناتا ہے۔</p>
+<h3 id="install-the-downloaded-adapter">ڈاؤن لوڈ کردہ اڈاپٹر انسٹال کریں۔</h3>
+<ol>
+<li>کھولیں۔ <strong>براؤزر برج</strong>. صرف <strong>مقامی ٹول پراکسی</strong> 2.18.1 میں دستیاب ہے۔</li>
+<li>منتخب کریں۔ <strong>مقامی اڈاپٹر ڈاؤن لوڈ کریں۔</strong> اور اسے نکالیں.</li>
+<li>نکالا ہوا درج کریں۔ <code dir="ltr" translate="no">native-bridge</code> ڈائریکٹری اس پر مشتمل ہے۔ <code dir="ltr" translate="no">cli.js</code>, <code dir="ltr" translate="no">bootstrap.py</code>, <code dir="ltr" translate="no">config.json</code> اور بنڈل نوڈ <code dir="ltr" translate="no">ws</code> انحصار</li>
+<li>Node.js 20+ اور Python 3.12+ انسٹال کریں اگر وہ پہلے سے دستیاب نہیں ہیں۔</li>
+<li>ایک بار پائیتھون سیٹ اپ چلائیں:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   cd /absolute/path/to/native-bridge
+   python3 bootstrap.py</code></p>
+<p>یہ ایک مقامی بناتا ہے <code dir="ltr" translate="no">.venv</code> اور پن شدہ mitmproxy 12.2.3 انسٹال کرتا ہے۔ تنصیب کو انٹرنیٹ تک رسائی کی ضرورت ہے۔ عام آغاز اسکینر کوڈ یا پے لوڈ کی فہرستیں ڈاؤن لوڈ نہیں کرتا ہے۔</p>
+<ol start="6">
+<li>کی طرف سے دکھایا گیا کمانڈ استعمال کریں <strong>آپ کا</strong> توسیعی صفحہ:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   node cli.js --config config.json \
+     --extension-origin moz-extension://YOUR-LONGSHOT-UUID</code></p>
+<p>پلیس ہولڈر کو مکمل موجودہ ایکسٹینشن اصل سے تبدیل کریں۔ یہ ٹارگٹ ویب سائٹ، ایڈ آن آئی ڈی یا کسی اور فائر فاکس پروفائل سے کاپی کی گئی اصل نہیں ہے۔</p>
+<ol start="7">
+<li>ٹرمینل کو چلاتے رہیں۔ پراکسی سننے والے کے تیار ہونے کے بعد، یہ پراکسی ایڈریس، کنٹرول پورٹ، نیا پیئرنگ/پراکسی ٹوکن اور CA سرٹیفکیٹ پاتھ پرنٹ کرتا ہے۔</li>
+</ol>
+<p>بنڈل اڈاپٹر آرکائیو استعمال کرنے کے بجائے ماخذ زپ سے تیار کرتے وقت، اگر موجود نہ ہو تو پہلے اس کی پن شدہ نوڈ انحصار کو انسٹال کریں:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+npm --prefix native-bridge ci --omit=dev
+cd native-bridge
+python3 bootstrap.py
+</code></pre>
+<p><code dir="ltr" translate="no">--mitmdump /absolute/path/to/mitmdump</code> یا <code dir="ltr" translate="no">LONGSHOT_MITMDUMP</code> موجودہ رن ٹائم کا انتخاب کرتا ہے۔ <code dir="ltr" translate="no">--data-dir /absolute/private/run-directory</code> CA/آڈٹ ڈائریکٹری کا انتخاب کرتا ہے؛ پہلے سے طے شدہ ہے <code dir="ltr" translate="no">run</code> مقامی اڈاپٹر کے اندر۔ Ctrl+C اڈاپٹر کو روکتا ہے۔</p>
+<p>دستی مقامی پراکسی ایجنٹ API میزبان رجسٹریشن سے الگ ہے۔ اس کی ضرورت نہیں ہے۔ <code dir="ltr" translate="no">node bridge/bin/longshot-bridge install</code> صرف پراکسی curl/ZAP کے لیے۔ ریلیز انٹیگریشن ٹیسٹ میں لینکس/فائر فاکس کا استعمال کیا گیا تھا۔ اس دستی نوڈ/پائیتھن اسٹارٹ اپ پاتھ سے کسی دوسرے پلیٹ فارم پر مقامی میسجنگ انسٹالر سپورٹ کا اندازہ نہ لگائیں۔</p>
+<h3 id="pair-the-selected-tab">منتخب کردہ ٹیب کو جوڑیں۔</h3>
+<ol>
+<li>مجاز کو منتخب کریں۔ <strong>ٹارگٹ ٹیب</strong> براؤزر پل میں۔</li>
+<li>اس کی ظاہر کردہ اصلیت اور کوکی اسٹور کی تصدیق کریں۔ استعمال کریں۔ <strong>ٹیبز کو ریفریش کریں۔</strong> اگر ضروری ہو.</li>
+<li>داخل کریں۔ <strong>کنٹرول پورٹ</strong> <code dir="ltr" translate="no">8901</code>، جب تک کہ اڈاپٹر کی تشکیل میں تبدیل نہ ہو۔</li>
+<li>کرنٹ چسپاں کریں۔ <strong>جوڑا بنانا / پراکسی ٹوکن</strong> چلنے والے اڈاپٹر سے۔</li>
+<li>منتخب کریں۔ <strong>جوڑا آبائی پل</strong> اور تیار حالت کی تصدیق کریں۔</li>
+<li>ٹول ٹریفک کو روٹنگ کرنے سے پہلے کوکی/ہیڈر سوئچز کا جائزہ لیں۔</li>
+</ol>
+<p>فیلڈ کامیاب جوڑی کے بعد ٹوکن کو صاف کرتا ہے۔ دوبارہ شروع کرنے سے ایک نیا ٹوکن پیدا ہوتا ہے: دوبارہ جوڑیں اور ہر بیرونی ٹول میں پراکسی اسناد کو اپ ڈیٹ کریں۔ پراکسی پورٹ <code dir="ltr" translate="no">8900</code> اوزار کے لیے ہے؛ کنٹرول پورٹ <code dir="ltr" translate="no">8901</code> فائر فاکس کے لیے ہے۔ نہ ہی پورٹ 8765 سے ایجنٹ API بیئرر ٹوکن استعمال کرتا ہے۔</p>
+<h3 id="actual-target-urls-and-bridgeinvalid">اصل ہدف URLs اور bridge.invalid</h3>
+<p>اصلی پتہ استعمال کریں، جیسے <code dir="ltr" translate="no">http://localhost:8080/search?q=apple</code>، آپ کے آلے میں۔ اگر HTTPS کی جانچ کر رہے ہیں تو اصلی استعمال کریں۔ <code dir="ltr" translate="no">https://...</code> پتہ پراکسی کا اپنا پتہ باقی ہے۔ <code dir="ltr" translate="no">http://127.0.0.1:8900</code> کیونکہ وہ مقامی HTTP پراکسی سننے والا ہے، بشمول HTTPS CONNECT کے لیے۔</p>
+<p><strong>نہیں <code dir="ltr" translate="no">/etc/hosts</code> اندراج کی ضرورت ہے.</strong> پرانا <code dir="ltr" translate="no">bridge.invalid</code> ایڈریس یوٹیلیٹی کے HTTP یو آر ایل کو منتخب براؤزر فیچ ٹارگٹ پر میپ کرنے کے لیے اڈاپٹر کے لیے مخصوص عرف تھا۔ موجودہ مقامی پراکسی اصل ہدف URLs اور HTTPS CONNECT کو سپورٹ کرتی ہے، تاکہ نقشہ سازی غیر ضروری ہو۔</p>
+<p><code dir="ltr" translate="no">localhost</code> ہر ہدف کے لیے قابل تبادلہ عرف نہیں ہے: یہ متعلقہ عمل کے نیٹ ورک ماحول سے مقامی مشین کا نام دیتا ہے۔ یہ تب ہی درست ہے جب ہدف اصل میں مقامی ہو۔ ایک مختلف میزبان نام ایک مختلف ورچوئل ہوسٹ، کوکی پالیسی یا اصل کا انتخاب کر سکتا ہے چاہے دونوں نام ایک ہی IP پر حل کریں۔</p>
+<p>ایک موجودہ متروک میزبان اندراج نئے ورک فلو سے غیر متعلق ہے۔ اسے ٹول یو آر ایل میں استعمال نہ کریں۔ اس ٹیوٹوریل کی تیاری کے دوران میزبان فائل میں کوئی ترمیم نہیں کی گئی۔</p>
+<h3 id="https-trust">HTTPS اعتماد</h3>
+<p>اڈاپٹر منتخب ڈیٹا ڈائرکٹری کے تحت اپنا مقامی CA تیار کرتا ہے، عام طور پر:</p>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
+run/ca/mitmproxy-ca.pem            sensitive CA material/private key
+</code></pre>
+<p>کو ترتیب دیں۔ <strong>بیرونی ٹول کی اسسمنٹ ٹرسٹ کنفیگریشن</strong> عوامی سرٹیفکیٹ کے راستے کے ساتھ جو آغاز کے وقت پرنٹ کیا جاتا ہے۔ نجی کلید کا اشتراک نہ کریں یا فرض کریں کہ سسٹم/فائر فاکس ٹرسٹ اسٹور کو تبدیل کر دیا گیا ہے۔ اڈاپٹر اپنا CA کسی بھی ٹرسٹ اسٹور میں انسٹال نہیں کرتا ہے۔</p>
+<p>curl کے لیے:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  --cacert /absolute/path/to/native-bridge/run/ca/mitmproxy-ca-cert.pem \
+  'https://actual-target.example/search?q=apple'
+</code></pre>
+<p>بدل دیں۔ <code dir="ltr" translate="no">CURRENT_TOKEN</code> اور ہدف/سرٹیفکیٹ کا راستہ۔ HTTP-صرف مقامی ہدف کے لیے، <code dir="ltr" translate="no">--cacert</code> غیر ضروری ہے. <code dir="ltr" translate="no">--noproxy ''</code> اس بات کو یقینی بناتا ہے کہ curl خاموشی سے لوپ بیک ہدف کے لیے پراکسی کو نظرانداز نہیں کرتا ہے۔</p>
+<p>دو الگ الگ TLS چیکس ہیں:</p>
+<ul>
+<li>کلائنٹ اڈاپٹر کے ذریعہ پیش کردہ سرٹیفکیٹ کی تصدیق کرتا ہے۔ اڈاپٹر CA کے ساتھ کلائنٹ کے اعتماد کو ترتیب دیں۔</li>
+<li>اڈاپٹر حقیقی اپ اسٹریم سرور کی تصدیق کرتا ہے۔ <code dir="ltr" translate="no">tls.verifyUpstream</code> پہلے سے طے شدہ درست کلائنٹ <code dir="ltr" translate="no">--cacert</code> اڈاپٹر کو نجی اصل CA فراہم نہیں کرتا ہے۔</li>
+</ul>
+<p>تصدیق کو غیر فعال کرنے کو سرٹیفکیٹ کی غلطیوں کے لیے عام فکس نہ سمجھیں۔ ایک ملکیتی خود دستخط شدہ فکسچر کے لیے، <code dir="ltr" translate="no">tls.verifyUpstream:false</code> اڈاپٹر کی تشکیل میں ایک واضح تشخیص کی رعایت ہے، اس کے بعد دوبارہ شروع کرنا؛ یہ اس علیحدہ اپ اسٹریم چیک کو کمزور کرتا ہے۔ دیکھیں <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy سرٹیفکیٹ کا رویہ</a>.</p>
+<h3 id="traffic-fidelity-and-limits">ٹریفک کی وفاداری اور حدود</h3>
+<table>
+<thead>
+<tr>
+<th>مقامی پراکسی سپورٹ کرتا ہے۔</th>
+<th>قائم یا حمایت نہیں کرتا</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ٹول سے تیار کردہ طریقے، استفسار پے لوڈز اور باڈیز</td>
+<td>عین مطابق اصل ہیڈر بائٹس/ آرڈر/ کیسنگ یا خراب فریمنگ</td>
+</tr>
+<tr>
+<td>HTTP/1.1، HTTP/2، HTTPS کنیکٹ</td>
+<td>HTTP/3، صوابدیدی TCP یا غیر HTTP سکینر موڈز</td>
+</tr>
+<tr>
+<td>ترتیب شدہ سیشن/ہیڈر اوور رائیڈز</td>
+<td>مکمل براؤزر فنگر پرنٹ، JavaScript چیلنج ایگزیکیوشن یا براؤزر کی ملکیت TLS</td>
+</tr>
+<tr>
+<td>ویب ساکٹ مقامی راستے پر اپ گریڈ کرتا ہے۔</td>
+<td>ایک عام ایپلیکیشن پروٹوکول خطرے کی تصدیق کرنے والا</td>
+</tr>
+<tr>
+<td>ایک مجاز HTTPS CONNECT منزل کو برقرار رکھتے ہوئے ٹول ہوسٹ ہیڈر پروبس</td>
+<td>ایک غیر محدود ڈائل ہدف یا خودکار نئے ہدف کی اجازت</td>
+</tr>
+<tr>
+<td>براؤزر سیشن کی برآمدات کے بغیر دائرہ کار اضافی ماخذ</td>
+<td>براؤزر کوکیز/ہیڈر کی اسناد خود بخود تمام اصلیت میں شیئر ہو جاتی ہیں۔</td>
+</tr>
+</tbody>
+</table>
+<p>مقامی روٹ میں کوئی براؤزر فیچ فال بیک نہیں ہے۔ خام درخواست کی سمگلنگ، غیر معمولی تار فریمنگ یا اپنی مرضی کے مطابق TLS تحقیق کے لیے، ایک مناسب علیحدہ ٹرانسپورٹ استعمال کریں۔ اس پارس شدہ پراکسی بائٹ شفاف کا لیبل نہ لگائیں۔</p>
+<h2 id="native-bridge-configuration">مقامی پل کی ترتیب</h2>
+<p>براؤزر برج سے تشکیل ڈاؤن لوڈ کریں یا اڈاپٹر میں ترمیم کریں۔ <code dir="ltr" translate="no">config.json</code>. نامعلوم کلیدیں، غلط قسمیں اور رینج سے باہر کی اقدار کو مسترد کر دیا گیا ہے۔ پرانے اڈاپٹر فیلڈز مقامی تشکیل کے مترادف نہیں ہیں۔</p>
+<p>چلانے والے اڈاپٹر کی تشکیل جوڑا بنانے پر مستند ہے۔ <strong>اوور رائیڈز کا اطلاق کریں۔</strong> موجودہ جوڑی کے لیے تعاون یافتہ براؤزر اوور رائڈ انتخاب میں تبدیلیاں۔ <strong>تشکیل ڈاؤن لوڈ کریں۔</strong> اگلے آغاز کے لیے منتخب کنفیگریشن کو برقرار رکھتا ہے۔ عام JSON فیلڈز میں ترمیم کرنا خاموشی سے سننے والے بندرگاہوں، TLS، روٹنگ یا حدود کو پہلے سے چل رہے عمل میں دوبارہ ترتیب نہیں دیتا: محفوظ/ڈاؤن لوڈ، دوبارہ شروع اور دوبارہ جوڑا۔</p>
+<h3 id="complete-shipped-defaults">بھیجے گئے ڈیفالٹس کو مکمل کریں۔</h3>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "proxy": {
+    "port": 8900
+  },
+  "control": {
+    "port": 8901,
+    "timeoutMs": 10000
+  },
+  "browser": {
+    "required": true,
+    "firstPartyDomain": null
+  },
+  "cookies": {
+    "enabled": true,
+    "mode": "replace",
+    "saveResponses": true,
+    "preserveToolChanges": true,
+    "protectedNames": [],
+    "includeNames": [],
+    "excludeNames": []
+  },
+  "headers": {
+    "userAgent": {
+      "source": "tool",
+      "value": ""
+    },
+    "acceptLanguage": {
+      "source": "tool",
+      "value": ""
+    },
+    "authorization": {
+      "source": "tool",
+      "value": ""
+    },
+    "set": {},
+    "remove": [],
+    "protectedNames": []
+  },
+  "scope": {
+    "origins": [],
+    "excludePaths": [],
+    "methods": [
+      "*"
+    ]
+  },
+  "limits": {
+    "rate": 2,
+    "concurrency": 4,
+    "maxRequests": 10000,
+    "maxBodyBytes": 67108864,
+    "timeoutSeconds": 60
+  },
+  "session": {
+    "pauseStatuses": [
+      401,
+      419,
+      440
+    ],
+    "pauseOn429": true
+  },
+  "tls": {
+    "verifyUpstream": true,
+    "http2": true
+  },
+  "upstream": {
+    "url": null
+  },
+  "routing": {
+    "socks5": null
+  },
+  "audit": {
+    "enabled": true
+  }
+}
+</code></pre>
+<p>ایک خالی <code dir="ltr" translate="no">scope.origins</code> جوڑا بنائے گئے ہدف کی اصل اصل سے طے شدہ۔ آپ کو ایک عام جوڑی کی تشخیص شروع کرنے کے لیے ہدف یا آغاز/اختتام کا ٹائم اسٹیمپ درج کرنے کی ضرورت نہیں ہے۔ دائرہ کار کا نفاذ اب بھی موجود ہے۔ اس کا انتخاب پرانے لازمی تشخیصی فارم کے بجائے جوڑا بنا کر کیا جاتا ہے۔</p>
+<h3 id="field-reference">فیلڈ حوالہ</h3>
+<table>
+<thead>
+<tr>
+<th>میدان</th>
+<th>اثر</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">schemaVersion</code></td>
+<td>مقامی تشکیل کی شکل؛ موجودہ قدر 1</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">proxy.port</code></td>
+<td>ٹول کا سامنا HTTP پراکسی پورٹ، ڈیفالٹ 8900</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.port</code></td>
+<td>فائر فاکس کوآرڈینیٹر پورٹ، ڈیفالٹ 8901؛ پراکسی پورٹ سے مختلف ہونا چاہیے۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.timeoutMs</code></td>
+<td>براؤزر/کنٹرول جواب کا ٹائم آؤٹ، ڈیفالٹ 10,000 ms</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.required</code></td>
+<td>جوڑا بنانا بطور ڈیفالٹ درکار ہے۔ اسٹینڈ اکیلے آپریشن کے لیے واضح اصلیت اور براؤزر سے اخذ کردہ تمام خصوصیات کو بند کرنے کی ضرورت ہے۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.firstPartyDomain</code></td>
+<td>اگر Firefox کوکی API کو اس کی ضرورت ہو تو واضح فرسٹ پارٹی آئسولیشن ڈومین؛ null عام طرز عمل کا استعمال کرتا ہے۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.enabled</code></td>
+<td>باہر جانے والی مقامی درخواستوں میں منتخب فائر فاکس کوکیز استعمال کریں۔ پہلے سے طے شدہ سچ</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.mode</code></td>
+<td><code dir="ltr" translate="no">replace</code> پہلے سے طے شدہ طور پر؛ اختیاری <code dir="ltr" translate="no">merge</code>، ذیل میں وضاحت کی گئی ہے۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code></td>
+<td>منتخب فائر فاکس جار پر رسپانس سیٹ-کوکی اپ ڈیٹس کا اطلاق کریں؛ پہلے سے طے شدہ سچ، درخواست کو اوور رائڈ سے آزاد</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.preserveToolChanges</code></td>
+<td>فی کلائنٹ کنکشن/اصل کی پہلی درخواست کے مطابق تبدیلیوں کو محفوظ رکھیں؛ پہلے سے طے شدہ سچ</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.protectedNames</code></td>
+<td>کوکی کے نام جن کے ٹول کی قدریں ٹول کنٹرول میں رہیں</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.includeNames</code></td>
+<td>صرف ان ناموں کا انتظام کریں؛ خالی کا مطلب ہے تمام مماثل براؤزر کے نام</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.excludeNames</code></td>
+<td>ان براؤزر کوکی ناموں کا نظم نہ کریں۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.userAgent</code>, <code dir="ltr" translate="no">acceptLanguage</code>, <code dir="ltr" translate="no">authorization</code></td>
+<td><code dir="ltr" translate="no">source</code> ہے <code dir="ltr" translate="no">tool</code>, <code dir="ltr" translate="no">browser</code> یا <code dir="ltr" translate="no">custom</code>; کسٹم کو بغیر خالی سنگل لائن کی ضرورت ہے۔ <code dir="ltr" translate="no">value</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.set</code>, <code dir="ltr" translate="no">remove</code>, <code dir="ltr" translate="no">protectedNames</code></td>
+<td>واضح اضافی ہیڈر تبدیلیاں اور تحفظ؛ محفوظ/منظم شعبوں کو اپنے مخصوص کنٹرولز کی ضرورت ہوتی ہے۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.origins</code></td>
+<td>خالی استعمال جوڑی کی اصل؛ واضح طور پر درج اضافی عین اصل کو براؤزر سے حاصل کردہ سیشن فیلڈز نہیں ملتے ہیں۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.excludePaths</code></td>
+<td>خارج کردہ راستے کے سابقے، بشمول ڈی کوڈ شدہ فارمز</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.methods</code></td>
+<td>اجازت شدہ طریقے؛ پہلے سے طے شدہ <code dir="ltr" translate="no">["*"]</code> مطلب تمام مقامی HTTP طریقے، لانگ شاٹ کے براؤزر کی تحریری منظوری نہیں۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.rate</code></td>
+<td>مشترکہ مقامی شیڈولنگ کی شرح، پہلے سے طے شدہ 2 درخواستیں/سیکنڈ</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.concurrency</code></td>
+<td>مقامی کنٹرول سلاٹس، ڈیفالٹ 4</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxRequests</code></td>
+<td>مقامی درخواست کی حد، پہلے سے طے شدہ 10,000؛ تھکن کام کو روکتی ہے۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxBodyBytes</code></td>
+<td>بفرنگ/باڈی سیلنگ، ڈیفالٹ 64 ایم آئی بی</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.timeoutSeconds</code></td>
+<td>مکمل لیز/ٹائم آؤٹ، ڈیفالٹ 60 سیکنڈ؛ پہلے سے بھیجی گئی درخواست کا کوئی رول بیک نہیں ہے۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseStatuses</code></td>
+<td>پہلے سے طے شدہ توثیق کی حیثیت کو روکنے کی فہرست: 401، 419، 440</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseOn429</code></td>
+<td>پہلے سے طے شدہ طور پر تھروٹلنگ پر توقف کریں۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">tls.verifyUpstream</code>, <code dir="ltr" translate="no">http2</code></td>
+<td>ڈیفالٹ کے لحاظ سے دونوں درست ہیں۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">upstream.url</code></td>
+<td>اختیاری HTTP(S) اپ اسٹریم پراکسی؛ null کا مطلب ہے کوئی نہیں۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">routing.socks5</code></td>
+<td>اختیاری <code dir="ltr" translate="no">socks5h://host:port</code>; ڈیفالٹ کی طرف سے null؛ upstream URL کے ساتھ باہمی طور پر خصوصی</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">audit.enabled</code></td>
+<td>میٹا ڈیٹا صرف JSONL آڈٹ، ڈیفالٹ درست</td>
+</tr>
+</tbody>
+</table>
+<p>مقامی توثیق کی حدود: پورٹ 1024–65535، شرح 0.1–100، ہم آہنگی 1–32، درخواست کی حد 1–1,000,000، باڈی کی حد 1 KB–256 MiB، ٹائم آؤٹ 1–600 سیکنڈ، کنٹرول ٹائم آؤٹ 1,000–1,000ms یہ کنفیگریشن باؤنڈز ہیں، ہدف کے محفوظ بوجھ کے لیے سفارشات نہیں۔</p>
+<p>ہیڈر کے نام کیس غیر حساس ہیں۔ کوکی کے نام کیس کے لحاظ سے حساس ہوتے ہیں۔ JSON بولین استعمال کریں۔ <code dir="ltr" translate="no">true</code>/<code dir="ltr" translate="no">false</code>، تار نہیں عام <code dir="ltr" translate="no">headers.set</code> میزبان، کوکی، اجازت، فریمنگ یا پراکسی کنٹرول فیلڈز کی جگہ نہیں لے سکتا۔ وقف شدہ کوکی/آتھورائزیشن کے اختیارات اور ٹول کی اپنی ہوسٹ ویلیو استعمال کریں۔</p>
+<p>مقامی ٹول چلانے کے لیے بوجھ کو کم کرنے کے لیے، ایک جزوی تشکیل ڈیفالٹس کو اوور رائیڈ کر سکتا ہے، مثال کے طور پر:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "limits": {
+    "rate": 0.5,
+    "concurrency": 1,
+    "maxRequests": 500
+  }
+}
+</code></pre>
+<p>کوئی عام مقامی کنفیگریشن کلید نہیں ہے جو فارم باڈی ٹوکنز کو ریفریش کرتی ہے یا براؤزر لاگ ان ورک فلو ایجاد کرتی ہے۔</p>
+<h2 id="cookie-and-header-overrides-without-damaging-probes">کوکی اور ہیڈر تحقیقات کو نقصان پہنچائے بغیر اوور رائیڈ کرتا ہے۔</h2>
+<h3 id="default-cookie-behavior">ڈیفالٹ کوکی سلوک</h3>
+<p><strong>براؤزر کوکیز استعمال کریں۔</strong> اور <strong>ریسپانس سیٹ-کوکی اپ ڈیٹس کو محفوظ کریں۔</strong> بطور ڈیفالٹ آن ہیں۔ صارف-ایجنٹ، قبول زبان اور اجازت پہلے سے طے شدہ ٹول کے زیر کنٹرول رہتے ہیں۔</p>
+<p>مقامی درخواست کے لیے، Firefox جوڑے والے ٹیب کے کوکی اسٹور اور مماثل تقسیم سے URL کے لیے قابل اطلاق کوکیز کا انتخاب کرتا ہے۔ دوسرے کنٹینرز/نجی اسٹورز کو ضم نہیں کیا گیا ہے۔ ڈومین/پاتھ/سیکیور/ایکسپائری کے اصول اور اسی نام کے راستے کی ترتیب متعلقہ رہتی ہے۔ قدریں مقامی پراکسی کو فراہم کی جاتی ہیں تاکہ یہ باہر جانے والی کوکی ہیڈر کو بنا سکے۔ براؤزر سے نکالے گئے راستے کے برعکس، مقامی مددگار اس وجہ سے میموری میں سیشن کے راز کو سنبھالتا ہے۔</p>
+<p>کے ساتھ <code dir="ltr" translate="no">cookies.mode:"replace"</code>، براؤزر جار مستند ہے، بشمول جب خالی ہو۔ جار سے حذف شدہ براؤزر کوکی کو بعد میں منظم کردہ درخواستوں سے ہٹا دیا جاتا ہے۔ واضح طور پر محفوظ کردہ نام اور آلہ کی تبدیلیوں کو ترجیح دی جاتی ہے۔ کے ساتھ <code dir="ltr" translate="no">mode:"merge"</code>، براؤزر کے زیر انتظام ناموں کو اپ ڈیٹ کرنے کے دوران غیر متعلقہ ٹول کوکیز باقی رہ سکتی ہیں۔</p>
+<p>ریسپانس سیٹ-کوکی فیلڈز انفرادی طور پر فائر فاکس کے کوکی API کا استعمال کرتے ہوئے اسی منتخب اسٹور پر لاگو ہوتے ہیں، بشمول معاون ڈومین/پاتھ/سیکیور/HttpOnly/SameSite/expiry/deletion/partition انتسابات۔ غلط کوکیز کو مسترد کیا جا سکتا ہے؛ رپورٹ شدہ غلطیوں کا معائنہ کریں۔ اضافی ترتیب شدہ اصلیت براؤزر کوکیز یا براؤزر سے اخذ کردہ ہیڈر وصول نہیں کرتے ہیں۔</p>
+<h3 id="request-and-response-switches-are-independent">درخواست اور جواب کے سوئچز آزاد ہیں۔</h3>
+<table>
+<thead>
+<tr>
+<th>کوکی اوور رائیڈ کی درخواست کریں۔</th>
+<th>رسپانس سنکرونائزیشن</th>
+<th>نتیجہ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>پر</td>
+<td>پر</td>
+<td>فائر فاکس کوکیز استعمال کریں اور جار کو ریسپانس سیٹ کوکی سے اپ ڈیٹ کریں۔</td>
+</tr>
+<tr>
+<td>آف</td>
+<td>پر</td>
+<td>ٹول کی درخواست کوکیز رکھیں؛ ہدف کے جوابات اب بھی فائر فاکس کے جار کو تبدیل کر سکتے ہیں۔</td>
+</tr>
+<tr>
+<td>پر</td>
+<td>آف</td>
+<td>فائر فاکس کوکیز استعمال کریں۔ اس مددگار کے ذریعے جوابی کوکیز واپس نہ لکھیں۔</td>
+</tr>
+<tr>
+<td>آف</td>
+<td>آف</td>
+<td>کوکیز کی درخواست کو ٹول کے ذریعے کنٹرول میں رکھیں اور جوابات کو ہم آہنگ نہ کریں۔</td>
+</tr>
+</tbody>
+</table>
+<p>کوکی فزنگ یا سیشن کے تجربے کے لیے جس میں براؤزر جار کو کوئی تبدیلی نہیں کرنی چاہیے، دونوں سوئچز پر غور کریں۔ فی درخواست اوور رائیڈ بائی پاس درخواست کے سائیڈ اوور رائیڈز کو متاثر کرتا ہے۔ یہ آزاد عالمی رسپانس کوکی سنکرونائزیشن سیٹنگ کو غیر فعال نہیں کرتا ہے۔</p>
+<h3 id="protect-fields-that-contain-attack-payloads">اٹیک پے لوڈز پر مشتمل فیلڈز کی حفاظت کریں۔</h3>
+<p>فرض کریں ZAP ٹیسٹ <code dir="ltr" translate="no">session=ATTACK_PAYLOAD</code>. آنکھ بند کرکے اس قدر کو براؤزر کے درست سیشن سے تبدیل کرنے سے ٹیسٹ ختم ہوسکتا ہے۔ اس کے برعکس، ہر درخواست میں باسی کوکی کو برقرار رکھنے سے ایک تصدیق شدہ اسکین بیکار ہو سکتا ہے۔</p>
+<p>پہلے سے طے شدہ <strong>ٹول کوکی/ہیڈر کی تبدیلیوں کو اس کی پہلی درخواست کے بعد محفوظ رکھیں</strong> فی کلائنٹ کنکشن/اصل میں ایک بیس لائن ریکارڈ کرتا ہے اور بعد میں ہونے والی تبدیلیوں کو محفوظ رکھتا ہے۔ پہلے ایک عام بیج کی درخواست بھیجیں۔ پراکسی پہلی درخواست پر قابل اعتماد طریقے سے ارادے کا اندازہ نہیں لگا سکتی، اور ایک نیا کنکشن ایک نئی بیس لائن بناتا ہے۔ یہ heuristic مکمل تحفظ نہیں ہے۔</p>
+<p>متوقع جانچ کے لیے، ان میں سے ایک میکانزم کا انتخاب کریں:</p>
+<ol>
+<li>جانچ کی جا رہی مخصوص کوکی/ہیڈر اوور رائیڈ کو غیر فعال کریں۔</li>
+<li>کوکیز کے نام شامل کریں۔ <code dir="ltr" translate="no">cookies.protectedNames</code> یا ہیڈرز <code dir="ltr" translate="no">headers.protectedNames</code>.</li>
+<li>ایک منتخب فی درخواست تشریح بھیجیں:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Preserve: cookie:session, User-Agent, Authorization</code></p>
+<p>یہ ٹول کے نامزد کردہ کوکی/ہیڈر فیلڈز کو رکھتا ہے۔ <code dir="ltr" translate="no">cookie</code> بغیر نام کے مکمل ٹول کوکی ہیڈر کو محفوظ رکھتا ہے۔</p>
+<ol start="4">
+<li>اس درخواست کے لیے تمام ریکویسٹ سائیڈ اوور رائیڈز کو نظرانداز کریں:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Override: off</code></p>
+<p>اڈاپٹر فارورڈ کرنے سے پہلے ان تشریحی ہیڈر کو ہٹا دیتا ہے۔ پراکسی تصدیق، دائرہ کار اور حدود اب بھی لاگو ہیں۔ ابتدائی ٹول میں تشریحات کو ترتیب دیں؛ انہیں ٹارگٹ ویب پیج میں ڈالنا پل کنفیگریشن میکانزم نہیں ہے۔</p>
+<p>مثال کے طور پر رکھنا <code dir="ltr" translate="no">session</code> حفاظتی ZAP اسے تبدیل کرنے دیتا ہے جب کہ مددگار کسی غیر متعلقہ کو اپ ڈیٹ کرنا جاری رکھ سکتا ہے۔ <code dir="ltr" translate="no">preferences</code> کوکی مکمل کوکی/آتھورائزیشن/یوزر-ایجنٹ ٹیسٹنگ کے لیے، ان اوور رائیڈز کو غیر فعال کرنے سے تبدیلی کا پتہ لگانے والے ہورسٹکس پر انحصار سے بچ جاتا ہے۔</p>
+<h3 id="browser-authorization-and-other-headers">براؤزر کی اجازت اور دوسرے ہیڈر</h3>
+<p>براؤزر کی اجازت JSON کنفیگریشن کے ذریعے آپٹ ان ہے۔ اسے براؤزر سورسنگ کو فعال کرنے کے بعد ہی جوڑا بنائے گئے ٹارگٹ ٹیب کے ذریعے اصل درخواست سے حاصل کیا جاتا ہے۔ یہ لوکل اسٹوریج یا ایپلیکیشن میموری میں ہر ٹوکن کے لیے خودکار ریڈر نہیں ہے۔ مشاہدہ شدہ قدر موجود ہونے سے پہلے بعد میں براؤزر کی درخواست کی ضرورت ہو سکتی ہے۔ براؤزر کی اجازت کو بند کرنے سے وہ رک جاتا ہے جو مددگار کی طرف سے فراہم کی جانے والی کیپچر شدہ قیمت کو روکتا ہے۔</p>
+<p>براؤزر یوزر-ایجنٹ یا قبول زبان کا انتخاب صرف ان HTTP فیلڈز کو تبدیل کرتا ہے۔ یہ ٹارگٹ JavaScript نہیں چلاتا، باڈی CSRF ٹوکن کو ریفریش نہیں کرتا، براؤزر TLS کو دوبارہ تیار نہیں کرتا یا WAF قبولیت کی ضمانت نہیں دیتا۔ آئی پی/ڈیوائس سے منسلک توثیق اور OAuth ریفریش کو ابھی بھی ان کے ایپلیکیشن ورک فلو کی ضرورت ہے۔</p>
+<h3 id="vhost-host-handling">VHOST / میزبان ہینڈلنگ</h3>
+<p>مقامی مددگار ٹول کے میزبان فیلڈ میں اندرونی برج عرف کو تبدیل نہیں کرتا ہے۔ ٹول کو مجاز ورچوئل ہوسٹ ٹیسٹ کے لیے مطلوبہ ہوسٹ ویلیو بھیجنے دیں۔ HTTPS کے لیے، CONNECT کی منزل مجاز ہدف بنی ہوئی ہے جبکہ ٹول کے میزبان ہیڈر کو محفوظ کیا جا سکتا ہے۔</p>
+<p>میزبان ہیڈر کو تبدیل کرنے سے کسی اور نیٹ ورک کی منزل تک رسائی نہیں ملتی ہے۔ ایک ریورس پراکسی اسے کسی اور ایپلیکیشن کی طرف لے جا سکتی ہے۔ تشخیص کی اجازت میں اس مجازی میزبان کے رویے کو شامل کریں۔ بالکل خراب ہیڈر بائٹس اور متضاد فریمنگ اس پارس شدہ پراکسی سے باہر ہیں۔</p>
+<h3 id="audit-and-privacy">آڈٹ اور رازداری</h3>
+<p><strong>مقامی ٹریفک</strong> درخواست کا میٹا ڈیٹا اور تبدیل شدہ/محفوظ فیلڈ کے نام دکھاتا ہے۔ آڈٹ میں کوکی/ہیڈر خفیہ اقدار، استفسار کی اقدار اور باڈیز کو چھوڑ دیا جاتا ہے۔ اس کا مطلب یہ نہیں ہے کہ پراکسی راز کو کبھی نہیں سنبھالتی ہے: اسے تصدیق شدہ ٹریفک بھیجنے کے لیے ان پر کارروائی کرنی چاہیے۔ بیرونی ٹولز اپنی اپنی تاریخوں/نتائج کو برقرار رکھتے ہیں، جس میں وہ اقدار شامل ہو سکتی ہیں۔</p>
+<p>پرائیویٹ کنفگ ٹوکنز، CA کیز اور ڈیٹا ڈائریکٹریز کو رپورٹس/ذریعہ آرکائیوز سے باہر رکھیں۔ اپنی مرضی کے مطابق اجازت کی اقدار کے ساتھ ترتیب کو ڈاؤن لوڈ کرنے سے ان اقدار پر مشتمل فائل بن سکتی ہے۔</p>
+<h2 id="external-tools-and-actual-zap-scanning">بیرونی ٹولز اور اصل ZAP اسکیننگ</h2>
+<h3 id="start-with-one-request">ایک درخواست کے ساتھ شروع کریں۔</h3>
+<p>پل کو جوڑیں، پھر اصل مقامی ہدف کی جانچ کریں:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  'http://localhost:8080/'
+</code></pre>
+<p>سیشن کے رویے کو چیک کرنے کے لیے ایک معروف مستند پڑھنے کا راستہ استعمال کریں۔ عوامی ہوم پیج سے 200 کافی نہیں ہے۔ مقامی ٹریفک میں درخواست کی تصدیق کریں، منتخب کردہ کوکی اسٹور درست ہے، اور ٹول کو متوقع مواد موصول ہوا ہے۔ بعد کی تمام درخواستوں کا اندازہ نہ لگائیں صرف پراکسی کا استعمال کریں کیونکہ اس نے کیا تھا۔</p>
+<h3 id="zap-outgoing-proxy">ZAP آؤٹ گوئنگ پراکسی</h3>
+<ol>
+<li>ZAP کو الگ سے انسٹال/شروع کریں اور تشخیص کے لیے مخصوص ZAP سیشن استعمال کریں۔</li>
+<li>ZAP میں <strong>اختیارات → نیٹ ورک → کنکشن</strong>، کو فعال کریں۔ <strong>آؤٹ گوئنگ HTTP پراکسی</strong>.</li>
+<li>میزبان مقرر کریں۔ <code dir="ltr" translate="no">127.0.0.1</code>، بندرگاہ <code dir="ltr" translate="no">8900</code> (یا موجودہ کنفیگرڈ پراکسی پورٹ)۔</li>
+<li>پراکسی تصدیق کو فعال کریں: صارف نام <code dir="ltr" translate="no">bridge</code>موجودہ اڈاپٹر ٹوکن کو پاس ورڈ دیں۔</li>
+<li>اس سلسلہ کے لیے ZAP کی اپنی SOCKS پراکسی کو غیر فعال کریں۔ ZAP کی SOCKS ترتیب اس کی HTTP پراکسی پر فوقیت رکھتی ہے۔</li>
+<li>HTTP پراکسی اخراج کو چیک کریں تاکہ مطلوبہ ہدف کو نظرانداز نہ کیا جائے، خاص طور پر مقامی سروس کے لیے۔</li>
+<li>ضرورت پڑنے پر اڈاپٹر CA کو ٹول کے قابل اطلاق TLS ٹرسٹ/تصدیق سیٹ اپ میں کنفیگر کریں۔ اس کا مقام اڈاپٹر کے آغاز پر پرنٹ کیا جاتا ہے۔</li>
+<li>تک رسائی حاصل کریں۔ <strong>اصل ہدف URL</strong> ZAP سے اور اس کی ہسٹری پلس میٹا ڈیٹا کی تصدیق کریں۔</li>
+<li>ZAP کے اپنے ہدف/سیاق و سباق، اسکین پالیسی، اخراج، تصدیق کی جانچ اور معمولی درخواست کی شرح کی وضاحت کریں۔ مجاز کے طور پر اس کا اصل مکڑی/ایکٹو اسکین چلائیں۔</li>
+<li>ZAP میں نتائج اور کوریج کا جائزہ لیں۔ جب جان بوجھ کر کوکی/ہیڈر کی توثیق کرنے والے فیلڈز کو مبہم کرتے ہیں، اوپر تحفظ/بائی پاس میکانزم استعمال کریں۔</li>
+</ol>
+<p>یہ ترتیب ZAP کی ہے۔ <strong>باہر جانے والا کنکشن</strong>اس کا مقامی آنے والا براؤزر پراکسی سننے والا نہیں۔ فائر فاکس کو ZAP استعمال کرنے کے لیے دوبارہ ترتیب دینے کی ضرورت نہیں ہے صرف اس سلسلہ کو منتخب ٹیب کی کوکیز فراہم کرنے کے لیے۔</p>
+<p>ZAP اپنے حقیقی ایکٹیو رول پے لوڈز تیار کرتا ہے۔ mitmproxy نتیجے میں آنے والی مقامی درخواستیں بھیجتا ہے۔ لانگ شاٹ تبدیلیاں صرف آپٹ ان درخواست والے فیلڈز۔ یہ بیرونی ٹول کے قابل استعمال سیشن سیاق و سباق کو بڑھاتا ہے لیکن کسی بھی ٹول کے اسکین کو جامع نہیں بناتا ہے۔ دیکھیں <a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP کنکشن کی ترتیبات</a>.</p>
+<h3 id="other-http-tools">دیگر HTTP ٹولز</h3>
+<table>
+<thead>
+<tr>
+<th>ٹول/کلائنٹ</th>
+<th>جڑنے کا طریقہ</th>
+<th>اہم حد</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>curl</td>
+<td><code dir="ltr" translate="no">--proxy</code>, <code dir="ltr" translate="no">--proxy-user</code>; <code dir="ltr" translate="no">--cacert</code> HTTPS اعتماد کے لیے؛ جہاں ضرورت ہو وہاں پراکسی بائی پاس کو صاف کریں۔</td>
+<td>مختلف درخواستیں/رابطے ہورسٹک پروب بیس لائنز کو دوبارہ ترتیب دے سکتے ہیں۔</td>
+</tr>
+<tr>
+<td>ffuff</td>
+<td>اس کا HTTP پراکسی آپشن (<code dir="ltr" translate="no">-x</code>) مستند پراکسی یو آر ایل کے ساتھ؛ ایک پابند دائرہ کار والی ورڈ لسٹ اور کم شرح فراہم کریں۔</td>
+<td>ایک HTTP پراکسی علیحدہ نان پراکسی درخواست کو محدود نہیں کرتی ہے۔</td>
+</tr>
+<tr>
+<td>sqlmap</td>
+<td>موجودہ اسناد کے ساتھ اس کا HTTP پراکسی آپشن؛ مجاز URL/پیرامیٹر کو منتخب کریں اور جانچ کی جا رہی فیلڈز کی حفاظت کریں۔</td>
+<td>علیحدہ SQLi انجن/ترتیبات؛ کوکی کی تبدیلی کوکی پروبس کو مٹا سکتی ہے جب تک کہ کنفیگر نہ ہو۔</td>
+</tr>
+<tr>
+<td>wget</td>
+<td>تصدیق شدہ <code dir="ltr" translate="no">http_proxy</code>/<code dir="ltr" translate="no">https_proxy</code> یا اس کی پراکسی ترتیبات؛ سرٹیفکیٹ اعتماد کو ترتیب دیں</td>
+<td>چیک کریں۔ <code dir="ltr" translate="no">no_proxy</code> اور ٹول کے لیے مخصوص پراکسی رویہ</td>
+</tr>
+<tr>
+<td>Python urllib / درخواستیں</td>
+<td>HTTPS کے لیے واضح توثیق شدہ پراکسی ہینڈلر/config پلس اڈاپٹر CA</td>
+<td>لائبریریاں ماحولیاتی متغیر اور بائی پاس ہینڈلنگ میں مختلف ہوتی ہیں۔</td>
+</tr>
+<tr>
+<td>نیوکلی سی ایل آئی</td>
+<td>معاون HTTP ٹیمپلیٹ ٹریفک کے لیے اس کی HTTP پراکسی/ٹرسٹ کو ترتیب دیں۔</td>
+<td>غیر HTTP/کوڈ/ ہیڈ لیس ٹیمپلیٹ ٹریفک ایک HTTP پراکسی آپشن کے ذریعہ عالمی طور پر احاطہ نہیں کرتا ہے۔</td>
+</tr>
+</tbody>
+</table>
+<p>اسناد پر مشتمل ایک پراکسی URL حساس ہے۔ جہاں دستیاب ہو اپنے ٹول کی پرائیویٹ اسسمنٹ کنفیگریشن کا استعمال کریں۔ مشترکہ رپورٹس میں موجودہ ٹوکن چسپاں نہ کریں۔ ہر ٹول کے لیے، ہر پروٹوکول یا ذیلی عمل کو اس کی HTTP پراکسی ترتیب کا احترام کرنے کے بجائے روٹ شدہ ٹریفک کی تصدیق کریں۔</p>
+<p>صرف پڑھنے کے لیے مقامی ہدف کے لیے لینکس ازگر کی معیاری لائبریری کی مثال؛ یہ اسے ہارڈ کوڈنگ کرنے کے بجائے ٹوکن کا اشارہ کرتا ہے اور اس عمل کے لیے ماحولیاتی پراکسی بائی پاس کو صاف کرتا ہے:</p>
+<pre dir="ltr" translate="no"><code class="language-python" dir="ltr" translate="no">import os
+from getpass import getpass
+from urllib.request import (
+    HTTPPasswordMgrWithDefaultRealm,
+    ProxyBasicAuthHandler, ProxyHandler, build_opener,
+)
+
+os.environ["no_proxy"] = ""
+os.environ["NO_PROXY"] = ""
+proxy = "http://127.0.0.1:8900"
+credentials = HTTPPasswordMgrWithDefaultRealm()
+credentials.add_password(None, proxy, "bridge", getpass("Bridge token: "))
+opener = build_opener(
+    ProxyHandler({"http": proxy, "https": proxy}),
+    ProxyBasicAuthHandler(credentials),
+)
+with opener.open("http://localhost:8080/", timeout=20) as response:
+    print(response.status)
+    print(response.read(200).decode("utf-8", errors="replace"))
+</code></pre>
+<p>مقامی ٹریفک میں درخواست کی تصدیق کریں۔ دوسرے پلیٹ فارمز میں سسٹم پراکسی بائی پاس کے اضافی اصول ہو سکتے ہیں۔ واضح کے ساتھ curl کی مثال <code dir="ltr" translate="no">--noproxy ''</code> آسان لوپ بیک روٹ کی توثیق کی جانچ ہے۔ HTTPS Python کلائنٹس کو اضافی طور پر SSL سیاق و سباق/CA بنڈل کی ضرورت ہوتی ہے جو اڈاپٹر سرٹیفکیٹ پر بھروسہ کرتا ہو۔</p>
+<h3 id="pause-and-errors">توقف اور غلطیاں</h3>
+<p><strong>مقامی درخواستوں کو روکیں۔</strong> نئے مقامی اخراج کو روکتا ہے۔ توثیق کے حالات 401/419/440، HTTP 429، ٹیب کی بندش/آف اوریجن تبدیلیاں یا بجٹ کی حدیں بھی کام کو روک سکتی ہیں۔ <strong>ٹیب کو چیک کرنے کے بعد دوبارہ شروع کریں۔</strong> جوڑی کی حالت کا جائزہ لینے کے بعد ہی دوبارہ شروع ہوتا ہے۔</p>
+<p><strong>رکیں اور منقطع کریں۔</strong> براؤزر کی جوڑی کو ختم کرتا ہے؛ یہ الگ سے شروع ہونے والے نوڈ کے عمل کو ختم نہیں کرتا ہے۔ اس عمل کو روکنے کے لیے اس کے ٹرمینل میں Ctrl+C استعمال کریں۔</p>
+<p>پرواز میں درخواستیں ختم ہو سکتی ہیں۔ پراکسی کلائنٹس کو بلاک شدہ کام کے لیے غلطیاں موصول ہوتی ہیں۔ اڈاپٹر صوابدیدی ٹول کے عمل کو معطل نہیں کرتا ہے یا ان کی درخواستوں کو دوبارہ نہیں چلاتا ہے۔ معائنہ کریں کہ کون سی درخواستیں کامیاب ہوئیں اور ٹول کے اپنے دوبارہ کوشش/ریزیوم کنٹرولز استعمال کریں۔ دوبارہ شروع کرنا/دوبارہ جوڑنا ٹوکن کو تبدیل کرتا ہے اور ٹول کی تصدیق کو اپ ڈیٹ کرنے کی ضرورت ہے۔</p>
+<p>401/419/440 جان بوجھ کر منفی تصدیق کے ٹیسٹ میں متوقع ہو سکتا ہے۔ اگر ضرورت ہو تو، ایڈجسٹ کریں <code dir="ltr" translate="no">session.pauseStatuses</code> اس کے لیے جائزہ لیا چلائیں اور دوبارہ شروع کریں؛ اڈاپٹر یہ اندازہ نہیں لگاتا کہ آیا ہر تصدیق کی ناکامی ایک مطلوبہ تحقیقات ہے۔</p>
+<h2 id="tor-and-onion-routing">ٹور اور پیاز کی روٹنگ</h2>
+<p>براؤزر پر مبنی لانگ شاٹ کی درخواستیں منتخب براؤزر کی نیٹ ورکنگ کی پیروی کرتی ہیں۔ مقامی اڈاپٹر ایک مختلف عمل ہے اور اسے Firefox/Tor Browser کی پراکسی ترتیبات کا وارث نہیں ملتا ہے۔</p>
+<p>SOCKS/Tor ہے۔ <strong>ڈیفالٹ کی طرف سے بند</strong> مقامی ترتیب میں۔ ایک مجاز پیاز کی تشخیص کے لیے، ریموٹ ہوسٹ نیم ریزولوشن کے ساتھ واضح طور پر تشکیل شدہ موجودہ SOCKS سروس کا استعمال کریں، مثال کے طور پر اگر یہ واقعی آپ کا مقامی Tor سننے والا ہے:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "routing": {
+    "socks5": "socks5h://127.0.0.1:9050"
+  }
+}
+</code></pre>
+<p>یہ مثال Tor شروع نہیں کرتی ہے اور نہ ہی یہ قائم کرتی ہے کہ پورٹ 9050 موجود ہے۔ اصل ترتیب شدہ سروس کو منتخب کریں؛ ٹور براؤزر کی مثال ایک مختلف سننے والا استعمال کر سکتی ہے۔ اڈاپٹر کو دوبارہ شروع کریں اور دوبارہ جوڑیں۔ ایک HTTP(S) <code dir="ltr" translate="no">upstream.url</code> اور <code dir="ltr" translate="no">routing.socks5</code> باہمی طور پر خصوصی ہیں.</p>
+<p>مقامی شیم SOCKS کے ذریعے میزبان ناموں کو حل کرتا ہے اور اس کا کوئی خاموش براہ راست فال بیک نہیں ہے۔ واضح طور پر ترتیب شدہ upstream/SOCKS روٹ کے بغیر، براہ راست پیاز کی منزلوں کو ہدف DNS سے پہلے مسترد کر دیا جاتا ہے۔ SOCKS URL ایک مجاز SSH ٹنل یا دیگر SOCKS5 سروس کا بھی حوالہ دے سکتا ہے۔ یہ ٹور روٹنگ کا اندرونی ثبوت نہیں ہے۔</p>
+<p>کوکی شیئرنگ مقامی روٹ کے ایگزٹ آئی پی یا TLS/براؤزر کے فنگر پرنٹ کو فائر فاکس سے مماثل نہیں بناتی ہے۔ چیلنجز یا سیشن بائنڈنگ اسے مسترد کر سکتے ہیں۔ راستے اور متوقع سیشن کو آزادانہ طور پر چیک کریں۔</p>
+<p><strong>ایجنٹ API کے ذریعہ شروع کردہ الگ تھلگ مقامی نیوکلی مختلف ہے:</strong> اس کے بلٹ ان ریلے میں کوئی Tor/SOCKS روٹ نہیں ہے اور سسٹم DNS سے پہلے پیاز کے اہداف کو روکتا ہے۔ مطلوبہ براؤزر میں اہل براؤزر سائیڈ چیکس، یا مقامی پراکسی کے ذریعے الگ سے کنفیگر کردہ بیرونی ٹول استعمال کریں۔ یہ مت سمجھو کہ نیوکلی چیک باکس کو وراثت میں ملا ہے۔ <code dir="ltr" translate="no">routing.socks5</code> براؤزر پل سے.</p>
+<h2 id="agent-api-mcp-and-local-model-clients">ایجنٹ API، MCP اور مقامی ماڈل کلائنٹس</h2>
+<p>اس کا استعمال اس وقت کریں جب ایجنٹ/اسکرپٹ کو لانگ شاٹ چلانا، ثبوت بازیافت کرنا یا اسسمنٹ فائلوں کو محفوظ کرنا چاہیے۔ یہ :8900 ٹریفک پراکسی نہیں ہے۔</p>
+<h3 id="register-and-connect-the-native-host">رجسٹر کریں اور مقامی میزبان سے جڑیں۔</h3>
+<p>رکھے ہوئے سے <strong>ذریعہ</strong> ڈائریکٹری پر مشتمل ہے۔ <code dir="ltr" translate="no">manifest.json</code> اور <code dir="ltr" translate="no">bridge/</code>:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+node bridge/bin/longshot-bridge install
+</code></pre>
+<p>یہ رجسٹر کرتا ہے۔ <code dir="ltr" translate="no">longshot.bridge</code> اور ایک لانچر جو سورس فولڈر اور نوڈ قابل عمل کا حوالہ دیتا ہے۔ دونوں جگہ پر رکھیں۔ اگر کوئی بھی حرکت کرتا ہے تو دوبارہ رجسٹر کریں۔</p>
+<p>کھولیں۔ <strong>ترتیبات → کنکشن اور سیٹ اپ → مقامی پل سے جڑیں۔</strong> اور فائر فاکس کو مقامی پیغام رسانی کی اجازت دیں۔ میزبان اپنا ڈیمون خود بخود شروع کر سکتا ہے۔ اگر جان بوجھ کر ڈیمون کو دستی طور پر چلا رہے ہیں:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">node bridge/bin/longshot-bridge serve
+</code></pre>
+<p>اسی پورٹ/ڈیٹا ڈائرکٹری پر دوسرے ڈیمون سے گریز کریں۔ منقطع کرنے سے ایکسٹینشن کا مقامی کنکشن بند ہو جاتا ہے۔ یہ ضروری نہیں کہ آزادانہ طور پر شروع ہونے والے ڈیمون کو روکے۔</p>
+<p>Node.js 20+ درکار ہے۔ مقامی پیغام رسانی MCP کو پراکسی کی Python/mitmproxy انسٹالیشن کی ضرورت نہیں ہے۔ لینکس استعمال شدہ سیٹ اپ ہے۔ macOS رجسٹریشن سپورٹ فراہم کی گئی ہے لیکن یہاں رن ٹائم کی تصدیق نہیں کی گئی ہے۔ اس ریلیز میں کوئی ونڈوز فائر فاکس مقامی میزبان انسٹالر نہیں ہے۔ WSL میں رجسٹر کرنے سے Windows Firefox کے لیے میزبان رجسٹر نہیں ہوتا ہے۔ مقامی نیوکلی تنہائی صرف لینکس ہے۔</p>
+<p>ڈیفالٹ سروس: <code dir="ltr" translate="no">http://127.0.0.1:8765</code>. یہ لوکل ہوسٹ ایڈریس ایک کنٹرول API ہے، <strong>اسکین شدہ ہدف نہیں۔</strong>. ٹوکن/ساکٹ پہلے سے طے شدہ ہے۔ <code dir="ltr" translate="no">$XDG_DATA_HOME/longshot</code> یا <code dir="ltr" translate="no">~/.local/share/longshot</code>. حسب ضرورت <code dir="ltr" translate="no">--port</code> اور <code dir="ltr" translate="no">--data-dir</code> انسٹال، سرو اور ایم سی پی میں مماثل ہونا چاہیے۔ ایک مختصر یونکس ڈیٹا پاتھ استعمال کریں کیونکہ اس کے ساکٹ پاتھ میں 100 بائٹ کی حد ہے۔</p>
+<h3 id="rest-example">REST مثال</h3>
+<p>اسی سورس فولڈر سے:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">longshot_token_file="$(node bridge/bin/longshot-bridge token-path)"
+longshot_api_token="$(cat "$longshot_token_file")"
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/health
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/targets
+</code></pre>
+<p>دی <code dir="ltr" translate="no">token-path</code> کمانڈ ایک فائل کا نام پرنٹ کرتا ہے، ٹوکن نہیں۔ API پراکسی صارف نام/پاس ورڈ کی توثیق کے برعکس بیئرر تصدیق کا استعمال کرتا ہے۔ یہ نان لوپ بیک کلائنٹس اور براؤزر اوریجن کی درخواستوں کو مسترد کرتا ہے اور عام CORS API کو ظاہر نہیں کرتا ہے۔ اسے عوامی ریورس پراکسی کے ذریعے شائع نہ کریں۔</p>
+<p>مطلوبہ ٹارگٹ کو جوڑنے/ایکٹیویٹ کرنے اور اس کے محفوظ کردہ آپشنز کو چیک کرنے کے بعد ہی ایک چھوٹا اسکین شروع کریں:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  -H 'Content-Type: application/json' \
+  --data '{"target_id":"PROFILE_ID","mode":"safe","budget":150}' \
+  http://127.0.0.1:8765/v1/scans
+</code></pre>
+<p>PROFILE_ID کو منتخب پروفائل ID سے تبدیل کریں۔ <code dir="ltr" translate="no">safe</code> صرف مکڑی کے نقشے؛ یہ ہر محفوظ کردہ ایڈوانسڈ آپشن کو ری سیٹ نہیں کرتا ہے یا یونیورسل اوور رائڈ کے طور پر کام نہیں کرتا ہے۔ آغاز متضاد ہے۔ واپس آئی رن آئی ڈی پڑھیں، پھر مانیٹر کریں۔ <code dir="ltr" translate="no">/v1/scans/RUN_ID</code>, <code dir="ltr" translate="no">/eta</code>, <code dir="ltr" translate="no">/findings</code> یا <code dir="ltr" translate="no">/report?format=html</code>. POST <code dir="ltr" translate="no">/pause</code>, <code dir="ltr" translate="no">/resume</code> اور <code dir="ltr" translate="no">/stop</code> ایک رن کو کنٹرول کریں. تصدیق شدہ سے مشورہ کریں۔ <code dir="ltr" translate="no">/openapi.json</code> عین مطابق اسکیموں کے لیے۔</p>
+<p>REST/JSON-RPC سپورٹ پروفائلز، اسکینز، فائنڈنگز/رپورٹس، ٹیمپلیٹس، OAST اور سیشن آپریشنز۔ <code dir="ltr" translate="no">/rpc</code> JSON-RPC لے جاتا ہے؛ <code dir="ltr" translate="no">/mcp</code> MCP HTTP پیش کرتا ہے، stdio اور SSE اختیارات کے ساتھ۔ سروس کے پروٹوکول/API ورژن کے تار پرانے اسکیما ورژن کو برقرار رکھ سکتے ہیں۔ انسٹال کردہ UI ریلیز ورژن کے لیے ایکسٹینشن مینی فیسٹ استعمال کریں۔</p>
+<h3 id="mcp-client-setup">MCP کلائنٹ سیٹ اپ</h3>
+<p>stdio MCP کنفیگریشن کو سپورٹ کرنے والے کلائنٹ کے لیے:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "mcpServers": {
+    "longshot": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/longshot-source/bridge/bin/longshot-bridge",
+        "mcp"
+      ]
+    }
+  }
+}
+</code></pre>
+<p>اگر کلائنٹ کے پاس محدود PATH ہے تو ایک مطلق نوڈ قابل عمل استعمال کریں۔ مماثلت شامل کریں۔ <code dir="ltr" translate="no">--port</code> / <code dir="ltr" translate="no">--data-dir</code> اپنی مرضی کے مطابق ہونے پر دلائل۔ stdio مددگار مقامی تصدیق شدہ سروس سے جڑتا ہے۔ یہ خود فائر فاکس کنکشن کو تبدیل نہیں کرتا ہے۔</p>
+<p>موجودہ MCP ٹول کیٹلاگ میں 21 ٹولز ہیں: اسکین/ٹیمپلیٹ/رپورٹ/OAST ٹولز پلس UI اور سیمنٹک کمانڈ دریافت/کنٹرول۔ پرانے آٹھ ٹول ٹیوٹوریل پر انحصار کرنے کے بجائے اصل کیٹلاگ کو دریافت کریں۔</p>
+<table>
+<thead>
+<tr>
+<th>ٹول گروپ</th>
+<th>ورک فلو</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">longshot_list_targets</code>، اسکین/ریاست/ای ٹی اے/فائنڈنگز/رپورٹ ٹولز</td>
+<td>واضح پروفائل/رن IDs کا استعمال کریں اور غیر مطابقت پذیر نتائج کا معائنہ کریں۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_commands</code>, <code dir="ltr" translate="no">longshot_command</code></td>
+<td>سیمنٹک کمانڈز دریافت کریں اور ان کے تعاون یافتہ دلائل طلب کریں۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_pages</code>, <code dir="ltr" translate="no">longshot_ui_open</code></td>
+<td>ٹارگٹ باؤنڈ ایکسٹینشن ڈیش بورڈز دریافت/کھولیں۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_snapshot</code></td>
+<td>اصل لیبلز، موجودہ اقدار، ڈائیلاگز اور عنصری حوالہ جات پڑھیں</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_action</code>, <code dir="ltr" translate="no">navigate</code>, <code dir="ltr" translate="no">wait</code></td>
+<td>موجودہ کنٹرولز کو چلائیں اور تکمیل کی تصدیق کریں۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_downloads</code>, <code dir="ltr" translate="no">clipboard</code>, <code dir="ltr" translate="no">screenshot</code>, <code dir="ltr" translate="no">focus</code>, <code dir="ltr" translate="no">close</code></td>
+<td>تعاون یافتہ ایکسٹینشن پیج آؤٹ پٹ اور UI مینجمنٹ؛ صوابدیدی OS رسائی نہیں۔</td>
+</tr>
+</tbody>
+</table>
+<p>غیر فعال کنٹرولز، ہدف کا دائرہ، ریاست اور بجٹ اب بھی لاگو ہوتے ہیں۔ باسی refs ایک تازہ سنیپ شاٹ کی ضرورت ہے; اکیلے بھیجے گئے کلک سے کامیابی ثابت نہیں ہوتی۔ Firefox/OS پرمیشن پرامپٹس علیحدہ براؤزر/OS کنٹرول رہتے ہیں۔</p>
+<p><strong>منظوری کی حد:</strong> براہ راست معنوی رضامندی کے احکامات ایک جارحانہ رن گرانٹ نہیں دے سکتے ہیں۔ توثیق شدہ مکمل UI آٹومیشن باؤنڈ ڈیش بورڈ کے منظوری کے ڈائیلاگ کو آپریٹ کر سکتی ہے، بشمول اس کے منظور شدہ بٹن۔ لہذا ایجنٹ کو UI کنٹرول دینا اسے UI کی صلاحیت دیتا ہے۔ ایسی رسائی کی وضاحت نہ کریں جیسا کہ منظوری پر کلک کرنے سے قاصر ہے۔ واحد استعمال کا ہدف/کنفیگریشن/ایکسپائری چیک اب بھی لاگو ہوتے ہیں۔</p>
+<h3 id="hermesollama-or-another-local-model-agent">ہرمیس/اولاما یا دوسرا مقامی ماڈل ایجنٹ</h3>
+<p>لانگ شاٹ کسی صوابدیدی LLM چیٹ اسٹریم کو قبول نہیں کرتا ہے یا کوئی ماڈل منتخب نہیں کرتا ہے۔ دی <strong>ایجنٹ کی درخواست</strong> ماڈل کنکشن اور ٹول کال لوپ فراہم کرتا ہے۔ اگر آپ کا ایجنٹ MCP کو سپورٹ کرتا ہے تو اس ایجنٹ میں اوپر MCP سرور ترتیب دیں۔ ایجنٹ معاون ٹول کالز بھیجتا ہے اور ٹول کے نتائج وصول کرتا ہے۔ یہ ایکسپوزڈ UI ٹولز کے ذریعے ایکسٹینشن کا معائنہ/نیویگیٹ/پُر کرنے کے ساتھ ساتھ اسکین کمانڈز کی درخواست کر سکتا ہے۔</p>
+<p>ہرمیس/ایجنٹ کی اپنی کنفیگریشن میں اولاما ماڈل اور سرور کا انتخاب کریں۔ ایک ماڈل/کلائنٹ کا مجموعہ استعمال کریں جو ایجنٹ کے ٹول کال فارمیٹ کو سپورٹ کرتا ہو، اور اس بات کو یقینی بنائیں کہ ایجنٹ کو حقیقت میں MCP ٹولز استعمال کرنے کی اجازت ہے۔ لانگ شاٹ کی تشکیل میں نمبر نہیں ہے۔ <code dir="ltr" translate="no">model</code>, <code dir="ltr" translate="no">ollama</code> یا فراہم کنندہ API کلیدی ترتیب۔ ماڈل تک رسائی، شیل تک رسائی اور غیر متعلقہ فائل سسٹم کنٹرول ایجنٹ کے میزبان کی صلاحیتیں ہیں، جو اس ایکسٹینشن کو انسٹال کرنے سے نہیں دی جاتی ہیں۔</p>
+<p>ایجنٹ کے کام میں دائرہ کار، بجٹ، اکاؤنٹ اور مطلوبہ اعمال کو واضح رکھیں۔ ریکارڈ شدہ شواہد کے خلاف پیدا شدہ نتائج کی توثیق کریں؛ ماڈل ٹیکسٹ اسکینر کا نتیجہ یا اجازت گرانٹ نہیں ہے۔</p>
+<h3 id="optional-debugging-port-control">اختیاری ڈیبگنگ-پورٹ کنٹرول</h3>
+<p>ماخذ میں BiDi/CDP کنٹرول مددگار اور ایک حکم شامل ہے۔ <code dir="ltr" translate="no">bridge/bin/longshot-ui</code> انٹرفیس یہ توسیع کی ملکیت والے صفحات کا جدید کنٹرول ہے۔ کروم ایڈیشن ایک علیحدہ مینی فیسٹ V3 پیکج ہے۔ اس کا نظر آنے والا ورک بینچ کھلا رہنا چاہیے۔ براؤزر ڈیبگنگ سننے والے کو کھولنا ایک علیحدہ براؤزر اسٹارٹ اپ انتخاب ہے۔ دیکھیں <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">فائر فاکس ریموٹ ایجنٹ سیکیورٹی</a>.</p>
+<p>اختیاری ڈیبگنگ مددگار پن کا استعمال کرتا ہے۔ <code dir="ltr" translate="no">ws</code> میں انحصار <code dir="ltr" translate="no">native-bridge/node_modules/ws/</code>. دوڑو <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code> پہلے برقرار رکھے ہوئے ذریعہ چیک آؤٹ سے۔ اس راستے کو 2.18 سیریز میں درست کیا گیا تھا۔ ہٹائے گئے تاریخی براؤزر کی بازیافت اڈاپٹر کی ضرورت نہیں ہے۔</p>
+<h2 id="optional-native-nuclei">اختیاری مقامی نیوکلی</h2>
+<p>ٹیمپلیٹ کے تین الگ الگ راستے ہیں:</p>
+<table>
+<thead>
+<tr>
+<th>راستہ</th>
+<th>انجن/سیشن</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>براؤزر کے موافق درآمد شدہ HTTP ٹیمپلیٹ</td>
+<td>لانگ شاٹ کا تعاون یافتہ ٹیمپلیٹ ترجمان اور ہدف براؤزر سیشن</td>
+</tr>
+<tr>
+<td>مقامی مکمل نیوکلی چیک باکس</td>
+<td>ایجنٹ API لینکس تنہائی کے راستے کے اندر سرکاری طور پر الگ سے نصب نیوکلی؛ کوئی خودکار فائر فاکس لاگ ان نہیں۔</td>
+</tr>
+<tr>
+<td>براؤزر برج کے ذریعے بیرونی نیوکلی CLI</td>
+<td>آپ کی آزاد CLI نوکری؛ معاون پراکسیڈ HTTP ٹریفک کنفیگر شدہ براؤزر کوکیز حاصل کر سکتی ہے۔</td>
+</tr>
+</tbody>
+</table>
+<p>لانگ شاٹ کے ذریعے شروع کی گئی مقامی ملازمتوں کے لیے:</p>
+<ol>
+<li>آفیشل نیوکلی بائنری کو الگ سے انسٹال کریں اور اسے PATH یا سیٹ پر ظاہر کریں۔ <code dir="ltr" translate="no">LONGSHOT_NUCLEI</code> ایجنٹ API شروع کرنے سے پہلے۔</li>
+<li>کام کرنے والے غیر مراعات یافتہ صارف/نیٹ ورک نام کی جگہوں کے ساتھ لینکس ببل ریپ فراہم کریں۔</li>
+<li>بغیر ہیڈ لیس ٹیمپلیٹس کے لیے، اختیاری طور پر مطلوبہ براؤزر فراہم کریں۔ <code dir="ltr" translate="no">LONGSHOT_CHROME</code>.</li>
+<li>ایجنٹ API کو رجسٹر/کنیکٹ کریں اور رپورٹ شدہ مقامی صلاحیتوں کا معائنہ کریں۔</li>
+<li>جائزہ شدہ ٹیمپلیٹس اور کسی بھی مطلوبہ رشتہ دار مددگار فائلوں کو درآمد کریں۔</li>
+<li>فعال کریں۔ <strong>مقامی مکمل نیوکلی پھانسی</strong> اور صرف اضافی کوڈ/جاوا اسکرپٹ، ہیڈ لیس یا فائل کی صلاحیتوں کی ضرورت ہے۔</li>
+<li>فائل ٹیمپلیٹس کے لیے، سیٹ کریں۔ <code dir="ltr" translate="no">LONGSHOT_FILE_ROOT</code> میزبان کو شروع کرنے سے پہلے صرف پڑھنے کی اجازت دینے والی واضح فہرست میں۔</li>
+<li>محفوظ کریں، جائزہ لیں اور رن کو منظور کریں؛ تیار/مسدود وجوہات اور ایگزیکیوٹر ٹیگ شدہ آؤٹ پٹ کا معائنہ کریں۔</li>
+</ol>
+<p>ورکرز کے پاس الگ تھلگ فائل سسٹم/نیٹ ورک نام کی جگہ، نجی عارضی اسٹوریج اور ٹارگٹ ریلے کے ذریعے پابند عمل ہے۔ وہ خود بخود فائر فاکس کوکیز، براؤزر لوکل اسٹوریج یا فائر فاکس کا ٹور روٹ وصول نہیں کرتے ہیں۔ بغیر سر کے سیشن الگ تھلگ ہیں۔ ایک مسدود مقامی ٹیمپلیٹ کا مطلب منفی خطرے کا نتیجہ نہیں ہے۔</p>
+<p>مقامی کوڈ/جاوا اسکرپٹ ٹیمپلیٹس کے لیے سرکاری انجن کے ذریعے بھروسہ مند دستخطوں کی ضرورت ہوتی ہے۔ <code dir="ltr" translate="no">LONGSHOT_NUCLEI_CERT</code> ایک جائزہ شدہ عوامی مصنف سرٹیفکیٹ کی طرف اشارہ کر سکتے ہیں؛ میزبان درآمدات پر خودکار دستخط نہیں کرتا ہے اور نہ ہی نجی سائننگ کیز کو ماؤنٹ کرتا ہے۔ مقامی فائل ٹیمپلیٹس آزادانہ طور پر میزبان ہوم ڈائریکٹریز کو نہیں پڑھ سکتے ہیں۔ اضافی فائل/کوڈ/ ہیڈ لیس سوئچز عام ٹیمپلیٹ کی درآمد سے الگ رہتے ہیں۔</p>
+<p>مقامی ریلے محدود ہدف/فراہم کرنے والے کنکشنز کو سپورٹ کرتا ہے، نہ کہ من مانی نیٹ ورک تک رسائی۔ پیاز کے اہداف، غیر دستیاب تنہائی/رن ٹائمز، غیر تعاون یافتہ ٹارگٹ ایڈریسنگ یا غیر موافق پاتھ اسکوپس عملدرآمد کو روک سکتے ہیں۔ مقامی Interactsh رجسٹریشن کا تعلق نیوکلی سے ہے، لانگ شاٹ کے براؤزر OAST کلائنٹ سے الگ۔ اصل نتائج کے ثبوت اور پلیٹ فارم کی صلاحیت کی رپورٹس کا استعمال کریں، نہ کہ "مکمل انجن" کا لیبل، یہ فیصلہ کرنے کے لیے کہ کیا چل رہا ہے۔</p>
+<h2 id="manual-tools-interception-and-api-inventory">دستی ٹولز، انٹرسیپشن اور API انوینٹری</h2>
+<h3 id="page-guide">صفحہ رہنما</h3>
+<table>
+<thead>
+<tr>
+<th>صفحہ</th>
+<th>اسے کس چیز کے لیے استعمال کرنا ہے۔</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>جائزہ</td>
+<td>جڑیں، سیشن کی توثیق کریں، اصول گروپس کو منتخب کریں، آپریشن کا انتخاب کریں اور پیشرفت کی نگرانی کریں۔</td>
+</tr>
+<tr>
+<td>اسکین کے اختیارات</td>
+<td>اضافی مراحل، رضامندی، باڈی فزنگ، فراہم کنندہ کی ترتیبات اور بجٹ</td>
+</tr>
+<tr>
+<td>اہداف</td>
+<td>پروفائلز کو الگ کریں، براؤزر ٹیب کو منتخب/منسلک کریں اور ہدف کے مخصوص ثبوت/آپشنز کو بحال کریں</td>
+</tr>
+<tr>
+<td>سائٹ کا نقشہ</td>
+<td>دریافت شدہ URLs/فارمز/راستوں؛ مشاہدات کا نقشہ، مکمل دریافت کا ثبوت نہیں۔</td>
+</tr>
+<tr>
+<td>HTTP کی تاریخ</td>
+<td>براؤزر ٹریفک میٹا ڈیٹا اور سکینر/ریپیٹر جوابات؛ عین مطابق ان پٹ اور ٹائم اسٹیمپ کا معائنہ کریں۔</td>
+</tr>
+<tr>
+<td>API ایکسپلورر</td>
+<td>مشاہدہ شدہ/درآمد شدہ آپریشنز اور پیرامیٹر انوینٹری؛ ریپیٹر میں سپورٹڈ ریڈز تیار کریں۔</td>
+</tr>
+<tr>
+<td>سرور اسٹیک</td>
+<td>فنگر پرنٹس، مقامی سمارٹ تجزیہ کار اور امیدواروں کی مشاورتی تلاش</td>
+</tr>
+<tr>
+<td>نیٹ ورک گراف</td>
+<td>مشاہدہ شدہ اصلیت/IPs/حوالہ شدہ ڈومینز اور دستیاب vhost ثبوت؛ بیرونی نوڈس انوینٹری ہیں، آٹو اسکوپ نہیں۔</td>
+</tr>
+<tr>
+<td>نتائج</td>
+<td>ثبوت، فیصلہ/اعتماد/شدت، جائزہ لینے کی حالت اور سیمیٹک ناظر</td>
+</tr>
+<tr>
+<td>WSTG چیک کرتا ہے۔</td>
+<td>حوالہ کوریج کی اقسام اور اصل فی ان پٹ آڈٹ کا عمل</td>
+</tr>
+<tr>
+<td>ٹیمپلیٹس</td>
+<td>درآمد، مطابقت/عمل درآمد کرنے والے کی تفصیلات، دستی انتخاب اور چلانے کے نتائج</td>
+</tr>
+<tr>
+<td>ریپیٹر/فزر</td>
+<td>فوکسڈ درخواست ری پلے یا باؤنڈڈ میوٹیشن</td>
+</tr>
+<tr>
+<td>انٹرسیپٹر</td>
+<td>اہل ہدف-ٹیب URL/ہیڈر کے مراحل کو پکڑیں۔</td>
+</tr>
+<tr>
+<td>OAST</td>
+<td>فراہم کنندہ/کال بیک کی حیثیت، جانچ کی کارروائیاں اور متعلقہ تعاملات</td>
+</tr>
+<tr>
+<td>ویب ساکٹ / ایس ایس ای</td>
+<td>پابند مشاہدہ چینل ایکسچینج</td>
+</tr>
+<tr>
+<td>موازنہ کریں۔</td>
+<td>دو محفوظ کردہ جوابات کے درمیان مقامی فرق</td>
+</tr>
+<tr>
+<td>انکوڈر/ڈیکوڈر</td>
+<td>مقامی تبدیلیاں اور ٹوکن کلیم کا معائنہ</td>
+</tr>
+<tr>
+<td>براؤزر برج</td>
+<td>مقامی ٹول پراکسی کو جوڑیں اور سیشن اوور رائیڈ کو ترتیب دیں۔</td>
+</tr>
+<tr>
+<td>رپورٹ</td>
+<td>فعال پروفائل کے ثبوت برآمد کریں۔</td>
+</tr>
+<tr>
+<td>ترتیبات</td>
+<td>درخواست/سیشن کی ترتیبات، ظاہری شکل، مقامی کنکشن اور تشخیصی فائلیں۔</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-explorer">API ایکسپلورر</h3>
+<p>پہلے جڑیں اور براؤز کریں، پھر منتخب کریں۔ <strong>موجودہ صفحہ کا معائنہ کریں۔</strong>. ڈویلپر کی طرف سے فراہم کردہ درآمد کریں۔ <strong>OpenAPI JSON</strong> تفصیل دستیاب ہونے پر، 2 MB تک۔ یہ مقامی JSON پڑھتا ہے، نہ کہ صوابدیدی ریموٹ صفحہ یا YAML فائل۔ مقامی تفصیلات کے حوالہ جات اور دستیاب درخواست کی مثالیں/ ڈیفالٹس کنکریٹ کی معاونت فراہم کر سکتے ہیں۔ لاپتہ اقدار/باڈیز اور غیر تعاون یافتہ تعمیرات خلا چھوڑ دیتے ہیں۔</p>
+<p>ایک اختتامی نقطہ ایک پتہ ہے؛ آپریشن ایک ایڈریس پلس طریقہ ہے۔ استفسار ان پٹ کے بعد ظاہر ہوتا ہے۔ <code dir="ltr" translate="no">?</code>، ایڈریس پاتھ میں پاتھ ان پٹس، اور جمع کردہ مواد میں باڈی ان پٹ۔ لسٹڈ آپریشن انوینٹری ہے، اس بات کا ثبوت نہیں کہ کرنٹ اکاؤنٹ ہر اس چیز تک رسائی حاصل کر سکتا ہے جس کو وہ ایڈریس کرتا ہے۔</p>
+<p>استعمال کریں۔ <strong>ریپیٹر</strong> ایک تعاون یافتہ GET/HEAD آپریشن کے ساتھ درخواست بھیجے بغیر تیار کرنے کے لیے۔ URL/طریقہ/ان پٹ کا جائزہ لیں، پھر جان بوجھ کر بھیجیں۔ صرف انوینٹری تحریری کارروائیوں کے لیے آپ کو مناسب درخواست تیار کرنے اور تحریری منظوری حاصل کرنے کی ضرورت ہوتی ہے۔</p>
+<h3 id="repeater-and-compare">ریپیٹر اور موازنہ</h3>
+<p>ریپیٹر باؤنڈ براؤزر سیشن کا استعمال کرتے ہوئے ایک نئی دائرہ کار کی درخواست کرتا ہے۔ GET/HEAD/OPTIONS عام راستہ استعمال کریں۔ لکھنے کے طریقے، جسمانی تبدیلیاں اور تباہ کن/اپ لوڈ کرنے کی صلاحیتیں پالیسی اور منظوری سے مشروط ہیں۔ مینیجڈ کوکی/آتھورائزیشن/میزبان قدروں کو اس کے ہیڈر ایڈیٹر کے ذریعے آزادانہ طور پر تبدیل نہیں کیا جا سکتا۔ واضح طور پر تشکیل شدہ ہیڈر/کوکی ٹیسٹ کے لیے مقامی بیرونی ٹول روٹ استعمال کریں۔</p>
+<p><strong>یکساں اصلی والی ری ڈائریکٹس کی پیروی کریں۔</strong> کنٹرول کرتا ہے کہ آیا آپ خود ری ڈائریکٹ کا معائنہ کرتے ہیں یا اجازت شدہ حتمی جواب۔ آف اسکوپ ری ڈائریکٹس کمبل اجازت نہیں ہیں۔ جائزے کے لیے ضرورت پڑنے پر رسپانس باڈیز کو برقرار رکھیں، پھر اس میں محفوظ کردہ دو جوابات کا انتخاب کریں۔ <strong>موازنہ کریں۔</strong>. موازنہ کوئی درخواست نہیں بھیجتا ہے۔ متحرک مواد، لاگ ان کی حالت، تھروٹلنگ یا WAF صفحات فرق کی وضاحت کر سکتے ہیں۔</p>
+<h3 id="interceptor">انٹرسیپٹر</h3>
+<p>انٹرسیپٹر کو فعال کریں اور <strong>مداخلت کا اطلاق کریں۔</strong>. اختیاری فائر فاکس کو اس کی عام صارف کارروائی کے ذریعے بلاک کرنے کی اجازت دیں۔ توسیع کے دوبارہ شروع ہونے کے بعد انٹرسیپشن غیر فعال ہونا شروع ہو جاتا ہے۔</p>
+<table>
+<thead>
+<tr>
+<th>اسٹیج / کنٹرول</th>
+<th>رویہ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>درخواست کے URLs کو ہولڈ کریں۔</td>
+<td>درخواست ہیڈر سے پہلے توقف؛ دائرہ کار URL/ استفسار میں ترمیم کریں یا چھوڑیں۔</td>
+</tr>
+<tr>
+<td>درخواست کے ہیڈرز کو پکڑو</td>
+<td>ٹرانسمیشن سے پہلے اجازت یافتہ درخواست ہیڈر کا معائنہ/ترمیم کریں۔</td>
+</tr>
+<tr>
+<td>جوابی ہیڈرز کو پکڑیں۔</td>
+<td>درخواست کے سرور تک پہنچنے کے بعد ترسیل روک دیں؛ سرور سائیڈ ایکشن کو کالعدم نہیں کر سکتے</td>
+</tr>
+<tr>
+<td>وسائل/طریقہ/پاتھ فلٹرز</td>
+<td>پابند ٹیب اور عین ہدف کے دائرہ کار میں اہل ٹریفک کو محدود کریں۔</td>
+</tr>
+<tr>
+<td>ٹائم آؤٹ کو روکیں۔</td>
+<td>ڈیفالٹ 0: کوئی خودکار ریلیز نہیں۔ اختیاری 10–3,600 سیکنڈز، پھر فارورڈ/ڈراپ ایکشن کو منتخب کریں۔</td>
+</tr>
+<tr>
+<td>آگے کا مرحلہ</td>
+<td>اس مرحلے کو حل کریں؛ ایک اور فعال مرحلہ بعد میں اسی درخواست کو روک سکتا ہے۔</td>
+</tr>
+<tr>
+<td>درخواست چھوڑ دیں۔</td>
+<td>اس مرحلے کو منسوخ کریں / ترسیل کی درخواست کریں۔</td>
+</tr>
+<tr>
+<td>تمام زیر التوا فارورڈ/ڈراپ کریں۔</td>
+<td>مستقبل کے فلٹرز کو تبدیل کیے بغیر موجودہ قطار کو حل کریں۔</td>
+</tr>
+<tr>
+<td>آف اور فارورڈ زیر التواء</td>
+<td>غیر مسلح مداخلت اور رہائی کے انتظار کے مراحل میں کوئی تبدیلی نہیں ہوئی۔</td>
+</tr>
+</tbody>
+</table>
+<p>ایپلیکیشن/براؤزر کا وقت ختم ہو سکتا ہے اس سے پہلے کہ آپ طویل عرصے سے روکی ہوئی درخواست جاری کریں۔ 20 مراحل تک انتظار کر سکتے ہیں؛ قطار کی حد سے تجاوز کرنا مزید مماثل ٹریفک کو منسوخ کر دیتا ہے۔ فلٹرز کو تبدیل کرنے سے موجودہ مراحل میں کوئی تبدیلی نہیں ہوتی ہے۔ آخری کنٹرولنگ ڈیش بورڈ ریلیز کو بند کرنا مراحل منعقد کرتا ہے اور مداخلت کو غیر فعال کرتا ہے۔</p>
+<p>اجازت یافتہ ہیڈر نام/قدر کے جوڑوں کی JSON صف استعمال کرتے ہیں۔ حساس/براؤزر کے زیر انتظام/فریمنگ فیلڈز محفوظ ہیں۔ ہولڈ نیٹ ورک کی درخواست کا طریقہ/باڈی/سٹیٹس ری رائٹنگ دستیاب نہیں ہے۔ <strong>ریپیٹر کو بھیجیں۔</strong> جان بوجھ کر ترمیم کے لیے ایک علیحدہ درخواست کی شکل بناتا ہے۔ یہ فلائٹ میں باڈی ری رائٹنگ شفاف نہیں ہے۔</p>
+<p>صرف منتخب کردہ ٹارگٹ ٹیب HTTP ٹریفک ہی اہل ہے۔ سکینر ٹرانسپورٹ تعطل سے بچنے کے لیے رکاوٹ کو نظرانداز کرتا ہے۔ بیرونی مقامی پراکسی ٹریفک اس براؤزر انٹرسیپٹر سے باہر ہے۔ اپ گریڈ کے بعد WebSocket پیغامات کو ان کے علیحدہ چینل ورک بینچ کی ضرورت ہوتی ہے۔</p>
+<h3 id="websocket-sse-and-utilities">ویب ساکٹ، ایس ایس ای اور یوٹیلیٹیز</h3>
+<p>ایک دریافت شدہ دائرہ کار چینل کا انتخاب کریں یا اس کا درست URL درج کریں۔ سننے اور حسب ضرورت فریم بھیجے جانے والے منظور شدہ آپریشنز کے پابند ہیں، عام پروٹوکول سکینر نہیں۔ کیپچر شدہ ایرر ٹیکسٹ ایک لیڈ ہے۔ یہ پیغام کی اجازت یا نسل/منطق کی خرابی کو قائم نہیں کرتا ہے۔</p>
+<p>یوٹیلیٹیز اقدار کو انکوڈ/ڈی کوڈ کرتی ہیں، SHA-256 کا حساب لگاتی ہیں، JSON کو فارمیٹ کرتی ہیں اور مقامی طور پر JWT دعووں کا معائنہ کرتی ہیں۔ جے ڈبلیو ٹی کو ڈی کوڈ کرنا دستخطی تصدیق نہیں ہے اور یہ ثابت نہیں کرتا کہ سرور جعلی ٹوکن قبول کرتا ہے۔ تبدیل شدہ ان پٹ کو خود بخود عمل یا جمع نہیں کیا جاتا ہے۔</p>
+<h2 id="findings-and-the-cimematic-viewer">فائنڈنگز اور دی سیمیٹک ویور</h2>
+<h3 id="read-the-evidence-first">پہلے ثبوت پڑھیں</h3>
+<p>تلاش کے الگ الگ شعبے ہوتے ہیں:</p>
+<table>
+<thead>
+<tr>
+<th>میدان</th>
+<th>مطلب</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>شدت</td>
+<td>اگر مسئلہ فائدہ مند ہے تو ممکنہ نقصان کا تخمینہ لگائیں۔</td>
+</tr>
+<tr>
+<td>فیصلہ</td>
+<td>اسکینر نے کیا مشاہدہ کیا: ممکنہ/مماثل/خطرناک، منفی، مسدود یا غیر نتیجہ خیز، جیسا کہ قابل اطلاق ہے</td>
+</tr>
+<tr>
+<td>اعتماد</td>
+<td>لاگو شواہد کی طاقت، نقصان کی مقدار نہیں۔</td>
+</tr>
+<tr>
+<td>حالت کا جائزہ لیں۔</td>
+<td>آپ کا اندازہ: غیر جائزہ لیا گیا، جائزہ لینے والے کے ذریعے تصدیق شدہ، غلط مثبت یا قبول شدہ خطرہ</td>
+</tr>
+<tr>
+<td>ڈبلیو ایس ٹی جی / سی ڈبلیو ای</td>
+<td>حوالہ درجہ بندی، اس بات کا ثبوت نہیں کہ مکمل ٹیسٹ/زمرہ مکمل ہو گیا تھا۔</td>
+</tr>
+</tbody>
+</table>
+<p>یو آر ایل، انسرشن پوائنٹ، درخواست، بیس لائن، پے لوڈ، جواب اور دہرائے جانے/کنٹرول کا معائنہ کریں۔ چیک کریں کہ آیا مواد کو چھوٹا کیا گیا تھا یا جواب ایک چیلنج/لاگ ان/خرابی والا صفحہ تھا۔ ایک اعلی اعتماد کی بار بار غلطی اب بھی ایک ممکنہ انجیکشن ہو سکتی ہے جس میں جائزہ لینے کی ضرورت ہوتی ہے۔</p>
+<p>پھر جائزہ کی حیثیت اور نوٹس سیٹ کریں۔ <strong>جائزہ محفوظ کریں۔</strong>. یہ اسکینر کے اصل فیصلے/اعتماد کو اوور رائٹ نہیں کرتا ہے۔ جھوٹے مثبت ثبوت برقرار رہتے ہیں۔ فلٹرز، بشمول <strong>منفی / مسدود دکھائیں۔</strong>، مرئیت کو تبدیل کریں، عمل درآمد ریکارڈ کو نہیں۔</p>
+<h3 id="cimematic-viewer">cimematic ناظر</h3>
+<p>بٹن کا نام جان بوجھ کر رکھا گیا ہے۔ <strong>cimematic ناظر</strong> اس ریلیز میں. یہ منتخب شدہ تلاش کے لیے تھیمڈ 3D وضاحت کھولتا ہے۔</p>
+<p>ترتیب تقریباً 9.3 سیکنڈ ہے: متاثرہ جگہ کا پتہ لگائیں، ان پٹ دکھائیں، پروسیسنگ کی مثال دیں، ریکارڈ شدہ نتائج کا ثبوت دکھائیں، پھر شدت اور سادہ زبان میں ممکنہ خطرے کی وضاحت دکھائیں۔ دستیاب کنٹرولز میں شامل ہیں۔ <strong>موقوف/دوبارہ شروع کریں۔</strong>، دوبارہ چلائیں، نمبر والے قدم، اثر پر جائیں، <strong>3D گہرائی</strong> اور <strong>پوری اسکرین</strong>. کم حرکت کی ترتیبات براہ راست اثر میں جا سکتی ہیں۔</p>
+<table>
+<thead>
+<tr>
+<th>موڈ</th>
+<th>جو یہ دکھاتا ہے۔</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>لائیو / CSS + JS</td>
+<td>ایک عام فائر فاکس پیش نظارہ ٹیب موجودہ صفحہ کو اپنے CSS/JavaScript اور منتخب کوکی سیاق و سباق کے ساتھ لوڈ کرتا ہے۔ ناظرین فراہم کردہ فریم اور عنصر مستطیل وصول کرتا ہے۔</td>
+</tr>
+<tr>
+<td>صرف پکڑا گیا۔</td>
+<td>جراثیم سے پاک، HTML یا کیپچر کے ساتھ ثبوت کو برقرار رکھا؛ اس آف لائن فال بیک کے ذریعہ کوئی بیرونی وسائل یا اسکرپٹ نہیں چلائے جاتے ہیں۔</td>
+</tr>
+<tr>
+<td>ریکارڈ شدہ نتیجہ</td>
+<td>محفوظ شدہ اسکین شواہد/نتیجہ طیارہ، جو موجودہ لائیو صفحہ سے مختلف ہو سکتا ہے۔</td>
+</tr>
+</tbody>
+</table>
+<p>یہ ایک سنیما ویو پورٹ ہے، ایک انٹرایکٹو کلون سائٹ DOM نہیں۔ <strong>لائیو ٹیب کھولیں۔</strong> بات چیت کے لیے حقیقی صفحہ کھولتا ہے۔ عام لائیو لوڈنگ سائٹ کے عام وسائل/درخواست کی درخواستیں کر سکتی ہے، لیکن ناظر کو کھولنے سے محفوظ شدہ حملہ فارم جمع نہیں ہوتا، پوسٹ کو دوبارہ چلایا جاتا ہے یا استحصال کو دوبارہ نہیں چلایا جاتا ہے۔</p>
+<p>کیمرے کی پوزیشن صرف اس صورت میں درست ہوتی ہے جب ایک مماثل ان پٹ/نام/آئی ڈی کا پتہ لگایا جا سکے۔ API/ہیڈر/کوکی فائنڈنگز کا کوئی HTML فارم نہیں ہو سکتا۔ صفحہ کے سیاق و سباق کے منظر کو اس طرح کا لیبل لگایا گیا ہے۔ اینیمیشن کبھی بھی کسی ممکنہ تلاش کو استحصالی ثبوت میں اپ گریڈ نہیں کرتی ہے۔ اگر لائیو رینڈرنگ ناکام ہو جاتی ہے تو کیپچر شدہ ثبوت اور متن/درخواست کی تفصیلات استعمال کریں۔</p>
+<p>ناظرین کی ملکیت کا پیش نظارہ ٹیب عام ناظر/ڈیش بورڈ کی صفائی پر بند ہو جاتا ہے۔ ایک واضح طور پر کھلا ہوا انٹرایکٹو ٹیب بند ہونے کے لیے آپ کے پاس رہتا ہے۔ موجودہ لاگ ان، سائٹ کی حالت، انحصار لوڈنگ اور CSP تبدیل کر سکتے ہیں جو لائیو موڈ دکھاتا ہے۔</p>
+<h2 id="owasp-top-10-coverage">OWASP ٹاپ 10 کوریج</h2>
+<p>کھولیں۔ <strong>اسکین کے اختیارات ← معلومات</strong> تلاش کے قابل/فلٹر کے قابل 44-انٹری کے نفاذ کے جدول کے لیے، صفحہ معلومات کے بٹن کے ذریعے بھی قابل رسائی ہے۔ یہ استعمال کرتا ہے۔ <a href="https://top10.owasp.org/2025/">OWASP ٹاپ 10:2025</a> واقفیت کے لیے پرانے 2021 حوالوں کے ساتھ۔ SSRF کو اب ٹوٹے ہوئے رسائی کنٹرول کے تحت گروپ کیا گیا ہے۔ مثالیں زمروں کو اوورلیپ کر سکتی ہیں۔ فہرست مکمل CWE کیٹلاگ نہیں ہے۔</p>
+<p>سپورٹ لیبلز:</p>
+<ul>
+<li><strong>فعال چیک:</strong> فعال ہونے پر ایک وقف شدہ نافذ شدہ اصول موجود ہوتا ہے، تعاون یافتہ پہنچ جانے والے ان پٹس کے لیے۔</li>
+<li><strong>اختیاری تصدیق:</strong> اضافی اختیارات، اجازتیں، فراہم کنندہ یا عمل درآمد کی شرائط لاگو ہوتی ہیں۔</li>
+<li><strong>صرف اشارے:</strong> ایک غیر فعال سگنل/موازنہ جس کے لیے دستی تشریح کی ضرورت ہوتی ہے۔</li>
+<li><strong>ٹیمپلیٹ پر منحصر:</strong> درآمد شدہ ٹیمپلیٹ اور ایگزیکیوٹر آزمائشی حالت کا تعین کرتے ہیں۔</li>
+<li><strong>احاطہ نہیں کیا گیا:</strong> اس کلاس کے لیے کوئی وقف شدہ بلٹ ان تصدیق کنندہ نہیں ہے۔ عام حسب ضرورت پے لوڈ خود بخود کوریج قائم نہیں کرتے ہیں۔</li>
+</ul>
+<p>یہ ماخذ پر مبنی صلاحیت کا آڈٹ ہے، <strong>ناپے ہوئے پتہ لگانے کا فیصد نہیں۔</strong>. یہ لانگ شاٹ کے بلٹ ان سکینر اور اس کے اختیاری مراحل کی وضاحت کرتا ہے، نہ کہ پورے بیرونی ZAP اصول کو۔</p>
+<table>
+<thead>
+<tr>
+<th>OWASP 2025</th>
+<th>کمزوری/ کمزوری۔</th>
+<th>حمایت</th>
+<th>کیا چلتا ہے / مطلوبہ اختیارات</th>
+<th>حدود</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A05</td>
+<td>ایس کیو ایل انجیکشن: ڈیٹا بیس کی غلطیاں اور بولین فرق</td>
+<td>فعال چیک</td>
+<td>ایس کیو ایل انجیکشن کو فعال کریں۔ بار بار ڈیٹا بیس کی غلطی کی تحقیقات اور صحیح/غلط موازنہ دریافت شدہ ان پٹس پر تازہ کنٹرول استعمال کرتے ہیں۔</td>
+<td>امیدواروں کو نظرثانی کی ضرورت ہے۔ کوئی ڈیٹا بیس نکالنے یا جامع DBMS مخصوص بلائنڈ کوریج نہیں ہے۔</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>بلائنڈ ایس کیو ایل انجیکشن: ٹائمنگ</td>
+<td>اختیاری تصدیق</td>
+<td>جارحانہ منظوری کے ساتھ بار بار ٹائمنگ پروبس کو فعال کریں۔ تین کلین ٹائمنگ کا موازنہ پہلے انسرشن پوائنٹ پر تین سلیپ پروبس کے ساتھ کیا جاتا ہے۔</td>
+<td>ایک تنگ ایس کیو ایل نحو اور ٹائمنگ ہیورسٹک؛ jitter، WAFs اور مختلف ڈیٹا بیس بولیاں نتیجہ کو چھپا یا نقل کر سکتی ہیں۔</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>NoSQL انجیکشن</td>
+<td>فعال چیک</td>
+<td>بار بار MongoDB/BSON غلطی کے دستخطوں کے لیے NoSQL انجیکشن کو فعال کریں۔ اختیاری وقت کی تصدیق ایک MongoDB $ کی بھی کوشش کرتی ہے جہاں JSON باڈیز پر تاخیر ہوتی ہے۔</td>
+<td>کوئی عام آپریٹر پر مبنی توثیق بائی پاس، بلائنڈ NoSQL نکالنے یا ہر NoSQL انجن کی کوریج نہیں ہے۔</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>عکاس کراس سائٹ اسکرپٹنگ (XSS)</td>
+<td>فعال چیک</td>
+<td>Reflected XSS کو فعال کریں۔ ایک انوکھا عکاسی مارکر اور بار بار غیر فعال HTML سیاق و سباق کی تحقیقات قابل عمل نظر آنے والے مارک اپ کی نشاندہی کرتی ہیں۔</td>
+<td>HTML سیاق و سباق کا ثبوت ایک امیدوار ہے۔ یہ اسکرپٹ پر عمل درآمد یا مواد کی حفاظت کی پالیسی کو نظرانداز نہیں کرتا ہے۔</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>یو آر ایل استفسار یا فریگمنٹ ان پٹس سے DOM XSS</td>
+<td>اختیاری تصدیق</td>
+<td>لائیو DOM XSS تصدیق کو فعال کریں اور جارحانہ اجازتوں کو منظور کریں۔ دو تازہ کینریز کو ڈسپوز ایبل ایک ہی کوکی اسٹور ٹیبز میں انجام دینا ضروری ہے۔ ایک کنٹرول منفی رہنا چاہئے.</td>
+<td>صرف باؤنڈڈ یو آر ایل ان پٹ۔ CSP اور انحصار نافذ رہتے ہیں؛ ٹائم آؤٹ اور مسدود وسائل خلا چھوڑ دیتے ہیں۔</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>پوسٹ میسج، اسٹوریج یا صوابدیدی ڈیٹا کے بہاؤ سے DOM XSS</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>غیر فعال ذریعہ/سنک اشارے جائزے کے لیے قریبی ان لائن جاوا اسکرپٹ پیٹرنز کی شناخت کر سکتے ہیں۔</td>
+<td>کوئی عام داغدار ٹریکنگ، صوابدیدی پیغام کی تخلیق یا اسٹوریج سورس ایگزیکیوشن ٹیسٹ نہیں۔</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>ذخیرہ شدہ XSS اور ملٹی سٹیپ سیکنڈ آرڈر انجیکشن</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>وزٹ کیے گئے صفحہ میں مشکوک کوڈ یا عکاس امیدوار شامل ہو سکتا ہے۔</td>
+<td>کوئی عمومی تحریری-اسٹور-پڑھنے والا ارتباط، ورک فلو ری پلے یا ذخیرہ شدہ پے لوڈ پر عمل درآمد کی توثیق نہیں ہے۔</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>سرور سائیڈ ٹیمپلیٹ انجیکشن (SSTI)</td>
+<td>فعال چیک</td>
+<td>سرور ٹیمپلیٹ انجیکشن کو فعال کریں۔ منفرد مارکر کے ساتھ بے ترتیب ریاضی کے نتائج کو کنٹرول کے خلاف دہرانا چاہیے۔</td>
+<td>صرف اظہار خیال خاندانوں کی حمایت؛ بلائنڈ ٹیمپلیٹ پر عمل درآمد اور ہر ٹیمپلیٹ انجن کا احاطہ نہیں کیا گیا ہے۔</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>سرور سائیڈ کوڈ انجیکشن</td>
+<td>فعال چیک</td>
+<td>سرور سائیڈ کوڈ انجیکشن کو فعال کریں۔ کمپیوٹیڈ JavaScript/PHP کینریز تشخیص کو سادہ عکاسی سے ممتاز کرتی ہیں۔</td>
+<td>ایک چھوٹی سی زبان / سیاق و سباق سیٹ؛ یونیورسل ریموٹ کوڈ پر عمل درآمد ٹیسٹ نہیں ہے۔</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>OS کمانڈ انجیکشن</td>
+<td>اختیاری تصدیق</td>
+<td>بار بار آئی ڈی آؤٹ پٹ پروبس کے لیے OS کمانڈ انڈیکیٹرز کو فعال کریں۔ سننے والے OAST فراہم کنندہ کے ساتھ اختیاری کمانڈ پروبس DNS کال بیک کو جوڑ سکتے ہیں۔</td>
+<td>ایک ہم آہنگ کمانڈ سیاق و سباق کی ضرورت ہے اور کال بیکس کے لیے، ٹارگٹ ایگریس۔ کوئی کال بیک حفاظت قائم نہیں کرتا۔</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>سی آر ایل ایف / رسپانس ہیڈر انجیکشن</td>
+<td>فعال چیک</td>
+<td>رسپانس ہیڈر انجیکشن کو فعال کریں۔ ایک تیار کردہ رسپانس ہیڈر مارکر کو دہرانا چاہیے اور کنٹرول سے غیر حاضر ہونا چاہیے۔</td>
+<td>براؤزر URL/ہیڈر ہینڈلنگ پے لوڈز کو محدود کرتی ہے۔ خام ردعمل کی تقسیم، کیش پوائزننگ اور فریمنگ حملے قائم نہیں ہیں۔</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>LDAP، XPath اور دیگر غیر لاگو انجیکشن زبانیں۔</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>حسب ضرورت پے لوڈز، آٹو فز یا ایک نظرثانی شدہ ٹیمپلیٹ الگ تفتیش میں مدد کر سکتے ہیں۔</td>
+<td>کوئی وقف شدہ بلٹ ان زبان کے لیے مخصوص تصدیق کنندہ نہیں؛ جوابی فرق تصدیق نہیں ہے۔</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>پاتھ ٹراورسل / مقامی فائل کو شامل کرنا</td>
+<td>فعال چیک</td>
+<td>ٹراورسل / فائل کی شمولیت کو فعال کریں۔ تائید شدہ فائل کے مواد کے دستخط دریافت شدہ اندراج پوائنٹس پر دہرائے جائیں۔</td>
+<td>ہر انکوڈنگ، آپریٹنگ سسٹم، ریموٹ انکلوژن یا صوابدیدی فائل کا احاطہ نہیں کرتا ہے۔ کوئی ڈائرکٹری بروٹ فورس انوینٹری نہیں ہے۔</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>سرور سائیڈ درخواست جعلسازی (SSRF)</td>
+<td>اختیاری تصدیق</td>
+<td>ایک منظور شدہ قابل رسائی فراہم کنندہ کے ساتھ SSRF اور OAST کو فعال کریں۔ درست تحقیقات کا ارتباط DNS/HTTP تعامل کو ریکارڈ کرتا ہے۔</td>
+<td>داخلی پتے کے جواب میں فرق صرف اشارے ہیں۔ کال بیک ایک تعامل قائم کرتا ہے، نہ کہ داخلی رسائی یا ڈیٹا کی چوری؛ بیچوان پے لوڈز کو حل کر سکتے ہیں۔</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>IDOR / ٹوٹی ہوئی چیز یا فنکشن کی اجازت</td>
+<td>صرف اشارے</td>
+<td>ایک الگ فائر فاکس کنٹینر/نجی کوکی اسٹور کا استعمال کرتے ہوئے سیشن B کے ساتھ موازنہ کو فعال کریں۔ دس تک پڑھنے کی درخواستیں اسٹیٹس اور باڈی ہیش کا موازنہ کرتی ہیں۔</td>
+<td>کوئی آبجیکٹ ملکیت یا متوقع رول ماڈل نہیں؛ ایک جیسے عوامی صفحات جائز ہو سکتے ہیں۔ کوئی عمومی استحقاق بڑھنے کا ثبوت نہیں۔</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>کراس سائٹ درخواست جعلسازی (CSRF)</td>
+<td>صرف اشارے</td>
+<td>فارم کا جائزہ بغیر کسی شناخت شدہ ٹوکن فیلڈز کے POST فارم کو رپورٹ کرتا ہے اور نظر آنے والی کوکی کی خصوصیات کو چیک کرتا ہے۔</td>
+<td>کوئی کراس سائٹ استحصال جمع کرانے یا سرور ٹوکن کی توثیق کا ٹیسٹ نہیں ہے۔ SameSite، حسب ضرورت ہیڈر اور ورک فلو کنٹرولز کو دستی جائزہ لینے کی ضرورت ہے۔</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>کراس اوریجن ریسورس شیئرنگ (CORS) کا استحصال</td>
+<td>صرف اشارے</td>
+<td>CORS جائزہ مشاہدہ شدہ اجازت نامہ اور اسناد کے ہیڈر کا معائنہ کرتا ہے۔</td>
+<td>کوئی صوابدیدی اوریجن ریفلیکشن ٹیسٹ یا حملہ آور کی اصل ڈیٹا پڑھنے کی تصدیق نہیں۔ اسناد کے ساتھ وائلڈ کارڈ کو براؤزرز نے مسترد کر دیا ہے۔</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>ری ڈائریکٹ کھولیں۔</td>
+<td>فعال چیک</td>
+<td>اوپن ری ڈائریکٹ کو فعال کریں۔ مقام کے ہیڈر میں تیار کردہ .invalid منزل کو دہرایا جانا چاہیے۔ خارجی منزلوں کی پیروی نہیں کی جاتی۔</td>
+<td>JavaScript ری ڈائریکٹس، ملٹی سٹیپ لاگ ان ری ڈائریکٹس اور ہر URL نارملائزیشن بائی پاس کا احاطہ نہیں کیا گیا ہے۔</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>کرایہ دار کی تنہائی، کردار میں اضافہ اور ورک فلو کی اجازت</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>سیشن کا موازنہ اور درآمد شدہ درخواستیں تجزیہ کار کے لیے ثبوت فراہم کر سکتی ہیں۔</td>
+<td>کرایہ دار کی ملکیت، کردار، ریاست کی منتقلی یا اجازت یافتہ کاروباری اقدامات کی کوئی سمجھ نہیں۔</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>غائب سیکورٹی ہیڈرز، کمزور CSP اور کلک جیکنگ دفاع</td>
+<td>صرف اشارے</td>
+<td>اسکین کے دوران غیر فعال ہیڈر کا جائزہ CSP، غیر محفوظ ایویل، فریمنگ پالیسی اور مشاہدہ شدہ جوابات پر نوسنیف کو چیک کرتا ہے۔</td>
+<td>لاپتہ دفاع سخت سگنل ہیں؛ استحصال، پالیسی کی تکمیل اور UI کے ازالے کے اثرات قائم نہیں ہیں۔</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>ڈائرکٹری لسٹنگز، سورس/کنفیگریشن ایکسپوژر اور ڈیبگ ٹریسز</td>
+<td>صرف اشارے</td>
+<td>غیر فعال جائزہ فہرست کے مارک اپ، پی ایچ پی سورس، کنفیگریشن کلید اسائنمنٹس اور واپس کیے گئے مواد میں منتخب اسٹیک ٹریس کو تسلیم کرتا ہے۔</td>
+<td>صرف مشاہدہ شدہ مواد اور دستخط؛ کوئی جامع بیک اپ فائل، خفیہ یا پوشیدہ ایڈمن کی دریافت نہیں۔</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>XML بیرونی ہستی انجیکشن (XXE)</td>
+<td>اختیاری تصدیق</td>
+<td>جارحانہ منظوری کے ساتھ XXE اور سننے والے OAST فراہم کنندہ کو فعال کریں۔ ایک XML درخواست کی باڈی کو ایک بیرونی ہستی کال بیک کینری سے بدل دیا جاتا ہے۔</td>
+<td>ایک انوینٹری شدہ XML درخواست کی ضرورت ہے۔ کوئی جامع تجزیہ کار، SOAP، فائل ریڈ، پیرامیٹر-اینٹی یا بلائنڈ نکالنے کی کوریج نہیں ہے۔</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>خطرناک HTTP طریقے</td>
+<td>صرف اشارے</td>
+<td>مشتہر HTTP طریقوں کو فعال کریں۔ OPTIONS جواب کی اجازت دینے کے ہیڈر کو ریکارڈ کرتا ہے۔</td>
+<td>غیر مجاز PUT/DELETE لکھنے کی کوشش نہیں کرتا ہے یا یہ ثابت نہیں کرتا ہے کہ مشتہر طریقے فائدہ مند ہیں۔</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>ڈپلیکیٹ استفسار پیرامیٹر ہینڈلنگ</td>
+<td>صرف اشارے</td>
+<td>بار بار پہلے/آخری آرڈر کے جوابی موازنہ کے لیے ڈپلیکیٹ استفسار پیرامیٹر ہینڈلنگ کو فعال کریں۔</td>
+<td>تجزیہ کرنے والا فرق WAF بائی پاس، ایکسیس کنٹرول کی ناکامی یا پراکسی/بیک اینڈ اختلاف کو ثابت نہیں کرتا ہے۔</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>کلاؤڈ پرمیشنز، پوشیدہ ایڈمن سروسز اور بیک اینڈ کنفیگریشن</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>اسٹیک فنگر پرنٹس اور ٹوپولوجی کے نظارے براؤزر میں نظر آنے والے مفروضے فراہم کرتے ہیں۔</td>
+<td>کلاؤڈ اکاؤنٹ تک رسائی، انفراسٹرکچر آڈٹ، سرور کنفیگریشن انسپیکشن یا مکمل اندرونی نیٹ ورک کی دریافت نہیں۔</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>معلوم کمزور براؤزر JavaScript انحصار</td>
+<td>اختیاری تصدیق</td>
+<td>چھوٹے بنڈل ایڈوائزری ڈیٹا بیس کے ساتھ مشاہدہ شدہ اثاثہ ورژن کا موازنہ کرنے کے لیے کلائنٹ-لائبریری SCA کو فعال کریں۔</td>
+<td>صرف ورژن/دستخط کا تعلق؛ بیک پورٹ، قابل رسائی کمزور کوڈ، مکمل انحصار کے درخت اور غیر دیکھے ہوئے اثاثوں کی تصدیق نہیں کی گئی ہے۔</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>سرور پر انحصار CVEs اور مصنوعات کی کمزوریاں</td>
+<td>ٹیمپلیٹ پر منحصر ہے۔</td>
+<td>CVE آٹو فیز کے لیے اہل امپورٹڈ ٹیمپلیٹس کی ضرورت ہوتی ہے۔ صرف ان کی تصنیف کردہ درخواستیں اور میچرز چلتے ہیں۔ مقامی نیوکلی کو اپنے الگ انجن اور منظوری کی ضرورت ہوتی ہے۔</td>
+<td>فنگر پرنٹ/ ایڈوائزری میچز اکیلے امیدوار ہیں۔ دو بنڈل کمیونٹی اسٹارٹرز آفاقی CVE کوریج فراہم نہیں کرتے ہیں۔</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>سمجھوتہ شدہ پیکجز، CI/CD اور نقصان دہ سپلائی چین اپ ڈیٹس</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>انحصار کے نام یا ورژن ایک علیحدہ کوڈ میں مدد کر سکتے ہیں اور جائزہ تیار کر سکتے ہیں۔</td>
+<td>کوئی SBOM مکمل، ریپوزٹری/بلڈ آڈٹ، پیکیج کی صداقت یا سائننگ چین کی تصدیق نہیں۔</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>HTTP پاس ورڈ فارم، HSTS اور غیر محفوظ وسائل کے حوالے</td>
+<td>صرف اشارے</td>
+<td>غیر فعال چیک HTTP/GET، غیر حاضر HSTS اور HTTPS مارک اپ کے ذریعہ حوالہ کردہ منتخب HTTP وسائل کا استعمال کرتے ہوئے پاس ورڈ کی شکلوں کو پہچانتے ہیں۔</td>
+<td>جامع حساس ڈیٹا کی دریافت نہیں؛ آرام سے ڈیٹا کی نمائش کو ثابت نہیں کرتا یا نقل و حمل کے تمام رویے کا اندازہ نہیں لگاتا۔</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>کمزور TLS پروٹوکول/سائپرز، کلیدی انتظام اور باقی میں خفیہ کاری</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>براؤزر اپنا عام TLS کنکشن فراہم کرتا ہے۔</td>
+<td>کوئی سائفر/پروٹوکول شمار، سرٹیفکیٹ انوینٹری، کرپٹوگرافک ڈیزائن کا جائزہ، پاس ورڈ ہیش آڈٹ یا سرور سائیڈ کلیدی رسائی نہیں۔</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>کاروباری منطق، ادائیگی/قیمت میں ہیرا پھیری اور ورک فلو کا غلط استعمال</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>مشاہدہ شدہ درخواستیں اور ریپیٹر دستی جانچ میں مدد کرتے ہیں۔</td>
+<td>درست قیمتوں، اکاؤنٹ بیلنس، کاروباری قواعد، لین دین کے آرڈر یا مطلوبہ درخواست کے رویے کا کوئی ماڈل نہیں۔</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>ریس کے حالات اور وسائل کی تھکن کے ڈیزائن کی خامیاں</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>درخواست کی حد اور شرح کنٹرول پابند سکیننگ؛ شرح کی حد کے جوابات آپریشنل سگنلز ہیں۔</td>
+<td>کوئی مطابقت پذیر ریس کا استعمال یا جان بوجھ کر انکار کی سروس کی تصدیق نہیں۔</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>کمزور کوکی/سیشن اوصاف</td>
+<td>صرف اشارے</td>
+<td>کوکی کے جائزے کی رپورٹوں میں محفوظ، HttpOnly یا واضح SameSite اور SameSite=Secure کے بغیر کوئی نہیں ہے۔</td>
+<td>کوکی کا مقصد اور براؤزر ڈیفالٹس اہم ہیں۔ سیشن ہائی جیکنگ، فکسیشن، لاگ آؤٹ باطل یا ٹوکن اینٹروپی قائم نہیں کرتا ہے۔</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>لاگ ان بائی پاس، ایم ایف اے، پاس ورڈ ری سیٹ، بروٹ فورس اور اکاؤنٹ ٹیک اوور</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>ایک انجیکشن چیک لاگ ان کی خرابی کی ایک وجہ کو ظاہر کر سکتا ہے۔ سیشن کی توثیق کرنے والا چیک کرتا ہے کہ آیا کنفیگر شدہ لاگ ان اب بھی درست معلوم ہوتا ہے۔</td>
+<td>کوئی عمومی سندی حملہ، MFA/ری سیٹ ورک فلو ٹیسٹنگ، لاک آؤٹ آڈٹ یا اکاؤنٹ ٹیک اوور کی تصدیق نہیں۔</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>JWT, OAuth, OIDC اور SAML تصدیقی خامیاں</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>یوٹیلیٹیز دستی معائنہ کے لیے مقامی طور پر JWT کو ڈی کوڈ کر سکتی ہیں۔</td>
+<td>ضابطہ کشائی دستخطی تصدیق نہیں ہے۔ کوئی عمومی الگورتھم الجھن، ٹوکن جعلسازی، ری ڈائریکٹ فلو یا فیڈریشن ٹیسٹ نہیں۔</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Log4Shell کال بیک پاتھ</td>
+<td>اختیاری تصدیق</td>
+<td>منظوری کے ساتھ Log4Shell اور OAST کو فعال کریں۔ ایک JNDI کال بیک کینری پہلے دستیاب ان پٹ اور X-Api-Version میں رکھی گئی ہے۔</td>
+<td>ایک مماثل تعامل کو انتساب اور جائزہ کی ضرورت ہے۔ یہ کوڈ پر عمل درآمد ثابت نہیں کرتا ہے۔ محدود اندراج پوائنٹس اور ٹارگٹ ایگریس کمزور راستے سے محروم ہو سکتے ہیں۔</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>غیر محفوظ ڈی سیریلائزیشن</td>
+<td>ٹیمپلیٹ پر منحصر ہے۔</td>
+<td>ڈی سیریلائزیشن کا اختیار ڈی سیریلائزیشن کے لیے ٹیگ کیے گئے اہل امپورٹڈ ٹیمپلیٹس کو منتخب کرتا ہے۔ ان کے ایگزیکیوٹر اور شرائط کا جائزہ لیں۔</td>
+<td>کوئی عام آبجیکٹ فارمیٹ کی دریافت، گیجٹ چین جنریٹر یا یونیورسل ڈی سیریلائزیشن تصدیق کنندہ نہیں۔</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>غیر دستخط شدہ اپ ڈیٹس، جعلی ایپلیکیشن ڈیٹا اور انٹیگریٹی کنٹرولز</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>کیپچر کیے گئے جوابات اور ڈی کوڈ شدہ ڈیٹا دستی تجزیہ میں مدد کر سکتے ہیں۔</td>
+<td>کوئی ایپلیکیشن ٹرسٹ ماڈل، اپ ڈیٹ-دستخط کی توثیق، ڈیٹا-دستخط کا آڈٹ یا عام اسائنمنٹ کی توثیق نہیں ہے۔</td>
+</tr>
+<tr>
+<td>A09</td>
+<td>لاپتہ سیکیورٹی لاگز، الرٹ، لاگ انٹیگریٹی اور واقعے کا پتہ لگانا</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>لانگ شاٹ اپنے اسکین ثبوت اور مقامی درخواست کے جرنل کو ریکارڈ کرتا ہے۔</td>
+<td>سکینر لاگز یہ ظاہر نہیں کرتے ہیں کہ آیا ایپلیکیشن لاگز یا الرٹ درست طریقے سے؛ سرور/SIEM شواہد کا معائنہ کریں اور نگرانی شدہ منظرنامے چلائیں۔</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>غیر معمولی ردعمل سے معلومات کا اخراج</td>
+<td>صرف اشارے</td>
+<td>غیر فعال غلطی کا انکشاف اور فعال انجیکشن کنٹرولز منتخب اسٹیک ٹریسز اور نئے متعارف کردہ ڈیٹا بیس کی خرابیوں کو دیکھ سکتے ہیں۔</td>
+<td>صرف ثبوت واپس کئے۔ اکیلے ایک عام غلطی یا HTTP 500 ایک تصدیق شدہ خطرہ نہیں ہے۔</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>فیل-اوپن سلوک، رول بیک ناکامیاں اور غیر محفوظ استثناء کی بازیابی۔</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>حیثیت/جسمانی اختلافات دستی تفتیش کی رہنمائی کر سکتے ہیں۔</td>
+<td>کوئی عام فالٹ انجیکشن، ٹرانزیکشن رول بیک دعوے، کریش ریکوری یا استثنائی راستے تک رسائی کنٹرول ماڈل نہیں۔</td>
+</tr>
+<tr>
+<td>دیگر</td>
+<td>HTTP درخواست کی اسمگلنگ، خراب فریمنگ، کیش پوائزننگ اور میزبان حملے</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>بلٹ ان سکینر براؤزر نیٹ ورکنگ کا استعمال کرتا ہے اور منظم ہیڈر کی حفاظت کرتا ہے۔</td>
+<td>مقامی پراکسی کے ذریعے بیرونی ٹولز الگ ہیں۔ اس کی پارس شدہ HTTP ٹرانسپورٹ بھی بائٹ شفاف اسمگلنگ یا کسٹم-TLS انجن نہیں ہے۔</td>
+</tr>
+<tr>
+<td>دیگر</td>
+<td>WebSocket / SSE ایپلیکیشن کی کمزوریاں</td>
+<td>صرف اشارے</td>
+<td>اختیاری باؤنڈڈ چینل ٹیسٹ تبادلے کیپچر کرتے ہیں اور منتخب غلطی کے متن کی اطلاع دیتے ہیں۔</td>
+<td>پروٹوکول سے آگاہی کی اجازت، میسج اسکیما فزنگ، کراس سائٹ ویب ساکٹ ہائی جیکنگ یا کاروباری منطق کی تصدیق کرنے والا نہیں۔</td>
+</tr>
+<tr>
+<td>دیگر</td>
+<td>فائل اپ لوڈ، GraphQL/SOAP منطق اور غیر تعاون یافتہ بائنری پروٹوکول</td>
+<td>احاطہ نہیں کیا گیا ہے۔</td>
+<td>دریافت شدہ HTTP درخواستیں عمومی جانچ کے لیے معاون اسکیلر ان پٹ کو بے نقاب کر سکتی ہیں۔</td>
+<td>کوئی وقف شدہ اپ لوڈ ایگزیکیوشن، گراف کیو ایل کی اجازت/پیچیدگی، جامع SOAP یا بائنری پروٹوکول سکینر نہیں ہے۔</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interpreting-actual-run-coverage">اصل رن کوریج کی ترجمانی کرنا</h3>
+<p>مکمل WSTG حوالہ جات کے نقشے میں خودکار سب سیٹ، معاون کام اور دستی تشخیص شامل ہے۔ میں <strong>اصل ان پٹ کوریج</strong>:</p>
+<ul>
+<li><strong>مکمل</strong> اس کا مطلب ہے کہ نافذ کردہ اصول اس ان پٹ پر ختم ہو گیا، یہ نہیں کہ ان پٹ محفوظ ہے۔</li>
+<li><strong>جزوی</strong> اس کا مطلب ہے کہ کچھ کام چلا لیکن ایک حد، رکاوٹ یا دوسری شرط نے تکمیل کو روک دیا۔</li>
+<li><strong>چھوڑ دیا</strong> یعنی اصول/ان پٹ نہیں چلا۔ وجہ کا معائنہ کریں.</li>
+</ul>
+<p>WAF، گمشدہ کردار، غلط سیشن، پوشیدہ/غیر ملاحظہ شدہ ورک فلو، غیر دستیاب درخواست کا باڈی، CSP یا ختم شدہ بجٹ ایک کمزور ان پٹ کو بغیر جانچے چھوڑ سکتا ہے۔ مقامی پراکسی جوڑا بلٹ ان سکینر سے ان حدود کو نہیں ہٹاتا ہے۔ ایک مشاہدہ شدہ CVE ورژن، غائب ہیڈر یا مختلف ردعمل خود بخود استحصال نہیں ہے۔</p>
+<p>ریلیز 2.18.1 نے 192 خودکار یونٹ/ریگریشن ٹیسٹ پاس کیے، آٹھ اصلی کروم چیک اور آٹھ اصلی فائر فاکس چیک، بشمول ZIP/YAML CSP تصدیق اور مقامی ZAP ٹریفک کسی ملکیتی SQLite فکسچر کے خلاف۔ اس کی آفیشل براؤزر لائبریریاں بائٹ فی بائٹ کی تصدیق شدہ ہیں اور کلین سورس ری بلڈ فائر فاکس ایکس پی آئی کو بالکل دوبارہ تیار کرتا ہے۔ وہ ٹیسٹ نامی نفاذ کے رویے کی توثیق کرتے ہیں۔ وہ ہر جوس شاپ، WebGoat، bWAPP یا NodeGoat چیلنج کا پتہ نہیں دکھاتے ہیں۔ بیرونی ZAP SQLi نتیجہ پراکسی پاتھ کی توثیق کرتا ہے، نہ کہ لانگ شاٹ کی تمام کمزوریوں میں یاد۔</p>
+<h2 id="recovery-assessment-files-and-reports">ریکوری، اسسمنٹ فائلز اور رپورٹس</h2>
+<h3 id="keep-recovery-paths-separate">بحالی کے راستے الگ رکھیں</h3>
+<table>
+<thead>
+<tr>
+<th>راستہ</th>
+<th>ناکامی کے بعد کیا کرنا ہے۔</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>بلٹ ان اسکین/سیشن</td>
+<td>ڈیش بورڈ ریکوری ڈائیلاگ کا جائزہ لیں، اصل کوکی سیاق و سباق میں دوبارہ سائن ان کریں، اجازت ہونے پر توثیق کریں اور جاری رکھیں</td>
+</tr>
+<tr>
+<td>مقامی ٹول پراکسی</td>
+<td>اڈاپٹر، ٹیب/اسٹور، ٹوکن اور توقف کی وجہ چیک کریں۔ واضح طور پر دوبارہ شروع/دوبارہ جوڑیں، پھر بیرونی ٹول کی اپنی دوبارہ کوشش/ریزیوم استعمال کریں</td>
+</tr>
+<tr>
+<td>ایجنٹ API</td>
+<td>مقامی پیغام رسانی/ڈیمون کنکشن کو بحال کریں؛ پھر دوسرا آغاز جاری کرنے سے پہلے موجودہ رن اسٹیٹ کا معائنہ کریں۔</td>
+</tr>
+<tr>
+<td>براؤزر دوبارہ شروع / درآمد شدہ تشخیص</td>
+<td>محفوظ شدہ شواہد کو بحال کریں اور لاگ ان کی توثیق کریں؛ یہ نہ سمجھیں کہ فلائٹ نیٹ ورک آپریشن یا مکمل لائیو اسکین قطار بچ گئی ہے۔</td>
+</tr>
+</tbody>
+</table>
+<p>آزاد توثیق کی توثیق ہر جان بوجھ کر مسترد شدہ لاگ ان میوٹیشن کو سیشن کی میعاد ختم ہونے کی غلطی سے روکتی ہے۔ ایک بامعنی محفوظ توثیق کنندہ کو ترتیب دیں۔ ایکسٹینشن کے چلنے کے دوران لائیو قطار ریکوری کو سپورٹ کر سکتی ہے، لیکن ایک محفوظ کردہ سیشن فائل غیر یقینی تحریر کو دوبارہ تشکیل نہیں دیتی ہے یا خود بخود مکمل رکاوٹ والے اسکین کو دوبارہ نہیں چلاتی ہے۔</p>
+<h3 id="browser-storage-and-optional-session-files">براؤزر اسٹوریج اور اختیاری سیشن فائلیں۔</h3>
+<p>براؤزر اسٹوریج کسی بھی مقامی پل سے آزادانہ طور پر فعال رہتا ہے۔ یہ فی پروفائل کی تاریخ، نتائج، جائزے، انوینٹری اور اختیارات رکھتا ہے۔ ریسپانس باڈیز کو بہترین کوشش کے ساتھ برقرار رکھا جا سکتا ہے۔ براؤزر کے مشاہدہ کردہ ٹریفک میں اکثر کیپچر شدہ باڈی کے بغیر میٹا ڈیٹا ہوتا ہے۔</p>
+<p>خودکار فائل چیک پوائنٹس کے لیے:</p>
+<ol>
+<li>رجسٹر/کنیکٹ کریں۔ <strong>ایجنٹ API</strong>، نہ صرف براؤزر برج۔</li>
+<li>کھولیں۔ <strong>سیٹنگز → اسیسمنٹ سیشنز → ہدایات</strong>.</li>
+<li>ایک مطلق درج کریں۔ <strong>سیشن فولڈر</strong> ایجنٹ API کمپیوٹر پر۔</li>
+<li>فعال کریں۔ <strong>سیشن فائلوں کو خود بخود محفوظ کریں۔</strong> اور منتخب کریں <strong>سیشن کی ترتیبات کو محفوظ کریں۔</strong>.</li>
+<li>استعمال کریں۔ <strong>سیشن کو ابھی محفوظ کریں۔</strong> فوری چیک پوائنٹ کے لیے؛ عام تبدیلیاں بھی بچت کو متحرک کرتی ہیں۔</li>
+<li>استعمال کریں۔ <strong>موجودہ سیشن برآمد کریں۔</strong> / <strong>سیشن فائل درآمد کریں۔</strong> دستی منتقلی کے لیے؛ دستی درآمد کے لیے مقامی میزبان کی ضرورت نہیں ہے۔</li>
+</ol>
+<p>فائلیں مستحکم پروفائل IDs کے ساتھ استعمال کرتی ہیں۔ <code dir="ltr" translate="no">.longshot.json</code>, ایک اصل کے لیے واضح پروفائلز کی اجازت دینا۔ وہ پڑھنے کے قابل، غیر خفیہ کردہ تشخیصی آرکائیوز ہیں اور ان میں ایپلیکیشن ڈیٹا، تصنیف شدہ ٹیمپلیٹس اور برقرار رکھی ہوئی باڈیز شامل ہو سکتی ہیں۔ براؤزر کے زیر انتظام کوکیز، پرووائیڈر ٹوکنز اور ایگزیکیوشن گرانٹس کو خارج کر دیا گیا ہے۔</p>
+<p>تحریریں جوہری نجی فائل کی چوکیاں ہیں۔ اچانک ختم ہونے سے صرف آخری مکمل شدہ بچت بحال ہو سکتی ہے۔ بحال ہونے والے اسکینز میں خلل پڑتا ہے۔ اگر پل منقطع ہو جاتا ہے تو، براؤزر کا ذخیرہ جاری رہتا ہے اور فائل انتظار کی بچت کرتی ہے۔ غیر حل شدہ فعال چوکیوں کو اہداف کو تبدیل کرنے سے پہلے فائل کی بچت کو دوبارہ جوڑنے یا غیر فعال کرنے کی ضرورت پڑسکتی ہے۔ سیشن فائل کا زیادہ سے زیادہ سائز 256 MB ہے جس میں واضح خامی ہے۔</p>
+<p>تشخیص محفوظ شدہ دستاویزات برآمد سے مختلف ہے <strong>تشکیل ڈاؤن لوڈ کریں۔</strong> براؤزر پل میں۔ سابقہ ​​تشخیصی ثبوت/اختیارات محفوظ کرتا ہے۔ مؤخر الذکر مقامی پراکسی ترتیبات کو محفوظ کرتا ہے۔</p>
+<h3 id="reports">رپورٹس</h3>
+<p>برآمد کرنے سے پہلے فعال پروفائل کا جائزہ لیں؛ تاریخی اسکین رپورٹس ایجنٹ API کے ذریعے بھی دستیاب ہیں۔ تھیم سے منسلک رپورٹس میں چارٹ اور شواہد ہوتے ہیں، لیکن چارٹ کی تعداد الرٹ شمار ہوتی ہے، نہ کہ منفرد تصدیق شدہ استحصالی خامیوں کی گنتی۔</p>
+<table>
+<thead>
+<tr>
+<th>فارمیٹ</th>
+<th>استعمال / حد</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>ان لائن چارٹس، تلاش/فلٹرز، شواہد کی تفصیلات، تھیم اور پرنٹ کنٹرولز کے ساتھ خود پر مشتمل آف لائن رپورٹ</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>سٹرکچرڈ ریڈیکٹڈ شواہد، اسکین کنفیگریشن اور ریکارڈ شدہ ان پٹ کوریج</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>ٹیبلر تبادلہ؛ نیسٹڈ فیلڈز سیریلائزڈ اور اسپریڈشیٹ فارمولہ کے سابقے محفوظ ہیں۔</td>
+</tr>
+<tr>
+<td>SARIF 2.1.0</td>
+<td>شدت/اعتماد/فیصلہ/حوالہ اور جائزہ میٹا ڈیٹا کے ساتھ ٹولنگ انضمام</td>
+</tr>
+<tr>
+<td>پرنٹ / پی ڈی ایف</td>
+<td>ایچ ٹی ایم ایل رپورٹ کھولیں اور فائر فاکس پرنٹ استعمال کریں / پی ڈی ایف میں محفوظ کریں؛ API کا پی ڈی ایف آپشن تیار پی ڈی ایف بائٹس کے بجائے ایچ ٹی ایم ایل پلس پرنٹ ہدایات واپس کر سکتا ہے۔</td>
+</tr>
+</tbody>
+</table>
+<p>جائزہ کی حیثیت اور نوٹس سکینر کے فیصلے سے الگ ہیں۔ غلط-مثبت/قبول شدہ خطرے کے جائزے قابل سماعت رہتے ہیں۔ SARIF میں جائزہ کی معلومات اور دباو شامل ہے جہاں قابل اطلاق ہو۔ بہترین کوشش کی اصلاح اس بات کی ضمانت نہیں ہے کہ برقرار رکھے ہوئے صفحہ/باڈی میں کوئی ایپلیکیشن ڈیٹا نہیں ہے۔ شیئر کرنے سے پہلے اصل برآمد کا جائزہ لیں۔</p>
+<p>بیرونی ZAP/sqlmap/ffuf رپورٹیں الگ رہتی ہیں۔ مقامی ٹریفک میٹا ڈیٹا ان کی مکمل درخواست/جواب کی تاریخ یا نتائج کی کاپی نہیں ہے۔</p>
+<h2 id="appearance-language-and-help">ظاہری شکل، زبان اور مدد</h2>
+<p>تھیمز عالمی ہیں اور اسکین کے دوران اسکین گرانٹ کو تبدیل کیے بغیر تبدیل ہوسکتے ہیں۔ مینو میں سسٹم، ڈارک، لائٹ، سائبر سٹیپ، مسٹر روبوٹ، آئرن مین اور محفوظ کردہ حسب ضرورت تھیمز شامل ہیں۔ انکولی لے آؤٹ کنٹرولز کو تنگ کرتا ہے۔ تفصیلی کالموں کے لیے کوریج ٹیبل کا اپنا افقی اسکرول علاقہ ہے۔</p>
+<p>کے تحت <strong>سیٹنگز → تھیمز اور الرٹ ساؤنڈ</strong>:</p>
+<ul>
+<li>فعال تھیم اور الرٹ ساؤنڈ/ والیوم کا انتخاب کریں۔ <strong>ٹیسٹ الرٹ آواز</strong> منتخب الرٹ کا پیش نظارہ کرتا ہے۔</li>
+<li>ایک بلٹ میں ترمیم کریں اور <strong>نئے تھیم کے بطور محفوظ کریں۔</strong> / duplicate to create a custom theme.</li>
+<li>بنڈل/سسٹم UI/کوڈ فونٹس، پیلیٹ، دھندلاپن، پس منظر اور آواز کو منتخب کریں۔</li>
+<li>تھیم برآمد/درآمد JSON؛ درآمد کرنے سے صوابدیدی CSS یا اسکرپٹس پر عمل نہیں ہوتا ہے۔</li>
+<li><strong>متحرک تصاویر اور آوازیں۔</strong> فی تھیم موشن اور انٹرفیس آڈیو کو کنٹرول کرتا ہے۔ براؤزر/سسٹم کی کم حرکت اور خاموش ترتیبات اب بھی اہم ہیں۔</li>
+</ul>
+<p>ڈارک/لائٹ، سائبرسٹیپ، مسٹر روبوٹ اور آئرن مین کے مختلف بصری/آڈیو علاج ہیں۔ ڈراپ ڈاؤن اوپننگ/سلیکشن خاموش ہے۔ سرو سلیکشن اشارے آئرن مین کے لیے مخصوص ہیں۔ سیکورٹی ناکامی کے انتباہات عام انٹرفیس آوازوں سے الگ ہیں۔</p>
+<p>زبان کا مینو 20 بنڈل زبانیں پیش کرتا ہے: انگریزی، روسی، جرمن، فرانسیسی، آسان چینی، جاپانی، ہسپانوی، ہندی، پرتگالی، عربی، بنگالی، اردو، انڈونیشیائی، ترکی، کورین، اطالوی، ویتنامی، تامل، تیلگو اور مراٹھی۔ نیا کوریج/مقامی UI متن اضافی کیٹلاگ میں شامل ہے۔ یہ عوامی UI نثر کے بنڈل مشینی ترجمے ہیں، رن ٹائم ترجمہ سروس نہیں۔ کیپچر کیے گئے ٹارگٹ پیجز، پے لوڈز، یو آر ایل، فیلڈ/کوڈ کے نام اور کمانڈ کی مثالیں اپنا اصل متن رکھتی ہیں۔</p>
+<p>استعمال کریں۔ <strong>معلومات/ہدایت</strong>، کنٹرول اشارے اور <strong>اس صفحہ کو استعمال کرنے کا طریقہ · شرائط کی وضاحت کی گئی ہے۔</strong> سیاق و سباق کے لیے شرائط حوالہ مواد سے منسلک ہیں۔ معلومات کا فلٹر/تلاش صرف ظاہر کردہ وضاحت کو تبدیل کرتا ہے۔ یہ چیک کو فعال نہیں کرتا. <strong>شروع کرنا</strong> بالکل آٹھ سلائیڈز ہیں اور اسے آؤٹ کرنے کے بعد دوبارہ چلایا جا سکتا ہے۔</p>
+<p>موجودہ ریلیز اسکرین شاٹس ایک ملکیتی عارضی لوپ بیک SQLite فکسچر کا استعمال کرتے ہیں۔ ان کی بے ترتیب بندرگاہیں اور نمونے کے اکاؤنٹ کا ڈیٹا ٹیسٹ نمونے ہیں، آپ کی درخواست کے لیے ترتیب کی ضرورت نہیں ہے:</p>
+<blockquote>
+<p><strong>کوریج ڈائیلاگ</strong>
+<img alt="کوریج ڈیسک ٹاپ کو اسکین کریں۔" src="/longshot-security-site/docs/assets/scan-coverage-desktop.png"/>
+<strong>روسی کوریج ٹیکسٹ کے ساتھ تنگ آئرن مین لے آؤٹ</strong>
+<img alt="اسکین کوریج لوہے کی تنگ آر یو" src="/longshot-security-site/docs/assets/scan-coverage-iron-narrow-ru.png"/>
+<strong>مقامی پراکسی صفحہ</strong>
+<img alt="مقامی ٹول پراکسی" src="/longshot-security-site/docs/assets/native-tool-proxy.png"/></p>
+</blockquote>
+<h2 id="troubleshooting">خرابی کا سراغ لگانا</h2>
+<table>
+<thead>
+<tr>
+<th>علامت</th>
+<th>چیک کرنے کے لیے عین مطابق علاقہ / اگلی کارروائی</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>دوبارہ شروع کرنے کے بعد توسیع ختم ہو گئی ہے۔</td>
+<td>ایک عارضی <code dir="ltr" translate="no">about:debugging</code> دوبارہ شروع ہونے پر تنصیب ختم ہو جاتی ہے۔ XPI کو دوبارہ لوڈ کریں یا مناسب دستخط شدہ/مسلسل ترقیاتی تنصیب کا استعمال کریں۔</td>
+</tr>
+<tr>
+<td>اپ ڈیٹ کے بعد غلط UI/ورژن</td>
+<td>مینی فیسٹ/ڈسپلے ورژن چیک کریں۔ مطلوبہ XPI کو دوبارہ لوڈ کریں اور متروک ڈیش بورڈز کو بند کریں۔ ماخذ ڈائریکٹری کے نام پرانے ورژن کو برقرار رکھ سکتے ہیں۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find package 'ws'</code></td>
+<td>غلطی میں راستے کی تصدیق کریں۔ ایک مکمل ڈاؤن لوڈ کردہ مقامی اڈاپٹر میں شامل ہے ws؛ ایک تازہ مقامی ماخذ ڈائریکٹری کی ضرورت ہے۔ <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code>. پرانے اڈاپٹر پاتھ کے تحت ایک خرابی پرانا سیٹ اپ ہے، نیا نہیں۔ <code dir="ltr" translate="no">cli.js</code> حکم</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find module .../bridge/bin/longshot-bridge</code></td>
+<td>سورس روٹ پر مشتمل ایجنٹ API کمانڈز چلائیں۔ <code dir="ltr" translate="no">bridge/</code>، یا مطلق اسکرپٹ کا راستہ استعمال کریں۔ مقامی پراکسی زپ مکمل ایجنٹ API ذریعہ نہیں ہے۔</td>
+</tr>
+<tr>
+<td>اڈاپٹر شروع نہیں ہوتا ہے / mitmdump غائب ہے۔</td>
+<td>دوڑو <code dir="ltr" translate="no">python3 bootstrap.py</code> Python 3.12+ کے ساتھ یا اس کے ساتھ نصب شدہ رن ٹائم کو منتخب کریں۔ <code dir="ltr" translate="no">--mitmdump</code></td>
+</tr>
+<tr>
+<td>جوڑا منسلک نہیں ہو سکتا</td>
+<td>کنٹرول پورٹ 8901، موجودہ ٹوکن اور عین مطابق کرنٹ استعمال کریں۔ <code dir="ltr" translate="no">moz-extension://...</code> اصل یقینی بنائیں کہ اڈاپٹر کا عمل تیار ہے۔</td>
+</tr>
+<tr>
+<td>ٹول پراکسی تصدیق کی ناکامی ہو جاتی ہے۔</td>
+<td>پراکسی پورٹ 8900، یوزر نیم برج اور کرنٹ ٹوکن استعمال کریں۔ اڈاپٹر دوبارہ شروع ہونے کے بعد ہر ٹول کو اپ ڈیٹ کریں۔</td>
+</tr>
+<tr>
+<td>متوقع پراکسی درخواست کے بجائے براہ راست/عوامی مواد</td>
+<td>NO_PROXY/no_proxy، ٹول کے اخراج اور پراکسی سیٹنگز کو چیک کریں۔ تصدیق کریں کہ درخواست مقامی ٹریفک میں ظاہر ہوتی ہے۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">bridge.invalid</code> ناکام</td>
+<td>پرانا عرف ورک فلو۔ اصلی ٹارگٹ یو آر ایل استعمال کریں اور کوئی میزبان فائل کا اندراج نہ کریں۔</td>
+</tr>
+<tr>
+<td>کنفیگ مسترد / نامعلوم پراپرٹی</td>
+<td>دوبارہ استعمال نہ کریں۔ <code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>، پرانے دائرہ کار/وقت کے فارم یا پرانے API کنٹرولز۔ مقامی تشکیل برآمد کریں اور اس کی معاون کلیدیں استعمال کریں۔</td>
+</tr>
+<tr>
+<td>سرٹیفکیٹ کی توثیق کی خرابی۔</td>
+<td>کلائنٹ → اڈاپٹر ٹرسٹ کو اڈاپٹر → اصل کی تصدیق سے ممتاز کریں۔ ٹول میں پرنٹ شدہ پبلک اڈاپٹر CA پر بھروسہ کریں۔ اصلی سرور کا سرٹیفکیٹ الگ سے چیک کریں۔</td>
+</tr>
+<tr>
+<td>براؤزر کوکیز ٹول تک نہیں پہنچتی ہیں۔</td>
+<td>منتخب کردہ ٹیب/اسٹور، قابل اطلاق ڈومین/پاتھ/سیکیور/پارٹیشن، cookies.enabled، محفوظ کردہ ناموں کی تصدیق کریں اور آیا درخواست نے حقیقت میں پراکسی کو عبور کیا</td>
+</tr>
+<tr>
+<td>ٹول ایک کوکی پروب بھیجتا ہے لیکن یہ غائب ہو جاتا ہے۔</td>
+<td>متعلقہ اوور رائیڈ کو غیر فعال/محفوظ کریں یا X-Longshot-Preserve کو شامل کریں/اوور رائیڈ آف کی درخواست کریں۔ پہلی درخواست کے ارادے کا پتہ لگانے پر انحصار نہ کریں۔</td>
+</tr>
+<tr>
+<td>براؤزر کوکی اب بھی درخواست کو اوور رائیڈ آف کے ساتھ تبدیل کرتی ہے۔</td>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code> خود مختار ہے. اگر ردعمل کی مطابقت پذیری ناپسندیدہ ہے تو اسے بھی غیر فعال کریں۔</td>
+</tr>
+<tr>
+<td>401/419/440 یا 429 مقامی پراکسی کو روکتا ہے۔</td>
+<td>ٹیب/سیشن/تھروٹلنگ کا جائزہ لیں، پھر واضح طور پر دوبارہ شروع کریں۔ جان بوجھ کر منفی-تصویر کے ٹیسٹوں کے لیے جائزہ شدہ توقف-اسٹیٹس کی تشکیل میں تبدیلی اور دوبارہ شروع کرنے کی ضرورت پڑ سکتی ہے۔</td>
+</tr>
+<tr>
+<td>WAF فائر فاکس کو قبول کرتا ہے لیکن مقامی ٹریفک کو مسترد کرتا ہے۔</td>
+<td>Cookie/UA کاپی کرنا TLS/IP/براؤزر کے رویے کو دوبارہ پیش نہیں کرتا یا JavaScript چیلنجوں کو انجام نہیں دیتا۔ اجازت شدہ تشخیصی راستے اور شواہد کا جائزہ لیں۔</td>
+</tr>
+<tr>
+<td>پیاز کا ہدف مسدود</td>
+<td>مقامی اڈاپٹر میں ایک حقیقی واضح SOCKS/اپ اسٹریم روٹ کو ترتیب دیں۔ بلٹ ان/براؤزر اور الگ تھلگ مقامی نیوکلی کی روٹنگ مختلف ہوتی ہے۔</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">permissions.request may only be called from a user input handler</code></td>
+<td>موجودہ توسیع کی منظوری کا ورک فلو استعمال کریں۔ محفوظ کریں، جائزہ لیں، پھر اس اگلی رن کو منظور کریں پر کلک کریں گمشدہ اجازتوں کی درخواست کرنے کے لیے؛ غیر مطابقت پذیر ایجنٹ/پس منظر کی ترتیب میں تبدیلی سے اجازت نہ لیں۔</td>
+</tr>
+<tr>
+<td>زیادہ سے زیادہ نتائج کے بعد عام یو آر ایل کنسٹرکٹر کی خرابی۔</td>
+<td>چیک کریں۔ <strong>OAST فراہم کنندہ URL</strong> اور <strong>کال بیک ڈومین</strong>ہدف URL سے آزادانہ طور پر۔ مماثل اقدار کو پُر کریں یا OAST کو غیر فعال کریں۔ موجودہ توثیق متعلقہ فیلڈ کی شناخت کرتی ہے۔</td>
+</tr>
+<tr>
+<td>جارحانہ بند ہے لیکن جدید اختیارات فعال ہیں۔</td>
+<td>درج کردہ خصوصیات کو غیر فعال کریں یا جارحانہ کو فعال/محفوظ کریں اور اگلے رن کو منظور کریں۔</td>
+</tr>
+<tr>
+<td>سیشن B غائب/غلط</td>
+<td>کسی دوسرے کنٹینر/پرائیویٹ کوکی اسٹور میں ایک ہی اصل والے ٹیب کو منتخب کریں۔ عام ٹیبز آزاد کوکیز فراہم نہیں کرتے ہیں۔</td>
+</tr>
+<tr>
+<td>منظوری کی میعاد ختم/استعمال شدہ/تبدیل</td>
+<td>حتمی ترتیبات محفوظ کریں اور اگلی رن گرانٹ کو منظور کریں۔ میعاد 30 منٹ ہے اور یہ واحد استعمال ہے۔</td>
+</tr>
+<tr>
+<td>رن فزر کی کوئی مفید درخواست نہیں ہے۔</td>
+<td>اسکوپڈ یو آر ایل، استفسار پیرامیٹر اور بغیر خالی منتخب کردہ پے لوڈ سیٹ فراہم کریں، یا انوینٹری کی دریافت کے بعد علیحدہ آٹو فز استعمال کریں۔</td>
+</tr>
+<tr>
+<td>پروب لائبریری اپ ڈیٹ ناکام</td>
+<td>رپورٹ شدہ ذریعہ/نیٹ ورک/توثیق کی وجہ کو چیک کریں۔ پچھلا ذخیرہ شدہ ڈیٹا برقرار ہے؛ ہدف کے اسکین خود بخود دوبارہ نہیں چلائے جاتے ہیں۔</td>
+</tr>
+<tr>
+<td>کوئی نتائج نہیں / بہت کم چیک</td>
+<td>اصل مکمل/جزوی/چھوڑی ہوئی ان پٹ کوریج پڑھیں؛ دریافت، لاگ ان، بجٹ، ردعمل کی قسم، بلاکنگ اور اخراج کا معائنہ کریں۔</td>
+</tr>
+<tr>
+<td>OPTIONS DELETE کی اجازت دیتا ہے۔</td>
+<td>صرف انوینٹری۔ یہ غیر مستند تحریروں کو ثابت نہیں کرتا یا لانگ شاٹ نے ان کی کوشش کی۔</td>
+</tr>
+<tr>
+<td>OAST کنکشن گزر جاتا ہے لیکن کوئی ہدف کال بیک نہیں۔</td>
+<td>براؤزر کال بیک ٹیسٹ چلائیں، مماثل فراہم کنندہ/ڈومین، ٹی ٹی ایل اور ٹارگٹ ایگریس کی تصدیق کریں۔ غیر موجودگی غیر نتیجہ خیز رہتی ہے۔</td>
+</tr>
+<tr>
+<td>مقامی ٹیمپلیٹ مسدود ہے۔</td>
+<td>ایگزیکیوٹر/قابلیت کی وجہ پڑھیں: نیوکلی/آئیسولیشن/مددگار/دستخط/اسکوپ/منظوری/روٹنگ غائب ہو سکتی ہے</td>
+</tr>
+<tr>
+<td>سمارٹ تجزیہ کار پسدید کا نام نہیں دے سکتا</td>
+<td>نامعلوم ایک درست نتیجہ ہے۔ WAF/پراکسی پرتیں ثبوت کو چھپا یا دوبارہ لکھ سکتی ہیں۔ دستی طور پر تعیناتی انوینٹری کی تصدیق کریں۔</td>
+</tr>
+<tr>
+<td>cimematic ناظرین کے پاس لائیو صفحہ کی کمی ہے۔</td>
+<td>فعال ٹیب/لاگ ان/اصل، کیپچر/لوڈنگ پابندیاں اور انحصار چیک کریں؛ صرف کیپچرڈ اور ریکارڈ شدہ ثبوت استعمال کریں۔</td>
+</tr>
+<tr>
+<td>عام صفحہ کے علاقے میں ناظرین کے پوائنٹس</td>
+<td>ہیڈر/API/کوکی تلاش کے لیے کوئی مماثل HTML فیلڈ نہیں ہو سکتا۔ صفحہ سیاق و سباق کی پوزیشننگ قطعی ان پٹ ثبوت نہیں ہے۔</td>
+</tr>
+<tr>
+<td>تشخیص کی فائلیں انتظار کر رہی ہیں/غلطی کر رہی ہیں۔</td>
+<td>ایجنٹ API کو جوڑیں، منتخب کردہ مطلق فولڈر/سٹیٹس اور زیر التوا چیک پوائنٹس کو چیک کریں۔ براؤزر اسٹوریج الگ رہتا ہے۔</td>
+</tr>
+<tr>
+<td>مقامی ٹریفک میں کوئی رسپانس باڈی یا ZAP نتائج نہیں ہیں۔</td>
+<td>متوقع میٹا ڈیٹا صرف منظر؛ بیرونی ٹول کی اپنی تاریخ کا معائنہ کریں اور رپورٹ کریں۔</td>
+</tr>
+<tr>
+<td>PDF API کا جواب HTML/ہدایات ہے۔</td>
+<td>استعمال کریں پرنٹ / پی ڈی ایف میں محفوظ کریں؛ HTML بائٹس کا نام تبدیل کرکے .pdf نہ کریں۔</td>
+</tr>
+<tr>
+<td>ترجمہ شدہ UI اب بھی انگریزی دکھاتا ہے۔</td>
+<td>کوڈ کی شرائط، کمانڈ کے نمونے، یو آر ایل، پے لوڈز اور حاصل شدہ ثبوت جان بوجھ کر محفوظ کیے گئے ہیں۔ اصل UI نثر کے لیے ورژن/زبان چیک کریں؛ مشینی ترجمہ کا معیار مختلف ہو سکتا ہے۔</td>
+</tr>
+</tbody>
+</table>
+<p>تشخیص کے لیے، فیلڈ کے لیے مخصوص پیغام اور متعلقہ اجزاء کے لاگ سے شروع کریں۔ مقامی پراکسی جوڑی کی خرابی، براؤزر اسکین سیشن کی ناکامی اور ایجنٹ API کنکشن کی ناکامی کے لیے مختلف اصلاحات کی ضرورت ہوتی ہے۔ مکمل شدہ UI کارروائی یا کامیاب جوڑی کو اس بات کا ثبوت نہ سمجھیں کہ ہر منصوبہ بند درخواست یا چیک چلایا گیا۔</p>
+<h2 id="terms-and-source-references">شرائط اور ماخذ حوالہ جات</h2>
+<table>
+<thead>
+<tr>
+<th>مدت</th>
+<th>سادہ زبان کے معنی/ حوالہ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">HTTP درخواست/جواب</a></td>
+<td>ویب سرور کو پیغام / اس کا جواب، بشمول طریقہ، URL، ہیڈر اور اختیاری باڈی</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/Origin">اصل</a></td>
+<td>اسکیم، میزبان اور پورٹ ویب سیکیورٹی باؤنڈری کے طور پر استعمال ہوتے ہیں۔</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies">کوکی</a></td>
+<td>براؤزر کے زیر انتظام ریاست قابل اطلاق درخواستوں کے لیے منتخب کی گئی۔</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Session_Management">سیشن کا انتظام</a></td>
+<td>ایپلی کیشن تمام درخواستوں میں صارف کو کیسے پہچانتی ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/essential-skills">پے لوڈ</a></td>
+<td>ان پٹ پر بھیجی گئی ایک ٹیسٹ ویلیو؛ خود بخود ایک کامیاب استحصال نہیں ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/sql-injection">ایس کیو ایل انجیکشن</a></td>
+<td>ان پٹ تبدیل کرتا ہے کہ ڈیٹا بیس کے استفسار کی تشریح کیسے کی جاتی ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/nosql-injection">NoSQL انجیکشن</a></td>
+<td>ان پٹ غیر SQL ڈیٹا بیس کے استفسار یا آپریٹر کے رویے کو تبدیل کرتا ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a></td>
+<td>حملہ آور کے زیر کنٹرول ڈیٹا براؤزر کے قابل عمل مواد تک پہنچ جاتا ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting/dom-based">DOM XSS</a></td>
+<td>کلائنٹ سائیڈ جاوا اسکرپٹ ناقابل اعتماد ڈیٹا کو ایک ایگزیکیوشن کے قابل سنک میں لے جاتا ہے</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/server-side-template-injection">SSTI</a></td>
+<td>ان پٹ کو سرور ٹیمپلیٹ ہدایات سے تعبیر کیا جاتا ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/os-command-injection">کمانڈ انجیکشن</a></td>
+<td>ان پٹ آپریٹنگ سسٹم شیل/پروگرام کے ذریعے عمل میں آنے والی کمانڈ کو تبدیل کرتا ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/file-path-traversal">راستہ عبور کرنا</a></td>
+<td>ان پٹ مطلوبہ فائل پاتھ باؤنڈری سے بچ جاتا ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/ssrf">SSRF</a></td>
+<td>ایک سرور دوسری منزل کے لیے غیر ارادی درخواست کرتا ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/xxe">XXE</a></td>
+<td>XML بیرونی ہستی پروسیسنگ غیر ارادی وسائل تک رسائی کا سبب بنتی ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/csrf">CSRF</a></td>
+<td>ایک اور سائٹ ایک غیر ارادی تصدیق شدہ درخواست کی کارروائی کو آمادہ کرتی ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cors">CORS</a></td>
+<td>کراس اوریجن رسپانس رسائی کو کنٹرول کرنے والی براؤزر پالیسی</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/access-control/idor">رسائی کنٹرول / IDOR</a></td>
+<td>آیا صارف کسی چیز/عمل تک رسائی حاصل کر سکتا ہے، نہ کہ اس کا URL قابل رسائی ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/logic-flaws">کاروباری منطق</a></td>
+<td>درست قیمتوں، ورک فلو، بیلنس اور ریاستی منتقلی کے بارے میں قواعد</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a></td>
+<td>براؤزر سے نافذ وسائل/اسکرپٹ پالیسی؛ اکیلے گمشدہ ہیڈر XSS پر عمل درآمد نہیں ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Web_Application_Firewall">WAF</a></td>
+<td>HTTP فلٹرنگ پرت جس کی موجودگی ہر فعال اصول کو ظاہر نہیں کرتی ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Reverse_proxy">ریورس پراکسی</a></td>
+<td>ایپلیکیشن سرور سے پہلے درخواستیں وصول کرنے والا بیچوان</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/TLS">TLS/CA</a></td>
+<td>کنکشن کی خفیہ کاری اور سرٹیفکیٹ ٹرسٹ اس کے اختتامی نقطہ کی توثیق کرنے کے لیے استعمال ہوتا ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://nvd.nist.gov/vuln">سی وی ای / این وی ڈی</a></td>
+<td>معلوم کمزوریوں کے لیے شناخت کنندہ/ڈیٹا بیس؛ بینر سے مماثل ہونا توثیق کا استحصال نہیں ہے۔</td>
+</tr>
+<tr>
+<td><a href="https://cwe.mitre.org/">CWE</a></td>
+<td>کمزوری کی اقسام کی درجہ بندی</td>
+</tr>
+<tr>
+<td><a href="https://top10.owasp.org/2025/">OWASP ٹاپ 10:2025</a></td>
+<td>بیداری کے زمرے، مکمل سکینر ٹیسٹ سوٹ نہیں۔</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-project-web-security-testing-guide/">WSTG</a></td>
+<td>ویب سیکیورٹی ٹیسٹنگ کا حوالہ جس میں خودکار اور دستی کام کا احاطہ کیا گیا ہے۔</td>
+</tr>
+</tbody>
+</table>
+<p>اس ٹیوٹوریل کے نفاذ کی بنیاد: مینی فیسٹ 2.18.1؛ <code dir="ltr" translate="no">content/checks.js</code>; <code dir="ltr" translate="no">lib/core.js</code>, <code dir="ltr" translate="no">lib/v2.js</code>, آڈٹ/DOM/تحقیقات کے ماڈیولز؛ ڈیش بورڈ/مدد/کوریج/مقامی UI؛ مقامی اڈاپٹر تشکیل، اوور رائیڈز اور CLI؛ ایجنٹ API/مقامی کلائنٹ؛ توثیق کے نمونے جاری کریں۔ جہاں پرانی دستاویزات ہٹائے گئے نقل و حمل کے رویے سے متصادم ہیں، وہاں بھیج دیا گیا 2.18.1 رن ٹائم یہاں استعمال ہونے والی بنیاد ہے۔</p>
+<p>اضافی سیٹ اپ حوالہ جات:</p>
+<ul>
+<li><a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">موزیلا کی عارضی تنصیب</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging">موزیلا مقامی پیغام رسانی</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP آؤٹ گوئنگ کنکشن کی ترتیبات</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/">ZAP فعال اسکین پالیسی اور حدود</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy سرٹیفکیٹ</a></li>
+<li><a href="https://github.com/projectdiscovery/interactsh">سرکاری بات چیت</a></li>
+<li><a href="https://docs.projectdiscovery.io/templates/reference/template-signing">نیوکلی ٹیمپلیٹ پر دستخط کرنا</a></li>
+<li><a href="#owasp-top-10-coverage">مکمل ریلیز کوریج دستاویز</a></li>
+</ul>
+<p>یہ ٹیوٹوریل نامزد ریلیز کے لیے عمومی رہنمائی ہے۔ ایپلیکیشن کے مخصوص نتائج کے لیے ابھی بھی ایک مجاز ہدف، ورک فلو تک پہنچنے اور نظرثانی شدہ شواہد کی ضرورت ہے۔</p></main></div><footer>لانگ شاٹ سیکیورٹی · صرف مجاز تشخیص · <a href="/longshot-security-site/ur/">لانگ شاٹ پر واپس جائیں۔</a><p class="translation-notice">ترجمے مشین سے بنائے گئے ہیں۔ انگریزی ورژن حوالہ ہے۔</p></footer></body></html>

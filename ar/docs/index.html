@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+
+<html data-site-base="/longshot-security-site/" data-site-page="docs/" dir="rtl" lang="ar"><head><script data-language-script="" defer="" src="/longshot-security-site/language.js?v=20261110-i18n"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>التوثيق الكامل — Longshot Security 2.18.1</title><meta content="البرنامج التعليمي العام الكامل لـ Longshot: فحص المتصفح، الوكيل الأصلي، تجاوزات ملفات تعريف الارتباط، ZAP، MCP، التشويش، النتائج والتقارير." name="description"/><link href="/longshot-security-site/assets/mark.svg" rel="icon" type="image/svg+xml"/><link href="/longshot-security-site/style.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/docs/docs.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/localization.css?v=20261110-i18n" rel="stylesheet"/><link href="https://zzholdoshev.github.io/longshot-security-site/ar/docs/" rel="canonical"/><link href="https://zzholdoshev.github.io/longshot-security-site/docs/" hreflang="en" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ru/docs/" hreflang="ru" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/de/docs/" hreflang="de" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/fr/docs/" hreflang="fr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/zh/docs/" hreflang="zh" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ja/docs/" hreflang="ja" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/es/docs/" hreflang="es" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/hi/docs/" hreflang="hi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/pt/docs/" hreflang="pt" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ar/docs/" hreflang="ar" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/bn/docs/" hreflang="bn" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ur/docs/" hreflang="ur" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/id/docs/" hreflang="id" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/tr/docs/" hreflang="tr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ko/docs/" hreflang="ko" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/it/docs/" hreflang="it" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/vi/docs/" hreflang="vi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ta/docs/" hreflang="ta" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/te/docs/" hreflang="te" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/mr/docs/" hreflang="mr" rel="alternate"/></head><body data-ui-copy='{"Signed in already? Start from that tab. Your session is the starting point.":"هل قمت بتسجيل الدخول بالفعل؟ ابدأ من علامة التبويب تلك. جلستك هي نقطة البداية.","Your tools send their own HTTP requests. Browser Bridge can supply the browser cookies.":"ترسل أدواتك طلبات HTTP الخاصة بها. يمكن لـ Browser Bridge توفير ملفات تعريف الارتباط للمتصفح.","Cookie override is on by default in the paired native bridge. You can turn it off.":"يتم تشغيل تجاوز ملفات تعريف الارتباط بشكل افتراضي في الجسر الأصلي المقترن. يمكنك إيقاف تشغيله.","A finding is a lead. Read the request, the response and the controls before confirming it.":"النتيجة هي الرصاص. قراءة الطلب والرد والضوابط قبل تأكيده.","Using Chrome? Keep the Longshot workbench tab open while you scan.":"باستخدام كروم؟ احتفظ بعلامة تبويب Longshot Workbench مفتوحة أثناء إجراء المسح الضوئي.","Connect a compatible MCP agent to run permitted checks and examine the evidence.":"قم بتوصيل وكيل MCP متوافق لإجراء الفحوصات المسموح بها وفحص الأدلة.","No bridge.invalid or hosts-file entry. The native proxy uses the actual target URL.":"لا يوجد إدخال لملف Bridge.invalid أو ملف المضيفين. يستخدم الوكيل الأصلي عنوان URL المستهدف الفعلي.","Pause motion":"وقفة الحركة","Resume motion":"استئناف الحركة"}'><a class="skip" href="#documentation">انتقل إلى الوثائق</a><nav aria-label="الملاحة الرئيسية"><a href="/longshot-security-site/ar/">LONGSHOT</a><a href="/longshot-security-site/ar/#download">تحميل</a><a href="/longshot-security-site/ar/support.html">الدعم</a><a href="/longshot-security-site/ar/privacy.html">الخصوصية</a><label class="language-switcher"><span>اللغة</span><select aria-label="لغة الموقع" id="site-language" translate="no"><option value="en">English</option><option value="ru">Русский</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="zh">简体中文</option><option value="ja">日本語</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="pt">Português</option><option selected="selected" value="ar">العربية</option><option value="bn">বাংলা</option><option value="ur">اردو</option><option value="id">Bahasa Indonesia</option><option value="tr">Türkçe</option><option value="ko">한국어</option><option value="it">Italiano</option><option value="vi">Tiếng Việt</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="mr">मराठी</option></select></label></nav><div class="docs-layout"><aside class="docs-sidebar"><details open=""><summary>البرنامج التعليمي العام / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">مرمزة بالحيوية. تم الشحن. اخترق.</a><a href="#firefox-and-chrome-choose-your-edition">Firefox وChrome: اختر الإصدار الذي يناسبك</a><a href="#contents">المحتويات</a><a href="#what-runs-where">ما الذي يجري أين</a><a href="#install-or-update-in-firefox-nightly">التثبيت أو التحديث في Firefox Nightly</a><a href="#getting-started-and-target-sessions">البدء والجلسات المستهدفة</a><a href="#light-discovery-and-a-focused-active-scan">اكتشاف الضوء والمسح النشط المركز</a><a href="#aggressive-options-and-run-approval">الخيارات العدوانية وتشغيل الموافقة</a><a href="#overview-checks">نظرة عامة على الشيكات</a><a href="#scan-options-reference">مرجع خيارات المسح</a><a href="#budgets-selectors-and-request-settings">الميزانيات والمحددات وإعدادات الطلب</a><a href="#fuzzer-auto-fuzz-and-probe-library">مكتبة Fuzzer وAuto-fuzz وProbe</a><a href="#your-payloads-and-imported-templates">الحمولات الخاصة بك والقوالب المستوردة</a><a href="#server-stack-and-smart-analyzer">مكدس الخادم والمحلل الذكي</a><a href="#oast-setup-and-interpretation">إعداد وتفسير OAST</a><a href="#browser-bridge-native-tool-proxy">جسر المتصفح: وكيل الأداة الأصلية</a><a href="#native-bridge-configuration">تكوين الجسر الأصلي</a><a href="#cookie-and-header-overrides-without-damaging-probes">يتم تجاوز ملف تعريف الارتباط والرأس دون إتلاف المجسات</a><a href="#external-tools-and-actual-zap-scanning">الأدوات الخارجية ومسح ZAP الفعلي</a><a href="#tor-and-onion-routing">توجيه تور والبصل</a><a href="#agent-api-mcp-and-local-model-clients">Agent API وMCP وعملاء النموذج المحلي</a><a href="#optional-native-nuclei">النوى الأصلية الاختيارية</a><a href="#manual-tools-interception-and-api-inventory">الأدوات اليدوية والاعتراض وجرد واجهة برمجة التطبيقات</a><a href="#findings-and-the-cimematic-viewer">النتائج والعارض الكمي</a><a href="#owasp-top-10-coverage">تغطية OWASP أعلى 10</a><a href="#recovery-assessment-files-and-reports">ملفات الاسترداد والتقييم والتقارير</a><a href="#appearance-language-and-help">المظهر واللغة والمساعدة</a><a href="#troubleshooting">استكشاف الأخطاء وإصلاحها</a><a href="#terms-and-source-references">المصطلحات ومراجع المصدر</a></div></details><a class="markdown-download" download="" href="/longshot-security-site/docs/longshot-general-tutorial.md">تنزيل تخفيض السعر ↓ · English</a></aside><main class="docs-main" id="documentation"><p class="eyebrow">التوثيق الكامل · تم التحديث في 10 نوفمبر 2026</p><h1 id="longshot-2181-general-tutorial-and-control-reference">Longshot 2.18.1 — البرنامج التعليمي العام ومرجع التحكم</h1>
+<p>تم التحديث في 10 نوفمبر 2026 لـ Longshot <strong>2.18.1</strong> (إصدارات Firefox وChrome) و <strong>وكيل أداة HTTP/HTTPS الأصلي</strong>. يحل هذا محل البرنامج التعليمي العام 2.11.1. تصف الإرشادات أدناه التنفيذ الذي تم شحنه، بما في ذلك حدوده؛ أمثلة الجسر الأقدم غير قابلة للتبديل مع هذا الإصدار.</p>
+<p>Longshot عبارة عن منصة عمل لجلسة المتصفح لتقييم تطبيقات الويب المعتمدة. فهو يجمع بين الاكتشاف وماسح جافا سكريبت النشط الخاص به وأدوات HTTP اليدوية والقوالب المستوردة ومراجعة النتائج والتقارير. يتيح جسر المتصفح الاختياري للأدوات الخارجية استخدام قيم جلسة Firefox المحددة أثناء إرسال طلبات HTTP الأصلية الخاصة بها.</p>
+<p>التمريرة الأولى المفيدة هي: <strong>افتح التطبيق ← تسجيل الدخول ← تشغيل Longshot من علامة التبويب تلك ← الاتصال ← التحقق من صحة الجلسة ← اكتشاف المدخلات ← تشغيل عمليات التحقق المحددة ← مراجعة الأدلة</strong>.</p>
+<p>بالنسبة إلى تطبيق يتعامل مع بيانات المستخدم الحساسة أو أمواله، بما في ذلك التطبيق المبني بالذكاء الاصطناعي أو المشفر، قم بتعيين فريق للأمن السيبراني لإجراء تقييم احترافي. لا يحل فحص الإضافات محل اختبار الترخيص أو مراجعة منطق الأعمال أو تقييم الأمان المستقل. قائمة النتائج الفارغة ليست شهادة أمان.</p>
+<p>يشرح هذا المستند الأوامر؛ تحديثه لا يؤدي إلى تثبيت البرنامج أو تسجيل مضيف أو تغيير إعدادات المتصفح أو إجراء أي عمليات فحص. قم بتشغيل الأمثلة فقط مقابل هدف التقييم المعتمد الخاص بك. العينة <code dir="ltr" translate="no">http://localhost:8080</code> هو مثال على الهدف المحلي، وليس خدمة Longshot المضمنة.</p>
+<h2 id="vibe-coded-shipped-hacked">مرمزة بالحيوية. تم الشحن. اخترق.</h2>
+<p><strong>تخيل هذا:</strong> يتم إطلاق تطبيقك، ويكتشف المهاجم الخلل، ويفتح المستخدم حسابه برصيد صفر. كل أموالهم ذهبت.</p>
+<p>بدا الرمز مقنعا. قال الذكاء الاصطناعي إنه يبدو آمنًا. لم يكن ذلك كافيا.</p>
+<p><strong>LLMs غير حتمية. يمكنهم تفويت نقاط الضعف وإحداث أخطاء واثقة. أنت بحاجة إلى رأي ثان. أنت بحاجة إلى Longshot.</strong></p>
+<p>يقوم Longshot بتحويل Firefox إلى منصة عمل أمنية لتطبيقات الويب التي تنشئها. قم بإجراء عمليات فحص متكررة على التطبيق الذي يتم تشغيله فعليًا، وافحص أدلة HTTP، وتحقق من نقاط الضعف قبل أن يدفع المستخدمون الثمن.</p>
+<p>غطاء الشيكات مدعوم <strong>حقن SQL/NoSQL، وحقن التعليمات البرمجية والقالب من جانب الخادم، ومرشحات XSS المنعكسة، واجتياز المسار/تضمين الملف، وعمليات إعادة التوجيه المفتوحة، وحقن CRLF/الرأس</strong>، مع التحقق المباشر الاختياري من DOM XSS. مراجعة <strong>رؤوس الأمان الضعيفة وسياسات ملفات تعريف الارتباط وCORS والتكوين المكشوف والكشف عن الأخطاء</strong>، مع عمليات فحص اختيارية لمزيد من فئات الهجوم.</p>
+<p>ابدأ من علامة تبويب المتصفح التي تستخدمها بالفعل. احتفظ بملفات تعريف الارتباط المباشرة، وقم بتكوين التحقق من صحة الجلسة، والتعافي بعد فقدان الجلسة، وحافظ على تنظيم إعدادات كل هدف وسجله ونتائجه.</p>
+<p><strong>قم بتشغيل الذكاء الاصطناعي الخاص بك، ثم تحقق من عمله.</strong> قم بتوصيل الوكيل من خلال MCP لإجراء الفحوصات المعتمدة وفحص النتائج. استخدم جسر المتصفح الأصلي لإحضار ZAP أو sqlmap أو curl أو ffuf أو wget إلى جلسة المتصفح المتصلة دون نسخ قيم ملفات تعريف الارتباط يدويًا. ترسل الأدوات طلبات HTTP وحمولاتها الخاصة؛ يتم تشغيل تجاوزات ملفات تعريف الارتباط للمتصفح افتراضيًا ويمكن إيقاف تشغيلها.</p>
+<p>يمكن للمستخدمين المتقدمين استيراد متوافق <strong>قوالب مكافحة التطرف العنيف</strong> وترتبط <strong>عمليات الاسترجاعات OAST</strong> مع المجسات التي تسببت فيها. راجع أحكامك وسجلها، ثم قم بتصدير الأدلة الغنية بها <strong>تقارير HTML أو JSON أو CSV أو SARIF</strong>، مع إخراج الطباعة/PDF. شرح النتائج مع <strong>عارض سيماتيك</strong>، بما في ذلك سياق صفحة CSS/JavaScript المباشرة، والعناصر المتحركة ثلاثية الأبعاد، وعناصر التحكم في الإيقاف المؤقت وملء الشاشة. اختر سمة واضحة وقم بتخصيص الحركة والصوت لتناسب مساحة العمل الخاصة بك.</p>
+<p><strong>قبل أن تشحن الثقة، اطلب الأدلة. ضربة طويلة.</strong></p>
+<h3 id="quick-scan-one-sentence">فحص سريع – جملة واحدة</h3>
+<p>افتح تطبيقك في Firefox، وقم بتسجيل الدخول إذا لزم الأمر، وقم بتشغيل Longshot من علامة التبويب هذه، وانقر فوق "اتصال"، وقم بالتحقق من صحة فحص الجلسة التي تم تكوينها، ثم اختر Spider + عمليات التحقق النشطة → بدء المسح ومراجعة النتائج.</p>
+<h3 id="short-ad">إعلان قصير</h3>
+<p>أصبح تطبيقك المرمز حيويًا. ما الذي فاته الذكاء الاصطناعي؟ يقوم Longshot بفحص التطبيق قيد التشغيل بحثًا عن الحقن وXSS ونقاط الضعف الشائعة الأخرى، ويضيف اختبار جلسة المتصفح وسير عمل AI/MCP، ويمنحك أدلة للمراجعة. أنت بحاجة إلى رأي ثان. أنت بحاجة إلى Longshot.</p>
+<h3 id="compact-description">وصف مدمج</h3>
+<p>رأي ثانٍ للتطبيقات ذات الترميز الديناميكي: فحوصات جلسة المتصفح، وAI/MCP، والأدوات الأصلية مع تجاوزات ملفات تعريف الارتباط للمتصفح القابلة للتكوين، وCVE/OAST، والنتائج والتقارير السينمائية.</p>
+<h3 id="campaign-captions">التسميات التوضيحية للحملة</h3>
+<ol>
+<li><strong>مرمزة بالحيوية. تم الشحن. تم اختراقها.</strong> سيناريو افتراضي للإطلاق وخسارة الحساب؛ الحصول على رأي ثان قبل الشحن.</li>
+<li><strong>اختبار الجلسة. تحقق من التطبيق.</strong> ملفات تعريف الارتباط المباشرة والتحقق من الصحة والأدلة الخاصة بالهدف.</li>
+<li><strong>لقد كتبت ذلك. من قام بفحصها؟</strong> أدخل اقتراحات الذكاء الاصطناعي في سير عمل أمني قابل للمراجعة.</li>
+<li><strong>أدواتك. علامة التبويب الخاصة بك. جلستك.</strong> جسر المتصفح لأدوات مساعدة HTTP المحلية المدعومة.</li>
+<li><strong>اصطياد العيوب. اتبع الأدلة.</strong> قوالب CVE المتوافقة المتقدمة وارتباط OAST.</li>
+<li><strong>إثبات على الطمأنينة.</strong> قم بمراجعة التقارير وتصديرها في مساحة عمل يمكنك تخصيصها.</li>
+<li><strong>الذكاء الاصطناعي الخاص بك ليس حكمًا أمنيًا.</strong> يتحقق MCP من تطبيقك قيد التشغيل؛ الأدلة التي يمكنك مراجعتها.</li>
+<li><strong>جلسة منتهية الصلاحية. السياق المفقود.</strong> التحقق من الصحة، والإيقاف المؤقت، وتسجيل الدخول مرة أخرى، والاستئناف.</li>
+</ol>
+<h3 id="selling-points-in-2181">نقاط البيع في 2.18.1</h3>
+<table>
+<thead>
+<tr>
+<th>نقطة البيع</th>
+<th>فائدة عملية</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>جلسة المتصفح التي قمت بتسجيل الدخول إليها، وأدواتك</strong></td>
+<td>يستخدم ZAP وعملاء وكيل HTTP الآخرين وعاء ملفات تعريف الارتباط المحدد في Firefox بشكل افتراضي، مع مزامنة ملفات تعريف الارتباط للاستجابة ومفاتيح إيقاف التشغيل المستقلة.</td>
+</tr>
+<tr>
+<td><strong>محرك الماسح الضوئي الخارجي الحقيقي</strong></td>
+<td>يقوم ZAP بإنشاء طلبات وحمولات HTTP الأصلية الخاصة به من خلال Browser Bridge؛ تكون تجاوزات ملفات تعريف الارتباط/الرؤوس المحددة صريحة.</td>
+</tr>
+<tr>
+<td><strong>حماية المسبار، والحفاظ على الجلسة</strong></td>
+<td>تتيح لك الحقول المحمية وتجاوز كل طلب الحفاظ على الطفرات المتعمدة لملفات تعريف الارتباط/الرؤوس الخاصة بالأداة.</td>
+</tr>
+<tr>
+<td><strong>الأدلة التي يمكنك فحصها</strong></td>
+<td>تستخدم القواعد النشطة المخصصة عناصر تحكم متكررة؛ تغطية المدخلات الفعلية تميز العمل المكتمل والجزئي والمتخطي.</td>
+</tr>
+<tr>
+<td><strong>الذكاء الاصطناعي الذي يمكنه العمل من خلال الواجهة</strong></td>
+<td>يكشف MCP عن أوامر الفحص المدعومة وعناصر التحكم في لوحة المعلومات حتى يتمكن الوكلاء المتوافقون من تشغيل طاولة العمل واسترداد النتائج.</td>
+</tr>
+<tr>
+<td><strong>النتائج التي يمكنك تفسيرها</strong></td>
+<td>يجمع العارض السينمائي بين سياق الصفحة الحالية والأدلة المسجلة والتفسيرات ثلاثية الأبعاد والمخاطر المحتملة باللغة البسيطة.</td>
+</tr>
+<tr>
+<td><strong>إحضار مواد الاختبار الخاصة بك</strong></td>
+<td>تحميل حزم الحمولة الخاصة بالهدف والقوالب التي تمت مراجعتها؛ قم بتحديث قوائم المجتمع المدعومة من الواجهة.</td>
+</tr>
+<tr>
+<td><strong>مساحة عمل تظل ملكًا لك</strong></td>
+<td>بيانات التقييم لكل هدف، وملاحظات المراجعة، ونقاط فحص الملفات الاختيارية، والتقارير غير المتصلة بالإنترنت، والموضوعات، و20 لغة مجمعة لواجهة المستخدم.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publication-notes">ملاحظات النشر</h3>
+<p>قصة خسارة الحساب هي قصة افتراضية، وليست ادعاء بشأن عميل حقيقي أو ضمان بأن Longshot يمنع الخسارة المالية. يقوم الملحق بإجراء التقييمات، وليس حظر الهجوم المستمر. النتائج تتطلب المراجعة. يشرح جدول التغطية الدعم المحدود والفجوات اليدوية فقط. يتضمن تحليل DOM المؤشرات وعناصر التنفيذ المدعومة، وليس تغطية استغلال DOM الشاملة. التسلسل السينمائي يوضح الأدلة؛ لا يضيف دليل الاستغلال.</p>
+<p>يحتاج MCP وBrowser Bridge إلى الإعداد المحلي. يستخدم وكيل الأداة الأصلية عملية Node/Python/mitmproxy منفصلة، ​​ويتطلب اعتراض HTTPS تكوين ثقة الأداة للمحول CA. يتم تحليل نقل HTTP، وليس TCP الخام الشفاف للبايت. يمكن تعطيل تجاوزات ملفات تعريف الارتباط؛ لا يضمن ملف تعريف ارتباط المتصفح أو وكيل المستخدم شبكة متطابقة للمتصفح أو قبول WAF. يظل ZAP الخارجي مثبتًا بشكل منفصل. يعتمد تنفيذ القالب على التوافق/أوقات التشغيل؛ يتطلب OAST موفرًا تم تكوينه. يحتاج التحقق من صحة المصادقة إلى نقطة نهاية/علامة محمية ذات معنى. ملفات تعريف الهدف منفصلة عن بيانات التقييم؛ توفر علامة التبويب/الحاوية جلسة ملفات تعريف الارتباط.</p>
+<p>بالنسبة للتطبيقات التي تتعامل مع البيانات الحساسة أو الأموال، قم بتعيين فريق للأمن السيبراني واستخدم Longshot كجزء من التقييم. استخدمه فقط على التطبيقات التي تمتلكها أو المرخص لها باختبارها.</p>
+<p>في حالة إعادة استخدام صور الحملة التي تم إنشاؤها مسبقًا، قم بتسميتها على أنها تركيبات واستخدم لقطات الشاشة الحالية الحقيقية حيثما تكون واجهة المستخدم الدقيقة مطلوبة. يربط هذا البرنامج التعليمي لقطات الشاشة الفعلية للتحقق من صحة الإصدار 2.18.1 في قسم المظهر؛ ولا تتضمن حزمة حملة جديدة مكونة من ثماني صور أو تطالب بتأييد طرف ثالث.</p>
+<h2 id="firefox-and-chrome-choose-your-edition">Firefox وChrome: اختر الإصدار الذي يناسبك</h2>
+<p>يصف هذا الدليل الكامل مجموعة الميزات المدعومة في Firefox. يستخدم Chrome نفس منصة عمل جلسة المتصفح الأساسية مع اختلافات النظام الأساسي أدناه. الإشارات إلى حاويات Firefox، وتنفيذ DOM المباشر، والاعتراض المعلق وإعادة كتابة المتصفح VHOST لاحقًا في هذا الدليل هي لمتصفح Firefox فقط.</p>
+<table>
+<thead>
+<tr>
+<th>القدرة</th>
+<th>Firefox</th>
+<th>Chrome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>عمليات التحقق النشطة للمتصفح، والتشويش اليدوي/التلقائي، وقوالب HTTP المدعومة، وOAST، وتكديس الأدلة والتقارير</td>
+<td>مدعومة بالمتطلبات الموثقة</td>
+<td>مدعومة بالمتطلبات الموثقة</td>
+</tr>
+<tr>
+<td>وكيل HTTP الأصلي مع تجاوزات ملفات تعريف الارتباط/الرأس للمتصفح ومزامنة ملفات تعريف الارتباط للاستجابة</td>
+<td>المدعومة</td>
+<td>المدعومة</td>
+</tr>
+<tr>
+<td>أدوات AJAX لسياق الصفحة والتحقق المباشر من تنفيذ DOM XSS</td>
+<td>يتم دعمه عند الموافقة عليه والسماح به</td>
+<td>غير متوفر في هذا الإصدار</td>
+</tr>
+<tr>
+<td>جلسة "ب" للحاوية المنفصلة، تم اعتراضها وإعادة كتابة VHOST للمتصفح</td>
+<td>مدعوم عند تكوينه والسماح به</td>
+<td>غير متوفر في هذا الإصدار</td>
+</tr>
+<tr>
+<td>العثور على المشاهد</td>
+<td>تم التقاط الأدلة وسياق الصفحة الحية المدعومة</td>
+<td>الأدلة الملتقطة؛ التقاط صفحة الخلفية المباشرة غير متاح</td>
+</tr>
+<tr>
+<td>دورة حياة المحرك</td>
+<td>صفحة الخلفية الثابتة</td>
+<td>أبقِ طاولة العمل المرئية مفتوحة؛ يؤدي إغلاقه إلى إيقاف الطلبات الأصلية المقترنة الجديدة</td>
+</tr>
+<tr>
+<td>التصفح الخاص</td>
+<td>السياقات المحددة، تخضع للإذن والإعداد</td>
+<td>معطل في هذا الإصدار</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-the-chrome-edition">قم بتثبيت إصدار Chrome</h3>
+<ol>
+<li>قم بتنزيل <strong>كروم الرمز البريدي</strong> من روابط الإصدار أعلاه/أدناه واستخرجها إلى مجلد تحتفظ به.</li>
+<li>مفتوح <code dir="ltr" translate="no">chrome://extensions</code>، تمكين <strong>وضع المطور</strong>، حدد <strong>تحميل تفكيكها</strong>، ثم اختر المجلد المستخرج الذي يحتوي على <code dir="ltr" translate="no">manifest.json</code>.</li>
+<li>افتح تطبيقك المعتمد، وقم بتسجيل الدخول، ثم قم بتشغيل Longshot من علامة التبويب تلك، ثم قم بالاتصال.</li>
+<li>أبقِ علامة تبويب طاولة العمل مفتوحة أثناء المسح والاقتران الأصلي. إغلاقه ينهي عمل المحرك المباشر. تبقى الأدلة المحفوظة ويتم استعادتها دون إعادة تشغيل الطلبات غير المؤكدة.</li>
+<li>لبدء تشغيل وكيل الأداة الأصلية، استخدم الأصل الدقيق الذي يعرضه Chrome، مثل <code dir="ltr" translate="no">chrome-extension://YOUR_INSTALLED_ID</code>، بدلاً من فايرفوكس <code dir="ltr" translate="no">moz-extension://</code> أصل. يستخدم الوكيل عناوين URL مستهدفة حقيقية؛ ليست هناك حاجة لإدخال ملف المضيفين.</li>
+</ol>
+<h3 id="chrome-agent-api-mcp-registration">تسجيل Chrome Agent API / MCP</h3>
+<p>من الخروج الكامل المصدر المحتفظ به، بعد تثبيت تبعية المساعد المثبتة:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev
+node bridge/bin/longshot-bridge install --browser chrome \
+  --extension-id YOUR_INSTALLED_32_LETTER_ID \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+node bridge/bin/longshot-bridge mcp \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+</code></pre>
+<p>لاستخدام الكروم <code dir="ltr" translate="no">--browser chromium</code>. استخدم المعرف الفعلي في <code dir="ltr" translate="no">chrome://extensions</code>; قم بالتسجيل مرة أخرى إذا كان تثبيت إصدار المتجر يعطي معرفًا مختلفًا. يتجنب دليل المنفذ/البيانات المنفصل التصادم مع مضيف Firefox. تختلف واجهة برمجة تطبيقات الوكيل هذه عن وكيل أداة HTTP (المنافذ الافتراضية 8900/8901). Linux هو النظام الأساسي المضيف الأصلي الذي تم اختباره؛ تم تنفيذ تسجيل macOS ولكن لم يتم اختباره هنا، ولم يتم توفير مثبت Windows الأصلي.</p>
+<p>يتوفر أيضًا التكوين التفصيلي لجسر المتصفح في الامتدادات <strong>جسر المتصفح → المعلومات</strong> الحوار. إن المستندات التمهيدية الطويلة ووثائق النظام الأساسي/الخصوصية الجديدة هي باللغة الإنجليزية؛ لا يؤدي تحديد لغة واجهة المستخدم المجمعة إلى ترجمة الأدلة المستهدفة أو الحمولات أو الأمثلة القابلة للتنفيذ.</p>
+<h2 id="contents">المحتويات</h2>
+<ul>
+<li><a href="#firefox-and-chrome-choose-your-edition">إصدارات Firefox / Chrome وإعداداتها</a></li>
+<li><a href="#vibe-coded-shipped-hacked">الإعلان ونقاط البيع</a></li>
+</ul>
+<ol>
+<li><a href="#what-runs-where">ما الذي يجري أين</a></li>
+<li><a href="#install-or-update-in-firefox-nightly">التثبيت أو التحديث في Firefox Nightly</a></li>
+<li><a href="#getting-started-and-target-sessions">البدء والجلسات المستهدفة</a></li>
+<li><a href="#light-discovery-and-a-focused-active-scan">اكتشاف الضوء والمسح النشط المركز</a></li>
+<li><a href="#aggressive-options-and-run-approval">الخيارات العدوانية وتشغيل الموافقة</a></li>
+<li><a href="#overview-checks">نظرة عامة على الشيكات</a></li>
+<li><a href="#scan-options-reference">مرجع خيارات المسح</a></li>
+<li><a href="#budgets-selectors-and-request-settings">الميزانيات والمحددات وإعدادات الطلب</a></li>
+<li><a href="#fuzzer-auto-fuzz-and-probe-library">مكتبة Fuzzer وAuto-fuzz وProbe</a></li>
+<li><a href="#your-payloads-and-imported-templates">الحمولات الخاصة بك والقوالب المستوردة</a></li>
+<li><a href="#server-stack-and-smart-analyzer">مكدس الخادم والمحلل الذكي</a></li>
+<li><a href="#oast-setup-and-interpretation">إعداد وتفسير OAST</a></li>
+<li><a href="#browser-bridge-native-tool-proxy">جسر المتصفح: وكيل الأداة الأصلية</a></li>
+<li><a href="#native-bridge-configuration">تكوين الجسر الأصلي</a></li>
+<li><a href="#cookie-and-header-overrides-without-damaging-probes">يتم تجاوز ملف تعريف الارتباط والرأس دون إتلاف المجسات</a></li>
+<li><a href="#external-tools-and-actual-zap-scanning">الأدوات الخارجية ومسح ZAP الفعلي</a></li>
+<li><a href="#tor-and-onion-routing">توجيه تور والبصل</a></li>
+<li><a href="#agent-api-mcp-and-local-model-clients">Agent API وMCP وعملاء النموذج المحلي</a></li>
+<li><a href="#optional-native-nuclei">النوى الأصلية الاختيارية</a></li>
+<li><a href="#manual-tools-interception-and-api-inventory">الأدوات اليدوية والاعتراض وجرد واجهة برمجة التطبيقات</a></li>
+<li><a href="#findings-and-the-cimematic-viewer">النتائج والعارض الكمي</a></li>
+<li><a href="#owasp-top-10-coverage">تغطية OWASP أعلى 10</a></li>
+<li><a href="#recovery-assessment-files-and-reports">ملفات الاسترداد والتقييم والتقارير</a></li>
+<li><a href="#appearance-language-and-help">المظهر واللغة والمساعدة</a></li>
+<li><a href="#troubleshooting">استكشاف الأخطاء وإصلاحها</a></li>
+<li><a href="#terms-and-source-references">المصطلحات ومراجع المصدر</a></li>
+</ol>
+<h2 id="what-runs-where">ما الذي يجري أين</h2>
+<p>تشير كلمة "جسر" إلى مكونات مختلفة. اختر المكون المطلوب لمهمتك.</p>
+<table>
+<thead>
+<tr>
+<th>مكون</th>
+<th>يركض حيث</th>
+<th>ماذا يفعل</th>
+<th>الاتصال الافتراضي</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>المدمج في الماسح الضوئي، مكرر وFuzzer</td>
+<td>ملحق Firefox وعلامة التبويب المستهدفة المرتبطة</td>
+<td>يتحقق HTTP لجلسة المتصفح باستخدام قواعد Longshot's JavaScript</td>
+<td>لا توجد عملية وكيل خارجية مطلوبة</td>
+</tr>
+<tr>
+<td><strong>جسر المتصفح / وكيل الأداة الأصلية</strong></td>
+<td>منسق العقدة المحلية بالإضافة إلى mitmproxy المثبت بشكل منفصل</td>
+<td>يحمل طلبات HTTP/HTTPS الخاصة بالأدوات الخارجية؛ يتجاوز بشكل اختياري ملفات تعريف الارتباط والرؤوس المحددة من Firefox</td>
+<td>وكيل HTTP <code dir="ltr" translate="no">127.0.0.1:8900</code>; السيطرة على التمديد <code dir="ltr" translate="no">127.0.0.1:8901</code></td>
+</tr>
+<tr>
+<td><strong>واجهة برمجة تطبيقات الوكيل/جسر المراسلة الأصلي</strong></td>
+<td>خدمة العقدة المحلية المسجلة مع Firefox</td>
+<td>أتمتة REST/MCP/UI وملفات التقييم وتنفيذ النواة الأصلية الاختيارية</td>
+<td>API <code dir="ltr" translate="no">http://127.0.0.1:8765</code></td>
+</tr>
+<tr>
+<td>ZAP خارجي، أو تجعيد، أو ffuf، أو sqlmap أو Nuclei CLI</td>
+<td>العمليات المنفصلة التي قمت بتثبيتها</td>
+<td>قم بإنشاء حركة المرور والنتائج الخاصة بهم، اختياريًا من خلال وكيل الأداة الأصلية</td>
+<td>قم بتكوين وكيل HTTP الصادر لكل أداة</td>
+</tr>
+<tr>
+<td>نوى أصلية معزولة أطلقها Longshot</td>
+<td>مضيف Agent API ووضع الحماية Linux</td>
+<td>تشغيل القوالب المستوردة المؤهلة باستخدام محرك Nuclei الرسمي</td>
+<td>طريق تنفيذ منفصل ومعزول؛ لا يوجد تصدير تلقائي لملفات تعريف الارتباط لمتصفح فايرفوكس</td>
+</tr>
+</tbody>
+</table>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">Built-in scan / Repeater / Fuzzer
+        → Firefox networking + target tab's session → target
+
+External ZAP / curl / another HTTP tool
+        → authenticated native proxy :8900 → mitmproxy → target
+                        ↑
+             selected cookie/header values
+                        ↑
+              paired Firefox tab via :8901
+
+MCP or REST client → Agent API :8765 → Longshot commands / UI
+                                      └→ separately enabled native jobs
+</code></pre>
+<p><strong>بدء الفحص لا يقوم بتشغيل ZAP.</strong> لا يؤدي إقران ZAP مع Browser Bridge إلى استبدال ماسح JavaScript الخاص بـ Longshot أو استيراد جميع تنبيهات ZAP إلى Longshot. مراجعة نتائج أداة خارجية في تلك الأداة؛ إن عرض حركة مرور الجسر الأصلي عبارة عن بيانات تعريف، وليس مستوردًا كاملاً لنتائج الثغرات الأمنية.</p>
+<h3 id="changes-that-invalidate-old-instructions">التغييرات التي تبطل التعليمات القديمة</h3>
+<table>
+<thead>
+<tr>
+<th>تعليمات أقدم</th>
+<th>استخدم في 2.18.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>حدد جلب المتصفح القديم</td>
+<td>تمت إزالته من Browser Bridge وXPI</td>
+</tr>
+<tr>
+<td>إرسال الأدوات إلى <code dir="ltr" translate="no">http://bridge.invalid</code></td>
+<td>استخدم عنوان URL المستهدف الفعلي</td>
+</tr>
+<tr>
+<td>أضف <code dir="ltr" translate="no">bridge.invalid</code> ل <code dir="ltr" translate="no">/etc/hosts</code></td>
+<td>ليست هناك حاجة للدخول. لا تقم بإضافة واحد لهذا الجسر</td>
+</tr>
+<tr>
+<td>الوكيل قيد التشغيل <code dir="ltr" translate="no">8899</code>; ابدأ <code dir="ltr" translate="no">node ./bridge/cli.js</code> في المحول القديم</td>
+<td>يستخدم المحول الأصلي الذي تم تنزيله <code dir="ltr" translate="no">node cli.js</code>; منافذ الوكيل/التحكم الافتراضية هي <code dir="ltr" translate="no">8900</code> / <code dir="ltr" translate="no">8901</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, <code dir="ltr" translate="no">X-Bridge-Host</code>, <code dir="ltr" translate="no">/v1/cookies</code>، نقاط النهاية للتحقق من الزوج</td>
+<td>واجهات المحول القديمة؛ لا تضعها في التكوين الأصلي أو تفترض أنها موجودة</td>
+</tr>
+<tr>
+<td>يرسل Bridge بيانات TCP الأولية أو حركة التهريب بالبايت</td>
+<td>يقوم الوكيل الأصلي بتوزيع HTTP؛ الإطارات المشوهة وTCP الشفاف للبايت غير مدعومين</td>
+</tr>
+<tr>
+<td>جلسة المتصفح تعني أن الأدوات الخارجية لا تحتاج إلى CA</td>
+<td>يحتاج اعتراض HTTPS إلى أن تثق الأداة في المرجع المصدق (CA) الذي تم إنشاؤه بواسطة المحول الأصلي</td>
+</tr>
+<tr>
+<td>يتم توريث توجيه Tor من Firefox</td>
+<td>توجيه المحول الأصلي منفصل؛ يتم إيقاف SOCKS بشكل افتراضي</td>
+</tr>
+<tr>
+<td>يقوم المحول بتعليق/إعادة تشغيل مجموعات العمليات الخارجية أو إعادة تشغيل العمل الفاشل تلقائيًا</td>
+<td>يحظر الإيقاف المؤقت طلبات الوكيل الجديدة؛ قم بفحص الأداة وإعادة المحاولة/استئنافها بشكل صريح</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-or-update-in-firefox-nightly">التثبيت أو التحديث في Firefox Nightly</h2>
+<p>استخدم <strong>2.18.1 XPI</strong>، وليس محول ZIP القديم الذي تمت إعادة تسميته كوظيفة إضافية. قم باستخراج أرشيف المصدر المطابق إلى مجلد تحتفظ به في مكانه، كما هو موضح <code dir="ltr" translate="no">/path/to/longshot</code> في الأمثلة. لا تقم بنقل مضيف أصلي مسجل دون تسجيله مرة أخرى.</p>
+<p>ملفات الإصدار هي:</p>
+<ul>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1.xpi">فايرفوكس XPI</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-chrome.zip">كروم الرمز البريدي</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-source.zip">مطابقة مصدر الامتداد ZIP</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/tag/v2.18.1">ملاحظات الإصدار والمجاميع الاختبارية</a></li>
+<li>المحول ZIP الأصلي: قم بتنزيله داخل Browser Bridge؛ يتم تضمينه في كل حزمة ملحقة.</li>
+</ul>
+<p>هذه هي بنيات التطوير/التقديم. توقيع متجر Firefox وموافقات كلا السوقين معلقة. اتبع إجراء تحميل التطوير المطبق بدلاً من توقع تثبيت XPI غير الموقع بشكل طبيعي في إصدار Firefox.</p>
+<p>يتطلب البيان Firefox 140 أو الأحدث. يتحقق تكامل الإصدار من سطح المكتب Firefox 159 على Linux. يعد دعم النظام الأساسي/وقت التشغيل للمساعدين الاختياريين منفصلاً عن دعم الامتداد الأساسي.</p>
+<p>للتثبيت المؤقت غير الموقع:</p>
+<ol>
+<li>مفتوح <code dir="ltr" translate="no">about:debugging#/runtime/this-firefox</code>.</li>
+<li>اختر <strong>تحميل الوظيفة الإضافية المؤقتة</strong> وحدد XPI.</li>
+<li>قم بتأكيد نسخة Longshot المعروضة، ثم افتح الهدف وقم بتشغيل زر شريط الأدوات الخاص به.</li>
+<li>أعد تحميل الامتداد بعد استبدال بنية التطوير غير المعبأة.</li>
+</ol>
+<p>تختفي الوظيفة الإضافية المؤقتة بعد إعادة تشغيل Firefox. وهذا متوقع؛ ليس المحول هو الذي يحذف الامتداد. يحتاج التوزيع العام المستمر إلى توقيع Mozilla. يحتوي Nightly على خيارات تطوير إضافية غير موقعة موصوفة بواسطة <a href="https://www.extensionworkshop.com/documentation/publish/signing-and-distribution-overview/">دليل توقيع موزيلا</a>; ولا يتطلب التحميل المؤقت تغيير تلك الإعدادات. انظر <a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">التثبيت المؤقت</a>.</p>
+<p>يقوم XPI بتجميع المحول الأصلي كأرشيف قابل للتنزيل. لا يمكن بدء عملية عقدة/Python عشوائية أو تثبيت المضيف الأصلي فقط من خلال الوظائف الإضافية لمتصفح Firefox. يعد بدء تشغيل الوكيل وتسجيل Agent API خطوات إعداد محلية اختيارية متميزة.</p>
+<h2 id="getting-started-and-target-sessions">البدء والجلسات المستهدفة</h2>
+<h3 id="connect-the-right-tab">قم بتوصيل علامة التبويب الصحيحة</h3>
+<ol>
+<li>افتح الهدف المصرح به في Firefox، على سبيل المثال <code dir="ltr" translate="no">http://localhost:8080</code>.</li>
+<li>قم بتسجيل الدخول باستخدام حساب الاختبار المقصود وأكمل أي تحدي للمتصفح.</li>
+<li>إطلاق Longshot <strong>من علامة التبويب الهدف تلك</strong>. أبقِ علامة تبويب التطبيق مفتوحة.</li>
+<li>تحقق من عنوان الهدف واختر <strong>الاتصال</strong>.</li>
+<li>استخدم <strong>البدء</strong> في رأس الإرشادات التفصيلية المميزة المكونة من ثماني خطوات. يمكن إعادتها. ولا يبدأ عمليات الفحص أو يغير الإعدادات بنفسه.</li>
+<li>تصفح صفحات التطبيق التمثيلية حتى يتمكن Longshot من ملاحظة المسارات والمدخلات المفيدة.</li>
+</ol>
+<p>يتكون الأصل المستهدف من المخطط واسم المضيف والمنفذ. <code dir="ltr" translate="no">http://localhost:8080</code>, <code dir="ltr" translate="no">http://127.0.0.1:8080</code> و <code dir="ltr" translate="no">https://localhost:8080</code> هي أصول مختلفة، حتى لو أنها تصل في نهاية المطاف إلى نفس الخدمة. قم بالاتصال واستخدام العنوان الدقيق المخصص للتقييم. لا يصبح عنوان IP الذي يتم ملاحظته خلف اسم المضيف تلقائيًا هدفًا معتمدًا إضافيًا.</p>
+<h3 id="configure-session-validation">تكوين التحقق من صحة الجلسة</h3>
+<p>مفتوح <strong>الإعدادات ← إعدادات الماسح الضوئي</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>الميدان</th>
+<th>معنى</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>مسار التحقق من صحة الجلسة</td>
+<td>صفحة داخل النطاق/مسار واجهة برمجة التطبيقات (API) الذي يتطلب المصادقة</td>
+</tr>
+<tr>
+<td>النص المصادق عليه المتوقع</td>
+<td>توجد علامة ثابتة عند تسجيل الدخول إلى الحساب المحدد وتغيب بعد تسجيل الخروج</td>
+</tr>
+<tr>
+<td>الحد الأدنى من بايت الاستجابة المصادق عليها</td>
+<td>عتبة حجم إضافية اختيارية أقل؛ الصفر يعطله</td>
+</tr>
+<tr>
+<td>مسار تسجيل الدخول</td>
+<td>مسار تسجيل الدخول للتطبيق، عند الحاجة لاكتشاف الرفض</td>
+</tr>
+<tr>
+<td>إعادة التحقق بعد هذا العديد من الطلبات</td>
+<td>فحص الجلسة المستقلة الدورية؛ الافتراضي 20</td>
+</tr>
+<tr>
+<td>يتطلب التحقق من صحة الجلسة بنجاح قبل إجراء عمليات الفحص</td>
+<td>طلب اجتياز أداة التحقق من الصحة التي تم تكوينها؛ الافتراضي قبالة</td>
+</tr>
+</tbody>
+</table>
+<p>احفظ الإعدادات واستخدمها <strong>نظرة عامة → التحقق من الجلسة</strong>. الصفحة العامة التي ترجع 200 ليست دليلاً على المصادقة. لا تزال عملية إعادة التوجيه إلى صفحة تسجيل الدخول متبوعة بـ 200 تمثل جلسة غير صالحة؛ اختر نقطة نهاية محمية وعلامة ذات معنى.</p>
+<p>يستخدم الماسح الضوئي المدمج ملفات تعريف الارتباط الخاصة بالمتصفح الخاصة بعلامة التبويب المرتبطة، بما في ذلك ملفات تعريف الارتباط HttpOnly. يختار Firefox ملفات تعريف الارتباط حسب عنوان URL والمسار وسمات الأمان ومخزن ملفات تعريف الارتباط. حقول ملف تعريف الارتباط/الترخيص/المضيف المحمية الخاصة بالماسح الضوئي ليست مدخلات ضبابية عادية قابلة للتحرير.</p>
+<h3 id="profiles-and-accounts">الملفات الشخصية والحسابات</h3>
+<p><strong>الأهداف</strong> يفصل التاريخ والنتائج ومجلة الطلب ونقاط النهاية المكتشفة والمراجعات وتكوين المسح. تؤدي العودة إلى ملف التعريف إلى استعادة بيانات التقييم، وليس جلسة متصفح قديمة تمت مصادقتها. يمكن للملفات الشخصية الصريحة مشاركة الأصل.</p>
+<p>عادةً ما تشترك علامتا تبويب Firefox العاديتان في ملفات تعريف الارتباط. استخدم حاويات مستقلة أو مخزن ملفات تعريف ارتباط خاص منفصل لهويات اختبار مختلفة حقًا. لا يؤدي تبديل الملفات الشخصية إلى إنشاء جلسة حساب ثانية. تتطلب مقارنة الجلسة ب نفس الأصل المستهدف ومتجرًا منفصلاً.</p>
+<h2 id="light-discovery-and-a-focused-active-scan">اكتشاف الضوء والمسح النشط المركز</h2>
+<h3 id="first-pass-discovery-and-passive-review">التمريرة الأولى: الاكتشاف والمراجعة السلبية</h3>
+<ol>
+<li>تعيين <strong>طلبات في الثانية الواحدة</strong> إلى 0.5–1، وعمق الزحف إلى 1 والحد الأقصى لعناوين URL المكتشفة إلى 25–50.</li>
+<li>غادر <strong>الحد الأقصى للنتائج</strong>, <strong>عدوانية</strong>، إيقاف تشغيل الطور التلقائي لـ CVE وOAST والتنفيذ الأصلي.</li>
+<li>تعيين <strong>زغب تلقائي → إيقاف</strong>. اترك النقرات/التمرير على الصفحة وإيقاف اختبارات DOM/التوقيت/رد الاتصال المباشرة.</li>
+<li>حدد مجموعات النظرة العامة السلبية: الرؤوس وملفات تعريف الارتباط والإفصاح والنماذج ومراجعة مصدر/مصدر DOM وCORS.</li>
+<li>اختر <strong>العنكبوت فقط</strong> وابدأ.</li>
+<li>فحص <strong>خريطة الموقع</strong>, <strong>تاريخ HTTP</strong>, <strong>مستكشف واجهة برمجة التطبيقات</strong>, <strong>مكدس الخادم</strong> و <strong>النتائج</strong>.</li>
+</ol>
+<p>يتبع العنكبوت الروابط/النماذج المكتشفة داخل النطاق دون إرسال نماذج مكتوبة. لا يعرف كل نقطة نهاية مخفية. لا يزال من الممكن أن يكون لطلبات GET آثار جانبية خاصة بالتطبيق؛ "طريقة القراءة" لا تنشئ هدفًا خاليًا من الآثار الجانبية.</p>
+<h3 id="second-pass-a-bounded-active-assessment">التمريرة الثانية: تقييم نشط محدود</h3>
+<ol>
+<li>احتفظ <strong>زغب تلقائي → إيقاف</strong> لتسهيل مراجعة القواعد النشطة المضمنة بشكل منفصل.</li>
+<li>حدد عمليات التحقق النشطة ذات الصلة "نظرة عامة"، مثل إدخال SQL وXSS المنعكس.</li>
+<li>استخدم حدودًا صغيرة، على سبيل المثال 150 طلبًا نشطًا و10 عناوين URL نشطة وخمس معلمات نشطة.</li>
+<li>اختر <strong>الشيكات النشطة فقط</strong> لإعادة استخدام الصفحة الحالية والمخزون المحفوظ، أو <strong>العنكبوت + الشيكات النشطة</strong> لاكتشاف أولا.</li>
+<li>ابدأ ومراجعة أي موافقة مطلوبة وشاهد أعداد الأنشطة والطلبات.</li>
+<li>قم بفحص طلب كل نتيجة، وخط الأساس، وأدلة التحقيق/التحكم المتكررة، والحكم والثقة.</li>
+<li>مفتوح <strong>يتحقق WSTG → تغطية الإدخال الفعلية</strong> لرؤية العمل المكتمل والجزئي والمتخطي.</li>
+</ol>
+<p><strong>لا يؤدي إيقاف الزغب التلقائي إلى إيقاف تشغيل عمليات التحقق النشطة.</strong> تقوم SQLi/XSS/SSTI والقواعد المخصصة الأخرى بإنشاء تحقيقات خاصة بها. وعلى العكس من ذلك، فإن تحديد قاعدة نشطة لا يوفر مدخلات مفقودة أو يجعل تشغيل العنكبوت فقط ينفذ المرحلة النشطة العامة.</p>
+<h2 id="aggressive-options-and-run-approval">الخيارات العدوانية وتشغيل الموافقة</h2>
+<p>العدوانية تمكن الأساليب/القدرات المعتمدة بشكل صريح؛ فهو لا يجعل كل فحص قيد التنفيذ أو يضمن أدلة أقوى.</p>
+<ol>
+<li>اكتشف المدخلات وتحقق من صحة المصادقة أولاً.</li>
+<li>قم بتمكين الخيارات المتقدمة المطلوبة فقط وأذونات الكتابة/التحميل/الحذف.</li>
+<li>حفظ خيارات المسح.</li>
+<li>اختر <strong>مراجعة/الموافقة على الجولة العدوانية التالية</strong>.</li>
+<li>قم بمراجعة الهدف والميزات وأذونات الطريقة والميزانيات.</li>
+<li>انقر <strong>الموافقة على هذا التشغيل التالي</strong>. يطلب إجراء المستخدم هذا أي أذونات مجمعة مفقودة لـ Firefox ويقوم بإنشاء المنحة التالية.</li>
+<li>ابدأ التشغيل بالتكوين الذي تمت مراجعته.</li>
+</ol>
+<p>المنحة مخصصة للاستخدام مرة واحدة، وتنتهي صلاحيتها بعد 30 دقيقة، ويتم إبطالها من خلال تغييرات الهدف/التكوين/إعدادات الطلب ذات الصلة. يحتاج الفحص الجديد عادةً إلى منحة جديدة. يُسمح بحفظ الخيارات غير المكتملة؛ البدء أو الموافقة على التحقق من صحة الحقول المطلوبة.</p>
+<p>يتطلب فايرفوكس <code dir="ltr" translate="no">permissions.request()</code> لتنشأ مباشرة من إجراء المستخدم الحقيقي. لا يعد تغيير الإعداد سببًا لمنح أذونات عشوائية في الخلفية. إذا تم رفض الإذن، فراجع الميزة المحددة، وأعد المحاولة من زر الموافقة أو قم بتعطيل هذه الميزة. تظل مطالبات أذونات نظام التشغيل/المتصفح العادية خارج أتمتة DOM الملحقة.</p>
+<h3 id="maximum-findings-is-a-broad-preset">الحد الأقصى للنتائج هو إعداد مسبق واسع النطاق</h3>
+<p>يقوم هذا الإعداد المسبق بتشغيل العديد من المراحل، بما في ذلك التحقق المتقدم، ومقارنة OAST والجلسة B، وتوسيع العديد من الميزانيات. إنه ليس مفتاح "العثور على كل شيء". ولا يقوم بإنشاء حساب OAST، أو ملء عنوان URL للموفر/مجال رد الاتصال، أو تحديد جلسة B صالحة، أو تثبيت Nuclei أو مصادقة الأدوار المفقودة.</p>
+<p>إذا كانت تقارير الموافقة فارغة من حقول OAST أو كانت الجلسة B مفقودة، فقم بتكوينها أو قم بإيقاف تشغيل هذه الخيارات. وهذا منفصل عما إذا كان عنوان URL المستهدف صالحًا أم لا.</p>
+<h3 id="two-command-injection-controls">اثنان من أدوات التحكم في حقن الأوامر</h3>
+<p><strong>نظرة عامة → مؤشرات أوامر نظام التشغيل</strong> يتيح تحقيقات إخراج الأوامر المباشرة الموجهة نحو Unix. يتم إيقاف تشغيله بشكل افتراضي. <strong>خيارات المسح → تحقيقات الأمر</strong> يتحكم في مسار رد الاتصال الأعمى الإضافي عندما يستمع OAST. لا يقوم أحد خانات الاختيار بتكوين المسار الآخر تلقائيًا. قم بمراجعة متطلبات الترخيص للتشغيل الفعلي.</p>
+<h2 id="overview-checks">نظرة عامة على الشيكات</h2>
+<p>تحتوي القائمة الافتراضية الممكّنة على ست مجموعات سلبية وSQLi وNoSQLi وحقن رمز الخادم وXSS وSSTI المنعكس والاجتياز وإعادة التوجيه وCRLF والأساليب. <strong>مؤشرات أوامر نظام التشغيل</strong> و <strong>معالجة معلمات الاستعلام المكررة</strong> ابدأ.</p>
+<table>
+<thead>
+<tr>
+<th>تحقق</th>
+<th>ماذا يفعل</th>
+<th>التفسير</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>رؤوس الأمان وHTTPS</td>
+<td>يراجع CSP وسياسة الإطارات وnosniff وHSTS ومراجع مختارة ذات محتوى مختلط</td>
+<td>مؤشرات الدفاع/التكوين، وليس إثبات استغلال تلقائي</td>
+</tr>
+<tr>
+<td>سمات ملفات تعريف الارتباط</td>
+<td>قم بمراجعة Secure وHttpOnly وSameSite دون الاحتفاظ بقيم ملفات تعريف الارتباط كنتائج</td>
+<td>يحتاج غرض ملفات تعريف الارتباط وسلوك المتصفح إلى المراجعة</td>
+</tr>
+<tr>
+<td>الأخطاء والمحتوى الحساس</td>
+<td>يتعرف على الآثار المحددة ومحتوى التكوين/المصدر وقوائم الدليل</td>
+<td>يقتصر على المحتوى والتوقيعات الملحوظة</td>
+</tr>
+<tr>
+<td>مراجعة النموذج وCSRF</td>
+<td>يراجع نماذج نقل كلمة المرور/GET وحقول الرمز المميز المعترف بها</td>
+<td>الرمز المرئي المفقود لا يثبت CSRF</td>
+</tr>
+<tr>
+<td>مراجعة المصدر/الحوض DOM XSS</td>
+<td>يجد مصادر URL القريبة والمصارف الخطيرة في التعليمات البرمجية المضمنة</td>
+<td>ارشادي. ليس التنفيذ أو إثبات تدفق البيانات الكامل</td>
+</tr>
+<tr>
+<td>مراجعة سياسة CORS</td>
+<td>يراجع مجموعات السماح بالأصل/بيانات الاعتماد التي يمكن ملاحظتها</td>
+<td>لا يختبر انعكاس الأصل التعسفي أو قراءات أصل المهاجم</td>
+</tr>
+<tr>
+<td>حقن SQL</td>
+<td>يكرر توقيعات خطأ قاعدة البيانات الجديدة ومقارنات الصواب/الخطأ مع عناصر التحكم</td>
+<td>تظل الأدلة مقيدة بالمدخلات التي تم اختبارها وعائلات بناء الجملة</td>
+</tr>
+<tr>
+<td>حقن NoSQL</td>
+<td>يكرر توقيعات خطأ MongoDB/BSON</td>
+<td>لا يوجد عامل حقن عام أو أداة التحقق من تجاوز المصادقة</td>
+</tr>
+<tr>
+<td>حقن التعليمات البرمجية من جانب الخادم</td>
+<td>محسوبة جافا سكريبت/PHP الكناري</td>
+<td>مجموعة لغة/سياق صغيرة</td>
+</tr>
+<tr>
+<td>XSS المنعكس</td>
+<td>بوابة الانعكاس بالإضافة إلى التحليل الخامل المتكرر لسياقات HTML ذات المظهر القابل للتنفيذ</td>
+<td>المرشح حتى يتم التحقق من التنفيذ الفعلي</td>
+</tr>
+<tr>
+<td>حقن قالب الخادم</td>
+<td>علامات حسابية فريدة وفحوصات التكرار/التحكم</td>
+<td>لا يغطي كل محرك قالب أو سياق أعمى</td>
+</tr>
+<tr>
+<td>اجتياز / إدراج الملف</td>
+<td>تكرار التوقيعات المعروفة لمحتوى الملف</td>
+<td>ليست ترميزات أو ملفات أو منصات شاملة</td>
+</tr>
+<tr>
+<td>فتح عمليات إعادة التوجيه</td>
+<td>تم إنشاء موقع الكناري .غير صالح</td>
+<td>لم يتم اتباع وجهة إعادة التوجيه الخارجية</td>
+</tr>
+<tr>
+<td>حقن رأس الاستجابة</td>
+<td>علامة رأس تم إنشاؤها بشكل متكرر</td>
+<td>يحد التعامل مع عنوان URL/الرأس في المتصفح من الاختبار</td>
+</tr>
+<tr>
+<td>طرق HTTP المعلن عنها</td>
+<td>الخيارات والسماح بالمخزون</td>
+<td>الإعلان ليس إذنًا للكتابة</td>
+</tr>
+<tr>
+<td>معالجة معلمات الاستعلام المكررة</td>
+<td>مقارنات متكررة من الدرجة الأولى/الأخيرة</td>
+<td>فرق التحليل المعلوماتي، تأثير أمني غير مثبت</td>
+</tr>
+<tr>
+<td>مؤشرات أوامر نظام التشغيل</td>
+<td>مؤشرات إخراج الهوية المتكررة الاختيارية</td>
+<td>موجه نحو Unix، ويعتمد على السياق، ويتم إيقاف تشغيله بشكل افتراضي</td>
+</tr>
+</tbody>
+</table>
+<p>تتضمن نقاط الإدراج النشطة المدعومة قيم الاستعلام، ومصفوفات/JSON المتداخلة، وحقول النماذج/متعددة الأجزاء، والرؤوس المستوردة المحددة القابلة للتحرير، ومدخلات مسار واجهة برمجة التطبيقات المسماة. يجب أن تكون الهيئات معروفة ومسموح بها. لا يتم اختراع حقول المصادقة/التأطير المُدارة والقيم المستبعدة وهيئات الطلب غير المتاحة بصمت.</p>
+<p>يتم الاحتفاظ بقيم النموذج المخفية وتحديثها عندما تكون مدعومة قبل كتابة النموذج؛ يمكن للرموز غير المتوفرة أن تؤدي إلى تخطي التغطية. لا تثبت هذه الآلية أن حماية CSRF الخاصة بالنموذج تعمل.</p>
+<h2 id="scan-options-reference">مرجع خيارات المسح</h2>
+<p>ما لم يُذكر خلاف ذلك، تبدأ هذه المراحل الاختيارية. <strong>معدل الطلب التكيفي</strong> التخلف عن السداد؛ وضع الزغب التلقائي الافتراضي معطل. يمكن أن تختلف الإعدادات التي تمت استعادتها من ملف تعريف موجود عن الإعدادات الافتراضية الجديدة.</p>
+<table>
+<thead>
+<tr>
+<th>الخيار</th>
+<th>ما التغييرات / الشرط المسبق</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>المرحلة التلقائية لمكافحة التطرف العنيف</td>
+<td>تنفيذ قوالب CVE المستوردة المؤهلة باستخدام الطلبات/المطابقات المؤلفة ضمن CVE/الميزانيات العالمية</td>
+</tr>
+<tr>
+<td>عدواني (مصرح به)</td>
+<td>تمكين الموافقة على التشغيل التالي لأساليب الكتابة والإمكانيات المتقدمة</td>
+</tr>
+<tr>
+<td>السماح بتحميل الملفات متعددة الأجزاء</td>
+<td>يسمح بشكل منفصل بطلبات متعددة الأجزاء تحمل الملفات؛ لا يولد اختبار التحميل</td>
+</tr>
+<tr>
+<td>السماح بالحذف (موافقة منفصلة)</td>
+<td>بشكل منفصل يسمح DELETE؛ لا يصدر طلب حذف تلقائيًا</td>
+</tr>
+<tr>
+<td>أجهزة أجاكس/دوم</td>
+<td>يراقب نقاط نهاية التطبيق الديناميكية ونشاط الصفحة المدعوم أثناء الاكتشاف المحدود</td>
+</tr>
+<tr>
+<td>نقرات/تمرير صفحة الاشتراك</td>
+<td>يضيف تفاعلات محدودة؛ يتطلب اكتشاف AJAX والموافقة الصارمة؛ يمكن لمعالجات التطبيق تغيير البيانات</td>
+</tr>
+<tr>
+<td>التحقق المباشر من DOM XSS (علامات تبويب جديدة)</td>
+<td>اختبارات مدخلات URL للاستعلام/الاستعلام المجزأ في علامات تبويب المتجر نفسه التي يمكن التخلص منها؛ اثنين من الكناري المحلية الطازجة بالإضافة إلى السيطرة السلبية؛ لا يزال CSP مفروضًا</td>
+</tr>
+<tr>
+<td>تحقيقات توقيت المتكررة</td>
+<td>مقارنات تأخير SQL المتكررة ومرشح توقيت JSON MongoDB، بدءًا من نقطة الإدراج الأولى؛ يتطلب العدوانية</td>
+</tr>
+<tr>
+<td>جزر الكناري SSRF / عمليات الاسترجاعات</td>
+<td>اختلافات استجابة العنوان الداخلي بالإضافة إلى ارتباط OAST الدقيق عند التكوين؛ يتطلب العدوانية</td>
+</tr>
+<tr>
+<td>تحقيقات كيان خارجي XML</td>
+<td>كناري رد الاتصال لهيئات طلب XML المعروفة؛ يتطلب إعداد OAST المعتمد للاختبار المطبق</td>
+</tr>
+<tr>
+<td>تحقيقات Log4Shell OAST</td>
+<td>كناري رد الاتصال في إدخال مؤهل وإصدار X-Api؛ التفاعل ليس دليلاً على تنفيذ التعليمات البرمجية</td>
+</tr>
+<tr>
+<td>تحقيقات القيادة</td>
+<td>مسار رد اتصال الأمر الأعمى عندما يستمع OAST</td>
+</tr>
+<tr>
+<td>قوالب إلغاء التسلسل المستوردة</td>
+<td>يتضمن القوالب المستوردة المؤهلة التي تحمل علامة إلغاء التسلسل؛ لا يوجد مولد أداة عالمي</td>
+</tr>
+<tr>
+<td>طفرات WAF التكيفية (3 كحد أقصى)</td>
+<td>تمثيلات بديلة محدودة للتحقيقات المؤهلة؛ أبدا ضمان التجاوز</td>
+</tr>
+<tr>
+<td>قارن مع الجلسة ب</td>
+<td>يقارن ما يصل إلى عشرة طلبات قراءة مؤهلة مع مخزن ملفات تعريف الارتباط آخر من نفس المصدر؛ تظل الملكية/الأدوار سياقًا يدويًا</td>
+</tr>
+<tr>
+<td>تم اكتشاف تحقيقات WebSocket</td>
+<td>تبادلات القنوات المحدودة؛ لا يوجد بروتوكول هجوم خاص بالتطبيقات</td>
+</tr>
+<tr>
+<td>تم اكتشاف تحقيقات SSE</td>
+<td>الاستماع إلى مصدر الأحداث المحدود؛ ليس أداة التحقق العامة من تفويض الدفق</td>
+</tr>
+<tr>
+<td>مكتبة العميل دون اتصال SCA</td>
+<td>كتالوج صغير للإصدار/النطاق المعروف لأصول العميل التي تمت مراقبتها</td>
+</tr>
+<tr>
+<td>تعدين المعلمة/الرأس</td>
+<td>يستخدم الأسماء المستفادة من أدلة الهدف/واجهة برمجة التطبيقات؛ ليس قاموسًا كاملاً للإدخال المخفي</td>
+</tr>
+<tr>
+<td>تنفيذ النوى الكاملة الأصلية</td>
+<td>تمكين وظائف قالب المحرك الرسمي من خلال Agent API، ويخضع لعزل Linux والموافقة عليه</td>
+</tr>
+<tr>
+<td>الكود الأصلي في وضع الحماية/جافا سكريبت</td>
+<td>إمكانية إضافية للقوالب الأصلية التي تمت مراجعتها/التوقيع عليها</td>
+</tr>
+<tr>
+<td>متصفح مقطوعة الرأس معزولة</td>
+<td>قدرة أصلية إضافية مقطوعة الرأس؛ معزولة عن تسجيل دخول فايرفوكس</td>
+</tr>
+<tr>
+<td>يقرأ الملف الأصلي في القائمة المسموح بها</td>
+<td>إمكانية إضافية للملفات المحلية للقراءة فقط داخل القائمة المسموح بها المختارة</td>
+</tr>
+<tr>
+<td>OAST (مزود خارجي)</td>
+<td>يسجل/يستقصي الموفر المحدد؛ حدد تحقيقات الضعف ذات الصلة بشكل منفصل</td>
+</tr>
+<tr>
+<td>قوائم التحقيق المجتمع SQL</td>
+<td>يضيف قيم SecLists/FuzzDB المدعومة التي تمت تصفيتها إلى عمليات فحص/fuzzers SQL ذات الصلة</td>
+</tr>
+<tr>
+<td>معدل الطلب التكيفي</td>
+<td>التعامل مع الاختناق/التحدي المحافظ؛ لا يرفع المعدل تلقائيا</td>
+</tr>
+<tr>
+<td>تمكين حزم الحمولة التي تم تحميلها</td>
+<td>إضافة قيم محددة للهدف المحدد؛ يتطلب موافقة عدوانية بالإضافة إلى التشغيل التالي</td>
+</tr>
+</tbody>
+</table>
+<p>التحقق المباشر من DOM ليس تتبعًا عامًا للشوائب. تتطلب XSS المخزنة، ومصادر postMessage/التخزين المحلي، والمدخلات التي لا تحتوي على عنوان URL ومسارات عمل الكتابة/القراءة متعددة الخطوات اختبارات إضافية. التبعية المحظورة أو المهلة هي تغطية غير كاملة، وليست تمريرة.</p>
+<h2 id="budgets-selectors-and-request-settings">الميزانيات والمحددات وإعدادات الطلب</h2>
+<p>هناك <strong>مجموعتين منفصلتين من الحدود</strong>: حدود الفحص المضمنة في Longshot وحدود وكيل الأداة الأصلية. لا يستهلك طلب ZAP من خلال: 8900 ميزانية فحص JavaScript المضمنة، ولا تختار مربعات اختيار Longshot سياسة الفحص الخاصة بـ ZAP.</p>
+<h3 id="operation-and-phase-selectors">محددات التشغيل والمرحلة</h3>
+<table>
+<thead>
+<tr>
+<th>محدد</th>
+<th>الاختيارات والسلوك</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>العملية</td>
+<td>العنكبوت فقط؛ العنكبوت + الشيكات النشطة. الشيكات النشطة فقط</td>
+</tr>
+<tr>
+<td>زغب تلقائي</td>
+<td>إيقاف؛ بعد النشطة ومكافحة التطرف العنيف؛ أثناء الفحص. يتحكم هذا في مرحلة إضافية، وليس قواعد نشطة مخصصة</td>
+</tr>
+<tr>
+<td>نموذج الهجوم</td>
+<td>قناص؛ نطح بقوة؛ مذراة؛ قنبلة عنقودية لدعم تخطيط الطفرات الآلية/الجسدية المنظمة</td>
+</tr>
+<tr>
+<td>الجلسة ب</td>
+<td>علامة تبويب أخرى من نفس المصدر مع متجر ملفات تعريف الارتباط مستقل حقًا</td>
+</tr>
+<tr>
+<td>طريقة نفخ الجسم</td>
+<td>POST أو GET أو PUT أو PATCH، وفقًا لسياسة الطلب والموافقة</td>
+</tr>
+<tr>
+<td>شكل الجسم</td>
+<td>JSON، نموذج مشفر بعنوان URL، متعدد الأجزاء أو خام/XML؛ لا توفر كل التنسيقات نقاط إدراج عددية عامة</td>
+</tr>
+<tr>
+<td>فئة حمولة الجسم</td>
+<td>SQLi أو NoSQLi أو code أو XSS أو SSTI أو الاجتياز أو CRLF أو إعادة التوجيه أو الأمر أو المخصص</td>
+</tr>
+</tbody>
+</table>
+<p>نماذج الهجوم في هذا التنفيذ:</p>
+<ul>
+<li><strong>قناص:</strong> تختلف إدخال واحد في وقت واحد.</li>
+<li><strong>كبش الضرب:</strong> وضع نفس الحمولة في جميع المدخلات المحددة.</li>
+<li><strong>مذراة:</strong> استخدم تسلسلًا متدرجًا/دوارًا من قائمة الحمولة المشتركة عبر المدخلات. هذا ليس ادعاءً بسلوك القائمة المستقلة لـ Burp.</li>
+<li><strong>القنبلة العنقودية:</strong> مجموعات محدودة عبر المدخلات؛ يمنع الغطاء التوسع الديكارتي غير المحدود.</li>
+</ul>
+<h3 id="scan-option-limits">حدود خيار المسح</h3>
+<table>
+<thead>
+<tr>
+<th>الميدان</th>
+<th style="text-align: right;">الافتراضي الطازج</th>
+<th style="text-align: right;">النطاق المقبول</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ميزانية الطلب العالمية</td>
+<td style="text-align: right;">2,000</td>
+<td style="text-align: right;">1–10,000</td>
+</tr>
+<tr>
+<td>طلبات Fuzz لكل معلمة</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>طلبات CVE لكل قالب</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>طلبات CVE لكل هدف</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1–2,000</td>
+</tr>
+<tr>
+<td>حد التزامن</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1-2؛ لا يعد بإنتاجية متصفح موازية</td>
+</tr>
+<tr>
+<td>ميزانية حدث أجاكس</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>ميزانية صفحة AJAX (بالمللي ثانية)</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">500–15,000</td>
+</tr>
+<tr>
+<td>عدد صفحات أجاكس</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>مسبار التأخير (ثواني)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1–5</td>
+</tr>
+<tr>
+<td>OAST رد الاتصال TTL ثانية</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">5–3,600</td>
+</tr>
+<tr>
+<td>ثواني استطلاع OAST</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5–15</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scanner-settings">إعدادات الماسح الضوئي</h3>
+<table>
+<thead>
+<tr>
+<th>الإعداد</th>
+<th>الافتراضي / الغرض الجديد</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>طلبات في الثانية الواحدة</td>
+<td>1؛ واجهة المستخدم تدعم 0.5-5</td>
+</tr>
+<tr>
+<td>الحد الأقصى لعمق الزحف</td>
+<td>3؛ واجهة المستخدم تدعم 0-5</td>
+</tr>
+<tr>
+<td>الحد الأقصى لعناوين URL المكتشفة</td>
+<td>100؛ واجهة المستخدم تدعم 1-500</td>
+</tr>
+<tr>
+<td>الحد الأقصى للبايت لكل استجابة</td>
+<td>2 ميجابايت؛ يمكن للاستجابات الأكبر/المبتورة أن تترك فجوات في الأدلة</td>
+</tr>
+<tr>
+<td>إعادة محاولة النقل</td>
+<td>2؛ لا يضمن إمكانية إعادة كتابة معينة بأمان</td>
+</tr>
+<tr>
+<td>الحد الأقصى لتحقيقات الزغب لكل معلمة</td>
+<td>40؛ منفصلة عن ميزانية معلمة المرحلة الإضافية</td>
+</tr>
+<tr>
+<td>الحد الأقصى للطلبات النشطة</td>
+<td>150</td>
+</tr>
+<tr>
+<td>الحد الأقصى لعناوين URL النشطة</td>
+<td>20</td>
+</tr>
+<tr>
+<td>الحد الأقصى لمعلمات الاستعلام النشطة</td>
+<td>10؛ يسجل التدقيق أيضًا أنواع نقاط الإدراج المعتمدة الأخرى</td>
+</tr>
+<tr>
+<td>بادئات المسار المستبعدة</td>
+<td>بادئة واحدة لكل سطر؛ يمنع إنشاء أهداف اختبار لتلك المسارات</td>
+</tr>
+<tr>
+<td>أسماء المعلمات المستبعدة</td>
+<td>اسم واحد في كل سطر</td>
+</tr>
+<tr>
+<td>احتفظ بهيئات استجابة الماسح الضوئي المنقحة محليًا</td>
+<td>على؛ يدعم المراجعة/المقارنة ضمن الحدود، مع التنقيح بأقصى جهد</td>
+</tr>
+</tbody>
+</table>
+<p>يحتفظ التدقيق النشط بالبدلات المحدودة للقواعد الممكّنة لاحقًا. وبالتالي فإن المزيد من الحمولات يمكن أن تجعل بعض القواعد جزئية بدلاً من اختبار كل متغير. الحد الأقصى الذي تم تكوينه هو سقف، وليس وعدًا باستخدام كل طلب أو إنهاء كل إدخال.</p>
+<h3 id="other-selectors">محددات أخرى</h3>
+<table>
+<thead>
+<tr>
+<th>الصفحة</th>
+<th>المختارون والمعنى</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>النتائج</td>
+<td>حالة الخطورة والمراجعة؛ يتم عرض تغييرات الرؤية السلبية/المحظورة فقط</td>
+</tr>
+<tr>
+<td>قوالب</td>
+<td>درجة الخطورة، والتصفية الجاهزة فقط، والاختيار اليدوي؛ الاستعداد هو حالة الإذن/التوافق، وليس حكم الضعف</td>
+</tr>
+<tr>
+<td>مكرر</td>
+<td>GET/HEAD/OPTIONS/POST/PUT/PATCH/DELETE والهيئات الأولية/XML أو JSON أو النماذج</td>
+</tr>
+<tr>
+<td>زغب</td>
+<td>طفرة القيمة وعائلة الحمولة: الأصلي، عنوان URL/التشفير المزدوج، تغيير الحالة، النقاط المشفرة، علامة التبويب/لاحقة الفاصلة المنقوطة، بادئة الشرطة المائلة المزدوجة، النقطة/المسافة الزائدة</td>
+</tr>
+<tr>
+<td>المعترض</td>
+<td>نوع المورد، والطريقة، وإجراءات المهلة؛ احتفظ هذا المرشح بحركة المرور بدلاً من إعادة كتابة طريقته</td>
+</tr>
+<tr>
+<td>ويب سوكيت / إس إس إي</td>
+<td>حدد بروتوكول القناة المرصودة</td>
+</tr>
+<tr>
+<td>مكدس الخادم</td>
+<td>NVD + OSV أو منتج NVD/CPE أو حزمة/إصدار OSV؛ النظام البيئي npm/PyPI اليدوي</td>
+</tr>
+<tr>
+<td>قارن</td>
+<td>حفظ خط الأساس واستجابة المقارنة</td>
+</tr>
+<tr>
+<td>المرافق</td>
+<td>ترميز/فك تشفير URL/Base64/hex، وSHA-256، وتنسيق JSON وفحص مطالبات JWT</td>
+</tr>
+<tr>
+<td>الشيكات WSTG</td>
+<td>الفئة ومرشحات المرجع الآلي/المدعوم/اليدوي</td>
+</tr>
+<tr>
+<td>المواضيع/اللغة</td>
+<td>المظهر العالمي واللغة المجمعة، بغض النظر عن خيارات المسح</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fuzzer-auto-fuzz-and-probe-library">مكتبة Fuzzer وAuto-fuzz وProbe</h2>
+<h3 id="pick-the-right-action">اختر الإجراء الصحيح</h3>
+<table>
+<thead>
+<tr>
+<th>العمل</th>
+<th>من يختار المدخلات؟</th>
+<th>الإخراج</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>المسح النشط</td>
+<td>يستخدم Longshot المدخلات المدعومة المكتشفة</td>
+<td>دليل قاعدة مخصص مع التكرارات/الضوابط</td>
+</tr>
+<tr>
+<td>تشغيل الزغب</td>
+<td>اخترت عنوان URL ومعلمة استعلام واحدة</td>
+<td>مقارنات خط الأساس والاستجابة للحمولة النافعة المحددة</td>
+</tr>
+<tr>
+<td>زغب الجسم</td>
+<td>أنت تقدم طلبًا منظمًا وخيارات طفرة</td>
+<td>اختلافات النص/المسار/الرأس المقيدة حيثما تكون مدعومة</td>
+</tr>
+<tr>
+<td>زر الزغب التلقائي</td>
+<td>تم حفظ مخزون الصفحة الحالية/خريطة الموقع/واجهة برمجة التطبيقات</td>
+<td>استكشاف الحمولة العامة الإضافية عبر المدخلات المكتشفة المؤهلة</td>
+</tr>
+<tr>
+<td>المرحلة التلقائية لـ CVE / التشغيل المحدد</td>
+<td>تعريفات القالب المستوردة</td>
+<td>الطلبات الخاصة بالنموذج ونتائج المطابقة</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-query-fuzzer">ضباب الاستعلام اليدوي</h3>
+<ol>
+<li>قم بتوصيل الهدف واختيار عنوان URL محدد النطاق. عناوين URL النسبية مثل <code dir="ltr" translate="no">/search?q=apple</code> يتم قبولها مقابل الأصل المتصل.</li>
+<li>أدخل اسم معلمة الاستعلام الموجودة، أو اختر <strong>استخدم</strong> بجانب المدخلات المكتشفة.</li>
+<li>اختر فئة الحمولة وطفرة القيمة.</li>
+<li>ل <strong>الحمولات المخصصة التي تم تحميلها بواسطة المستخدم</strong>، قم بتمكين الحزمة المخصصة المناسبة أولاً.</li>
+<li>اختر <strong>تشغيل الزغب</strong>، ثم قم بفحص خط الأساس والطلب والحالة والمدة/التوقيت والأدلة.</li>
+</ol>
+<p>يؤدي عنوان URL المفقود أو المعلمة أو المجموعة المخصصة الفارغة إلى ظهور رسالة تحقق محددة. تغيير الاستجابة وحده لا يثبت وجود عيب في الحقن. يمكن أن يؤدي تقييد الخادم إلى إيقاف المعلمة حتى في حالة حدوثها في الأساس.</p>
+<h3 id="auto-fuzz-discovered-inputs">اكتشف الزغب التلقائي المدخلات</h3>
+<p>استخدم <strong>معاينة المدخلات المكتشفة</strong> أولا. يقرأ المخزون المحفوظ ويبلغ عن الطلبات المؤهلة/التي تم تخطيها دون إرسال تحقيقات. لا يحتاج التشويش التلقائي إلى حقول عنوان URL/المعلمات الخاصة بالـ Fuzzer اليدوي. تصفح أو Spider أولاً إذا كان المخزون فارغًا.</p>
+<p>حدد فئات الحمولة واختر المنفصلة <strong>زغب تلقائي</strong> زر. <strong>تضمين أجسام الطلبات المكتشفة</strong> يبدأ ويتطلب موافقة عدوانية بالإضافة إلى التشغيل التالي. يتم تخطي النماذج المرتبطة بالرمز المميز والأساليب غير المدعومة والنصوص غير المتوفرة وXML بواسطة محدد الإدخال التلقائي هذا. لا تزال الاستثناءات الحالية وحدود الطلب وسلوك التقييد سارية.</p>
+<p>مربعات اختيار الفئات المتاحة هي SQLI، وNOSQLI، وCODE، وXSS، وSSTI، وTRAVERSAL، وCOMMAND، وSSRF، وREDIRECT، وCRLF، وCUSTOM. تعمل الإعدادات الافتراضية الجديدة على تمكين SQLI وSSTI وTRAVERSAL وREDIRECT وCRLF. تتخطى الحلقة العامة SSRF؛ استخدام <strong>جزر الكناري SSRF / عمليات الاسترجاعات</strong> للتحقق من تنفيذها. يستخدم CUSTOM القيم المخصصة التي تم إدخالها/تمكينها ويبلغ عن اختلافات الاستجابة منخفضة الثقة ما لم يقم المطابق المخصص بإنشاء المزيد.</p>
+<h3 id="why-probe-library-belongs-here">لماذا تنتمي مكتبة Probe إلى هنا</h3>
+<p>لوازم المكتبة <strong>قيم الحمولة والقوالب التي تمت مراجعتها</strong>; حدد عناصر التحكم Fuzzer <strong>أين وكيف نرسلهم</strong>. ولا يحل محل عنوان URL/المعلمة اليدوية. تؤثر خيارات المكتبة المشتركة أيضًا على الفحص النشط والمراحل التلقائية بعد الحفظ.</p>
+<p><strong>تحديث قوائم جيثب</strong> يقوم بتحديث المصادر الثابتة، وليس الماسحات الضوئية القابلة للتنفيذ التعسفية:</p>
+<table>
+<thead>
+<tr>
+<th>المصدر</th>
+<th>مجموعة فرعية مستعملة</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>يسرد SecLists SQLi السريع</td>
+<td>علامات الترقيم/القيم المنطقية التي تمت تصفيتها، بحد أقصى 32 إدخالًا مدعومًا</td>
+</tr>
+<tr>
+<td>الكشف عن SQL عبر منصة FuzzDB</td>
+<td>علامات الترقيم/القيم المنطقية التي تمت تصفيتها، بحد أقصى 32 إدخالًا مدعومًا</td>
+</tr>
+<tr>
+<td>قوالب ProjectDiscovery النوى</td>
+<td>اثنين من فحوصات Jira المبدئية للحصول على GET فقط: CVE-2020-14179 وCVE-2021-26086</td>
+</tr>
+<tr>
+<td>تقنيات PayloadsAllTheThings</td>
+<td>أساس تباينات المسافة البيضاء/التعليق/الترميز في SQL المُنفذة؛ ليس برنامج نصي تجاوز قابل للتنفيذ تم تنزيله</td>
+</tr>
+</tbody>
+</table>
+<p>تستخدم التحديثات HTTPS، وتحذف ملفات تعريف الارتباط وتحتفظ باللقطة القديمة عند الفشل. يتم عرض تجزئات المصدر ووقت التحديث والأعداد المدعومة. لا يعني تجزئة ملف الإدخال الكامل استخدام كل قيمة في هذا الملف. تستبعد قوائم SQL التي تم تنزيلها بنيات التدمير/استخراج البيانات/التأخير/الكود/رد الاتصال؛ القواعد المضمنة لها جزر الكناري الخاصة بها والتي يتم تنفيذها بشكل منفصل.</p>
+<p>أوقف الفحص قبل التحديث. لا يؤدي التحديث إلى بدء التحقيقات أو منح الموافقة أو تمكين OAST أو تحميل البيانات المستهدفة/الحزم المخصصة إلى GitHub. يتم رفض القالب الذي تم تنزيله والذي يتغير إلى نموذج غير مدعوم/خام/رمز/بدون رأس بدلاً من ترقيته بصمت إلى إمكانية تنفيذ جديدة.</p>
+<h2 id="your-payloads-and-imported-templates">الحمولات الخاصة بك والقوالب المستوردة</h2>
+<h3 id="upload-literal-lists">تحميل القوائم الحرفية</h3>
+<p>تحت <strong>خيارات المسح أو Fuzzer → مكتبة التحقيق → حمولاتك وقوالب CVE</strong>، ثم اختر الفئة <strong>تحميل ملف مخصص</strong>.</p>
+<p>نماذج القائمة المقبولة:</p>
+<ul>
+<li><code dir="ltr" translate="no">.txt</code>: قيمة حرفية واحدة غير فارغة لكل سطر؛ يتم الحفاظ على المساحات والحالة.</li>
+<li><code dir="ltr" translate="no">.json</code>: مجموعة من السلاسل أو كائن يحتوي على <code dir="ltr" translate="no">name</code>, <code dir="ltr" translate="no">category</code> و <code dir="ltr" translate="no">payloads</code>.</li>
+<li>الفئات: <code dir="ltr" translate="no">custom</code>, <code dir="ltr" translate="no">waf</code>, <code dir="ltr" translate="no">sqli</code>, <code dir="ltr" translate="no">nosqli</code>, <code dir="ltr" translate="no">code</code>, <code dir="ltr" translate="no">xss</code>, <code dir="ltr" translate="no">ssti</code>, <code dir="ltr" translate="no">traversal</code>, <code dir="ltr" translate="no">crlf</code>, <code dir="ltr" translate="no">redirect</code>, <code dir="ltr" translate="no">command</code>.</li>
+</ul>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "name": "My SQL review probes",
+  "category": "sqli",
+  "payloads": ["'", "\"", "' AND 1=1 -- "]
+}
+</code></pre>
+<p>الحزم محددة الهدف ومبدئيًا <strong>معطل</strong>. افحص المعاينة وقم بتمكين الحزمة المقصودة بشكل صريح. تتطلب الحزم التي تم تحميلها تمكينًا حازمًا وموافقة؛ التحميل وحده لا يعمل شيئا.</p>
+<p>الحدود: 256 كيلو بايت لكل ملف حمولة، و200 سلسلة لكل حزمة، و2000 حرف لكل قيمة، وعلى الأكثر 10 حزم / 500 قيمة / 512 كيلو بايت من تكوين الحزمة لكل هدف. تتم إزالة السلاسل المكررة داخل الحزمة. لا تزال الطريقة الحالية والنطاق والميزانية وحراس SQL التدميرية سارية.</p>
+<p>تكمل الحزم المصنفة قيم الفئة المضمنة. تحتاج حزم WAF أيضًا إلى إصدارات ذكية وأدلة تصفية مؤهلة. الحمولة المخصصة الحرفية ليست مطابقة للمخرجات المتوقعة أو رمز ملحق قابل للتنفيذ. إن تحميل رقم CVE وحده لا يمكنه التحقق من ذلك.</p>
+<h3 id="import-requestmatcher-templates">استيراد قوالب الطلب/المطابقة</h3>
+<p>اختر فئة قالب CVE/Nuclei قبل تحميل YAML/YML/JSON؛ الحد الأقصى لملف القالب هو 2 ميجابايت. قم بمراجعتها في <strong>قوالب</strong>، بما في ذلك المنفذ والسبب الخرساني الجاهز/المحظور. تستخدم القوالب المستوردة المكتبة المشتركة؛ تبقى حزم الحمولة مع هدفها.</p>
+<ul>
+<li><strong>تشغيل المحدد</strong> ينفذ القوالب المحددة مباشرة ولا يتطلب مرحلة تلقائية لـ CVE.</li>
+<li><strong>المرحلة التلقائية لمكافحة التطرف العنيف</strong> يأخذ في الاعتبار عمليات الاستيراد المؤهلة التي تحمل علامة CVE/المحددة أثناء الفحص الذي تم تكوينه.</li>
+<li><strong>زغب تلقائي</strong> يولد القيم العامة. ولا يعيد كتابة حمولات CVE أو المطابقات المؤلفة.</li>
+<li>يقوم JSON الاستشاري فقط بربط أدلة المنتج/الإصدار. لا يخترع طلب استغلال العمل.</li>
+<li>قد تتطلب القوالب الأولية أو المعقدة أو ذات التعليمات البرمجية أو مقطوعة الرأس أو الملفات أو غير HTTP محركًا رسميًا منفصلاً ومنحًا إضافية، أو قد تظل محظورة.</li>
+</ul>
+<p>قم باستيراد حزم المساعدة النسبية التي تمت مراجعتها باستخدام القوالب التي تحتاج إليها. يعد وقت التشغيل الأصلي غير المتاح أو الطلب خارج النطاق أو الموافقة المفقودة أو الميزة غير المدعومة سببًا للفحص، وليس اختبارًا سلبيًا ناجحًا.</p>
+<h2 id="server-stack-and-smart-analyzer">مكدس الخادم والمحلل الذكي</h2>
+<p>استخدم <strong>كشف البرمجيات</strong> لجمع الملاحظات النطاقية المدعومة. تصفح الصفحات التمثيلية واحتفظ بالإجابات المناسبة عندما تحتاج إلى أدلة جسدية. ثم اختر <strong>تحليل الأدلة المسجلة</strong> لارتباط سلبي محلي يصل إلى 200 استجابات مخزنة حديثة. لا يضيف المحلل نفسه أي طلبات مستهدفة.</p>
+<p>يفصل العرض بين مكونات المتصفح وWAF/CDN/edge وخادم الويب/الوكيل العكسي وإشارات التطبيق/وقت التشغيل. يمكن أن تؤدي الرؤوس الخاصة بالمنتج وأسماء ملفات تعريف الارتباط وهياكل الأصول/تمهيد التشغيل ونص الخطأ إلى زيادة الثقة. يتم استبعاد نصوص صفحة التحدي من أخذ بصمات التطبيق. لا يثبت شعار 403 أو nginx أو حافة CDN العامة أنه تم تمكين قاعدة WAF معينة.</p>
+<p>تشرح بطاقات التكوين المحتملة أدلتها والتحقق المقترح. إنها فرضيات: لا يمكن لاستجابات المتصفح تحديد عنوان IP الأصلي أو الشبكات الفرعية الخاصة أو إعدادات قاعدة البيانات الخلفية أو إنهاء TLS أو قواعد جدار الحماية أو قوائم ثقة الوكيل بدقة. يمكن للعديد من المنبع واللافتات المعاد كتابتها إخفاء الطبقات أو التعرف عليها بشكل خاطئ.</p>
+<h3 id="waf-recommendations-and-rate-handling">توصيات WAF ومعالجة الأسعار</h3>
+<p><strong>تطبيق توصيات المسح المحافظة</strong> يمكّن بشكل صريح تحقيقات SQL المجتمعية والتنوعات الذكية ومعدل التكيف ويخفض المعدل المكوّن إلى 0.5 طلب/ثانية على الأكثر. ولا يبدأ الفحص أو يمنح إمكانات متقدمة.</p>
+<p>تنظر التحقيقات المؤهلة في ثلاثة تمثيلات بديلة على الأكثر ضمن الميزانيات الحالية. يتم تخطي خط الأساس المحظور. تحتاج تحديات المتصفح إلى دقة عادية للمتصفح؛ إن رفض ACL العادي لا يبرر محاولات التجاوز التي لا نهاية لها. إن تغيير الحظر للسماح هو دليل على إمكانية الوصول، وليس دليلاً على الضعف.</p>
+<p>يمكن أن تؤدي التحديات الصريحة المتكررة إلى خفض معدل الذاكرة الداخلية إلى النصف وتتسبب في انتظار لمدة عشر ثوانٍ على الأقل. HTTP 429 أو 503 مع إعادة المحاولة بعد إيقاف المزيد من التحقيقات المجدولة؛ يتم احترام فترات إعادة المحاولة الأطول. ولا يرتفع المعدل تلقائيا مرة أخرى. تبدأ عمليات التشغيل الجديدة بالمعدل المحدد.</p>
+<h3 id="cve-lookup">بحث مكافحة التطرف العنيف</h3>
+<p><strong>ابحث عن مكافحة التطرف العنيف على الإنترنت</strong> يستعلم عن NVD/OSV لإحداثيات المنتج/الحزمة المدعومة بعد الحصول على إذن. يرسل الطلب إحداثيات، وليس عناوين URL المستهدفة أو ملفات تعريف الارتباط أو محتوى الصفحة. الإصدارات غير المعروفة، والمنافذ الخلفية للموردين، واستنتاجات الحد من وجود الحزمة التي لم يتم التحقق منها. لا تثبت إدخالات npm/PyPI اليدوية التثبيت.</p>
+<p>عدم وجود تطابقات لا يعني عدم وجود CVEs. المباراة مرشحة استشارية؛ فحص المتطلبات الأساسية والاستخدام <strong>ابحث عن نماذج التحقق</strong> لتحديد موقع الشيكات المستوردة المناسبة. يقوم هذا الزر بتصفية القوالب بدلاً من تنفيذها.</p>
+<h2 id="oast-setup-and-interpretation">إعداد وتفسير OAST</h2>
+<p><a href="https://portswigger.net/web-security/ssrf/blind">OAST</a> يلاحظ تفاعلات DNS/HTTP الناتجة عن المسبار عندما لا تكشف الاستجابة العادية عن السلوك. تمتلك Longshot مفاتيح التسجيل/الارتباط الخاصة بها؛ رد الاتصال العشوائي الذي تم إنشاؤه مسبقًا من عميل آخر غير قابل للتبديل.</p>
+<ol>
+<li>اختر خدمة متوافقة مع Interactsh تتحكم فيها أو مسموح لك باستخدامها.</li>
+<li>أدخل <strong>عنوان URL للموفر</strong>: العنوان الأساسي الكامل لواجهة برمجة التطبيقات (API) للموفر، عادةً HTTPS. يُسمح بـ HTTP فقط لموفري الاسترجاع.</li>
+<li>أدخل المطابقة <strong>مجال رد الاتصال</strong> بدون <code dir="ltr" translate="no">http://</code>أو منفذ أو مسار.</li>
+<li>أدخل <strong>رمز الموفر</strong> فقط إذا كان هذا المزود يتطلب ذلك.</li>
+<li>تعيين TTL والفاصل الزمني للاستقصاء؛ تمكين OAST بالإضافة إلى خيارات SSRF/XXE/Log4Shell/command ذات الصلة.</li>
+<li>استخدم <strong>اختبار اتصال OAST</strong> للتحقق من التسجيل / الاقتراع.</li>
+<li>استخدم <strong>اختبار رد الاتصال OAST</strong> لإرسال كناري مرتبط منفصل من هذا المتصفح.</li>
+<li>حفظ ومراجعة والموافقة على الفحص الفعلي. فحص الارتباط الدقيق والبروتوكول في تفاعلات OAST.</li>
+</ol>
+<p>على سبيل المثال، في حالة استخدام الخدمة العامة المطابقة على <code dir="ltr" translate="no">https://oast.pro</code>، قاعدة رد الاتصال الخاصة بها هي <code dir="ltr" translate="no">oast.pro</code>. وهذا مثال، وليس ضمانًا للتوفر أو متطلبًا لاستخدام ذلك الموفر. يحتاج مقدم الخدمة المستضاف ذاتيًا إلى مجال الوصول إليه المفوض بشكل صحيح، DNS/المستمعين وTLS؛ لا يعد مستمع HTTP للكمبيوتر المحمول وحده خدمة رد اتصال عامة. اتبع <a href="https://github.com/projectdiscovery/interactsh">إعداد Interactsh الرسمي</a>.</p>
+<table>
+<thead>
+<tr>
+<th>الملاحظة</th>
+<th>ما يؤسس</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>يمر اختبار الاتصال</td>
+<td>تم التسجيل والاقتراع من خلال مسار المتصفح</td>
+</tr>
+<tr>
+<td>اجتياز اختبار رد الاتصال للمتصفح</td>
+<td>يمكن لهذا المتصفح تشغيل واسترداد تفاعله المترابط</td>
+</tr>
+<tr>
+<td>ينتج مسبار الهدف تفاعلًا مطابقًا</td>
+<td>حدث تفاعل مترابط؛ - تحديد المصدر وتقييم معناه</td>
+</tr>
+<tr>
+<td>لا رد الاتصال</td>
+<td>غير حاسمة: قد يفسر ذلك الخروج المستهدف أو إمكانية الوصول إلى المزود أو انتهاء الصلاحية أو التصفية أو السياق غير المدعوم</td>
+</tr>
+</tbody>
+</table>
+<p>يمكن أن يأتي تحليل DNS من خدمة وسيطة/أمان. رد الاتصال وحده لا يثبت الوصول الداخلي التعسفي أو سرقة البيانات أو تنفيذ التعليمات البرمجية. يمتلك محرك Nuclei المنفصل تسجيل Interactsh الأصلي الخاص به؛ هذه الأحداث ليست تسجيل عميل المتصفح.</p>
+<p>لا يتطلب عميل OAST الموجود على جانب المتصفح واجهة برمجة تطبيقات Go أو Node أو Agent. قامت اختبارات الإصدار بإجراء التسجيل الرسمي للخادم، واسترجاع رد اتصال HTTP المشفر والارتباط عند الاسترجاع؛ لم يثبتوا توفر الموفر العام أو خروج الخادم المستهدف. لا يعد أي تعديل لملف المضيفين جزءًا من إعداد OAST العادي المفوض بشكل صحيح.</p>
+<h2 id="browser-bridge-native-tool-proxy">جسر المتصفح: وكيل الأداة الأصلية</h2>
+<h3 id="what-it-sends">ما يرسل</h3>
+<p>تقوم أداة خارجية بإنشاء الطلب، بما في ذلك حمولة الهجوم والطريقة والنص والاستعلام. يقوم المحول الأصلي بإعادة توجيهه من خلال mitmproxy، مع تطبيق تغييرات ملفات تعريف الارتباط/الرأس التي تم تكوينها فقط. إنه كذلك <strong>لا</strong> اطلب من Firefox إجراء عملية الجلب نيابةً عن ZAP أو أداة أخرى.</p>
+<p>يحافظ ذلك على دلالات HTTP الأصلية وتوليد الحمولة النافعة للأداة، ولكن ليس بايتات الأسلاك الأصلية التعسفية: يقوم mitmproxy بتوزيع/تسلسل HTTP وإنشاء اتصال TLS الصادر الخاص به. لا تجعل سلسلة وكيل المستخدم للمتصفح بصمة TLS/الشبكة الأصلية مطابقة لمتصفح Firefox.</p>
+<h3 id="install-the-downloaded-adapter">قم بتثبيت المحول الذي تم تنزيله</h3>
+<ol>
+<li>مفتوح <strong>جسر المتصفح</strong>. فقط <strong>وكيل الأداة الأصلية</strong> متاح في 2.18.1.</li>
+<li>اختر <strong>قم بتنزيل المحول الأصلي</strong> واستخرجها.</li>
+<li>أدخل المستخرجة <code dir="ltr" translate="no">native-bridge</code> الدليل. أنه يحتوي على <code dir="ltr" translate="no">cli.js</code>, <code dir="ltr" translate="no">bootstrap.py</code>, <code dir="ltr" translate="no">config.json</code> والعقدة المجمعة <code dir="ltr" translate="no">ws</code> التبعية.</li>
+<li>قم بتثبيت Node.js 20+ وPython 3.12+ إذا لم تكن متوفرة بالفعل.</li>
+<li>قم بتشغيل إعداد Python لمرة واحدة:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   cd /absolute/path/to/native-bridge
+   python3 bootstrap.py</code></p>
+<p>وهذا يخلق المحلية <code dir="ltr" translate="no">.venv</code> ويقوم بتثبيت mitmproxy 12.2.3. التثبيت يحتاج إلى الوصول إلى الإنترنت. لا يؤدي بدء التشغيل العادي إلى تنزيل رمز الماسح الضوئي أو قوائم الحمولة.</p>
+<ol start="6">
+<li>استخدم الأمر الموضح بواسطة <strong>الخاص بك</strong> صفحة الامتداد:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   node cli.js --config config.json \
+     --extension-origin moz-extension://YOUR-LONGSHOT-UUID</code></p>
+<p>استبدل العنصر النائب بأصل الامتداد الحالي الكامل. إنه ليس موقع الويب المستهدف أو معرف الوظيفة الإضافية أو الأصل المنسوخ من ملف تعريف Firefox آخر.</p>
+<ol start="7">
+<li>حافظ على تشغيل المحطة. بعد أن يصبح مستمع الوكيل جاهزًا، فإنه يطبع عنوان الوكيل ومنفذ التحكم ورمز الاقتران/الوكيل الجديد ومسار شهادة CA.</li>
+</ol>
+<p>عند التطوير من ملف ZIP المصدر بدلاً من استخدام أرشيف المحول المجمع، قم بتثبيت تبعية العقدة المثبتة أولاً في حالة عدم وجودها:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+npm --prefix native-bridge ci --omit=dev
+cd native-bridge
+python3 bootstrap.py
+</code></pre>
+<p><code dir="ltr" translate="no">--mitmdump /absolute/path/to/mitmdump</code> أو <code dir="ltr" translate="no">LONGSHOT_MITMDUMP</code> يختار وقت التشغيل الحالي. <code dir="ltr" translate="no">--data-dir /absolute/private/run-directory</code> يحدد دليل CA/التدقيق؛ الافتراضي هو <code dir="ltr" translate="no">run</code> داخل المحول الأصلي. Ctrl+C يوقف المحول.</p>
+<p>الوكيل الأصلي اليدوي منفصل عن تسجيل مضيف Agent API. لا حاجة لذلك <code dir="ltr" translate="no">node bridge/bin/longshot-bridge install</code> مجرد وكيل حليقة/ZAP. تم ممارسة Linux/Firefox في اختبارات تكامل الإصدار؛ لا تستنتج دعم مثبت المراسلة الأصلي على نظام أساسي آخر من مسار بدء تشغيل Node/Python اليدوي هذا.</p>
+<h3 id="pair-the-selected-tab">قم بإقران علامة التبويب المحددة</h3>
+<ol>
+<li>حدد المعتمد <strong>علامة التبويب الهدف</strong> في جسر المتصفح.</li>
+<li>تحقق من أصله المعروض ومخزن ملفات تعريف الارتباط. استخدم <strong>تحديث علامات التبويب</strong> إذا لزم الأمر.</li>
+<li>أدخل <strong>منفذ التحكم</strong> <code dir="ltr" translate="no">8901</code>ما لم يتم تغييره في تكوين المحول.</li>
+<li>لصق الحالي <strong>رمز الاقتران / الوكيل</strong> من محول التشغيل.</li>
+<li>اختر <strong>إقران الجسر الأصلي</strong> والتحقق من حالة الاستعداد.</li>
+<li>قم بمراجعة مفاتيح ملفات تعريف الارتباط/الرأس قبل حركة مرور أداة التوجيه.</li>
+</ol>
+<p>يقوم الحقل بمسح الرمز المميز بعد الاقتران الناجح. تؤدي إعادة التشغيل إلى ظهور رمز مميز جديد: قم بإقرانه مرة أخرى وتحديث بيانات اعتماد الوكيل في كل أداة خارجية. منفذ الوكيل <code dir="ltr" translate="no">8900</code> للأدوات؛ منفذ التحكم <code dir="ltr" translate="no">8901</code> هو لمتصفح فايرفوكس. ولا يستخدم أي منهما الرمز المميز لحامل Agent API من المنفذ 8765.</p>
+<h3 id="actual-target-urls-and-bridgeinvalid">عناوين URL المستهدفة الفعلية وbridge.invalid</h3>
+<p>استخدم العنوان الحقيقي، مثل <code dir="ltr" translate="no">http://localhost:8080/search?q=apple</code>، في أداتك. في حالة اختبار HTTPS، استخدم الحقيقي <code dir="ltr" translate="no">https://...</code> عنوان. يبقى عنوان الوكيل الخاص <code dir="ltr" translate="no">http://127.0.0.1:8900</code> لأن هذا هو مستمع وكيل HTTP المحلي، بما في ذلك اتصال HTTPS.</p>
+<p><strong>لا <code dir="ltr" translate="no">/etc/hosts</code> هناك حاجة للدخول.</strong> القديم <code dir="ltr" translate="no">bridge.invalid</code> كان العنوان عبارة عن اسم مستعار خاص بالمحول لتعيين عنوان URL HTTP الخاص بالأداة المساعدة على هدف جلب المتصفح المحدد. يدعم الوكيل الأصلي الحالي عناوين URL المستهدفة الفعلية وHTTPS CONNECT، لذا فإن التعيين غير ضروري.</p>
+<p><code dir="ltr" translate="no">localhost</code> ليس اسمًا مستعارًا قابلاً للتبديل لكل هدف: فهو يقوم بتسمية الجهاز المحلي من بيئة الشبكة الخاصة بالعملية ذات الصلة. يكون هذا صحيحًا فقط عندما يكون الهدف محليًا بالفعل في ذلك الأصل. يمكن لاسم مضيف مختلف تحديد مضيف افتراضي مختلف أو سياسة ملفات تعريف الارتباط أو الأصل حتى لو كان كلا الاسمين يتطابقان مع عنوان IP نفسه.</p>
+<p>إدخال المضيفين القديمين الحاليين لا علاقة له بسير العمل الجديد؛ لا تستخدمه في عناوين URL للأداة. لم يتم إجراء أي تعديل على ملف المضيفين أثناء إعداد هذا البرنامج التعليمي.</p>
+<h3 id="https-trust">ثقة HTTPS</h3>
+<p>يقوم المحول بإنشاء CA المحلي الخاص به ضمن دليل البيانات المحدد، عادةً:</p>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
+run/ca/mitmproxy-ca.pem            sensitive CA material/private key
+</code></pre>
+<p>تكوين <strong>تكوين ثقة تقييم الأداة الخارجية</strong> مع طباعة مسار الشهادة العامة عند بدء التشغيل. لا تشارك المفتاح الخاص أو تفترض أنه تم تغيير مخزن الثقة الخاص بالنظام/فايرفوكس. لا يقوم المحول بتثبيت CA الخاص به في أي من مخزن الثقة.</p>
+<p>لتجعيد الشعر:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  --cacert /absolute/path/to/native-bridge/run/ca/mitmproxy-ca-cert.pem \
+  'https://actual-target.example/search?q=apple'
+</code></pre>
+<p>استبدال <code dir="ltr" translate="no">CURRENT_TOKEN</code> ومسار الهدف/الشهادة. بالنسبة لهدف محلي يستخدم HTTP فقط، <code dir="ltr" translate="no">--cacert</code> غير ضروري. <code dir="ltr" translate="no">--noproxy ''</code> يضمن أن cur لا يتجاوز بصمت الوكيل لهدف الاسترجاع.</p>
+<p>هناك نوعان من اختبارات TLS المميزة:</p>
+<ul>
+<li>يتحقق العميل من الشهادة المقدمة بواسطة المحول. قم بتكوين ثقة العميل باستخدام المحول CA.</li>
+<li>يتحقق المحول من الخادم الرئيسي الحقيقي. <code dir="ltr" translate="no">tls.verifyUpstream</code> الافتراضيات صحيحة. العميل <code dir="ltr" translate="no">--cacert</code> لا يوفر CA أصل خاص للمحول.</li>
+</ul>
+<p>لا تعامل تعطيل التحقق كحل عادي لأخطاء الشهادة. بالنسبة للتركيبات الموقعة ذاتيًا المملوكة، <code dir="ltr" translate="no">tls.verifyUpstream:false</code> يعد استثناءً صريحًا للتقييم في تكوين المحول، متبوعًا بإعادة التشغيل؛ إنه يضعف هذا الفحص المنفصل للمنبع. انظر <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">سلوك شهادة mitmproxy</a>.</p>
+<h3 id="traffic-fidelity-and-limits">الإخلاص المروري وحدوده</h3>
+<table>
+<thead>
+<tr>
+<th>يدعم الوكيل الأصلي</th>
+<th>لا يؤسس ولا يدعم</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>الأساليب المولدة بالأداة، والحمولات والأجسام الاستعلامية</td>
+<td>وحدات بايت الرأس/الطلب/الغلاف الأصلية الدقيقة أو الإطار المشوه</td>
+</tr>
+<tr>
+<td>HTTP/1.1، HTTP/2، اتصال HTTPS</td>
+<td>HTTP/3، أو أوضاع الماسح الضوئي TCP أو غير HTTP</td>
+</tr>
+<tr>
+<td>تجاوزات الجلسة/الرأس التي تم تكوينها</td>
+<td>بصمة المتصفح الكاملة أو تنفيذ تحدي JavaScript أو TLS المملوك للمتصفح</td>
+</tr>
+<tr>
+<td>ترقيات WebSocket على المسار الأصلي</td>
+<td>أداة عامة للتحقق من الثغرات الأمنية في بروتوكول التطبيق</td>
+</tr>
+<tr>
+<td>تتحقق أداة رأس المضيف مع الاحتفاظ بوجهة HTTPS CONNECT المعتمدة</td>
+<td>هدف اتصال غير مقيد أو ترخيص هدف جديد تلقائي</td>
+</tr>
+<tr>
+<td>تم تحديد نطاق الأصول الإضافية دون تصدير جلسة المتصفح</td>
+<td>تتم مشاركة ملفات تعريف الارتباط/بيانات اعتماد الرأس في المتصفح تلقائيًا عبر الأصول</td>
+</tr>
+</tbody>
+</table>
+<p>لا يحتوي المسار الأصلي على خيار احتياطي لجلب المتصفح. بالنسبة لأبحاث تهريب الطلبات الأولية أو الإطارات السلكية غير العادية أو أبحاث TLS المخصصة، استخدم وسيلة نقل منفصلة مناسبة. لا تقم بتسمية هذا الوكيل الذي تم تحليله بأنه بايت شفاف.</p>
+<h2 id="native-bridge-configuration">تكوين الجسر الأصلي</h2>
+<p>قم بتنزيل التكوين من Browser Bridge أو قم بتحرير ملف المحول <code dir="ltr" translate="no">config.json</code>. يتم رفض المفاتيح غير المعروفة والأنواع غير الصالحة والقيم خارج النطاق. حقول المحول القديمة ليست مرادفات تكوين أصلية.</p>
+<p>يعد تكوين المحول قيد التشغيل موثوقًا عند الاقتران. <strong>تطبيق التجاوزات</strong> تدعم التغييرات خيارات تجاوز المتصفح للاقتران الحالي. <strong>تحميل التكوين</strong> يحتفظ بالتكوين المحدد للبدء التالي. لا يؤدي تحرير حقول JSON العامة إلى إعادة تكوين منافذ المستمع أو TLS أو التوجيه أو الحدود بصمت في عملية قيد التشغيل بالفعل: الحفظ/التنزيل وإعادة التشغيل وإعادة الإقران.</p>
+<h3 id="complete-shipped-defaults">أكمل الإعدادات الافتراضية التي تم شحنها</h3>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "proxy": {
+    "port": 8900
+  },
+  "control": {
+    "port": 8901,
+    "timeoutMs": 10000
+  },
+  "browser": {
+    "required": true,
+    "firstPartyDomain": null
+  },
+  "cookies": {
+    "enabled": true,
+    "mode": "replace",
+    "saveResponses": true,
+    "preserveToolChanges": true,
+    "protectedNames": [],
+    "includeNames": [],
+    "excludeNames": []
+  },
+  "headers": {
+    "userAgent": {
+      "source": "tool",
+      "value": ""
+    },
+    "acceptLanguage": {
+      "source": "tool",
+      "value": ""
+    },
+    "authorization": {
+      "source": "tool",
+      "value": ""
+    },
+    "set": {},
+    "remove": [],
+    "protectedNames": []
+  },
+  "scope": {
+    "origins": [],
+    "excludePaths": [],
+    "methods": [
+      "*"
+    ]
+  },
+  "limits": {
+    "rate": 2,
+    "concurrency": 4,
+    "maxRequests": 10000,
+    "maxBodyBytes": 67108864,
+    "timeoutSeconds": 60
+  },
+  "session": {
+    "pauseStatuses": [
+      401,
+      419,
+      440
+    ],
+    "pauseOn429": true
+  },
+  "tls": {
+    "verifyUpstream": true,
+    "http2": true
+  },
+  "upstream": {
+    "url": null
+  },
+  "routing": {
+    "socks5": null
+  },
+  "audit": {
+    "enabled": true
+  }
+}
+</code></pre>
+<p>فارغة <code dir="ltr" translate="no">scope.origins</code> الافتراضي هو الأصل الدقيق للهدف المقترن. لا تحتاج إلى إدخال الهدف أو الطابع الزمني للبداية/الانتهاء لبدء التقييم المقترن العادي. لا يزال تطبيق النطاق موجودًا؛ ويتم اختياره عن طريق الاقتران بدلاً من نموذج التقييم الإلزامي القديم.</p>
+<h3 id="field-reference">مرجع ميداني</h3>
+<table>
+<thead>
+<tr>
+<th>الميدان</th>
+<th>تأثير</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">schemaVersion</code></td>
+<td>تنسيق التكوين الأصلي؛ القيمة الحالية 1</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">proxy.port</code></td>
+<td>منفذ وكيل HTTP المواجه للأداة، الافتراضي 8900</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.port</code></td>
+<td>منفذ منسق Firefox، الافتراضي 8901؛ يجب أن تختلف عن منفذ الوكيل</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.timeoutMs</code></td>
+<td>مهلة الرد في المتصفح/التحكم، الافتراضي 10000 مللي ثانية</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.required</code></td>
+<td>الاقتران مطلوب بشكل افتراضي. تحتاج العملية المستقلة إلى أصول واضحة وإيقاف كافة الميزات المشتقة من المتصفح</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.firstPartyDomain</code></td>
+<td>مجال عزل صريح للطرف الأول إذا كانت واجهة برمجة تطبيقات ملفات تعريف الارتباط لمتصفح Firefox تتطلب ذلك؛ يستخدم null السلوك العادي</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.enabled</code></td>
+<td>استخدام ملفات تعريف الارتباط المحددة لمتصفح فايرفوكس في الطلبات الأصلية الصادرة؛ الافتراضي صحيح</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.mode</code></td>
+<td><code dir="ltr" translate="no">replace</code> بشكل افتراضي؛ اختياري <code dir="ltr" translate="no">merge</code>، موضح أدناه</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code></td>
+<td>تطبيق تحديثات Set-Cookie للاستجابة على جرة Firefox المحددة؛ صحيح افتراضي، مستقل عن تجاوز الطلب</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.preserveToolChanges</code></td>
+<td>الحفاظ على التغييرات المتعلقة بالطلب الأول لكل اتصال/أصل للعميل؛ الافتراضي صحيح</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.protectedNames</code></td>
+<td>أسماء ملفات تعريف الارتباط التي يجب أن تظل قيم أدواتها تحت تحكم الأداة</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.includeNames</code></td>
+<td>إدارة هذه الأسماء فقط؛ فارغ يعني جميع أسماء المتصفحات المطابقة</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.excludeNames</code></td>
+<td>لا تقم بإدارة أسماء ملفات تعريف الارتباط للمتصفح هذه</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.userAgent</code>, <code dir="ltr" translate="no">acceptLanguage</code>, <code dir="ltr" translate="no">authorization</code></td>
+<td><code dir="ltr" translate="no">source</code> هو <code dir="ltr" translate="no">tool</code>, <code dir="ltr" translate="no">browser</code> أو <code dir="ltr" translate="no">custom</code>; يحتاج التخصيص إلى سطر واحد غير فارغ <code dir="ltr" translate="no">value</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.set</code>, <code dir="ltr" translate="no">remove</code>, <code dir="ltr" translate="no">protectedNames</code></td>
+<td>تغييرات وحماية إضافية صريحة في الرأس؛ تتطلب الحقول المحجوزة/المدارة عناصر تحكم مخصصة لها</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.origins</code></td>
+<td>يستخدم فارغة الأصل المقترنة؛ لا تتلقى الأصول الدقيقة الإضافية المدرجة بشكل صريح أي حقول جلسة مشتقة من المتصفح</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.excludePaths</code></td>
+<td>بادئات المسار المستبعدة، بما في ذلك النماذج التي تم فك تشفيرها</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.methods</code></td>
+<td>الطرق المسموح بها default <code dir="ltr" translate="no">["*"]</code> يعني جميع أساليب HTTP الأصلية، وليس الموافقة على الكتابة في متصفح Longshot</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.rate</code></td>
+<td>معدل الجدولة الأصلي المشترك، الافتراضي 2 طلب/ثانية</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.concurrency</code></td>
+<td>فتحات التحكم الأصلية، الافتراضي 4</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxRequests</code></td>
+<td>سقف الطلب الأصلي، الافتراضي 10000؛ الإرهاق يوقف العمل</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxBodyBytes</code></td>
+<td>التخزين المؤقت/سقف الجسم، الافتراضي 64 ميجابايت</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.timeoutSeconds</code></td>
+<td>مدة عقد الإيجار/المهلة المحددة، الافتراضي هو 60 ثانية؛ لا يوجد تراجع عن الطلب الذي تم إرساله بالفعل</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseStatuses</code></td>
+<td>قائمة الإيقاف المؤقت لحالة المصادقة الافتراضية: 401، 419، 440</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseOn429</code></td>
+<td>توقف مؤقتًا عند الاختناق بشكل افتراضي</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">tls.verifyUpstream</code>, <code dir="ltr" translate="no">http2</code></td>
+<td>كلاهما صحيح افتراضيا</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">upstream.url</code></td>
+<td>الوكيل الأولي HTTP(S) الاختياري؛ لا شيء يعني لا شيء</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">routing.socks5</code></td>
+<td>اختياري <code dir="ltr" translate="no">socks5h://host:port</code>; فارغة افتراضيا؛ يتعارض مع عنوان URL المنبع</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">audit.enabled</code></td>
+<td>تدقيق JSONL للبيانات الوصفية فقط، صحيح افتراضيًا</td>
+</tr>
+</tbody>
+</table>
+<p>نطاقات التحقق الأصلية: المنافذ 1024–65535، المعدل 0.1–100، التزامن 1–32، سقف الطلب 1–1,000,000، الحد الأقصى للنص 1 كيلو بايت–256 ميجابايت، المهلة 1–600 ثانية، مهلة التحكم 1000–120000 مللي ثانية. هذه هي حدود التكوين المقبولة، وليست توصيات للتحميل الآمن للهدف.</p>
+<p>أسماء الرؤوس غير حساسة لحالة الأحرف. أسماء ملفات تعريف الارتباط حساسة لحالة الأحرف. استخدم القيم المنطقية JSON <code dir="ltr" translate="no">true</code>/<code dir="ltr" translate="no">false</code>، وليس سلاسل. عام <code dir="ltr" translate="no">headers.set</code> لا يمكن استبدال حقول المضيف أو ملف تعريف الارتباط أو التفويض أو الإطارات أو التحكم بالوكيل. استخدم خيارات ملفات تعريف الارتباط/التفويض المخصصة وقيمة المضيف الخاصة بالأداة.</p>
+<p>لتقليل التحميل لتشغيل أداة أصلية، يمكن للتكوين الجزئي أن يتجاوز الإعدادات الافتراضية، على سبيل المثال:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "limits": {
+    "rate": 0.5,
+    "concurrency": 1,
+    "maxRequests": 500
+  }
+}
+</code></pre>
+<p>لا يوجد مفتاح تكوين أصلي عام يقوم بتحديث الرموز المميزة لنص النموذج أو يخترع سير عمل تسجيل الدخول إلى المتصفح.</p>
+<h2 id="cookie-and-header-overrides-without-damaging-probes">يتم تجاوز ملف تعريف الارتباط والرأس دون إتلاف المجسات</h2>
+<h3 id="default-cookie-behavior">سلوك ملفات تعريف الارتباط الافتراضي</h3>
+<p><strong>استخدم ملفات تعريف الارتباط للمتصفح</strong> و <strong>حفظ تحديثات مجموعة ملفات تعريف الارتباط الخاصة بالاستجابة</strong> قيد التشغيل بشكل افتراضي. يظل وكيل المستخدم ولغة القبول والتفويض خاضعين للتحكم بالأدوات بشكل افتراضي.</p>
+<p>بالنسبة للطلب الأصلي، يحدد Firefox ملفات تعريف الارتباط القابلة للتطبيق لعنوان URL من مخزن ملفات تعريف الارتباط لعلامة التبويب المقترنة والقسم المطابق. لا يتم دمج الحاويات/المخازن الخاصة الأخرى. تظل قواعد المجال/المسار/الآمن/انتهاء الصلاحية وترتيب مسار الاسم نفسه ذات صلة. يتم توفير القيم إلى الوكيل الأصلي حتى يتمكن من إنشاء رأس ملف تعريف الارتباط الصادر؛ وعلى عكس مسار جلب المتصفح الذي تمت إزالته، يتعامل المساعد الأصلي مع أسرار الجلسة في الذاكرة.</p>
+<p>مع <code dir="ltr" translate="no">cookies.mode:"replace"</code>، إن جرة المتصفح موثوقة، بما في ذلك عندما تكون فارغة. تتم إزالة ملف تعريف ارتباط المتصفح المحذوف من الجرة من الطلبات المُدارة لاحقًا. تحظى الأسماء المحمية بشكل صريح وتغييرات الأداة المكتشفة بالأولوية. مع <code dir="ltr" translate="no">mode:"merge"</code>، يمكن أن تظل ملفات تعريف الارتباط الخاصة بالأدوات غير ذات الصلة أثناء تحديث الأسماء التي يديرها المتصفح.</p>
+<p>يتم تطبيق حقول ملفات تعريف الارتباط لمجموعة الاستجابة بشكل فردي على نفس المتجر المحدد باستخدام واجهة برمجة تطبيقات ملفات تعريف الارتباط الخاصة بـ Firefox، بما في ذلك سمات Domain/path/Secure/HttpOnly/SameSite/expiry/deletion/partition المدعومة. يمكن رفض ملفات تعريف الارتباط غير الصالحة؛ فحص الأخطاء المبلغ عنها. لا تتلقى الأصول الإضافية التي تم تكوينها ملفات تعريف الارتباط للمتصفح أو الرؤوس المشتقة من المتصفح.</p>
+<h3 id="request-and-response-switches-are-independent">مفاتيح الطلب والاستجابة مستقلة</h3>
+<table>
+<thead>
+<tr>
+<th>طلب تجاوز ملفات تعريف الارتباط</th>
+<th>مزامنة الاستجابة</th>
+<th>النتيجة</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>على</td>
+<td>على</td>
+<td>استخدم ملفات تعريف الارتباط الخاصة بـ Firefox وقم بتحديث الجرة من الاستجابة Set-Cookie</td>
+</tr>
+<tr>
+<td>إيقاف</td>
+<td>على</td>
+<td>احتفظ بملفات تعريف الارتباط الخاصة بطلب الأداة؛ لا يزال بإمكان الاستجابات المستهدفة تغيير جرة Firefox</td>
+</tr>
+<tr>
+<td>على</td>
+<td>إيقاف</td>
+<td>استخدم ملفات تعريف الارتباط الخاصة بفايرفوكس؛ لا تكتب ملفات تعريف الارتباط للاستجابة مرة أخرى من خلال هذا المساعد</td>
+</tr>
+<tr>
+<td>إيقاف</td>
+<td>إيقاف</td>
+<td>اجعل ملفات تعريف الارتباط الخاصة بالطلبات خاضعة للتحكم ولا تقم بمزامنة الاستجابات</td>
+</tr>
+</tbody>
+</table>
+<p>بالنسبة لتشويش ملفات تعريف الارتباط أو تجربة الجلسة التي يجب أن تترك جرة المتصفح دون تغيير، فكر في كلا المفتاحين. يؤثر تجاوز التجاوز لكل طلب على التجاوزات من جانب الطلب؛ ولا يؤدي إلى تعطيل إعداد مزامنة ملفات تعريف الارتباط للاستجابة العالمية المستقلة.</p>
+<h3 id="protect-fields-that-contain-attack-payloads">حماية الحقول التي تحتوي على حمولات الهجوم</h3>
+<p>لنفترض اختبارات ZAP <code dir="ltr" translate="no">session=ATTACK_PAYLOAD</code>. قد يؤدي استبدال هذه القيمة بشكل أعمى بجلسة المتصفح الصالحة إلى مسح الاختبار. وعلى العكس من ذلك، فإن الاحتفاظ بملف تعريف الارتباط القديم في كل طلب قد يجعل الفحص المصادق عليه عديم الفائدة.</p>
+<p>الافتراضي <strong>الحفاظ على تغييرات ملف تعريف الارتباط/الرأس للأداة بعد طلبها الأول</strong> يسجل خط الأساس لكل اتصال/أصل للعميل ويحافظ على التغييرات اللاحقة. أرسل طلب بذور عادي أولاً. لا يمكن للوكيل استنتاج النية بشكل موثوق عند الطلب الأول، ويقوم الاتصال الجديد بإنشاء خط أساس جديد. هذا الكشف عن مجريات الأمور ليس حماية كاملة.</p>
+<p>لإجراء اختبار يمكن التنبؤ به، اختر إحدى هذه الآليات:</p>
+<ol>
+<li>قم بتعطيل تجاوز ملف تعريف الارتباط/الرأس المحدد الذي يتم اختباره.</li>
+<li>أضف أسماء ملفات تعريف الارتباط إلى <code dir="ltr" translate="no">cookies.protectedNames</code> أو رؤوس ل <code dir="ltr" translate="no">headers.protectedNames</code>.</li>
+<li>أرسل تعليقًا توضيحيًا انتقائيًا لكل طلب:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Preserve: cookie:session, User-Agent, Authorization</code></p>
+<p>يؤدي هذا إلى الاحتفاظ بحقول ملفات تعريف الارتباط/الرؤوس المسماة للأداة. <code dir="ltr" translate="no">cookie</code> بدون اسم يحافظ على رأس ملف تعريف الارتباط للأداة الكاملة.</p>
+<ol start="4">
+<li>تجاوز كافة التجاوزات من جانب الطلب لهذا الطلب:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Override: off</code></p>
+<p>يقوم المحول بإزالة رؤوس التعليقات التوضيحية هذه قبل إعادة التوجيه. لا تزال مصادقة الوكيل ونطاقه وحدوده سارية. تكوين التعليقات التوضيحية في الأداة الأصلية؛ إن وضعها في صفحة ويب مستهدفة لا يعد آلية لتكوين الجسر.</p>
+<p>على سبيل المثال، حفظ <code dir="ltr" translate="no">session</code> يسمح protected لـ ZAP بتغييره بينما يمكن للمساعد مواصلة تحديث ملف غير ذي صلة <code dir="ltr" translate="no">preferences</code> ملف تعريف الارتباط. بالنسبة للاختبار الشامل لملفات تعريف الارتباط/الترخيص/وكيل المستخدم، يؤدي تعطيل هذه التجاوزات إلى تجنب الاعتماد على الأساليب البحثية لاكتشاف التغيير.</p>
+<h3 id="browser-authorization-and-other-headers">ترخيص المتصفح والرؤوس الأخرى</h3>
+<p>يتم تمكين ترخيص المتصفح من خلال تكوين JSON. يتم التقاطه من طلب فعلي بواسطة علامة التبويب الهدف المقترنة فقط بعد تمكين مصادر المتصفح. إنه ليس قارئًا تلقائيًا لكل رمز مميز في ذاكرة التخزين المحلية أو ذاكرة التطبيق. قد تكون هناك حاجة إلى طلب متصفح لاحق قبل وجود قيمة ملحوظة. يؤدي إيقاف تشغيل ترخيص المتصفح إلى إيقاف القيمة التي تم التقاطها بواسطة المساعد.</p>
+<p>يؤدي اختيار وكيل المستخدم أو قبول اللغة للمتصفح إلى تغيير حقول HTTP هذه فقط. فهو لا يقوم بتشغيل JavaScript الهدف أو تحديث رمز CSRF الأساسي أو إعادة إنتاج TLS للمتصفح أو ضمان قبول WAF. لا تزال المصادقة المرتبطة بـ IP/الجهاز وتحديث OAuth بحاجة إلى سير عمل التطبيق.</p>
+<h3 id="vhost-host-handling">VHOST/التعامل مع المضيف</h3>
+<p>لا يقوم المساعد الأصلي باستبدال الاسم المستعار للجسر الداخلي في حقل مضيف الأداة. اسمح للأداة بإرسال قيمة المضيف المطلوبة لاختبار المضيف الظاهري المعتمد. بالنسبة لـ HTTPS، تظل وجهة CONNECT هي الهدف المعتمد بينما يمكن الحفاظ على رأس مضيف الأداة.</p>
+<p>لا يؤدي تغيير رأس المضيف إلى منح الوصول إلى وجهة شبكة أخرى. قد يقوم الوكيل العكسي بتوجيهه إلى تطبيق آخر؛ قم بتضمين سلوك المضيف الافتراضي هذا في ترخيص التقييم. توجد وحدات بايت الرأس المشوهة والإطارات المتعارضة خارج هذا الوكيل الذي تم تحليله.</p>
+<h3 id="audit-and-privacy">التدقيق والخصوصية</h3>
+<p><strong>حركة المرور الأصلية</strong> يعرض بيانات تعريف الطلب وأسماء الحقول المتغيرة/المحمية. يحذف التدقيق القيم السرية لملفات تعريف الارتباط/الرأس وقيم الاستعلام ونصوصه. هذا لا يعني أن الوكيل لا يتعامل أبدًا مع الأسرار: يجب أن يعالجها لإرسال حركة مرور تمت المصادقة عليها. تحتفظ الأدوات الخارجية بسجلاتها/نتائجها الخاصة، والتي يمكن أن تحتوي على تلك القيم.</p>
+<p>احتفظ برموز التكوين الخاصة ومفاتيح CA وأدلة البيانات خارج أرشيفات التقارير/المصادر. يمكن أن يؤدي تنزيل التكوين باستخدام قيم التفويض المخصصة إلى إنشاء ملف يحتوي على تلك القيم.</p>
+<h2 id="external-tools-and-actual-zap-scanning">الأدوات الخارجية ومسح ZAP الفعلي</h2>
+<h3 id="start-with-one-request">ابدأ بطلب واحد</h3>
+<p>قم بإقران الجسر، ثم اختبر الهدف المحلي الفعلي:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  'http://localhost:8080/'
+</code></pre>
+<p>استخدم مسار قراءة معتمد ومعروفًا للتحقق من سلوك الجلسة. 200 من الصفحة الرئيسية العامة ليست كافية. تأكد من ظهور الطلب في حركة المرور الأصلية، وأن مخزن ملفات تعريف الارتباط المحدد صحيح، وأن الأداة تلقت المحتوى المتوقع. لا تستنتج أن جميع الطلبات اللاحقة تستخدم الوكيل لمجرد أن هذا الطلب يستخدمه.</p>
+<h3 id="zap-outgoing-proxy">ZAP الوكيل الصادر</h3>
+<ol>
+<li>قم بتثبيت/بدء تشغيل ZAP بشكل منفصل واستخدام جلسة ZAP الخاصة بالتقييم.</li>
+<li>في ZAP <strong>خيارات → الشبكة → اتصال</strong>، تمكين <strong>وكيل HTTP الصادر</strong>.</li>
+<li>تعيين المضيف <code dir="ltr" translate="no">127.0.0.1</code>، ميناء <code dir="ltr" translate="no">8900</code> (أو منفذ الوكيل الحالي الذي تم تكوينه).</li>
+<li>تمكين مصادقة الوكيل: اسم المستخدم <code dir="ltr" translate="no">bridge</code>، كلمة مرور الرمز المميز للمحول الحالي.</li>
+<li>قم بتعطيل وكيل SOCKS الخاص بـ ZAP لهذه السلسلة. يكون لإعداد SOCKS الخاص بـ ZAP الأسبقية على وكيل HTTP الخاص به.</li>
+<li>تحقق من استثناءات وكيل HTTP حتى لا يتم تجاوز الهدف المقصود، خاصة بالنسبة للخدمة المحلية.</li>
+<li>قم بتكوين CA المحول في إعداد الثقة/التحقق TLS القابل للتطبيق للأداة عند الحاجة. تتم طباعة موقعه عند بدء تشغيل المحول.</li>
+<li>الوصول إلى <strong>عنوان URL المستهدف الفعلي</strong> من ZAP والتحقق من تاريخه بالإضافة إلى بيانات تعريف الجسر.</li>
+<li>حدد الهدف/السياق الخاص بـ ZAP، وسياسة الفحص، والاستثناءات، وفحوصات المصادقة، ومعدل الطلبات المتواضع. قم بتشغيل العنكبوت/المسح النشط الفعلي على النحو المصرح به.</li>
+<li>مراجعة النتائج والتغطية في ZAP. عند تشويش حقول مصادقة ملفات تعريف الارتباط/الرأس بشكل متعمد، استخدم آليات الحماية/التجاوز المذكورة أعلاه.</li>
+</ol>
+<p>هذا الإعداد هو ZAP <strong>اتصال الصادرة</strong>، وليس مستمع الوكيل المحلي للمتصفح الوارد. لا يلزم إعادة تكوين Firefox لاستخدام ZAP فقط لتوفير ملفات تعريف الارتباط الخاصة بعلامة التبويب المحددة لهذه السلسلة.</p>
+<p>يقوم ZAP بإنشاء حمولاته الحقيقية ذات القاعدة النشطة؛ يرسل mitmproxy الطلبات الأصلية الناتجة. يقوم Longshot بتغيير حقول الطلب التي تم اختيارها فقط. يؤدي هذا إلى زيادة سياق الجلسة القابلة للاستخدام للأداة الخارجية ولكنه لا يجعل فحص أي من الأداتين شاملاً. انظر <a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">إعدادات اتصال ZAP</a>.</p>
+<h3 id="other-http-tools">أدوات HTTP الأخرى</h3>
+<table>
+<thead>
+<tr>
+<th>الأداة/العميل</th>
+<th>كيفية الاتصال</th>
+<th>حد مهم</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>حليقة</td>
+<td><code dir="ltr" translate="no">--proxy</code>, <code dir="ltr" translate="no">--proxy-user</code>; <code dir="ltr" translate="no">--cacert</code> لثقة HTTPS؛ تجاوز الوكيل الواضح عند الحاجة</td>
+<td>يمكن للاستدعاءات/الاتصالات المختلفة إعادة ضبط خطوط الأساس الخاصة بالمسبار الإرشادي</td>
+</tr>
+<tr>
+<td>ffuf</td>
+<td>خيار وكيل HTTP الخاص به (<code dir="ltr" translate="no">-x</code>) مع عنوان URL الوكيل المعتمد؛ توفير قائمة كلمات محددة النطاق ومعدل منخفض</td>
+<td>لا يقيد وكيل HTTP استدعاءًا منفصلاً غير وكيل</td>
+</tr>
+<tr>
+<td>com.sqlmap</td>
+<td>خيار وكيل HTTP الخاص به ببيانات الاعتماد الحالية؛ حدد عنوان URL/المعلمة المعتمدة وقم بحماية الحقول التي يتم اختبارها</td>
+<td>محرك/إعدادات SQLi منفصلة؛ يمكن أن يؤدي استبدال ملفات تعريف الارتباط إلى مسح تحقيقات ملفات تعريف الارتباط ما لم يتم تكوينها</td>
+</tr>
+<tr>
+<td>wget</td>
+<td>مصادقة <code dir="ltr" translate="no">http_proxy</code>/<code dir="ltr" translate="no">https_proxy</code> أو إعدادات الوكيل الخاصة به؛ تكوين ثقة الشهادة</td>
+<td>تحقق <code dir="ltr" translate="no">no_proxy</code> وسلوك الوكيل الخاص بالأداة</td>
+</tr>
+<tr>
+<td>بايثون urllib / الطلبات</td>
+<td>معالج الوكيل/التهيئة الصريحة والمحول CA لـ HTTPS</td>
+<td>تختلف المكتبات في التعامل مع متغيرات البيئة والتجاوز</td>
+</tr>
+<tr>
+<td>نواة CLI</td>
+<td>قم بتكوين وكيل/ثقة HTTP الخاصة به لحركة مرور قالب HTTP المدعومة</td>
+<td>لا تتم تغطية حركة مرور القالب بدون HTTP/الكود/بدون رأس بشكل عام بواسطة خيار وكيل HTTP واحد</td>
+</tr>
+</tbody>
+</table>
+<p>يعد عنوان URL للوكيل الذي يحتوي على بيانات الاعتماد حساسًا. استخدم تكوين التقييم الخاص لأداتك حيثما كان ذلك متاحًا. لا تقم بلصق الرموز المميزة الحالية في التقارير المشتركة. بالنسبة لكل أداة، قم بتأكيد حركة المرور الموجهة بدلاً من افتراض أن كل بروتوكول أو عملية فرعية تحترم إعداد وكيل HTTP الخاص بها.</p>
+<p>مثال على مكتبة Linux Python القياسية لهدف محلي للقراءة فقط؛ فهو يطالب بالرمز المميز بدلاً من تشفيره ويمسح تجاوز وكيل البيئة لهذه العملية:</p>
+<pre dir="ltr" translate="no"><code class="language-python" dir="ltr" translate="no">import os
+from getpass import getpass
+from urllib.request import (
+    HTTPPasswordMgrWithDefaultRealm,
+    ProxyBasicAuthHandler, ProxyHandler, build_opener,
+)
+
+os.environ["no_proxy"] = ""
+os.environ["NO_PROXY"] = ""
+proxy = "http://127.0.0.1:8900"
+credentials = HTTPPasswordMgrWithDefaultRealm()
+credentials.add_password(None, proxy, "bridge", getpass("Bridge token: "))
+opener = build_opener(
+    ProxyHandler({"http": proxy, "https": proxy}),
+    ProxyBasicAuthHandler(credentials),
+)
+with opener.open("http://localhost:8080/", timeout=20) as response:
+    print(response.status)
+    print(response.read(200).decode("utf-8", errors="replace"))
+</code></pre>
+<p>التحقق من الطلب في حركة المرور الأصلية؛ يمكن أن تحتوي الأنظمة الأساسية الأخرى على قواعد تجاوز وكيل النظام الإضافية. مثال الضفيرة مع صريح <code dir="ltr" translate="no">--noproxy ''</code> هو التحقق من صحة مسار الاسترجاع الأبسط. يحتاج عملاء HTTPS Python بالإضافة إلى ذلك إلى حزمة سياق SSL/CA التي تثق في شهادة المحول.</p>
+<h3 id="pause-and-errors">وقفة وأخطاء</h3>
+<p><strong>إيقاف الطلبات الأصلية مؤقتًا</strong> يمنع الخروج الأصلي الجديد. يمكن أيضًا لحالات المصادقة 401/419/440 أو HTTP 429 أو إغلاق علامة التبويب/التغييرات خارج الأصل أو حدود الميزانية إيقاف العمل مؤقتًا. <strong>استئناف بعد التحقق من علامة التبويب</strong> يستأنف فقط بعد مراجعة حالة الاقتران.</p>
+<p><strong>توقف وافصل</strong> إنهاء اقتران المتصفح؛ ولا ينهي عملية العقدة التي بدأت بشكل منفصل. استخدم Ctrl+C في المحطة الطرفية لإيقاف هذه العملية.</p>
+<p>قد تنتهي الطلبات على متن الطائرة. يتلقى عملاء الوكيل أخطاء بسبب العمل المحظور؛ لا يقوم المحول بتعليق عمليات الأداة التعسفية أو إعادة تشغيل طلباتها. افحص الطلبات التي نجحت واستخدم عناصر التحكم الخاصة بإعادة المحاولة/الاستئناف الخاصة بالأداة. تؤدي إعادة التشغيل/إعادة الاقتران إلى تغيير الرمز المميز وتتطلب تحديث مصادقة الأداة.</p>
+<p>قد يتم توقع 401/419/440 في اختبارات المصادقة السلبية المتعمدة. إذا لزم الأمر، اضبط <code dir="ltr" translate="no">session.pauseStatuses</code> لهذا التشغيل وإعادة التشغيل الذي تمت مراجعته؛ لا يستنتج المحول ما إذا كان كل فشل في المصادقة هو مسبار مقصود.</p>
+<h2 id="tor-and-onion-routing">توجيه تور والبصل</h2>
+<p>تتبع طلبات Longshot المستندة إلى المتصفح شبكة المتصفح المحدد. يعد المحول الأصلي عملية مختلفة ولا يرث إعدادات وكيل متصفح Firefox/Tor.</p>
+<p>الجوارب/تور هو <strong>إيقاف بشكل افتراضي</strong> في التكوين الأصلي. للحصول على تقييم بصلي معتمد، استخدم خدمة SOCKS موجودة بشكل صريح مع تحليل اسم المضيف عن بعد، على سبيل المثال هذا التجاوز إذا كان هذا هو مستمع Tor المحلي الخاص بك حقًا:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "routing": {
+    "socks5": "socks5h://127.0.0.1:9050"
+  }
+}
+</code></pre>
+<p>هذا المثال لا يقوم بتشغيل Tor أو إثبات وجود المنفذ 9050. حدد الخدمة الفعلية التي تم تكوينها؛ قد يستخدم مثيل متصفح Tor مستمعًا مختلفًا. أعد تشغيل المحول وأعد الاقتران. HTTP(S) <code dir="ltr" translate="no">upstream.url</code> و <code dir="ltr" translate="no">routing.socks5</code> متنافية.</p>
+<p>تعمل الرقائق الأصلية على حل أسماء المضيفين من خلال SOCKS ولا يوجد بها أي تراجع مباشر صامت. بدون تكوين مسار المنبع/SOCKS بشكل صريح، يتم رفض الوجهات البصلية المباشرة قبل DNS المستهدف. يمكن أن يشير عنوان URL الخاص بـ SOCKS أيضًا إلى نفق SSH معتمد أو خدمة SOCKS5 أخرى؛ فهو ليس دليلاً جوهريًا على توجيه Tor.</p>
+<p>لا تؤدي مشاركة ملفات تعريف الارتباط إلى جعل عنوان IP للخروج من المسار الأصلي أو بصمة TLS/المتصفح مطابقة لمتصفح Firefox. قد ترفضه التحديات أو ربط الجلسة. تحقق من المسار والجلسة المتوقعة بشكل مستقل.</p>
+<p><strong>تختلف النوى الأصلية المعزولة التي أطلقها Agent API:</strong> لا يحتوي المرحل المدمج على مسار Tor/SOCKS ويحظر الأهداف البصلية قبل نظام DNS. استخدم عمليات التحقق المؤهلة من جانب المتصفح في المتصفح المقصود، أو أداة خارجية تم تكوينها بشكل منفصل من خلال الوكيل الأصلي. لا تفترض أن خانة الاختيار Nuclei ترث <code dir="ltr" translate="no">routing.socks5</code> من جسر المتصفح</p>
+<h2 id="agent-api-mcp-and-local-model-clients">Agent API وMCP وعملاء النموذج المحلي</h2>
+<p>استخدم هذا عندما يتعين على الوكيل/البرنامج النصي تشغيل Longshot أو استرداد الأدلة أو حفظ ملفات التقييم. إنه ليس وكيل حركة المرور: 8900.</p>
+<h3 id="register-and-connect-the-native-host">قم بالتسجيل والاتصال بالمضيف الأصلي</h3>
+<p>من المحتفظ بها <strong>المصدر</strong> يحتوي الدليل <code dir="ltr" translate="no">manifest.json</code> و <code dir="ltr" translate="no">bridge/</code>:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+node bridge/bin/longshot-bridge install
+</code></pre>
+<p>هذا يسجل <code dir="ltr" translate="no">longshot.bridge</code> ومشغّل يشير إلى المجلد المصدر والعقدة القابلة للتنفيذ. احتفظ بكلاهما في مكانه. إذا تحرك أي منهما، قم بالتسجيل مرة أخرى.</p>
+<p>مفتوح <strong>الإعدادات ← الاتصال والإعداد ← توصيل الجسر الأصلي</strong> ومنح إذن المراسلة الأصلية لـ Firefox. يمكن للمضيف أن يبدأ البرنامج الخفي الخاص به تلقائيًا. إذا قمت بتشغيل البرنامج الخفي يدويًا عن عمد:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">node bridge/bin/longshot-bridge serve
+</code></pre>
+<p>تجنب البرنامج الخفي الثاني في نفس دليل المنفذ/البيانات. يؤدي قطع الاتصال إلى إغلاق الاتصال الأصلي للامتداد؛ فهو لا يوقف بالضرورة البرنامج الخفي الذي بدأ بشكل مستقل.</p>
+<p>مطلوب Node.js 20+. لا يحتاج MCP للمراسلة الأصلية إلى تثبيت Python/mitmproxy الخاص بالوكيل. Linux هو الإعداد الممارس. يتم توفير دعم تسجيل macOS ولكن لم يتم التحقق من وقت التشغيل هنا؛ لا يحتوي هذا الإصدار على مثبت Windows Firefox الأصلي. لا يؤدي التسجيل في WSL إلى تسجيل مضيف لنظام التشغيل Windows Firefox. عزل النواة الأصلية هو نظام Linux فقط.</p>
+<p>الخدمة الافتراضية: <code dir="ltr" translate="no">http://127.0.0.1:8765</code>. عنوان المضيف المحلي هذا عبارة عن واجهة برمجة تطبيقات تحكم، <strong>ليس الهدف الممسوح ضوئيا</strong>. الرمز المميز/المقبس افتراضيًا <code dir="ltr" translate="no">$XDG_DATA_HOME/longshot</code> أو <code dir="ltr" translate="no">~/.local/share/longshot</code>. مخصص <code dir="ltr" translate="no">--port</code> و <code dir="ltr" translate="no">--data-dir</code> يجب أن يتطابق عبر التثبيت والخدمة وMCP. استخدم مسار بيانات Unix قصيرًا لأن مسار المقبس الخاص به له حد يبلغ 100 بايت.</p>
+<h3 id="rest-example">مثال الراحة</h3>
+<p>من نفس المجلد المصدر:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">longshot_token_file="$(node bridge/bin/longshot-bridge token-path)"
+longshot_api_token="$(cat "$longshot_token_file")"
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/health
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/targets
+</code></pre>
+<p>ال <code dir="ltr" translate="no">token-path</code> يقوم الأمر بطباعة اسم الملف، وليس الرمز المميز. تستخدم واجهة برمجة التطبيقات (API) مصادقة الحامل، على عكس مصادقة اسم المستخدم/كلمة المرور للوكيل. فهو يرفض عملاء عدم الاسترجاع وطلبات أصل المتصفح ولا يكشف عن واجهة برمجة تطبيقات CORS العامة. لا تنشره من خلال وكيل عكسي عام.</p>
+<p>ابدأ فحصًا صغيرًا فقط بعد توصيل/تنشيط الهدف المقصود والتحقق من خياراته المحفوظة:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  -H 'Content-Type: application/json' \
+  --data '{"target_id":"PROFILE_ID","mode":"safe","budget":150}' \
+  http://127.0.0.1:8765/v1/scans
+</code></pre>
+<p>استبدل PROFILE_ID بمعرف ملف التعريف المحدد. <code dir="ltr" translate="no">safe</code> خرائط لـ Spider فقط؛ ولا يقوم بإعادة تعيين كل خيار متقدم محفوظ أو يعمل كتجاوز عالمي. البداية غير متزامنة. اقرأ معرف التشغيل الذي تم إرجاعه، ثم قم بالمراقبة <code dir="ltr" translate="no">/v1/scans/RUN_ID</code>, <code dir="ltr" translate="no">/eta</code>, <code dir="ltr" translate="no">/findings</code> أو <code dir="ltr" translate="no">/report?format=html</code>. POST <code dir="ltr" translate="no">/pause</code>, <code dir="ltr" translate="no">/resume</code> و <code dir="ltr" translate="no">/stop</code> السيطرة على المدى. استشارة موثقة <code dir="ltr" translate="no">/openapi.json</code> للمخططات الدقيقة.</p>
+<p>ملفات تعريف دعم REST/JSON-RPC وعمليات المسح والنتائج/التقارير والقوالب وعمليات OAST وعمليات الجلسة. <code dir="ltr" translate="no">/rpc</code> يحمل JSON-RPC؛ <code dir="ltr" translate="no">/mcp</code> يقدم MCP HTTP، مع خيارات stdio وSSE. قد تحتفظ سلاسل إصدار البروتوكول/واجهة برمجة التطبيقات (API) الخاصة بالخدمة بإصدارات المخطط الأقدم؛ استخدم بيان الامتداد لإصدار إصدار واجهة المستخدم المثبت.</p>
+<h3 id="mcp-client-setup">إعداد عميل MCP</h3>
+<p>بالنسبة للعميل الذي يدعم تكوين stdio MCP:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "mcpServers": {
+    "longshot": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/longshot-source/bridge/bin/longshot-bridge",
+        "mcp"
+      ]
+    }
+  }
+}
+</code></pre>
+<p>استخدم عقدة مطلقة قابلة للتنفيذ إذا كان لدى العميل مسار مقيد. أضف المطابقة <code dir="ltr" translate="no">--port</code> / <code dir="ltr" translate="no">--data-dir</code> الحجج عند تخصيصها. يتصل مساعد stdio بالخدمة المحلية المصادق عليها؛ فهو لا يحل محل اتصال Firefox.</p>
+<p>يحتوي كتالوج أدوات MCP الحالي على 21 أداة: أدوات المسح/القالب/التقرير/OAST بالإضافة إلى واجهة المستخدم واكتشاف/تحكم الأوامر الدلالية. اكتشف الكتالوج الفعلي بدلاً من الاعتماد على البرنامج التعليمي القديم المكون من ثماني أدوات.</p>
+<table>
+<thead>
+<tr>
+<th>مجموعة الأدوات</th>
+<th>سير العمل</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">longshot_list_targets</code>، أدوات المسح/الحالة/الوقت المتوقع للوصول/النتائج/التقرير</td>
+<td>استخدم معرفات ملف التعريف/التشغيل الصريحة وافحص النتائج غير المتزامنة</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_commands</code>, <code dir="ltr" translate="no">longshot_command</code></td>
+<td>اكتشف الأوامر الدلالية واستدعاء الوسائط المدعومة الخاصة بها</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_pages</code>, <code dir="ltr" translate="no">longshot_ui_open</code></td>
+<td>اكتشاف/فتح لوحات المعلومات الملحقة المرتبطة بالهدف</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_snapshot</code></td>
+<td>اقرأ التصنيفات الفعلية والقيم الحالية ومربعات الحوار ومراجع العناصر</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_action</code>, <code dir="ltr" translate="no">navigate</code>, <code dir="ltr" translate="no">wait</code></td>
+<td>تشغيل عناصر التحكم الموجودة والتحقق من اكتمالها</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_downloads</code>, <code dir="ltr" translate="no">clipboard</code>, <code dir="ltr" translate="no">screenshot</code>, <code dir="ltr" translate="no">focus</code>, <code dir="ltr" translate="no">close</code></td>
+<td>دعم إخراج صفحة الامتداد وإدارة واجهة المستخدم؛ ليس الوصول التعسفي إلى نظام التشغيل</td>
+</tr>
+</tbody>
+</table>
+<p>لا تزال عناصر التحكم المعطلة والنطاق المستهدف والدولة والميزانيات سارية. تتطلب المراجع القديمة لقطة جديدة؛ النقرة المرسلة وحدها لا تثبت النجاح. تظل مطالبات إذن Firefox/OS عناصر تحكم منفصلة للمتصفح/نظام التشغيل.</p>
+<p><strong>حدود الموافقة:</strong> لا يمكن لأوامر الموافقة الدلالية المباشرة إصدار منحة تشغيل عدوانية. يمكن أن تعمل أتمتة واجهة المستخدم الكاملة الموثقة على تشغيل مربع حوار الموافقة الخاص بلوحة المعلومات المقيدة، بما في ذلك زر الموافقة الخاص بها. ومن ثم، فإن منح عنصر التحكم في واجهة المستخدم للوكيل يمنحه إمكانية واجهة المستخدم هذه؛ لا تصف هذا الوصول بأنه غير قادر على النقر فوق الموافقة. لا تزال عمليات التحقق من الهدف/التكوين/انتهاء الاستخدام أحادية الاستخدام سارية.</p>
+<h3 id="hermesollama-or-another-local-model-agent">Hermes/Ollama أو وكيل نموذج محلي آخر</h3>
+<p>لا يقبل Longshot دفق دردشة LLM تعسفيًا أو تحديد نموذج. ال <strong>تطبيق الوكيل</strong> يوفر اتصال النموذج وحلقة استدعاء الأداة. إذا كان وكيلك يدعم MCP، فقم بتكوين خادم MCP أعلاه في هذا الوكيل. يرسل الوكيل استدعاءات الأدوات المدعومة ويستقبل نتائج الأداة؛ يمكنه فحص/التنقل/ملء الامتداد من خلال أدوات واجهة المستخدم المكشوفة بالإضافة إلى استدعاء أوامر الفحص.</p>
+<p>اختر نموذج Ollama والخادم في التكوين الخاص بـ Hermes/الوكيل. استخدم مجموعة النموذج/العميل التي تدعم تنسيق استدعاء أداة الوكيل، وتأكد من السماح للوكيل فعليًا باستدعاء أدوات MCP. تكوين Longshot لا يحتوي على <code dir="ltr" translate="no">model</code>, <code dir="ltr" translate="no">ollama</code> أو إعداد مفتاح API للموفر. يعد الوصول إلى النموذج والوصول إلى shell والتحكم في نظام الملفات غير ذي الصلة من إمكانيات مضيف الوكيل، ولا يتم منحها عن طريق تثبيت هذا الامتداد.</p>
+<p>اجعل النطاق والميزانيات والحساب والإجراءات المقصودة واضحة في مهمة الوكيل. التحقق من صحة النتائج التي تم التوصل إليها مقابل الأدلة المسجلة؛ النص النموذجي ليس نتيجة الماسح الضوئي أو منح الإذن.</p>
+<h3 id="optional-debugging-port-control">التحكم الاختياري في منفذ التصحيح</h3>
+<p>يتضمن المصدر مساعدي تحكم BiDi/CDP وأمر واحد <code dir="ltr" translate="no">bridge/bin/longshot-ui</code> واجهة. هذا هو التحكم المتقدم في الصفحات المملوكة للامتداد. إصدار Chrome عبارة عن حزمة Manifest V3 منفصلة؛ يجب أن تظل طاولة العمل المرئية مفتوحة. يعد فتح مستمع تصحيح أخطاء المتصفح خيارًا منفصلاً لبدء تشغيل المتصفح؛ انظر <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">أمان الوكيل البعيد لـ Firefox</a>.</p>
+<p>يستخدم مساعد التصحيح الاختياري المثبت <code dir="ltr" translate="no">ws</code> التبعية في <code dir="ltr" translate="no">native-bridge/node_modules/ws/</code>. تشغيل <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code> من الخروج المصدر المحتجز أولا. تم تصحيح هذا المسار في سلسلة 2.18؛ محول جلب المتصفح التاريخي الذي تمت إزالته غير مطلوب.</p>
+<h2 id="optional-native-nuclei">النوى الأصلية الاختيارية</h2>
+<p>هناك ثلاثة مسارات قالب متميزة:</p>
+<table>
+<thead>
+<tr>
+<th>الطريق</th>
+<th>المحرك/الجلسة</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>قالب HTTP مستورد متوافق مع المتصفح</td>
+<td>مترجم القالب المدعوم من Longshot وجلسة المتصفح المستهدفة</td>
+</tr>
+<tr>
+<td>خانة اختيار النوى الكاملة الأصلية</td>
+<td>النوى الرسمية المثبتة بشكل منفصل داخل مسار عزل Agent API Linux؛ لا يوجد تسجيل دخول تلقائي إلى Firefox</td>
+</tr>
+<tr>
+<td>النواة الخارجية CLI من خلال جسر المتصفح</td>
+<td>وظيفة CLI المستقلة الخاصة بك؛ يمكن لحركة مرور HTTP الوكيلة المدعومة تلقي ملفات تعريف الارتباط للمتصفح التي تم تكوينها</td>
+</tr>
+</tbody>
+</table>
+<p>بالنسبة للوظائف المحلية التي أطلقتها Longshot:</p>
+<ol>
+<li>قم بتثبيت ثنائي Nuclei الرسمي بشكل منفصل وعرضه على PATH أو مجموعة <code dir="ltr" translate="no">LONGSHOT_NUCLEI</code> قبل بدء تشغيل Agent API.</li>
+<li>قم بتوفير Linux bubblewrap مع مساحات أسماء مستخدم/شبكة غير مميزة.</li>
+<li>بالنسبة للقوالب بدون رأس، قم بتوفير المتصفح المطلوب، اختياريًا من خلال <code dir="ltr" translate="no">LONGSHOT_CHROME</code>.</li>
+<li>قم بتسجيل/توصيل Agent API وفحص الإمكانات الأصلية المُبلغ عنها.</li>
+<li>قم باستيراد القوالب التي تمت مراجعتها وأي ملفات مساعدة نسبية مطلوبة.</li>
+<li>تمكين <strong>تنفيذ النوى الكاملة الأصلية</strong> ولا يلزم سوى إمكانات Code/JavaScript أو Headless أو File الإضافية.</li>
+<li>بالنسبة لقوالب الملفات، قم بتعيين <code dir="ltr" translate="no">LONGSHOT_FILE_ROOT</code> إلى القائمة المسموح بها الصريحة للقراءة فقط قبل بدء تشغيل المضيف.</li>
+<li>حفظ ومراجعة والموافقة على التشغيل؛ فحص الأسباب الجاهزة/المحظورة والمخرجات التي تحمل علامة المنفذ.</li>
+</ol>
+<p>يتمتع العمال بمساحة اسم نظام ملفات/شبكة معزولة، وتخزين مؤقت خاص وتنفيذ محدود من خلال مرحل الهدف. ولا يتلقون تلقائيًا ملفات تعريف الارتباط الخاصة بـ Firefox أو التخزين المحلي للمتصفح أو مسار Tor الخاص بـ Firefox. جلسات مقطوعة الرأس معزولة. لا يعني القالب الأصلي المحظور نتيجة ثغرة أمنية سلبية.</p>
+<p>تتطلب قوالب الكود الأصلي/جافا سكريبت توقيعات موثوقة من قبل المحرك الرسمي. <code dir="ltr" translate="no">LONGSHOT_NUCLEI_CERT</code> يمكن الإشارة إلى شهادة مؤلف عامة تمت مراجعتها؛ لا يقوم المضيف بالتوقيع التلقائي على عمليات الاستيراد أو تحميل مفاتيح التوقيع الخاصة. لا يمكن لقوالب الملفات الأصلية قراءة الدلائل الرئيسية للمضيف بحرية. تظل المفاتيح الإضافية للملف/الكود/بدون رأس منفصلة عن استيراد القالب العام.</p>
+<p>يدعم المرحل الأصلي اتصالات الهدف/المزود المقيدة، وليس الوصول التعسفي إلى الشبكة. يمكن للأهداف البصلية أو أوقات العزل/التشغيل غير المتاحة أو معالجة الهدف غير المدعومة أو نطاقات المسار غير المتوافقة أن تمنع التنفيذ. ينتمي تسجيل Native Interactsh إلى Nuclei، بشكل منفصل عن عميل OAST لمتصفح Longshot. استخدم أدلة النتائج الفعلية وتقارير قدرة النظام الأساسي، وليس علامة "المحرك الكامل"، لتحديد ما تم تشغيله.</p>
+<h2 id="manual-tools-interception-and-api-inventory">الأدوات اليدوية والاعتراض وجرد واجهة برمجة التطبيقات</h2>
+<h3 id="page-guide">دليل الصفحة</h3>
+<table>
+<thead>
+<tr>
+<th>الصفحة</th>
+<th>ما يجب استخدامه ل</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>نظرة عامة</td>
+<td>قم بالاتصال والتحقق من صحة الجلسة وتحديد مجموعات القواعد واختيار العملية ومراقبة التقدم</td>
+</tr>
+<tr>
+<td>خيارات المسح</td>
+<td>المراحل الإضافية، والموافقة، وتشويش الجسم، وإعدادات المزود، والميزانيات</td>
+</tr>
+<tr>
+<td>الأهداف</td>
+<td>ملفات تعريف منفصلة، حدد/أرفق علامة تبويب المتصفح واستعيد الأدلة/الخيارات الخاصة بالهدف</td>
+</tr>
+<tr>
+<td>خريطة الموقع</td>
+<td>عناوين URL/النماذج/المسارات المكتشفة؛ خريطة الملاحظات، وليس دليلا على الاكتشاف الكامل</td>
+</tr>
+<tr>
+<td>تاريخ HTTP</td>
+<td>البيانات التعريفية لحركة مرور المتصفح وردود الماسح الضوئي/المكرر؛ فحص المدخلات والطوابع الزمنية الدقيقة</td>
+</tr>
+<tr>
+<td>مستكشف واجهة برمجة التطبيقات</td>
+<td>العمليات المرصودة/المستوردة وجرد المعلمات؛ إعداد القراءات المدعومة في مكرر</td>
+</tr>
+<tr>
+<td>مكدس الخادم</td>
+<td>بصمات الأصابع والمحلل الذكي المحلي والبحث الاستشاري عن المرشحين</td>
+</tr>
+<tr>
+<td>الرسم البياني للشبكة</td>
+<td>الأصول/عناوين IP/النطاقات المرجعية الملحوظة وأدلة المضيف الظاهري المتاحة؛ العقد الخارجية هي مخزون وليست نطاقًا تلقائيًا</td>
+</tr>
+<tr>
+<td>النتائج</td>
+<td>الأدلة والحكم/الثقة/الخطورة وحالة المراجعة والعارض الكيميائي</td>
+</tr>
+<tr>
+<td>الشيكات WSTG</td>
+<td>أنواع التغطية المرجعية وتنفيذ التدقيق الفعلي لكل إدخال</td>
+</tr>
+<tr>
+<td>قوالب</td>
+<td>تفاصيل الاستيراد والتوافق/المنفذ والاختيار اليدوي وتشغيل النتائج</td>
+</tr>
+<tr>
+<td>مكرر / فوزر</td>
+<td>إعادة الطلب المركز أو الطفرة المقيدة</td>
+</tr>
+<tr>
+<td>المعترض</td>
+<td>احتفظ بمراحل عنوان URL/الرأس المؤهلة لعلامة التبويب المستهدفة</td>
+</tr>
+<tr>
+<td>OAST</td>
+<td>حالة الموفر/رد الاتصال وإجراءات الاختبار والتفاعلات المرتبطة</td>
+</tr>
+<tr>
+<td>ويب سوكيت / إس إس إي</td>
+<td>يحدها التبادلات قناة المرصودة</td>
+</tr>
+<tr>
+<td>قارن</td>
+<td>الاختلافات المحلية بين استجابتين محفوظتين</td>
+</tr>
+<tr>
+<td>التشفير / فك التشفير</td>
+<td>التحويلات المحلية وفحص المطالبة الرمزية</td>
+</tr>
+<tr>
+<td>جسر المتصفح</td>
+<td>قم بإقران وكيل الأداة الأصلية وتكوين تجاوزات الجلسة</td>
+</tr>
+<tr>
+<td>تقرير</td>
+<td>قم بتصدير أدلة الملف الشخصي النشط</td>
+</tr>
+<tr>
+<td>الإعدادات</td>
+<td>إعدادات الطلب/الجلسة والمظهر والاتصال الأصلي وملفات التقييم</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-explorer">مستكشف واجهة برمجة التطبيقات</h3>
+<p>اتصل وتصفح أولاً، ثم اختر <strong>فحص الصفحة الحالية</strong>. استيراد المطور المقدمة <strong>OpenAPI JSON</strong> الوصف عندما يكون متاحًا، يصل إلى 2 ميجابايت. يقرأ JSON المحلي، وليس صفحة بعيدة عشوائية أو ملف YAML. يمكن لمراجع المواصفات المحلية وأمثلة الطلب/الافتراضيات المتاحة أن توفر مدخلات ملموسة مدعومة؛ القيم/الأجسام المفقودة والبنيات غير المدعومة تترك فجوات.</p>
+<p>نقطة النهاية هي عنوان؛ العملية هي عنوان بالإضافة إلى الأسلوب. تظهر مدخلات الاستعلام بعد ذلك <code dir="ltr" translate="no">?</code>ومدخلات المسار في مسار العنوان ومدخلات النص في المحتوى المقدم. العملية المدرجة هي مخزون، وليست دليلاً على أن الحساب الحالي يمكنه الوصول إلى كل كائن يعالجه.</p>
+<p>استخدم <strong>مكرر</strong> بجانب عملية GET/HEAD المدعومة لإعداد طلب دون إرساله بعد. راجع عنوان URL/الطريقة/المدخلات، ثم أرسلها عمدًا. لا تزال عمليات الكتابة للمخزون فقط تتطلب منك إعداد الطلب المناسب والحصول على موافقة الكتابة.</p>
+<h3 id="repeater-and-compare">مكرر ومقارنة</h3>
+<p>يقوم المكرر بإجراء طلب جديد محدد النطاق باستخدام جلسة المتصفح المرتبطة. GET/HEAD/OPTIONS استخدم المسار العادي. تظل أساليب الكتابة وتغييرات الجسم وإمكانيات التدمير/التحميل خاضعة للسياسة والموافقة. لا يمكن استبدال قيم ملفات تعريف الارتباط/الترخيص/المضيف المُدارة بحرية من خلال محرر الرأس الخاص بها؛ استخدم مسار الأداة الخارجية الأصلي لاختبارات الرأس/ملفات تعريف الارتباط التي تم تكوينها بشكل صريح.</p>
+<p><strong>اتبع عمليات إعادة التوجيه من نفس المصدر</strong> يتحكم في ما إذا كنت تقوم بفحص إعادة التوجيه نفسها أو الاستجابة النهائية المسموح بها. عمليات إعادة التوجيه خارج النطاق ليست تفويضًا شاملاً. احتفظ بنصوص الاستجابة عند الحاجة للمراجعة، ثم اختر استجابتين محفوظتين فيها <strong>قارن</strong>. قارن لا يرسل أي طلبات؛ يمكن أن يفسر المحتوى الديناميكي أو حالة تسجيل الدخول أو التقييد أو صفحات WAF الفرق.</p>
+<h3 id="interceptor">المعترض</h3>
+<p>تمكين المعترض و <strong>تطبيق الاعتراض</strong>. امنح إذن حظر Firefox الاختياري من خلال إجراء المستخدم العادي. يبدأ الاعتراض معطلاً بعد إعادة تشغيل الامتداد.</p>
+<table>
+<thead>
+<tr>
+<th>المرحلة / السيطرة</th>
+<th>السلوك</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>تعليق عناوين URL للطلب</td>
+<td>توقف مؤقتًا قبل رؤوس الطلب؛ قم بتحرير عنوان URL/الاستعلام المحدد أو قم بإسقاطه</td>
+</tr>
+<tr>
+<td>عقد رؤوس الطلب</td>
+<td>فحص/تحرير رؤوس الطلب المسموح بها قبل الإرسال</td>
+</tr>
+<tr>
+<td>احتفظ برؤوس الاستجابة</td>
+<td>إيقاف التسليم مؤقتًا بعد وصول الطلب إلى الخادم؛ لا يمكن التراجع عن إجراء من جانب الخادم</td>
+</tr>
+<tr>
+<td>مرشحات الموارد/الطريقة/المسار</td>
+<td>تقييد حركة المرور المؤهلة في علامة التبويب المرتبطة والنطاق المستهدف الدقيق</td>
+</tr>
+<tr>
+<td>عقد المهلة</td>
+<td>الافتراضي 0: لا يوجد إصدار تلقائي. اختياري 10-3600 ثانية، ثم تحديد إجراء التقديم/الإفلات</td>
+</tr>
+<tr>
+<td>مرحلة للأمام</td>
+<td>حل هذه المرحلة؛ يمكن لمرحلة أخرى ممكّنة أن تحتوي على نفس الطلب لاحقًا</td>
+</tr>
+<tr>
+<td>إسقاط الطلب</td>
+<td>إلغاء هذه المرحلة/طلب التسليم</td>
+</tr>
+<tr>
+<td>إعادة توجيه/إسقاط كل شيء معلق</td>
+<td>حل قائمة الانتظار الحالية دون تغيير عوامل التصفية المستقبلية</td>
+</tr>
+<tr>
+<td>إيقاف التشغيل وإعادة التوجيه معلقًا</td>
+<td>نزع سلاح الاعتراض وإطلاق مراحل الانتظار دون تغيير</td>
+</tr>
+</tbody>
+</table>
+<p>يمكن أن تنتهي مهلة التطبيق/المتصفح قبل أن تقوم بتحرير طلب طال انتظاره. يمكن أن تنتظر ما يصل إلى 20 مرحلة؛ يؤدي تجاوز حد قائمة الانتظار إلى إلغاء المزيد من حركة المرور المطابقة. يؤدي تغيير المرشحات إلى تحرير المراحل الحالية دون تغيير. يؤدي إغلاق آخر إصدارات لوحة التحكم إلى مراحل وتعطيل الاعتراض.</p>
+<p>تستخدم الرؤوس المسموح بها مصفوفة JSON من أزواج الاسم/القيمة؛ الحقول الحساسة/المدارة بواسطة المتصفح/التأطير محمية. إعادة كتابة الطريقة/النص/الحالة لطلب الشبكة المعلق غير متاحة. <strong>إرسال إلى مكرر</strong> إنشاء شكل طلب منفصل للتحرير المتعمد؛ إنها ليست عملية إعادة كتابة شفافة للجسم على متن الطائرة.</p>
+<p>حركة مرور HTTP لعلامة التبويب المستهدفة المحددة فقط هي المؤهلة. يتجاوز نقل الماسح الضوئي الاعتراض لتجنب حالة توقف تام. حركة مرور الوكيل الأصلية الخارجية تقع خارج أداة اعتراض المتصفح. تحتاج رسائل WebSocket بعد الترقية إلى منصة عمل القناة المنفصلة الخاصة بها.</p>
+<h3 id="websocket-sse-and-utilities">WebSocket وSSE والمرافق</h3>
+<p>اختر قناة تم اكتشافها داخل النطاق أو أدخل عنوان URL الدقيق الخاص بها. إن الاستماع وإرسال الإطار المخصص هما عمليات معتمدة، وليس ماسحًا ضوئيًا عامًا للبروتوكول. نص الخطأ الذي تم التقاطه هو عميل متوقع؛ لا ينشئ ترخيصًا للرسالة أو خللًا في العرق/المنطق.</p>
+<p>تقوم الأدوات المساعدة بتشفير/فك تشفير القيم وحساب SHA-256 وتنسيق JSON وفحص مطالبات JWT محليًا. لا يعد فك تشفير JWT بمثابة التحقق من التوقيع ولا يثبت أن الخادم يقبل رمزًا مميزًا مزورًا. لا يتم تنفيذ الإدخال المحول أو إرساله تلقائيًا.</p>
+<h2 id="findings-and-the-cimematic-viewer">النتائج والعارض الكمي</h2>
+<h3 id="read-the-evidence-first">اقرأ الأدلة أولاً</h3>
+<p>تحتوي النتيجة على حقول منفصلة:</p>
+<table>
+<thead>
+<tr>
+<th>الميدان</th>
+<th>معنى</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>الشدة</td>
+<td>الضرر المحتمل المقدر إذا كانت المشكلة قابلة للاستغلال</td>
+</tr>
+<tr>
+<td>الحكم</td>
+<td>ما لاحظه الماسح الضوئي: محتمل/متطابق/ضعيف، سلبي، محظور أو غير حاسم، حسب الاقتضاء</td>
+</tr>
+<tr>
+<td>الثقة</td>
+<td>قوة الأدلة المنفذة، وليس مقدار الضرر</td>
+</tr>
+<tr>
+<td>حالة المراجعة</td>
+<td>تقييمك: لم تتم مراجعته، أو أكده المراجع، أو إيجابي كاذب، أو خطر مقبول</td>
+</tr>
+<tr>
+<td>WSTG / CWE</td>
+<td>التصنيف المرجعي، وليس دليلاً على اكتمال الاختبار/الفئة الكاملة</td>
+</tr>
+</tbody>
+</table>
+<p>افحص عنوان URL ونقطة الإدراج والطلب وخط الأساس والحمولة والاستجابة والتكرارات/عناصر التحكم. تحقق مما إذا كان المحتوى قد تم اقتطاعه أو أن الاستجابة كانت عبارة عن صفحة تحدي/تسجيل دخول/خطأ. لا يزال من الممكن أن يمثل الخطأ المتكرر عالي الثقة اكتشافًا محتملاً للحقن يتطلب المراجعة.</p>
+<p>قم بتعيين حالة المراجعة والملاحظات، ثم <strong>حفظ المراجعة</strong>. لا يؤدي هذا إلى استبدال الحكم/الثقة الأصلية للماسح الضوئي. تبقى الإيجابيات الكاذبة أدلة محتفظ بها. مرشحات، بما في ذلك <strong>إظهار سلبي / محظور</strong>، تغيير الرؤية، وليس سجل التنفيذ.</p>
+<h3 id="cimematic-viewer">عارض سيماتيك</h3>
+<p>تم تسمية الزر عمدا <strong>عارض سيماتيك</strong> في هذا الإصدار. يفتح الشرح ثلاثي الأبعاد للنتيجة المحددة.</p>
+<p>يستغرق التسلسل حوالي 9.3 ثانية: حدد موقع المنطقة المتأثرة، وأظهر المدخلات، ووضح المعالجة، وأظهر دليل النتائج المسجلة، ثم اعرض مدى الخطورة وشرحًا للمخاطر المحتملة بلغة واضحة. وتشمل الضوابط المتاحة <strong>وقفة / استئناف</strong>، إعادة، خطوات مرقمة، انتقل إلى التأثير، <strong>عمق ثلاثي الأبعاد</strong> و <strong>ملء الشاشة</strong>. يمكن أن تؤثر إعدادات الحركة المنخفضة مباشرة على التأثير.</p>
+<table>
+<thead>
+<tr>
+<th>الوضع</th>
+<th>ما يظهر</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>لايف / CSS + JS</td>
+<td>تقوم علامة تبويب المعاينة العادية في Firefox بتحميل الصفحة الحالية باستخدام CSS/JavaScript وسياق ملفات تعريف الارتباط المحدد؛ يتلقى العارض الإطارات المقدمة ومستطيلات العناصر</td>
+</tr>
+<tr>
+<td>تم التقاطها فقط</td>
+<td>تم الاحتفاظ بالأدلة باستخدام لغة HTML المعقمة وغير التنفيذية أو الالتقاط؛ لا يتم تشغيل أي موارد أو نصوص برمجية خارجية من خلال هذا الإجراء الاحتياطي دون اتصال بالإنترنت</td>
+</tr>
+<tr>
+<td>النتيجة المسجلة</td>
+<td>مستوى دليل/نتيجة المسح المحفوظ، والذي قد يختلف عن الصفحة المباشرة الحالية</td>
+</tr>
+</tbody>
+</table>
+<p>إنه إطار عرض سينمائي، وليس موقع DOM مستنسخًا تفاعليًا. <strong>افتح علامة التبويب المباشرة</strong> يفتح الصفحة الحقيقية للتفاعل. يمكن أن يؤدي التحميل المباشر العادي إلى طلبات الموارد/التطبيقات العادية للموقع، ولكن فتح العارض لا يؤدي إلى إرسال نموذج الهجوم المحفوظ، أو إعادة تشغيل POST أو إعادة تشغيل الاستغلال.</p>
+<p>يكون موضع الكاميرا دقيقًا فقط عندما يمكن تحديد موقع الإدخال/الاسم/المعرف المطابق. لا يمكن أن تحتوي نتائج واجهة برمجة التطبيقات/الرأس/ملفات تعريف الارتباط على نموذج HTML؛ تتم تسمية طريقة عرض سياق الصفحة على هذا النحو. لا تعمل الرسوم المتحركة أبدًا على ترقية النتائج المحتملة إلى دليل على الاستغلال. إذا فشل العرض المباشر، استخدم الأدلة التي تم التقاطها وتفاصيل النص/الطلب.</p>
+<p>يتم إغلاق علامة تبويب المعاينة المملوكة للعارض عند التنظيف العادي للعارض/لوحة المعلومات؛ تظل علامة التبويب التفاعلية المفتوحة بشكل صريح ملكًا لك لإغلاقها. يمكن أن يؤدي تسجيل الدخول الحالي وحالة الموقع وتحميل التبعية وCSP إلى تغيير ما يعرضه الوضع المباشر.</p>
+<h2 id="owasp-top-10-coverage">تغطية OWASP أعلى 10</h2>
+<p>مفتوح <strong>خيارات المسح → المعلومات</strong> للحصول على جدول تنفيذ مكون من 44 إدخالاً قابلاً للبحث/التصفية، ويمكن الوصول إليه أيضًا من خلال زر معلومات الصفحة. يستخدم <a href="https://top10.owasp.org/2025/">أواسب توب 10:2025</a> مع مراجع أقدم 2021 للتوجيه. تم الآن تجميع SSRF ضمن "التحكم في الوصول المكسور". يمكن أن تتداخل الأمثلة مع الفئات؛ القائمة ليست كتالوج CWE الكامل.</p>
+<p>تسميات الدعم:</p>
+<ul>
+<li><strong>الفحص النشط:</strong> توجد قاعدة مخصصة تم تنفيذها عند تمكينها، للمدخلات التي تم الوصول إليها المدعومة.</li>
+<li><strong>التحقق الاختياري:</strong> يتم تطبيق خيارات أو أذونات أو موفر أو متطلبات تنفيذ إضافية.</li>
+<li><strong>المؤشرات فقط:</strong> إشارة/مقارنة سلبية تتطلب تفسيرًا يدويًا.</li>
+<li><strong>تعتمد على القالب:</strong> يحدد القالب والمنفذ المستوردان الحالة التي تم اختبارها.</li>
+<li><strong>غير مغطى:</strong> لا يوجد أداة تحقق مدمجة مخصصة لتلك الفئة؛ لا تقوم الحمولات المخصصة العامة بإنشاء التغطية تلقائيًا.</li>
+</ul>
+<p>هذا هو تدقيق القدرة على أساس المصدر، <strong>ليست نسبة الكشف المقاسة</strong>. وهو يصف الماسح الضوئي المدمج في Longshot ومراحله الاختيارية، وليس مجموعة قواعد ZAP الخارجية بأكملها.</p>
+<table>
+<thead>
+<tr>
+<th>OWASP 2025</th>
+<th>الضعف / الضعف</th>
+<th>الدعم</th>
+<th>ما يعمل / الخيارات المطلوبة</th>
+<th>حدود</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A05</td>
+<td>حقن SQL: أخطاء قاعدة البيانات والاختلافات المنطقية</td>
+<td>فحص نشط</td>
+<td>تمكين حقن SQL. تستخدم تحقيقات خطأ قاعدة البيانات المتكررة ومقارنات الصواب/الخطأ ضوابط جديدة على المدخلات المكتشفة.</td>
+<td>يحتاج المرشحون إلى المراجعة. لا يوجد استخراج لقاعدة البيانات أو تغطية عمياء شاملة خاصة بنظام إدارة قواعد البيانات (DBMS).</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>حقن SQL الأعمى: التوقيت</td>
+<td>التحقق الاختياري</td>
+<td>تمكين تحقيقات التوقيت المتكررة بموافقة صارمة. تتم مقارنة ثلاثة توقيتات نظيفة مع ثلاثة تحقيقات SLEEP على نقطة الإدراج الأولى.</td>
+<td>بناء جملة SQL ضيق وتوقيت إرشادي؛ يمكن أن يؤدي الارتعاش وWAFs ولهجات قاعدة البيانات المختلفة إلى إخفاء النتيجة أو تقليدها.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>حقن NoSQL</td>
+<td>فحص نشط</td>
+<td>تمكين حقن NoSQL لتوقيعات خطأ MongoDB/BSON المتكررة. يحاول التحقق من التوقيت الاختياري أيضًا إجراء تأخير MongoDB $where على أجسام JSON.</td>
+<td>لا يوجد تجاوز عام للمصادقة المستندة إلى المشغل، أو استخراج NoSQL أعمى أو تغطية لكل محرك NoSQL.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>البرمجة النصية عبر المواقع المنعكسة (XSS)</td>
+<td>فحص نشط</td>
+<td>تمكين XSS المنعكس. تحدد علامة الانعكاس الفريدة وتحقيقات سياق HTML الخاملة المتكررة العلامات ذات المظهر القابل للتنفيذ.</td>
+<td>أدلة سياق HTML هي المرشحة. ولا يقوم بإنشاء تنفيذ البرنامج النصي أو تجاوز سياسة أمان المحتوى.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>DOM XSS من استعلام URL أو مدخلات الأجزاء</td>
+<td>التحقق الاختياري</td>
+<td>تمكين التحقق المباشر من DOM XSS والموافقة على الأذونات العدوانية. يجب تنفيذ قطعتي كناري طازجتين في نفس علامات تبويب متجر ملفات تعريف الارتباط التي يمكن التخلص منها؛ يجب أن تظل السيطرة سلبية.</td>
+<td>مدخلات URL المقيدة فقط. تظل CSP والتبعيات مفروضة؛ المهلات والموارد المحظورة تترك فجوات.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>DOM XSS من تدفقات postMessage أو التخزين أو البيانات العشوائية</td>
+<td>غير مغطى</td>
+<td>قد تحدد تلميحات المصدر/المصدر السلبي أنماط JavaScript المضمنة القريبة للمراجعة.</td>
+<td>لا يوجد تتبع عام للشوائب أو إنشاء رسائل عشوائية أو اختبار تنفيذ مصدر التخزين.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>XSS المخزن والحقن من الدرجة الثانية متعدد الخطوات</td>
+<td>غير مغطى</td>
+<td>قد تحتوي الصفحة التي تمت زيارتها على تعليمات برمجية مشبوهة أو مرشح منعكس.</td>
+<td>لا يوجد ارتباط عام بين الكتابة والتخزين والقراءة أو إعادة تشغيل سير العمل أو التحقق من تنفيذ الحمولة النافعة المخزنة.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>حقن القالب من جانب الخادم (SSTI)</td>
+<td>فحص نشط</td>
+<td>تمكين حقن قالب الخادم. يجب أن تتكرر النتائج الحسابية العشوائية ذات العلامات الفريدة مقابل عناصر التحكم.</td>
+<td>عائلات التعبير المدعومة فقط؛ لا يتم تغطية تنفيذ القالب الأعمى وكل محرك قالب.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>حقن التعليمات البرمجية من جانب الخادم</td>
+<td>فحص نشط</td>
+<td>تمكين حقن التعليمات البرمجية من جانب الخادم. تميز طيور الكناري JavaScript/PHP المحسوبة التقييم عن الانعكاس البسيط.</td>
+<td>مجموعة لغة/سياق صغيرة؛ ليس اختبارًا عالميًا لتنفيذ التعليمات البرمجية عن بُعد.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>حقن أوامر نظام التشغيل</td>
+<td>التحقق الاختياري</td>
+<td>تمكين مؤشرات أوامر نظام التشغيل لتحقيقات إخراج المعرف المتكررة. يمكن أن تقوم تحقيقات الأوامر الاختيارية مع موفر OAST المستمع بربط رد اتصال DNS.</td>
+<td>يتطلب سياق أمر متوافقًا، ولعمليات رد الاتصال، يتطلب الخروج المستهدف. لا رد الاتصال لا يؤسس السلامة.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>CRLF / حقن رأس الاستجابة</td>
+<td>فحص نشط</td>
+<td>تمكين حقن رأس الاستجابة. يجب أن تتكرر علامة رأس الاستجابة التي تم إنشاؤها وأن تكون غائبة عن عناصر التحكم.</td>
+<td>يحد التعامل مع عنوان URL/الرأس في المتصفح من الحمولات. لم يتم إنشاء تقسيم الاستجابة الأولية وتسميم ذاكرة التخزين المؤقت وتأطير الهجمات.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>LDAP، XPath ولغات الحقن الأخرى غير المنفذة</td>
+<td>غير مغطى</td>
+<td>يمكن أن تساعد الحمولات المخصصة أو التشويش التلقائي أو القالب الذي تمت مراجعته في إجراء تحقيق منفصل.</td>
+<td>لا يوجد أداة تحقق مدمجة خاصة باللغة؛ اختلاف الاستجابة ليس تأكيدا.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>اجتياز المسار / إدراج الملف المحلي</td>
+<td>فحص نشط</td>
+<td>تمكين اجتياز / إدراج الملف. يجب أن تتكرر تواقيع محتوى الملف المدعومة على نقاط الإدراج المكتشفة.</td>
+<td>لا يغطي كل ترميز أو نظام تشغيل أو تضمين عن بعد أو ملف عشوائي. لا يوجد دليل جرد القوة الغاشمة.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>تزوير الطلب من جانب الخادم (SSRF)</td>
+<td>التحقق الاختياري</td>
+<td>تمكين SSRF وOAST مع موفر معتمد يمكن الوصول إليه. يسجل الارتباط الدقيق للمسبار تفاعل DNS/HTTP.</td>
+<td>الاختلافات في استجابة العنوان الداخلي هي مجرد تلميحات. يؤدي رد الاتصال إلى إنشاء تفاعل، وليس الوصول الداخلي أو سرقة البيانات؛ قد يقوم الوسطاء بحل الحمولات.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>IDOR / ترخيص الكائن أو الوظيفة المكسورة</td>
+<td>المؤشرات فقط</td>
+<td>قم بتمكين المقارنة مع الجلسة B باستخدام حاوية Firefox مميزة/مخزن ملفات تعريف الارتباط الخاص. ما يصل إلى عشرة طلبات قراءة تقارن الحالة وتجزئات النص.</td>
+<td>لا توجد ملكية كائن أو نموذج دور متوقع؛ الصفحات العامة المتطابقة يمكن أن تكون مشروعة. لا يوجد دليل عام على تصعيد الامتياز.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>تزوير الطلب عبر المواقع (CSRF)</td>
+<td>المؤشرات فقط</td>
+<td>تقارير مراجعة النماذج تنشر النماذج دون حقول الرمز المميز المعترف بها وتتحقق من سمات ملفات تعريف الارتباط المرئية.</td>
+<td>لا يوجد أي استغلال عبر المواقع أو اختبار التحقق من صحة الرمز المميز للخادم. يحتاج SameSite والعناوين المخصصة وعناصر التحكم في سير العمل إلى مراجعة يدوية.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>استغلال تقاسم الموارد عبر الأصل (CORS).</td>
+<td>المؤشرات فقط</td>
+<td>تقوم مراجعة CORS بفحص رؤوس الأصل المسموح به وبيانات الاعتماد.</td>
+<td>لا يوجد اختبار تعسفي لانعكاس الأصل أو التحقق من قراءة بيانات أصل المهاجم. تم رفض أحرف البدل التي تحتوي على بيانات الاعتماد بواسطة المتصفحات.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>فتح إعادة التوجيه</td>
+<td>فحص نشط</td>
+<td>تمكين عمليات إعادة التوجيه المفتوحة. يجب تكرار الوجهة التي تم إنشاؤها .غير صالحة في رأس الموقع. لا يتم اتباع الوجهات الخارجية.</td>
+<td>لا يتم تغطية عمليات إعادة توجيه JavaScript وعمليات إعادة توجيه تسجيل الدخول متعددة الخطوات وكل تجاوز لتطبيع عنوان URL.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>عزل المستأجر وتصعيد الأدوار وتفويض سير العمل</td>
+<td>غير مغطى</td>
+<td>يمكن أن توفر مقارنة الجلسات والطلبات المستوردة دليلاً للمحلل.</td>
+<td>لا يوجد فهم لملكية المستأجر أو الأدوار أو تحولات الحالة أو الإجراءات التجارية المسموح بها.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>رؤوس الأمان مفقودة وضعف CSP ودفاعات Clickjacking</td>
+<td>المؤشرات فقط</td>
+<td>تقوم مراجعة الرأس السلبية أثناء الفحص بفحص CSP والتقييم غير الآمن وسياسة التأطير والتعرف على الاستجابات التي تمت ملاحظتها.</td>
+<td>الدفاعات المفقودة هي إشارات تصلب. لم يتم تحديد قابلية الاستغلال واكتمال السياسة وتأثير معالجة واجهة المستخدم.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>قوائم الدليل، والكشف عن المصدر/التكوين، وآثار التصحيح</td>
+<td>المؤشرات فقط</td>
+<td>تتعرف المراجعة السلبية على علامات القائمة ومصدر PHP وتعيينات مفاتيح التكوين وتتبعات المكدس المحددة في المحتوى الذي تم إرجاعه.</td>
+<td>المحتوى والتوقيعات التي تمت ملاحظتها فقط؛ لا يوجد ملف نسخ احتياطي شامل أو اكتشاف سري أو مخفي للمسؤول.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>حقن كيان خارجي XML (XXE)</td>
+<td>التحقق الاختياري</td>
+<td>قم بتمكين XXE وموفر OAST للاستماع بموافقة صارمة. يتم استبدال نص طلب XML بخاصية رد الاتصال للكيان الخارجي.</td>
+<td>يتطلب طلب XML المجرد. لا يوجد محلل شامل أو SOAP أو قراءة الملفات أو كيان المعلمة أو تغطية الاستخراج الأعمى.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>طرق HTTP الخطيرة</td>
+<td>المؤشرات فقط</td>
+<td>تمكين طرق HTTP المعلن عنها. تقوم OPTIONS بتسجيل رأس السماح بالاستجابة.</td>
+<td>لا يحاول كتابة PUT/DELETE غير المصرح به أو إثبات أن الأساليب المعلن عنها قابلة للاستغلال.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>معالجة معلمات الاستعلام المكررة</td>
+<td>المؤشرات فقط</td>
+<td>تمكين معالجة معلمات الاستعلام المكررة لمقارنات الاستجابة المتكررة من الدرجة الأولى/الأخيرة.</td>
+<td>لا يثبت اختلاف التحليل تجاوز WAF، أو فشل التحكم في الوصول، أو عدم توافق الوكيل/الواجهة الخلفية.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>أذونات السحابة وخدمات الإدارة المخفية وتكوين الواجهة الخلفية</td>
+<td>غير مغطى</td>
+<td>توفر بصمات الأصابع وطرق عرض الهيكل فرضيات مرئية للمتصفح.</td>
+<td>لا يوجد وصول إلى الحساب السحابي أو تدقيق البنية التحتية أو فحص تكوين الخادم أو اكتشاف شامل للشبكة الداخلية.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>تبعيات جافا سكريبت للمتصفح الضعيفة المعروفة</td>
+<td>التحقق الاختياري</td>
+<td>قم بتمكين SCA لمكتبة العميل من مقارنة إصدارات الأصول التي تمت ملاحظتها مع قاعدة البيانات الاستشارية المجمعة الصغيرة.</td>
+<td>ارتباط الإصدار/التوقيع فقط؛ لم يتم التحقق من المنافذ الخلفية والتعليمات البرمجية الضعيفة التي يمكن الوصول إليها وأشجار التبعية الكاملة والأصول غير المرئية.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>CVEs تبعية الخادم ونقاط الضعف في المنتج</td>
+<td>تعتمد على القالب</td>
+<td>تتطلب المرحلة التلقائية لمكافحة التطرف العنيف قوالب مستوردة مؤهلة؛ يتم تشغيل طلباتهم المؤلفة والمطابقات فقط. تتطلب Native Nuclei محركًا منفصلاً وموافقة.</td>
+<td>مطابقات البصمة/الاستشارية وحدها هي المرشحات. لا يوفر اثنان من المجتمعات المبتدئة المجمعة تغطية شاملة لمكافحة التطرف العنيف.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>الحزم المخترقة وCI/CD وتحديثات سلسلة التوريد الضارة</td>
+<td>غير مغطى</td>
+<td>يمكن لأسماء التبعيات أو الإصدارات أن تساعد في إنشاء تعليمات برمجية منفصلة وبناء المراجعة.</td>
+<td>لا يوجد اكتمال SBOM أو تدقيق المستودع/البناء أو أصالة الحزمة أو التحقق من سلسلة التوقيع.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>نماذج كلمة مرور HTTP وHSTS ومراجع الموارد غير الآمنة</td>
+<td>المؤشرات فقط</td>
+<td>تتعرف عمليات التحقق السلبية على نماذج كلمة المرور باستخدام HTTP/GET وغياب HSTS وموارد HTTP المحددة المشار إليها بواسطة ترميز HTTPS.</td>
+<td>ليس اكتشافًا شاملاً للبيانات الحساسة؛ لا يثبت تعرض البيانات أثناء الراحة أو تقييم جميع سلوكيات النقل.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>بروتوكولات/أصفار TLS ضعيفة وإدارة المفاتيح والتشفير في حالة عدم النشاط</td>
+<td>غير مغطى</td>
+<td>يوفر المتصفح اتصال TLS العادي الخاص به.</td>
+<td>لا يوجد تعداد للتشفير/البروتوكول، أو مخزون الشهادات، أو مراجعة تصميم التشفير، أو تدقيق تجزئة كلمة المرور، أو الوصول إلى المفتاح من جانب الخادم.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>منطق الأعمال والتلاعب في الدفع/الأسعار وإساءة استخدام سير العمل</td>
+<td>غير مغطى</td>
+<td>تساعد الطلبات التي تمت ملاحظتها والمكرر في الاختبار اليدوي.</td>
+<td>لا يوجد نموذج للأسعار الصحيحة أو أرصدة الحسابات أو قواعد العمل أو أمر المعاملة أو سلوك التطبيق المقصود.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>ظروف السباق وعيوب تصميم استنفاد الموارد</td>
+<td>غير مغطى</td>
+<td>حدود الطلب وضوابط المعدل المسح المقيد؛ استجابات الحد الأقصى للمعدل هي إشارات تشغيلية.</td>
+<td>لا يوجد حزام سباق متزامن أو التحقق المتعمد من رفض الخدمة.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>سمات ملفات تعريف الارتباط/الجلسة ضعيفة</td>
+<td>المؤشرات فقط</td>
+<td>تقارير مراجعة ملفات تعريف الارتباط تفتقد Secure أو HttpOnly أو SameSite الصريح وSameSite=None بدون Secure.</td>
+<td>غرض ملفات تعريف الارتباط والإعدادات الافتراضية للمتصفح مهمان. لا يؤدي إلى اختطاف الجلسة أو التثبيت أو إبطال تسجيل الخروج أو إنتروبيا الرمز المميز.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>تجاوز تسجيل الدخول، MFA، إعادة تعيين كلمة المرور، القوة الغاشمة والاستيلاء على الحساب</td>
+<td>غير مغطى</td>
+<td>قد يكشف فحص الحقن عن أحد أسباب خلل في تسجيل الدخول. يتحقق مدقق الجلسة مما إذا كان تسجيل الدخول الذي تم تكوينه لا يزال يبدو صالحًا.</td>
+<td>لا يوجد هجوم عام على بيانات الاعتماد، أو اختبار سير العمل MFA/إعادة التعيين، أو تدقيق التأمين أو التحقق من الاستيلاء على الحساب.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>عيوب التحقق من JWT وOAuth وOIDC وSAML</td>
+<td>غير مغطى</td>
+<td>يمكن للأدوات المساعدة فك تشفير JWT محليًا للفحص اليدوي.</td>
+<td>فك التشفير ليس التحقق من التوقيع. لا يوجد ارتباك عام في الخوارزمية أو تزوير الرمز المميز أو تدفق إعادة التوجيه أو اختبار الاتحاد.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>مسار رد الاتصال Log4Shell</td>
+<td>التحقق الاختياري</td>
+<td>تمكين Log4Shell وOAST بالموافقة. يتم وضع كناري رد اتصال JNDI في أول إدخال متاح وإصدار X-Api.</td>
+<td>يحتاج التفاعل المطابق إلى الإسناد والمراجعة؛ لا يثبت تنفيذ التعليمات البرمجية. يمكن لنقاط الإدراج المحدودة والخروج المستهدف أن تفوت المسارات الضعيفة.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>إلغاء التسلسل غير الآمن</td>
+<td>تعتمد على القالب</td>
+<td>يقوم خيار إلغاء التسلسل بتحديد القوالب المستوردة المؤهلة التي تم وضع علامة عليها لإلغاء التسلسل. مراجعة منفذها ومتطلباتها.</td>
+<td>لا يوجد اكتشاف عام لتنسيق الكائن أو مولد سلسلة الأدوات أو أداة التحقق من إلغاء التسلسل الشامل.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>التحديثات غير الموقعة وبيانات التطبيق المزورة وضوابط السلامة</td>
+<td>غير مغطى</td>
+<td>قد تساعد الاستجابات الملتقطة والبيانات التي تم فك تشفيرها في التحليل اليدوي.</td>
+<td>لا يوجد نموذج ثقة للتطبيق أو التحقق من صحة توقيع التحديث أو تدقيق توقيع البيانات أو التحقق العام من التعيين الجماعي.</td>
+</tr>
+<tr>
+<td>A09</td>
+<td>سجلات الأمان المفقودة والتنبيه وسلامة السجل والكشف عن الحوادث</td>
+<td>غير مغطى</td>
+<td>تسجل Longshot أدلة المسح الخاصة بها ومجلة الطلبات المحلية.</td>
+<td>لا تكشف سجلات الماسح الضوئي ما إذا كان التطبيق يقوم بالتسجيل أو التنبيهات بشكل صحيح؛ فحص أدلة الخادم/SIEM وتشغيل السيناريوهات المراقبة.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>تسرب المعلومات من الاستجابات الاستثنائية</td>
+<td>المؤشرات فقط</td>
+<td>يمكن أن يلاحظ الكشف السلبي عن الأخطاء وعناصر التحكم في الحقن النشط آثار المكدس المحددة وأخطاء قاعدة البيانات المقدمة حديثًا.</td>
+<td>عاد الأدلة فقط. لا يعد الخطأ العام أو HTTP 500 وحده ثغرة أمنية تم التحقق منها.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>سلوك الفشل في الفتح، وفشل التراجع، واسترداد الاستثناءات غير الآمنة</td>
+<td>غير مغطى</td>
+<td>يمكن لاختلافات الحالة/الجسم أن توجه التحقيق اليدوي.</td>
+<td>لا يوجد خطأ عام، أو تأكيدات التراجع عن المعاملة، أو التعافي من الأعطال، أو نموذج التحكم في الوصول إلى مسار الاستثناء.</td>
+</tr>
+<tr>
+<td>أخرى</td>
+<td>تهريب طلبات HTTP، والتأطير المشوه، وتسميم ذاكرة التخزين المؤقت، وهجمات المضيف</td>
+<td>غير مغطى</td>
+<td>يستخدم الماسح الضوئي المدمج شبكة المتصفح ويحمي الرؤوس المُدارة.</td>
+<td>الأدوات الخارجية من خلال الوكيل الأصلي منفصلة. كما أن نقل HTTP الذي تم تحليله ليس محرك تهريب شفاف البايت أو محرك TLS مخصص.</td>
+</tr>
+<tr>
+<td>أخرى</td>
+<td>نقاط الضعف في تطبيق WebSocket / SSE</td>
+<td>المؤشرات فقط</td>
+<td>تقوم اختبارات القنوات المحدودة الاختيارية بالتقاط التبادلات والإبلاغ عن نص الخطأ المحدد.</td>
+<td>لا يوجد ترخيص مدرك للبروتوكول، أو تشويش مخطط الرسالة، أو اختطاف WebSocket عبر المواقع، أو التحقق من منطق الأعمال.</td>
+</tr>
+<tr>
+<td>أخرى</td>
+<td>تحميل الملفات ومنطق GraphQL/SOAP والبروتوكولات الثنائية غير المدعومة</td>
+<td>غير مغطى</td>
+<td>يمكن لطلبات HTTP المكتشفة أن تكشف عن المدخلات العددية المدعومة لإجراء فحوصات عامة.</td>
+<td>لا يوجد تنفيذ مخصص للتحميل، أو ترخيص/تعقيد GraphQL، أو SOAP شامل أو ماسح ضوئي للبروتوكول الثنائي.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interpreting-actual-run-coverage">تفسير تغطية التشغيل الفعلية</h3>
+<p>تشتمل الخريطة المرجعية الكاملة لـ WSTG على مجموعات فرعية آلية وعمل مساعد وتقييم يدوي. في <strong>تغطية المدخلات الفعلية</strong>:</p>
+<ul>
+<li><strong>مكتمل</strong> يعني أن القاعدة المطبقة انتهت على هذا الإدخال، وليس أن الإدخال آمن.</li>
+<li><strong>جزئي</strong> يعني تنفيذ بعض الأعمال ولكن هناك حدًا أو انقطاعًا أو حالة أخرى حالت دون إكمالها.</li>
+<li><strong>تم تخطيه</strong> يعني أن القاعدة/الإدخال لم يتم تشغيله؛ فحص السبب.</li>
+</ul>
+<p>يمكن أن يؤدي WAF، أو الدور المفقود، أو الجلسة غير الصالحة، أو سير العمل المخفي / الذي لم تتم زيارته، أو نص الطلب غير المتاح، أو CSP أو الميزانية المستنفدة إلى ترك المدخلات الضعيفة دون اختبار. لا يؤدي إقران الوكيل الأصلي إلى إزالة هذه الحدود من الماسح الضوئي المدمج. إن إصدار CVE الذي تمت ملاحظته أو الرأس المفقود أو الاستجابة المختلفة لا يعد بمثابة استغلال تلقائيًا.</p>
+<p>اجتاز الإصدار 2.18.1 192 اختبارًا آليًا للوحدة/الانحدار، وثمانية اختبارات حقيقية لـ Chrome وثمانية اختبارات حقيقية لـ Firefox، بما في ذلك التحقق من ZIP/YAML CSP وحركة مرور ZAP الأصلية مقابل تثبيتات SQLite المملوكة. يتم التحقق من مكتبات المتصفح الرسمية الخاصة به بايت مقابل بايت، كما أن إعادة بناء المصدر النظيف تعيد إنتاج Firefox XPI تمامًا. تتحقق هذه الاختبارات من صحة سلوك التنفيذ المسمى؛ ولا تظهر اكتشافًا لكل تحديات Juice Shop أو WebGoat أو bWAPP أو NodeGoat. تتحقق نتيجة ZAP SQLi الخارجية من مسار الوكيل، وليس استدعاء Longshot عبر جميع الثغرات الأمنية.</p>
+<h2 id="recovery-assessment-files-and-reports">ملفات الاسترداد والتقييم والتقارير</h2>
+<h3 id="keep-recovery-paths-separate">أبقِ مسارات الاسترداد منفصلة</h3>
+<table>
+<thead>
+<tr>
+<th>المسار</th>
+<th>ماذا تفعل بعد الفشل</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>مسح/جلسة مدمجة</td>
+<td>قم بمراجعة مربع حوار استرداد لوحة المعلومات، وقم بتسجيل الدخول مرة أخرى في سياق ملف تعريف الارتباط الأصلي، ثم تحقق من صحته واستمر عندما يُسمح بذلك</td>
+</tr>
+<tr>
+<td>وكيل الأداة الأصلية</td>
+<td>تحقق من المحول وعلامة التبويب/المتجر والرمز المميز وسبب الإيقاف المؤقت؛ استئناف/إعادة الاقتران بشكل صريح، ثم استخدم إعادة المحاولة/الاستئناف الخاصة بالأداة الخارجية</td>
+</tr>
+<tr>
+<td>واجهة برمجة تطبيقات الوكيل</td>
+<td>استعادة اتصال المراسلة/البرنامج الخفي الأصلي؛ ثم قم بفحص حالة التشغيل الحالية قبل إصدار بداية أخرى</td>
+</tr>
+<tr>
+<td>إعادة تشغيل المتصفح / التقييم المستورد</td>
+<td>استعادة الأدلة المحفوظة وإعادة التحقق من صحة تسجيل الدخول؛ لا تفترض أن عملية الشبكة أثناء الرحلة أو قائمة انتظار الفحص المباشر الكاملة قد نجا</td>
+</tr>
+</tbody>
+</table>
+<p>يمنع التحقق من صحة المصادقة المستقلة كل طفرة تسجيل دخول تم رفضها عمدًا من الخلط بين انتهاء الجلسة. قم بتكوين أداة التحقق المحمية ذات معنى. قد تدعم قائمة الانتظار المباشرة الاسترداد أثناء تشغيل الامتداد، لكن ملف الجلسة المحفوظة لا يعيد بناء عملية كتابة غير مؤكدة أو يعيد تشغيل الفحص المتقطع بالكامل تلقائيًا.</p>
+<h3 id="browser-storage-and-optional-session-files">تخزين المتصفح وملفات الجلسة الاختيارية</h3>
+<p>يظل تخزين المتصفح نشطًا بشكل مستقل عن أي من الجسرين المحليين. فهو يحتفظ بسجل الملف الشخصي والنتائج والمراجعات والمخزون والخيارات. يمكن الاحتفاظ بهيئات الاستجابة من خلال تنقيحها بأقصى جهد؛ غالبًا ما تحتوي حركة المرور التي تتم مراقبتها بواسطة المتصفح على بيانات وصفية بدون نص تم التقاطه.</p>
+<p>لنقاط فحص الملفات التلقائية:</p>
+<ol>
+<li>التسجيل/الاتصال <strong>واجهة برمجة تطبيقات الوكيل</strong>، وليس فقط جسر المتصفح.</li>
+<li>مفتوح <strong>الإعدادات ← جلسات التقييم ← التعليمات</strong>.</li>
+<li>أدخل المطلقة <strong>مجلد الجلسة</strong> على كمبيوتر Agent API.</li>
+<li>تمكين <strong>حفظ ملفات الجلسة تلقائيًا</strong> واختر <strong>حفظ إعدادات الجلسة</strong>.</li>
+<li>استخدم <strong>احفظ الجلسة الآن</strong> لنقطة تفتيش فورية؛ تؤدي التغييرات العادية أيضًا إلى عمليات الحفظ.</li>
+<li>استخدم <strong>تصدير الجلسة الحالية</strong> / <strong>استيراد ملف الجلسة</strong> للنقل اليدوي؛ لا يتطلب الاستيراد اليدوي المضيف الأصلي.</li>
+</ol>
+<p>تستخدم الملفات معرفات ملفات التعريف الثابتة مع <code dir="ltr" translate="no">.longshot.json</code>، مما يسمح بملفات تعريف واضحة لأصل واحد. وهي عبارة عن أرشيفات تقييم قابلة للقراءة وغير مشفرة ويمكن أن تحتوي على بيانات التطبيق والنماذج المؤلفة والهيئات المحتجزة. يتم استبعاد ملفات تعريف الارتباط التي يديرها المتصفح ورموز الموفر ومنح التنفيذ.</p>
+<p>عمليات الكتابة هي نقاط تفتيش ذرية للملف الخاص. يمكن للإنهاء المفاجئ استرداد آخر عملية حفظ مكتملة فقط. تتم مقاطعة عمليات المسح الجارية المستعادة. إذا تم قطع اتصال الجسر، يستمر تخزين المتصفح وينتظر حفظ الملف؛ يمكن أن تتطلب نقاط التفتيش الممكّنة التي لم يتم حلها إعادة الاتصال أو تعطيل حفظ الملف قبل تبديل الأهداف. الحد الأقصى لحجم ملف الجلسة هو 256 ميجابايت مع وجود خطأ صريح.</p>
+<p>يختلف تقييم تصدير الأرشيف عن <strong>تحميل التكوين</strong> في جسر المتصفح. الأول يحفظ أدلة/خيارات التقييم؛ هذا الأخير يحفظ إعدادات الوكيل الأصلية.</p>
+<h3 id="reports">التقارير</h3>
+<p>قم بمراجعة ملف التعريف النشط قبل التصدير؛ تتوفر أيضًا تقارير الفحص التاريخية من خلال Agent API. تحتوي التقارير المتوافقة مع الموضوع على مخططات وأدلة، ولكن أعداد المخططات هي أعداد تنبيهات، وليست عددًا من العيوب الفريدة القابلة للاستغلال والتي تم التحقق منها.</p>
+<table>
+<thead>
+<tr>
+<th>التنسيق</th>
+<th>استخدام / الحد</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>تقرير مستقل دون اتصال بالإنترنت يحتوي على مخططات مضمنة وبحث/مرشحات وتفاصيل الأدلة والموضوع وعناصر التحكم في الطباعة</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>الأدلة المنقحة المنظمة، وتكوين المسح وتغطية المدخلات المسجلة</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>تبادل جدولي؛ الحقول المتداخلة متسلسلة وبادئات صيغة جدول البيانات محمية</td>
+</tr>
+<tr>
+<td>SARIF 2.1.0</td>
+<td>تكامل الأدوات مع الخطورة/الثقة/الحكم/المرجع ومراجعة البيانات الوصفية</td>
+</tr>
+<tr>
+<td>طباعة / قوات الدفاع الشعبي</td>
+<td>افتح تقرير HTML واستخدم Firefox print / Save to PDF؛ يمكن لخيار PDF الخاص بواجهة برمجة التطبيقات إرجاع تعليمات الطباعة بتنسيق HTML بالإضافة إلى وحدات بايت PDF الجاهزة</td>
+</tr>
+</tbody>
+</table>
+<p>حالة المراجعة والملاحظات منفصلة عن حكم الماسح الضوئي. تظل مراجعات المخاطر الإيجابية الكاذبة/المقبولة قابلة للتدقيق؛ يتضمن SARIF معلومات المراجعة وعمليات المنع حيثما ينطبق ذلك. إن التنقيح بأقصى جهد لا يضمن أن الصفحة/النص الأساسي الذي تم الاحتفاظ به لا يحتوي على بيانات التطبيق. قم بمراجعة التصدير الفعلي قبل المشاركة.</p>
+<p>تظل تقارير ZAP/sqlmap/ffuf الخارجية منفصلة. البيانات التعريفية لحركة المرور الأصلية ليست نسخة من سجل الطلب/الاستجابة الكامل أو النتائج.</p>
+<h2 id="appearance-language-and-help">المظهر واللغة والمساعدة</h2>
+<p>تعتبر السمات عالمية ويمكن أن تتغير أثناء الفحص دون تغيير منحة الفحص. تتضمن القائمة System وDark وLight وCybersteppe وMr.Robot وIron Man والموضوعات المخصصة المحفوظة. يضيق التخطيط التكيفي عناصر التحكم؛ يحتوي جدول التغطية على منطقة تمرير أفقية خاصة به للأعمدة التفصيلية.</p>
+<p>تحت <strong>الإعدادات → السمات وصوت التنبيه</strong>:</p>
+<ul>
+<li>اختر السمة النشطة وصوت/مستوى صوت التنبيه؛ <strong>اختبار صوت التنبيه</strong> معاينة التنبيه المحدد.</li>
+<li>تحرير المدمج في و <strong>حفظ كموضوع جديد</strong> / duplicate to create a custom theme.</li>
+<li>حدد خطوط واجهة المستخدم/الأكواد المجمعة/النظام، واللوحة، والعتامة، والخلفية، والصوت.</li>
+<li>تصدير/استيراد موضوع JSON؛ لا يؤدي الاستيراد إلى تنفيذ CSS أو البرامج النصية التعسفية.</li>
+<li><strong>الرسوم المتحركة والأصوات</strong> يتحكم في الحركة وواجهة الصوت لكل موضوع. لا تزال إعدادات تقليل الحركة وكتم الصوت في المتصفح/النظام مهمة.</li>
+</ul>
+<p>يتمتع Dark/Light وCybersteppe وMr. Robot وIron Man بمعالجات بصرية/صوتية مختلفة. فتح/تحديد القائمة المنسدلة صامت. إشارات الاختيار المؤازرة خاصة بالرجل الحديدي. تنبيهات الفشل الأمني ​​منفصلة عن أصوات الواجهة العادية.</p>
+<p>توفر قائمة اللغات 20 لغة مجمعة: الإنجليزية والروسية والألمانية والفرنسية والصينية المبسطة واليابانية والإسبانية والهندية والبرتغالية والعربية والبنغالية والأردية والإندونيسية والتركية والكورية والإيطالية والفيتنامية والتاميلية والتيلجو والماراثية. يتم تضمين التغطية الجديدة/نص واجهة المستخدم الأصلي في الكتالوجات التكميلية. هذه عبارة عن ترجمات آلية مجمعة لنثر واجهة المستخدم العامة، وليست خدمة ترجمة وقت التشغيل. تحتفظ الصفحات المستهدفة والحمولات وعناوين URL وأسماء الحقول/الرموز وأمثلة الأوامر التي تم التقاطها بنصها الأصلي.</p>
+<p>استخدم <strong>معلومات/تعليمات</strong>وتلميحات التحكم و <strong>كيفية استخدام هذه الصفحة · شرح الشروط</strong> للسياق. شروط الارتباط للمواد المرجعية. يؤدي مرشح/بحث المعلومات إلى تغيير الشرح المعروض فقط؛ لا يقوم بتمكين الشيكات. <strong>البدء</strong> هي بالضبط ثماني شرائح ويمكن إعادتها بعد الفصل.</p>
+<p>تستخدم لقطات شاشة الإصدار الحالي أداة استرجاع مؤقتة مملوكة لـ SQLite. تعد منافذها العشوائية وبيانات حساب العينة بمثابة عناصر اختبارية، وليست تكوينًا مطلوبًا لتطبيقك:</p>
+<blockquote>
+<p><strong>حوار التغطية</strong>
+<img alt="مسح سطح المكتب التغطية" src="/longshot-security-site/docs/assets/scan-coverage-desktop.png"/>
+<strong>تخطيط ضيق للرجل الحديدي مع نص التغطية الروسي</strong>
+<img alt="مسح تغطية الحديد رو ضيق" src="/longshot-security-site/docs/assets/scan-coverage-iron-narrow-ru.png"/>
+<strong>صفحة الوكيل الأصلية</strong>
+<img alt="وكيل الأداة الأصلية" src="/longshot-security-site/docs/assets/native-tool-proxy.png"/></p>
+</blockquote>
+<h2 id="troubleshooting">استكشاف الأخطاء وإصلاحها</h2>
+<table>
+<thead>
+<tr>
+<th>أعراض</th>
+<th>المنطقة المحددة للتحقق/الإجراء التالي</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ذهب التمديد بعد إعادة التشغيل</td>
+<td>مؤقت <code dir="ltr" translate="no">about:debugging</code> ينتهي التثبيت عند إعادة التشغيل. أعد تحميل XPI أو استخدم تثبيت التطوير الموقع/المستمر المناسب</td>
+</tr>
+<tr>
+<td>واجهة مستخدم/إصدار خاطئ بعد التحديث</td>
+<td>التحقق من نسخة البيان/المعروضة؛ أعد تحميل XPI المقصود وأغلق لوحات المعلومات القديمة. يمكن أن تحتفظ أسماء الدليل المصدر بالإصدارات القديمة</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find package 'ws'</code></td>
+<td>التحقق من المسار في الخطأ. يتضمن المحول الأصلي الكامل الذي تم تنزيله ws؛ يحتاج دليل مصدر أصلي جديد <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code>. يعد الخطأ الموجود أسفل مسار المحول القديم بمثابة إعداد قديم، وليس الجديد <code dir="ltr" translate="no">cli.js</code> الأمر</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find module .../bridge/bin/longshot-bridge</code></td>
+<td>قم بتشغيل أوامر Agent API من الجذر المصدر الذي يحتوي على <code dir="ltr" translate="no">bridge/</code>أو استخدم مسار البرنامج النصي المطلق. الوكيل الأصلي ZIP ليس مصدر Agent API الكامل</td>
+</tr>
+<tr>
+<td>لا يبدأ المحول / mitmdump مفقود</td>
+<td>تشغيل <code dir="ltr" translate="no">python3 bootstrap.py</code> باستخدام Python 3.12+ أو حدد وقت التشغيل المثبت المقصود باستخدام <code dir="ltr" translate="no">--mitmdump</code></td>
+</tr>
+<tr>
+<td>لا يمكن للاقتران الاتصال</td>
+<td>استخدم منفذ التحكم 8901 والرمز الحالي والتيار الدقيق <code dir="ltr" translate="no">moz-extension://...</code> أصل. تأكد من أن عملية المحول جاهزة</td>
+</tr>
+<tr>
+<td>تحصل الأداة على فشل في مصادقة الوكيل</td>
+<td>استخدم منفذ الوكيل 8900 وجسر اسم المستخدم والرمز المميز الحالي. قم بتحديث كل أداة بعد إعادة تشغيل المحول</td>
+</tr>
+<tr>
+<td>المحتوى المباشر/العام بدلاً من طلب الوكيل المتوقع</td>
+<td>تحقق من NO_PROXY/no_proxy واستثناءات الأدوات وإعدادات الوكيل. تأكد من ظهور الطلب في حركة المرور الأصلية</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">bridge.invalid</code> فشل</td>
+<td>الاسم المستعار القديم سير العمل. استخدم عنوان URL الهدف الحقيقي ولا يوجد إدخال لملف المضيفين</td>
+</tr>
+<tr>
+<td>تم رفض التكوين / خاصية غير معروفة</td>
+<td>لا تعيد الاستخدام <code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>أو نماذج النطاق/الوقت القديمة أو عناصر تحكم واجهة برمجة التطبيقات القديمة. تصدير التكوين الأصلي واستخدام مفاتيحه المدعومة</td>
+</tr>
+<tr>
+<td>خطأ في التحقق من الشهادة</td>
+<td>قم بتمييز العميل ← ثقة المحول من المحول ← التحقق من الأصل. ثق بالمحول العام المطبوع CA الموجود في الأداة؛ تحقق من شهادة الخادم الحقيقي بشكل منفصل</td>
+</tr>
+<tr>
+<td>ملفات تعريف الارتباط في المتصفح لا تصل إلى الأداة</td>
+<td>تحقق من علامة التبويب/المتجر المحدد، والمجال/المسار/الآمن/القسم القابل للتطبيق، وملفات تعريف الارتباط الممكّنة، والأسماء المحمية وما إذا كان الطلب قد اجتاز الوكيل بالفعل</td>
+</tr>
+<tr>
+<td>تقوم الأداة بإرسال مسبار ملفات تعريف الارتباط ولكنه يختفي</td>
+<td>تعطيل/حماية التجاوز ذي الصلة أو إضافة X-Longshot-Preserve / إيقاف تجاوز الطلب. لا تعتمد على اكتشاف نية الطلب الأول</td>
+</tr>
+<tr>
+<td>لا يزال ملف تعريف ارتباط المتصفح يتغير مع إيقاف تجاوز الطلب</td>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code> مستقلة. قم بتعطيله أيضًا إذا كانت مزامنة الاستجابة غير مرغوب فيها</td>
+</tr>
+<tr>
+<td>401/419/440 أو 429 يوقف الوكيل الأصلي مؤقتًا</td>
+<td>قم بمراجعة علامة التبويب/الجلسة/التقييد، ثم استأنفها بشكل صريح. قد تحتاج اختبارات المصادقة السلبية المتعمدة إلى تغيير تكوين حالة الإيقاف المؤقت الذي تمت مراجعته وإعادة التشغيل</td>
+</tr>
+<tr>
+<td>يقبل WAF متصفح Firefox ولكنه يرفض حركة المرور المحلية</td>
+<td>لا يؤدي نسخ ملفات تعريف الارتباط/UA إلى إعادة إنتاج سلوك TLS/IP/المتصفح أو تنفيذ تحديات JavaScript. قم بمراجعة طريق وأدلة التقييم المسموح بها</td>
+</tr>
+<tr>
+<td>تم حظر هدف البصل</td>
+<td>قم بتكوين مسار SOCKS/upstream صريح وحقيقي في المحول الأصلي. المدمج في/المتصفح والنواة الأصلية المعزولة لها توجيه مختلف</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">permissions.request may only be called from a user input handler</code></td>
+<td>استخدم سير عمل الموافقة على التمديد الحالي. احفظ، راجع، ثم انقر فوق الموافقة على هذا التشغيل التالي لطلب الأذونات المفقودة؛ لا تستدعي الأذونات من تغيير إعداد الوكيل/الخلفية غير المتزامن</td>
+</tr>
+<tr>
+<td>خطأ عام في مُنشئ عنوان URL بعد الحد الأقصى للنتائج</td>
+<td>تحقق <strong>عنوان URL لموفر OAST</strong> و <strong>مجال رد الاتصال</strong>، بشكل مستقل عن عنوان URL المستهدف. املأ القيم المطابقة أو قم بتعطيل OAST؛ يحدد التحقق الحالي الحقل ذي الصلة</td>
+</tr>
+<tr>
+<td>تم إيقاف الوضع العدواني ولكن تظل الخيارات المتقدمة ممكنة</td>
+<td>قم بتعطيل الميزات المدرجة أو تمكين/حفظ العدوانية والموافقة على التشغيل التالي</td>
+</tr>
+<tr>
+<td>الجلسة ب مفقودة/غير صالحة</td>
+<td>حدد علامة تبويب مميزة من نفس المصدر في حاوية أخرى/مخزن ملفات تعريف الارتباط الخاص؛ علامات التبويب العادية لا توفر ملفات تعريف الارتباط المستقلة</td>
+</tr>
+<tr>
+<td>انتهت الموافقة/المستخدمة/المتغيرة</td>
+<td>حفظ الإعدادات النهائية والموافقة على منحة جديدة للتشغيل التالي؛ انتهاء الصلاحية هو 30 دقيقة وهو للاستخدام مرة واحدة</td>
+</tr>
+<tr>
+<td>لا يحتوي Run Fuzzer على أي طلب مفيد</td>
+<td>قم بتوفير عنوان URL محدد النطاق ومعلمة الاستعلام ومجموعة الحمولة النافعة المختارة غير الفارغة، أو استخدم التشويش التلقائي المنفصل بعد اكتشاف المخزون</td>
+</tr>
+<tr>
+<td>فشل تحديث مكتبة التحقيق</td>
+<td>تحقق من المصدر/الشبكة/سبب التحقق من الصحة المُبلغ عنه. يتم الاحتفاظ بالبيانات المخزنة مؤقتًا السابقة؛ لا تتم إعادة تشغيل عمليات فحص الهدف تلقائيًا</td>
+</tr>
+<tr>
+<td>لا توجد نتائج / عدد قليل جدا من الشيكات</td>
+<td>قراءة تغطية المدخلات الفعلية المكتملة/الجزئية/المتخطية؛ فحص الاكتشاف وتسجيل الدخول والميزانيات ونوع الاستجابة والحظر والاستثناءات</td>
+</tr>
+<tr>
+<td>الخيارات تسمح بالحذف</td>
+<td>المخزون فقط. ولا يثبت أن عمليات الكتابة غير المصادق عليها أو أن Longshot حاولت القيام بها</td>
+</tr>
+<tr>
+<td>يمر اتصال OAST ولكن لا يوجد رد اتصال مستهدف</td>
+<td>تشغيل اختبار رد اتصال المتصفح، والتحقق من مطابقة الموفر/المجال، وTTL، والخروج المستهدف؛ يبقى الغياب غير حاسم</td>
+</tr>
+<tr>
+<td>القالب الأصلي محظور</td>
+<td>قراءة سبب المنفذ/القدرة: قد تكون النواة/العزل/المساعد/التوقيع/النطاق/الموافقة/التوجيه مفقودة</td>
+</tr>
+<tr>
+<td>لا يمكن للمحلل الذكي تسمية الواجهة الخلفية</td>
+<td>غير معروف نتيجة صحيحة. يمكن لطبقات WAF/الوكيل إخفاء الأدلة أو إعادة كتابتها؛ التحقق من مخزون النشر يدويًا</td>
+</tr>
+<tr>
+<td>عارض سيماتيك يفتقر إلى صفحة حية</td>
+<td>التحقق من علامة التبويب النشطة/تسجيل الدخول/الأصل، وقيود الالتقاط/التحميل والتبعيات؛ استخدم الأدلة الملتقطة والمسجلة فقط</td>
+</tr>
+<tr>
+<td>يشير العارض إلى منطقة الصفحة العامة</td>
+<td>قد لا يكون هناك حقل HTML مطابق للبحث عن الرأس/واجهة برمجة التطبيقات/ملف تعريف الارتباط. تحديد موضع سياق الصفحة ليس دليلاً دقيقًا على الإدخال</td>
+</tr>
+<tr>
+<td>ملفات التقييم في انتظار/خطأ</td>
+<td>قم بتوصيل Agent API، وتحقق من المجلد/الحالة المطلقة المختارة ونقاط التفتيش المعلقة. يظل تخزين المتصفح منفصلاً</td>
+</tr>
+<tr>
+<td>لا تحتوي حركة المرور الأصلية على هيئات استجابة أو نتائج ZAP</td>
+<td>عرض البيانات الوصفية المتوقع فقط؛ فحص التاريخ والتقرير الخاص بالأداة الخارجية</td>
+</tr>
+<tr>
+<td>استجابة PDF API هي HTML/تعليمات</td>
+<td>استخدم الطباعة / الحفظ في PDF؛ لا تقم بإعادة تسمية بايتات HTML إلى .pdf</td>
+</tr>
+<tr>
+<td>لا تزال واجهة المستخدم المترجمة تظهر اللغة الإنجليزية</td>
+<td>يتم الاحتفاظ عمدا بمصطلحات التعليمات البرمجية وعينات الأوامر وعناوين URL والحمولات والأدلة التي تم التقاطها. التحقق من الإصدار/اللغة لمعرفة النثر الفعلي لواجهة المستخدم؛ يمكن أن تختلف جودة الترجمة الآلية</td>
+</tr>
+</tbody>
+</table>
+<p>بالنسبة للتشخيصات، ابدأ من الرسالة الخاصة بالحقل وسجلات المكونات ذات الصلة. يتطلب خطأ إقران الوكيل الأصلي وفشل جلسة فحص المتصفح وفشل اتصال Agent API إصلاحات مختلفة. لا تتعامل مع إجراء واجهة المستخدم المكتمل أو الاقتران الناجح كدليل على تشغيل كل طلب أو فحص مخطط له.</p>
+<h2 id="terms-and-source-references">المصطلحات ومراجع المصدر</h2>
+<table>
+<thead>
+<tr>
+<th>مصطلح</th>
+<th>معنى / مرجع بلغة واضحة</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">طلب/استجابة HTTP</a></td>
+<td>رسالة إلى خادم الويب / ردها، بما في ذلك الطريقة وعنوان URL والرؤوس والنص الاختياري</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/Origin">الأصل</a></td>
+<td>يتم استخدام المخطط والمضيف والمنفذ كحدود أمان الويب</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies">ملف تعريف الارتباط</a></td>
+<td>تم تحديد الحالة التي يديرها المتصفح للطلبات المعمول بها</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Session_Management">إدارة الجلسة</a></td>
+<td>كيف يتعرف التطبيق على المستخدم عبر الطلبات</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/essential-skills">الحمولة</a></td>
+<td>قيمة اختبار تم إرسالها إلى المدخلات؛ ليس استغلالًا ناجحًا تلقائيًا</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/sql-injection">حقن SQL</a></td>
+<td>يغير الإدخال كيفية تفسير استعلام قاعدة البيانات</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/nosql-injection">حقن NoSQL</a></td>
+<td>يؤدي الإدخال إلى تغيير استعلام قاعدة بيانات غير SQL أو سلوك عامل التشغيل</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a></td>
+<td>تصل البيانات التي يتحكم فيها المهاجم إلى محتوى المتصفح القابل للتنفيذ</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting/dom-based">دوم XSS</a></td>
+<td>تحمل JavaScript من جانب العميل بيانات غير موثوقة إلى مخزن قادر على التنفيذ</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/server-side-template-injection">SSTI</a></td>
+<td>يتم تفسير الإدخال على أنه تعليمات قالب الخادم</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/os-command-injection">حقن الأوامر</a></td>
+<td>يغير الإدخال الأوامر التي يتم تنفيذها بواسطة برنامج/شل نظام التشغيل</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/file-path-traversal">اجتياز المسار</a></td>
+<td>يفلت الإدخال من حدود مسار الملف المقصود</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/ssrf">SSRF</a></td>
+<td>يقوم الخادم بتقديم طلب غير مقصود إلى وجهة أخرى</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/xxe">XXE</a></td>
+<td>تؤدي معالجة الكيان الخارجي لـ XML إلى الوصول غير المقصود إلى الموارد</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/csrf">CSRF</a></td>
+<td>يقوم موقع آخر باستحداث إجراء تطبيق مصادق عليه غير مقصود</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cors">CORS</a></td>
+<td>تتحكم سياسة المتصفح في الوصول إلى الاستجابة عبر الأصل</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/access-control/idor">التحكم في الوصول / IDOR</a></td>
+<td>ما إذا كان يمكن للمستخدم الوصول إلى كائن/إجراء، وليس فقط ما إذا كان يمكن الوصول إلى عنوان URL الخاص به</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/logic-flaws">منطق الأعمال</a></td>
+<td>قواعد حول الأسعار الصحيحة وسير العمل والأرصدة وانتقالات الحالة</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a></td>
+<td>سياسة الموارد/البرامج النصية التي يفرضها المتصفح؛ الرأس المفقود وحده لا يعد تنفيذ XSS</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Web_Application_Firewall">WAF</a></td>
+<td>طبقة تصفية HTTP التي لا يكشف وجودها عن كل قاعدة نشطة</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Reverse_proxy">الوكيل العكسي</a></td>
+<td>وسيط يتلقى الطلبات قبل خادم التطبيق</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/TLS">TLS / كاليفورنيا</a></td>
+<td>يتم استخدام تشفير الاتصال والثقة في الشهادة لمصادقة نقطة النهاية الخاصة به</td>
+</tr>
+<tr>
+<td><a href="https://nvd.nist.gov/vuln">CVE / NVD</a></td>
+<td>معرف/قاعدة بيانات لنقاط الضعف المعروفة؛ مطابقة لافتة لا تعتبر استغلالًا للتحقق</td>
+</tr>
+<tr>
+<td><a href="https://cwe.mitre.org/">CWE</a></td>
+<td>تصنيف أنواع الضعف</td>
+</tr>
+<tr>
+<td><a href="https://top10.owasp.org/2025/">أواسب توب 10:2025</a></td>
+<td>فئات الوعي، وليس مجموعة اختبار الماسح الضوئي كاملة</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-project-web-security-testing-guide/">WSTG</a></td>
+<td>مرجع اختبار أمان الويب الذي يغطي العمل الآلي واليدوي</td>
+</tr>
+</tbody>
+</table>
+<p>أساس التنفيذ لهذا البرنامج التعليمي: البيان 2.18.1؛ <code dir="ltr" translate="no">content/checks.js</code>; <code dir="ltr" translate="no">lib/core.js</code>, <code dir="ltr" translate="no">lib/v2.js</code>، وحدات التدقيق/DOM/التحقيق؛ لوحة القيادة/التعليمات/التغطية/واجهة المستخدم الأصلية؛ تكوين المحول الأصلي، والتجاوزات، وCLI؛ واجهة برمجة تطبيقات الوكيل/العميل الأصلي؛ الافراج عن التحف التحقق من الصحة. عندما تتعارض الوثائق القديمة مع سلوك النقل القديم الذي تمت إزالته، فإن وقت تشغيل 2.18.1 الذي تم شحنه هو الأساس المستخدم هنا.</p>
+<p>مراجع الإعداد الإضافية:</p>
+<ul>
+<li><a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">التثبيت المؤقت لموزيلا</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging">رسائل موزيلا الأصلية</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">إعدادات الاتصال الصادرة ZAP</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/">سياسة وقيود الفحص النشط لـ ZAP</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/concepts/certificates/">شهادات mitmproxy</a></li>
+<li><a href="https://github.com/projectdiscovery/interactsh">التفاعل الرسمي</a></li>
+<li><a href="https://docs.projectdiscovery.io/templates/reference/template-signing">توقيع قالب النوى</a></li>
+<li><a href="#owasp-top-10-coverage">وثيقة تغطية الإصدار كاملة</a></li>
+</ul>
+<p>يعد هذا البرنامج التعليمي بمثابة إرشادات عامة للإصدار المسمى. لا تزال النتائج الخاصة بالتطبيق تتطلب هدفًا معتمدًا وسير عمل تم الوصول إليه وأدلة تمت مراجعتها.</p></main></div><footer>Longshot Security · التقييمات المعتمدة فقط · <a href="/longshot-security-site/ar/">العودة إلى لونجشوت</a><p class="translation-notice">يتم إنشاء الترجمات آليًا. النسخة الانجليزية هي المرجع.</p></footer></body></html>

@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+
+<html data-site-base="/longshot-security-site/" data-site-page="docs/" dir="ltr" lang="tr"><head><script data-language-script="" defer="" src="/longshot-security-site/language.js?v=20261110-i18n"></script><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>Tüm belgeler — Longshot Security 2.18.1</title><meta content="Longshot genel eğitiminin tamamı: tarayıcı taraması, yerel proxy, çerez geçersiz kılmaları, ZAP, MCP, bulanıklaştırma, bulgular ve raporlar." name="description"/><link href="/longshot-security-site/assets/mark.svg" rel="icon" type="image/svg+xml"/><link href="/longshot-security-site/style.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/docs/docs.css?v=20261110" rel="stylesheet"/><link href="/longshot-security-site/localization.css?v=20261110-i18n" rel="stylesheet"/><link href="https://zzholdoshev.github.io/longshot-security-site/tr/docs/" rel="canonical"/><link href="https://zzholdoshev.github.io/longshot-security-site/docs/" hreflang="en" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ru/docs/" hreflang="ru" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/de/docs/" hreflang="de" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/fr/docs/" hreflang="fr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/zh/docs/" hreflang="zh" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ja/docs/" hreflang="ja" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/es/docs/" hreflang="es" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/hi/docs/" hreflang="hi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/pt/docs/" hreflang="pt" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ar/docs/" hreflang="ar" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/bn/docs/" hreflang="bn" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ur/docs/" hreflang="ur" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/id/docs/" hreflang="id" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/tr/docs/" hreflang="tr" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ko/docs/" hreflang="ko" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/it/docs/" hreflang="it" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/vi/docs/" hreflang="vi" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/ta/docs/" hreflang="ta" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/te/docs/" hreflang="te" rel="alternate"/><link href="https://zzholdoshev.github.io/longshot-security-site/mr/docs/" hreflang="mr" rel="alternate"/></head><body data-ui-copy="{&quot;Signed in already? Start from that tab. Your session is the starting point.&quot;:&quot;Zaten oturum açtınız mı? O sekmeden başlayın. Oturumunuz başlangıç ​​noktanızdır.&quot;,&quot;Your tools send their own HTTP requests. Browser Bridge can supply the browser cookies.&quot;:&quot;Araçlarınız kendi HTTP isteklerini gönderir. Tarayıcı Köprüsü tarayıcı çerezlerini sağlayabilir.&quot;,&quot;Cookie override is on by default in the paired native bridge. You can turn it off.&quot;:&quot;Çerezleri geçersiz kılma, eşleştirilmiş yerel köprüde varsayılan olarak açıktır. Kapatabilirsiniz.&quot;,&quot;A finding is a lead. Read the request, the response and the controls before confirming it.&quot;:&quot;Bir bulgu bir ipucudur. Onaylamadan önce isteği, yanıtı ve kontrolleri okuyun.&quot;,&quot;Using Chrome? Keep the Longshot workbench tab open while you scan.&quot;:&quot;Chrome'u mu kullanıyorsunuz? Tarama yaparken Longshot çalışma tezgahı sekmesini açık tutun.&quot;,&quot;Connect a compatible MCP agent to run permitted checks and examine the evidence.&quot;:&quot;İzin verilen kontrolleri yürütmek ve kanıtları incelemek için uyumlu bir MCP aracısına bağlanın.&quot;,&quot;No bridge.invalid or hosts-file entry. The native proxy uses the actual target URL.&quot;:&quot;Bridge.invalid veya hosts dosyası girişi yok. Yerel proxy gerçek hedef URL'yi kullanır.&quot;,&quot;Pause motion&quot;:&quot;Hareketi duraklat&quot;,&quot;Resume motion&quot;:&quot;Hareketi sürdür&quot;}"><a class="skip" href="#documentation">Belgelere atla</a><nav aria-label="Ana gezinme"><a href="/longshot-security-site/tr/">LONGSHOT</a><a href="/longshot-security-site/tr/#download">İndir</a><a href="/longshot-security-site/tr/support.html">Destek</a><a href="/longshot-security-site/tr/privacy.html">Gizlilik</a><label class="language-switcher"><span>Dil</span><select aria-label="Web sitesi dili" id="site-language" translate="no"><option value="en">English</option><option value="ru">Русский</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="zh">简体中文</option><option value="ja">日本語</option><option value="es">Español</option><option value="hi">हिन्दी</option><option value="pt">Português</option><option value="ar">العربية</option><option value="bn">বাংলা</option><option value="ur">اردو</option><option value="id">Bahasa Indonesia</option><option selected="selected" value="tr">Türkçe</option><option value="ko">한국어</option><option value="it">Italiano</option><option value="vi">Tiếng Việt</option><option value="ta">தமிழ்</option><option value="te">తెలుగు</option><option value="mr">मराठी</option></select></label></nav><div class="docs-layout"><aside class="docs-sidebar"><details open=""><summary>GENEL ÖĞRETİM / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">Vibe kodlu. Gönderildi. Hacklendi.</a><a href="#firefox-and-chrome-choose-your-edition">Firefox ve Chrome: sürümünüzü seçin</a><a href="#contents">İçindekiler</a><a href="#what-runs-where">Ne nereye koşuyor</a><a href="#install-or-update-in-firefox-nightly">Firefox Nightly'de yükleme veya güncelleme</a><a href="#getting-started-and-target-sessions">Başlarken ve oturumları hedefleme</a><a href="#light-discovery-and-a-focused-active-scan">Işık keşfi ve odaklanmış aktif tarama</a><a href="#aggressive-options-and-run-approval">Agresif seçenekler ve çalıştırma onayı</a><a href="#overview-checks">Genel bakış kontrolleri</a><a href="#scan-options-reference">Tarama seçenekleri referansı</a><a href="#budgets-selectors-and-request-settings">Bütçeler, seçiciler ve istek ayarları</a><a href="#fuzzer-auto-fuzz-and-probe-library">Fuzzer, Otomatik fuzz ve Prob kütüphanesi</a><a href="#your-payloads-and-imported-templates">Yükleriniz ve içe aktarılan şablonlarınız</a><a href="#server-stack-and-smart-analyzer">Sunucu yığını ve Akıllı analizör</a><a href="#oast-setup-and-interpretation">OAST kurulumu ve yorumlanması</a><a href="#browser-bridge-native-tool-proxy">Tarayıcı Köprüsü: yerel araç proxy'si</a><a href="#native-bridge-configuration">Yerel köprü yapılandırması</a><a href="#cookie-and-header-overrides-without-damaging-probes">Çerez ve başlık, problara zarar vermeden geçersiz kılınır</a><a href="#external-tools-and-actual-zap-scanning">Harici araçlar ve gerçek ZAP taraması</a><a href="#tor-and-onion-routing">Tor ve soğan yönlendirme</a><a href="#agent-api-mcp-and-local-model-clients">Aracı API'si, MCP ve yerel model istemcileri</a><a href="#optional-native-nuclei">İsteğe bağlı yerel Çekirdekler</a><a href="#manual-tools-interception-and-api-inventory">Manuel araçlar, müdahale ve API envanteri</a><a href="#findings-and-the-cimematic-viewer">Bulgular ve sinematik görüntüleyici</a><a href="#owasp-top-10-coverage">OWASP İlk 10 kapsamı</a><a href="#recovery-assessment-files-and-reports">Kurtarma, değerlendirme dosyaları ve raporlar</a><a href="#appearance-language-and-help">Görünüm, dil ve yardım</a><a href="#troubleshooting">Sorun giderme</a><a href="#terms-and-source-references">Terimler ve kaynak referansları</a></div></details><a class="markdown-download" download="" href="/longshot-security-site/docs/longshot-general-tutorial.md">Markdown'ı indirin ↓ · English</a></aside><main class="docs-main" id="documentation"><p class="eyebrow">BELGELERİN TAMAMI · GÜNCELLENME 10 KASIM 2026</p><h1 id="longshot-2181-general-tutorial-and-control-reference">Longshot 2.18.1 — genel eğitim ve kontrol referansı</h1>
+<p>Longshot için 10 Kasım 2026'da güncellendi <strong>2.18.1</strong> (Firefox ve Chrome sürümleri) ve <strong>yerel HTTP/HTTPS aracı proxy'si</strong>. Bu, genel 2.11.1 eğitiminin yerini alır. Aşağıdaki talimatlar, sınırları da dahil olmak üzere gönderilen uygulamayı açıklamaktadır; eski köprü örnekleri bu sürümle değiştirilemez.</p>
+<p>Longshot, yetkili web uygulaması değerlendirmesi için bir tarayıcı oturumu çalışma tezgahıdır. Keşfi, kendi JavaScript aktif tarayıcısını, manuel HTTP araçlarını, içe aktarılan şablonları, bulguların incelemesini ve raporlarını birleştirir. İsteğe bağlı Tarayıcı Köprüsü, harici araçların kendi yerel HTTP isteklerini gönderirken seçilen Firefox oturum değerlerini kullanmasına olanak tanır.</p>
+<p>Yararlı bir ilk geçiş: <strong>uygulamayı açın → oturum açın → bu sekmeden Longshot'ı başlatın → Bağlan → oturumu doğrulayın → girişleri keşfedin → seçilen kontrolleri çalıştırın → kanıtları inceleyin</strong>.</p>
+<p>Yapay zeka tarafından oluşturulmuş veya titreşimle kodlanmış bir uygulama da dahil olmak üzere, hassas kullanıcı verilerini veya parasını işleyen bir uygulama için, profesyonel bir değerlendirme için bir siber güvenlik ekibi kiralayın. Uzantı taraması, yetkilendirme testinin, iş mantığı incelemesinin veya bağımsız bir güvenlik değerlendirmesinin yerini almaz. Boş bulgular listesi bir güvenlik sertifikası değildir.</p>
+<p>Bu belgede komutlar açıklanmaktadır; güncelleme, yazılımı yüklemez, bir ana bilgisayarı kaydetmez, tarayıcı ayarlarını değiştirmez veya herhangi bir tarama çalıştırmaz. Örnekleri yalnızca yetkili değerlendirme hedefinize göre çalıştırın. Örnek <code dir="ltr" translate="no">http://localhost:8080</code> yerleşik bir Longshot hizmeti değil, yerel bir hedef örneğidir.</p>
+<h2 id="vibe-coded-shipped-hacked">Vibe kodlu. Gönderildi. Hacklendi.</h2>
+<p><strong>Bunu hayal edin:</strong> uygulamanız yayına girer, bir saldırgan kusuru bulur ve bir kullanıcı, hesabını sıfır bakiyeyle açar. Bütün paraları gitti.</p>
+<p>Kod ikna edici görünüyordu. Yapay zeka güvenli göründüğünü söyledi. Bu yeterli değildi.</p>
+<p><strong>LLM'ler belirleyici değildir. Güvenlik açıklarını gözden kaçırabilir ve kendinden emin hatalar üretebilirler. İkinci bir görüşe ihtiyacınız var. Longshot'a ihtiyacın var.</strong></p>
+<p>Longshot, Firefox'u oluşturduğunuz web uygulamaları için bir güvenlik platformuna dönüştürür. Gerçekten çalışan uygulamada tekrarlanabilir kontroller yapın, HTTP kanıtlarını inceleyin ve kullanıcılarınız bedelini ödemeden önce zayıf yönleri araştırın.</p>
+<p>Desteklenen çekler kapağı <strong>SQL/NoSQL enjeksiyonu, sunucu tarafı kodu ve şablon enjeksiyonu, yansıtılan XSS adayları, yol geçişi/dosya ekleme, açık yönlendirmeler ve CRLF/başlık enjeksiyonu</strong>, isteğe bağlı canlı DOM XSS doğrulamasıyla. İncele <strong>zayıf güvenlik başlıkları, çerez ve CORS politikaları, açığa çıkan yapılandırma ve hata açıklamaları</strong>, diğer saldırı sınıfları için isteğe bağlı kontrollerle birlikte.</p>
+<p>Zaten kullandığınız tarayıcı sekmesinden başlayın. Canlı çerezleri tutun, oturum doğrulamayı yapılandırın, oturum kaybından sonra kurtarma yapın ve her hedefin ayarlarını, geçmişini ve bulgularını düzenli tutun.</p>
+<p><strong>Yapay zekanızı çalıştırın ve ardından çalışmasını kontrol edin.</strong> Yetkili kontrolleri yürütmek ve bulguları incelemek için MCP aracılığıyla bir temsilciye bağlanın. Çerez değerlerini manuel olarak kopyalamaya gerek kalmadan ZAP, sqlmap, curl, ffuf veya wget'i bağlı tarayıcı oturumuna getirmek için yerel Tarayıcı Köprüsü'nü kullanın. Araçlar kendi HTTP isteklerini ve yüklerini gönderir; tarayıcı çerezi geçersiz kılmaları varsayılan olarak açıktır ve kapatılabilir.</p>
+<p>İleri düzey kullanıcılar uyumlu içe aktarabilir <strong>CVE şablonları</strong> ve ilişkilendirmek <strong>OAST geri aramaları</strong> bunlara neden olan sondalarla. Kararlarınızı gözden geçirip kaydedin, ardından zengin kanıtları dışa aktarın <strong>HTML, JSON, CSV veya SARIF raporları</strong>, baskı/PDF çıktısı ile. Bulguları açıklayın <strong>sinematik görüntüleyici</strong>canlı CSS/JavaScript sayfa bağlamı, animasyonlu 3D öğeler, duraklatma ve tam ekran kontrolleri dahil. Keskin bir tema seçin ve hareket ve sesi çalışma alanınıza uyacak şekilde özelleştirin.</p>
+<p><strong>Güven göndermeden önce kanıt isteyin. Uzun atış.</strong></p>
+<h3 id="quick-scan-one-sentence">Hızlı tarama — bir cümle</h3>
+<p>Uygulamanızı Firefox'ta açın, gerekirse oturum açın, bu sekmeden Longshot'ı başlatın, Bağlan'a tıklayın, yapılandırılmış oturum kontrolünü doğrulayın, ardından Spider + etkin kontroller → Taramayı başlat'ı seçin ve Bulgular'ı inceleyin.</p>
+<h3 id="short-ad">Kısa reklam</h3>
+<p>Titreşim kodlu uygulamanız yayında. Yapay zeka neyi kaçırdı? Longshot, çalışan uygulamayı enjeksiyon, XSS ve diğer yaygın zayıflıklar açısından kontrol eder, tarayıcı oturumu testi ve AI/MCP iş akışları ekler ve size incelemeniz için kanıtlar sunar. İkinci bir görüşe ihtiyacınız var. Longshot'a ihtiyacın var.</p>
+<h3 id="compact-description">Kompakt açıklama</h3>
+<p>Titreşim kodlu uygulamalar için ikinci bir fikir: tarayıcı oturumu kontrolleri, AI/MCP, yapılandırılabilir tarayıcı çerezi geçersiz kılmalara sahip yerel araçlar, CVE/OAST, sinematik bulgular ve raporlar.</p>
+<h3 id="campaign-captions">Kampanya başlıkları</h3>
+<ol>
+<li><strong>VIBE KODLU. GÖNDERİLDİ. HACKLENDİ.</strong> Varsayımsal bir lansman ve hesap kaybı senaryosu; göndermeden önce ikinci bir görüş alın.</li>
+<li><strong>OTURUMU TEST EDİN. UYGULAMAYI KONTROL EDİN.</strong> Canlı çerezler, doğrulama ve hedefe özel kanıtlar.</li>
+<li><strong>AI YAZDI. KİM KONTROL ETTİ?</strong> Yapay zeka önerilerini incelenebilir bir güvenlik iş akışına getirin.</li>
+<li><strong>ARAÇLARINIZ. SEKMENİZ. OTURUMUNUZ.</strong> Desteklenen yerel HTTP yardımcı programları için Tarayıcı Köprüsü.</li>
+<li><strong>KUSURLARI AVLAYIN. KANITI TAKİP EDİN.</strong> Gelişmiş uyumlu CVE şablonları ve OAST korelasyonu.</li>
+<li><strong>GÜVENCE ÜZERİNDE KANITI.</strong> Raporları özelleştirebileceğiniz bir çalışma alanında inceleyin ve dışa aktarın.</li>
+<li><strong>YZ'NİZ BİR GÜVENLİK KARARI DEĞİLDİR.</strong> MCP, çalışan uygulamanızı kontrol eder; inceleyebileceğiniz kanıtlar.</li>
+<li><strong>SÜRESİ BİLEN OTURUM. BAĞLAM KAYIP.</strong> Doğrulayın, duraklatın, tekrar oturum açın ve devam ettirin.</li>
+</ol>
+<h3 id="selling-points-in-2181">2.18.1'de satış noktaları</h3>
+<table>
+<thead>
+<tr>
+<th>Satış noktası</th>
+<th>Pratik fayda</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Oturum açtığınız tarayıcı oturumunuz, araçlarınız</strong></td>
+<td>ZAP ve diğer HTTP proxy istemcileri, yanıt çerezi senkronizasyonu ve bağımsız kapatma anahtarlarıyla varsayılan olarak seçilen Firefox çerez kavanozunu kullanır.</td>
+</tr>
+<tr>
+<td><strong>Gerçek harici tarayıcı motoru</strong></td>
+<td>ZAP, Tarayıcı Köprüsü aracılığıyla kendi yerel HTTP isteklerini ve yüklerini oluşturur; seçilen çerez/başlık geçersiz kılmaları açıktır.</td>
+</tr>
+<tr>
+<td><strong>Probu koruyun, oturumu sürdürün</strong></td>
+<td>Korunan alanlar ve istek başına atlama, bir aracın kasıtlı çerez/başlık değişimlerini korumanıza olanak tanır.</td>
+</tr>
+<tr>
+<td><strong>İnceleyebileceğiniz kanıtlar</strong></td>
+<td>Özel etkin kurallar tekrarlanan kontrolleri kullanır; fiili girdi kapsamı tamamlanmış, kısmi ve atlanmış işleri birbirinden ayırır.</td>
+</tr>
+<tr>
+<td><strong>Arayüz üzerinden çalışabilen yapay zeka</strong></td>
+<td>MCP, desteklenen tarama komutlarını ve kontrol paneli kontrollerini açığa çıkarır, böylece uyumlu aracılar çalışma tezgahını çalıştırabilir ve sonuçları alabilir.</td>
+</tr>
+<tr>
+<td><strong>Açıklayabileceğiniz bulgular</strong></td>
+<td>Sinematik görüntüleyici mevcut sayfa içeriğini, kayıtlı kanıtları, 3 boyutlu açıklamaları ve sade dildeki potansiyel riskleri birleştirir.</td>
+</tr>
+<tr>
+<td><strong>Kendi test materyalinizi getirin</strong></td>
+<td>Hedefe özel yük paketlerini ve incelenen şablonları yükleyin; desteklenen topluluk listelerini arayüzden yenileyin.</td>
+</tr>
+<tr>
+<td><strong>Size ait kalacak bir çalışma alanı</strong></td>
+<td>Hedefe göre değerlendirme verileri, inceleme notları, isteğe bağlı dosya kontrol noktaları, çevrimdışı raporlar, temalar ve 20 paket kullanıcı arayüzü dili.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publication-notes">Yayın notları</h3>
+<p>Hesap kaybı hikayesi varsayımsaldır; gerçek bir müşteriyle ilgili bir iddia ya da Longshot'ın mali kaybı önleyeceğine dair bir garanti değildir. Uzantı, sürekli saldırı engelleme yerine değerlendirmeler gerçekleştirir. Bulgular inceleme gerektirir; Kapsam tablosu sınırlı desteği ve yalnızca manuel boşlukları açıklar. DOM analizi, evrensel DOM istismar kapsamını değil, göstergeleri ve desteklenen yürütme kanaryalarını içerir. Sinematik sekans kanıtları açıklıyor; sömürü kanıtı eklemez.</p>
+<p>MCP ve Tarayıcı Köprüsü'nün yerel kuruluma ihtiyacı var. Yerel araç proxy'si ayrı bir Node/Python/mitmproxy işlemi kullanır ve HTTPS müdahalesi, aracın bağdaştırıcı CA'sı için güven yapılandırmasını gerektirir. Bayt şeffaf ham TCP değil, ayrıştırılmış HTTP aktarımıdır. Çerez geçersiz kılmaları devre dışı bırakılabilir; bir tarayıcı çerezi veya Kullanıcı Aracısı, tarayıcıyla aynı ağ iletişimini veya WAF kabulünü garanti etmez. Harici ZAP ayrı olarak kurulu kalır. Şablonun yürütülmesi uyumluluğa/çalışma zamanlarına bağlıdır; OAST yapılandırılmış bir sağlayıcı gerektirir. Kimlik doğrulama doğrulaması anlamlı bir korumalı uç noktaya/işaretleyiciye ihtiyaç duyar. Hedef profilleri değerlendirme verilerini ayırır; sekme/kapsayıcı çerez oturumunu sağlar.</p>
+<p>Hassas verileri veya parayı işleyen uygulamalar için bir siber güvenlik ekibi kiralayın ve değerlendirmenin bir parçası olarak Longshot'ı kullanın. Bunu yalnızca sahip olduğunuz veya test etme yetkiniz olan uygulamalarda kullanın.</p>
+<p>Daha önce oluşturulmuş kampanya görsellerini yeniden kullanıyorsanız, bunları kompozisyon olarak etiketleyin ve piksel düzeyinde kullanıcı arayüzünün gerekli olduğu yerlerde gerçek güncel ekran görüntülerini kullanın. Bu eğitim, görünüm bölümündeki gerçek 2.18.1 doğrulama ekran görüntülerini birbirine bağlar; sekiz görselden oluşan yeni bir kampanya paketi içermiyor veya üçüncü tarafların onayını içermiyor.</p>
+<h2 id="firefox-and-chrome-choose-your-edition">Firefox ve Chrome: sürümünüzü seçin</h2>
+<p>Bu tam kılavuzda Firefox'un desteklenen özellikleri açıklanmaktadır. Chrome, aşağıdaki platform farklılıklarıyla aynı temel tarayıcı oturumu çalışma tezgahını kullanır. Bu kılavuzun ilerleyen kısımlarında yer alan Firefox kapsayıcıları, canlı DOM yürütme, tutulan müdahale ve tarayıcı VHOST'un yeniden yazılmasına ilişkin referanslar yalnızca Firefox'a yöneliktir.</p>
+<table>
+<thead>
+<tr>
+<th>Yetenek</th>
+<th>Firefox</th>
+<th>Chrome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tarayıcı aktif kontrolleri, manuel/otomatik bulanıklaştırma, desteklenen HTTP şablonları, OAST, yığın kanıtları ve raporlar</td>
+<td>Belgelenen önkoşullarla desteklenir</td>
+<td>Belgelenen önkoşullarla desteklenir</td>
+</tr>
+<tr>
+<td>Tarayıcı çerezleri/başlık geçersiz kılmaları ve yanıt çerezi senkronizasyonu ile yerel HTTP proxy'si</td>
+<td>Destekleniyor</td>
+<td>Destekleniyor</td>
+</tr>
+<tr>
+<td>Sayfa bağlamı AJAX araçları ve canlı DOM XSS yürütme doğrulaması</td>
+<td>Onaylandığında ve izin verildiğinde desteklenir</td>
+<td>Bu sürümde kullanılamıyor</td>
+</tr>
+<tr>
+<td>Ayrı kapsayıcı Oturum B, tutulan müdahale ve tarayıcı VHOST'un yeniden yazılması</td>
+<td>Yapılandırıldığında ve izin verildiğinde desteklenir</td>
+<td>Bu sürümde kullanılamıyor</td>
+</tr>
+<tr>
+<td>İzleyici bulma</td>
+<td>Yakalanan kanıtlar ve desteklenen canlı sayfa bağlamı</td>
+<td>Yakalanan deliller; canlı arka plan sayfası yakalama kullanılamıyor</td>
+</tr>
+<tr>
+<td>Motor yaşam döngüsü</td>
+<td>Kalıcı arka plan sayfası</td>
+<td>Görünür çalışma tezgahını açık tutun; bunu kapatmak yeni eşleştirilmiş yerel istekleri durdurur</td>
+</tr>
+<tr>
+<td>Özel tarama</td>
+<td>Seçilen bağlamlar, izne ve kuruluma tabidir</td>
+<td>Bu sürümde devre dışı bırakıldı</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-the-chrome-edition">Chrome sürümünü yükleyin</h3>
+<ol>
+<li>İndir <strong>Chrome Posta Kodu</strong> yukarıdaki/aşağıdaki sürüm bağlantılarından kopyalayın ve sakladığınız bir klasöre çıkarın.</li>
+<li>Açık <code dir="ltr" translate="no">chrome://extensions</code>, etkinleştir <strong>Geliştirici modu</strong>, seç <strong>Ambalajsız yükleme</strong>, ardından aşağıdakileri içeren ayıklanan klasörü seçin: <code dir="ltr" translate="no">manifest.json</code>.</li>
+<li>Yetkili uygulamanızı açın, oturum açın, bu sekmeden Longshot'ı başlatın ve Bağlan.</li>
+<li>Tarama ve yerel eşleştirme sırasında çalışma tezgahı sekmesini açık tutun. Kapatılması canlı motor çalışmasını sonlandırır; kaydedilen kanıtlar belirsiz istekler tekrarlanmadan kalır ve geri yüklenir.</li>
+<li>Yerel araç proxy'sini başlatmak için Chrome tarafından gösterilen kaynağın aynısını kullanın; <code dir="ltr" translate="no">chrome-extension://YOUR_INSTALLED_ID</code>Firefox yerine <code dir="ltr" translate="no">moz-extension://</code> kökeni. Proxy gerçek hedef URL'leri kullanır; hosts dosyası girişine gerek yoktur.</li>
+</ol>
+<h3 id="chrome-agent-api-mcp-registration">Chrome Agent API'si / MCP kaydı</h3>
+<p>Sabitlenmiş yardımcı bağımlılığını yükledikten sonra, tutulan tam kaynak ödemesinden:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev
+node bridge/bin/longshot-bridge install --browser chrome \
+  --extension-id YOUR_INSTALLED_32_LETTER_ID \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+node bridge/bin/longshot-bridge mcp \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+</code></pre>
+<p>Krom kullanımı için <code dir="ltr" translate="no">--browser chromium</code>. Gerçek kimliği kullanın <code dir="ltr" translate="no">chrome://extensions</code>; Mağaza sürümünün yüklenmesi farklı bir kimlik verirse tekrar kaydolun. Ayrı bağlantı noktası/veri dizini, Firefox ana bilgisayarıyla çarpışmayı önler. Bu Aracı API'si, HTTP aracı proxy'sinden farklıdır (varsayılan bağlantı noktaları 8900/8901). Linux, test edilmiş yerel ana bilgisayar platformudur; macOS kaydı uygulandı ancak burada test edilmedi ve Windows yerel ana bilgisayar yükleyicisi sağlanmadı.</p>
+<p>Ayrıntılı Tarayıcı Köprüsü yapılandırması ayrıca uzantının <strong>Tarayıcı Köprüsü → Bilgi</strong> diyalog. Uzun biçimli README ve yeni platform/gizlilik belgeleri İngilizcedir; Paketlenmiş kullanıcı arayüzü dili seçimi, hedef kanıtları, yükleri veya çalıştırılabilir örnekleri çevirmez.</p>
+<h2 id="contents">İçindekiler</h2>
+<ul>
+<li><a href="#firefox-and-chrome-choose-your-edition">Firefox / Chrome sürümleri ve kurulumu</a></li>
+<li><a href="#vibe-coded-shipped-hacked">Reklam ve satış noktaları</a></li>
+</ul>
+<ol>
+<li><a href="#what-runs-where">Ne nereye koşuyor</a></li>
+<li><a href="#install-or-update-in-firefox-nightly">Firefox Nightly'de yükleme veya güncelleme</a></li>
+<li><a href="#getting-started-and-target-sessions">Başlarken ve oturumları hedefleme</a></li>
+<li><a href="#light-discovery-and-a-focused-active-scan">Işık keşfi ve odaklanmış aktif tarama</a></li>
+<li><a href="#aggressive-options-and-run-approval">Agresif seçenekler ve çalıştırma onayı</a></li>
+<li><a href="#overview-checks">Genel bakış kontrolleri</a></li>
+<li><a href="#scan-options-reference">Tarama seçenekleri referansı</a></li>
+<li><a href="#budgets-selectors-and-request-settings">Bütçeler, seçiciler ve istek ayarları</a></li>
+<li><a href="#fuzzer-auto-fuzz-and-probe-library">Fuzzer, Otomatik fuzz ve Prob kütüphanesi</a></li>
+<li><a href="#your-payloads-and-imported-templates">Yükleriniz ve içe aktarılan şablonlarınız</a></li>
+<li><a href="#server-stack-and-smart-analyzer">Sunucu yığını ve Akıllı analizör</a></li>
+<li><a href="#oast-setup-and-interpretation">OAST kurulumu ve yorumlanması</a></li>
+<li><a href="#browser-bridge-native-tool-proxy">Tarayıcı Köprüsü: yerel araç proxy'si</a></li>
+<li><a href="#native-bridge-configuration">Yerel köprü yapılandırması</a></li>
+<li><a href="#cookie-and-header-overrides-without-damaging-probes">Çerez ve başlık, problara zarar vermeden geçersiz kılınır</a></li>
+<li><a href="#external-tools-and-actual-zap-scanning">Harici araçlar ve gerçek ZAP taraması</a></li>
+<li><a href="#tor-and-onion-routing">Tor ve soğan yönlendirme</a></li>
+<li><a href="#agent-api-mcp-and-local-model-clients">Aracı API'si, MCP ve yerel model istemcileri</a></li>
+<li><a href="#optional-native-nuclei">İsteğe bağlı yerel Çekirdekler</a></li>
+<li><a href="#manual-tools-interception-and-api-inventory">Manuel araçlar, müdahale ve API envanteri</a></li>
+<li><a href="#findings-and-the-cimematic-viewer">Bulgular ve sinematik görüntüleyici</a></li>
+<li><a href="#owasp-top-10-coverage">OWASP İlk 10 kapsamı</a></li>
+<li><a href="#recovery-assessment-files-and-reports">Kurtarma, değerlendirme dosyaları ve raporlar</a></li>
+<li><a href="#appearance-language-and-help">Görünüm, dil ve yardım</a></li>
+<li><a href="#troubleshooting">Sorun giderme</a></li>
+<li><a href="#terms-and-source-references">Terimler ve kaynak referansları</a></li>
+</ol>
+<h2 id="what-runs-where">Ne nereye koşuyor</h2>
+<p>“Köprü” kelimesi farklı bileşenleri ifade eder. Göreviniz için gereken bileşeni seçin.</p>
+<table>
+<thead>
+<tr>
+<th>Bileşen</th>
+<th>Nerede çalışır</th>
+<th>Ne işe yarar</th>
+<th>Varsayılan bağlantı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dahili tarayıcı, Tekrarlayıcı ve Fuzzer</td>
+<td>Firefox uzantısı ve bağlı hedef sekmesi</td>
+<td>Longshot'ın JavaScript kurallarını kullanarak tarayıcı oturumu HTTP kontrolleri</td>
+<td>Harici proxy işlemi gerekmez</td>
+</tr>
+<tr>
+<td><strong>Tarayıcı Köprüsü / Yerel araç proxy'si</strong></td>
+<td>Yerel Düğüm koordinatörü artı ayrı olarak yüklenmiş mitmproxy</td>
+<td>Harici araçların kendi HTTP/HTTPS isteklerini taşır; isteğe bağlı olarak Firefox'taki çerezleri ve seçilen başlıkları geçersiz kılar</td>
+<td>HTTP proxy'si <code dir="ltr" translate="no">127.0.0.1:8900</code>; uzatma kontrolü <code dir="ltr" translate="no">127.0.0.1:8901</code></td>
+</tr>
+<tr>
+<td><strong>Aracı API'si / yerel mesajlaşma köprüsü</strong></td>
+<td>Firefox'a kayıtlı Yerel Düğüm hizmeti</td>
+<td>REST/MCP/UI otomasyonu, değerlendirme dosyaları ve isteğe bağlı yerel Nuclei yürütme</td>
+<td>API <code dir="ltr" translate="no">http://127.0.0.1:8765</code></td>
+</tr>
+<tr>
+<td>Harici ZAP, curl, ffuf, sqlmap veya Nuclei CLI</td>
+<td>Sizin tarafınızdan yüklenen ayrı işlemler</td>
+<td>İsteğe bağlı olarak Yerel araç proxy'si aracılığıyla kendi trafiğini ve sonuçlarını oluşturun</td>
+<td>Her aracın giden HTTP proxy'sini yapılandırın</td>
+</tr>
+<tr>
+<td>Longshot tarafından fırlatılan izole yerli çekirdekler</td>
+<td>Agent API ana bilgisayarı ve Linux korumalı alanı</td>
+<td>İçe aktarılan uygun şablonları resmi Nuclei motoruyla çalıştırır</td>
+<td>Ayrı izole edilmiş yürütme yolu; otomatik Firefox çerez aktarımı yok</td>
+</tr>
+</tbody>
+</table>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">Built-in scan / Repeater / Fuzzer
+        → Firefox networking + target tab's session → target
+
+External ZAP / curl / another HTTP tool
+        → authenticated native proxy :8900 → mitmproxy → target
+                        ↑
+             selected cookie/header values
+                        ↑
+              paired Firefox tab via :8901
+
+MCP or REST client → Agent API :8765 → Longshot commands / UI
+                                      └→ separately enabled native jobs
+</code></pre>
+<p><strong>Taramayı başlat ZAP'ı çalıştırmıyor.</strong> ZAP'ın Tarayıcı Köprüsü ile eşleştirilmesi, Longshot'ın JavaScript tarayıcısının yerini almaz veya tüm ZAP uyarılarını Longshot'a aktarmaz. Harici bir aracın bulgularını o araçta inceleyin; yerel köprü trafiği ekranı, tam bir güvenlik açığı sonuçları içe aktarıcısı değil, meta verilerdir.</p>
+<h3 id="changes-that-invalidate-old-instructions">Eski talimatları geçersiz kılan değişiklikler</h3>
+<table>
+<thead>
+<tr>
+<th>Daha eski talimat</th>
+<th>2.18.1'de kullanın</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eski tarayıcı getirmeyi seçin</td>
+<td>Tarayıcı Köprüsü'nden ve XPI'dan kaldırıldı</td>
+</tr>
+<tr>
+<td>Araçları şuraya gönder: <code dir="ltr" translate="no">http://bridge.invalid</code></td>
+<td>Gerçek hedef URL'yi kullanın</td>
+</tr>
+<tr>
+<td>Ekle <code dir="ltr" translate="no">bridge.invalid</code> için <code dir="ltr" translate="no">/etc/hosts</code></td>
+<td>Hiçbir girişe gerek yoktur; bu köprüye bir tane ekleme</td>
+</tr>
+<tr>
+<td>Proxy açık <code dir="ltr" translate="no">8899</code>; başlangıç <code dir="ltr" translate="no">node ./bridge/cli.js</code> eski adaptörde</td>
+<td>İndirilen yerel bağdaştırıcının kullanımları <code dir="ltr" translate="no">node cli.js</code>; varsayılan proxy/kontrol bağlantı noktaları <code dir="ltr" translate="no">8900</code> / <code dir="ltr" translate="no">8901</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, <code dir="ltr" translate="no">X-Bridge-Host</code>, <code dir="ltr" translate="no">/v1/cookies</code>, uç noktaları çift kontrol edin</td>
+<td>Eski adaptör arayüzleri; bunları yerel yapılandırmaya koymayın veya var olduklarını varsaymayın</td>
+</tr>
+<tr>
+<td>Bridge tam bayt ham TCP veya kaçakçılık trafiği gönderir</td>
+<td>Yerel proxy HTTP'yi ayrıştırır; hatalı biçimlendirilmiş çerçeveleme ve bayt şeffaf TCP desteklenmiyor</td>
+</tr>
+<tr>
+<td>Tarayıcı oturumu, harici araçların CA'ya ihtiyaç duymadığı anlamına gelir</td>
+<td>HTTPS müdahalesi, yerel bağdaştırıcının oluşturulan CA'sına güvenmek için araca ihtiyaç duyar</td>
+</tr>
+<tr>
+<td>Tor yönlendirmesi Firefox'tan devralındı</td>
+<td>Yerel adaptör yönlendirmesi ayrıdır; SOCKS varsayılan olarak kapalıdır</td>
+</tr>
+<tr>
+<td>Bağdaştırıcı, harici süreç gruplarını askıya alır/yeniden başlatır veya başarısız çalışmayı otomatik olarak yeniden yürütür</td>
+<td>Duraklat, yeni proxy isteklerini engeller; aracı açıkça inceleyin ve yeniden deneyin/devam ettirin</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-or-update-in-firefox-nightly">Firefox Nightly'de yükleme veya güncelleme</h2>
+<p>Şunu kullanın: <strong>2.18.1 XPI</strong>, eklenti olarak yeniden adlandırılan eski bir adaptör ZIP'i değil. Eşleşen kaynak arşivini, şu şekilde gösterilen, yerinde tuttuğunuz bir klasöre çıkarın. <code dir="ltr" translate="no">/path/to/longshot</code> örneklerde. Kayıtlı bir yerel ana bilgisayarı yeniden kaydetmeden taşımayın.</p>
+<p>Sürüm dosyaları şunlardır:</p>
+<ul>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1.xpi">Firefox XPI'sı</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-chrome.zip">Chrome Posta Kodu</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-source.zip">Eşleşen uzantı kaynağı ZIP</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/tag/v2.18.1">Sürüm notları ve sağlama toplamları</a></li>
+<li>Yerel adaptör ZIP'i: Tarayıcı Köprüsü'nün içinden indirin; her uzantı paketine dahildir.</li>
+</ul>
+<p>Bunlar geliştirme/gönderme yapılarıdır. Firefox mağazasının imzalanması ve her iki pazar yerinin onayları beklemede. İmzasız XPI'nin Firefox sürümünde normal şekilde yüklenmesini beklemek yerine geçerli geliştirme yükleme prosedürünü izleyin.</p>
+<p>Manifest, Firefox 140 veya daha yenisini gerektirir. Sürüm entegrasyonu, Linux'ta kullanılan masaüstü Firefox 159'u kontrol eder. İsteğe bağlı yardımcılara yönelik platform/çalışma zamanı desteği, temel uzantı desteğinden ayrıdır.</p>
+<p>Geçici imzasız kurulum için:</p>
+<ol>
+<li>Açık <code dir="ltr" translate="no">about:debugging#/runtime/this-firefox</code>.</li>
+<li>Seç <strong>Geçici Eklenti Yükle</strong> ve XPI'yı seçin.</li>
+<li>Longshot'ın görüntülenen sürümünü doğrulayın, ardından hedefi açın ve araç çubuğu düğmesini başlatın.</li>
+<li>Paketlenmemiş bir geliştirme yapısını değiştirdikten sonra uzantıyı yeniden yükleyin.</li>
+</ol>
+<p>Firefox yeniden başlatıldıktan sonra geçici bir eklenti kaybolur. Bu bekleniyor; uzantıyı silen bağdaştırıcı değildir. Kalıcı genel dağıtım için Mozilla imzası gerekiyor. Nightly, tarafından açıklanan ek imzasız geliştirme seçeneklerine sahiptir. <a href="https://www.extensionworkshop.com/documentation/publish/signing-and-distribution-overview/">Mozilla'nın imzalama kılavuzu</a>; geçici yükleme bu ayarların değiştirilmesini gerektirmez. Bkz. <a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">geçici kurulum</a>.</p>
+<p>XPI, yerel bağdaştırıcıyı indirilebilir bir arşiv olarak paketler. Rasgele bir Node/Python işlemi başlatamaz veya yerel ana bilgisayarı yalnızca Firefox Eklentileri aracılığıyla yükleyemez. Proxy'nin başlatılması ve Agent API'sinin kaydedilmesi, farklı isteğe bağlı yerel kurulum adımlarıdır.</p>
+<h2 id="getting-started-and-target-sessions">Başlarken ve oturumları hedefleme</h2>
+<h3 id="connect-the-right-tab">Sağ sekmeyi bağlayın</h3>
+<ol>
+<li>Yetkili hedefi Firefox'ta açın, örneğin <code dir="ltr" translate="no">http://localhost:8080</code>.</li>
+<li>İstediğiniz test hesabıyla oturum açın ve tüm tarayıcı testlerini tamamlayın.</li>
+<li>Longshot'ı başlatın <strong>bu hedef sekmesinden</strong>. Uygulama sekmesini açık tutun.</li>
+<li>Hedef adresi kontrol edin ve seçin <strong>Bağlan</strong>.</li>
+<li>Kullanım <strong>Başlarken</strong> sekiz adımlı vurgulanan izlenecek yol için başlıkta. Tekrar oynatılabilir; taramaları başlatmaz veya ayarları değiştirmez.</li>
+<li>Longshot'ın faydalı rotaları ve girişleri gözlemleyebilmesi için temsili uygulama sayfalarına göz atın.</li>
+</ol>
+<p>Hedef kaynak; şema, ana bilgisayar adı ve bağlantı noktasından oluşur. <code dir="ltr" translate="no">http://localhost:8080</code>, <code dir="ltr" translate="no">http://127.0.0.1:8080</code> ve <code dir="ltr" translate="no">https://localhost:8080</code> Sonuçta aynı hizmete ulaşsalar bile farklı kökenlere sahiptirler. Değerlendirme için amaçlanan tam adresi bağlayın ve kullanın. Bir ana bilgisayar adının arkasında gözlemlenen bir IP adresi, otomatik olarak ek bir yetkili hedef haline gelmez.</p>
+<h3 id="configure-session-validation">Oturum doğrulamayı yapılandırma</h3>
+<p>Açık <strong>Ayarlar → Tarayıcı ayarları</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Alan</th>
+<th>Anlamı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oturum doğrulama yolu</td>
+<td>Kimlik doğrulama gerektiren kapsam içi bir sayfa/API yolu</td>
+</tr>
+<tr>
+<td>Kimliği doğrulanmış metin bekleniyor</td>
+<td>Seçilen hesapta oturum açıldığında ve oturum kapatıldıktan sonra kaybolduğunda sabit bir işaret bulunur</td>
+</tr>
+<tr>
+<td>Minimum kimliği doğrulanmış yanıt bayt sayısı</td>
+<td>İsteğe bağlı ek alt boyut eşiği; sıfır onu devre dışı bırakır</td>
+</tr>
+<tr>
+<td>Giriş yolu</td>
+<td>Reddedilme tespiti için gerektiğinde uygulamanın oturum açma yolu</td>
+</tr>
+<tr>
+<td>Bu kadar çok istekten sonra yeniden doğrula</td>
+<td>Periyodik bağımsız oturum kontrolü; varsayılan 20</td>
+</tr>
+<tr>
+<td>Taramalardan önce başarılı oturum doğrulamasını zorunlu kılın</td>
+<td>Yapılandırılmış doğrulayıcının geçmesini zorunlu kılın; varsayılan kapalı</td>
+</tr>
+</tbody>
+</table>
+<p>Ayarları kaydedin ve kullanın <strong>Genel Bakış → Oturumu kontrol edin</strong>. 200 değerini döndüren genel bir sayfa, kimlik doğrulamanın kanıtı değildir. Bir oturum açma sayfasına yönlendirme ve ardından 200 gelmesi yine de geçersiz bir oturumu temsil edebilir; korumalı bir uç nokta ve anlamlı bir işaretçi seçin.</p>
+<p>Yerleşik tarayıcı, HttpOnly çerezleri de dahil olmak üzere ilişkili sekmenin geçerli tarayıcı çerezlerini kullanır. Firefox, çerezleri URL'ye, yola, güvenlik özelliklerine ve çerez deposuna göre seçer. Tarayıcının korumalı Çerez/Yetkilendirme/Ana Bilgisayar alanları sıradan düzenlenebilir bulanık girişler değildir.</p>
+<h3 id="profiles-and-accounts">Profiller ve hesaplar</h3>
+<p><strong>Hedefler</strong> geçmişi, bulguları, istek günlüğünü, keşfedilen uç noktaları, incelemeleri ve tarama yapılandırmasını ayırır. Bir profile geri dönmek, kimliği doğrulanmış eski bir tarayıcı oturumunu değil, değerlendirme verilerini geri yükler. Açık profiller bir kaynağı paylaşabilir.</p>
+<p>İki sıradan Firefox sekmesi normalde çerezleri paylaşır. Gerçekten farklı test kimlikleri için bağımsız kapsayıcılar veya ayrı bir özel çerez deposu kullanın. Profillerin değiştirilmesi ikinci bir hesap oturumu oluşturmaz. Oturum B karşılaştırması aynı hedef kaynağı ve ayrı bir depoyu gerektirir.</p>
+<h2 id="light-discovery-and-a-focused-active-scan">Işık keşfi ve odaklanmış aktif tarama</h2>
+<h3 id="first-pass-discovery-and-passive-review">İlk geçiş: keşif ve pasif inceleme</h3>
+<ol>
+<li>Ayarla <strong>Saniye başına istek</strong> 0,5–1, tarama derinliği 1 ve keşfedilen maksimum URL sayısı 25–50'dir.</li>
+<li>Ayrıl <strong>Maksimum bulgular</strong>, <strong>Agresif</strong>, CVE otomatik fazı, OAST ve yerel yürütme kapalı.</li>
+<li>Ayarla <strong>Otomatik yumuşatma → Kapalı</strong>. Sayfa tıklamalarını/kaydırmalarını ve canlı DOM/zamanlama/geri arama testlerini kapalı bırakın.</li>
+<li>Pasif Genel Bakış gruplarını seçin: başlıklar, tanımlama bilgileri, açıklama, formlar, DOM kaynak/havuz incelemesi ve CORS.</li>
+<li>Seç <strong>Yalnızca örümcek</strong> ve başla.</li>
+<li>İncele <strong>Site haritası</strong>, <strong>HTTP geçmişi</strong>, <strong>API gezgini</strong>, <strong>Sunucu yığını</strong> ve <strong>Bulgular</strong>.</li>
+</ol>
+<p>Spider, keşfedilen kapsam içi bağlantıları/formları, form yazmalarını göndermeden takip eder. Her gizli uç noktayı bilmiyor. GET isteklerinin hâlâ uygulamaya özel yan etkileri olabilir; “okuma yöntemi” yan etkisi olmayan bir hedef oluşturmaz.</p>
+<h3 id="second-pass-a-bounded-active-assessment">İkinci geçiş: sınırlı bir aktif değerlendirme</h3>
+<ol>
+<li>Tut <strong>Otomatik yumuşatma → Kapalı</strong> yerleşik etkin kuralların ayrı ayrı incelenmesini kolaylaştırmak için.</li>
+<li>SQL ekleme ve Yansıtılmış XSS gibi ilgili Genel Bakış etkin kontrollerini seçin.</li>
+<li>Örneğin 150 etkin istek, 10 etkin URL ve beş etkin parametre gibi küçük sınırlar kullanın.</li>
+<li>Seç <strong>Yalnızca etkin kontroller</strong> Geçerli sayfayı ve kayıtlı envanteri yeniden kullanmak için veya <strong>Örümcek + aktif kontroller</strong> önce keşfetmek için.</li>
+<li>Gerekli onayları başlatın, inceleyin ve Etkinlik ile istek sayımlarını izleyin.</li>
+<li>Her bulgunun talebini, temel çizgisini, tekrarlanan araştırma/kontrol kanıtlarını, hükmünü ve güvenini inceleyin.</li>
+<li>Açık <strong>WSTG kontrolleri → Gerçek giriş kapsamı</strong> Tamamlanan, kısmi ve atlanan çalışmaları görmek için.</li>
+</ol>
+<p><strong>Otomatik fuzz Kapalı etkin kontrolleri kapatmaz.</strong> SQLi/XSS/SSTI ve diğer özel kurallar kendi araştırmalarını oluşturur. Bunun tersine, etkin bir kuralın işaretlenmesi, eksik bir girdi sağlamaz veya yalnızca Örümcek çalıştırmasının genel etkin aşamayı yürütmesine neden olmaz.</p>
+<h2 id="aggressive-options-and-run-approval">Agresif seçenekler ve çalıştırma onayı</h2>
+<p>Agresif, açıkça onaylanmış yöntemleri/yetenekleri etkinleştirir; her kontrolü yapmaz veya daha güçlü kanıtları garanti etmez.</p>
+<ol>
+<li>Önce girişleri keşfedin ve kimlik doğrulamayı doğrulayın.</li>
+<li>Yalnızca gerekli gelişmiş seçenekleri ve yazma/yükleme/silme izinlerini etkinleştirin.</li>
+<li>Tarama seçeneklerini kaydet.</li>
+<li>Seç <strong>Bir sonraki agresif çalışmayı gözden geçirin / onaylayın</strong>.</li>
+<li>Hedefi, özellikleri, yöntem izinlerini ve bütçeleri inceleyin.</li>
+<li>Tıklayın <strong>Bu sonraki çalıştırmayı onayla</strong>. Bu kullanıcı eylemi, eksik olan tüm Firefox izinlerini talep eder ve bir sonraki çalıştırma iznini oluşturur.</li>
+<li>Çalıştırmayı incelenen yapılandırmayla başlatın.</li>
+</ol>
+<p>Hibe tek kullanımlıktır, 30 dakika sonra sona erer ve ilgili hedef/yapılandırma/istek ayarı değişiklikleri nedeniyle geçersiz kılınır. Yeni bir taramanın normalde yeni bir hibeye ihtiyacı vardır. Tamamlanmamış seçeneklerin kaydedilmesine izin verilir; Başlatma veya onaylama, gerekli alanları doğrular.</p>
+<p>Firefox gerektirir <code dir="ltr" translate="no">permissions.request()</code> doğrudan gerçek bir kullanıcı işleminden kaynaklanmak. Bir ayarı değiştirmek, arka planda keyfi izinler vermek için bir neden değildir. İzin reddedilirse özelliğin tamamını inceleyin, onay düğmesinden yeniden deneyin veya söz konusu özelliği devre dışı bırakın. Normal işletim sistemi/tarayıcı izin istemleri, uzantı DOM otomasyonunun dışında kalır.</p>
+<h3 id="maximum-findings-is-a-broad-preset">Maksimum bulgular geniş bir ön ayardır</h3>
+<p>Bu ön ayar, gelişmiş doğrulama, OAST ve Oturum B karşılaştırması da dahil olmak üzere birçok aşamayı etkinleştirir ve çeşitli bütçeleri genişletir. Bu bir “her şeyi bul” anahtarı değildir. Bir OAST hesabı oluşturmaz, Sağlayıcı URL'sini/Geri Arama alanını doldurmaz, geçerli bir B Oturumu seçmez, Nuclei'yi yüklemez veya eksik rollerin kimliğini doğrulamaz.</p>
+<p>Onay raporlarında OAST alanları boşsa veya B Oturumu eksikse bunları yapılandırın veya bu seçenekleri kapatın. Bu, hedef URL'nin geçerli olup olmadığından farklıdır.</p>
+<h3 id="two-command-injection-controls">İki komut enjeksiyon kontrolü</h3>
+<p><strong>Genel Bakış → İşletim Sistemi komut göstergeleri</strong> doğrudan Unix odaklı komut çıkış araştırmalarını etkinleştirir. Varsayılan olarak kapalıdır. <strong>Tarama seçenekleri → Komut probları</strong> OAST dinlerken ekstra kör geri arama yolunu kontrol eder. Bir onay kutusu diğer yolu otomatik olarak yapılandırmaz. Gerçek çalıştırma için yetkilendirme gereksinimlerini gözden geçirin.</p>
+<h2 id="overview-checks">Genel bakış kontrolleri</h2>
+<p>Varsayılan etkin liste altı pasif grubu ve SQLi, NoSQLi, sunucu kodu enjeksiyonu, yansıtılan XSS, SSTI, geçiş, yönlendirme, CRLF ve yöntemleri içerir. <strong>İşletim sistemi komut göstergeleri</strong> ve <strong>Yinelenen sorgu parametresi işleme</strong> başlayın.</p>
+<table>
+<thead>
+<tr>
+<th>Kontrol et</th>
+<th>Ne işe yarar</th>
+<th>Yorumlama</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Güvenlik başlıkları ve HTTPS</td>
+<td>CSP, çerçeveleme politikası, nosniff, HSTS ve seçilen karma içerikli referansları inceler</td>
+<td>Savunma/yapılandırma göstergeleri, otomatik istismar kanıtı değil</td>
+</tr>
+<tr>
+<td>Çerez özellikleri</td>
+<td>Çerez değerlerini bulgu olarak saklamadan Secure, HttpOnly ve SameSite'ı inceler</td>
+<td>Çerezin amacı ve tarayıcı davranışının incelenmesi gerekiyor</td>
+</tr>
+<tr>
+<td>Hatalar ve hassas içerik</td>
+<td>Seçilen izleri, konfigürasyon/kaynak içeriğini ve dizin listelerini tanır</td>
+<td>Gözlemlenen içerik ve imzalarla sınırlıdır</td>
+</tr>
+<tr>
+<td>Form ve CSRF incelemesi</td>
+<td>Parola taşıma/GET formlarını ve tanınan belirteç alanlarını inceler</td>
+<td>Görünür belirtecin eksik olması CSRF'yi kanıtlamaz</td>
+</tr>
+<tr>
+<td>DOM XSS kaynak/havuz incelemesi</td>
+<td>Yakındaki URL kaynaklarını ve satır içi koddaki tehlikeli havuzları bulur</td>
+<td>Sezgisel; yürütme veya tam veri akışı kanıtı değil</td>
+</tr>
+<tr>
+<td>CORS politika incelemesi</td>
+<td>Gözlemlenebilir izin verilen kaynak/kimlik bilgisi kombinasyonlarını inceler</td>
+<td>Rastgele Kaynak yansımasını veya saldırgan kaynaklı okumaları test etmez</td>
+</tr>
+<tr>
+<td>SQL enjeksiyonu</td>
+<td>Yeni veritabanı hata imzalarını ve kontrollere göre doğru/yanlış karşılaştırmalarını tekrarlar</td>
+<td>Kanıtlar test edilen girdilere ve sözdizimi ailelerine bağlı kalır</td>
+</tr>
+<tr>
+<td>NoSQL enjeksiyonu</td>
+<td>MongoDB/BSON hata imzalarını tekrarlar</td>
+<td>Genel operatör ekleme veya kimlik doğrulama baypas doğrulayıcı yok</td>
+</tr>
+<tr>
+<td>Sunucu tarafı kod enjeksiyonu</td>
+<td>Hesaplanan JavaScript/PHP kanaryaları</td>
+<td>Küçük dil/bağlam seti</td>
+</tr>
+<tr>
+<td>Yansıyan XSS</td>
+<td>Yansıma kapısı artı yürütülebilir görünümlü HTML bağlamlarının tekrarlanan eylemsiz ayrıştırılması</td>
+<td>Gerçek infaz doğrulanıncaya kadar aday</td>
+</tr>
+<tr>
+<td>Sunucu şablonu enjeksiyonu</td>
+<td>Benzersiz aritmetik işaretleyiciler ve tekrar/kontrol kontrolleri</td>
+<td>Her şablon motorunu veya kör bağlamı kapsamaz</td>
+</tr>
+<tr>
+<td>Geçiş / dosya ekleme</td>
+<td>Tekrarlanan bilinen dosya içeriği imzaları</td>
+<td>Kapsamlı kodlamalar, dosyalar veya platformlar değil</td>
+</tr>
+<tr>
+<td>Yönlendirmeleri aç</td>
+<td>Oluşturulan .invalid Konum kanaryası</td>
+<td>Harici yönlendirme hedefi takip edilmiyor</td>
+</tr>
+<tr>
+<td>Yanıt başlığı ekleme</td>
+<td>Tekrarlanan oluşturulan başlık işaretçisi</td>
+<td>Tarayıcı URL'si/başlığı kullanımı testi sınırlıyor</td>
+</tr>
+<tr>
+<td>Reklamı yapılan HTTP yöntemleri</td>
+<td>SEÇENEKLER ve Envantere izin ver</td>
+<td>Reklam yazma izni yok</td>
+</tr>
+<tr>
+<td>Yinelenen sorgu parametresi işleme</td>
+<td>Tekrarlanan birinci/son derece karşılaştırmaları</td>
+<td>Bilgi ayrıştırma farkı, kanıtlanmış güvenlik etkisi değil</td>
+</tr>
+<tr>
+<td>İşletim sistemi komut göstergeleri</td>
+<td>İsteğe bağlı tekrarlanan kimlik çıkışı göstergeleri</td>
+<td>Unix odaklı, bağlama bağımlı ve varsayılan olarak kapalı</td>
+</tr>
+</tbody>
+</table>
+<p>Desteklenen etkin ekleme noktaları arasında sorgu değerleri, iç içe JSON/diziler, form/çok parçalı alanlar, seçilen düzenlenebilir içe aktarılan başlıklar ve adlandırılmış API yolu girişleri bulunur. Bedenlerin bilinmesi ve izin verilmesi gerekir. Yönetilen kimlik doğrulama/çerçeveleme alanları, hariç tutulan değerler ve kullanılamayan istek gövdeleri sessizce icat edilmemiştir.</p>
+<p>Gizli form değerleri, form yazılmadan önce desteklendiği yerlerde korunur ve yenilenir; kullanılamayan belirteçler kapsamın atlanmasına neden olabilir. Bu mekanizma, formun CSRF korumasının çalıştığını belirlemez.</p>
+<h2 id="scan-options-reference">Tarama seçenekleri referansı</h2>
+<p>Aksi belirtilmediği sürece bu isteğe bağlı aşamalar başlar. <strong>Uyarlanabilir istek oranı</strong> varsayılanlar açık; varsayılan Otomatik fuzz modu Kapalı'dır. Mevcut bir profilden geri yüklenen ayarlar, yeni varsayılanlardan farklı olabilir.</p>
+<table>
+<thead>
+<tr>
+<th>Seçenek</th>
+<th>Hangi değişiklikler / önkoşul</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CVE otomatik fazı</td>
+<td>CVE/global bütçeler dahilinde yazılan istekleri/eşleştiricileri kullanarak içe aktarılan uygun CVE şablonlarını yürütür</td>
+</tr>
+<tr>
+<td>Agresif (yetkili)</td>
+<td>Yazma yöntemleri ve gelişmiş yetenekler için sonraki çalıştırma onayını etkinleştirir</td>
+</tr>
+<tr>
+<td>Çok parçalı dosya yüklemelerine izin ver</td>
+<td>Dosya taşıyan çok parçalı isteklere ayrı ayrı izin verir; bir yükleme testi oluşturmaz</td>
+</tr>
+<tr>
+<td>DELETE'e izin ver (ayrı onay)</td>
+<td>Ayrı olarak DELETE'e izin verir; otomatik olarak silme isteğinde bulunmaz</td>
+</tr>
+<tr>
+<td>AJAX / DOM enstrümantasyonu</td>
+<td>Sınırlı keşif sırasında dinamik uygulama uç noktalarını ve desteklenen sayfa etkinliğini gözlemler</td>
+</tr>
+<tr>
+<td>Kaydolma sayfası tıklamaları/kaydırmaları</td>
+<td>Sınırlı etkileşimler ekler; AJAX keşfi ve Agresif onay gerektirir; uygulama işleyicileri verileri değiştirebilir</td>
+</tr>
+<tr>
+<td>Canlı DOM XSS doğrulaması (yeni sekmeler)</td>
+<td>Tek kullanımlık aynı mağaza sekmelerinde sınırlı sorgu/parça sorgu URL'si girişlerini test eder; iki taze yerel kanarya artı bir negatif kontrol; CSP uygulanmaya devam ediyor</td>
+</tr>
+<tr>
+<td>Tekrarlanan zamanlama probları</td>
+<td>Tekrarlanan SQL gecikme karşılaştırmaları ve ilk ekleme noktasından başlayarak bir JSON MongoDB zamanlama adayı; Agresif gerektirir</td>
+</tr>
+<tr>
+<td>SSRF kanaryaları/geri aramalar</td>
+<td>Dahili adres yanıt farklılıkları artı yapılandırıldığında tam OAST korelasyonu; Agresif gerektirir</td>
+</tr>
+<tr>
+<td>XML harici varlık araştırmaları</td>
+<td>Bilinen XML istek gövdeleri için geri çağırma kanaryası; uygulanan test için onaylı OAST kurulumu gerektirir</td>
+</tr>
+<tr>
+<td>Log4Shell OAST probları</td>
+<td>Uygun bir girişte ve X-Api Sürümünde geri arama kanaryası; etkileşim kod yürütmenin kanıtı değildir</td>
+</tr>
+<tr>
+<td>Komut probları</td>
+<td>OAST dinlerken kör komut geri arama rotası</td>
+</tr>
+<tr>
+<td>İçe aktarılan seri durumdan çıkarma şablonları</td>
+<td>İçe aktarılan uygun seri durumdan çıkarma etiketli şablonları içerir; evrensel gadget oluşturucu yok</td>
+</tr>
+<tr>
+<td>Uyarlanabilir WAF mutasyonları (maks. 3)</td>
+<td>Uygun araştırmaların sınırlı alternatif temsilleri; asla baypas garantisi yoktur</td>
+</tr>
+<tr>
+<td>Oturum B ile karşılaştırın</td>
+<td>On adede kadar uygun okuma isteğini başka bir aynı kaynaklı çerez deposuyla karşılaştırır; sahiplik/roller manuel bağlamda kalır</td>
+</tr>
+<tr>
+<td>Keşfedilen WebSocket araştırmaları</td>
+<td>Sınırlı kanal değişimleri; uygulamaya özel saldırı protokolü icat edilmedi</td>
+</tr>
+<tr>
+<td>Keşfedilen SSE probları</td>
+<td>Sınırlı EventSource dinleme; genel bir yayın yetkilendirme doğrulayıcısı değil</td>
+</tr>
+<tr>
+<td>Çevrimdışı istemci kitaplığı SCA</td>
+<td>Gözlemlenen müşteri varlıkları için küçük paketli bilinen sürüm/aralık kataloğu</td>
+</tr>
+<tr>
+<td>Parametre / başlık madenciliği</td>
+<td>Hedef/API kanıtlarından öğrenilen adları kullanır; tam bir gizli giriş sözlüğü değil</td>
+</tr>
+<tr>
+<td>Yerel tam Çekirdek yürütme</td>
+<td>Linux izolasyonuna ve onayına tabi olarak Agent API aracılığıyla resmi motor şablon işlerini etkinleştirir</td>
+</tr>
+<tr>
+<td>Korumalı alana alınmış yerel kod / JavaScript</td>
+<td>İncelenen/imzalanan yerel şablonlar için ek yetenek</td>
+</tr>
+<tr>
+<td>İzole başsız tarayıcı</td>
+<td>Ek yerel başsız yetenek; Firefox'un girişinden izole edildi</td>
+</tr>
+<tr>
+<td>Yerel olarak izin verilenler listesine eklenen dosya okumaları</td>
+<td>Seçilen izin verilenler listesinde ek salt okunur yerel dosya özelliği</td>
+</tr>
+<tr>
+<td>OAST (harici sağlayıcı)</td>
+<td>Belirtilen sağlayıcıyı kaydeder/yoklar; ilgili güvenlik açığı araştırmalarını ayrı ayrı seçin</td>
+</tr>
+<tr>
+<td>Topluluk SQL araştırma listeleri</td>
+<td>Desteklenen filtrelenmiş SecLists/FuzzDB değerlerini ilgili SQL kontrollerine/fuzzer'lara ekler</td>
+</tr>
+<tr>
+<td>Uyarlanabilir istek oranı</td>
+<td>Muhafazakar kısıtlama/zorluk yönetimi; oranı otomatik olarak yükseltmez</td>
+</tr>
+<tr>
+<td>Yüklenen yük paketleri etkinleştirildi</td>
+<td>Seçilen hedefe özgü değerleri ekler; Agresif artı sonraki çalıştırma onayı gerektirir</td>
+</tr>
+</tbody>
+</table>
+<p>Canlı DOM doğrulaması genel kusur takibi değildir. Depolanan XSS, postMessage/yerel depolama kaynakları, URL olmayan girişler ve çok adımlı yazma/okuma iş akışları ek testler gerektirir. Engellenen bir bağımlılık veya zaman aşımı bir geçiş değil, eksik kapsamdır.</p>
+<h2 id="budgets-selectors-and-request-settings">Bütçeler, seçiciler ve istek ayarları</h2>
+<p>var <strong>iki ayrı limit seti</strong>: Longshot'ın yerleşik tarama sınırları ve yerel araç proxy'sinin sınırları. :8900 aracılığıyla yapılan bir ZAP isteği, yerleşik JavaScript tarama bütçesini tüketmez ve Longshot'ın onay kutuları, ZAP'ın tarama ilkesini seçmez.</p>
+<h3 id="operation-and-phase-selectors">Çalışma ve faz seçiciler</h3>
+<table>
+<thead>
+<tr>
+<th>Seçici</th>
+<th>Seçimler ve davranış</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operasyon</td>
+<td>Yalnızca örümcek; Örümcek + aktif kontroller; Yalnızca etkin kontroller</td>
+</tr>
+<tr>
+<td>Otomatik tüylenme</td>
+<td>Kapalı; Aktif ve CVE'den sonra; Tarama sırasında. Bu, özel aktif kuralları değil, ekstra bir aşamayı kontrol eder</td>
+</tr>
+<tr>
+<td>Saldırı modeli</td>
+<td>Keskin nişancı; Koçbaşı; Dirgen; Desteklenen yapılandırılmış otomatik/vücut mutasyon planlaması için küme bombası</td>
+</tr>
+<tr>
+<td>Oturum B</td>
+<td>Gerçekten bağımsız bir çerez mağazasına sahip başka bir aynı kökenli sekme</td>
+</tr>
+<tr>
+<td>Vücut fuzzer yöntemi</td>
+<td>POST, GET, PUT veya PATCH, istek politikasına ve onayına tabidir</td>
+</tr>
+<tr>
+<td>Gövde formatı</td>
+<td>JSON, URL kodlu, çok parçalı veya ham/XML biçiminde; her format genel skaler ekleme noktaları sağlamaz</td>
+</tr>
+<tr>
+<td>Gövde taşıma kapasitesi sınıfı</td>
+<td>SQLi, NoSQLi, kod, XSS, SSTI, geçiş, CRLF, yönlendirme, komut veya özel</td>
+</tr>
+</tbody>
+</table>
+<p>Bu uygulamadaki saldırı modelleri:</p>
+<ul>
+<li><strong>Keskin nişancı:</strong> bir kerede bir girişi değiştirin.</li>
+<li><strong>Koçbaşı:</strong> aynı yükü seçilen tüm girişlere yerleştirin.</li>
+<li><strong>Dirgen:</strong> girişler arasında paylaşılan yük listesinden kademeli/dönen bir sıra kullanın. Bu, Burp'un bağımsız liste davranışına ilişkin bir iddia değildir.</li>
+<li><strong>Parça tesirli bomba:</strong> girdiler arasında sınırlı kombinasyonlar; kapak sınırsız Kartezyen genişlemeyi önler.</li>
+</ul>
+<h3 id="scan-option-limits">Tarama seçeneği sınırları</h3>
+<table>
+<thead>
+<tr>
+<th>Alan</th>
+<th style="text-align: right;">Yeni varsayılan</th>
+<th style="text-align: right;">Kabul edilen aralık</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Küresel istek bütçesi</td>
+<td style="text-align: right;">2,000</td>
+<td style="text-align: right;">1–10,000</td>
+</tr>
+<tr>
+<td>Parametre başına fuzz istekleri</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>Şablon başına CVE istekleri</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>Hedef başına CVE istekleri</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1–2,000</td>
+</tr>
+<tr>
+<td>Eşzamanlılık sınırı</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1–2; paralel tarayıcı verimi vaat etmiyor</td>
+</tr>
+<tr>
+<td>AJAX etkinlik bütçesi</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>AJAX sayfa bütçesi (ms)</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">500–15,000</td>
+</tr>
+<tr>
+<td>AJAX sayfa sayısı</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>Gecikme probu (saniye)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1–5</td>
+</tr>
+<tr>
+<td>OAST Geri Arama TTL saniyesi</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">5–3,600</td>
+</tr>
+<tr>
+<td>OAST Anket saniyeleri</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5–15</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scanner-settings">Tarayıcı ayarları</h3>
+<table>
+<thead>
+<tr>
+<th>Ayar</th>
+<th>Taze varsayılan / amaç</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Saniye başına istek</td>
+<td>1; Kullanıcı arayüzü 0,5–5'i destekler</td>
+</tr>
+<tr>
+<td>Maksimum tarama derinliği</td>
+<td>3; Kullanıcı arayüzü 0-5'i destekler</td>
+</tr>
+<tr>
+<td>Maksimum keşfedilen URL'ler</td>
+<td>100; Kullanıcı arayüzü 1-500'ü destekler</td>
+</tr>
+<tr>
+<td>Yanıt başına maksimum bayt</td>
+<td>2MB; daha büyük/kısaltılmış yanıtlar kanıt boşlukları bırakabilir</td>
+</tr>
+<tr>
+<td>Aktarım yeniden denemeleri</td>
+<td>2; belirli bir yazmanın güvenli bir şekilde tekrar oynatılabileceğinin garantisi değildir</td>
+</tr>
+<tr>
+<td>Parametre başına maksimum tüylenme probları</td>
+<td>40; ekstra faz parametre bütçesinden ayrı</td>
+</tr>
+<tr>
+<td>Maksimum etkin istekler</td>
+<td>150</td>
+</tr>
+<tr>
+<td>Maksimum etkin URL'ler</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Maksimum etkin sorgu parametreleri</td>
+<td>10; denetim ayrıca desteklenen diğer ekleme noktası türlerini de kaydeder</td>
+</tr>
+<tr>
+<td>Hariç tutulan yol önekleri</td>
+<td>Her satıra bir önek; bu yolların test hedefleri oluşturulmasını engeller</td>
+</tr>
+<tr>
+<td>Hariç tutulan parametre adları</td>
+<td>Her satıra bir ad</td>
+</tr>
+<tr>
+<td>Düzenlenmiş tarayıcı yanıt gövdelerini yerel olarak tutun</td>
+<td>Açık; En iyi çabayla redaksiyonla incelemeyi/sınırlar dahilinde karşılaştırmayı destekler</td>
+</tr>
+</tbody>
+</table>
+<p>Etkin denetim, daha sonra etkinleştirilen kurallar için sınırlı tahsisleri ayırır. Bu nedenle daha fazla veri, her değişkeni test etmek yerine bazı kuralları kısmi hale getirebilir. Yapılandırılmış maksimum değer bir tavandır; her isteği kullanma veya her girişi bitirme sözü değildir.</p>
+<h3 id="other-selectors">Diğer seçiciler</h3>
+<table>
+<thead>
+<tr>
+<th>Sayfa</th>
+<th>Seçiciler ve anlam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bulgular</td>
+<td>Önem derecesi ve inceleme durumu; yalnızca olumsuz/engellenmiş görünürlük değişiklikleri ekranı</td>
+</tr>
+<tr>
+<td>Şablonlar</td>
+<td>Önem derecesi, salt hazır filtre ve manuel seçim; Hazır, bir güvenlik açığı kararı değil, izin/uyumluluk durumudur</td>
+</tr>
+<tr>
+<td>Tekrarlayıcı</td>
+<td>GET/HEAD/OPTIONS/POST/PUT/PATCH/DELETE ve raw/XML, JSON veya form gövdeleri</td>
+</tr>
+<tr>
+<td>Fuzzer</td>
+<td>Yük ailesi ve değer değişimi: orijinal, URL/çift kodlama, büyük/küçük harf değişikliği, kodlanmış noktalar, sekme/noktalı virgül son eki, çift eğik çizgi öneki, sondaki nokta/boşluk</td>
+</tr>
+<tr>
+<td>Durdurucu</td>
+<td>Kaynak türü, yöntemi ve zaman aşımı eylemi; bu filtre, yöntemini yeniden yazmak yerine trafiği tuttu</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>Gözlemlenen kanal protokolünü seçin</td>
+</tr>
+<tr>
+<td>Sunucu yığını</td>
+<td>Otomatik NVD+OSV, NVD ürünü/CPE veya OSV paketi/versiyonu; manuel npm/PyPI ekosistemi</td>
+</tr>
+<tr>
+<td>Karşılaştır</td>
+<td>Kaydedilen temel ve karşılaştırma yanıtı</td>
+</tr>
+<tr>
+<td>Yardımcı programlar</td>
+<td>URL/Base64/hex kodlama/kod çözme, SHA-256, JSON biçimlendirmesi ve JWT talep incelemesi</td>
+</tr>
+<tr>
+<td>WSTG kontrolleri</td>
+<td>Kategori ve otomatik/destekli/manuel referans filtreleri</td>
+</tr>
+<tr>
+<td>Temalar/dil</td>
+<td>Tarama seçeneklerinden bağımsız olarak genel görünüm ve paket dil</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fuzzer-auto-fuzz-and-probe-library">Fuzzer, Otomatik fuzz ve Prob kütüphanesi</h2>
+<h3 id="pick-the-right-action">Doğru eylemi seçin</h3>
+<table>
+<thead>
+<tr>
+<th>Eylem</th>
+<th>Girdileri kim seçiyor?</th>
+<th>Çıkış</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aktif tarama</td>
+<td>Longshot keşfedilen desteklenen girişleri kullanıyor</td>
+<td>Tekrarlar/kontroller ile özel kural kanıtı</td>
+</tr>
+<tr>
+<td>Fuzzer'ı çalıştır</td>
+<td>Bir URL ve sorgu parametresi seçersiniz</td>
+<td>Temel ve seçilmiş yük-tepki karşılaştırmaları</td>
+</tr>
+<tr>
+<td>Vücut yumuşatıcı</td>
+<td>Yapılandırılmış bir istek ve mutasyon seçenekleri sunarsınız</td>
+<td>Desteklendiği yerlerde sınırlı gövde/yol/başlık varyasyonları</td>
+</tr>
+<tr>
+<td>Otomatik yumuşatma düğmesi</td>
+<td>Geçerli sayfa/site haritası/API envanteri kaydedildi</td>
+<td>Keşfedilen uygun girdiler arasında ekstra genel yük keşfi</td>
+</tr>
+<tr>
+<td>CVE otomatik fazı / Çalıştırma seçildi</td>
+<td>İçe aktarılan şablon tanımları</td>
+<td>Şablona özel istekler ve eşleştirici sonuçları</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-query-fuzzer">Manuel sorgu fuzzer'ı</h3>
+<ol>
+<li>Hedefi bağlayın ve kapsamlı bir URL seçin. Aşağıdaki gibi göreceli URL'ler <code dir="ltr" translate="no">/search?q=apple</code> bağlı menşe karşılığında kabul edilir.</li>
+<li>Mevcut sorgu parametresi adını girin veya <strong>Kullanım</strong> keşfedilen bir girişin yanında.</li>
+<li>Bir yük sınıfı ve değer mutasyonu seçin.</li>
+<li>için <strong>Kullanıcı tarafından yüklenen özel veriler</strong>, önce uygun bir özel paketi etkinleştirin.</li>
+<li>Seç <strong>Fuzzer'ı çalıştır</strong>, ardından başlangıç noktasını, talebi, durumu, süreyi/zamanlamayı ve kanıtları inceleyin.</li>
+</ol>
+<p>Eksik bir URL, parametre veya boş özel küme, belirli bir doğrulama mesajı üretir. Bir yanıtı değiştirmek tek başına bir enjeksiyon kusuru oluşturmaz. Sunucu kısıtlaması, taban çizgisinde gerçekleşse bile parametreyi durdurabilir.</p>
+<h3 id="auto-fuzz-discovered-inputs">Otomatik olarak keşfedilen girişler</h3>
+<p>Kullanım <strong>Keşfedilen girişleri önizleyin</strong> ilk. Kaydedilen envanteri okur ve uygun/atlanan istekleri, araştırma göndermeden raporlar. Otomatik fuzz, manüel fuzzer'ın URL/parametre alanlarına ihtiyaç duymaz. Envanter boşsa önce Gözat veya Örümcek.</p>
+<p>Yük sınıflarını seçin ve ayrı olanı seçin <strong>Otomatik tüylenme</strong> düğmesine basın. <strong>Keşfedilen istek gövdelerini dahil et</strong> başlar ve Agresif artı sonraki çalıştırma onayı gerektirir. Belirteçle bağlı formlar, desteklenmeyen yöntemler, kullanılamayan gövdeler ve XML bu otomatik giriş seçici tarafından atlanır. Mevcut hariç tutmalar, istek sınırları ve kısıtlama davranışı hâlâ geçerlidir.</p>
+<p>Mevcut sınıf onay kutuları SQLI, NOSQLI, CODE, XSS, SSTI, TRAVERSAL, COMMAND, SSRF, REDIRECT, CRLF ve CUSTOM'dur. Yeni varsayılanlar SQLI, SSTI, TRAVERSAL, REDIRECT ve CRLF'yi etkinleştirir. Genel döngü SSRF'yi atlar; kullanmak <strong>SSRF kanaryaları/geri aramalar</strong> Uygulanan doğrulaması için. CUSTOM, girilen/etkinleştirilen özel değerleri kullanır ve özel bir eşleştirici daha fazlasını oluşturmadığı sürece düşük güvenilirliğe sahip yanıt farklılıklarını raporlar.</p>
+<h3 id="why-probe-library-belongs-here">Probe kütüphanesi neden buraya ait?</h3>
+<p>Kütüphane malzemeleri <strong>yük değerleri ve incelenen şablonlar</strong>; fuzzer kontrolleri seç <strong>bunları nereye ve nasıl göndereceğim</strong>. Manuel URL'nin/parametrenin yerini almaz. Paylaşılan kitaplık seçenekleri aynı zamanda Etkin taramayı ve kaydetme sonrasındaki otomatik aşamaları da etkiler.</p>
+<p><strong>GitHub listelerini güncelleme</strong> rastgele çalıştırılabilir tarayıcıları değil, sabit kaynakları yeniler:</p>
+<table>
+<thead>
+<tr>
+<th>Kaynak</th>
+<th>Kullanılan alt küme</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SecLists hızlı SQLi</td>
+<td>Filtrelenmiş noktalama işaretleri/boolean değerleri, desteklenen 32 girişle sınırlıdır</td>
+</tr>
+<tr>
+<td>FuzzDB platformlar arası SQL algılama</td>
+<td>Filtrelenmiş noktalama işaretleri/boolean değerleri, desteklenen 32 girişle sınırlıdır</td>
+</tr>
+<tr>
+<td>ProjectDiscovery Nuclei şablonları</td>
+<td>Yalnızca GET'e özel iki Jira başlangıç kontrolü: CVE-2020-14179 ve CVE-2021-26086</td>
+</tr>
+<tr>
+<td>YüklerAllTheThings teknikleri</td>
+<td>Sınırlandırılmış uygulanan SQL boşluk/yorum/kodlama varyasyonlarının temeli; indirilen yürütülebilir bir bypass komut dosyası değil</td>
+</tr>
+</tbody>
+</table>
+<p>Güncellemeler HTTPS kullanır, çerezleri çıkarır ve hata durumunda eski anlık görüntüyü korur. Kaynak karmaları, yenileme süresi ve desteklenen sayımlar gösterilir. Tam giriş dosyasının karması, o dosyadaki her değerin kullanıldığı anlamına gelmez. İndirilen SQL listeleri yıkıcı/veri çıkarma/gecikme/kod/geri çağırma yapılarını hariç tutar; yerleşik kuralların ayrı olarak uygulanan kendi kanaryaları vardır.</p>
+<p>Güncellemeden önce taramayı durdurun. Güncelleme, araştırmaları başlatmaz, onay vermez, OAST'yi etkinleştirmez veya hedef verileri/özel paketleri GitHub'a yüklemez. Desteklenmeyen/ham/kod/başsız bir forma dönüşen indirilen bir şablon, sessizce yeni bir yürütme özelliğine yükseltilmek yerine reddedilir.</p>
+<h2 id="your-payloads-and-imported-templates">Yükleriniz ve içe aktarılan şablonlarınız</h2>
+<h3 id="upload-literal-lists">Gerçek listeleri yükle</h3>
+<p>Altında <strong>Tarama seçenekleri veya Fuzzer → Prob kitaplığı → Verileriniz ve CVE şablonlarınız</strong>, kategoriyi seçin ve ardından <strong>Özel dosya yükle</strong>.</p>
+<p>Kabul edilen liste formları:</p>
+<ul>
+<li><code dir="ltr" translate="no">.txt</code>: satır başına bir adet boş olmayan değer; boşluklar ve durum korunur.</li>
+<li><code dir="ltr" translate="no">.json</code>: dizelerden oluşan bir dizi veya aşağıdakileri içeren bir nesne <code dir="ltr" translate="no">name</code>, <code dir="ltr" translate="no">category</code> ve <code dir="ltr" translate="no">payloads</code>.</li>
+<li>Kategoriler: <code dir="ltr" translate="no">custom</code>, <code dir="ltr" translate="no">waf</code>, <code dir="ltr" translate="no">sqli</code>, <code dir="ltr" translate="no">nosqli</code>, <code dir="ltr" translate="no">code</code>, <code dir="ltr" translate="no">xss</code>, <code dir="ltr" translate="no">ssti</code>, <code dir="ltr" translate="no">traversal</code>, <code dir="ltr" translate="no">crlf</code>, <code dir="ltr" translate="no">redirect</code>, <code dir="ltr" translate="no">command</code>.</li>
+</ul>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "name": "My SQL review probes",
+  "category": "sqli",
+  "payloads": ["'", "\"", "' AND 1=1 -- "]
+}
+</code></pre>
+<p>Paketler hedefe özeldir ve başlangıçta <strong>devre dışı</strong>. Önizlemeyi inceleyin ve amaçlanan paketi açıkça etkinleştirin. Etkinleştirilmiş yüklenen paketler Agresif ve onay gerektirir; tek başına yükleme hiçbir işe yaramaz.</p>
+<p>Sınırlar: Yük dosyası başına 256 KB, paket başına 200 dize, değer başına 2.000 karakter ve hedef başına en fazla 10 paket / 500 değer / 512 KB paket yapılandırması. Bir paket içindeki yinelenen dizeler kaldırılır. Mevcut yöntem, kapsam, bütçe ve yıkıcı SQL korumaları hala geçerlidir.</p>
+<p>Kategorize edilmiş paketler yerleşik sınıf değerlerini tamamlar. WAF paketlerinin ayrıca akıllı varyasyonlara ve uygun filtreleme kanıtlarına ihtiyacı vardır. Gerçek bir özel veri, beklenen çıktı eşleştiricisi veya yürütülebilir uzantı kodu değildir. Tek başına bir CVE numarası yüklemek, CVE'yi doğrulayamaz.</p>
+<h3 id="import-requestmatcher-templates">İstek/eşleştirici şablonlarını içe aktar</h3>
+<p>YAML/YML/JSON'u yüklemeden önce CVE/Nuclei şablon kategorisini seçin; şablon dosyası sınırı 2 MB'dir. Bunu gözden geçirin <strong>Şablonlar</strong>yürütücü ve somut Hazır/Engellendi nedeni dahil. İçe aktarılan şablonlar paylaşılan kitaplığı kullanır; yük paketleri hedeflerinde kalır.</p>
+<ul>
+<li><strong>Seçileni çalıştır</strong> seçilen şablonları doğrudan yürütür ve CVE otomatik aşamasını gerektirmez.</li>
+<li><strong>CVE otomatik fazı</strong> yapılandırılmış bir tarama sırasında uygun CVE etiketli/tanımlanmış içe aktarmaları dikkate alır.</li>
+<li><strong>Otomatik tüylenme</strong> genel değerler üretir; yazılan CVE yüklerini veya eşleştiricilerini yeniden yazmaz.</li>
+<li>Yalnızca tavsiye amaçlı JSON, ürün/sürüm kanıtlarını ilişkilendirir. Çalışan bir yararlanma isteği icat etmez.</li>
+<li>Ham, karmaşık, kodlu, başlıksız, dosya veya HTTP olmayan şablonlar, ayrı bir resmi motor ve ek izinler gerektirebilir veya engellenmiş durumda kalabilir.</li>
+</ul>
+<p>İncelenen ilgili yardımcı paketlerini, bunlara ihtiyaç duyan şablonlarla birlikte içe aktarın. Kullanılamayan yerel çalışma zamanı, kapsam dışı istek, eksik onay veya desteklenmeyen özellik, başarılı bir negatif test değil, inceleme nedenidir.</p>
+<h2 id="server-stack-and-smart-analyzer">Sunucu yığını ve Akıllı analizör</h2>
+<p>Kullanım <strong>Yazılımı tespit et</strong> Desteklenen kapsamlı gözlemleri toplamak. Temsili sayfalara göz atın ve ceset kanıtlarına ihtiyaç duyduğunuzda uygun yanıtları saklayın. O zaman seç <strong>Kayıtlı kanıtları analiz edin</strong> 200'e kadar güncel depolanmış yanıtın yerel pasif korelasyonu için. Analizörün kendisi hiçbir hedef isteği eklemez.</p>
+<p>Görünüm, tarayıcı bileşenlerini, WAF/CDN/edge, web sunucusu/ters proxy ve uygulama/çalışma zamanı sinyallerini ayırır. Ürüne özel başlıklar, çerez adları, varlık/önyükleme yapıları ve hata metni güveni artırabilir. Yarışma sayfası gövdeleri, uygulama parmak izinin dışında bırakılır. Genel bir 403, nginx başlığı veya CDN kenarı, belirli bir WAF kuralının etkinleştirildiğini belirlemez.</p>
+<p>Olası konfigürasyon kartları kanıtlarını ve önerilen doğrulamayı açıklar. Bunlar hipotezlerdir: Tarayıcı yanıtları, kaynak IP'yi, özel alt ağları, arka uç veritabanı ayarlarını, TLS sonlandırmasını, güvenlik duvarı kurallarını veya proxy güven listelerini tam olarak oluşturamaz. Çoklu yukarı akışlar ve yeniden yazılmış bannerlar katmanları gizleyebilir veya yanlış tanımlayabilir.</p>
+<h3 id="waf-recommendations-and-rate-handling">WAF önerileri ve oran yönetimi</h3>
+<p><strong>Muhafazakar tarama önerilerini uygulayın</strong> topluluk SQL araştırmalarını, akıllı varyasyonları ve uyarlanabilir hızı açıkça etkinleştirir ve yapılandırılmış hızı en fazla 0,5 istek/saniyeye düşürür. Bir tarama başlatmaz veya gelişmiş yetenekler sağlamaz.</p>
+<p>Uygun araştırmalar mevcut bütçeler dahilinde en fazla üç alternatif temsili dikkate alır. Engellenen bir taban çizgisi atlanır. Tarayıcı zorlukları normal tarayıcı çözünürlüğüne ihtiyaç duyar; sıradan ACL reddi, sonsuz bypass girişimlerini haklı çıkarmaz. İzin verilmesini engelleyen bir değişiklik, güvenlik açığının kanıtı değil, erişilebilirliğin kanıtıdır.</p>
+<p>Tekrarlanan açık sorgulamalar bellek içi hızı yarıya indirebilir ve en az on saniyelik bir beklemeye neden olabilir. Yeniden Dene-Sonra ile HTTP 429 veya 503, daha fazla planlanmış araştırmayı durdurur; daha uzun Yeniden Deneme-Sonra aralıklarına uyulur. Oran otomatik olarak tekrar artmaz. Yeni çalıştırmalar yapılandırılan hızla başlar.</p>
+<h3 id="cve-lookup">CVE araması</h3>
+<p><strong>Çevrimiçi CVE'leri arayın</strong> İzin alındıktan sonra desteklenen ürün/paket koordinatları için NVD/OSV'yi sorgular. İstek, hedef URL'leri, çerezleri veya sayfa içeriğini değil, koordinatları gönderir. Bilinmeyen sürümler, satıcı destek raporları ve doğrulanmamış paket varlığı sınırı sonuçları. Manuel npm/PyPI girişleri kurulumu kanıtlamaz.</p>
+<p>Eşleşme olmaması, CVE'nin olmaması anlamına gelmez. Bir maç bir tavsiye adayıdır; önkoşulları inceleyin ve kullanın <strong>Doğrulama şablonlarını bulun</strong> Uygun ithal çekleri bulmak için. Bu düğme, şablonları yürütmek yerine filtreler.</p>
+<h2 id="oast-setup-and-interpretation">OAST kurulumu ve yorumlanması</h2>
+<p><a href="https://portswigger.net/web-security/ssrf/blind">OAST</a> Normal yanıt davranışı ortaya çıkarmadığında, bir incelemenin neden olduğu DNS/HTTP etkileşimlerini gözlemler. Longshot, kayıt/korelasyon anahtarlarının sahibidir; başka bir istemciden rastgele önceden oluşturulmuş bir geri arama değiştirilemez.</p>
+<ol>
+<li>Kontrol ettiğiniz veya kullanmanıza izin verilen Interactsh uyumlu bir hizmeti seçin.</li>
+<li>Girin <strong>Sağlayıcı URL'si</strong>: sağlayıcının tam API temel adresi, genellikle HTTPS. HTTP'ye yalnızca geridöngü sağlayıcıları için izin verilir.</li>
+<li>Eşleşmeyi girin <strong>Geri arama alanı</strong> olmadan <code dir="ltr" translate="no">http://</code>, bir bağlantı noktası veya bir yol.</li>
+<li>Girin <strong>Sağlayıcı jetonu</strong> yalnızca sağlayıcının bunu gerektirmesi durumunda.</li>
+<li>TTL'yi ve yoklama aralığını ayarlayın; OAST'ı ve ilgili SSRF/XXE/Log4Shell/command seçeneklerini etkinleştirin.</li>
+<li>Kullanım <strong>OAST bağlantısını test edin</strong> Kayıt/oylamayı kontrol etmek için.</li>
+<li>Kullanım <strong>OAST geri aramasını test edin</strong> bu tarayıcıdan ayrı bir ilişkili kanarya göndermek için.</li>
+<li>Gerçek taramayı kaydedin, inceleyin ve onaylayın. OAST etkileşimlerinde tam korelasyonu ve protokolü inceleyin.</li>
+</ol>
+<p>Örneğin, eşleşen kamu hizmetini şu adreste kullanıyorsanız: <code dir="ltr" translate="no">https://oast.pro</code>, geri arama tabanı <code dir="ltr" translate="no">oast.pro</code>. Bu bir örnektir; bir kullanılabilirlik garantisi veya bu sağlayıcıyı kullanma zorunluluğu değildir. Kendi kendine barındırılan bir sağlayıcının, kendine ait uygun şekilde yetkilendirilmiş erişilebilir etki alanına, DNS/dinleyicilere ve TLS'ye ihtiyacı vardır; bir dizüstü bilgisayar HTTP dinleyicisi tek başına genel bir geri arama hizmeti değildir. Takip et <a href="https://github.com/projectdiscovery/interactsh">resmi Interactsh kurulumu</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Gözlem</th>
+<th>Neyi tesis ediyor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bağlantı testi başarılı</td>
+<td>Kayıt ve oylama tarayıcının rotası üzerinden çalıştı</td>
+</tr>
+<tr>
+<td>Tarayıcı geri arama testi başarılı oldu</td>
+<td>Bu tarayıcı kendi ilişkili etkileşimini tetikleyebilir ve alabilir</td>
+</tr>
+<tr>
+<td>Hedef probu eşleşen etkileşimi üretir</td>
+<td>İlişkili bir etkileşim meydana geldi; Kaynağı belirtin ve anlamını değerlendirin</td>
+</tr>
+<tr>
+<td>Geri arama yok</td>
+<td>Sonuçsuz: hedef çıkışı, sağlayıcının erişilebilirliği, süre sonu, filtreleme veya desteklenmeyen bağlam bunu açıklayabilir</td>
+</tr>
+</tbody>
+</table>
+<p>DNS çözümlemesi bir aracı/güvenlik hizmetinden gelebilir. Tek başına geri arama, keyfi dahili erişimi, veri hırsızlığını veya kod yürütmeyi kanıtlamaz. Ayrı izole edilmiş Nuclei motoru, kendi yerel Interactsh kaydına sahiptir; bu olaylar tarayıcı istemcisinin kaydı değildir.</p>
+<p>Tarayıcı tarafı OAST istemcisi Go, Node veya Agent API'sini gerektirmez. Sürüm testleri, resmi sunucu kaydını, şifreli HTTP geri arama alımını ve geri döngü üzerinde korelasyonu gerçekleştirdi; genel sağlayıcı kullanılabilirliğini veya hedef sunucunuzun çıkışını belirlemediler. Hiçbir ana bilgisayar dosyası düzenlemesi, normal, doğru şekilde atanan OAST kurulumunun bir parçası değildir.</p>
+<h2 id="browser-bridge-native-tool-proxy">Tarayıcı Köprüsü: yerel araç proxy'si</h2>
+<h3 id="what-it-sends">Ne gönderir</h3>
+<p>Saldırı yükü, yöntemi, gövdesi ve sorgusu dahil olmak üzere harici bir araç isteği oluşturur. Yerel bağdaştırıcı bunu yalnızca yapılandırılmış çerez/başlık değişikliklerini uygulayarak mitmproxy aracılığıyla iletir. öyle <strong>değil</strong> Firefox'tan ZAP veya başka bir araç adına getirme işlemini gerçekleştirmesini isteyin.</p>
+<p>Bu, yerel HTTP anlambilimini ve aracın veri yükü oluşumunu korur, ancak rastgele orijinal kablo baytlarını korumaz: mitmproxy, HTTP'yi ayrıştırır/serileştirir ve kendi giden TLS bağlantısını kurar. Bir tarayıcı Kullanıcı Aracısı dizesi, yerel TLS/ağ parmak izini Firefox ile aynı yapmaz.</p>
+<h3 id="install-the-downloaded-adapter">İndirilen adaptörü yükleyin</h3>
+<ol>
+<li>Açık <strong>Tarayıcı Köprüsü</strong>. Yalnızca <strong>Yerel araç proxy'si</strong> 2.18.1'de mevcuttur.</li>
+<li>Seç <strong>Yerel bağdaştırıcıyı indirin</strong> ve onu çıkarın.</li>
+<li>Çıkarılanı girin <code dir="ltr" translate="no">native-bridge</code> dizin. İçerir <code dir="ltr" translate="no">cli.js</code>, <code dir="ltr" translate="no">bootstrap.py</code>, <code dir="ltr" translate="no">config.json</code> ve paketlenmiş Düğüm <code dir="ltr" translate="no">ws</code> bağımlılık.</li>
+<li>Henüz mevcut değilse Node.js 20+ ve Python 3.12+ sürümlerini yükleyin.</li>
+<li>Tek seferlik Python kurulumunu çalıştırın:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   cd /absolute/path/to/native-bridge
+   python3 bootstrap.py</code></p>
+<p>Bu bir yerel yaratır <code dir="ltr" translate="no">.venv</code> ve sabitlenmiş mitmproxy 12.2.3'ü yükler. Kurulum İnternet erişimi gerektirir. Normal başlatma, tarayıcı kodunu veya yük listelerini indirmez.</p>
+<ol start="6">
+<li>Tarafından gösterilen komutu kullanın <strong>senin</strong> uzatma sayfası:</li>
+</ol>
+<p><code dir="ltr" translate="no">sh
+   node cli.js --config config.json \
+     --extension-origin moz-extension://YOUR-LONGSHOT-UUID</code></p>
+<p>Yer tutucuyu tam geçerli uzantı kaynağıyla değiştirin. Hedef web sitesi, eklenti kimliği veya başka bir Firefox profilinden kopyalanan bir kaynak değildir.</p>
+<ol start="7">
+<li>Terminali çalışır durumda tutun. Proxy dinleyicisi hazır olduktan sonra proxy adresini, kontrol bağlantı noktasını, yeni eşleştirme/proxy belirtecini ve CA sertifika yolunu yazdırır.</li>
+</ol>
+<p>Birlikte verilen bağdaştırıcı arşivini kullanmak yerine kaynak ZIP'ten geliştirme yaparken, eğer yoksa ilk olarak sabitlenmiş Düğüm bağımlılığını yükleyin:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+npm --prefix native-bridge ci --omit=dev
+cd native-bridge
+python3 bootstrap.py
+</code></pre>
+<p><code dir="ltr" translate="no">--mitmdump /absolute/path/to/mitmdump</code> veya <code dir="ltr" translate="no">LONGSHOT_MITMDUMP</code> mevcut bir çalışma zamanını seçer. <code dir="ltr" translate="no">--data-dir /absolute/private/run-directory</code> CA/denetim dizinini seçer; varsayılan <code dir="ltr" translate="no">run</code> yerel bağdaştırıcının içinde. Ctrl+C bağdaştırıcıyı durdurur.</p>
+<p>Manuel yerel proxy, Agent API ana bilgisayar kaydından ayrıdır. buna ihtiyacı yok <code dir="ltr" translate="no">node bridge/bin/longshot-bridge install</code> yalnızca proxy curl/ZAP için. Sürüm entegrasyon testlerinde Linux/Firefox uygulandı; Bu manuel Node/Python başlangıç ​​yolundan başka bir platformdaki yerel mesajlaşma yükleyicisi desteği sonucunu çıkarmayın.</p>
+<h3 id="pair-the-selected-tab">Seçilen sekmeyi eşleştir</h3>
+<ol>
+<li>Yetkiliyi seçin <strong>Hedef sekmesi</strong> Tarayıcı Köprüsü'nde.</li>
+<li>Görüntülenen kaynağı ve çerez deposunu doğrulayın. Kullanım <strong>Sekmeleri yenile</strong> gerekirse.</li>
+<li>Girin <strong>Kontrol portu</strong> <code dir="ltr" translate="no">8901</code>Bağdaştırıcı yapılandırmasında değiştirilmediği sürece.</li>
+<li>Geçerli olanı yapıştır <strong>Eşleştirme/proxy jetonu</strong> çalışan adaptörden.</li>
+<li>Seç <strong>Yerel köprüyü eşleştir</strong> ve hazır durumunu doğrulayın.</li>
+<li>Araç trafiğini yönlendirmeden önce çerez/başlık anahtarlarını inceleyin.</li>
+</ol>
+<p>Başarılı eşleştirmenin ardından alan jetonu temizler. Yeniden başlatma, yeni bir belirteç üretir: yeniden eşleştirin ve proxy kimlik bilgilerini her harici araçta güncelleyin. Proxy bağlantı noktası <code dir="ltr" translate="no">8900</code> aletler içindir; kontrol portu <code dir="ltr" translate="no">8901</code> Firefox içindir. Her ikisi de 8765 numaralı bağlantı noktasındaki Agent API taşıyıcı belirtecini kullanmaz.</p>
+<h3 id="actual-target-urls-and-bridgeinvalid">Gerçek hedef URL'ler ve köprü.geçersiz</h3>
+<p>Gerçek adresi kullanın, örneğin <code dir="ltr" translate="no">http://localhost:8080/search?q=apple</code>, aracınızda. HTTPS'yi test ediyorsanız gerçek olanı kullanın <code dir="ltr" translate="no">https://...</code> adresi. Proxy'nin kendi adresi kalır <code dir="ltr" translate="no">http://127.0.0.1:8900</code> çünkü bu, HTTPS CONNECT dahil olmak üzere yerel HTTP proxy dinleyicisidir.</p>
+<p><strong>Hayır <code dir="ltr" translate="no">/etc/hosts</code> giriş gereklidir.</strong> Eski <code dir="ltr" translate="no">bridge.invalid</code> adresi, bir yardımcı programın HTTP URL'sini seçilen tarayıcı getirme hedefine eşlemek için kullanılan bağdaştırıcıya özel bir takma addı. Geçerli yerel proxy, gerçek hedef URL'leri ve HTTPS CONNECT'i desteklediğinden eşleme gereksizdir.</p>
+<p><code dir="ltr" translate="no">localhost</code> her hedef için değiştirilebilir bir takma ad değildir: yerel makineyi ilgili sürecin ağ ortamından adlandırır. Yalnızca hedefin o kökende gerçekten yerel olması durumunda doğrudur. Farklı bir ana bilgisayar adı, her iki ad da aynı IP'ye çözümlense bile farklı bir sanal ana bilgisayar, çerez politikası veya köken seçebilir.</p>
+<p>Mevcut eski bir ana bilgisayar girişinin yeni iş akışıyla alakası yoktur; bunu araç URL'lerinde kullanmayın. Bu eğitim hazırlanırken ana bilgisayar dosyasında herhangi bir değişiklik yapılmadı.</p>
+<h3 id="https-trust">HTTPS güveni</h3>
+<p>Bağdaştırıcı, normalde seçilen veri dizini altında kendi yerel CA'sını oluşturur:</p>
+<pre dir="ltr" translate="no"><code class="language-text" dir="ltr" translate="no">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
+run/ca/mitmproxy-ca.pem            sensitive CA material/private key
+</code></pre>
+<p>Yapılandır <strong>harici aracın değerlendirme güveni yapılandırması</strong> başlangıçta yazdırılan genel sertifika yolu ile. Özel anahtarı paylaşmayın veya sistem/Firefox güven deposunun değiştirildiğini varsaymayın. Bağdaştırıcı CA'sını her iki güven deposuna da yüklemez.</p>
+<p>Kıvırmak için:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  --cacert /absolute/path/to/native-bridge/run/ca/mitmproxy-ca-cert.pem \
+  'https://actual-target.example/search?q=apple'
+</code></pre>
+<p>Değiştir <code dir="ltr" translate="no">CURRENT_TOKEN</code> ve hedef/sertifika yolu. Yalnızca HTTP yerel hedefi için, <code dir="ltr" translate="no">--cacert</code> gereksizdir. <code dir="ltr" translate="no">--noproxy ''</code> curl'un bir geridöngü hedefi için proxy'yi sessizce atlamamasını sağlar.</p>
+<p>İki farklı TLS kontrolü vardır:</p>
+<ul>
+<li>İstemci bağdaştırıcının sunduğu sertifikayı doğrular. İstemcinin güvenini bağdaştırıcı CA'sıyla yapılandırın.</li>
+<li>Bağdaştırıcı gerçek yukarı akış sunucusunu doğrular. <code dir="ltr" translate="no">tls.verifyUpstream</code> varsayılanlar doğrudur. Müşteri <code dir="ltr" translate="no">--cacert</code> bağdaştırıcıya özel bir kaynak CA sağlamaz.</li>
+</ul>
+<p>Doğrulamayı devre dışı bırakmayı, sertifika hatalarının normal çözümü olarak değerlendirmeyin. Sahip olunan kendinden imzalı bir fikstür için, <code dir="ltr" translate="no">tls.verifyUpstream:false</code> bağdaştırıcı yapılandırmasında açık bir değerlendirme istisnasıdır ve ardından yeniden başlatılır; bu ayrı yukarı akış kontrolünü zayıflatır. Bkz. <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy sertifika davranışı</a>.</p>
+<h3 id="traffic-fidelity-and-limits">Trafik doğruluğu ve sınırlar</h3>
+<table>
+<thead>
+<tr>
+<th>Yerel proxy destekleri</th>
+<th>Kurmuyor veya desteklemiyor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Araç tarafından oluşturulan yöntemler, sorgu yükleri ve gövdeleri</td>
+<td>Tam orijinal başlık baytları/sıra/büyük/küçük harf veya hatalı biçimlendirilmiş çerçeveleme</td>
+</tr>
+<tr>
+<td>HTTP/1.1, HTTP/2, HTTPS BAĞLANTISI</td>
+<td>HTTP/3, isteğe bağlı TCP veya HTTP olmayan tarayıcı modları</td>
+</tr>
+<tr>
+<td>Yapılandırılmış oturum/başlık geçersiz kılmaları</td>
+<td>Tam tarayıcı parmak izi, JavaScript sorgulaması yürütme veya tarayıcıya ait TLS</td>
+</tr>
+<tr>
+<td>Yerel rotada WebSocket yükseltmeleri</td>
+<td>Genel bir uygulama protokolü güvenlik açığı doğrulayıcısı</td>
+</tr>
+<tr>
+<td>Yetkili bir HTTPS CONNECT hedefini korurken Araç Ana Bilgisayar başlığı araştırmaları</td>
+<td>Sınırsız bir arama hedefi veya otomatik yeni hedef yetkilendirmesi</td>
+</tr>
+<tr>
+<td>Tarayıcı oturumu aktarımı olmadan kapsamlı ek kaynaklar</td>
+<td>Kaynaklar arasında otomatik olarak paylaşılan tarayıcı çerezleri/başlık kimlik bilgileri</td>
+</tr>
+</tbody>
+</table>
+<p>Yerel rotanın tarayıcıdan getirme geri dönüşü yoktur. Ham talep kaçakçılığı, alışılmadık tel çerçeveleme veya özel TLS araştırması için uygun, ayrı bir aktarım kullanın. Bu ayrıştırılmış proxy baytını şeffaf olarak etiketlemeyin.</p>
+<h2 id="native-bridge-configuration">Yerel köprü yapılandırması</h2>
+<p>Tarayıcı Köprüsü'nden yapılandırmayı indirin veya bağdaştırıcının <code dir="ltr" translate="no">config.json</code>. Bilinmeyen anahtarlar, geçersiz türler ve aralık dışı değerler reddedilir. Eski bağdaştırıcı alanları yerel yapılandırma eşanlamlıları değildir.</p>
+<p>Çalışan bağdaştırıcı yapılandırması eşleştirme konusunda yetkilidir. <strong>Geçersiz kılmaları uygula</strong> geçerli eşleştirme için desteklenen tarayıcı geçersiz kılma seçeneklerini değiştirir. <strong>Yapılandırmayı indir</strong> bir sonraki başlatma için seçilen konfigürasyonu korur. Genel JSON alanlarının düzenlenmesi, halihazırda çalışan bir işlemdeki dinleyici bağlantı noktalarını, TLS'yi, yönlendirmeyi veya sınırları sessizce yeniden yapılandırmaz: kaydetme/indirme, yeniden başlatma ve yeniden eşleştirme.</p>
+<h3 id="complete-shipped-defaults">Gönderilen varsayılanları tamamla</h3>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "proxy": {
+    "port": 8900
+  },
+  "control": {
+    "port": 8901,
+    "timeoutMs": 10000
+  },
+  "browser": {
+    "required": true,
+    "firstPartyDomain": null
+  },
+  "cookies": {
+    "enabled": true,
+    "mode": "replace",
+    "saveResponses": true,
+    "preserveToolChanges": true,
+    "protectedNames": [],
+    "includeNames": [],
+    "excludeNames": []
+  },
+  "headers": {
+    "userAgent": {
+      "source": "tool",
+      "value": ""
+    },
+    "acceptLanguage": {
+      "source": "tool",
+      "value": ""
+    },
+    "authorization": {
+      "source": "tool",
+      "value": ""
+    },
+    "set": {},
+    "remove": [],
+    "protectedNames": []
+  },
+  "scope": {
+    "origins": [],
+    "excludePaths": [],
+    "methods": [
+      "*"
+    ]
+  },
+  "limits": {
+    "rate": 2,
+    "concurrency": 4,
+    "maxRequests": 10000,
+    "maxBodyBytes": 67108864,
+    "timeoutSeconds": 60
+  },
+  "session": {
+    "pauseStatuses": [
+      401,
+      419,
+      440
+    ],
+    "pauseOn429": true
+  },
+  "tls": {
+    "verifyUpstream": true,
+    "http2": true
+  },
+  "upstream": {
+    "url": null
+  },
+  "routing": {
+    "socks5": null
+  },
+  "audit": {
+    "enabled": true
+  }
+}
+</code></pre>
+<p>Boş <code dir="ltr" translate="no">scope.origins</code> varsayılan olarak eşleştirilmiş hedefin tam kökenine ayarlanır. Normal eşleştirilmiş değerlendirmeye başlamak için hedefi veya başlangıç/bitiş zaman damgasını girmenize gerek yoktur. Kapsamın uygulanması hâlâ mevcuttur; eski zorunlu değerlendirme formu yerine eşleştirme yoluyla seçilir.</p>
+<h3 id="field-reference">Alan referansı</h3>
+<table>
+<thead>
+<tr>
+<th>Alan</th>
+<th>Etki</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">schemaVersion</code></td>
+<td>Yerel yapılandırma formatı; mevcut değer 1</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">proxy.port</code></td>
+<td>Araca bakan HTTP proxy bağlantı noktası, varsayılan 8900</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.port</code></td>
+<td>Firefox koordinatörü bağlantı noktası, varsayılan 8901; proxy bağlantı noktasından farklı olmalıdır</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">control.timeoutMs</code></td>
+<td>Tarayıcı/kontrol yanıtı zaman aşımı, varsayılan 10.000 ms</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.required</code></td>
+<td>Eşleştirme varsayılan olarak gereklidir. Bağımsız işlem için açık kaynaklar ve tarayıcıdan türetilen tüm özelliklerin kapatılması gerekir</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">browser.firstPartyDomain</code></td>
+<td>Firefox çerez API'si gerektiriyorsa açık birinci taraf izolasyon alanı; null normal davranışı kullanır</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.enabled</code></td>
+<td>Giden yerel isteklerde seçilen Firefox çerezlerini kullanın; varsayılan doğru</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.mode</code></td>
+<td><code dir="ltr" translate="no">replace</code> varsayılan olarak; isteğe bağlı <code dir="ltr" translate="no">merge</code>aşağıda açıklanmıştır</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code></td>
+<td>Yanıt Seti Çerez güncellemelerini seçilen Firefox kavanozuna uygulayın; varsayılan doğru, isteğin geçersiz kılınmasından bağımsız olarak</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.preserveToolChanges</code></td>
+<td>İstemci bağlantısı/kökeni başına ilk isteğe göre değişiklikleri koruyun; varsayılan doğru</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.protectedNames</code></td>
+<td>Araç değerlerinin araç kontrolü altında kalması gereken çerez adları</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.includeNames</code></td>
+<td>Yalnızca bu adları yönetin; boş, eşleşen tüm tarayıcı adları anlamına gelir</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">cookies.excludeNames</code></td>
+<td>Bu tarayıcı çerez adlarını yönetme</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.userAgent</code>, <code dir="ltr" translate="no">acceptLanguage</code>, <code dir="ltr" translate="no">authorization</code></td>
+<td><code dir="ltr" translate="no">source</code> öyle <code dir="ltr" translate="no">tool</code>, <code dir="ltr" translate="no">browser</code> veya <code dir="ltr" translate="no">custom</code>; özel boş olmayan bir tek satıra ihtiyaç duyar <code dir="ltr" translate="no">value</code></td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">headers.set</code>, <code dir="ltr" translate="no">remove</code>, <code dir="ltr" translate="no">protectedNames</code></td>
+<td>Açık ekstra başlık değişiklikleri ve koruma; ayrılmış/yönetilen alanlar kendi özel kontrollerini gerektirir</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.origins</code></td>
+<td>Boş, eşleştirilmiş kökeni kullanır; açıkça listelenen ek kesin kaynaklar, tarayıcıdan türetilmiş oturum alanları almaz</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.excludePaths</code></td>
+<td>Kodu çözülmüş formlar da dahil olmak üzere hariç tutulan yol önekleri</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">scope.methods</code></td>
+<td>İzin verilen yöntemler; varsayılan <code dir="ltr" translate="no">["*"]</code> Longshot'ın tarayıcı yazma onayı değil, tüm yerel HTTP yöntemleri anlamına gelir</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.rate</code></td>
+<td>Paylaşılan yerel planlama hızı, varsayılan 2 istek/saniye</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.concurrency</code></td>
+<td>Yerel kontrol yuvaları, varsayılan 4</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxRequests</code></td>
+<td>Yerel istek tavanı, varsayılan 10.000; Yorgunluk çalışmayı durdurur</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.maxBodyBytes</code></td>
+<td>Ara belleğe alma/gövde tavanı, varsayılan 64 MiB</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">limits.timeoutSeconds</code></td>
+<td>Tamamlama kiralama/zaman aşımı, varsayılan 60 saniye; zaten gönderilmiş bir isteğin geri alınması yok</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseStatuses</code></td>
+<td>Varsayılan kimlik doğrulama durumu duraklatma listesi: 401, 419, 440</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">session.pauseOn429</code></td>
+<td>Varsayılan olarak kısıtlamayı duraklat</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">tls.verifyUpstream</code>, <code dir="ltr" translate="no">http2</code></td>
+<td>Her ikisi de varsayılan olarak doğrudur</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">upstream.url</code></td>
+<td>İsteğe bağlı HTTP(S) yukarı akış proxy'si; null yok anlamına gelir</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">routing.socks5</code></td>
+<td>İsteğe bağlı <code dir="ltr" translate="no">socks5h://host:port</code>; varsayılan olarak null; yukarı akış URL'si ile birbirini dışlayan</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">audit.enabled</code></td>
+<td>Yalnızca meta veri JSONL denetimi, varsayılan doğru</td>
+</tr>
+</tbody>
+</table>
+<p>Yerel doğrulama aralıkları: bağlantı noktaları 1024–65535, hız 0,1–100, eşzamanlılık 1–32, istek tavanı 1–1.000.000, gövde sınırı 1 KB–256 MiB, zaman aşımı 1–600 saniye, kontrol zaman aşımı 1.000–120.000 ms. Bunlar, bir hedefin güvenli yüküne ilişkin öneriler değil, kabul edilen yapılandırma sınırlarıdır.</p>
+<p>Başlık adları büyük/küçük harfe duyarlı değildir. Çerez adları büyük/küçük harfe duyarlıdır. JSON boolean'larını kullanın <code dir="ltr" translate="no">true</code>/<code dir="ltr" translate="no">false</code>, dizeler değil. jenerik <code dir="ltr" translate="no">headers.set</code> Ana Bilgisayar, Çerez, Yetkilendirme, çerçeveleme veya proxy kontrolü alanlarının yerini alamaz. Özel çerez/Yetkilendirme seçeneklerini ve aracın kendi Ana Bilgisayar değerini kullanın.</p>
+<p>Yerel bir araç çalıştırmasının yükünü azaltmak için kısmi bir yapılandırma varsayılanları geçersiz kılabilir, örneğin:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "schemaVersion": 1,
+  "limits": {
+    "rate": 0.5,
+    "concurrency": 1,
+    "maxRequests": 500
+  }
+}
+</code></pre>
+<p>Form gövde belirteçlerini yenileyen veya tarayıcı oturum açma iş akışını icat eden genel bir yerel yapılandırma anahtarı yoktur.</p>
+<h2 id="cookie-and-header-overrides-without-damaging-probes">Çerez ve başlık, problara zarar vermeden geçersiz kılınır</h2>
+<h3 id="default-cookie-behavior">Varsayılan çerez davranışı</h3>
+<p><strong>Tarayıcı çerezlerini kullan</strong> ve <strong>Yanıtı kaydet Set-Cookie güncellemeleri</strong> varsayılan olarak açıktır. Kullanıcı Aracısı, Dil Kabul Et ve Yetkilendirme varsayılan olarak araç kontrollü olarak kalır.</p>
+<p>Yerel bir istek için Firefox, eşleştirilmiş sekmenin çerez deposundan ve eşleşen bölümden URL için geçerli çerezleri seçer. Diğer konteynerler/özel mağazalar birleştirilmez. Etki alanı/yol/Güvenli/son kullanma kuralları ve aynı isimli yol sıralaması geçerliliğini korur. Değerler yerel proxy'ye sağlanır, böylece giden Çerez başlığını oluşturabilir; Kaldırılan tarayıcı getirme yolunun aksine, yerel yardımcı bu nedenle oturum sırlarını bellekte yönetir.</p>
+<p>ile <code dir="ltr" translate="no">cookies.mode:"replace"</code>, tarayıcı jar'ı boş olduğunda da yetkilidir. Kavanozdan silinen bir tarayıcı çerezi daha sonra yönetilen isteklerden kaldırılır. Açıkça korunan adlar ve tespit edilen takım değişiklikleri önceliklidir. ile <code dir="ltr" translate="no">mode:"merge"</code>, tarayıcı tarafından yönetilen adlar güncellenirken ilgisiz araç çerezleri kalabilir.</p>
+<p>Yanıt Seti Çerez alanları, desteklenen Etki Alanı/yol/Güvenli/HttpOnly/SameSite/son kullanma tarihi/silme/bölüm nitelikleri dahil olmak üzere, Firefox'un çerez API'si kullanılarak aynı seçilen mağazaya ayrı ayrı uygulanır. Geçersiz çerezler reddedilebilir; bildirilen hataları inceleyin. Ek yapılandırılmış kaynaklar, tarayıcı çerezlerini veya tarayıcıdan türetilmiş başlıkları almaz.</p>
+<h3 id="request-and-response-switches-are-independent">İstek ve yanıt anahtarları bağımsızdır</h3>
+<table>
+<thead>
+<tr>
+<th>Çerez geçersiz kılma isteğinde bulun</th>
+<th>Yanıt senkronizasyonu</th>
+<th>Sonuç</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Açık</td>
+<td>Açık</td>
+<td>Firefox çerezlerini kullanın ve kavanozu Set-Cookie yanıtından güncelleyin</td>
+</tr>
+<tr>
+<td>Kapalı</td>
+<td>Açık</td>
+<td>Aracın istek çerezlerini saklayın; hedef yanıtları hala Firefox'un kavanozunu değiştirebilir</td>
+</tr>
+<tr>
+<td>Açık</td>
+<td>Kapalı</td>
+<td>Firefox çerezlerini kullanın; yanıt çerezlerini bu yardımcı aracılığıyla geri yazmayın</td>
+</tr>
+<tr>
+<td>Kapalı</td>
+<td>Kapalı</td>
+<td>İstek çerezlerini araç kontrollü tutun ve yanıtları senkronize etmeyin</td>
+</tr>
+</tbody>
+</table>
+<p>Çerez fuzzing veya tarayıcı jar'ını değiştirmeden bırakması gereken bir oturum denemesi için her iki anahtarı da göz önünde bulundurun. İstek başına geçersiz kılma atlaması, istek tarafı geçersiz kılmalarını etkiler; bağımsız genel yanıt-çerez senkronizasyonu ayarını devre dışı bırakmaz.</p>
+<h3 id="protect-fields-that-contain-attack-payloads">Saldırı yüklerini içeren alanları koruyun</h3>
+<p>ZAP testlerini varsayalım <code dir="ltr" translate="no">session=ATTACK_PAYLOAD</code>. Bu değeri körü körüne tarayıcının geçerli oturumuyla değiştirmek testi silebilir. Tersine, her istekte eski bir çerezin saklanması, kimliği doğrulanmış bir taramayı işe yaramaz hale getirebilir.</p>
+<p>Varsayılan <strong>Araç çerezi/başlık değişikliklerini ilk istekten sonra koruyun</strong> istemci bağlantısı/kökeni başına bir temel kaydeder ve sonraki değişiklikleri korur. Önce sıradan bir tohum isteği gönderin. Proxy, ilk isteğin amacını güvenilir bir şekilde çıkaramaz ve yeni bir bağlantı, yeni bir temel oluşturur. Bu buluşsal yöntem tam koruma değildir.</p>
+<p>Tahmin edilebilir testler için şu mekanizmalardan birini seçin:</p>
+<ol>
+<li>Test edilen belirli çerez/başlık geçersiz kılmayı devre dışı bırakın.</li>
+<li>Çerez adlarını ekleyin <code dir="ltr" translate="no">cookies.protectedNames</code> veya başlıklar <code dir="ltr" translate="no">headers.protectedNames</code>.</li>
+<li>İstek başına seçici bir ek açıklama gönderin:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Preserve: cookie:session, User-Agent, Authorization</code></p>
+<p>Bu, aracın adlandırılmış çerez/başlık alanlarını korur. <code dir="ltr" translate="no">cookie</code> isim olmadan aracın tüm Çerez başlığını korur.</p>
+<ol start="4">
+<li>Bu istek için tüm istek tarafı geçersiz kılmalarını atlayın:</li>
+</ol>
+<p><code dir="ltr" translate="no">http
+   X-Longshot-Override: off</code></p>
+<p>Bağdaştırıcı, iletmeden önce bu açıklama başlıklarını çıkarır. Proxy kimlik doğrulaması, kapsamı ve sınırları hâlâ geçerlidir. Kaynak araçtaki ek açıklamaları yapılandırın; bunları hedef web sayfasına koymak bir köprü yapılandırma mekanizması değildir.</p>
+<p>Örneğin, tutmak <code dir="ltr" translate="no">session</code> korumalı, yardımcı ilgisiz bir dosyayı güncellemeye devam ederken ZAP'ın bunu değiştirmesine izin verir <code dir="ltr" translate="no">preferences</code> kurabiye. Kapsamlı Çerez/Yetkilendirme/Kullanıcı Aracısı testleri için bu geçersiz kılmaların devre dışı bırakılması, değişiklik tespit buluşsal yöntemlerine bağımlılığı ortadan kaldırır.</p>
+<h3 id="browser-authorization-and-other-headers">Tarayıcı Yetkilendirmesi ve diğer başlıklar</h3>
+<p>Tarayıcı Yetkilendirmesi, JSON yapılandırması aracılığıyla etkinleştirilir. Yalnızca tarayıcı kaynak kullanımı etkinleştirildikten sonra eşleştirilmiş hedef sekmesi tarafından gerçek bir istekten yakalanır. LocalStorage veya uygulama belleğindeki her belirteç için otomatik bir okuyucu değildir. Gözlemlenen bir değer mevcut olmadan önce daha sonraki bir tarayıcı isteğine ihtiyaç duyulabilir. Tarayıcı Yetkilendirmesinin kapatılması, yakalanan değerin yardımcı tarafından sağlanmasını durdurur.</p>
+<p>Tarayıcı Kullanıcı Aracısı veya Kabul Dili'nin seçilmesi yalnızca bu HTTP alanlarını değiştirir. Hedef JavaScript'i çalıştırmaz, gövde CSRF belirtecini yenilemez, tarayıcı TLS'sini yeniden üretmez veya WAF kabulünü garanti etmez. IP/cihaza bağlı kimlik doğrulama ve OAuth yenileme hâlâ uygulama iş akışlarına ihtiyaç duyuyor.</p>
+<h3 id="vhost-host-handling">VHOST / Ana Bilgisayar yönetimi</h3>
+<p>Yerel yardımcı, aracın Ana Bilgisayar alanına dahili bir köprü takma adı koymaz. Aracın yetkili sanal ana bilgisayar testi için gereken Ana Bilgisayar değerini göndermesine izin verin. HTTPS için, aracın Ana Bilgisayar başlığı korunabildiği sürece CONNECT hedefi yetkili hedef olarak kalır.</p>
+<p>Bir Ana Bilgisayar başlığını değiştirmek, başka bir ağ hedefine erişim izni vermez. Ters proxy onu başka bir uygulamaya yönlendirebilir; bu sanal ana bilgisayar davranışını değerlendirmenin yetkilendirmesine dahil edin. Tam olarak hatalı biçimlendirilmiş başlık baytları ve çakışan çerçeveleme bu ayrıştırılmış proxy'nin dışında.</p>
+<h3 id="audit-and-privacy">Denetim ve gizlilik</h3>
+<p><strong>Yerel trafik</strong> istek meta verilerini ve değiştirilen/korunan alan adlarını gösterir. Denetim, çerez/başlık gizli değerlerini, sorgu değerlerini ve gövdelerini atlar. Bu, proxy'nin hiçbir zaman gizli bilgileri işlemediği anlamına gelmez: kimliği doğrulanmış trafik göndermek için bunları işlemesi gerekir. Harici araçlar, bu değerleri içerebilen kendi geçmişlerini/sonuçlarını korur.</p>
+<p>Özel yapılandırma belirteçlerini, CA anahtarlarını ve veri dizinlerini raporların/kaynak arşivlerinin dışında tutun. Özel Yetkilendirme değerleriyle yapılandırmanın indirilmesi, bu değerleri içeren bir dosya oluşturulabilir.</p>
+<h2 id="external-tools-and-actual-zap-scanning">Harici araçlar ve gerçek ZAP taraması</h2>
+<h3 id="start-with-one-request">Tek bir istekle başlayın</h3>
+<p>Köprüyü eşleştirin, ardından gerçek yerel hedefi test edin:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  'http://localhost:8080/'
+</code></pre>
+<p>Oturum davranışını kontrol etmek için bilinen, kimliği doğrulanmış bir okuma yolu kullanın. Herkese açık bir ana sayfadan alınan 200 yeterli değildir. İsteğin Yerel trafikte göründüğünü, seçilen çerez deposunun doğru olduğunu ve aracın beklenen içeriği aldığını onaylayın. Daha sonraki tüm isteklerin yalnızca bu proxy kullandığı için proxy kullandığı sonucunu çıkarmayın.</p>
+<h3 id="zap-outgoing-proxy">ZAP giden proxy</h3>
+<ol>
+<li>ZAP'ı ayrı olarak kurun/başlatın ve değerlendirmeye özel bir ZAP oturumu kullanın.</li>
+<li>ZAP'larda <strong>Seçenekler → Ağ → Bağlantı</strong>, etkinleştirin <strong>giden HTTP proxy'si</strong>.</li>
+<li>Ana makineyi ayarla <code dir="ltr" translate="no">127.0.0.1</code>, liman <code dir="ltr" translate="no">8900</code> (veya geçerli yapılandırılmış proxy bağlantı noktası).</li>
+<li>Proxy kimlik doğrulamasını etkinleştir: kullanıcı adı <code dir="ltr" translate="no">bridge</code>, geçerli bağdaştırıcı belirtecini şifreleyin.</li>
+<li>Bu zincir için ZAP'ın kendi SOCKS proxy'sini devre dışı bırakın. ZAP'ın SOCKS ayarı, HTTP proxy'sine göre önceliklidir.</li>
+<li>Özellikle yerel bir hizmet için amaçlanan hedefin atlanmaması için HTTP proxy hariç tutmalarını kontrol edin.</li>
+<li>Gerektiğinde bağdaştırıcı CA'sını aracın uygulanabilir TLS güven/doğrulama kurulumunda yapılandırın. Konumu adaptör başlangıcında yazdırılır.</li>
+<li>Erişim <strong>gerçek hedef URL</strong> ZAP'tan kopyalayın ve geçmişini ve köprü meta verilerini doğrulayın.</li>
+<li>ZAP'ın kendi hedefini/bağlamını, tarama politikasını, hariç tutmaları, kimlik doğrulama kontrollerini ve makul istek oranını tanımlayın. Gerçek örümcek/aktif taramayı yetkili olarak çalıştırın.</li>
+<li>ZAP'taki bulguları ve kapsamı inceleyin. Çerez/başlık kimlik doğrulama alanlarını kasıtlı olarak bulanıklaştırırken yukarıdaki koruma/atlama mekanizmalarını kullanın.</li>
+</ol>
+<p>Bu ayar ZAP'ın <strong>giden bağlantı</strong>, yerel gelen tarayıcı proxy dinleyicisi değil. Firefox'un yalnızca seçilen sekmenin çerezlerini bu zincire sağlamak için ZAP kullanacak şekilde yeniden yapılandırılmasına gerek yoktur.</p>
+<p>ZAP, gerçek aktif kural veri yüklerini oluşturur; mitmproxy sonuçta ortaya çıkan yerel istekleri gönderir. Longshot yalnızca etkinleştirilmiş istek alanlarını değiştirir. Bu, harici aracın kullanılabilir oturum bağlamını artırır ancak her iki aracın taramasını kapsamlı hale getirmez. Bkz. <a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP bağlantı ayarları</a>.</p>
+<h3 id="other-http-tools">Diğer HTTP araçları</h3>
+<table>
+<thead>
+<tr>
+<th>Araç/istemci</th>
+<th>Nasıl bağlanılır</th>
+<th>Önemli sınır</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kıvırmak</td>
+<td><code dir="ltr" translate="no">--proxy</code>, <code dir="ltr" translate="no">--proxy-user</code>; <code dir="ltr" translate="no">--cacert</code> HTTPS güveni için; gerektiğinde proxy geçişini temizle</td>
+<td>Farklı çağrılar/bağlantılar buluşsal araştırma temel çizgilerini sıfırlayabilir</td>
+</tr>
+<tr>
+<td>offf</td>
+<td>HTTP proxy seçeneği (<code dir="ltr" translate="no">-x</code>) kimliği doğrulanmış proxy URL'si ile; sınırlı kapsamlı bir kelime listesi ve düşük oran sağlayın</td>
+<td>Bir HTTP proxy'si, proxy olmayan ayrı bir çağrıyı kısıtlamaz</td>
+</tr>
+<tr>
+<td>SQL haritası</td>
+<td>Geçerli kimlik bilgilerine sahip HTTP proxy seçeneği; yetkili URL'yi/parametreyi seçin ve test edilen alanları koruyun</td>
+<td>Ayrı SQLi motoru/ayarları; Çerez değişimi, yapılandırılmadığı sürece çerez problarını silebilir</td>
+</tr>
+<tr>
+<td>wget</td>
+<td>Kimliği doğrulandı <code dir="ltr" translate="no">http_proxy</code>/<code dir="ltr" translate="no">https_proxy</code> veya proxy ayarları; sertifika güvenini yapılandırma</td>
+<td>Kontrol et <code dir="ltr" translate="no">no_proxy</code> ve araca özgü proxy davranışı</td>
+</tr>
+<tr>
+<td>Python urllib'i / İstekler</td>
+<td>HTTPS için açık kimlik doğrulamalı proxy işleyicisi/yapılandırması artı bağdaştırıcı CA'sı</td>
+<td>Kitaplıklar ortam değişkeni ve bypass yönetimi açısından farklılık gösterir</td>
+</tr>
+<tr>
+<td>Çekirdek CLI</td>
+<td>Desteklenen HTTP şablonu trafiği için HTTP proxy'sini/güvenini yapılandırın</td>
+<td>HTTP olmayan/kod/başsız şablon trafiği evrensel olarak tek bir HTTP proxy seçeneği tarafından kapsanmaz</td>
+</tr>
+</tbody>
+</table>
+<p>Kimlik bilgilerini içeren bir proxy URL'si hassastır. Mümkün olduğunda aracınızın özel değerlendirme yapılandırmasını kullanın. Mevcut belirteçleri paylaşılan raporlara yapıştırmayın. Her araç için, her protokolün veya alt işlemin kendi HTTP proxy ayarını dikkate aldığını varsaymak yerine, yönlendirilen trafiği onaylayın.</p>
+<p>Salt okunur bir yerel hedef için Linux Python standart kitaplığı örneği; belirteci sabit kodlamak yerine ister ve bu işlem için ortam proxy atlamasını temizler:</p>
+<pre dir="ltr" translate="no"><code class="language-python" dir="ltr" translate="no">import os
+from getpass import getpass
+from urllib.request import (
+    HTTPPasswordMgrWithDefaultRealm,
+    ProxyBasicAuthHandler, ProxyHandler, build_opener,
+)
+
+os.environ["no_proxy"] = ""
+os.environ["NO_PROXY"] = ""
+proxy = "http://127.0.0.1:8900"
+credentials = HTTPPasswordMgrWithDefaultRealm()
+credentials.add_password(None, proxy, "bridge", getpass("Bridge token: "))
+opener = build_opener(
+    ProxyHandler({"http": proxy, "https": proxy}),
+    ProxyBasicAuthHandler(credentials),
+)
+with opener.open("http://localhost:8080/", timeout=20) as response:
+    print(response.status)
+    print(response.read(200).decode("utf-8", errors="replace"))
+</code></pre>
+<p>İsteği Yerel trafikte doğrulayın; diğer platformlarda ek sistem proxy atlama kuralları bulunabilir. Açıkça kıvrılma örneği <code dir="ltr" translate="no">--noproxy ''</code> daha basit bir geridöngü rota doğrulama kontrolüdür. HTTPS Python istemcilerinin ayrıca bağdaştırıcı sertifikasına güvenen bir SSL bağlamı/CA paketine ihtiyacı vardır.</p>
+<h3 id="pause-and-errors">Duraklatma ve hatalar</h3>
+<p><strong>Yerel istekleri duraklat</strong> yeni yerel çıkışı engeller. Kimlik doğrulama durumları 401/419/440, HTTP 429, sekme kapatma/kaynak dışı değişiklikler veya bütçe sınırları da çalışmayı duraklatabilir. <strong>Sekmeyi kontrol ettikten sonra devam et</strong> yalnızca eşleştirme durumunu inceledikten sonra devam eder.</p>
+<p><strong>Durdur ve bağlantıyı kes</strong> tarayıcı eşleştirmesini sonlandırır; ayrı olarak başlatılan Düğüm sürecini sonlandırmaz. Bu işlemi durdurmak için terminalinde Ctrl+C tuşlarını kullanın.</p>
+<p>Uçuş sırasındaki talepler bitebilir. Proxy istemcileri engellenen işlerle ilgili hatalar alır; bağdaştırıcı keyfi araç işlemlerini askıya almaz veya isteklerini yeniden yürütmez. Hangi isteklerin başarılı olduğunu inceleyin ve aracın kendi yeniden deneme/devam ettirme kontrollerini kullanın. Yeniden başlatma/yeniden eşleştirme, belirteci değiştirir ve araç kimlik doğrulamasının güncellenmesini gerektirir.</p>
+<p>Kasıtlı negatif kimlik doğrulama testlerinde 401/419/440 beklenebilir. Gerekirse ayarlayın <code dir="ltr" translate="no">session.pauseStatuses</code> incelenen bu çalıştırma ve yeniden başlatma için; bağdaştırıcı her kimlik doğrulama hatasının amaçlanan bir araştırma olup olmadığı sonucunu çıkarmaz.</p>
+<h2 id="tor-and-onion-routing">Tor ve soğan yönlendirme</h2>
+<p>Tarayıcı tabanlı Longshot istekleri, seçilen tarayıcının ağını takip eder. Yerel bağdaştırıcı farklı bir işlemdir ve Firefox/Tor Tarayıcı proxy ayarlarını devralmaz.</p>
+<p>SOCKS/Tor: <strong>varsayılan olarak kapalı</strong> yerel yapılandırmada. Yetkili bir soğan değerlendirmesi için, uzak ana bilgisayar adı çözümlemeli, açıkça yapılandırılmış mevcut bir SOCKS hizmetini kullanın; örneğin, bu gerçekten yerel Tor dinleyicinizse bu geçersiz kılma:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "routing": {
+    "socks5": "socks5h://127.0.0.1:9050"
+  }
+}
+</code></pre>
+<p>Bu örnek Tor'u başlatmaz veya 9050 numaralı bağlantı noktasının mevcut olduğunu belirlemez. Gerçek yapılandırılmış hizmeti seçin; Tor Tarayıcı örneği farklı bir dinleyici kullanabilir. Adaptörü yeniden başlatın ve yeniden eşleştirin. Bir HTTP(S) <code dir="ltr" translate="no">upstream.url</code> ve <code dir="ltr" translate="no">routing.socks5</code> birbirini dışlar.</p>
+<p>Yerel ayar, ana bilgisayar adlarını SOCKS aracılığıyla çözer ve sessiz doğrudan geri dönüşe sahip değildir. Açıkça yapılandırılmış bir yukarı akış/SOCKS rotası olmadan, doğrudan soğan hedefleri hedef DNS'den önce reddedilir. Bir SOCKS URL'si aynı zamanda yetkili bir SSH tüneline veya başka bir SOCKS5 hizmetine de atıfta bulunabilir; Tor yönlendirmesinin özünde kanıtı değildir.</p>
+<p>Çerez paylaşımı, yerel rotanın çıkış IP'sini veya TLS/tarayıcı parmak izini Firefox ile aynı yapmaz. Zorluklar veya oturum bağlama bunu reddedebilir. Rotayı ve beklenen oturumu bağımsız olarak kontrol edin.</p>
+<p><strong>Agent API tarafından başlatılan yalıtılmış yerel Çekirdekler farklıdır:</strong> yerleşik rölesinin Tor/SOCKS rotası yoktur ve sistem DNS'sinden önce soğan hedeflerini engeller. Hedeflenen tarayıcıda uygun tarayıcı tarafı kontrollerini veya yerel proxy aracılığıyla ayrı olarak yapılandırılmış harici bir aracı kullanın. Çekirdek onay kutusunun devralındığını varsaymayın <code dir="ltr" translate="no">routing.socks5</code> Tarayıcı Köprüsü'nden.</p>
+<h2 id="agent-api-mcp-and-local-model-clients">Aracı API'si, MCP ve yerel model istemcileri</h2>
+<p>Bir aracının/komut dosyasının Longshot'ı çalıştırması, kanıt alması veya değerlendirme dosyalarını kaydetmesi gerektiğinde bunu kullanın. :8900 trafik proxy'si değil.</p>
+<h3 id="register-and-connect-the-native-host">Yerel ana bilgisayarı kaydedin ve bağlayın</h3>
+<p>Saklananlardan <strong>kaynak</strong> içeren dizin <code dir="ltr" translate="no">manifest.json</code> ve <code dir="ltr" translate="no">bridge/</code>:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">cd /absolute/path/to/longshot-source
+node bridge/bin/longshot-bridge install
+</code></pre>
+<p>Bu kayıt olur <code dir="ltr" translate="no">longshot.bridge</code> ve kaynak klasöre ve çalıştırılabilir Düğüme başvuran bir başlatıcı. Her ikisini de yerinde tutun. Her ikisinden biri hareket ederse yeniden kaydolun.</p>
+<p>Açık <strong>Ayarlar → Bağlantı ve kurulum → Yerel köprüyü bağla</strong> ve Firefox'un yerel mesajlaşma iznini verin. Ana bilgisayar, arka plan programını otomatik olarak başlatabilir. Eğer arka plan programını kasıtlı olarak manuel olarak çalıştırıyorsanız:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">node bridge/bin/longshot-bridge serve
+</code></pre>
+<p>Aynı bağlantı noktası/veri dizininde ikinci bir arka plan programından kaçının. Bağlantıyı Kes, uzantının yerel bağlantısını kapatır; bağımsız olarak başlatılan bir arka plan programını mutlaka durdurmaz.</p>
+<p>Node.js 20+ gereklidir. Yerel mesajlaşma MCP'sinin proxy'nin Python/mitmproxy kurulumuna ihtiyacı yoktur. Linux uygulanan kurulumdur. macOS kayıt desteği burada sağlanır ancak çalışma zamanı doğrulaması yapılmaz; bu sürümde Windows Firefox yerel ana bilgisayar yükleyicisi yoktur. WSL'ye kaydolmak, Windows Firefox için bir ana bilgisayarı kaydetmez. Yerel Çekirdek izolasyonu yalnızca Linux içindir.</p>
+<p>Varsayılan hizmet: <code dir="ltr" translate="no">http://127.0.0.1:8765</code>. Bu localhost adresi bir kontrol API'sidir, <strong>taranan hedef değil</strong>. Belirteç/soket varsayılan olarak <code dir="ltr" translate="no">$XDG_DATA_HOME/longshot</code> veya <code dir="ltr" translate="no">~/.local/share/longshot</code>. Özel <code dir="ltr" translate="no">--port</code> ve <code dir="ltr" translate="no">--data-dir</code> yükleme, sunma ve mcp genelinde eşleşmelidir. Kısa bir Unix veri yolu kullanın çünkü soket yolunun 100 bayt sınırı vardır.</p>
+<h3 id="rest-example">REST örneği</h3>
+<p>Aynı kaynak klasörden:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">longshot_token_file="$(node bridge/bin/longshot-bridge token-path)"
+longshot_api_token="$(cat "$longshot_token_file")"
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/health
+
+curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  http://127.0.0.1:8765/v1/targets
+</code></pre>
+<p> <code dir="ltr" translate="no">token-path</code> komut belirteci değil dosya adını yazdırır. API, proxy kullanıcı adı/şifre kimlik doğrulamasından farklı olarak taşıyıcı kimlik doğrulamasını kullanır. Geridöngü olmayan istemcileri ve tarayıcının Origin isteklerini reddeder ve genel bir CORS API'sini açığa çıkarmaz. Herkese açık bir ters proxy aracılığıyla yayınlamayın.</p>
+<p>Küçük bir taramayı yalnızca amaçlanan hedefi bağladıktan/etkinleştirdikten ve kayıtlı seçeneklerini kontrol ettikten sonra başlatın:</p>
+<pre dir="ltr" translate="no"><code class="language-sh" dir="ltr" translate="no">curl --fail-with-body \
+  -H "Authorization: Bearer $longshot_api_token" \
+  -H 'Content-Type: application/json' \
+  --data '{"target_id":"PROFILE_ID","mode":"safe","budget":150}' \
+  http://127.0.0.1:8765/v1/scans
+</code></pre>
+<p>PROFILE_ID'yi seçilen profil kimliğiyle değiştirin. <code dir="ltr" translate="no">safe</code> yalnızca Spider ile eşleşir; kaydedilen her gelişmiş seçeneği sıfırlamaz veya evrensel bir geçersiz kılma işlevi görmez. Başlangıç ​​eşzamansızdır. Döndürülen çalıştırma kimliğini okuyun ve ardından izleyin <code dir="ltr" translate="no">/v1/scans/RUN_ID</code>, <code dir="ltr" translate="no">/eta</code>, <code dir="ltr" translate="no">/findings</code> veya <code dir="ltr" translate="no">/report?format=html</code>. POST <code dir="ltr" translate="no">/pause</code>, <code dir="ltr" translate="no">/resume</code> ve <code dir="ltr" translate="no">/stop</code> Bir koşuyu kontrol edin. Kimliği doğrulanmış danışın <code dir="ltr" translate="no">/openapi.json</code> kesin şemalar için.</p>
+<p>REST/JSON-RPC profilleri, taramaları, bulguları/raporları, şablonları, OAST ve oturum işlemlerini destekler. <code dir="ltr" translate="no">/rpc</code> JSON-RPC'yi taşır; <code dir="ltr" translate="no">/mcp</code> stdio ve SSE seçenekleriyle MCP HTTP sunar. Hizmetin protokol/API sürümü dizeleri eski şema sürümlerini koruyabilir; yüklü kullanıcı arayüzü yayın sürümü için uzantı bildirimini kullanın.</p>
+<h3 id="mcp-client-setup">MCP istemci kurulumu</h3>
+<p>Stdio MCP yapılandırmasını destekleyen bir istemci için:</p>
+<pre dir="ltr" translate="no"><code class="language-json" dir="ltr" translate="no">{
+  "mcpServers": {
+    "longshot": {
+      "command": "node",
+      "args": [
+        "/absolute/path/to/longshot-source/bridge/bin/longshot-bridge",
+        "mcp"
+      ]
+    }
+  }
+}
+</code></pre>
+<p>İstemcinin sınırlı bir PATH'i varsa, mutlak bir Node çalıştırılabilir dosyası kullanın. Eşleşme ekle <code dir="ltr" translate="no">--port</code> / <code dir="ltr" translate="no">--data-dir</code> özelleştirildiğinde argümanlar. Stdio yardımcısı yerel kimlik doğrulamalı hizmete bağlanır; kendisi Firefox bağlantısının yerini almaz.</p>
+<p>Mevcut MCP araç kataloğu 21 araç içerir: tarama/şablon/rapor/OAST araçları artı kullanıcı arayüzü ve anlamsal komut keşfi/kontrol. Eski sekiz araçlı eğitime güvenmek yerine gerçek kataloğu keşfedin.</p>
+<table>
+<thead>
+<tr>
+<th>Araç grubu</th>
+<th>İş akışı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code dir="ltr" translate="no">longshot_list_targets</code>, tarama/durum/ETA/bulgular/rapor araçları</td>
+<td>Açık profil/çalıştırma kimlikleri kullanın ve eşzamansız sonuçları inceleyin</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_commands</code>, <code dir="ltr" translate="no">longshot_command</code></td>
+<td>Anlamsal komutları keşfedin ve desteklenen argümanlarını çağırın</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_pages</code>, <code dir="ltr" translate="no">longshot_ui_open</code></td>
+<td>Hedefe bağlı uzantı kontrol panellerini keşfedin/açın</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_snapshot</code></td>
+<td>Gerçek etiketleri, mevcut değerleri, diyalogları ve öğe referanslarını okuyun</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_action</code>, <code dir="ltr" translate="no">navigate</code>, <code dir="ltr" translate="no">wait</code></td>
+<td>Mevcut kontrolleri çalıştırın ve tamamlandığını doğrulayın</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">longshot_ui_downloads</code>, <code dir="ltr" translate="no">clipboard</code>, <code dir="ltr" translate="no">screenshot</code>, <code dir="ltr" translate="no">focus</code>, <code dir="ltr" translate="no">close</code></td>
+<td>Desteklenen uzantı sayfası çıkışı ve kullanıcı arayüzü yönetimi; keyfi işletim sistemi erişimi değil</td>
+</tr>
+</tbody>
+</table>
+<p>Devre dışı bırakılan kontroller, hedef kapsamı, durum ve bütçeler hâlâ geçerlidir. Eski referanslar yeni bir anlık görüntü gerektirir; gönderilen bir tıklama tek başına başarıyı kanıtlamaz. Firefox/OS izin istemleri ayrı tarayıcı/işletim sistemi kontrolleri olarak kalır.</p>
+<p><strong>Onay sınırı:</strong> doğrudan anlamsal onay komutları agresif bir çalıştırma izni oluşturamaz. Kimliği doğrulanmış tam kullanıcı arayüzü otomasyonu, onaylama düğmesi de dahil olmak üzere ilgili kontrol panelinin onay iletişim kutusunu çalıştırabilir. Bu nedenle, bir aracıya kullanıcı arayüzü kontrolü vermek ona kullanıcı arayüzü yeteneğini verir; Bu tür bir erişimin, onaya tıklamanın mümkün olmadığı şeklinde tanımlamayın. Tek kullanımlık hedef/yapılandırma/son kullanma tarihi kontrolleri hala geçerlidir.</p>
+<h3 id="hermesollama-or-another-local-model-agent">Hermes/Ollama veya başka bir yerel model temsilci</h3>
+<p>Longshot, keyfi bir LLM sohbet akışını kabul etmez veya bir model seçmez. <strong>acente başvurusu</strong> model bağlantısını ve araç çağırma döngüsünü sağlar. Aracınız MCP'yi destekliyorsa, o aracıda yukarıdaki MCP sunucusunu yapılandırın. Aracı, desteklenen araç çağrılarını gönderir ve araç sonuçlarını alır; açıktaki kullanıcı arayüzü araçları aracılığıyla uzantıyı inceleyebilir/gezinebilir/doldurabilir ve ayrıca tarama komutlarını çağırabilir.</p>
+<p>Ollama modelini ve sunucusunu Hermes'in/acentenin kendi konfigürasyonunda seçin. Aracının araç çağrısı formatını destekleyen bir model/istemci kombinasyonu kullanın ve aracının gerçekten MCP araçlarını çağırmasına izin verildiğinden emin olun. Longshot'ın yapılandırması yok <code dir="ltr" translate="no">model</code>, <code dir="ltr" translate="no">ollama</code> veya sağlayıcı API anahtarı ayarı. Model erişimi, kabuk erişimi ve ilgisiz dosya sistemi kontrolü, aracı ana bilgisayarın yetenekleridir ve bu uzantının yüklenmesiyle sağlanmaz.</p>
+<p>Temsilci görevinde kapsamı, bütçeleri, hesabı ve amaçlanan eylemleri açık tutun. Oluşturulan bulguları kayıtlı kanıtlarla doğrulayın; model metni bir tarayıcı sonucu veya izin izni değildir.</p>
+<h3 id="optional-debugging-port-control">İsteğe bağlı hata ayıklama bağlantı noktası kontrolü</h3>
+<p>Kaynak, BiDi/CDP kontrol yardımcılarını ve tek komutlu bir komut içerir <code dir="ltr" translate="no">bridge/bin/longshot-ui</code> arayüz. Bu, uzantıya ait sayfaların gelişmiş kontrolüdür. Chrome sürümü ayrı bir Manifest V3 paketidir; görünür çalışma tezgahı açık kalmalıdır. Tarayıcı hata ayıklama dinleyicisini açmak ayrı bir tarayıcı başlatma seçeneğidir; görmek <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">Firefox Remote Agent güvenliği</a>.</p>
+<p>İsteğe bağlı hata ayıklama yardımcısı sabitlenmiş olanı kullanır <code dir="ltr" translate="no">ws</code> bağımlılık <code dir="ltr" translate="no">native-bridge/node_modules/ws/</code>. Çalıştır <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code> önce tutulan kaynak ödemesinden. Bu yol 2.18 serisinde düzeltildi; kaldırılan geçmiş tarayıcı getirme bağdaştırıcısı gerekli değildir.</p>
+<h2 id="optional-native-nuclei">İsteğe bağlı yerel Çekirdekler</h2>
+<p>Üç farklı şablon rotası vardır:</p>
+<table>
+<thead>
+<tr>
+<th>Rota</th>
+<th>Motor/oturum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tarayıcı uyumlu içe aktarılan HTTP şablonu</td>
+<td>Longshot'ın desteklenen şablon yorumlayıcısı ve hedef tarayıcı oturumu</td>
+</tr>
+<tr>
+<td>Yerel tam Çekirdek onay kutusu</td>
+<td>Agent API Linux izolasyon yoluna resmi olarak ayrı olarak yüklenmiş Nuclei; otomatik Firefox girişi yok</td>
+</tr>
+<tr>
+<td>Tarayıcı Köprüsü aracılığıyla Harici Çekirdek CLI</td>
+<td>Bağımsız CLI işiniz; desteklenen proxy'li HTTP trafiği yapılandırılmış tarayıcı çerezlerini alabilir</td>
+</tr>
+</tbody>
+</table>
+<p>Longshot tarafından başlatılan yerel işler için:</p>
+<ol>
+<li>Resmi Nuclei ikili dosyasını ayrı olarak yükleyin ve PATH'de gösterin veya ayarlayın <code dir="ltr" translate="no">LONGSHOT_NUCLEI</code> Agent API'yi başlatmadan önce.</li>
+<li>Linux bubblewrap'e ayrıcalıksız çalışan kullanıcı/ağ ad alanları sağlayın.</li>
+<li>Başsız şablonlar için, isteğe bağlı olarak aracılığıyla gerekli tarayıcıyı sağlayın. <code dir="ltr" translate="no">LONGSHOT_CHROME</code>.</li>
+<li>Agent API'sini kaydedin/bağlayın ve bildirilen yerel yetenekleri inceleyin.</li>
+<li>İncelenen şablonları ve gerekli ilgili yardımcı dosyaları içe aktarın.</li>
+<li>Etkinleştir <strong>Yerel tam Çekirdek yürütme</strong> ve yalnızca ekstra Kod/JavaScript, Başlıksız veya Dosya yetenekleri gereklidir.</li>
+<li>Dosya şablonları için ayarlayın <code dir="ltr" translate="no">LONGSHOT_FILE_ROOT</code> ana makineyi başlatmadan önce açık salt okunur izin verilenler listesine ekleyin.</li>
+<li>Çalıştırmayı kaydedin, inceleyin ve onaylayın; Hazır/Engellendi nedenlerini ve yürütücü etiketli çıktıyı inceleyin.</li>
+</ol>
+<p>Çalışanların yalıtılmış bir dosya sistemi/ağ ad alanı, özel geçici depolama alanı ve hedef aktarma aracılığıyla sınırlı yürütmesi vardır. Firefox çerezlerini, tarayıcı yerel depolama alanını veya Firefox'un Tor rotasını otomatik olarak almazlar. Başsız oturumlar izole edilmiştir. Engellenen bir yerel şablon, olumsuz bir güvenlik açığı sonucu anlamına gelmez.</p>
+<p>Yerel kod/JavaScript şablonları, resmi motor tarafından güvenilen imzalar gerektirir. <code dir="ltr" translate="no">LONGSHOT_NUCLEI_CERT</code> gözden geçirilmiş bir genel yazar sertifikasına işaret edebilir; ana makine, içe aktarma işlemlerini otomatik olarak imzalamaz veya özel imzalama anahtarlarını bağlamaz. Yerel dosya şablonları ana bilgisayar ana dizinlerini serbestçe okuyamaz. Ek dosya/kod/başsız anahtarlar, genel şablon içe aktarma işleminden ayrı kalır.</p>
+<p>Yerel geçiş, keyfi ağ erişimini değil, kısıtlı hedef/sağlayıcı bağlantılarını destekler. Onion hedefleri, kullanılamayan izolasyon/çalışma zamanları, desteklenmeyen hedef adresleme veya uyumsuz yol kapsamları yürütmeyi engelleyebilir. Yerel Interactsh kaydı, Longshot'ın tarayıcı OAST istemcisinden ayrı olarak Nuclei'ye aittir. Neyin çalıştığına karar vermek için "tam motor" etiketi yerine gerçek sonuç kanıtlarını ve platform kapasitesi raporlarını kullanın.</p>
+<h2 id="manual-tools-interception-and-api-inventory">Manuel araçlar, müdahale ve API envanteri</h2>
+<h3 id="page-guide">Sayfa kılavuzu</h3>
+<table>
+<thead>
+<tr>
+<th>Sayfa</th>
+<th>Ne için kullanmalı?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Genel Bakış</td>
+<td>Bağlan, oturumu doğrula, kural gruplarını seç, işlemi seç ve ilerlemeyi izle</td>
+</tr>
+<tr>
+<td>Tarama seçenekleri</td>
+<td>Ekstra aşamalar, onay, vücudun bulanıklaştırılması, sağlayıcı ayarları ve bütçeler</td>
+</tr>
+<tr>
+<td>Hedefler</td>
+<td>Profilleri ayırın, bir tarayıcı sekmesi seçin/ekleyin ve hedefe özel kanıtları/seçenekleri geri yükleyin</td>
+</tr>
+<tr>
+<td>Site haritası</td>
+<td>Keşfedilen URL'ler/formlar/rotalar; bir gözlem haritası, tam keşfin kanıtı değil</td>
+</tr>
+<tr>
+<td>HTTP geçmişi</td>
+<td>Tarayıcı trafiği meta verileri ve tarayıcı/Tekrarlayıcı yanıtları; kesin girdileri ve zaman damgalarını inceleyin</td>
+</tr>
+<tr>
+<td>API gezgini</td>
+<td>Gözlemlenen/içe aktarılan işlemler ve parametre envanteri; Tekrarlayıcıda desteklenen okumaları hazırlayın</td>
+</tr>
+<tr>
+<td>Sunucu yığını</td>
+<td>Parmak izleri, yerel Akıllı analiz cihazı ve aday danışma araması</td>
+</tr>
+<tr>
+<td>Ağ grafiği</td>
+<td>Gözlemlenen kaynaklar/IP'ler/referans verilen alanlar ve mevcut sanal konak kanıtları; harici düğümler otomatik kapsam değil envanterdir</td>
+</tr>
+<tr>
+<td>Bulgular</td>
+<td>Kanıt, karar/güven/şiddet, inceleme durumu ve sinematik görüntüleyici</td>
+</tr>
+<tr>
+<td>WSTG kontrolleri</td>
+<td>Referans kapsam türleri ve girdi başına gerçek denetim yürütme</td>
+</tr>
+<tr>
+<td>Şablonlar</td>
+<td>İçe aktarma, uyumluluk/yürütücü ayrıntıları, manuel seçim ve çalıştırma sonuçları</td>
+</tr>
+<tr>
+<td>Tekrarlayıcı / Fuzzer</td>
+<td>Odaklanmış istek tekrarı veya sınırlı mutasyon</td>
+</tr>
+<tr>
+<td>Durdurucu</td>
+<td>Uygun hedef sekme URL'si/başlık aşamalarını tutun</td>
+</tr>
+<tr>
+<td>OAST</td>
+<td>Sağlayıcı/geri arama durumu, test eylemleri ve ilişkili etkileşimler</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>Sınırlı gözlemlenen kanal değişimleri</td>
+</tr>
+<tr>
+<td>Karşılaştır</td>
+<td>Kaydedilen iki yanıt arasındaki yerel farklar</td>
+</tr>
+<tr>
+<td>Kodlayıcı / kod çözücü</td>
+<td>Yerel dönüşümler ve jeton talebi incelemesi</td>
+</tr>
+<tr>
+<td>Tarayıcı Köprüsü</td>
+<td>Yerel araç proxy'sini eşleştirin ve oturum geçersiz kılmalarını yapılandırın</td>
+</tr>
+<tr>
+<td>Rapor</td>
+<td>Etkin profilin kanıtlarını dışa aktar</td>
+</tr>
+<tr>
+<td>Ayarlar</td>
+<td>İstek/oturum ayarları, görünüm, yerel bağlantı ve değerlendirme dosyaları</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-explorer">API Gezgini</h3>
+<p>Önce bağlanın ve göz atın, ardından seçin <strong>Mevcut sayfayı incele</strong>. Geliştirici tarafından sağlanan bir öğeyi içe aktarın <strong>OpenAPI JSON</strong> mevcut olduğunda açıklama, 2 MB'a kadar. Rastgele bir uzak sayfa veya YAML dosyasını değil, yerel JSON'u okur. Yerel spesifikasyon referansları ve mevcut istek örnekleri/varsayılanlar somut destekli girdiler sağlayabilir; eksik değerler/bedenler ve desteklenmeyen yapılar boşluklar bırakıyor.</p>
+<p>Uç nokta bir adrestir; bir işlem bir adres artı yöntemidir. Sorgu girişleri şu sürenin ardından görünür: <code dir="ltr" translate="no">?</code>, adres yolundaki yol girişleri ve gönderilen içerikteki gövde girişleri. Listelenen bir işlem envanterdir, cari hesabın ele aldığı her nesneye erişebileceğinin kanıtı değildir.</p>
+<p>Kullanım <strong>Tekrarlayıcı</strong> Henüz göndermeden bir istek hazırlamak için desteklenen bir GET/HEAD işleminin yanında. URL'yi/yöntemi/girişleri inceleyin ve ardından kasıtlı olarak gönderin. Yalnızca envanter yazma işlemleri yine de uygun isteği hazırlamanızı ve yazma onayı almanızı gerektirir.</p>
+<h3 id="repeater-and-compare">Tekrarlayıcı ve Karşılaştır</h3>
+<p>Tekrarlayıcı, bağlı tarayıcı oturumunu kullanarak yeni kapsamlı bir istekte bulunur. GET/HEAD/OPTIONS normal rotayı kullanır. Yazma yöntemleri, gövde değişiklikleri ve yok etme/yükleme yetenekleri politikaya ve onaya tabi olmaya devam edecektir. Yönetilen Çerez/Yetkilendirme/Ana Bilgisayar değerleri, başlık düzenleyicisi aracılığıyla serbestçe değiştirilemez; Açıkça yapılandırılmış başlık/çerez testleri için yerel harici araç yolunu kullanın.</p>
+<p><strong>Aynı kaynaklı yönlendirmeleri takip edin</strong> yönlendirmenin kendisini mi yoksa izin verilen son yanıtı mı inceleyeceğinizi kontrol eder. Kapsam dışı yönlendirmeler genel yetkilendirme değildir. İnceleme için gerektiğinde yanıt gövdelerini saklayın, ardından kaydedilen iki yanıtı seçin. <strong>Karşılaştır</strong>. Karşılaştırma hiçbir istek göndermez; dinamik içerik, oturum açma durumu, kısıtlama veya WAF sayfaları bir farkı açıklayabilir.</p>
+<h3 id="interceptor">Durdurucu</h3>
+<p>Durdurucuyu etkinleştirin ve <strong>Müdahaleyi uygula</strong>. İsteğe bağlı Firefox engelleme iznini normal kullanıcı eylemiyle verin. Uzantı yeniden başlatıldıktan sonra müdahale devre dışı bırakılır.</p>
+<table>
+<thead>
+<tr>
+<th>Sahne / kontrol</th>
+<th>Davranış</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>İstek URL'lerini beklet</td>
+<td>İstek başlıklarından önce duraklatın; kapsamlı URL'yi/sorguyu düzenleyin veya bırakın</td>
+</tr>
+<tr>
+<td>İstek başlıklarını beklet</td>
+<td>İletimden önce izin verilen istek başlıklarını inceleyin/düzenleyin</td>
+</tr>
+<tr>
+<td>Yanıt başlıklarını tut</td>
+<td>İstek sunucuya ulaştıktan sonra teslimatı duraklatın; sunucu tarafı eylemi geri alınamaz</td>
+</tr>
+<tr>
+<td>Kaynak/yöntem/yol filtreleri</td>
+<td>Bağlı sekmedeki uygun trafiği ve tam hedef kapsamını kısıtlayın</td>
+</tr>
+<tr>
+<td>Bekleme zaman aşımı</td>
+<td>Varsayılan 0: otomatik serbest bırakma yok. İsteğe bağlı 10–3.600 saniye, ardından seçilen ileri/bırakma eylemi</td>
+</tr>
+<tr>
+<td>İleri aşama</td>
+<td>Bu aşamayı çözün; başka bir etkin aşama aynı isteği daha sonra tutabilir</td>
+</tr>
+<tr>
+<td>İsteği bırak</td>
+<td>Bu aşamayı iptal et/teslimat talebinde bulun</td>
+</tr>
+<tr>
+<td>Bekleyenlerin tümünü ilet/bırak</td>
+<td>Gelecekteki filtreleri değiştirmeden mevcut kuyruğu çözümleyin</td>
+</tr>
+<tr>
+<td>Kapatma ve iletme beklemede</td>
+<td>Durdurmayı devre dışı bırak ve bekleme aşamalarını değiştirilmeden bırak</td>
+</tr>
+</tbody>
+</table>
+<p>Uzun süre bekletilen bir isteği yayınlamadan önce uygulama/tarayıcı zaman aşımına uğrayabilir. 20'ye kadar aşama bekleyebilir; kuyruk sınırının aşılması daha fazla eşleşen trafiği iptal eder. Filtrelerin değiştirilmesi mevcut aşamaları değişmeden bırakır. Son kontrol panelinin kapatılması, tutulan aşamaları serbest bırakır ve müdahaleyi devre dışı bırakır.</p>
+<p>İzin verilen başlıklar, ad/değer çiftlerinden oluşan bir JSON dizisi kullanır; hassas/tarayıcı tarafından yönetilen/çerçeveleme alanları korunur. Tutulan ağ isteğinin yöntem/gövde/durum yeniden yazımı kullanılamıyor. <strong>Tekrarlayıcıya Gönder</strong> kasıtlı düzenleme için ayrı bir istek şekli oluşturur; uçuş sırasında vücudun yeniden yazılması şeffaf değildir.</p>
+<p>Yalnızca seçilen hedef sekme HTTP trafiği uygundur. Tarayıcı aktarımı, kilitlenmeyi önlemek için müdahaleyi atlar. Harici yerel proxy trafiği bu tarayıcı önleyicinin dışında. Yükseltme sonrasında WebSocket mesajlarının ayrı kanal çalışma tezgahlarına ihtiyacı vardır.</p>
+<h3 id="websocket-sse-and-utilities">WebSocket, SSE ve yardımcı programlar</h3>
+<p>Keşfedilen kapsam dahilindeki bir kanalı seçin veya tam URL'sini girin. Dinleme ve özel çerçeve gönderimleri, genel bir protokol tarayıcısı değil, sınırlı onaylı işlemlerdir. Yakalanan hata metni bir ipucudur; mesaj yetkilendirmesi veya yarış/mantık hatası oluşturmaz.</p>
+<p>Yardımcı programlar değerleri kodlar/kod çözer, SHA-256'yı hesaplar, JSON'u biçimlendirir ve JWT taleplerini yerel olarak denetler. Bir JWT'nin kodunun çözülmesi imza doğrulaması değildir ve sunucunun sahte bir belirteci kabul ettiğini göstermez. Dönüştürülen giriş otomatik olarak yürütülmez veya gönderilmez.</p>
+<h2 id="findings-and-the-cimematic-viewer">Bulgular ve sinematik görüntüleyici</h2>
+<h3 id="read-the-evidence-first">Önce kanıtları okuyun</h3>
+<p>Bir bulgunun ayrı alanları vardır:</p>
+<table>
+<thead>
+<tr>
+<th>Alan</th>
+<th>Anlamı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Şiddet</td>
+<td>Sorunun istismar edilebilir olması durumunda tahmini potansiyel zarar</td>
+</tr>
+<tr>
+<td>Karar</td>
+<td>Tarayıcının gözlemlediği: potansiyel/eşleşen/güvenlik açığı, negatif, engellenmiş veya sonuçsuz (uygun olduğu şekilde)</td>
+</tr>
+<tr>
+<td>Güven</td>
+<td>Zararın miktarı değil, uygulanan kanıtların gücü</td>
+</tr>
+<tr>
+<td>Durumu incele</td>
+<td>Değerlendirmeniz: İncelenmedi, İnceleyen tarafından onaylandı, Yanlış pozitif veya Kabul edilen risk</td>
+</tr>
+<tr>
+<td>WSTG / CWE</td>
+<td>Referans sınıflandırması, tüm testin/kategorinin tamamlandığına dair kanıt değil</td>
+</tr>
+</tbody>
+</table>
+<p>URL'yi, ekleme noktasını, isteği, temeli, yükü, yanıtı ve tekrarları/kontrolleri inceleyin. İçeriğin kısaltılıp kısaltılmadığını veya yanıtın bir sorgulama/giriş/hata sayfası olup olmadığını kontrol edin. Yüksek güvenirliğe sahip tekrarlanan bir hata hâlâ gözden geçirilmesi gereken potansiyel bir enjeksiyon bulgusu olabilir.</p>
+<p>İnceleme durumunu ve notları ayarlayın, ardından <strong>İncelemeyi kaydet</strong>. Bu, tarayıcının orijinal kararının/güveninin üzerine yazmaz. Yanlış pozitifler kanıt olarak kalmaya devam ediyor. Filtreler şunları içerir: <strong>Olumsuz / engellenmiş olanı göster</strong>, yürütme kaydını değil görünürlüğü değiştirin.</p>
+<h3 id="cimematic-viewer">sinematik görüntüleyici</h3>
+<p>Düğme kasıtlı olarak adlandırılmıştır <strong>sinematik görüntüleyici</strong> bu sürümde. Seçilen bulguya ilişkin temalı 3 boyutlu açıklamayı açar.</p>
+<p>Sıra yaklaşık 9,3 saniyedir: etkilenen alanın yerini tespit edin, girişi gösterin, işlemeyi gösterin, kaydedilen sonuç kanıtını gösterin, ardından ciddiyeti ve sade bir dille potansiyel risk açıklamasını görüntüleyin. Mevcut kontroller şunları içerir: <strong>Duraklat/devam ettir</strong>, tekrar oynat, numaralı adımlar, etkiye atla, <strong>3 boyutlu derinlik</strong> ve <strong>Tam ekran</strong>. Azaltılmış hareket ayarları doğrudan etki yaratabilir.</p>
+<table>
+<thead>
+<tr>
+<th>Mod</th>
+<th>Ne gösteriyor?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Canlı / CSS + JS</td>
+<td>Normal bir Firefox önizleme sekmesi, geçerli sayfayı CSS/JavaScript ve seçilen çerez içeriğiyle birlikte yükler; izleyici işlenmiş çerçeveleri ve öğe dikdörtgenlerini alır</td>
+</tr>
+<tr>
+<td>Yalnızca yakalandı</td>
+<td>Temizlenmiş, çalışmayan HTML veya yakalamayla saklanan kanıtlar; bu çevrimdışı geri dönüş tarafından hiçbir harici kaynak veya komut dosyası çalıştırılmıyor</td>
+</tr>
+<tr>
+<td>Kaydedilen sonuç</td>
+<td>Geçerli canlı sayfadan farklı olabilecek kayıtlı tarama kanıtı/sonuç düzlemi</td>
+</tr>
+</tbody>
+</table>
+<p>Bu, etkileşimli klonlanmış bir site DOM'si değil, sinematik bir görünüm portudur. <strong>Canlı sekmeyi aç</strong> etkileşim için gerçek sayfayı açar. Normal canlı yükleme, sitenin sıradan kaynak/uygulama isteklerini gerçekleştirebilir, ancak görüntüleyiciyi açmak kayıtlı saldırı formunu göndermez, bir POST'u yeniden oynatmaz veya istismarı yeniden çalıştırmaz.</p>
+<p>Kamera konumu yalnızca eşleşen bir giriş/ad/kimlik bulunabildiğinde kesindir. API/başlık/çerez bulgularının HTML formu olamaz; sayfa bağlamı görünümü bu şekilde etiketlenir. Animasyon asla potansiyel bir bulguyu kullanım kanıtına yükseltmez. Canlı oluşturma başarısız olursa, yakalanan kanıtları ve metin/talep ayrıntılarını kullanın.</p>
+<p>İzleyicinin sahip olduğu önizleme sekmesi, normal görüntüleyici/kontrol paneli temizliğinde kapatılır; açıkça açılan etkileşimli bir sekmeyi kapatmak sizin elinizde kalır. Mevcut oturum açma, site durumu, bağımlılık yükleme ve CSP, canlı modun görüntüleneceklerini değiştirebilir.</p>
+<h2 id="owasp-top-10-coverage">OWASP İlk 10 kapsamı</h2>
+<p>Açık <strong>Tarama seçenekleri → Bilgi</strong> aranabilir/filtrelenebilir 44 girişli uygulama tablosu için ayrıca Bilgi düğmesi sayfasından da ulaşılabilir. Kullanır <a href="https://top10.owasp.org/2025/">OWASP İlk 10:2025</a> oryantasyon için daha eski 2021 referanslarıyla. SSRF artık Bozuk Erişim Kontrolü altında gruplandırılmıştır. Örnekler kategorilerle örtüşebilir; liste CWE kataloğunun tamamı değildir.</p>
+<p>Destek etiketleri:</p>
+<ul>
+<li><strong>Aktif kontrol:</strong> Desteklenen ulaşılan girişler için etkinleştirildiğinde özel olarak uygulanan bir kural mevcuttur.</li>
+<li><strong>İsteğe bağlı doğrulama:</strong> ek seçenekler, izinler, sağlayıcı veya yürütme önkoşulları geçerlidir.</li>
+<li><strong>Yalnızca göstergeler:</strong> manuel yorumlama gerektiren pasif bir sinyal/karşılaştırma.</li>
+<li><strong>Şablona bağlı:</strong> içe aktarılan şablon ve yürütücü test edilen koşulu belirler.</li>
+<li><strong>Kapsam dışı:</strong> o sınıf için özel bir yerleşik doğrulayıcı yok; genel özel veriler kapsamı otomatik olarak oluşturmaz.</li>
+</ul>
+<p>Bu, kaynak tabanlı bir yetenek denetimidir. <strong>ölçülen bir tespit yüzdesi değil</strong>. Harici ZAP kural kümesinin tamamını değil, Longshot'ın yerleşik tarayıcısını ve isteğe bağlı aşamalarını açıklar.</p>
+<table>
+<thead>
+<tr>
+<th>OWASP 2025</th>
+<th>Güvenlik açığı / zayıflık</th>
+<th>Destek</th>
+<th>Ne çalışır / gerekli seçenekler</th>
+<th>Sınırlar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A05</td>
+<td>SQL enjeksiyonu: veritabanı hataları ve boolean farklılıkları</td>
+<td>Etkin kontrol</td>
+<td>SQL enjeksiyonunu etkinleştirin. Tekrarlanan veritabanı hatası araştırmaları ve doğru/yanlış karşılaştırmaları, keşfedilen girdiler üzerinde yeni kontroller kullanır.</td>
+<td>Adayların incelenmesi gerekiyor. Veritabanı çıkarma veya kapsamlı DBMS'ye özgü kör kapsama alanı yok.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Kör SQL enjeksiyonu: zamanlama</td>
+<td>İsteğe bağlı doğrulama</td>
+<td>Agresif onayla Tekrarlanan zamanlama araştırmalarını etkinleştirin. Üç temiz zamanlama, ilk yerleştirme noktasındaki üç SLEEP probuyla karşılaştırılır.</td>
+<td>Dar bir SQL sözdizimi ve zamanlama buluşsal yöntemi; titreşim, WAF'ler ve farklı veritabanı lehçeleri sonucu gizleyebilir veya taklit edebilir.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>NoSQL enjeksiyonu</td>
+<td>Etkin kontrol</td>
+<td>Tekrarlanan MongoDB/BSON hata imzaları için NoSQL enjeksiyonunu etkinleştirin. İsteğe bağlı zamanlama doğrulaması ayrıca JSON gövdelerinde MongoDB $where gecikmesini de dener.</td>
+<td>Genel operatör tabanlı kimlik doğrulamayı atlama, kör NoSQL çıkarma veya her NoSQL motorunu kapsama yok.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Yansıtılan siteler arası komut dosyası çalıştırma (XSS)</td>
+<td>Etkin kontrol</td>
+<td>Yansıtılan XSS'yi etkinleştirin. Benzersiz bir yansıma işaretçisi ve tekrarlanan eylemsiz HTML bağlamı araştırmaları, yürütülebilir görünümlü işaretlemeyi tanımlar.</td>
+<td>HTML bağlamı kanıtı bir adaydır. Komut dosyasının yürütülmesini sağlamaz veya İçerik Güvenliği Politikasını atlamaz.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>URL sorgusundan veya parça girişlerinden DOM XSS</td>
+<td>İsteğe bağlı doğrulama</td>
+<td>Canlı DOM XSS doğrulamasını etkinleştirin ve Agresif izinleri onaylayın. Tek kullanımlık aynı kurabiye deposu sekmelerinde iki yeni kanarya çalıştırılmalıdır; bir kontrolün negatif kalması gerekir.</td>
+<td>Yalnızca sınırlı URL girişleri. CSP ve bağımlılıklar uygulanmaya devam eder; zaman aşımları ve engellenen kaynaklar boşluk bırakır.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>postMessage, depolama veya isteğe bağlı veri akışlarından DOM XSS</td>
+<td>Kapsam dışı</td>
+<td>Pasif kaynak/havuz ipuçları, incelenmek üzere yakındaki satır içi JavaScript modellerini tanımlayabilir.</td>
+<td>Genel kusur izleme, rastgele mesaj oluşturma veya depolama kaynağı yürütme testi yok.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Saklanan XSS ve çok adımlı ikinci dereceden enjeksiyon</td>
+<td>Kapsam dışı</td>
+<td>Ziyaret edilen bir sayfa şüpheli kod veya yansıtılan bir aday içerebilir.</td>
+<td>Genel yazma-depolama-okuma korelasyonu, iş akışı tekrarı veya depolanan yük yürütme doğrulaması yok.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Sunucu tarafı şablon enjeksiyonu (SSTI)</td>
+<td>Etkin kontrol</td>
+<td>Sunucu şablonu eklemeyi etkinleştirin. Benzersiz işaretleyicilere sahip rastgele aritmetik sonuçların kontrollere göre tekrarlanması gerekir.</td>
+<td>Yalnızca desteklenen ifade aileleri; kör şablon yürütme ve her şablon motoru kapsanmamaktadır.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Sunucu tarafı kod enjeksiyonu</td>
+<td>Etkin kontrol</td>
+<td>Sunucu tarafı kod eklemeyi etkinleştirin. Bilgisayarlı JavaScript/PHP kanaryaları, değerlendirmeyi düz yansımadan ayırır.</td>
+<td>Küçük bir dil/bağlam seti; evrensel bir uzaktan kod yürütme testi değil.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>İşletim sistemi komut enjeksiyonu</td>
+<td>İsteğe bağlı doğrulama</td>
+<td>Tekrarlanan kimlik çıkışı araştırmaları için işletim sistemi komut göstergelerini etkinleştirin. Dinleyen bir OAST sağlayıcısına sahip isteğe bağlı Komut araştırmaları, bir DNS geri aramasını ilişkilendirebilir.</td>
+<td>Uyumlu bir komut bağlamı ve geri aramalar için hedef çıkışı gerektirir. Hiçbir geri arama güvenliği sağlamaz.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>CRLF / yanıt başlığı enjeksiyonu</td>
+<td>Etkin kontrol</td>
+<td>Yanıt başlığı eklemeyi etkinleştirin. Oluşturulan bir yanıt başlığı işaretçisi tekrarlanmalı ve kontrollerde bulunmamalıdır.</td>
+<td>Tarayıcı URL'si/başlığı işleme, yükleri sınırlar. Ham yanıt bölme, önbellek zehirlenmesi ve çerçeveleme saldırıları oluşturulmamıştır.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>LDAP, XPath ve diğer uygulanmamış enjeksiyon dilleri</td>
+<td>Kapsam dışı</td>
+<td>Özel veriler, Otomatik fuzz veya gözden geçirilmiş bir şablon ayrı bir araştırmaya yardımcı olabilir.</td>
+<td>Dile özel, yerleşik bir doğrulayıcı yok; yanıt farklılığı onay anlamına gelmez.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Yol geçişi/yerel dosya ekleme</td>
+<td>Etkin kontrol</td>
+<td>Geçişi / dosya eklemeyi etkinleştirin. Desteklenen dosya içeriği imzalarının keşfedilen ekleme noktalarında tekrarlanması gerekir.</td>
+<td>Her kodlamayı, işletim sistemini, uzaktan eklemeyi veya isteğe bağlı dosyayı kapsamaz. Dizin kaba kuvvet envanteri yok.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Sunucu tarafı istek sahteciliği (SSRF)</td>
+<td>İsteğe bağlı doğrulama</td>
+<td>Onaylı ulaşılabilir bir sağlayıcıyla SSRF ve OAST'ı etkinleştirin. Tam araştırma korelasyonu bir DNS/HTTP etkileşimini kaydeder.</td>
+<td>Dahili adres yanıt farklılıkları yalnızca ipucudur. Geri arama, dahili erişim veya veri hırsızlığı değil, etkileşim oluşturur; aracılar yükleri çözebilir.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>IDOR / bozuk nesne veya işlev yetkilendirmesi</td>
+<td>Yalnızca göstergeler</td>
+<td>Ayrı bir Firefox kapsayıcısı/özel çerez deposu kullanarak Oturum B ile Karşılaştırmayı etkinleştirin. En fazla on okuma isteği durumu ve gövde karmalarını karşılaştırır.</td>
+<td>Nesne sahipliği ya da beklenen rol modeli yok; aynı genel sayfalar meşru olabilir. Genel ayrıcalık artışı kanıtı yok.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Siteler arası istek sahteciliği (CSRF)</td>
+<td>Yalnızca göstergeler</td>
+<td>Form incelemesi, tanınan belirteç alanları olmadan POST formlarını raporlar ve görünür çerez niteliklerini kontrol eder.</td>
+<td>Siteler arası istismar gönderimi veya sunucu belirteci doğrulama testi yok. SameSite, özel başlıklar ve iş akışı kontrollerinin manuel olarak incelenmesi gerekir.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Kökenler arası kaynak paylaşımından (CORS) yararlanma</td>
+<td>Yalnızca göstergeler</td>
+<td>CORS incelemesi, gözlemlenen izin verilen kaynak ve kimlik bilgileri başlıklarını inceler.</td>
+<td>Rastgele Kaynak yansıma testi veya saldırgan kaynaklı veri okuma doğrulaması yoktur. Kimlik bilgilerine sahip joker karakterler tarayıcılar tarafından reddedilir.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Yönlendirmeyi aç</td>
+<td>Etkin kontrol</td>
+<td>Açık yönlendirmeleri etkinleştirin. Konum başlığında oluşturulan .invalid hedefin tekrarlanması gerekir. Harici hedefler takip edilmez.</td>
+<td>JavaScript yönlendirmeleri, çok adımlı oturum açma yönlendirmeleri ve her URL normalleştirme atlaması kapsanmaz.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Kiracı izolasyonu, rol yükseltme ve iş akışı yetkilendirmesi</td>
+<td>Kapsam dışı</td>
+<td>Oturum karşılaştırması ve içe aktarılan istekler bir analist için kanıt sağlayabilir.</td>
+<td>Kiracı mülkiyeti, roller, durum geçişleri veya izin verilen iş eylemleri hakkında anlayış yok.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Eksik güvenlik başlıkları, zayıf CSP ve tıklama hırsızlığı savunmaları</td>
+<td>Yalnızca göstergeler</td>
+<td>Tarama sırasında pasif başlık incelemesi, CSP'yi, güvenli olmayan değerlendirmeyi, çerçeveleme politikasını ve gözlemlenen yanıtlara ilişkin notları kontrol eder.</td>
+<td>Eksik savunmalar sinyalleri güçlendiriyor; sömürülebilirlik, politika bütünlüğü ve kullanıcı arayüzü düzeltme etkisi belirlenmemiştir.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Dizin listeleri, kaynak/yapılandırmaya maruz kalma ve hata ayıklama izleri</td>
+<td>Yalnızca göstergeler</td>
+<td>Pasif inceleme, döndürülen içerikteki listeleme işaretlemesini, PHP kaynağını, yapılandırma anahtarı atamalarını ve seçilen yığın izlerini tanır.</td>
+<td>Yalnızca gözlemlenen içerik ve imzalar; kapsamlı bir yedekleme dosyası, gizli veya gizli yönetici keşfi yok.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>XML harici varlık ekleme (XXE)</td>
+<td>İsteğe bağlı doğrulama</td>
+<td>Agresif onayıyla XXE'yi ve dinleme OAST sağlayıcısını etkinleştirin. Bir XML istek gövdesi, harici varlık geri çağırma kanaryasıyla değiştirilir.</td>
+<td>Envantere kaydedilmiş bir XML isteği gerektirir. Kapsamlı ayrıştırıcı, SOAP, dosya okuma, parametre varlığı veya kör çıkarma kapsamı yok.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Tehlikeli HTTP yöntemleri</td>
+<td>Yalnızca göstergeler</td>
+<td>Tanıtılan HTTP yöntemlerini etkinleştirin. SEÇENEKLER İzin ver yanıtı başlığını kaydeder.</td>
+<td>Yetkisiz PUT/DELETE yazma işlemlerine kalkışmaz veya reklamı yapılan yöntemlerin kötüye kullanılabilir olduğunu kanıtlamaz.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Yinelenen sorgu parametresi işleme</td>
+<td>Yalnızca göstergeler</td>
+<td>Tekrarlanan birinci/son derece yanıt karşılaştırmaları için Yinelenen sorgu parametresi işlemeyi etkinleştirin.</td>
+<td>Ayrıştırma farklılığı WAF bypass'ını, erişim kontrolü arızasını veya proxy/arka uç anlaşmazlığını kanıtlamaz.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Bulut izinleri, gizli yönetici hizmetleri ve arka uç yapılandırması</td>
+<td>Kapsam dışı</td>
+<td>Yığın parmak izleri ve topoloji görünümleri, tarayıcı tarafından görülebilen hipotezler sağlar.</td>
+<td>Bulut hesabı erişimi, altyapı denetimi, sunucu yapılandırma denetimi veya kapsamlı dahili ağ keşfi yok.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Bilinen güvenlik açığı bulunan tarayıcı JavaScript bağımlılıkları</td>
+<td>İsteğe bağlı doğrulama</td>
+<td>Gözlemlenen varlık sürümlerini küçük paketli danışma veritabanıyla karşılaştırmak için istemci kitaplığı SCA'sını etkinleştirin.</td>
+<td>Yalnızca sürüm/imza korelasyonu; destek dosyaları, erişilebilir güvenlik açığı bulunan kodlar, tam bağımlılık ağaçları ve görünmeyen varlıklar doğrulanmaz.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Sunucu bağımlılığı CVE'leri ve ürün güvenlik açıkları</td>
+<td>Şablona bağlı</td>
+<td>CVE otomatik aşaması, uygun içe aktarılmış şablonlar gerektirir; yalnızca yazılan istekleri ve eşleştiricileri çalışır. Native Nuclei, ayrı motorunu ve onayını gerektirir.</td>
+<td>Parmak izi/tavsiye eşleşmeleri tek başına adaydır. İki paket halindeki topluluk başlatıcısı evrensel CVE kapsamı sağlamaz.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Güvenliği ihlal edilmiş paketler, CI/CD ve kötü amaçlı tedarik zinciri güncellemeleri</td>
+<td>Kapsam dışı</td>
+<td>Bağımlılık adları veya sürümleri ayrı bir kod ve derleme incelemesine yardımcı olabilir.</td>
+<td>SBOM bütünlüğü, depo/derleme denetimi, paket orijinalliği veya imzalama zinciri doğrulaması yok.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>HTTP şifre formları, HSTS ve güvenli olmayan kaynak referansları</td>
+<td>Yalnızca göstergeler</td>
+<td>Pasif kontroller, HTTP/GET kullanan, HSTS bulunmayan ve HTTPS işaretlemesi tarafından başvurulan seçilmiş HTTP kaynaklarını kullanan şifre formlarını tanır.</td>
+<td>Kapsamlı hassas veri keşfi değil; hareketsiz durumdaki veri maruziyetini kanıtlamaz veya tüm taşıma davranışını değerlendirmez.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>Zayıf TLS protokolleri/şifreleri, anahtar yönetimi ve kullanımda olmayan şifreleme</td>
+<td>Kapsam dışı</td>
+<td>Tarayıcı normal TLS bağlantısını sağlar.</td>
+<td>Şifre/protokol numaralandırması, sertifika envanteri, kriptografik tasarım incelemesi, parola karması denetimi veya sunucu tarafı anahtar erişimi yok.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>İş mantığı, ödeme/fiyat manipülasyonu ve iş akışının kötüye kullanılması</td>
+<td>Kapsam dışı</td>
+<td>Gözlemlenen istekler ve Tekrarlayıcı, manuel teste yardımcı olur.</td>
+<td>Doğru fiyatlara, hesap bakiyelerine, iş kurallarına, işlem emrine veya amaçlanan uygulama davranışına ilişkin bir model yok.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>Yarış koşulları ve kaynak tüketme tasarım kusurları</td>
+<td>Kapsam dışı</td>
+<td>Talep limitleri ve oran kontrolleri bağlı tarama; hız sınırı yanıtları operasyonel sinyallerdir.</td>
+<td>Senkronize yarış donanımı veya kasıtlı hizmet reddi doğrulaması yok.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Zayıf çerez/oturum özellikleri</td>
+<td>Yalnızca göstergeler</td>
+<td>Çerez inceleme raporları eksik Güvenli, HttpOnly veya açık SameSite ve SameSite=Secure olmadan Yok.</td>
+<td>Çerezin amacı ve tarayıcı varsayılanları önemlidir. Oturum ele geçirme, sabitleme, oturum kapatmayı geçersiz kılma veya belirteç entropisi oluşturmaz.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Giriş atlama, MFA, şifre sıfırlama, kaba kuvvet ve hesabı ele geçirme</td>
+<td>Kapsam dışı</td>
+<td>Enjeksiyon kontrolü, oturum açma hatasının bir nedenini ortaya çıkarabilir. Oturum doğrulayıcı, yapılandırılan oturum açma bilgilerinin hala geçerli görünüp görünmediğini kontrol eder.</td>
+<td>Genel kimlik bilgisi saldırısı, MFA/sıfırlama iş akışı testi, kilitleme denetimi veya hesap devralma doğrulaması yok.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>JWT, OAuth, OIDC ve SAML doğrulama kusurları</td>
+<td>Kapsam dışı</td>
+<td>Yardımcı programlar manuel inceleme için bir JWT'nin kodunu yerel olarak çözebilir.</td>
+<td>Kod çözme imza doğrulaması değildir. Genel bir algoritma karışıklığı, jeton sahteciliği, yönlendirme akışı veya birleştirme testi yok.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Log4Shell geri çağırma yolu</td>
+<td>İsteğe bağlı doğrulama</td>
+<td>Log4Shell ve OAST'ı onaylayarak etkinleştirin. Kullanılabilir ilk girişe ve X-Api Sürümüne bir JNDI geri çağırma kanaryası yerleştirilir.</td>
+<td>Eşleşen bir etkileşimin atıf ve incelemeye ihtiyacı vardır; kod yürütülmesini kanıtlamaz. Sınırlı ekleme noktaları ve hedef çıkışı, savunmasız yolları gözden kaçırabilir.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Güvenli olmayan seri durumdan çıkarma</td>
+<td>Şablona bağlı</td>
+<td>Seri durumdan çıkarma seçeneği, seri durumdan çıkarma için etiketlenen uygun içe aktarılan şablonları seçer. Uygulayıcılarını ve önkoşullarını inceleyin.</td>
+<td>Genel bir nesne biçimi keşfi, aygıt zinciri oluşturucusu veya evrensel seri durumdan çıkarma doğrulayıcısı yoktur.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>İmzasız güncellemeler, sahte uygulama verileri ve bütünlük kontrolleri</td>
+<td>Kapsam dışı</td>
+<td>Yakalanan yanıtlar ve kodu çözülen veriler, manuel analize yardımcı olabilir.</td>
+<td>Uygulama güven modeli, güncelleme-imza doğrulaması, veri-imza denetimi veya genel toplu atama doğrulaması yoktur.</td>
+</tr>
+<tr>
+<td>A09</td>
+<td>Eksik güvenlik günlükleri, uyarı, günlük bütünlüğü ve olay tespiti</td>
+<td>Kapsam dışı</td>
+<td>Longshot, kendi tarama kanıtlarını ve yerel istek günlüğünü kaydeder.</td>
+<td>Tarayıcı günlükleri, uygulamanın doğru şekilde günlüğe kaydedip kaydetmediğini veya uyarı verip vermediğini göstermez; sunucu/SIEM kanıtlarını inceleyin ve izlenen senaryoları çalıştırın.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>İstisnai yanıtlardan bilgi sızıntısı</td>
+<td>Yalnızca göstergeler</td>
+<td>Pasif hata açıklaması ve aktif enjeksiyon kontrolleri, seçilen yığın izlerini ve yeni tanıtılan veritabanı hatalarını fark edebilir.</td>
+<td>Sadece kanıtları geri getirdim. Genel bir hata veya HTTP 500 tek başına doğrulanmış bir güvenlik açığı değildir.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>Arızada açılma davranışı, geri alma hataları ve güvenli olmayan istisna kurtarma</td>
+<td>Kapsam dışı</td>
+<td>Durum/beden farklılıkları manuel soruşturmaya rehberlik edebilir.</td>
+<td>Genel hata ekleme, işlem geri alma iddiaları, kilitlenme kurtarma veya istisna yolu erişim kontrolü modeli yok.</td>
+</tr>
+<tr>
+<td>Diğer</td>
+<td>HTTP isteği kaçakçılığı, hatalı biçimlendirilmiş çerçeveleme, önbellek zehirlenmesi ve Ana Bilgisayar saldırıları</td>
+<td>Kapsam dışı</td>
+<td>Yerleşik tarayıcı, tarayıcı ağını kullanır ve yönetilen başlıkları korur.</td>
+<td>Yerel proxy aracılığıyla harici araçlar ayrıdır. Ayrıştırılmış HTTP aktarımı da bayt açısından şeffaf bir kaçakçılık veya özel TLS motoru değildir.</td>
+</tr>
+<tr>
+<td>Diğer</td>
+<td>WebSocket/SSE uygulama güvenlik açıkları</td>
+<td>Yalnızca göstergeler</td>
+<td>İsteğe bağlı sınırlı kanal testleri, değişimleri yakalar ve seçilen hata metnini bildirir.</td>
+<td>Protokole duyarlı yetkilendirme, mesaj şeması bulanıklaştırma, siteler arası WebSocket ele geçirme veya iş mantığı doğrulayıcı yok.</td>
+</tr>
+<tr>
+<td>Diğer</td>
+<td>Dosya yükleme, GraphQL/SOAP mantığı ve desteklenmeyen ikili protokoller</td>
+<td>Kapsam dışı</td>
+<td>Keşfedilen HTTP istekleri, genel denetimler için desteklenen skaler girişleri ortaya çıkarabilir.</td>
+<td>Özel yükleme yürütmesi, GraphQL yetkilendirmesi/karmaşıklığı, kapsamlı SOAP veya ikili protokol tarayıcısı yok.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interpreting-actual-run-coverage">Gerçek çalışma kapsamının yorumlanması</h3>
+<p>Tam WSTG referans haritası, otomatik alt kümeleri, destekli çalışmayı ve manuel değerlendirmeyi içerir. içinde <strong>Gerçek giriş kapsamı</strong>:</p>
+<ul>
+<li><strong>Tamamlandı</strong> girişin güvenli olduğu değil, uygulanan kuralın o girişte tamamlandığı anlamına gelir.</li>
+<li><strong>Kısmi</strong> bazı işlerin yürütüldüğü ancak bir sınırlama, kesinti veya başka bir durumun tamamlanmayı engellediği anlamına gelir.</li>
+<li><strong>Atlandı</strong> kuralın/girdinin çalışmadığı anlamına gelir; nedenini inceleyin.</li>
+</ul>
+<p>WAF, eksik rol, geçersiz oturum, gizli/ziyaret edilmeyen iş akışı, kullanılamayan istek gövdesi, CSP veya tükenen bütçe, güvenlik açığı bulunan bir girişi test edilmemiş halde bırakabilir. Yerel proxy eşleştirme, yerleşik tarayıcıdaki bu sınırları kaldırmaz. Gözlenen bir CVE sürümü, eksik başlık veya farklı yanıt otomatik olarak bir istismar değildir.</p>
+<p>Sürüm 2.18.1, ZIP/YAML CSP doğrulaması ve sahip olunan bir SQLite donanımına karşı yerel ZAP trafiği dahil olmak üzere 192 otomatik birim/regresyon testini, sekiz gerçek Chrome denetimini ve sekiz gerçek Firefox denetimini geçti. Resmi tarayıcı kitaplıkları bayt bayt olarak doğrulanmıştır ve temiz bir kaynak yeniden oluşturması, Firefox XPI'yi tam olarak yeniden üretir. Bu testler, adlandırılmış uygulama davranışını doğrular; her Juice Shop, WebGoat, bWAPP veya NodeGoat mücadelesinin tespitini göstermezler. Harici ZAP SQLi sonucu, Longshot'ın tüm güvenlik açıklarını geri çağırmasını değil, proxy yolunu doğrular.</p>
+<h2 id="recovery-assessment-files-and-reports">Kurtarma, değerlendirme dosyaları ve raporlar</h2>
+<h3 id="keep-recovery-paths-separate">Kurtarma yollarını ayrı tutun</h3>
+<table>
+<thead>
+<tr>
+<th>Yol</th>
+<th>Bir başarısızlıktan sonra ne yapılmalı</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dahili tarama/oturum</td>
+<td>Kontrol paneli kurtarma iletişim kutusunu inceleyin, orijinal çerez bağlamında tekrar oturum açın, doğrulayın ve izin verildiğinde devam edin</td>
+</tr>
+<tr>
+<td>Yerel araç proxy'si</td>
+<td>Bağdaştırıcıyı, sekmeyi/depolamayı, belirteci ve duraklatma nedenini kontrol edin; açıkça devam ettirin/yeniden eşleştirin, ardından harici aracın kendi yeniden deneme/devam ettirme özelliğini kullanın</td>
+</tr>
+<tr>
+<td>Aracı API'si</td>
+<td>Yerel mesajlaşma/arka plan programı bağlantısını geri yükleyin; daha sonra başka bir başlatma yapmadan önce mevcut çalışma durumunu inceleyin</td>
+</tr>
+<tr>
+<td>Tarayıcının yeniden başlatılması / içe aktarılan değerlendirme</td>
+<td>Kaydedilen kanıtları geri yükleyin ve oturum açma işlemini yeniden doğrulayın; uçuş sırasındaki bir ağ işleminin veya tam canlı tarama kuyruğunun hayatta kaldığını varsaymayın</td>
+</tr>
+</tbody>
+</table>
+<p>Bağımsız kimlik doğrulama doğrulaması, kasıtlı olarak reddedilen her oturum açma mutasyonunun oturumun sona ermesiyle karıştırılmasını önler. Anlamlı bir korumalı doğrulayıcı yapılandırın. Canlı kuyruk, uzantı çalışırken kurtarmayı destekleyebilir, ancak kayıtlı bir oturum dosyası belirsiz bir yazmayı yeniden yapılandırmaz veya kesintiye uğrayan bir taramanın tamamını otomatik olarak yeniden yürütmez.</p>
+<h3 id="browser-storage-and-optional-session-files">Tarayıcı depolama alanı ve isteğe bağlı oturum dosyaları</h3>
+<p>Tarayıcı depolaması her iki yerel köprüden bağımsız olarak etkin kalır. Profil başına geçmişi, bulguları, incelemeleri, envanteri ve seçenekleri tutar. Yanıt gövdeleri, en iyi çaba gösterilerek düzeltilerek muhafaza edilebilir; tarayıcı tarafından gözlemlenen trafik genellikle yakalanan bir gövde olmadan meta verilere sahiptir.</p>
+<p>Otomatik dosya kontrol noktaları için:</p>
+<ol>
+<li>Kayıt ol/bağlan <strong>Aracı API'si</strong>, yalnızca Tarayıcı Köprüsü değil.</li>
+<li>Açık <strong>Ayarlar → Değerlendirme oturumları → Talimat</strong>.</li>
+<li>Mutlak değeri girin <strong>Oturum klasörü</strong> Agent API bilgisayarında.</li>
+<li>Etkinleştir <strong>Oturum dosyalarını otomatik olarak kaydet</strong> ve seç <strong>Oturum ayarlarını kaydet</strong>.</li>
+<li>Kullanım <strong>Oturumu şimdi kaydet</strong> acil bir kontrol noktası için; normal değişiklikler aynı zamanda kaydetmeleri de tetikler.</li>
+<li>Kullanım <strong>Geçerli oturumu dışa aktar</strong> / <strong>Oturum dosyasını içe aktar</strong> manuel aktarım için; manuel içe aktarma yerel ana makineyi gerektirmez.</li>
+</ol>
+<p>Dosyalar kararlı profil kimliklerini kullanır <code dir="ltr" translate="no">.longshot.json</code>, tek bir kaynak için açık profillere izin verir. Okunabilir, şifrelenmemiş değerlendirme arşivleridir ve uygulama verilerini, yazılmış şablonları ve tutulan gövdeleri içerebilirler. Tarayıcı tarafından yönetilen çerezler, sağlayıcı belirteçleri ve yürütme yetkileri hariçtir.</p>
+<p>Yazmalar atomik özel dosya kontrol noktalarıdır. Ani sonlandırma yalnızca son tamamlanan kaydetmeyi kurtarabilir. Geri yüklenen çalışan taramalar kesintiye uğrar. Köprünün bağlantısı kesilirse tarayıcı depolaması devam eder ve dosya kayıtları beklenir; çözülmemiş etkin kontrol noktaları, hedefleri değiştirmeden önce yeniden bağlanmayı veya dosya kaydetmenin devre dışı bırakılmasını gerektirebilir. Maksimum oturum dosyası boyutu açık bir hatayla birlikte 256 MB'dir.</p>
+<p>Değerlendirme arşivi dışa aktarımı farklıdır <strong>Yapılandırmayı indir</strong> Tarayıcı Köprüsü'nde. İlki, değerlendirme kanıtlarını/seçeneklerini kaydeder; ikincisi yerel proxy ayarlarını kaydeder.</p>
+<h3 id="reports">Raporlar</h3>
+<p>Dışa aktarmadan önce etkin profili inceleyin; Geçmiş tarama raporlarına Agent API aracılığıyla da ulaşılabilir. Temaya uygun raporlar grafikler ve kanıtlar içerir, ancak grafik sayıları uyarı sayılarıdır, benzersiz, doğrulanmış yararlanılabilir kusurların sayısı değil.</p>
+<table>
+<thead>
+<tr>
+<th>Biçim</th>
+<th>Kullan / sınırla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>Satır içi grafikler, arama/filtreler, kanıt ayrıntıları, tema ve yazdırma kontrolleri içeren bağımsız çevrimdışı rapor</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>Yapılandırılmış düzeltilmiş kanıtlar, tarama yapılandırması ve kayıtlı giriş kapsamı</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>Tablo değişimi; iç içe geçmiş alanlar serileştirildi ve elektronik tablo formülü önekleri korundu</td>
+</tr>
+<tr>
+<td>SARIF 2.1.0</td>
+<td>Önem derecesi/güven/karar/referans ve inceleme meta verileriyle araç entegrasyonu</td>
+</tr>
+<tr>
+<td>Yazdır / PDF</td>
+<td>HTML raporunu açın ve Firefox yazdır / PDF'ye Kaydet'i kullanın; API'nin PDF seçeneği, hazır PDF baytları yerine HTML artı yazdırma talimatlarını döndürebilir</td>
+</tr>
+</tbody>
+</table>
+<p>İnceleme durumu ve notlar tarayıcı kararından ayrıdır. Yanlış pozitif/kabul edilen risk incelemeleri denetlenebilir olmaya devam eder; SARIF, uygun olduğu durumlarda inceleme bilgilerini ve gizlemeleri içerir. En iyi çabayla yapılan düzenleme, tutulan sayfanın/gövdenin hiçbir uygulama verisi içermediğinin garantisi değildir. Paylaşmadan önce gerçek dışa aktarma işlemini inceleyin.</p>
+<p>Harici ZAP/sqlmap/ffuf raporları ayrı kalır. Yerel trafik meta verileri, istek/yanıt geçmişinin veya bulgularının tamamının bir kopyası değildir.</p>
+<h2 id="appearance-language-and-help">Görünüm, dil ve yardım</h2>
+<p>Temalar geneldir ve tarama iznini değiştirmeden tarama sırasında değişebilir. Menüde Sistem, Karanlık, Işık, Cybersteppe, Bay Robot, Iron Man ve kayıtlı özel temalar bulunur. Uyarlanabilir düzen, kontrolleri daraltır; kapsam tablosunun ayrıntılı sütunlar için kendi yatay kaydırma bölgesi vardır.</p>
+<p>Altında <strong>Ayarlar → Temalar ve uyarı sesi</strong>:</p>
+<ul>
+<li>Etkin temayı ve uyarı sesini/ses düzeyini seçin; <strong>Test uyarısı sesi</strong> seçilen uyarının önizlemesini görüntüler.</li>
+<li>Yerleşik bir düzenleme yapın ve <strong>Yeni tema olarak kaydet</strong> / duplicate to create a custom theme.</li>
+<li>Paketlenmiş/sistem kullanıcı arayüzü/kod yazı tiplerini, paleti, opaklığı, arka planı ve sesi seçin.</li>
+<li>Temayı dışa/içe aktarma JSON; içe aktarma rastgele CSS veya komut dosyalarını çalıştırmaz.</li>
+<li><strong>Animasyonlar ve sesler</strong> temaya göre hareket ve arayüz sesini kontrol eder. Tarayıcı/sistemin azaltılmış hareketi ve sessize alma ayarları hala önemlidir.</li>
+</ul>
+<p>Dark/Light, Cybersteppe, Mr. Robot ve Iron Man'in farklı görsel/işitsel uygulamaları vardır. Açılır listenin açılması/seçimi sessizdir. Servo seçim ipuçları Iron-Man'e özgüdür; güvenlik hatası uyarıları sıradan arayüz seslerinden farklıdır.</p>
+<p>Dil menüsü 20 paket dil sunar: İngilizce, Rusça, Almanca, Fransızca, Basitleştirilmiş Çince, Japonca, İspanyolca, Hintçe, Portekizce, Arapça, Bengalce, Urduca, Endonezce, Türkçe, Korece, İtalyanca, Vietnamca, Tamilce, Telugu ve Marathi. Yeni kapsam/yerel kullanıcı arayüzü metni ek kataloglara dahil edilmiştir. Bunlar, çalışma zamanı çeviri hizmeti değil, genel kullanıcı arayüzü düzyazısının paket halindeki makine çevirileridir. Yakalanan hedef sayfalar, veriler, URL'ler, alan/kod adları ve komut örnekleri orijinal metinlerini korur.</p>
+<p>Kullanım <strong>Bilgi/Talimat</strong>, kontrol ipuçları ve <strong>Bu sayfa nasıl kullanılır · şartların açıklaması</strong> bağlam için. Terimler referans materyale bağlantı verir. Bir bilgi filtresi/araması yalnızca görüntülenen açıklamayı değiştirir; kontrolleri etkinleştirmez. <strong>Başlarken</strong> tam olarak sekiz slayttır ve kapatıldıktan sonra tekrar oynatılabilir.</p>
+<p>Mevcut sürüm ekran görüntüleri, sahip olunan geçici bir geridöngü SQLite fikstürünü kullanıyor. Rastgele bağlantı noktaları ve örnek hesap verileri, uygulamanız için gerekli yapılandırma değil, test yapılarıdır:</p>
+<blockquote>
+<p><strong>Kapsam iletişim kutusu</strong>
+<img alt="tarama kapsamı masaüstü" src="/longshot-security-site/docs/assets/scan-coverage-desktop.png"/>
+<strong>Rusça kapsam metni içeren Dar Iron Man düzeni</strong>
+<img alt="tarama kapsamı demir dar ru" src="/longshot-security-site/docs/assets/scan-coverage-iron-narrow-ru.png"/>
+<strong>Yerel proxy sayfası</strong>
+<img alt="yerel araç proxy'si" src="/longshot-security-site/docs/assets/native-tool-proxy.png"/></p>
+</blockquote>
+<h2 id="troubleshooting">Sorun giderme</h2>
+<table>
+<thead>
+<tr>
+<th>Belirti</th>
+<th>Kontrol edilecek tam alan / sonraki eylem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Yeniden başlatmanın ardından uzantı gitti</td>
+<td>Geçici <code dir="ltr" translate="no">about:debugging</code> kurulum yeniden başlatıldığında sona erer. XPI'yi yeniden yükleyin veya uygun imzalı/kalıcı geliştirme kurulumunu kullanın</td>
+</tr>
+<tr>
+<td>Güncellemeden sonra yanlış kullanıcı arayüzü/sürüm</td>
+<td>Bildirimi/görüntülenen sürümü kontrol edin; amaçlanan XPI'yi yeniden yükleyin ve eski kontrol panellerini kapatın. Kaynak dizin adları eski sürümleri koruyabilir</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find package 'ws'</code></td>
+<td>Hatadaki yolu doğrulayın. İndirilen yerel bağdaştırıcının tamamı ws'yi içerir; yeni bir yerel kaynak dizine ihtiyaç var <code dir="ltr" translate="no">npm --prefix native-bridge ci --omit=dev</code>. Eski bağdaştırıcı yolundaki bir hata yeni değil, eski bir kurulumdur <code dir="ltr" translate="no">cli.js</code> komut</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">Cannot find module .../bridge/bin/longshot-bridge</code></td>
+<td>Aşağıdakileri içeren kaynak kökünden Agent API komutlarını çalıştırın: <code dir="ltr" translate="no">bridge/</code>veya mutlak komut dosyası yolunu kullanın. Yerel proxy ZIP, tam Agent API kaynağı değil</td>
+</tr>
+<tr>
+<td>Bağdaştırıcı başlamıyor / mitmdump eksik</td>
+<td>Çalıştır <code dir="ltr" translate="no">python3 bootstrap.py</code> Python 3.12+ ile veya amaçlanan yüklü çalışma zamanını şununla seçin: <code dir="ltr" translate="no">--mitmdump</code></td>
+</tr>
+<tr>
+<td>Eşleştirme bağlanamıyor</td>
+<td>Kontrol bağlantı noktası 8901'i, mevcut jetonu ve tam akımı kullanın <code dir="ltr" translate="no">moz-extension://...</code> kökeni. Bağdaştırıcı işleminin hazır olduğundan emin olun</td>
+</tr>
+<tr>
+<td>Araç proxy kimlik doğrulama hatası alıyor</td>
+<td>Proxy bağlantı noktası 8900'i, kullanıcı adı köprüsünü ve geçerli belirteci kullanın. Bağdaştırıcı yeniden başlatıldıktan sonra her aracı güncelleyin</td>
+</tr>
+<tr>
+<td>Beklenen proxy isteği yerine doğrudan/genel içerik</td>
+<td>NO_PROXY/no_proxy, araç hariç tutmaları ve proxy ayarlarını kontrol edin. İsteğin Yerel trafikte göründüğünü onaylayın</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">bridge.invalid</code> başarısız</td>
+<td>Eski takma ad iş akışı. Gerçek hedef URL'yi kullanın ve ana bilgisayar dosyası girişi kullanmayın</td>
+</tr>
+<tr>
+<td>Yapılandırma reddedildi / bilinmeyen özellik</td>
+<td>Tekrar kullanmayın <code dir="ltr" translate="no">allowRaw</code>, <code dir="ltr" translate="no">forceRaw</code>, <code dir="ltr" translate="no">torSocks</code>, eski kapsam/zaman formları veya eski API kontrolleri. Yerel yapılandırmayı dışa aktarın ve desteklenen anahtarlarını kullanın</td>
+</tr>
+<tr>
+<td>Sertifika doğrulama hatası</td>
+<td>İstemci→bağdaştırıcı güvenini bağdaştırıcı→kaynak doğrulamasından ayırın. Araçtaki basılı genel bağdaştırıcı CA'sına güvenin; gerçek sunucunun sertifikasını ayrıca kontrol edin</td>
+</tr>
+<tr>
+<td>Tarayıcı çerezleri araca ulaşmıyor</td>
+<td>Seçilen sekmeyi/depoyu, geçerli Etki Alanı/yol/Güvenli/bölümü, çerezlerin etkin olduğunu, korunan adları ve isteğin gerçekten proxy'yi geçip geçmediğini doğrulayın</td>
+</tr>
+<tr>
+<td>Araç bir çerez sondası gönderir ancak kaybolur</td>
+<td>İlgili geçersiz kılmayı devre dışı bırakın/koruyun veya X-Longshot-Preserve/istek geçersiz kılmayı ekleyin. İlk istek amacının tespitine güvenmeyin</td>
+</tr>
+<tr>
+<td>Tarayıcı çerezi istek geçersiz kılma kapalıyken hâlâ değişiyor</td>
+<td><code dir="ltr" translate="no">cookies.saveResponses</code> bağımsızdır. Yanıt senkronizasyonu istenmiyorsa bunu da devre dışı bırakın</td>
+</tr>
+<tr>
+<td>401/419/440 veya 429 yerel proxy'yi duraklatır</td>
+<td>Sekmeyi/oturumu/kısıtlamayı gözden geçirin ve ardından açıkça devam edin. Kasıtlı negatif kimlik doğrulama testleri, duraklatma durumu yapılandırmasının gözden geçirilmesini ve yeniden başlatılmasını gerektirebilir</td>
+</tr>
+<tr>
+<td>WAF, Firefox'u kabul ediyor ancak yerel trafiği reddediyor</td>
+<td>Çerez/UA kopyalama, TLS/IP/tarayıcı davranışını yeniden üretmez veya JavaScript sorgulamalarını yürütmez. İzin verilen değerlendirme rotasını ve kanıtlarını gözden geçirin</td>
+</tr>
+<tr>
+<td>Soğan hedefi engellendi</td>
+<td>Yerel bağdaştırıcıda gerçek bir açık SOCKS/yukarı akış rotası yapılandırın. Yerleşik/tarayıcı ve yalıtılmış yerel çekirdeklerin farklı yönlendirmeleri vardır</td>
+</tr>
+<tr>
+<td><code dir="ltr" translate="no">permissions.request may only be called from a user input handler</code></td>
+<td>Geçerli uzantı onayı iş akışını kullanın. Kaydedin, inceleyin ve ardından eksik izinleri talep etmek için Bu sonraki çalıştırmayı onayla'yı tıklayın; eşzamansız bir aracı/arka plan ayarı değişikliğinden izinleri çağırma</td>
+</tr>
+<tr>
+<td>Maksimum bulgulardan sonra genel URL oluşturucu hatası</td>
+<td>Kontrol et <strong>OAST Sağlayıcı URL'si</strong> ve <strong>Geri arama alanı</strong>, hedef URL'den bağımsız olarak. Eşleşen değerleri doldurun veya OAST'ı devre dışı bırakın; geçerli doğrulama ilgili alanı tanımlar</td>
+</tr>
+<tr>
+<td>Agresif kapalı ancak gelişmiş seçenekler etkin kalıyor</td>
+<td>Listelenen özellikleri devre dışı bırakın veya Agresif'i etkinleştirin/kaydedin ve sonraki çalıştırmayı onaylayın</td>
+</tr>
+<tr>
+<td>B Oturumu eksik/geçersiz</td>
+<td>Başka bir kapsayıcıda/özel çerez deposunda farklı bir aynı kaynak sekmesini seçin; sıradan sekmeler bağımsız çerezler sağlamaz</td>
+</tr>
+<tr>
+<td>Onayın süresi doldu/kullanıldı/değiştirildi</td>
+<td>Son ayarları kaydedin ve yeni bir sonraki çalıştırma iznini onaylayın; Son kullanma tarihi 30 dakikadır ve tek kullanımlıktır.</td>
+</tr>
+<tr>
+<td>Run fuzzer'ın yararlı bir isteği yok</td>
+<td>Kapsamlı bir URL, sorgu parametresi ve boş olmayan seçilmiş yük kümesi sağlayın veya envanter keşfinden sonra ayrı bir Otomatik bulanıklaştırma kullanın</td>
+</tr>
+<tr>
+<td>Prob kitaplığı güncellemesi başarısız oluyor</td>
+<td>Bildirilen kaynak/ağ/doğrulama nedenini kontrol edin. Önceki önbelleğe alınan veriler korunur; hedef taramaları otomatik olarak yeniden çalıştırılmaz</td>
+</tr>
+<tr>
+<td>Bulgu yok / çok az kontrol</td>
+<td>Gerçek tamamlanmış/kısmi/atlanmış giriş kapsamını okuyun; keşif, giriş, bütçeler, yanıt türü, engelleme ve hariç tutmaları inceleyin</td>
+</tr>
+<tr>
+<td>SEÇENEKLER SİLMEYE izin verir</td>
+<td>Yalnızca envanter. Kimliği doğrulanmamış yazma işlemlerini veya Longshot'ın bunları denediğini kanıtlamaz</td>
+</tr>
+<tr>
+<td>OAST bağlantısı geçiyor ancak hedef geri arama yok</td>
+<td>Tarayıcı geri arama testini çalıştırın, sağlayıcı/etki alanı, TTL ve hedef çıkışının eşleştiğini doğrulayın; devamsızlık sonuçsuz kalıyor</td>
+</tr>
+<tr>
+<td>Yerel şablon Engellendi</td>
+<td>Yürütücü/yetenek nedenini okuyun: Çekirdek/izolasyon/yardımcı/imza/kapsam/onay/yönlendirme eksik olabilir</td>
+</tr>
+<tr>
+<td>Akıllı analizör arka ucu adlandıramaz</td>
+<td>Bilinmeyen geçerli bir sonuçtur. WAF/proxy katmanları kanıtları gizleyebilir veya yeniden yazabilir; dağıtım envanterini manuel olarak doğrulayın</td>
+</tr>
+<tr>
+<td>cimematic görüntüleyicinin canlı sayfası yok</td>
+<td>Etkin sekmeyi/oturum açmayı/başlangıç noktasını, yakalama/yükleme kısıtlamalarını ve bağımlılıklarını kontrol edin; Yalnızca Yakalanan ve kaydedilen kanıtları kullanın</td>
+</tr>
+<tr>
+<td>Görüntüleyici genel bir sayfa alanını işaret ediyor</td>
+<td>Başlık/API/çerez bulgusu için eşleşen bir HTML alanı olmayabilir. Sayfa içeriği konumlandırması tam giriş kanıtı değildir</td>
+</tr>
+<tr>
+<td>Değerlendirme dosyaları bekliyor/hata veriyor</td>
+<td>Agent API'sini bağlayın, seçilen mutlak klasörü/durumu ve bekleyen kontrol noktalarını kontrol edin. Tarayıcı depolama alanı ayrı kalır</td>
+</tr>
+<tr>
+<td>Yerel trafikte yanıt organları veya ZAP bulguları yok</td>
+<td>Yalnızca meta veri görünümü bekleniyor; harici aracın kendi geçmişini ve raporunu inceleyin</td>
+</tr>
+<tr>
+<td>PDF API yanıtı HTML/talimatlardır</td>
+<td>Yazdır / PDF'ye Kaydet'i kullanın; HTML baytlarını .pdf olarak yeniden adlandırmayın</td>
+</tr>
+<tr>
+<td>Çevrilmiş kullanıcı arayüzü hâlâ İngilizce gösteriyor</td>
+<td>Kod terimleri, komut örnekleri, URL'ler, veriler ve yakalanan kanıtlar kasıtlı olarak korunur. Gerçek kullanıcı arayüzü metni için sürümü/dili kontrol edin; makine çevirisi kalitesi değişebilir</td>
+</tr>
+</tbody>
+</table>
+<p>Tanılama için alana özel mesajdan ve ilgili bileşenin günlüklerinden başlayın. Yerel proxy eşleştirme hatası, tarayıcı tarama oturumu hatası ve Agent API bağlantı hatası farklı düzeltmeler gerektirir. Tamamlanmış bir kullanıcı arayüzü eylemini veya başarılı bir eşleştirmeyi, planlanan her isteğin veya kontrolün yürütüldüğünün kanıtı olarak değerlendirmeyin.</p>
+<h2 id="terms-and-source-references">Terimler ve kaynak referansları</h2>
+<table>
+<thead>
+<tr>
+<th>Terim</th>
+<th>Sade dildeki anlam/referans</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">HTTP isteği/yanıtı</a></td>
+<td>Yöntem, URL, başlıklar ve isteğe bağlı gövde dahil olmak üzere bir web sunucusuna mesaj / yanıtı</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/Origin">Menşei</a></td>
+<td>Web güvenliği sınırı olarak kullanılan şema, ana bilgisayar ve bağlantı noktası</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies">Çerez</a></td>
+<td>Geçerli istekler için tarayıcı tarafından yönetilen durum seçildi</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Session_Management">Oturum yönetimi</a></td>
+<td>Uygulamanın istekler karşısında kullanıcıyı nasıl tanıdığı</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/essential-skills">Yük</a></td>
+<td>Bir girişe gönderilen test değeri; otomatik olarak başarılı bir istismar değil</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/sql-injection">SQL enjeksiyonu</a></td>
+<td>Giriş, bir veritabanı sorgusunun yorumlanma şeklini değiştirir</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/nosql-injection">NoSQL enjeksiyonu</a></td>
+<td>Giriş, SQL dışı bir veritabanı sorgusunu veya operatör davranışını değiştirir</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a></td>
+<td>Saldırgan tarafından kontrol edilen veriler çalıştırılabilir tarayıcı içeriğine ulaşır</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting/dom-based">DOM XSS</a></td>
+<td>İstemci tarafı JavaScript, güvenilmeyen verileri yürütme özellikli bir havuza taşır</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/server-side-template-injection">SSTI</a></td>
+<td>Giriş, sunucu şablonu talimatları olarak yorumlanır</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/os-command-injection">Komut enjeksiyonu</a></td>
+<td>Giriş, bir işletim sistemi kabuğu/programı tarafından yürütülen komutları değiştirir</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/file-path-traversal">Yol geçişi</a></td>
+<td>Giriş, amaçlanan dosya yolu sınırından kaçıyor</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/ssrf">SSRF</a></td>
+<td>Bir sunucu başka bir hedefe istenmeyen bir istekte bulunur</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/xxe">XXE</a></td>
+<td>XML harici varlık işleme, istenmeyen kaynak erişimine neden oluyor</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/csrf">CSRF</a></td>
+<td>Başka bir site, istenmeyen bir kimlik doğrulaması uygulama eylemine neden oluyor</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cors">CORS</a></td>
+<td>Kaynaklar arası yanıt erişimini kontrol eden tarayıcı politikası</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/access-control/idor">Erişim kontrolü / IDOR</a></td>
+<td>Bir kullanıcının yalnızca URL'sinin erişilebilir olup olmadığı değil, bir nesneye/eyleme erişip erişemeyeceği</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/logic-flaws">İş mantığı</a></td>
+<td>Geçerli fiyatlar, iş akışları, bakiyeler ve durum geçişlerine ilişkin kurallar</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a></td>
+<td>Tarayıcı tarafından zorlanan kaynak/komut dosyası politikası; tek başına eksik bir başlık XSS uygulaması değildir</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Web_Application_Firewall">WAF</a></td>
+<td>Varlığı her etkin kuralı açığa çıkarmayan HTTP filtreleme katmanı</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Reverse_proxy">Ters proxy</a></td>
+<td>Bir uygulama sunucusundan önce isteklerin alınmasına aracılık etme</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/TLS">TLS / CA</a></td>
+<td>Bağlantı şifrelemesi ve uç noktasının kimliğini doğrulamak için kullanılan sertifika güveni</td>
+</tr>
+<tr>
+<td><a href="https://nvd.nist.gov/vuln">CVE / NVD</a></td>
+<td>Bilinen güvenlik açıklarına yönelik tanımlayıcı/veritabanı; bir banner'ı eşleştirmek, doğrulamadan yararlanma anlamına gelmez</td>
+</tr>
+<tr>
+<td><a href="https://cwe.mitre.org/">CWE</a></td>
+<td>Zayıflık türlerinin sınıflandırılması</td>
+</tr>
+<tr>
+<td><a href="https://top10.owasp.org/2025/">OWASP İlk 10:2025</a></td>
+<td>Tam bir tarayıcı test paketi değil, farkındalık kategorileri</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-project-web-security-testing-guide/">WSTG</a></td>
+<td>Otomatik ve manuel çalışmayı kapsayan web güvenliği testi referansı</td>
+</tr>
+</tbody>
+</table>
+<p>Bu öğreticinin uygulama temeli: manifest 2.18.1; <code dir="ltr" translate="no">content/checks.js</code>; <code dir="ltr" translate="no">lib/core.js</code>, <code dir="ltr" translate="no">lib/v2.js</code>, denetim/DOM/araştırma modülleri; kontrol paneli/yardım/kapsam/yerel kullanıcı arayüzü; yerel bağdaştırıcı yapılandırması, geçersiz kılmalar ve CLI; Aracı API'si/yerel istemci; doğrulama yapılarını yayınlayın. Eski belgelerin, kaldırılan eski aktarım davranışıyla çeliştiği durumlarda, gönderilen 2.18.1 çalışma zamanı burada kullanılan temeldir.</p>
+<p>Ek kurulum referansları:</p>
+<ul>
+<li><a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">Mozilla'nın geçici kurulumu</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging">Mozilla yerel mesajlaşma</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP giden bağlantı ayarları</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/">ZAP aktif tarama politikası ve sınırlamaları</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy sertifikaları</a></li>
+<li><a href="https://github.com/projectdiscovery/interactsh">Resmi Interactsh</a></li>
+<li><a href="https://docs.projectdiscovery.io/templates/reference/template-signing">Çekirdek şablonu imzalama</a></li>
+<li><a href="#owasp-top-10-coverage">Tam sürüm kapsamı belgesi</a></li>
+</ul>
+<p>Bu eğitim, adı geçen sürüm için genel bir kılavuzdur. Uygulamaya özel sonuçlar için hâlâ yetkili bir hedef, ulaşılan iş akışları ve gözden geçirilmiş kanıtlar gerekmektedir.</p></main></div><footer>Uzun Süreli Güvenlik · Yalnızca yetkili değerlendirmeler · <a href="/longshot-security-site/tr/">Longshot'a geri dön</a><p class="translation-notice">Çeviriler makine tarafından oluşturulmuştur. İngilizce versiyonu referanstır.</p></footer></body></html>
