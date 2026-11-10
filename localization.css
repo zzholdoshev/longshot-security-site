@@ -20,3 +20,6 @@ html:not([lang=en]) .hero h1{font-size:clamp(42px,5.2vw,74px)}
  .hero-stage .hero-art.cutout-media{width:calc(100% + 32px);margin-inline:-16px}
  .feature-art.cutout-media{width:calc(100% + 24px);margin-inline:-12px}
 }
+
+/* Keep the adapted Chinese/Japanese headlines together at narrow desktop widths. */
+@media(min-width:651px){html[lang=zh] .hero h1,html[lang=ja] .hero h1{font-size:clamp(28px,4.2vw,55px);line-height:1.3}}

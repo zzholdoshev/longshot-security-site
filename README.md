@@ -26,3 +26,7 @@ The landing page, privacy policy, support page and full web tutorial are provide
 Translations are machine-generated from public website prose at build time; English is the reference. The hosted pages do not call a translation service or install a third-party widget. The language is encoded in the page URL; no cookie or language-tracking service is required.
 
 The new `*-cutout.webp` assets isolate browser-window foregrounds from the supplied campaign images. They were derived with the built-in image-editing tool, then encoded as transparent WebP; CSS clips trim remaining outer scenery. Original publisher images and the older website assets are preserved. Screenshots are illustrative views from an earlier extension interface.
+
+## Context-aware marketing localization
+
+The 19 translated editions use authored locale overrides for complete headlines, landing-page descriptions, feature messages, Scout tips, campaign captions, short promotional text and assessment-limit guidance. Headlines are rendered as whole messages with intentional line breaks and emphasis, rather than assembled from separately translated English fragments. Product names and technical identifiers stay intact. The overrides are maintained in the website authoring source under editorial-locales/ and applied by build_languages.py, so rebuilding preserves them. These are AI-assisted editorial adaptations, not a claim of professional human translation. The remaining detailed technical and policy text retains the machine-translated baseline; English remains the reference.
