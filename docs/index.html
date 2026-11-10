@@ -1,0 +1,2582 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Full documentation — Longshot Security 2.18.1</title><meta name="description" content="The full Longshot general tutorial: browser scanning, native proxy, cookie overrides, ZAP, MCP, fuzzing, findings and reports."><link rel="icon" href="../assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="../style.css?v=20261110"><link rel="stylesheet" href="docs.css?v=20261110"></head><body><a class="skip" href="#documentation">Skip to documentation</a><nav aria-label="Main navigation"><a href="../index.html">LONGSHOT</a><a href="../index.html#download">Download</a><a href="../support.html">Support</a><a href="../privacy.html">Privacy</a></nav><div class="docs-layout"><aside class="docs-sidebar"><details open><summary>GENERAL TUTORIAL / 2.18.1</summary><div><a href="#vibe-coded-shipped-hacked">Vibe-coded. Shipped. Hacked.</a><a href="#firefox-and-chrome-choose-your-edition">Firefox and Chrome: choose your edition</a><a href="#contents">Contents</a><a href="#what-runs-where">What runs where</a><a href="#install-or-update-in-firefox-nightly">Install or update in Firefox Nightly</a><a href="#getting-started-and-target-sessions">Getting started and target sessions</a><a href="#light-discovery-and-a-focused-active-scan">Light discovery and a focused active scan</a><a href="#aggressive-options-and-run-approval">Aggressive options and run approval</a><a href="#overview-checks">Overview checks</a><a href="#scan-options-reference">Scan options reference</a><a href="#budgets-selectors-and-request-settings">Budgets, selectors and request settings</a><a href="#fuzzer-auto-fuzz-and-probe-library">Fuzzer, Auto-fuzz and Probe library</a><a href="#your-payloads-and-imported-templates">Your payloads and imported templates</a><a href="#server-stack-and-smart-analyzer">Server stack and Smart analyzer</a><a href="#oast-setup-and-interpretation">OAST setup and interpretation</a><a href="#browser-bridge-native-tool-proxy">Browser Bridge: native tool proxy</a><a href="#native-bridge-configuration">Native bridge configuration</a><a href="#cookie-and-header-overrides-without-damaging-probes">Cookie and header overrides without damaging probes</a><a href="#external-tools-and-actual-zap-scanning">External tools and actual ZAP scanning</a><a href="#tor-and-onion-routing">Tor and onion routing</a><a href="#agent-api-mcp-and-local-model-clients">Agent API, MCP and local-model clients</a><a href="#optional-native-nuclei">Optional native Nuclei</a><a href="#manual-tools-interception-and-api-inventory">Manual tools, interception and API inventory</a><a href="#findings-and-the-cimematic-viewer">Findings and the cimematic viewer</a><a href="#owasp-top-10-coverage">OWASP Top 10 coverage</a><a href="#recovery-assessment-files-and-reports">Recovery, assessment files and reports</a><a href="#appearance-language-and-help">Appearance, language and help</a><a href="#troubleshooting">Troubleshooting</a><a href="#terms-and-source-references">Terms and source references</a></div></details><a class="markdown-download" href="longshot-general-tutorial.md" download>Download Markdown ↓</a></aside><main id="documentation" class="docs-main"><p class="eyebrow">FULL DOCUMENTATION · UPDATED 10 NOVEMBER 2026</p><h1 id="longshot-2181-general-tutorial-and-control-reference">Longshot 2.18.1 — general tutorial and control reference</h1>
+<p>Updated 10 November 2026 for Longshot <strong>2.18.1</strong> (Firefox and Chrome editions) and its <strong>native HTTP/HTTPS tool proxy</strong>. This replaces the general 2.11.1 tutorial. Instructions below describe the shipped implementation, including its limits; older bridge examples are not interchangeable with this release.</p>
+<p>Longshot is a browser-session workbench for authorized web application assessment. It combines discovery, its own JavaScript active scanner, manual HTTP tools, imported templates, findings review and reports. The optional Browser Bridge lets external tools use selected Firefox session values while sending their own native HTTP requests.</p>
+<p>A useful first pass is: <strong>open the application → sign in → launch Longshot from that tab → Connect → validate the session → discover inputs → run selected checks → review evidence</strong>.</p>
+<p>For an application handling sensitive user data or money, including an AI-built or vibe-coded application, hire a cybersecurity team for a professional assessment. An extension scan does not replace authorization testing, business-logic review or an independent security assessment. An empty findings list is not a security certificate.</p>
+<p>This document explains commands; updating it does not install software, register a host, alter browser settings or run any scans. Run examples only against your authorized assessment target. The sample <code>http://localhost:8080</code> is a local target example, not a built-in Longshot service.</p>
+<h2 id="vibe-coded-shipped-hacked">Vibe-coded. Shipped. Hacked.</h2>
+<p><strong>Imagine this:</strong> your app goes live, an attacker finds the flaw, and a user opens their account to a balance of zero. All their money—gone.</p>
+<p>The code looked convincing. The AI said it looked secure. That was not enough.</p>
+<p><strong>LLMs are nondeterministic. They can miss vulnerabilities and produce confident mistakes. You need a second opinion. You need Longshot.</strong></p>
+<p>Longshot turns Firefox into a security workbench for the web apps you build. Run repeatable checks against the application that is actually running, inspect the HTTP evidence, and investigate the weaknesses before your users pay the price.</p>
+<p>Checks cover supported <strong>SQL/NoSQL injection, server-side code and template injection, reflected XSS candidates, path traversal/file inclusion, open redirects and CRLF/header injection</strong>, with optional live DOM XSS verification. Review <strong>weak security headers, cookie and CORS policies, exposed configuration and error disclosures</strong>, with optional checks for further attack classes.</p>
+<p>Start from the browser tab you already use. Keep live cookies, configure session validation, recover after session loss, and keep each target’s settings, history and findings organized.</p>
+<p><strong>Put your AI to work—then check its work.</strong> Connect an agent through MCP to run authorized checks and examine findings. Use the native Browser Bridge to bring ZAP, sqlmap, curl, ffuf or wget into the connected browser session without manually copying cookie values. The tools send their own HTTP requests and payloads; browser-cookie overrides are on by default and can be switched off.</p>
+<p>Advanced users can import compatible <strong>CVE templates</strong> and correlate <strong>OAST callbacks</strong> with the probes that caused them. Review and record your verdicts, then export evidence-rich <strong>HTML, JSON, CSV or SARIF reports</strong>, with print/PDF output. Explain findings with the <strong>cimematic viewer</strong>, including live CSS/JavaScript page context, animated 3D elements, pause and fullscreen controls. Pick a sharp theme and customize motion and sound to fit your workspace.</p>
+<p><strong>Before you ship confidence, demand evidence. Longshot.</strong></p>
+<h3 id="quick-scan-one-sentence">Quick scan — one sentence</h3>
+<p>Open your app in Firefox, sign in if needed, launch Longshot from that tab, click Connect, validate the configured session check, then choose Spider + active checks → Start scan and review Findings.</p>
+<h3 id="short-ad">Short ad</h3>
+<p>Your vibe-coded app is live. What did the AI miss? Longshot checks the running app for injection, XSS and other common weaknesses, adds browser-session testing and AI/MCP workflows, and gives you evidence to review. You need a second opinion. You need Longshot.</p>
+<h3 id="compact-description">Compact description</h3>
+<p>A second opinion for vibe-coded apps: browser-session checks, AI/MCP, native tools with configurable browser-cookie overrides, CVE/OAST, cinematic findings and reports.</p>
+<h3 id="campaign-captions">Campaign captions</h3>
+<ol>
+<li><strong>VIBE-CODED. SHIPPED. HACKED.</strong> A hypothetical launch-and-account-loss scenario; get a second opinion before shipping.</li>
+<li><strong>TEST THE SESSION. CHECK THE APP.</strong> Live cookies, validation and target-specific evidence.</li>
+<li><strong>AI WROTE IT. WHO CHECKED IT?</strong> Bring AI suggestions into a reviewable security workflow.</li>
+<li><strong>YOUR TOOLS. YOUR TAB. YOUR SESSION.</strong> Browser Bridge for supported local HTTP utilities.</li>
+<li><strong>HUNT THE FLAWS. FOLLOW THE EVIDENCE.</strong> Advanced compatible CVE templates and OAST correlation.</li>
+<li><strong>PROOF OVER REASSURANCE.</strong> Review and export reports in a workspace you can customize.</li>
+<li><strong>YOUR AI IS NOT A SECURITY VERDICT.</strong> MCP checks for your running app; evidence you can review.</li>
+<li><strong>EXPIRED SESSION. LOST CONTEXT.</strong> Validate, pause, sign in again and resume.</li>
+</ol>
+<h3 id="selling-points-in-2181">Selling points in 2.18.1</h3>
+<table>
+<thead>
+<tr>
+<th>Selling point</th>
+<th>Practical benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Your signed-in browser session, your tools</strong></td>
+<td>ZAP and other HTTP-proxy clients use the selected Firefox cookie jar by default, with response-cookie synchronization and independent off switches.</td>
+</tr>
+<tr>
+<td><strong>The real external scanner engine</strong></td>
+<td>ZAP generates its own native HTTP requests and payloads through Browser Bridge; selected cookie/header overrides are explicit.</td>
+</tr>
+<tr>
+<td><strong>Protect the probe, keep the session</strong></td>
+<td>Protected fields and per-request bypass let you preserve a tool's deliberate cookie/header mutations.</td>
+</tr>
+<tr>
+<td><strong>Evidence you can inspect</strong></td>
+<td>Dedicated active rules use repeated controls; actual input coverage distinguishes completed, partial and skipped work.</td>
+</tr>
+<tr>
+<td><strong>AI that can work through the interface</strong></td>
+<td>MCP exposes supported scan commands and dashboard controls so compatible agents can operate the workbench and retrieve results.</td>
+</tr>
+<tr>
+<td><strong>Findings you can explain</strong></td>
+<td>The cimematic viewer combines current page context, recorded evidence, 3D explanations and plain-language potential risks.</td>
+</tr>
+<tr>
+<td><strong>Bring your own testing material</strong></td>
+<td>Upload target-specific payload packs and reviewed templates; refresh the supported community lists from the interface.</td>
+</tr>
+<tr>
+<td><strong>A workspace that stays yours</strong></td>
+<td>Per-target assessment data, review notes, optional file checkpoints, offline reports, themes and 20 bundled UI languages.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="publication-notes">Publication notes</h3>
+<p>The account-loss story is hypothetical, not a claim about a real customer or a guarantee that Longshot prevents financial loss. The extension performs assessments, not continuous attack blocking. Findings require review; the coverage table explains bounded support and manual-only gaps. DOM analysis includes indicators and supported execution canaries, not universal DOM exploit coverage. The cinematic sequence explains evidence; it does not add exploitation proof.</p>
+<p>MCP and Browser Bridge need local setup. The native tool proxy uses a separate Node/Python/mitmproxy process, and HTTPS interception requires the tool's trust configuration for the adapter CA. It is parsed HTTP transport, not byte-transparent raw TCP. Cookie overrides can be disabled; a browser cookie or User-Agent does not guarantee browser-identical networking or WAF acceptance. External ZAP remains separately installed. Template execution depends on compatibility/runtimes; OAST requires a configured provider. Authentication validation needs a meaningful protected endpoint/marker. Target profiles separate assessment data; the tab/container supplies the cookie session.</p>
+<p>For applications handling sensitive data or money, hire a cybersecurity team and use Longshot as one part of the assessment. Use it only on applications you own or are authorized to test.</p>
+<p>If reusing earlier generated campaign images, label them as compositions and use real current screenshots wherever pixel-exact UI is required. This tutorial links the actual 2.18.1 validation screenshots in the appearance section; it does not include a new eight-image campaign pack or claim third-party endorsement.</p>
+<h2 id="firefox-and-chrome-choose-your-edition">Firefox and Chrome: choose your edition</h2>
+<p>This full guide describes Firefox's supported feature set. Chrome uses the same core browser-session workbench with the platform differences below. References to Firefox containers, live DOM execution, held interception and browser VHOST rewriting later in this guide are Firefox-only.</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Firefox</th>
+<th>Chrome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser active checks, manual/automatic fuzzing, supported HTTP templates, OAST, stack evidence and reports</td>
+<td>Supported with the documented prerequisites</td>
+<td>Supported with the documented prerequisites</td>
+</tr>
+<tr>
+<td>Native HTTP proxy with browser cookies/header overrides and response-cookie synchronization</td>
+<td>Supported</td>
+<td>Supported</td>
+</tr>
+<tr>
+<td>Page-context AJAX instrumentation and live DOM XSS execution verification</td>
+<td>Supported when approved and permitted</td>
+<td>Unavailable in this release</td>
+</tr>
+<tr>
+<td>Separate-container Session B, held interception and browser VHOST rewriting</td>
+<td>Supported when configured and permitted</td>
+<td>Unavailable in this release</td>
+</tr>
+<tr>
+<td>Finding viewer</td>
+<td>Captured evidence and supported live page context</td>
+<td>Captured evidence; live background-page capture unavailable</td>
+</tr>
+<tr>
+<td>Engine lifecycle</td>
+<td>Persistent background page</td>
+<td>Keep the visible workbench open; closing it stops new paired native requests</td>
+</tr>
+<tr>
+<td>Private browsing</td>
+<td>Selected contexts, subject to permission and setup</td>
+<td>Disabled in this release</td>
+</tr>
+</tbody>
+</table>
+<h3 id="install-the-chrome-edition">Install the Chrome edition</h3>
+<ol>
+<li>Download the <strong>Chrome ZIP</strong> from the release links above/below and extract it to a folder you keep.</li>
+<li>Open <code>chrome://extensions</code>, enable <strong>Developer mode</strong>, select <strong>Load unpacked</strong>, then choose the extracted folder containing <code>manifest.json</code>.</li>
+<li>Open your authorized application, sign in, launch Longshot from that tab and Connect.</li>
+<li>Keep the workbench tab open during scanning and native pairing. Closing it ends live engine work; saved evidence remains and is restored without replaying uncertain requests.</li>
+<li>For native tool proxy startup, use the exact origin shown by Chrome, such as <code>chrome-extension://YOUR_INSTALLED_ID</code>, rather than a Firefox <code>moz-extension://</code> origin. The proxy uses real target URLs; no hosts-file entry is needed.</li>
+</ol>
+<h3 id="chrome-agent-api-mcp-registration">Chrome Agent API / MCP registration</h3>
+<p>From the retained full source checkout, after installing the pinned helper dependency:</p>
+<pre><code class="language-sh">npm --prefix native-bridge ci --omit=dev
+node bridge/bin/longshot-bridge install --browser chrome \
+  --extension-id YOUR_INSTALLED_32_LETTER_ID \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+node bridge/bin/longshot-bridge mcp \
+  --port 8775 --data-dir /absolute/private/longshot-chrome
+</code></pre>
+<p>For Chromium use <code>--browser chromium</code>. Use the actual ID in <code>chrome://extensions</code>; register again if installing the store edition gives a different ID. The separate port/data directory avoids a collision with a Firefox host. This Agent API is distinct from the HTTP tool proxy (default ports 8900/8901). Linux is the tested native-host platform; macOS registration is implemented but untested here, and no Windows native-host installer is supplied.</p>
+<p>Detailed Browser Bridge configuration is also available in the extension's <strong>Browser Bridge → Information</strong> dialog. The long-form README and new platform/privacy documents are English; bundled UI language selection does not translate target evidence, payloads or executable examples.</p>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#firefox-and-chrome-choose-your-edition">Firefox / Chrome editions and setup</a></li>
+<li><a href="#vibe-coded-shipped-hacked">Advertisement and selling points</a></li>
+</ul>
+<ol>
+<li><a href="#what-runs-where">What runs where</a></li>
+<li><a href="#install-or-update-in-firefox-nightly">Install or update in Firefox Nightly</a></li>
+<li><a href="#getting-started-and-target-sessions">Getting started and target sessions</a></li>
+<li><a href="#light-discovery-and-a-focused-active-scan">Light discovery and a focused active scan</a></li>
+<li><a href="#aggressive-options-and-run-approval">Aggressive options and run approval</a></li>
+<li><a href="#overview-checks">Overview checks</a></li>
+<li><a href="#scan-options-reference">Scan options reference</a></li>
+<li><a href="#budgets-selectors-and-request-settings">Budgets, selectors and request settings</a></li>
+<li><a href="#fuzzer-auto-fuzz-and-probe-library">Fuzzer, Auto-fuzz and Probe library</a></li>
+<li><a href="#your-payloads-and-imported-templates">Your payloads and imported templates</a></li>
+<li><a href="#server-stack-and-smart-analyzer">Server stack and Smart analyzer</a></li>
+<li><a href="#oast-setup-and-interpretation">OAST setup and interpretation</a></li>
+<li><a href="#browser-bridge-native-tool-proxy">Browser Bridge: native tool proxy</a></li>
+<li><a href="#native-bridge-configuration">Native bridge configuration</a></li>
+<li><a href="#cookie-and-header-overrides-without-damaging-probes">Cookie and header overrides without damaging probes</a></li>
+<li><a href="#external-tools-and-actual-zap-scanning">External tools and actual ZAP scanning</a></li>
+<li><a href="#tor-and-onion-routing">Tor and onion routing</a></li>
+<li><a href="#agent-api-mcp-and-local-model-clients">Agent API, MCP and local-model clients</a></li>
+<li><a href="#optional-native-nuclei">Optional native Nuclei</a></li>
+<li><a href="#manual-tools-interception-and-api-inventory">Manual tools, interception and API inventory</a></li>
+<li><a href="#findings-and-the-cimematic-viewer">Findings and the cimematic viewer</a></li>
+<li><a href="#owasp-top-10-coverage">OWASP Top 10 coverage</a></li>
+<li><a href="#recovery-assessment-files-and-reports">Recovery, assessment files and reports</a></li>
+<li><a href="#appearance-language-and-help">Appearance, language and help</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#terms-and-source-references">Terms and source references</a></li>
+</ol>
+<h2 id="what-runs-where">What runs where</h2>
+<p>The word “bridge” refers to different components. Choose the component needed for your task.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Runs where</th>
+<th>What it does</th>
+<th>Default connection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Built-in scanner, Repeater and Fuzzer</td>
+<td>Firefox extension and bound target tab</td>
+<td>Browser-session HTTP checks using Longshot's JavaScript rules</td>
+<td>No external proxy process required</td>
+</tr>
+<tr>
+<td><strong>Browser Bridge / Native tool proxy</strong></td>
+<td>Local Node coordinator plus separately installed mitmproxy</td>
+<td>Carries external tools' own HTTP/HTTPS requests; optionally overrides cookies and selected headers from Firefox</td>
+<td>HTTP proxy <code>127.0.0.1:8900</code>; extension control <code>127.0.0.1:8901</code></td>
+</tr>
+<tr>
+<td><strong>Agent API / native-messaging bridge</strong></td>
+<td>Local Node service registered with Firefox</td>
+<td>REST/MCP/UI automation, assessment files and optional native Nuclei execution</td>
+<td>API <code>http://127.0.0.1:8765</code></td>
+</tr>
+<tr>
+<td>External ZAP, curl, ffuf, sqlmap or Nuclei CLI</td>
+<td>Separate processes installed by you</td>
+<td>Generate their own traffic and results, optionally through Native tool proxy</td>
+<td>Configure each tool's outgoing HTTP proxy</td>
+</tr>
+<tr>
+<td>Isolated native Nuclei launched by Longshot</td>
+<td>Agent API host and Linux sandbox</td>
+<td>Runs eligible imported templates with the official Nuclei engine</td>
+<td>Separate isolated execution route; no automatic Firefox cookie export</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-text">Built-in scan / Repeater / Fuzzer
+        → Firefox networking + target tab's session → target
+
+External ZAP / curl / another HTTP tool
+        → authenticated native proxy :8900 → mitmproxy → target
+                        ↑
+             selected cookie/header values
+                        ↑
+              paired Firefox tab via :8901
+
+MCP or REST client → Agent API :8765 → Longshot commands / UI
+                                      └→ separately enabled native jobs
+</code></pre>
+<p><strong>Start scan does not run ZAP.</strong> Pairing ZAP with Browser Bridge does not replace Longshot's JavaScript scanner or import all ZAP alerts into Longshot. Review an external tool's findings in that tool; the native bridge traffic display is metadata, not a complete vulnerability-results importer.</p>
+<h3 id="changes-that-invalidate-old-instructions">Changes that invalidate old instructions</h3>
+<table>
+<thead>
+<tr>
+<th>Older instruction</th>
+<th>Use in 2.18.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Select Legacy browser fetch</td>
+<td>Removed from Browser Bridge and the XPI</td>
+</tr>
+<tr>
+<td>Send tools to <code>http://bridge.invalid</code></td>
+<td>Use the actual target URL</td>
+</tr>
+<tr>
+<td>Add <code>bridge.invalid</code> to <code>/etc/hosts</code></td>
+<td>No entry is needed; do not add one for this bridge</td>
+</tr>
+<tr>
+<td>Proxy on <code>8899</code>; start <code>node ./bridge/cli.js</code> in the old adapter</td>
+<td>The downloaded native adapter uses <code>node cli.js</code>; default proxy/control ports are <code>8900</code> / <code>8901</code></td>
+</tr>
+<tr>
+<td><code>allowRaw</code>, <code>forceRaw</code>, <code>torSocks</code>, <code>X-Bridge-Host</code>, <code>/v1/cookies</code>, pair-check endpoints</td>
+<td>Old adapter interfaces; do not put them in the native config or assume they exist</td>
+</tr>
+<tr>
+<td>Bridge sends byte-exact raw TCP or smuggling traffic</td>
+<td>Native proxy parses HTTP; malformed framing and byte-transparent TCP are unsupported</td>
+</tr>
+<tr>
+<td>Browser session means external tools need no CA</td>
+<td>HTTPS interception needs the tool to trust the native adapter's generated CA</td>
+</tr>
+<tr>
+<td>Tor routing is inherited from Firefox</td>
+<td>Native adapter routing is separate; SOCKS is off by default</td>
+</tr>
+<tr>
+<td>Adapter suspends/restarts external process groups or automatically replays failed work</td>
+<td>Pause blocks new proxy requests; inspect and retry/resume the tool explicitly</td>
+</tr>
+</tbody>
+</table>
+<h2 id="install-or-update-in-firefox-nightly">Install or update in Firefox Nightly</h2>
+<p>Use the <strong>2.18.1 XPI</strong>, not an old adapter ZIP renamed as an add-on. Extract the matching source archive to a folder you keep in place, shown as <code>/path/to/longshot</code> in examples. Do not move a registered native host without registering it again.</p>
+<p>The release files are:</p>
+<ul>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1.xpi">Firefox XPI</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-chrome.zip">Chrome ZIP</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/download/v2.18.1/longshot-2.18.1-source.zip">Matching extension source ZIP</a></li>
+<li><a href="https://github.com/zzholdoshev/longshot-security-site/releases/tag/v2.18.1">Release notes and checksums</a></li>
+<li>Native adapter ZIP: download it inside Browser Bridge; it is included in each extension package.</li>
+</ul>
+<p>These are development/submission builds. Firefox store signing and both marketplaces' approvals are pending. Follow the applicable development-loading procedure rather than expecting the unsigned XPI to install normally in release Firefox.</p>
+<p>The manifest requires Firefox 140 or newer. The release integration checks used desktop Firefox 159 on Linux. Platform/runtime support for optional helpers is separate from basic extension support.</p>
+<p>For a temporary unsigned installation:</p>
+<ol>
+<li>Open <code>about:debugging#/runtime/this-firefox</code>.</li>
+<li>Choose <strong>Load Temporary Add-on</strong> and select the XPI.</li>
+<li>Confirm Longshot's displayed version, then open the target and launch its toolbar button.</li>
+<li>Reload the extension after replacing an unpacked development build.</li>
+</ol>
+<p>A temporary add-on disappears after Firefox restarts. That is expected; it is not the adapter deleting the extension. Persistent public distribution needs Mozilla signing. Nightly has additional unsigned-development options described by <a href="https://www.extensionworkshop.com/documentation/publish/signing-and-distribution-overview/">Mozilla's signing guide</a>; temporary loading does not require changing those settings. See <a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">temporary installation</a>.</p>
+<p>The XPI bundles the native adapter as a downloadable archive. It cannot start an arbitrary Node/Python process or install the native host solely through Firefox Add-ons. Starting the proxy and registering Agent API are distinct optional local setup steps.</p>
+<h2 id="getting-started-and-target-sessions">Getting started and target sessions</h2>
+<h3 id="connect-the-right-tab">Connect the right tab</h3>
+<ol>
+<li>Open the authorized target in Firefox, for example <code>http://localhost:8080</code>.</li>
+<li>Sign in with the intended test account and complete any browser challenge.</li>
+<li>Launch Longshot <strong>from that target tab</strong>. Keep the application tab open.</li>
+<li>Check the target address and choose <strong>Connect</strong>.</li>
+<li>Use <strong>Getting started</strong> in the header for the eight-step highlighted walkthrough. It can be replayed; it does not start scans or change settings itself.</li>
+<li>Browse representative application pages so Longshot can observe useful routes and inputs.</li>
+</ol>
+<p>A target origin consists of scheme, hostname and port. <code>http://localhost:8080</code>, <code>http://127.0.0.1:8080</code> and <code>https://localhost:8080</code> are different origins, even if they ultimately reach the same service. Connect and use the exact address intended for the assessment. An IP address observed behind a hostname does not automatically become an additional authorized target.</p>
+<h3 id="configure-session-validation">Configure session validation</h3>
+<p>Open <strong>Settings → Scanner settings</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Session validation path</td>
+<td>An in-scope page/API path that requires authentication</td>
+</tr>
+<tr>
+<td>Expected authenticated text</td>
+<td>A stable marker present when the selected account is signed in and absent after logout</td>
+</tr>
+<tr>
+<td>Minimum authenticated response bytes</td>
+<td>Optional additional lower size threshold; zero disables it</td>
+</tr>
+<tr>
+<td>Login path</td>
+<td>The application's login path, when needed for rejection detection</td>
+</tr>
+<tr>
+<td>Revalidate after this many requests</td>
+<td>Periodic independent session check; default 20</td>
+</tr>
+<tr>
+<td>Require successful session validation before scans</td>
+<td>Require the configured validator to pass; default off</td>
+</tr>
+</tbody>
+</table>
+<p>Save the settings and use <strong>Overview → Check session</strong>. A public page returning 200 is not proof of authentication. A redirect to a login page followed by 200 can still represent an invalid session; choose a protected endpoint and meaningful marker.</p>
+<p>The built-in scanner uses the bound tab's applicable browser cookies, including HttpOnly cookies. Firefox selects cookies by URL, path, security attributes and cookie store. The scanner's protected Cookie/Authorization/Host fields are not ordinary editable fuzz inputs.</p>
+<h3 id="profiles-and-accounts">Profiles and accounts</h3>
+<p><strong>Targets</strong> separates history, findings, request journal, discovered endpoints, reviews and scan configuration. Returning to a profile restores assessment data, not an old authenticated browser session. Explicit profiles can share an origin.</p>
+<p>Two ordinary Firefox tabs normally share cookies. Use independent containers or a separate private cookie store for genuinely different test identities. Switching profiles does not create a second account session. Session B comparison requires the same target origin and a separate store.</p>
+<h2 id="light-discovery-and-a-focused-active-scan">Light discovery and a focused active scan</h2>
+<h3 id="first-pass-discovery-and-passive-review">First pass: discovery and passive review</h3>
+<ol>
+<li>Set <strong>Requests per second</strong> to 0.5–1, crawl depth to 1 and maximum discovered URLs to 25–50.</li>
+<li>Leave <strong>Maximum findings</strong>, <strong>Aggressive</strong>, CVE auto-phase, OAST and native execution off.</li>
+<li>Set <strong>Auto-fuzz → Off</strong>. Leave page clicks/scroll and live DOM/timing/callback tests off.</li>
+<li>Select the passive Overview groups: headers, cookies, disclosure, forms, DOM source/sink review and CORS.</li>
+<li>Choose <strong>Spider only</strong> and start.</li>
+<li>Inspect <strong>Site map</strong>, <strong>HTTP history</strong>, <strong>API explorer</strong>, <strong>Server stack</strong> and <strong>Findings</strong>.</li>
+</ol>
+<p>Spider follows discovered in-scope links/forms without submitting form writes. It does not know every hidden endpoint. GET requests can still have application-specific side effects; “read method” does not establish a side-effect-free target.</p>
+<h3 id="second-pass-a-bounded-active-assessment">Second pass: a bounded active assessment</h3>
+<ol>
+<li>Keep <strong>Auto-fuzz → Off</strong> to make the built-in active rules easier to review separately.</li>
+<li>Select the relevant Overview active checks, such as SQL injection and Reflected XSS.</li>
+<li>Use small limits, for example 150 active requests, 10 active URLs and five active parameters.</li>
+<li>Choose <strong>Active checks only</strong> to reuse the current page and saved inventory, or <strong>Spider + active checks</strong> to discover first.</li>
+<li>Start, review any required approval, and watch Activity and request counts.</li>
+<li>Inspect each finding's request, baseline, repeated probe/control evidence, verdict and confidence.</li>
+<li>Open <strong>WSTG checks → Actual input coverage</strong> to see completed, partial and skipped work.</li>
+</ol>
+<p><strong>Auto-fuzz Off does not turn off active checks.</strong> The SQLi/XSS/SSTI and other dedicated rules generate their own probes. Conversely, ticking an active rule does not supply a missing input or make a Spider-only run execute the generic active phase.</p>
+<h2 id="aggressive-options-and-run-approval">Aggressive options and run approval</h2>
+<p>Aggressive enables explicitly approved methods/capabilities; it does not make every check run or guarantee stronger evidence.</p>
+<ol>
+<li>Discover inputs and validate authentication first.</li>
+<li>Enable only needed advanced options and write/upload/delete permissions.</li>
+<li>Save Scan options.</li>
+<li>Choose <strong>Review / approve next aggressive run</strong>.</li>
+<li>Review the target, features, method permissions and budgets.</li>
+<li>Click <strong>Approve this next run</strong>. This user action requests any missing combined Firefox permissions and creates the next-run grant.</li>
+<li>Start the run with the reviewed configuration.</li>
+</ol>
+<p>The grant is single-use, expires after 30 minutes and is invalidated by relevant target/configuration/request-setting changes. A new scan normally needs a new grant. Saving unfinished options is allowed; starting or approving validates required fields.</p>
+<p>Firefox requires <code>permissions.request()</code> to originate directly from a real user action. Changing a setting is not a reason to grant arbitrary permissions in the background. If permission is denied, review the exact feature, retry from the approval button or disable that feature. Normal OS/browser permission prompts remain outside extension DOM automation.</p>
+<h3 id="maximum-findings-is-a-broad-preset">Maximum findings is a broad preset</h3>
+<p>This preset turns on many phases, including advanced verification, OAST and Session B comparison, and expands several budgets. It is not a “find everything” switch. It does not create an OAST account, fill Provider URL/Callback domain, select a valid Session B, install Nuclei or authenticate missing roles.</p>
+<p>If approval reports empty OAST fields or missing Session B, configure them or turn those options off. This is separate from whether the target URL is valid.</p>
+<h3 id="two-command-injection-controls">Two command-injection controls</h3>
+<p><strong>Overview → OS command indicators</strong> enables direct Unix-oriented command-output probes. It is off by default. <strong>Scan options → Command probes</strong> controls the extra blind callback route when OAST is listening. One checkbox does not automatically configure the other path. Review the authorization requirements for the actual run.</p>
+<h2 id="overview-checks">Overview checks</h2>
+<p>The default enabled list contains the six passive groups and SQLi, NoSQLi, server code injection, reflected XSS, SSTI, traversal, redirect, CRLF and methods. <strong>OS command indicators</strong> and <strong>Duplicate query parameter handling</strong> start off.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>What it does</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Security headers &amp; HTTPS</td>
+<td>Reviews CSP, framing policy, nosniff, HSTS and selected mixed-content references</td>
+<td>Defense/configuration indicators, not automatic exploit proof</td>
+</tr>
+<tr>
+<td>Cookie attributes</td>
+<td>Reviews Secure, HttpOnly and SameSite without retaining cookie values as findings</td>
+<td>Cookie purpose and browser behavior need review</td>
+</tr>
+<tr>
+<td>Errors &amp; sensitive content</td>
+<td>Recognizes selected traces, configuration/source content and directory listings</td>
+<td>Limited to observed content and signatures</td>
+</tr>
+<tr>
+<td>Form &amp; CSRF review</td>
+<td>Reviews password transport/GET forms and recognized token fields</td>
+<td>Missing visible token does not prove CSRF</td>
+</tr>
+<tr>
+<td>DOM XSS source/sink review</td>
+<td>Finds nearby URL sources and dangerous sinks in inline code</td>
+<td>Heuristic; not execution or complete data-flow proof</td>
+</tr>
+<tr>
+<td>CORS policy review</td>
+<td>Reviews observable allow-origin/credential combinations</td>
+<td>Does not test arbitrary Origin reflection or attacker-origin reads</td>
+</tr>
+<tr>
+<td>SQL injection</td>
+<td>Repeats new database-error signatures and true/false comparisons against controls</td>
+<td>Evidence remains bounded to tested inputs and syntax families</td>
+</tr>
+<tr>
+<td>NoSQL injection</td>
+<td>Repeats MongoDB/BSON error signatures</td>
+<td>No general operator-injection or authentication-bypass verifier</td>
+</tr>
+<tr>
+<td>Server-side code injection</td>
+<td>Computed JavaScript/PHP canaries</td>
+<td>Small language/context set</td>
+</tr>
+<tr>
+<td>Reflected XSS</td>
+<td>Reflection gate plus repeated inert parsing of executable-looking HTML contexts</td>
+<td>Candidate until actual execution is verified</td>
+</tr>
+<tr>
+<td>Server template injection</td>
+<td>Unique arithmetic markers and repeat/control checks</td>
+<td>Does not cover every template engine or blind context</td>
+</tr>
+<tr>
+<td>Traversal / file inclusion</td>
+<td>Repeated known file-content signatures</td>
+<td>Not exhaustive encodings, files or platforms</td>
+</tr>
+<tr>
+<td>Open redirects</td>
+<td>Generated .invalid Location canary</td>
+<td>External redirect destination is not followed</td>
+</tr>
+<tr>
+<td>Response header injection</td>
+<td>Repeated generated header marker</td>
+<td>Browser URL/header handling limits the test</td>
+</tr>
+<tr>
+<td>Advertised HTTP methods</td>
+<td>OPTIONS and Allow inventory</td>
+<td>Advertisement is not permission to write</td>
+</tr>
+<tr>
+<td>Duplicate query parameter handling</td>
+<td>Repeated first/last-order comparisons</td>
+<td>Informational parsing difference, not proven security impact</td>
+</tr>
+<tr>
+<td>OS command indicators</td>
+<td>Optional repeated id-output indicators</td>
+<td>Unix-oriented, context-dependent and off by default</td>
+</tr>
+</tbody>
+</table>
+<p>Supported active insertion points include query values, nested JSON/arrays, form/multipart fields, selected editable imported headers and named API path inputs. Bodies must be known and permitted. Managed authentication/framing fields, excluded values and unavailable request bodies are not silently invented.</p>
+<p>Hidden form values are preserved and refreshed where supported before form writes; unavailable tokens can make coverage skipped. This mechanism does not establish that a form's CSRF protection works.</p>
+<h2 id="scan-options-reference">Scan options reference</h2>
+<p>Unless noted otherwise, these optional phases start off. <strong>Adaptive request rate</strong> defaults on; the default Auto-fuzz mode is Off. Settings restored from an existing profile can differ from fresh defaults.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>What changes / prerequisite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CVE auto-phase</td>
+<td>Executes eligible imported CVE templates using their authored requests/matchers within CVE/global budgets</td>
+</tr>
+<tr>
+<td>Aggressive (authorized)</td>
+<td>Enables next-run approval for write methods and advanced capabilities</td>
+</tr>
+<tr>
+<td>Allow multipart file uploads</td>
+<td>Separately permits file-bearing multipart requests; does not generate an upload test</td>
+</tr>
+<tr>
+<td>Allow DELETE (separate consent)</td>
+<td>Separately permits DELETE; does not automatically issue a delete request</td>
+</tr>
+<tr>
+<td>AJAX / DOM instrumentation</td>
+<td>Observes dynamic application endpoints and supported page activity during bounded discovery</td>
+</tr>
+<tr>
+<td>Opt-in page clicks / scroll</td>
+<td>Adds bounded interactions; requires AJAX discovery and Aggressive approval; application handlers can change data</td>
+</tr>
+<tr>
+<td>Live DOM XSS verification (new tabs)</td>
+<td>Tests bounded query/fragment-query URL inputs in disposable same-store tabs; two fresh local canaries plus a negative control; CSP remains enforced</td>
+</tr>
+<tr>
+<td>Repeated timing probes</td>
+<td>Repeated SQL delay comparisons and a JSON MongoDB timing candidate, starting with the first insertion point; requires Aggressive</td>
+</tr>
+<tr>
+<td>SSRF canaries / callbacks</td>
+<td>Internal-address response differences plus exact OAST correlation when configured; requires Aggressive</td>
+</tr>
+<tr>
+<td>XML external entity probes</td>
+<td>Callback canary for known XML request bodies; requires approved OAST setup for the implemented test</td>
+</tr>
+<tr>
+<td>Log4Shell OAST probes</td>
+<td>Callback canary in an eligible input and X-Api-Version; an interaction is not proof of code execution</td>
+</tr>
+<tr>
+<td>Command probes</td>
+<td>Blind command callback route when OAST is listening</td>
+</tr>
+<tr>
+<td>Imported deserialization templates</td>
+<td>Includes eligible imported deserialization-tagged templates; no universal gadget generator</td>
+</tr>
+<tr>
+<td>Adaptive WAF mutations (max 3)</td>
+<td>Bounded alternative representations of eligible probes; never a guarantee of bypass</td>
+</tr>
+<tr>
+<td>Compare with Session B</td>
+<td>Compares up to ten eligible read requests with another same-origin cookie store; ownership/roles remain manual context</td>
+</tr>
+<tr>
+<td>Discovered WebSocket probes</td>
+<td>Bounded channel exchanges; no invented application-specific attack protocol</td>
+</tr>
+<tr>
+<td>Discovered SSE probes</td>
+<td>Bounded EventSource listening; not a general stream-authorization verifier</td>
+</tr>
+<tr>
+<td>Offline client library SCA</td>
+<td>Small bundled known-version/range catalog for observed client assets</td>
+</tr>
+<tr>
+<td>Parameter / header mining</td>
+<td>Uses names learned from target/API evidence; not a complete hidden-input dictionary</td>
+</tr>
+<tr>
+<td>Native full Nuclei execution</td>
+<td>Enables official-engine template jobs through Agent API, subject to Linux isolation and consent</td>
+</tr>
+<tr>
+<td>Sandboxed native code / JavaScript</td>
+<td>Additional capability for reviewed/signed native templates</td>
+</tr>
+<tr>
+<td>Isolated headless browser</td>
+<td>Additional native headless capability; isolated from Firefox's login</td>
+</tr>
+<tr>
+<td>Native allowlisted file reads</td>
+<td>Additional read-only local file capability inside the chosen allowlist</td>
+</tr>
+<tr>
+<td>OAST (external provider)</td>
+<td>Registers/polls the specified provider; select relevant vulnerability probes separately</td>
+</tr>
+<tr>
+<td>Community SQL probe lists</td>
+<td>Adds the supported filtered SecLists/FuzzDB values to relevant SQL checks/fuzzers</td>
+</tr>
+<tr>
+<td>Adaptive request rate</td>
+<td>Conservative throttling/challenge handling; does not automatically raise the rate</td>
+</tr>
+<tr>
+<td>Enabled uploaded payload packs</td>
+<td>Adds selected target-specific values; requires Aggressive plus next-run approval</td>
+</tr>
+</tbody>
+</table>
+<p>Live DOM verification is not general taint tracking. Stored XSS, postMessage/local-storage sources, non-URL inputs and multi-step write/read workflows require additional testing. A blocked dependency or timeout is incomplete coverage, not a pass.</p>
+<h2 id="budgets-selectors-and-request-settings">Budgets, selectors and request settings</h2>
+<p>There are <strong>two separate sets of limits</strong>: Longshot's built-in scan limits and the native tool proxy's limits. A ZAP request through :8900 does not consume the built-in JavaScript scan budget, and Longshot's checkboxes do not choose ZAP's scan policy.</p>
+<h3 id="operation-and-phase-selectors">Operation and phase selectors</h3>
+<table>
+<thead>
+<tr>
+<th>Selector</th>
+<th>Choices and behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operation</td>
+<td>Spider only; Spider + active checks; Active checks only</td>
+</tr>
+<tr>
+<td>Auto-fuzz</td>
+<td>Off; After active and CVE; During scan. This controls an extra phase, not dedicated active rules</td>
+</tr>
+<tr>
+<td>Attack model</td>
+<td>Sniper; Battering ram; Pitchfork; Cluster bomb for supported structured automatic/body mutation planning</td>
+</tr>
+<tr>
+<td>Session B</td>
+<td>Another same-origin tab with a genuinely independent cookie store</td>
+</tr>
+<tr>
+<td>Body fuzzer method</td>
+<td>POST, GET, PUT or PATCH, subject to request policy and approval</td>
+</tr>
+<tr>
+<td>Body format</td>
+<td>JSON, form URL-encoded, multipart or raw/XML; not every format provides generic scalar insertion points</td>
+</tr>
+<tr>
+<td>Body payload class</td>
+<td>SQLi, NoSQLi, code, XSS, SSTI, traversal, CRLF, redirect, command or custom</td>
+</tr>
+</tbody>
+</table>
+<p>Attack models in this implementation:</p>
+<ul>
+<li><strong>Sniper:</strong> vary one input at a time.</li>
+<li><strong>Battering ram:</strong> put the same payload into all selected inputs.</li>
+<li><strong>Pitchfork:</strong> use a staggered/rotating sequence from the shared payload list across inputs. This is not a claim of Burp's independent-list behavior.</li>
+<li><strong>Cluster bomb:</strong> bounded combinations across inputs; the cap prevents unlimited Cartesian expansion.</li>
+</ul>
+<h3 id="scan-option-limits">Scan option limits</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th style="text-align: right;">Fresh default</th>
+<th style="text-align: right;">Accepted range</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Global request budget</td>
+<td style="text-align: right;">2,000</td>
+<td style="text-align: right;">1–10,000</td>
+</tr>
+<tr>
+<td>Fuzz requests per parameter</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>CVE requests per template</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1–200</td>
+</tr>
+<tr>
+<td>CVE requests per target</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1–2,000</td>
+</tr>
+<tr>
+<td>Concurrency limit</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1–2; does not promise parallel browser throughput</td>
+</tr>
+<tr>
+<td>AJAX event budget</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>AJAX page budget (ms)</td>
+<td style="text-align: right;">5,000</td>
+<td style="text-align: right;">500–15,000</td>
+</tr>
+<tr>
+<td>AJAX page count</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1–100</td>
+</tr>
+<tr>
+<td>Delay probe (seconds)</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">1–5</td>
+</tr>
+<tr>
+<td>OAST Callback TTL seconds</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">5–3,600</td>
+</tr>
+<tr>
+<td>OAST Poll seconds</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5–15</td>
+</tr>
+</tbody>
+</table>
+<h3 id="scanner-settings">Scanner settings</h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Fresh default / purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Requests per second</td>
+<td>1; UI supports 0.5–5</td>
+</tr>
+<tr>
+<td>Maximum crawl depth</td>
+<td>3; UI supports 0–5</td>
+</tr>
+<tr>
+<td>Maximum discovered URLs</td>
+<td>100; UI supports 1–500</td>
+</tr>
+<tr>
+<td>Maximum bytes per response</td>
+<td>2 MB; larger/truncated responses can leave evidence gaps</td>
+</tr>
+<tr>
+<td>Transport retries</td>
+<td>2; not a guarantee a particular write can be safely replayed</td>
+</tr>
+<tr>
+<td>Maximum fuzz probes per parameter</td>
+<td>40; separate from the extra-phase parameter budget</td>
+</tr>
+<tr>
+<td>Maximum active requests</td>
+<td>150</td>
+</tr>
+<tr>
+<td>Maximum active URLs</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Maximum active query parameters</td>
+<td>10; the audit also records other supported insertion-point kinds</td>
+</tr>
+<tr>
+<td>Excluded path prefixes</td>
+<td>One prefix per line; prevents those paths from being generated test targets</td>
+</tr>
+<tr>
+<td>Excluded parameter names</td>
+<td>One name per line</td>
+</tr>
+<tr>
+<td>Keep redacted scanner response bodies locally</td>
+<td>On; supports review/Compare within limits, with best-effort redaction</td>
+</tr>
+</tbody>
+</table>
+<p>Active audit reserves bounded allowances for later enabled rules. More payloads can therefore make some rules partial rather than testing every variant. A configured maximum is a ceiling, not a promise to use every request or finish every input.</p>
+<h3 id="other-selectors">Other selectors</h3>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Selectors and meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Findings</td>
+<td>Severity and review status; negative/blocked visibility changes display only</td>
+</tr>
+<tr>
+<td>Templates</td>
+<td>Severity, ready-only filter and manual selection; Ready is permission/compatibility state, not a vulnerability verdict</td>
+</tr>
+<tr>
+<td>Repeater</td>
+<td>GET/HEAD/OPTIONS/POST/PUT/PATCH/DELETE and raw/XML, JSON or form bodies</td>
+</tr>
+<tr>
+<td>Fuzzer</td>
+<td>Payload family and value mutation: original, URL/double encoding, case change, encoded dots, tab/semicolon suffix, double-slash prefix, trailing dot/space</td>
+</tr>
+<tr>
+<td>Interceptor</td>
+<td>Resource type, method and timeout action; these filter held traffic rather than rewriting its method</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>Select the observed channel protocol</td>
+</tr>
+<tr>
+<td>Server stack</td>
+<td>Automatic NVD+OSV, NVD product/CPE or OSV package/version; manual npm/PyPI ecosystem</td>
+</tr>
+<tr>
+<td>Compare</td>
+<td>Saved baseline and comparison response</td>
+</tr>
+<tr>
+<td>Utilities</td>
+<td>URL/Base64/hex encoding/decoding, SHA-256, JSON formatting and JWT claim inspection</td>
+</tr>
+<tr>
+<td>WSTG checks</td>
+<td>Category and automated/assisted/manual reference filters</td>
+</tr>
+<tr>
+<td>Themes/language</td>
+<td>Global appearance and bundled language, independent of scan options</td>
+</tr>
+</tbody>
+</table>
+<h2 id="fuzzer-auto-fuzz-and-probe-library">Fuzzer, Auto-fuzz and Probe library</h2>
+<h3 id="pick-the-right-action">Pick the right action</h3>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Who chooses inputs?</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Active scan</td>
+<td>Longshot uses discovered supported inputs</td>
+<td>Dedicated rule evidence with repeats/controls</td>
+</tr>
+<tr>
+<td>Run fuzzer</td>
+<td>You choose one URL and query parameter</td>
+<td>Baseline and selected payload-response comparisons</td>
+</tr>
+<tr>
+<td>Body fuzzer</td>
+<td>You provide a structured request and mutation choices</td>
+<td>Bounded body/path/header variations where supported</td>
+</tr>
+<tr>
+<td>Auto-fuzz button</td>
+<td>Saved current-page/site-map/API inventory</td>
+<td>Extra generic payload exploration across eligible discovered inputs</td>
+</tr>
+<tr>
+<td>CVE auto-phase / Run selected</td>
+<td>Imported template definitions</td>
+<td>Template-specific requests and matcher results</td>
+</tr>
+</tbody>
+</table>
+<h3 id="manual-query-fuzzer">Manual query fuzzer</h3>
+<ol>
+<li>Connect the target and choose a scoped URL. Relative URLs such as <code>/search?q=apple</code> are accepted against the connected origin.</li>
+<li>Enter the existing query parameter name, or choose <strong>Use</strong> beside a discovered input.</li>
+<li>Choose a payload class and value mutation.</li>
+<li>For <strong>User-uploaded custom payloads</strong>, enable a suitable custom pack first.</li>
+<li>Choose <strong>Run fuzzer</strong>, then inspect baseline, request, status, length/timing and evidence.</li>
+</ol>
+<p>A missing URL, parameter or empty custom set produces a specific validation message. Changing a response alone does not establish an injection flaw. Server throttling can stop the parameter even if it occurs on the baseline.</p>
+<h3 id="auto-fuzz-discovered-inputs">Auto-fuzz discovered inputs</h3>
+<p>Use <strong>Preview discovered inputs</strong> first. It reads saved inventory and reports eligible/skipped requests without sending probes. Auto-fuzz does not need the manual fuzzer's URL/parameter fields. Browse or Spider first if inventory is empty.</p>
+<p>Select payload classes and choose the separate <strong>Auto-fuzz</strong> button. <strong>Include discovered request bodies</strong> starts off and requires Aggressive plus next-run approval. Token-bound forms, unsupported methods, unavailable bodies and XML are skipped by this automatic input selector. Existing exclusions, request limits and throttling behavior still apply.</p>
+<p>Available class checkboxes are SQLI, NOSQLI, CODE, XSS, SSTI, TRAVERSAL, COMMAND, SSRF, REDIRECT, CRLF and CUSTOM. Fresh defaults enable SQLI, SSTI, TRAVERSAL, REDIRECT and CRLF. The generic loop skips SSRF; use <strong>SSRF canaries / callbacks</strong> for its implemented verification. CUSTOM uses entered/enabled custom values and reports low-confidence response differences unless a dedicated matcher establishes more.</p>
+<h3 id="why-probe-library-belongs-here">Why Probe library belongs here</h3>
+<p>The library supplies <strong>payload values and reviewed templates</strong>; the fuzzer controls select <strong>where and how to send them</strong>. It does not replace the manual URL/parameter. Shared library options also affect Active scan and automatic phases after saving.</p>
+<p><strong>Update GitHub lists</strong> refreshes fixed sources, not arbitrary executable scanners:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Used subset</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SecLists quick SQLi</td>
+<td>Filtered punctuation/boolean values, capped at 32 supported entries</td>
+</tr>
+<tr>
+<td>FuzzDB cross-platform SQL detection</td>
+<td>Filtered punctuation/boolean values, capped at 32 supported entries</td>
+</tr>
+<tr>
+<td>ProjectDiscovery Nuclei templates</td>
+<td>Two GET-only Jira starter checks: CVE-2020-14179 and CVE-2021-26086</td>
+</tr>
+<tr>
+<td>PayloadsAllTheThings techniques</td>
+<td>Basis for bounded implemented SQL whitespace/comment/encoding variations; not a downloaded executable bypass script</td>
+</tr>
+</tbody>
+</table>
+<p>Updates use HTTPS, omit cookies and preserve the old snapshot on failure. Source hashes, refresh time and supported counts are shown. The full input file's hash does not mean every value in that file is used. Downloaded SQL lists exclude destructive/data-extraction/delay/code/callback constructs; built-in rules have their own separately implemented canaries.</p>
+<p>Stop a scan before updating. Updating does not start probes, grant approval, enable OAST or upload target data/custom packs to GitHub. A downloaded template that changes into an unsupported/raw/code/headless form is rejected rather than silently promoted to a new execution capability.</p>
+<h2 id="your-payloads-and-imported-templates">Your payloads and imported templates</h2>
+<h3 id="upload-literal-lists">Upload literal lists</h3>
+<p>Under <strong>Scan options or Fuzzer → Probe library → Your payloads and CVE templates</strong>, choose the category, then <strong>Upload custom file</strong>.</p>
+<p>Accepted list forms:</p>
+<ul>
+<li><code>.txt</code>: one literal nonempty value per line; spaces and case are preserved.</li>
+<li><code>.json</code>: an array of strings or an object containing <code>name</code>, <code>category</code> and <code>payloads</code>.</li>
+<li>Categories: <code>custom</code>, <code>waf</code>, <code>sqli</code>, <code>nosqli</code>, <code>code</code>, <code>xss</code>, <code>ssti</code>, <code>traversal</code>, <code>crlf</code>, <code>redirect</code>, <code>command</code>.</li>
+</ul>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;My SQL review probes&quot;,
+  &quot;category&quot;: &quot;sqli&quot;,
+  &quot;payloads&quot;: [&quot;'&quot;, &quot;\&quot;&quot;, &quot;' AND 1=1 -- &quot;]
+}
+</code></pre>
+<p>Packs are target-specific and initially <strong>disabled</strong>. Inspect the preview and explicitly enable the intended pack. Enabled uploaded packs require Aggressive and approval; uploading alone runs nothing.</p>
+<p>Limits: 256 KB per payload file, 200 strings per pack, 2,000 characters per value, and at most 10 packs / 500 values / 512 KB of pack configuration per target. Duplicate strings within a pack are removed. Existing method, scope, budget and destructive-SQL guards still apply.</p>
+<p>Categorized packs supplement built-in class values. WAF packs additionally need smart variations and eligible filtering evidence. A literal custom payload is not an expected-output matcher or executable extension code. Uploading a CVE number alone cannot verify that CVE.</p>
+<h3 id="import-requestmatcher-templates">Import request/matcher templates</h3>
+<p>Choose the CVE/Nuclei template category before uploading YAML/YML/JSON; the template-file cap is 2 MB. Review it in <strong>Templates</strong>, including executor and concrete Ready/Blocked reason. Imported templates use the shared library; payload packs stay with their target.</p>
+<ul>
+<li><strong>Run selected</strong> executes the selected templates directly and does not require CVE auto-phase.</li>
+<li><strong>CVE auto-phase</strong> considers eligible CVE-tagged/identified imports during a configured scan.</li>
+<li><strong>Auto-fuzz</strong> generates generic values; it does not rewrite authored CVE payloads or matchers.</li>
+<li>Advisory-only JSON correlates product/version evidence. It does not invent a working exploit request.</li>
+<li>Raw, complex, code, headless, file or non-HTTP templates may require the separate official engine and additional grants, or remain blocked.</li>
+</ul>
+<p>Import reviewed relative helper bundles with templates that need them. An unavailable native runtime, out-of-scope request, missing approval or unsupported feature is a reason to inspect, not a successful negative test.</p>
+<h2 id="server-stack-and-smart-analyzer">Server stack and Smart analyzer</h2>
+<p>Use <strong>Detect software</strong> to collect supported scoped observations. Browse representative pages and retain suitable responses when you need body evidence. Then choose <strong>Analyze recorded evidence</strong> for a local passive correlation of up to 200 recent stored responses. The analyzer itself adds no target requests.</p>
+<p>The view separates browser components, WAF/CDN/edge, web server/reverse proxy and application/runtime signals. Product-specific headers, cookie names, asset/bootstrap structures and error text can raise confidence. Challenge-page bodies are excluded from application fingerprinting. A generic 403, nginx banner or CDN edge does not establish that a particular WAF rule is enabled.</p>
+<p>Possible configuration cards explain their evidence and a suggested verification. They are hypotheses: browser responses cannot precisely establish origin IP, private subnets, backend database settings, TLS termination, firewall rules or proxy trust lists. Multiple upstreams and rewritten banners can hide or misidentify layers.</p>
+<h3 id="waf-recommendations-and-rate-handling">WAF recommendations and rate handling</h3>
+<p><strong>Apply conservative scan recommendations</strong> explicitly enables community SQL probes, smart variations and adaptive rate and lowers the configured rate to at most 0.5 requests/second. It does not start a scan or grant advanced capabilities.</p>
+<p>Eligible probes consider at most three alternative representations within existing budgets. A blocked baseline is skipped. Browser challenges need normal browser resolution; ordinary ACL denial does not justify endless bypass attempts. A block-to-allow change is reachability evidence, not vulnerability proof.</p>
+<p>Repeated explicit challenges can halve the in-memory rate and cause a wait of at least ten seconds. HTTP 429 or 503 with Retry-After stops further scheduled probes; longer Retry-After intervals are respected. The rate does not automatically increase again. New runs start with the configured rate.</p>
+<h3 id="cve-lookup">CVE lookup</h3>
+<p><strong>Search online CVEs</strong> queries NVD/OSV for supported product/package coordinates after permission. The request sends coordinates, not target URLs, cookies or page content. Unknown versions, vendor backports and unverified package presence limit conclusions. Manual npm/PyPI entries do not prove installation.</p>
+<p>No matches does not mean no CVEs. A match is an advisory candidate; inspect prerequisites and use <strong>Find verification templates</strong> to locate suitable imported checks. That button filters templates rather than executing them.</p>
+<h2 id="oast-setup-and-interpretation">OAST setup and interpretation</h2>
+<p><a href="https://portswigger.net/web-security/ssrf/blind">OAST</a> observes DNS/HTTP interactions caused by a probe when the normal response does not reveal the behavior. Longshot owns its registration/correlation keys; a random pre-generated callback from another client is not interchangeable.</p>
+<ol>
+<li>Choose an Interactsh-compatible service you control or are permitted to use.</li>
+<li>Enter <strong>Provider URL</strong>: the provider's complete API base address, usually HTTPS. HTTP is allowed only for loopback providers.</li>
+<li>Enter the matching <strong>Callback domain</strong> without <code>http://</code>, a port or a path.</li>
+<li>Enter <strong>Provider token</strong> only if that provider requires it.</li>
+<li>Set TTL and poll interval; enable OAST plus the relevant SSRF/XXE/Log4Shell/command options.</li>
+<li>Use <strong>Test OAST connection</strong> to check registration/polling.</li>
+<li>Use <strong>Test OAST callback</strong> to send a separate correlated canary from this browser.</li>
+<li>Save, review and approve the actual scan. Inspect exact correlation and protocol in OAST interactions.</li>
+</ol>
+<p>For example, if using the matching public service at <code>https://oast.pro</code>, its callback base is <code>oast.pro</code>. This is an example, not an availability guarantee or a requirement to use that provider. A self-hosted provider needs its own properly delegated reachable domain, DNS/listeners and TLS; a laptop HTTP listener alone is not a public callback service. Follow <a href="https://github.com/projectdiscovery/interactsh">official Interactsh setup</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Observation</th>
+<th>What it establishes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Connection test passes</td>
+<td>Registration and polling worked through the browser's route</td>
+</tr>
+<tr>
+<td>Browser callback test passes</td>
+<td>This browser could trigger and retrieve its own correlated interaction</td>
+</tr>
+<tr>
+<td>Target probe produces matching interaction</td>
+<td>A correlated interaction occurred; attribute the source and assess its meaning</td>
+</tr>
+<tr>
+<td>No callback</td>
+<td>Inconclusive: target egress, provider reachability, expiry, filtering or unsupported context may explain it</td>
+</tr>
+</tbody>
+</table>
+<p>A DNS resolution can come from an intermediary/security service. A callback alone does not prove arbitrary internal access, data theft or code execution. The separate isolated Nuclei engine owns its own native Interactsh registration; those events are not the browser client's registration.</p>
+<p>The browser-side OAST client does not require Go, Node or Agent API. Release tests exercised official-server registration, encrypted HTTP callback retrieval and correlation on loopback; they did not establish public-provider availability or your target server's egress. No hosts-file edit is part of normal correctly delegated OAST setup.</p>
+<h2 id="browser-bridge-native-tool-proxy">Browser Bridge: native tool proxy</h2>
+<h3 id="what-it-sends">What it sends</h3>
+<p>An external tool generates the request, including its attack payload, method, body and query. The native adapter forwards it through mitmproxy, applying only configured cookie/header changes. It does <strong>not</strong> ask Firefox to perform fetch on behalf of ZAP or another tool.</p>
+<p>That preserves native HTTP semantics and the tool's payload generation, but not arbitrary original wire bytes: mitmproxy parses/serializes HTTP and establishes its own outbound TLS connection. A browser User-Agent string does not make the native TLS/network fingerprint identical to Firefox.</p>
+<h3 id="install-the-downloaded-adapter">Install the downloaded adapter</h3>
+<ol>
+<li>Open <strong>Browser Bridge</strong>. Only <strong>Native tool proxy</strong> is available in 2.18.1.</li>
+<li>Choose <strong>Download native adapter</strong> and extract it.</li>
+<li>Enter the extracted <code>native-bridge</code> directory. It contains <code>cli.js</code>, <code>bootstrap.py</code>, <code>config.json</code> and the bundled Node <code>ws</code> dependency.</li>
+<li>Install Node.js 20+ and Python 3.12+ if they are not already available.</li>
+<li>Run the one-time Python setup:</li>
+</ol>
+<p><code>sh
+   cd /absolute/path/to/native-bridge
+   python3 bootstrap.py</code></p>
+<p>This creates a local <code>.venv</code> and installs pinned mitmproxy 12.2.3. Installation needs Internet access. Normal startup does not download scanner code or payload lists.</p>
+<ol start="6">
+<li>Use the command shown by <strong>your</strong> extension page:</li>
+</ol>
+<p><code>sh
+   node cli.js --config config.json \
+     --extension-origin moz-extension://YOUR-LONGSHOT-UUID</code></p>
+<p>Replace the placeholder with the complete current extension origin. It is not the target website, add-on ID or an origin copied from another Firefox profile.</p>
+<ol start="7">
+<li>Keep the terminal running. After the proxy listener is ready, it prints the proxy address, control port, new pairing/proxy token and CA certificate path.</li>
+</ol>
+<p>When developing from the source ZIP rather than using the bundled adapter archive, install its pinned Node dependency first if absent:</p>
+<pre><code class="language-sh">cd /absolute/path/to/longshot-source
+npm --prefix native-bridge ci --omit=dev
+cd native-bridge
+python3 bootstrap.py
+</code></pre>
+<p><code>--mitmdump /absolute/path/to/mitmdump</code> or <code>LONGSHOT_MITMDUMP</code> selects an existing runtime. <code>--data-dir /absolute/private/run-directory</code> selects the CA/audit directory; the default is <code>run</code> inside the native adapter. Ctrl+C stops the adapter.</p>
+<p>The manual native proxy is separate from Agent API host registration. It does not need <code>node bridge/bin/longshot-bridge install</code> merely to proxy curl/ZAP. Linux/Firefox was exercised in release integration tests; do not infer native-messaging installer support on another platform from this manual Node/Python startup path.</p>
+<h3 id="pair-the-selected-tab">Pair the selected tab</h3>
+<ol>
+<li>Select the authorized <strong>Target tab</strong> in Browser Bridge.</li>
+<li>Verify its displayed origin and cookie store. Use <strong>Refresh tabs</strong> if necessary.</li>
+<li>Enter <strong>Control port</strong> <code>8901</code>, unless changed in the adapter config.</li>
+<li>Paste the current <strong>Pairing / proxy token</strong> from the running adapter.</li>
+<li>Choose <strong>Pair native bridge</strong> and verify ready status.</li>
+<li>Review cookie/header switches before routing tool traffic.</li>
+</ol>
+<p>The field clears the token after successful pairing. A restart produces a new token: pair again and update proxy credentials in every external tool. The proxy port <code>8900</code> is for tools; the control port <code>8901</code> is for Firefox. Neither uses the Agent API bearer token from port 8765.</p>
+<h3 id="actual-target-urls-and-bridgeinvalid">Actual target URLs and bridge.invalid</h3>
+<p>Use the real address, such as <code>http://localhost:8080/search?q=apple</code>, in your tool. If testing HTTPS, use the real <code>https://...</code> address. The proxy's own address remains <code>http://127.0.0.1:8900</code> because that is the local HTTP proxy listener, including for HTTPS CONNECT.</p>
+<p><strong>No <code>/etc/hosts</code> entry is needed.</strong> The old <code>bridge.invalid</code> address was an adapter-specific alias for mapping a utility's HTTP URL onto a selected browser-fetch target. The current native proxy supports actual target URLs and HTTPS CONNECT, so that mapping is unnecessary.</p>
+<p><code>localhost</code> is not an interchangeable alias for every target: it names the local machine from the relevant process's network environment. It is correct only when the target is actually local at that origin. A different hostname can select a different virtual host, cookie policy or origin even if both names resolve to the same IP.</p>
+<p>An existing obsolete hosts entry is irrelevant to the new workflow; do not use it in tool URLs. No hosts-file modification was made while preparing this tutorial.</p>
+<h3 id="https-trust">HTTPS trust</h3>
+<p>The adapter generates its own local CA under the selected data directory, normally:</p>
+<pre><code class="language-text">run/ca/mitmproxy-ca-cert.pem       public CA certificate for tool trust
+run/ca/mitmproxy-ca.pem            sensitive CA material/private key
+</code></pre>
+<p>Configure the <strong>external tool's assessment trust configuration</strong> with the public certificate path printed at startup. Do not share the private key or assume the system/Firefox trust store was changed. The adapter does not install its CA into either trust store.</p>
+<p>For curl:</p>
+<pre><code class="language-sh">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  --cacert /absolute/path/to/native-bridge/run/ca/mitmproxy-ca-cert.pem \
+  'https://actual-target.example/search?q=apple'
+</code></pre>
+<p>Replace <code>CURRENT_TOKEN</code> and the target/certificate path. For an HTTP-only local target, <code>--cacert</code> is unnecessary. <code>--noproxy ''</code> ensures curl does not silently bypass the proxy for a loopback target.</p>
+<p>There are two distinct TLS checks:</p>
+<ul>
+<li>The client verifies the certificate presented by the adapter. Configure the client's trust with the adapter CA.</li>
+<li>The adapter verifies the real upstream server. <code>tls.verifyUpstream</code> defaults true. Client <code>--cacert</code> does not supply a private origin CA to the adapter.</li>
+</ul>
+<p>Do not treat disabling verification as the normal fix for certificate errors. For an owned self-signed fixture, <code>tls.verifyUpstream:false</code> is an explicit assessment exception in the adapter config, followed by restart; it weakens that separate upstream check. See <a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy certificate behavior</a>.</p>
+<h3 id="traffic-fidelity-and-limits">Traffic fidelity and limits</h3>
+<table>
+<thead>
+<tr>
+<th>Native proxy supports</th>
+<th>Does not establish or support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tool-generated methods, query payloads and bodies</td>
+<td>Exact original header bytes/order/casing or malformed framing</td>
+</tr>
+<tr>
+<td>HTTP/1.1, HTTP/2, HTTPS CONNECT</td>
+<td>HTTP/3, arbitrary TCP or non-HTTP scanner modes</td>
+</tr>
+<tr>
+<td>Configured session/header overrides</td>
+<td>Full browser fingerprint, JavaScript challenge execution or browser-owned TLS</td>
+</tr>
+<tr>
+<td>WebSocket upgrades on the native route</td>
+<td>A generic application-protocol vulnerability verifier</td>
+</tr>
+<tr>
+<td>Tool Host-header probes while retaining an authorized HTTPS CONNECT destination</td>
+<td>An unrestricted dial target or automatic new target authorization</td>
+</tr>
+<tr>
+<td>Scoped additional origins without browser session exports</td>
+<td>Browser cookies/header credentials automatically shared across origins</td>
+</tr>
+</tbody>
+</table>
+<p>The native route has no browser-fetch fallback. For raw request-smuggling, unusual wire-framing or custom-TLS research, use an appropriate separate transport. Do not label this parsed proxy byte-transparent.</p>
+<h2 id="native-bridge-configuration">Native bridge configuration</h2>
+<p>Download config from Browser Bridge or edit the adapter's <code>config.json</code>. Unknown keys, invalid types and out-of-range values are rejected. Old adapter fields are not native config synonyms.</p>
+<p>The running adapter config is authoritative on pairing. <strong>Apply overrides</strong> changes supported browser override choices for the current pairing. <strong>Download config</strong> retains the selected configuration for the next start. Editing general JSON fields does not silently reconfigure listener ports, TLS, routing or limits in an already running process: save/download, restart and re-pair.</p>
+<h3 id="complete-shipped-defaults">Complete shipped defaults</h3>
+<pre><code class="language-json">{
+  &quot;schemaVersion&quot;: 1,
+  &quot;proxy&quot;: {
+    &quot;port&quot;: 8900
+  },
+  &quot;control&quot;: {
+    &quot;port&quot;: 8901,
+    &quot;timeoutMs&quot;: 10000
+  },
+  &quot;browser&quot;: {
+    &quot;required&quot;: true,
+    &quot;firstPartyDomain&quot;: null
+  },
+  &quot;cookies&quot;: {
+    &quot;enabled&quot;: true,
+    &quot;mode&quot;: &quot;replace&quot;,
+    &quot;saveResponses&quot;: true,
+    &quot;preserveToolChanges&quot;: true,
+    &quot;protectedNames&quot;: [],
+    &quot;includeNames&quot;: [],
+    &quot;excludeNames&quot;: []
+  },
+  &quot;headers&quot;: {
+    &quot;userAgent&quot;: {
+      &quot;source&quot;: &quot;tool&quot;,
+      &quot;value&quot;: &quot;&quot;
+    },
+    &quot;acceptLanguage&quot;: {
+      &quot;source&quot;: &quot;tool&quot;,
+      &quot;value&quot;: &quot;&quot;
+    },
+    &quot;authorization&quot;: {
+      &quot;source&quot;: &quot;tool&quot;,
+      &quot;value&quot;: &quot;&quot;
+    },
+    &quot;set&quot;: {},
+    &quot;remove&quot;: [],
+    &quot;protectedNames&quot;: []
+  },
+  &quot;scope&quot;: {
+    &quot;origins&quot;: [],
+    &quot;excludePaths&quot;: [],
+    &quot;methods&quot;: [
+      &quot;*&quot;
+    ]
+  },
+  &quot;limits&quot;: {
+    &quot;rate&quot;: 2,
+    &quot;concurrency&quot;: 4,
+    &quot;maxRequests&quot;: 10000,
+    &quot;maxBodyBytes&quot;: 67108864,
+    &quot;timeoutSeconds&quot;: 60
+  },
+  &quot;session&quot;: {
+    &quot;pauseStatuses&quot;: [
+      401,
+      419,
+      440
+    ],
+    &quot;pauseOn429&quot;: true
+  },
+  &quot;tls&quot;: {
+    &quot;verifyUpstream&quot;: true,
+    &quot;http2&quot;: true
+  },
+  &quot;upstream&quot;: {
+    &quot;url&quot;: null
+  },
+  &quot;routing&quot;: {
+    &quot;socks5&quot;: null
+  },
+  &quot;audit&quot;: {
+    &quot;enabled&quot;: true
+  }
+}
+</code></pre>
+<p>An empty <code>scope.origins</code> defaults to the paired target's exact origin. You do not need to enter the target or a start/end timestamp to begin a normal paired assessment. Scope enforcement still exists; it is chosen by pairing rather than an old mandatory assessment form.</p>
+<h3 id="field-reference">Field reference</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>schemaVersion</code></td>
+<td>Native config format; current value 1</td>
+</tr>
+<tr>
+<td><code>proxy.port</code></td>
+<td>Tool-facing HTTP proxy port, default 8900</td>
+</tr>
+<tr>
+<td><code>control.port</code></td>
+<td>Firefox coordinator port, default 8901; must differ from proxy port</td>
+</tr>
+<tr>
+<td><code>control.timeoutMs</code></td>
+<td>Browser/control reply timeout, default 10,000 ms</td>
+</tr>
+<tr>
+<td><code>browser.required</code></td>
+<td>Pairing required by default. Standalone operation needs explicit origins and all browser-derived features off</td>
+</tr>
+<tr>
+<td><code>browser.firstPartyDomain</code></td>
+<td>Explicit first-party isolation domain if the Firefox cookie API requires it; null uses normal behavior</td>
+</tr>
+<tr>
+<td><code>cookies.enabled</code></td>
+<td>Use selected Firefox cookies in outgoing native requests; default true</td>
+</tr>
+<tr>
+<td><code>cookies.mode</code></td>
+<td><code>replace</code> by default; optional <code>merge</code>, explained below</td>
+</tr>
+<tr>
+<td><code>cookies.saveResponses</code></td>
+<td>Apply response Set-Cookie updates to the selected Firefox jar; default true, independent of request override</td>
+</tr>
+<tr>
+<td><code>cookies.preserveToolChanges</code></td>
+<td>Preserve changes relative to the first request per client connection/origin; default true</td>
+</tr>
+<tr>
+<td><code>cookies.protectedNames</code></td>
+<td>Cookie names whose tool values must remain under tool control</td>
+</tr>
+<tr>
+<td><code>cookies.includeNames</code></td>
+<td>Only manage these names; empty means all matching browser names</td>
+</tr>
+<tr>
+<td><code>cookies.excludeNames</code></td>
+<td>Do not manage these browser cookie names</td>
+</tr>
+<tr>
+<td><code>headers.userAgent</code>, <code>acceptLanguage</code>, <code>authorization</code></td>
+<td><code>source</code> is <code>tool</code>, <code>browser</code> or <code>custom</code>; custom needs a nonempty single-line <code>value</code></td>
+</tr>
+<tr>
+<td><code>headers.set</code>, <code>remove</code>, <code>protectedNames</code></td>
+<td>Explicit extra header changes and protection; reserved/managed fields require their dedicated controls</td>
+</tr>
+<tr>
+<td><code>scope.origins</code></td>
+<td>Empty uses paired origin; explicitly listed additional exact origins receive no browser-derived session fields</td>
+</tr>
+<tr>
+<td><code>scope.excludePaths</code></td>
+<td>Excluded path prefixes, including decoded forms</td>
+</tr>
+<tr>
+<td><code>scope.methods</code></td>
+<td>Allowed methods; default <code>["*"]</code> means all native HTTP methods, not Longshot's browser write approval</td>
+</tr>
+<tr>
+<td><code>limits.rate</code></td>
+<td>Shared native scheduling rate, default 2 requests/second</td>
+</tr>
+<tr>
+<td><code>limits.concurrency</code></td>
+<td>Native control slots, default 4</td>
+</tr>
+<tr>
+<td><code>limits.maxRequests</code></td>
+<td>Native request ceiling, default 10,000; exhaustion pauses work</td>
+</tr>
+<tr>
+<td><code>limits.maxBodyBytes</code></td>
+<td>Buffering/body ceiling, default 64 MiB</td>
+</tr>
+<tr>
+<td><code>limits.timeoutSeconds</code></td>
+<td>Completion lease/timeout, default 60 seconds; no rollback of a request already sent</td>
+</tr>
+<tr>
+<td><code>session.pauseStatuses</code></td>
+<td>Default authentication-status pause list: 401, 419, 440</td>
+</tr>
+<tr>
+<td><code>session.pauseOn429</code></td>
+<td>Pause on throttling by default</td>
+</tr>
+<tr>
+<td><code>tls.verifyUpstream</code>, <code>http2</code></td>
+<td>Both true by default</td>
+</tr>
+<tr>
+<td><code>upstream.url</code></td>
+<td>Optional HTTP(S) upstream proxy; null means none</td>
+</tr>
+<tr>
+<td><code>routing.socks5</code></td>
+<td>Optional <code>socks5h://host:port</code>; null by default; mutually exclusive with upstream URL</td>
+</tr>
+<tr>
+<td><code>audit.enabled</code></td>
+<td>Metadata-only JSONL audit, default true</td>
+</tr>
+</tbody>
+</table>
+<p>Native validation ranges: ports 1024–65535, rate 0.1–100, concurrency 1–32, request ceiling 1–1,000,000, body limit 1 KB–256 MiB, timeout 1–600 seconds, control timeout 1,000–120,000 ms. These are accepted configuration bounds, not recommendations for a target's safe load.</p>
+<p>Header names are case-insensitive. Cookie names are case-sensitive. Use JSON booleans <code>true</code>/<code>false</code>, not strings. Generic <code>headers.set</code> cannot replace Host, Cookie, Authorization, framing or proxy-control fields. Use dedicated cookie/Authorization options and the tool's own Host value.</p>
+<p>To lower load for a native tool run, a partial config can override defaults, for example:</p>
+<pre><code class="language-json">{
+  &quot;schemaVersion&quot;: 1,
+  &quot;limits&quot;: {
+    &quot;rate&quot;: 0.5,
+    &quot;concurrency&quot;: 1,
+    &quot;maxRequests&quot;: 500
+  }
+}
+</code></pre>
+<p>There is no general native config key that refreshes form body tokens or invents a browser login workflow.</p>
+<h2 id="cookie-and-header-overrides-without-damaging-probes">Cookie and header overrides without damaging probes</h2>
+<h3 id="default-cookie-behavior">Default cookie behavior</h3>
+<p><strong>Use browser cookies</strong> and <strong>Save response Set-Cookie updates</strong> are on by default. User-Agent, Accept-Language and Authorization remain tool-controlled by default.</p>
+<p>For a native request, Firefox selects applicable cookies for the URL from the paired tab's cookie store and matching partition. Other containers/private stores are not merged. Domain/path/Secure/expiry rules and same-name path ordering remain relevant. Values are supplied to the native proxy so it can construct the outgoing Cookie header; unlike the removed browser-fetch path, the native helper therefore handles session secrets in memory.</p>
+<p>With <code>cookies.mode:"replace"</code>, the browser jar is authoritative, including when empty. A browser cookie deleted from the jar is removed from later managed requests. Explicitly protected names and detected tool changes take priority. With <code>mode:"merge"</code>, unrelated tool cookies can remain while browser-managed names are updated.</p>
+<p>Response Set-Cookie fields are applied individually to the same selected store using Firefox's cookie API, including supported Domain/path/Secure/HttpOnly/SameSite/expiry/deletion/partition attributes. Invalid cookies can be rejected; inspect reported errors. Additional configured origins do not receive browser cookies or browser-derived headers.</p>
+<h3 id="request-and-response-switches-are-independent">Request and response switches are independent</h3>
+<table>
+<thead>
+<tr>
+<th>Request cookie override</th>
+<th>Response synchronization</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>On</td>
+<td>On</td>
+<td>Use Firefox cookies and update the jar from response Set-Cookie</td>
+</tr>
+<tr>
+<td>Off</td>
+<td>On</td>
+<td>Keep the tool's request cookies; target responses can still change Firefox's jar</td>
+</tr>
+<tr>
+<td>On</td>
+<td>Off</td>
+<td>Use Firefox cookies; do not write response cookies back through this helper</td>
+</tr>
+<tr>
+<td>Off</td>
+<td>Off</td>
+<td>Keep request cookies tool-controlled and do not synchronize responses</td>
+</tr>
+</tbody>
+</table>
+<p>For cookie-fuzzing or a session experiment that must leave the browser jar unchanged, consider both switches. A per-request override bypass affects the request-side overrides; it does not disable the independent global response-cookie synchronization setting.</p>
+<h3 id="protect-fields-that-contain-attack-payloads">Protect fields that contain attack payloads</h3>
+<p>Suppose ZAP tests <code>session=ATTACK_PAYLOAD</code>. Blindly replacing that value with the browser's valid session could erase the test. Conversely, retaining a stale cookie in every request could make an authenticated scan useless.</p>
+<p>The default <strong>Preserve tool cookie/header changes after its first request</strong> records a baseline per client connection/origin and preserves subsequent changes. Send an ordinary seed request first. The proxy cannot reliably infer intent on the first request, and a new connection creates a new baseline. This heuristic is not complete protection.</p>
+<p>For predictable testing, choose one of these mechanisms:</p>
+<ol>
+<li>Disable the particular cookie/header override being tested.</li>
+<li>Add cookie names to <code>cookies.protectedNames</code> or headers to <code>headers.protectedNames</code>.</li>
+<li>Send a selective per-request annotation:</li>
+</ol>
+<p><code>http
+   X-Longshot-Preserve: cookie:session, User-Agent, Authorization</code></p>
+<p>This keeps the tool's named cookie/header fields. <code>cookie</code> without a name preserves the complete tool Cookie header.</p>
+<ol start="4">
+<li>Bypass all request-side overrides for that request:</li>
+</ol>
+<p><code>http
+   X-Longshot-Override: off</code></p>
+<p>The adapter strips these annotation headers before forwarding. Proxy authentication, scope and limits still apply. Configure annotations in the originating tool; putting them into a target webpage is not a bridge configuration mechanism.</p>
+<p>For example, keeping <code>session</code> protected lets ZAP vary it while the helper can continue updating an unrelated <code>preferences</code> cookie. For exhaustive Cookie/Authorization/User-Agent testing, disabling those overrides avoids dependence on change-detection heuristics.</p>
+<h3 id="browser-authorization-and-other-headers">Browser Authorization and other headers</h3>
+<p>Browser Authorization is opt-in through JSON configuration. It is captured from an actual request by the paired target tab only after enabling browser sourcing. It is not an automatic reader for every token in localStorage or application memory. A later browser request may be needed before an observed value exists. Turning browser Authorization off stops that captured value being supplied by the helper.</p>
+<p>Choosing browser User-Agent or Accept-Language changes those HTTP fields only. It does not run target JavaScript, refresh a body CSRF token, reproduce browser TLS or guarantee WAF acceptance. IP/device-bound authentication and OAuth refresh still need their application workflow.</p>
+<h3 id="vhost-host-handling">VHOST / Host handling</h3>
+<p>The native helper does not substitute an internal bridge alias into the tool's Host field. Let the tool send the Host value needed for the authorized virtual-host test. For HTTPS, the CONNECT destination remains the authorized target while the tool's Host header can be preserved.</p>
+<p>Changing a Host header does not grant access to another network destination. A reverse proxy may route it to another application; include that virtual-host behavior in the assessment's authorization. Exact malformed header bytes and conflicting framing are outside this parsed proxy.</p>
+<h3 id="audit-and-privacy">Audit and privacy</h3>
+<p><strong>Native traffic</strong> shows request metadata and changed/protected field names. Audit omits cookie/header secret values, query values and bodies. This does not mean the proxy never handles secrets: it must process them to send authenticated traffic. External tools maintain their own histories/results, which can contain those values.</p>
+<p>Keep private config tokens, CA keys and data directories out of reports/source archives. Downloading configuration with custom Authorization values can create a file containing those values.</p>
+<h2 id="external-tools-and-actual-zap-scanning">External tools and actual ZAP scanning</h2>
+<h3 id="start-with-one-request">Start with one request</h3>
+<p>Pair the bridge, then test the actual local target:</p>
+<pre><code class="language-sh">curl --noproxy '' \
+  --proxy http://127.0.0.1:8900 \
+  --proxy-user 'bridge:CURRENT_TOKEN' \
+  'http://localhost:8080/'
+</code></pre>
+<p>Use a known authenticated read path to check session behavior. A 200 from a public home page is not sufficient. Confirm the request appeared in Native traffic, the selected cookie store is correct, and the tool received the expected content. Do not infer all later requests use the proxy merely because this one did.</p>
+<h3 id="zap-outgoing-proxy">ZAP outgoing proxy</h3>
+<ol>
+<li>Install/start ZAP separately and use an assessment-specific ZAP session.</li>
+<li>In ZAP's <strong>Options → Network → Connection</strong>, enable the <strong>outgoing HTTP proxy</strong>.</li>
+<li>Set host <code>127.0.0.1</code>, port <code>8900</code> (or the current configured proxy port).</li>
+<li>Enable proxy authentication: username <code>bridge</code>, password the current adapter token.</li>
+<li>Disable ZAP's own SOCKS proxy for this chain. ZAP's SOCKS setting takes precedence over its HTTP proxy.</li>
+<li>Check HTTP proxy exclusions so the intended target is not bypassed, especially for a local service.</li>
+<li>Configure the adapter CA in the tool's applicable TLS trust/verification setup when required. Its location is printed at adapter startup.</li>
+<li>Access the <strong>actual target URL</strong> from ZAP and verify its history plus bridge metadata.</li>
+<li>Define ZAP's own target/context, scan policy, exclusions, authentication checks and modest request rate. Run its actual spider/active scan as authorized.</li>
+<li>Review findings and coverage in ZAP. When deliberately fuzzing cookie/header authentication fields, use the protection/bypass mechanisms above.</li>
+</ol>
+<p>This setting is ZAP's <strong>outgoing connection</strong>, not its local incoming browser proxy listener. Firefox need not be reconfigured to use ZAP merely to supply the selected tab's cookies to this chain.</p>
+<p>ZAP generates its real active-rule payloads; mitmproxy sends the resulting native requests. Longshot changes only opted-in request fields. This increases the external tool's usable session context but does not make either tool's scan comprehensive. See <a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP connection settings</a>.</p>
+<h3 id="other-http-tools">Other HTTP tools</h3>
+<table>
+<thead>
+<tr>
+<th>Tool/client</th>
+<th>How to connect</th>
+<th>Important limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>curl</td>
+<td><code>--proxy</code>, <code>--proxy-user</code>; <code>--cacert</code> for HTTPS trust; clear proxy bypass where needed</td>
+<td>Different invocations/connections can reset heuristic probe baselines</td>
+</tr>
+<tr>
+<td>ffuf</td>
+<td>Its HTTP proxy option (<code>-x</code>) with authenticated proxy URL; supply a bounded scoped wordlist and low rate</td>
+<td>An HTTP proxy does not constrain a separate non-proxied invocation</td>
+</tr>
+<tr>
+<td>sqlmap</td>
+<td>Its HTTP proxy option with current credentials; select the authorized URL/parameter and protect fields being tested</td>
+<td>Separate SQLi engine/settings; cookie replacement can erase cookie probes unless configured</td>
+</tr>
+<tr>
+<td>wget</td>
+<td>Authenticated <code>http_proxy</code>/<code>https_proxy</code> or its proxy settings; configure certificate trust</td>
+<td>Check <code>no_proxy</code> and tool-specific proxy behavior</td>
+</tr>
+<tr>
+<td>Python urllib / Requests</td>
+<td>Explicit authenticated proxy handler/config plus adapter CA for HTTPS</td>
+<td>Libraries differ in environment-variable and bypass handling</td>
+</tr>
+<tr>
+<td>Nuclei CLI</td>
+<td>Configure its HTTP proxy/trust for supported HTTP template traffic</td>
+<td>Non-HTTP/code/headless template traffic is not universally covered by one HTTP proxy option</td>
+</tr>
+</tbody>
+</table>
+<p>A proxy URL containing credentials is sensitive. Use your tool's private assessment configuration where available. Do not paste current tokens into shared reports. For each tool, confirm routed traffic rather than assuming every protocol or subprocess honors its HTTP proxy setting.</p>
+<p>Linux Python standard-library example for a read-only local target; it prompts for the token instead of hardcoding it and clears environment proxy bypass for this process:</p>
+<pre><code class="language-python">import os
+from getpass import getpass
+from urllib.request import (
+    HTTPPasswordMgrWithDefaultRealm,
+    ProxyBasicAuthHandler, ProxyHandler, build_opener,
+)
+
+os.environ[&quot;no_proxy&quot;] = &quot;&quot;
+os.environ[&quot;NO_PROXY&quot;] = &quot;&quot;
+proxy = &quot;http://127.0.0.1:8900&quot;
+credentials = HTTPPasswordMgrWithDefaultRealm()
+credentials.add_password(None, proxy, &quot;bridge&quot;, getpass(&quot;Bridge token: &quot;))
+opener = build_opener(
+    ProxyHandler({&quot;http&quot;: proxy, &quot;https&quot;: proxy}),
+    ProxyBasicAuthHandler(credentials),
+)
+with opener.open(&quot;http://localhost:8080/&quot;, timeout=20) as response:
+    print(response.status)
+    print(response.read(200).decode(&quot;utf-8&quot;, errors=&quot;replace&quot;))
+</code></pre>
+<p>Verify the request in Native traffic; other platforms can have additional system proxy-bypass rules. The curl example with explicit <code>--noproxy ''</code> is the simpler loopback route-validation check. HTTPS Python clients additionally need an SSL context/CA bundle that trusts the adapter certificate.</p>
+<h3 id="pause-and-errors">Pause and errors</h3>
+<p><strong>Pause native requests</strong> blocks new native egress. Authentication statuses 401/419/440, HTTP 429, tab closure/off-origin changes or budget limits can also pause work. <strong>Resume after checking tab</strong> resumes only after reviewing the pairing state.</p>
+<p><strong>Stop and disconnect</strong> ends the browser pairing; it does not terminate the separately started Node process. Use Ctrl+C in its terminal to stop that process.</p>
+<p>In-flight requests may finish. Proxy clients receive errors for blocked work; the adapter does not suspend arbitrary tool processes or replay their requests. Inspect which requests succeeded and use the tool's own retry/resume controls. Restarting/re-pairing changes the token and requires updating tool authentication.</p>
+<p>401/419/440 may be expected in deliberate negative authentication tests. If needed, adjust <code>session.pauseStatuses</code> for that reviewed run and restart; the adapter does not infer whether every authentication failure is an intended probe.</p>
+<h2 id="tor-and-onion-routing">Tor and onion routing</h2>
+<p>Browser-based Longshot requests follow the selected browser's networking. The native adapter is a different process and does not inherit Firefox/Tor Browser proxy settings.</p>
+<p>SOCKS/Tor is <strong>off by default</strong> in the native config. For an authorized onion assessment, use an explicitly configured existing SOCKS service with remote hostname resolution, for example this override if that really is your local Tor listener:</p>
+<pre><code class="language-json">{
+  &quot;routing&quot;: {
+    &quot;socks5&quot;: &quot;socks5h://127.0.0.1:9050&quot;
+  }
+}
+</code></pre>
+<p>This example does not start Tor or establish that port 9050 exists. Select the actual configured service; a Tor Browser instance may use a different listener. Restart the adapter and re-pair. An HTTP(S) <code>upstream.url</code> and <code>routing.socks5</code> are mutually exclusive.</p>
+<p>The native shim resolves hostnames through SOCKS and has no silent direct fallback. Without an explicitly configured upstream/SOCKS route, direct onion destinations are rejected before target DNS. A SOCKS URL can also refer to an authorized SSH tunnel or other SOCKS5 service; it is not intrinsically proof of Tor routing.</p>
+<p>Cookie sharing does not make the native route's exit IP or TLS/browser fingerprint identical to Firefox. Challenges or session binding may reject it. Check the route and expected session independently.</p>
+<p><strong>Isolated native Nuclei launched by Agent API is different:</strong> its built-in relay has no Tor/SOCKS route and blocks onion targets before system DNS. Use eligible browser-side checks in the intended browser, or a separately configured external tool through the native proxy. Do not assume the Nuclei checkbox inherits <code>routing.socks5</code> from Browser Bridge.</p>
+<h2 id="agent-api-mcp-and-local-model-clients">Agent API, MCP and local-model clients</h2>
+<p>Use this when an agent/script must operate Longshot, retrieve evidence or save assessment files. It is not the :8900 traffic proxy.</p>
+<h3 id="register-and-connect-the-native-host">Register and connect the native host</h3>
+<p>From the retained <strong>source</strong> directory containing <code>manifest.json</code> and <code>bridge/</code>:</p>
+<pre><code class="language-sh">cd /absolute/path/to/longshot-source
+node bridge/bin/longshot-bridge install
+</code></pre>
+<p>This registers <code>longshot.bridge</code> and a launcher referencing the source folder and Node executable. Keep both in place. If either moves, register again.</p>
+<p>Open <strong>Settings → Connection &amp; setup → Connect native bridge</strong> and grant Firefox's native-messaging permission. The host can start its daemon automatically. If intentionally running the daemon manually:</p>
+<pre><code class="language-sh">node bridge/bin/longshot-bridge serve
+</code></pre>
+<p>Avoid a second daemon on the same port/data directory. Disconnect closes the extension's native connection; it does not necessarily stop an independently started daemon.</p>
+<p>Node.js 20+ is required. Native messaging MCP does not need the proxy's Python/mitmproxy installation. Linux is the exercised setup. macOS registration support is provided but not runtime-verified here; this release has no Windows Firefox native-host installer. Registering in WSL does not register a host for Windows Firefox. Native Nuclei isolation is Linux-only.</p>
+<p>Default service: <code>http://127.0.0.1:8765</code>. This localhost address is a control API, <strong>not the scanned target</strong>. The token/socket defaults to <code>$XDG_DATA_HOME/longshot</code> or <code>~/.local/share/longshot</code>. Custom <code>--port</code> and <code>--data-dir</code> must match across install, serve and mcp. Use a short Unix data path because its socket path has a 100-byte limit.</p>
+<h3 id="rest-example">REST example</h3>
+<p>From that same source folder:</p>
+<pre><code class="language-sh">longshot_token_file=&quot;$(node bridge/bin/longshot-bridge token-path)&quot;
+longshot_api_token=&quot;$(cat &quot;$longshot_token_file&quot;)&quot;
+
+curl --fail-with-body \
+  -H &quot;Authorization: Bearer $longshot_api_token&quot; \
+  http://127.0.0.1:8765/v1/health
+
+curl --fail-with-body \
+  -H &quot;Authorization: Bearer $longshot_api_token&quot; \
+  http://127.0.0.1:8765/v1/targets
+</code></pre>
+<p>The <code>token-path</code> command prints a filename, not the token. The API uses bearer authentication, unlike proxy username/password authentication. It rejects non-loopback clients and browser Origin requests and does not expose a general CORS API. Do not publish it through a public reverse proxy.</p>
+<p>Start a small scan only after connecting/activating the intended target and checking its saved options:</p>
+<pre><code class="language-sh">curl --fail-with-body \
+  -H &quot;Authorization: Bearer $longshot_api_token&quot; \
+  -H 'Content-Type: application/json' \
+  --data '{&quot;target_id&quot;:&quot;PROFILE_ID&quot;,&quot;mode&quot;:&quot;safe&quot;,&quot;budget&quot;:150}' \
+  http://127.0.0.1:8765/v1/scans
+</code></pre>
+<p>Replace PROFILE_ID with the selected profile ID. <code>safe</code> maps to Spider only; it does not reset every saved advanced option or act as a universal override. The start is asynchronous. Read the returned run ID, then monitor <code>/v1/scans/RUN_ID</code>, <code>/eta</code>, <code>/findings</code> or <code>/report?format=html</code>. POST <code>/pause</code>, <code>/resume</code> and <code>/stop</code> control a run. Consult authenticated <code>/openapi.json</code> for exact schemas.</p>
+<p>REST/JSON-RPC support profiles, scans, findings/reports, templates, OAST and session operations. <code>/rpc</code> carries JSON-RPC; <code>/mcp</code> offers MCP HTTP, with stdio and SSE options. The service's protocol/API version strings may retain older schema versions; use the extension manifest for the installed UI release version.</p>
+<h3 id="mcp-client-setup">MCP client setup</h3>
+<p>For a client supporting stdio MCP configuration:</p>
+<pre><code class="language-json">{
+  &quot;mcpServers&quot;: {
+    &quot;longshot&quot;: {
+      &quot;command&quot;: &quot;node&quot;,
+      &quot;args&quot;: [
+        &quot;/absolute/path/to/longshot-source/bridge/bin/longshot-bridge&quot;,
+        &quot;mcp&quot;
+      ]
+    }
+  }
+}
+</code></pre>
+<p>Use an absolute Node executable if the client has a restricted PATH. Add matching <code>--port</code> / <code>--data-dir</code> arguments when customized. The stdio helper connects to the local authenticated service; it does not itself replace the Firefox connection.</p>
+<p>The current MCP tool catalog contains 21 tools: the scan/template/report/OAST tools plus UI and semantic command discovery/control. Discover the actual catalog rather than relying on the old eight-tool tutorial.</p>
+<table>
+<thead>
+<tr>
+<th>Tool group</th>
+<th>Workflow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>longshot_list_targets</code>, scan/state/ETA/findings/report tools</td>
+<td>Use explicit profile/run IDs and inspect asynchronous results</td>
+</tr>
+<tr>
+<td><code>longshot_commands</code>, <code>longshot_command</code></td>
+<td>Discover semantic commands and invoke their supported arguments</td>
+</tr>
+<tr>
+<td><code>longshot_ui_pages</code>, <code>longshot_ui_open</code></td>
+<td>Discover/open target-bound extension dashboards</td>
+</tr>
+<tr>
+<td><code>longshot_ui_snapshot</code></td>
+<td>Read actual labels, current values, dialogs and element refs</td>
+</tr>
+<tr>
+<td><code>longshot_ui_action</code>, <code>navigate</code>, <code>wait</code></td>
+<td>Operate existing controls and verify completion</td>
+</tr>
+<tr>
+<td><code>longshot_ui_downloads</code>, <code>clipboard</code>, <code>screenshot</code>, <code>focus</code>, <code>close</code></td>
+<td>Supported extension-page output and UI management; not arbitrary OS access</td>
+</tr>
+</tbody>
+</table>
+<p>Disabled controls, target scope, state and budgets still apply. Stale refs require a fresh snapshot; a dispatched click alone does not prove success. Firefox/OS permission prompts remain separate browser/OS controls.</p>
+<p><strong>Approval boundary:</strong> direct semantic consent commands cannot mint an aggressive run grant. Authenticated full UI automation can operate the bound dashboard's approval dialog, including its approve button. Giving an agent UI control therefore gives it that UI capability; do not describe such access as incapable of clicking approval. Single-use target/configuration/expiry checks still apply.</p>
+<h3 id="hermesollama-or-another-local-model-agent">Hermes/Ollama or another local-model agent</h3>
+<p>Longshot does not accept an arbitrary LLM chat stream or select a model. The <strong>agent application</strong> supplies the model connection and tool-call loop. If your agent supports MCP, configure the MCP server above in that agent. The agent sends supported tool calls and receives tool results; it can inspect/navigate/fill the extension through the exposed UI tools as well as invoke scan commands.</p>
+<p>Choose the Ollama model and server in Hermes/the agent's own configuration. Use a model/client combination that supports the agent's tool-call format, and ensure the agent is actually allowed to invoke MCP tools. Longshot's config has no <code>model</code>, <code>ollama</code> or provider API-key setting. Model access, shell access and unrelated filesystem control are capabilities of the agent host, not granted by installing this extension.</p>
+<p>Keep the scope, budgets, account and intended actions explicit in the agent task. Validate generated findings against recorded evidence; model text is not a scanner result or permission grant.</p>
+<h3 id="optional-debugging-port-control">Optional debugging-port control</h3>
+<p>The source includes BiDi/CDP control helpers and a one-command <code>bridge/bin/longshot-ui</code> interface. This is advanced control of extension-owned pages. The Chrome edition is a separate Manifest V3 package; its visible workbench must stay open. Opening a browser debugging listener is a separate browser startup choice; see <a href="https://firefox-source-docs.mozilla.org/remote/Security.html">Firefox Remote Agent security</a>.</p>
+<p>The optional debugging helper uses the pinned <code>ws</code> dependency in <code>native-bridge/node_modules/ws/</code>. Run <code>npm --prefix native-bridge ci --omit=dev</code> from the retained source checkout first. This path was corrected in the 2.18 series; the removed historical browser-fetch adapter is not required.</p>
+<h2 id="optional-native-nuclei">Optional native Nuclei</h2>
+<p>There are three distinct template routes:</p>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>Engine/session</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Browser-compatible imported HTTP template</td>
+<td>Longshot's supported template interpreter and target browser session</td>
+</tr>
+<tr>
+<td>Native full Nuclei checkbox</td>
+<td>Official separately installed Nuclei inside the Agent API Linux isolation path; no automatic Firefox login</td>
+</tr>
+<tr>
+<td>External Nuclei CLI through Browser Bridge</td>
+<td>Your independent CLI job; supported proxied HTTP traffic can receive configured browser cookies</td>
+</tr>
+</tbody>
+</table>
+<p>For native jobs launched by Longshot:</p>
+<ol>
+<li>Install the official Nuclei binary separately and expose it on PATH or set <code>LONGSHOT_NUCLEI</code> before starting Agent API.</li>
+<li>Provide Linux bubblewrap with working unprivileged user/network namespaces.</li>
+<li>For headless templates, provide the required browser, optionally through <code>LONGSHOT_CHROME</code>.</li>
+<li>Register/connect Agent API and inspect reported native capabilities.</li>
+<li>Import reviewed templates and any required relative helper files.</li>
+<li>Enable <strong>Native full Nuclei execution</strong> and only the extra Code/JavaScript, Headless or File capabilities needed.</li>
+<li>For file templates, set <code>LONGSHOT_FILE_ROOT</code> to the explicit read-only allowlist before starting the host.</li>
+<li>Save, review and approve the run; inspect Ready/Blocked reasons and executor-tagged output.</li>
+</ol>
+<p>Workers have an isolated filesystem/network namespace, private temporary storage and bounded execution through the target relay. They do not automatically receive Firefox cookies, browser local storage or Firefox's Tor route. Headless sessions are isolated. A blocked native template does not mean a negative vulnerability result.</p>
+<p>Native code/JavaScript templates require signatures trusted by the official engine. <code>LONGSHOT_NUCLEI_CERT</code> can point to a reviewed public author certificate; the host does not auto-sign imports or mount private signing keys. Native file templates cannot freely read host home directories. Additional file/code/headless switches remain separate from generic template import.</p>
+<p>The native relay supports constrained target/provider connections, not arbitrary network access. Onion targets, unavailable isolation/runtimes, unsupported target addressing or incompatible path scopes can block execution. Native Interactsh registration belongs to Nuclei, separately from Longshot's browser OAST client. Use actual result evidence and platform capability reports, not a “full engine” label, to decide what ran.</p>
+<h2 id="manual-tools-interception-and-api-inventory">Manual tools, interception and API inventory</h2>
+<h3 id="page-guide">Page guide</h3>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>What to use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Overview</td>
+<td>Connect, validate the session, select rule groups, choose the operation and monitor progress</td>
+</tr>
+<tr>
+<td>Scan options</td>
+<td>Extra phases, consent, body fuzzing, provider settings and budgets</td>
+</tr>
+<tr>
+<td>Targets</td>
+<td>Separate profiles, select/attach a browser tab and restore target-specific evidence/options</td>
+</tr>
+<tr>
+<td>Site map</td>
+<td>Discovered URLs/forms/routes; a map of observations, not proof of complete discovery</td>
+</tr>
+<tr>
+<td>HTTP history</td>
+<td>Browser traffic metadata and scanner/Repeater replies; inspect exact inputs and timestamps</td>
+</tr>
+<tr>
+<td>API explorer</td>
+<td>Observed/imported operations and parameter inventory; prepare supported reads in Repeater</td>
+</tr>
+<tr>
+<td>Server stack</td>
+<td>Fingerprints, local Smart analyzer and candidate advisory lookup</td>
+</tr>
+<tr>
+<td>Network graph</td>
+<td>Observed origins/IPs/referenced domains and available vhost evidence; external nodes are inventory, not auto-scope</td>
+</tr>
+<tr>
+<td>Findings</td>
+<td>Evidence, verdict/confidence/severity, review state and cimematic viewer</td>
+</tr>
+<tr>
+<td>WSTG checks</td>
+<td>Reference coverage types and actual per-input audit execution</td>
+</tr>
+<tr>
+<td>Templates</td>
+<td>Import, compatibility/executor details, manual selection and run results</td>
+</tr>
+<tr>
+<td>Repeater / Fuzzer</td>
+<td>Focused request replay or bounded mutation</td>
+</tr>
+<tr>
+<td>Interceptor</td>
+<td>Hold eligible target-tab URL/header stages</td>
+</tr>
+<tr>
+<td>OAST</td>
+<td>Provider/callback status, test actions and correlated interactions</td>
+</tr>
+<tr>
+<td>WebSocket / SSE</td>
+<td>Bounded observed channel exchanges</td>
+</tr>
+<tr>
+<td>Compare</td>
+<td>Local differences between two saved responses</td>
+</tr>
+<tr>
+<td>Encoder / decoder</td>
+<td>Local transformations and token claim inspection</td>
+</tr>
+<tr>
+<td>Browser Bridge</td>
+<td>Pair the native tool proxy and configure session overrides</td>
+</tr>
+<tr>
+<td>Report</td>
+<td>Export the active profile's evidence</td>
+</tr>
+<tr>
+<td>Settings</td>
+<td>Request/session settings, appearance, native connection and assessment files</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api-explorer">API Explorer</h3>
+<p>Connect and browse first, then choose <strong>Inspect current page</strong>. Import a developer-supplied <strong>OpenAPI JSON</strong> description when available, up to 2 MB. It reads local JSON, not an arbitrary remote page or YAML file. Local specification references and available request examples/defaults can supply concrete supported inputs; missing values/bodies and unsupported constructs leave gaps.</p>
+<p>An endpoint is an address; an operation is an address plus method. Query inputs appear after <code>?</code>, path inputs in the address path, and body inputs in submitted content. A listed operation is inventory, not proof that the current account may access every object it addresses.</p>
+<p>Use <strong>Repeater</strong> beside a supported GET/HEAD operation to prepare a request without sending it yet. Review URL/method/inputs, then send deliberately. Inventory-only write operations still require you to prepare the appropriate request and obtain write approval.</p>
+<h3 id="repeater-and-compare">Repeater and Compare</h3>
+<p>Repeater makes a new scoped request using the bound browser session. GET/HEAD/OPTIONS use the ordinary route. Write methods, body changes and destructive/upload capabilities remain subject to policy and approval. Managed Cookie/Authorization/Host values cannot be freely replaced through its header editor; use the native external-tool route for explicitly configured header/cookie tests.</p>
+<p><strong>Follow same-origin redirects</strong> controls whether you inspect the redirect itself or the allowed final response. Off-scope redirects are not blanket authorization. Retain response bodies when needed for review, then choose two saved responses in <strong>Compare</strong>. Compare sends no requests; dynamic content, login state, throttling or WAF pages can explain a difference.</p>
+<h3 id="interceptor">Interceptor</h3>
+<p>Enable the interceptor and <strong>Apply interception</strong>. Grant the optional Firefox blocking permission through its normal user action. Interception starts disabled after extension restart.</p>
+<table>
+<thead>
+<tr>
+<th>Stage / control</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hold request URLs</td>
+<td>Pause before request headers; edit the scoped URL/query or drop</td>
+</tr>
+<tr>
+<td>Hold request headers</td>
+<td>Inspect/edit permitted request headers before transmission</td>
+</tr>
+<tr>
+<td>Hold response headers</td>
+<td>Pause delivery after the request reached the server; cannot undo a server-side action</td>
+</tr>
+<tr>
+<td>Resource/method/path filters</td>
+<td>Restrict eligible traffic in the bound tab and exact target scope</td>
+</tr>
+<tr>
+<td>Hold timeout</td>
+<td>Default 0: no automatic release. Optional 10–3,600 seconds, then selected forward/drop action</td>
+</tr>
+<tr>
+<td>Forward stage</td>
+<td>Resolve this stage; another enabled stage can hold the same request later</td>
+</tr>
+<tr>
+<td>Drop request</td>
+<td>Cancel this stage/request delivery</td>
+</tr>
+<tr>
+<td>Forward/drop all pending</td>
+<td>Resolve the current queue without changing future filters</td>
+</tr>
+<tr>
+<td>Turn off and forward pending</td>
+<td>Disarm interception and release waiting stages unchanged</td>
+</tr>
+</tbody>
+</table>
+<p>The application/browser can time out before you release a long-held request. Up to 20 stages can wait; exceeding the queue limit cancels further matching traffic. Changing filters releases current stages unchanged. Closing the last controlling dashboard releases held stages and disables interception.</p>
+<p>Permitted headers use a JSON array of name/value pairs; sensitive/browser-managed/framing fields are protected. Method/body/status rewriting of the held network request is unavailable. <strong>Send to Repeater</strong> creates a separate request shape for deliberate editing; it is not transparent in-flight body rewriting.</p>
+<p>Only selected target-tab HTTP traffic is eligible. Scanner transport bypasses interception to avoid deadlock. External native proxy traffic is outside this browser interceptor. WebSocket messages after upgrade need their separate channel workbench.</p>
+<h3 id="websocket-sse-and-utilities">WebSocket, SSE and utilities</h3>
+<p>Choose a discovered in-scope channel or enter its exact URL. Listening and custom frame sends are bounded approved operations, not a general protocol scanner. Captured error text is a lead; it does not establish message authorization or a race/logic flaw.</p>
+<p>Utilities encode/decode values, calculate SHA-256, format JSON and inspect JWT claims locally. Decoding a JWT is not signature verification and does not establish that the server accepts a forged token. Transformed input is not automatically executed or submitted.</p>
+<h2 id="findings-and-the-cimematic-viewer">Findings and the cimematic viewer</h2>
+<h3 id="read-the-evidence-first">Read the evidence first</h3>
+<p>A finding has separate fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Severity</td>
+<td>Estimated potential harm if the issue is exploitable</td>
+</tr>
+<tr>
+<td>Verdict</td>
+<td>What the scanner observed: potential/matched/vulnerable, negative, blocked or inconclusive, as applicable</td>
+</tr>
+<tr>
+<td>Confidence</td>
+<td>Strength of the implemented evidence, not the amount of harm</td>
+</tr>
+<tr>
+<td>Review status</td>
+<td>Your assessment: Unreviewed, Confirmed by reviewer, False positive or Accepted risk</td>
+</tr>
+<tr>
+<td>WSTG / CWE</td>
+<td>Reference classification, not proof that the full test/category was completed</td>
+</tr>
+</tbody>
+</table>
+<p>Inspect the URL, insertion point, request, baseline, payload, response and repeats/controls. Check whether content was truncated or the response was a challenge/login/error page. A high-confidence repeated error can still be a potential injection finding requiring review.</p>
+<p>Set review status and notes, then <strong>Save review</strong>. This does not overwrite the scanner's original verdict/confidence. False positives remain retained evidence. Filters, including <strong>Show negative / blocked</strong>, change visibility, not the execution record.</p>
+<h3 id="cimematic-viewer">cimematic viewer</h3>
+<p>The button is deliberately named <strong>cimematic viewer</strong> in this release. It opens the themed 3D explanation for the selected finding.</p>
+<p>The sequence is approximately 9.3 seconds: locate the affected area, show the input, illustrate processing, show recorded result evidence, then display severity and a plain-language potential-risk explanation. Available controls include <strong>Pause/resume</strong>, replay, numbered steps, skip to impact, <strong>3D depth</strong> and <strong>Fullscreen</strong>. Reduced-motion settings can go directly to impact.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Live / CSS + JS</td>
+<td>A normal Firefox preview tab loads the current page with its CSS/JavaScript and selected cookie context; the viewer receives rendered frames and element rectangles</td>
+</tr>
+<tr>
+<td>Captured only</td>
+<td>Retained evidence with sanitized, nonexecuting HTML or a capture; no external resources or scripts are run by that offline fallback</td>
+</tr>
+<tr>
+<td>Recorded result</td>
+<td>The saved scan evidence/result plane, which may differ from the current live page</td>
+</tr>
+</tbody>
+</table>
+<p>It is a cinematic viewport, not an interactive cloned site DOM. <strong>Open live tab</strong> opens the real page for interaction. Normal live loading can make the site's ordinary resource/application requests, but opening the viewer does not submit the saved attack form, replay a POST or rerun the exploit.</p>
+<p>The camera position is exact only when a matching input/name/id can be located. API/header/cookie findings can have no HTML form; a page-context view is labeled as such. The animation never upgrades a potential finding into exploitation proof. If live rendering fails, use captured evidence and the text/request details.</p>
+<p>The viewer's owned preview tab is closed on normal viewer/dashboard cleanup; an explicitly opened interactive tab remains yours to close. Current login, site state, dependency loading and CSP can change what live mode displays.</p>
+<h2 id="owasp-top-10-coverage">OWASP Top 10 coverage</h2>
+<p>Open <strong>Scan options → Information</strong> for the searchable/filterable 44-entry implementation table, also reachable through the page Information button. It uses <a href="https://top10.owasp.org/2025/">OWASP Top 10:2025</a> with older 2021 references for orientation. SSRF is now grouped under Broken Access Control. Examples can overlap categories; the list is not the complete CWE catalogue.</p>
+<p>Support labels:</p>
+<ul>
+<li><strong>Active check:</strong> a dedicated implemented rule exists when enabled, for supported reached inputs.</li>
+<li><strong>Optional verification:</strong> additional options, permissions, provider or execution prerequisites apply.</li>
+<li><strong>Indicators only:</strong> a passive signal/comparison requiring manual interpretation.</li>
+<li><strong>Template-dependent:</strong> the imported template and executor determine the tested condition.</li>
+<li><strong>Not covered:</strong> no dedicated built-in verifier for that class; generic custom payloads do not establish coverage automatically.</li>
+</ul>
+<p>This is a source-based capability audit, <strong>not a measured detection percentage</strong>. It describes Longshot's built-in scanner and its optional phases, not the entire external ZAP rule set.</p>
+<table>
+<thead>
+<tr>
+<th>OWASP 2025</th>
+<th>Vulnerability / weakness</th>
+<th>Support</th>
+<th>What runs / required options</th>
+<th>Limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A05</td>
+<td>SQL injection: database errors and boolean differences</td>
+<td>Active check</td>
+<td>Enable SQL injection. Repeated database-error probes and true/false comparisons use fresh controls on discovered inputs.</td>
+<td>Candidates need review. No database extraction or comprehensive DBMS-specific blind coverage.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Blind SQL injection: timing</td>
+<td>Optional verification</td>
+<td>Enable Repeated timing probes with Aggressive approval. Three clean timings are compared with three SLEEP probes on the first insertion point.</td>
+<td>A narrow SQL syntax and timing heuristic; jitter, WAFs and different database dialects can hide or imitate the result.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>NoSQL injection</td>
+<td>Active check</td>
+<td>Enable NoSQL injection for repeated MongoDB/BSON error signatures. Optional timing verification also tries a MongoDB $where delay on JSON bodies.</td>
+<td>No general operator-based authentication bypass, blind NoSQL extraction or coverage of every NoSQL engine.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Reflected cross-site scripting (XSS)</td>
+<td>Active check</td>
+<td>Enable Reflected XSS. A unique reflection marker and repeated inert HTML-context probes identify executable-looking markup.</td>
+<td>HTML-context evidence is a candidate. It does not establish script execution or bypass Content Security Policy.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>DOM XSS from URL query or fragment inputs</td>
+<td>Optional verification</td>
+<td>Enable Live DOM XSS verification and approve Aggressive permissions. Two fresh canaries must execute in disposable same-cookie-store tabs; a control must stay negative.</td>
+<td>Bounded URL inputs only. CSP and dependencies remain enforced; timeouts and blocked resources leave gaps.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>DOM XSS from postMessage, storage or arbitrary data flows</td>
+<td>Not covered</td>
+<td>Passive source/sink hints may identify nearby inline JavaScript patterns for review.</td>
+<td>No general taint tracking, arbitrary message generation or storage-source execution test.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Stored XSS and multi-step second-order injection</td>
+<td>Not covered</td>
+<td>A visited page may contain suspicious code or a reflected candidate.</td>
+<td>No general write-store-read correlation, workflow replay or stored-payload execution verification.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Server-side template injection (SSTI)</td>
+<td>Active check</td>
+<td>Enable Server template injection. Random arithmetic results with unique markers must repeat against controls.</td>
+<td>Only supported expression families; blind template execution and every template engine are not covered.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>Server-side code injection</td>
+<td>Active check</td>
+<td>Enable Server-side code injection. Computed JavaScript/PHP canaries distinguish evaluation from plain reflection.</td>
+<td>A small language/context set; not a universal remote-code-execution test.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>OS command injection</td>
+<td>Optional verification</td>
+<td>Enable OS command indicators for repeated id-output probes. Optional Command probes with a listening OAST provider can correlate a DNS callback.</td>
+<td>Requires a compatible command context and, for callbacks, target egress. No callback does not establish safety.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>CRLF / response-header injection</td>
+<td>Active check</td>
+<td>Enable Response header injection. A generated response-header marker must repeat and be absent from controls.</td>
+<td>Browser URL/header handling limits payloads. Raw response splitting, cache poisoning and framing attacks are not established.</td>
+</tr>
+<tr>
+<td>A05</td>
+<td>LDAP, XPath and other unimplemented injection languages</td>
+<td>Not covered</td>
+<td>Custom payloads, Auto-fuzz or a reviewed template can assist a separate investigation.</td>
+<td>No dedicated built-in language-specific verifier; a response difference is not confirmation.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Path traversal / local file inclusion</td>
+<td>Active check</td>
+<td>Enable Traversal / file inclusion. Supported file-content signatures must repeat on discovered insertion points.</td>
+<td>Does not cover every encoding, operating system, remote inclusion or arbitrary file. No directory brute-force inventory.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Server-side request forgery (SSRF)</td>
+<td>Optional verification</td>
+<td>Enable SSRF and OAST with an approved reachable provider. Exact probe correlation records a DNS/HTTP interaction.</td>
+<td>Internal-address response differences are only hints. A callback establishes an interaction, not internal access or data theft; intermediaries may resolve payloads.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>IDOR / broken object or function authorization</td>
+<td>Indicators only</td>
+<td>Enable Compare with Session B using a distinct Firefox container/private cookie store. Up to ten read requests compare status and body hashes.</td>
+<td>No object-ownership or expected-role model; identical public pages can be legitimate. No general privilege-escalation proof.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Cross-site request forgery (CSRF)</td>
+<td>Indicators only</td>
+<td>Form review reports POST forms without recognized token fields and checks visible cookie attributes.</td>
+<td>No cross-site exploit submission or server token-validation test. SameSite, custom headers and workflow controls need manual review.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Cross-origin resource sharing (CORS) exploitation</td>
+<td>Indicators only</td>
+<td>CORS review inspects observed allow-origin and credentials headers.</td>
+<td>No arbitrary Origin reflection test or attacker-origin data-read verification. Wildcard with credentials is rejected by browsers.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Open redirect</td>
+<td>Active check</td>
+<td>Enable Open redirects. A generated .invalid destination in the Location header must repeat. External destinations are not followed.</td>
+<td>JavaScript redirects, multi-step login redirects and every URL normalization bypass are not covered.</td>
+</tr>
+<tr>
+<td>A01</td>
+<td>Tenant isolation, role escalation and workflow authorization</td>
+<td>Not covered</td>
+<td>Session comparison and imported requests can provide evidence for an analyst.</td>
+<td>No understanding of tenant ownership, roles, state transitions or permitted business actions.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Missing security headers, weak CSP and clickjacking defenses</td>
+<td>Indicators only</td>
+<td>Passive header review during the scan checks CSP, unsafe-eval, framing policy and nosniff on observed responses.</td>
+<td>Missing defenses are hardening signals; exploitability, policy completeness and UI-redress impact are not established.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Directory listings, source/configuration exposure and debug traces</td>
+<td>Indicators only</td>
+<td>Passive review recognizes listing markup, PHP source, configuration-key assignments and selected stack traces in returned content.</td>
+<td>Only observed content and signatures; no comprehensive backup-file, secret or hidden-admin discovery.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>XML external entity injection (XXE)</td>
+<td>Optional verification</td>
+<td>Enable XXE and a listening OAST provider with Aggressive approval. An XML request body is replaced with an external-entity callback canary.</td>
+<td>Requires an inventoried XML request. No comprehensive parser, SOAP, file-read, parameter-entity or blind extraction coverage.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Dangerous HTTP methods</td>
+<td>Indicators only</td>
+<td>Enable Advertised HTTP methods. OPTIONS records the Allow response header.</td>
+<td>Does not attempt unauthorized PUT/DELETE writes or prove advertised methods are exploitable.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Duplicate query parameter handling</td>
+<td>Indicators only</td>
+<td>Enable Duplicate query parameter handling for repeated first/last-order response comparisons.</td>
+<td>A parsing difference does not prove WAF bypass, access-control failure or proxy/backend disagreement.</td>
+</tr>
+<tr>
+<td>A02</td>
+<td>Cloud permissions, hidden admin services and backend configuration</td>
+<td>Not covered</td>
+<td>Stack fingerprints and topology views provide browser-visible hypotheses.</td>
+<td>No cloud account access, infrastructure audit, server configuration inspection or exhaustive internal network discovery.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Known vulnerable browser JavaScript dependencies</td>
+<td>Optional verification</td>
+<td>Enable client-library SCA to compare observed asset versions with the small bundled advisory database.</td>
+<td>Version/signature correlation only; backports, reachable vulnerable code, full dependency trees and unseen assets are not verified.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Server dependency CVEs and product vulnerabilities</td>
+<td>Template-dependent</td>
+<td>CVE auto-phase requires eligible imported templates; only their authored requests and matchers run. Native Nuclei requires its separate engine and approval.</td>
+<td>Fingerprint/advisory matches alone are candidates. Two bundled community starters do not provide universal CVE coverage.</td>
+</tr>
+<tr>
+<td>A03</td>
+<td>Compromised packages, CI/CD and malicious supply-chain updates</td>
+<td>Not covered</td>
+<td>Dependency names or versions can assist a separate code and build review.</td>
+<td>No SBOM completeness, repository/build audit, package authenticity or signing-chain verification.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>HTTP password forms, HSTS and insecure resource references</td>
+<td>Indicators only</td>
+<td>Passive checks recognize password forms using HTTP/GET, absent HSTS and selected HTTP resources referenced by HTTPS markup.</td>
+<td>Not comprehensive sensitive-data discovery; does not prove data exposure at rest or assess all transport behavior.</td>
+</tr>
+<tr>
+<td>A04</td>
+<td>Weak TLS protocols/ciphers, key management and encryption at rest</td>
+<td>Not covered</td>
+<td>The browser supplies its normal TLS connection.</td>
+<td>No cipher/protocol enumeration, certificate inventory, cryptographic design review, password-hash audit or server-side key access.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>Business logic, payment/price manipulation and workflow abuse</td>
+<td>Not covered</td>
+<td>Observed requests and Repeater assist manual testing.</td>
+<td>No model of correct prices, account balances, business rules, transaction order or intended application behavior.</td>
+</tr>
+<tr>
+<td>A06</td>
+<td>Race conditions and resource-exhaustion design flaws</td>
+<td>Not covered</td>
+<td>Request limits and rate controls bound scanning; rate-limit responses are operational signals.</td>
+<td>No synchronized race harness or deliberate denial-of-service verification.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Weak cookie/session attributes</td>
+<td>Indicators only</td>
+<td>Cookie review reports missing Secure, HttpOnly or explicit SameSite and SameSite=None without Secure.</td>
+<td>Cookie purpose and browser defaults matter. Does not establish session hijacking, fixation, logout invalidation or token entropy.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>Login bypass, MFA, password reset, brute force and account takeover</td>
+<td>Not covered</td>
+<td>An injection check may expose one cause of a login flaw. The session validator checks whether the configured login still appears valid.</td>
+<td>No general credential attack, MFA/reset workflow testing, lockout audit or account-takeover verification.</td>
+</tr>
+<tr>
+<td>A07</td>
+<td>JWT, OAuth, OIDC and SAML verification flaws</td>
+<td>Not covered</td>
+<td>Utilities can decode a JWT locally for manual inspection.</td>
+<td>Decoding is not signature verification. No general algorithm-confusion, token-forgery, redirect-flow or federation test.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Log4Shell callback path</td>
+<td>Optional verification</td>
+<td>Enable Log4Shell and OAST with approval. A JNDI callback canary is placed in the first available input and X-Api-Version.</td>
+<td>A matching interaction needs attribution and review; it does not prove code execution. Limited insertion points and target egress can miss vulnerable paths.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Unsafe deserialization</td>
+<td>Template-dependent</td>
+<td>The deserialization option selects eligible imported templates tagged for deserialization. Review their executor and prerequisites.</td>
+<td>No general object-format discovery, gadget-chain generator or universal deserialization verifier.</td>
+</tr>
+<tr>
+<td>A08</td>
+<td>Unsigned updates, forged application data and integrity controls</td>
+<td>Not covered</td>
+<td>Captured responses and decoded data may assist manual analysis.</td>
+<td>No application trust model, update-signature validation, data-signature audit or general mass-assignment verification.</td>
+</tr>
+<tr>
+<td>A09</td>
+<td>Missing security logs, alerting, log integrity and incident detection</td>
+<td>Not covered</td>
+<td>Longshot records its own scan evidence and local request journal.</td>
+<td>Scanner logs do not reveal whether the application logs or alerts correctly; inspect server/SIEM evidence and run monitored scenarios.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>Information leakage from exceptional responses</td>
+<td>Indicators only</td>
+<td>Passive error disclosure and active injection controls can notice selected stack traces and newly introduced database errors.</td>
+<td>Only returned evidence. A generic error or HTTP 500 alone is not a verified vulnerability.</td>
+</tr>
+<tr>
+<td>A10</td>
+<td>Fail-open behavior, rollback failures and unsafe exception recovery</td>
+<td>Not covered</td>
+<td>Status/body differences can guide manual investigation.</td>
+<td>No general fault injection, transaction rollback assertions, crash recovery or exception-path access-control model.</td>
+</tr>
+<tr>
+<td>Other</td>
+<td>HTTP request smuggling, malformed framing, cache poisoning and Host attacks</td>
+<td>Not covered</td>
+<td>The built-in scanner uses browser networking and protects managed headers.</td>
+<td>External tools through the native proxy are separate. Its parsed HTTP transport is also not a byte-transparent smuggling or custom-TLS engine.</td>
+</tr>
+<tr>
+<td>Other</td>
+<td>WebSocket / SSE application vulnerabilities</td>
+<td>Indicators only</td>
+<td>Optional bounded channel tests capture exchanges and report selected error text.</td>
+<td>No protocol-aware authorization, message-schema fuzzing, cross-site WebSocket hijacking or business-logic verifier.</td>
+</tr>
+<tr>
+<td>Other</td>
+<td>File upload, GraphQL/SOAP logic and unsupported binary protocols</td>
+<td>Not covered</td>
+<td>Discovered HTTP requests can expose supported scalar inputs for generic checks.</td>
+<td>No dedicated upload execution, GraphQL authorization/complexity, comprehensive SOAP or binary-protocol scanner.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interpreting-actual-run-coverage">Interpreting actual run coverage</h3>
+<p>The complete WSTG reference map includes automated subsets, assisted work and manual assessment. In <strong>Actual input coverage</strong>:</p>
+<ul>
+<li><strong>Completed</strong> means the implemented rule finished on that input, not that the input is secure.</li>
+<li><strong>Partial</strong> means some work ran but a limit, interruption or other condition prevented completion.</li>
+<li><strong>Skipped</strong> means the rule/input did not run; inspect the reason.</li>
+</ul>
+<p>A WAF, missing role, invalid session, hidden/unvisited workflow, unavailable request body, CSP or exhausted budget can leave a vulnerable input untested. Native proxy pairing does not remove those limits from the built-in scanner. An observed CVE version, missing header or different response is not automatically an exploit.</p>
+<p>Release 2.18.1 passed 192 automated unit/regression tests, eight real Chrome checks and eight real Firefox checks, including ZIP/YAML CSP verification and native ZAP traffic against an owned SQLite fixture. Its official browser libraries are verified byte-for-byte and a clean source rebuild reproduces the Firefox XPI exactly. Those tests validate named implementation behavior; they do not show detection of every Juice Shop, WebGoat, bWAPP or NodeGoat challenge. The external ZAP SQLi result verifies the proxy path, not Longshot's recall across all vulnerabilities.</p>
+<h2 id="recovery-assessment-files-and-reports">Recovery, assessment files and reports</h2>
+<h3 id="keep-recovery-paths-separate">Keep recovery paths separate</h3>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>What to do after a failure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Built-in scan/session</td>
+<td>Review the dashboard recovery dialog, sign in again in the original cookie context, validate and continue when allowed</td>
+</tr>
+<tr>
+<td>Native tool proxy</td>
+<td>Check the adapter, tab/store, token and pause reason; explicitly resume/re-pair, then use the external tool's own retry/resume</td>
+</tr>
+<tr>
+<td>Agent API</td>
+<td>Restore the native messaging/daemon connection; then inspect the existing run state before issuing another start</td>
+</tr>
+<tr>
+<td>Browser restart / imported assessment</td>
+<td>Restore saved evidence and revalidate login; do not assume an in-flight network operation or full live scan queue survived</td>
+</tr>
+</tbody>
+</table>
+<p>Independent authentication validation prevents every deliberately rejected login mutation from being mistaken for session expiry. Configure a meaningful protected validator. The live queue may support recovery while the extension is running, but a saved session file does not reconstruct an uncertain write or automatically replay a whole interrupted scan.</p>
+<h3 id="browser-storage-and-optional-session-files">Browser storage and optional session files</h3>
+<p>Browser storage remains active independently of either local bridge. It keeps per-profile history, findings, reviews, inventory and options. Response bodies can be retained with best-effort redaction; browser-observed traffic often has metadata without a captured body.</p>
+<p>For automatic file checkpoints:</p>
+<ol>
+<li>Register/connect <strong>Agent API</strong>, not just Browser Bridge.</li>
+<li>Open <strong>Settings → Assessment sessions → Instruction</strong>.</li>
+<li>Enter an absolute <strong>Session folder</strong> on the Agent API computer.</li>
+<li>Enable <strong>Automatically save session files</strong> and choose <strong>Save session settings</strong>.</li>
+<li>Use <strong>Save session now</strong> for an immediate checkpoint; normal changes also trigger saves.</li>
+<li>Use <strong>Export current session</strong> / <strong>Import session file</strong> for manual transfer; manual import does not require the native host.</li>
+</ol>
+<p>Files use stable profile IDs with <code>.longshot.json</code>, allowing explicit profiles for one origin. They are readable, unencrypted assessment archives and can contain application data, authored templates and retained bodies. Browser-managed cookies, provider tokens and execution grants are excluded.</p>
+<p>Writes are atomic private-file checkpoints. Abrupt termination can recover only the last completed save. Restored running scans become interrupted. If the bridge disconnects, browser storage continues and file saves wait; unresolved enabled checkpoints can require reconnecting or disabling file saving before switching targets. Maximum session-file size is 256 MB with an explicit error.</p>
+<p>Assessment archive export is different from <strong>Download config</strong> in Browser Bridge. The former saves assessment evidence/options; the latter saves native proxy settings.</p>
+<h3 id="reports">Reports</h3>
+<p>Review the active profile before exporting; historical scan reports are also available through the Agent API. Theme-aligned reports contain charts and evidence, but chart counts are alert counts, not a count of unique verified exploitable flaws.</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Use / limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML</td>
+<td>Self-contained offline report with inline charts, search/filters, evidence details, theme and print controls</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>Structured redacted evidence, scan configuration and recorded input coverage</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>Tabular exchange; nested fields serialized and spreadsheet formula prefixes guarded</td>
+</tr>
+<tr>
+<td>SARIF 2.1.0</td>
+<td>Tooling integration with severity/confidence/verdict/reference and review metadata</td>
+</tr>
+<tr>
+<td>Print / PDF</td>
+<td>Open the HTML report and use Firefox print / Save to PDF; the API's PDF option can return HTML plus print instructions rather than ready PDF bytes</td>
+</tr>
+</tbody>
+</table>
+<p>Review status and notes are separate from scanner verdict. False-positive/accepted-risk reviews remain auditable; SARIF includes review information and suppressions where applicable. Best-effort redaction is not a guarantee that a retained page/body contains no application data. Review the actual export before sharing.</p>
+<p>External ZAP/sqlmap/ffuf reports remain separate. Native traffic metadata is not a copy of their complete request/response history or findings.</p>
+<h2 id="appearance-language-and-help">Appearance, language and help</h2>
+<p>Themes are global and can change during a scan without changing the scan grant. The menu includes System, Dark, Light, Cybersteppe, Mr. Robot, Iron Man and saved custom themes. The adaptive layout narrows controls; the coverage table has its own horizontal scroll region for detailed columns.</p>
+<p>Under <strong>Settings → Themes &amp; alert sound</strong>:</p>
+<ul>
+<li>Choose the active theme and alert sound/volume; <strong>Test alert sound</strong> previews the selected alert.</li>
+<li>Edit a built-in and <strong>Save as new theme</strong> / duplicate to create a custom theme.</li>
+<li>Select bundled/system UI/code fonts, palette, opacity, background and sound.</li>
+<li>Export/import theme JSON; importing does not execute arbitrary CSS or scripts.</li>
+<li><strong>Animations &amp; sounds</strong> controls motion and interface audio per theme. Browser/system reduced-motion and mute settings still matter.</li>
+</ul>
+<p>Dark/Light, Cybersteppe, Mr. Robot and Iron Man have different visual/audio treatments. Dropdown opening/selection is silent. Servo selection cues are Iron-Man-specific; security failure alerts are separate from ordinary interface sounds.</p>
+<p>The language menu offers 20 bundled languages: English, Russian, German, French, Simplified Chinese, Japanese, Spanish, Hindi, Portuguese, Arabic, Bengali, Urdu, Indonesian, Turkish, Korean, Italian, Vietnamese, Tamil, Telugu and Marathi. New coverage/native UI text is included in the supplemental catalogs. These are bundled machine translations of public UI prose, not a runtime translation service. Captured target pages, payloads, URLs, field/code names and command examples keep their original text.</p>
+<p>Use <strong>Information/Instruction</strong>, control hints and <strong>How to use this page · terms explained</strong> for context. Terms link to reference material. An information filter/search changes the displayed explanation only; it does not enable checks. <strong>Getting started</strong> is exactly eight slides and can be replayed after dismissal.</p>
+<p>Current release screenshots use an owned temporary loopback SQLite fixture. Their random ports and sample account data are test artifacts, not required configuration for your application:</p>
+<blockquote>
+<p><strong>Coverage dialog</strong>
+<img alt="scan coverage desktop" src="assets/scan-coverage-desktop.png" />
+<strong>Narrow Iron Man layout with Russian coverage text</strong>
+<img alt="scan coverage iron narrow ru" src="assets/scan-coverage-iron-narrow-ru.png" />
+<strong>Native proxy page</strong>
+<img alt="native tool proxy" src="assets/native-tool-proxy.png" /></p>
+</blockquote>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Exact area to check / next action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extension is gone after restart</td>
+<td>A temporary <code>about:debugging</code> installation ends at restart. Reload the XPI or use the appropriate signed/persistent development installation</td>
+</tr>
+<tr>
+<td>Wrong UI/version after update</td>
+<td>Check the manifest/displayed version; reload the intended XPI and close obsolete dashboards. Source directory names can retain old versions</td>
+</tr>
+<tr>
+<td><code>Cannot find package 'ws'</code></td>
+<td>Verify the path in the error. A complete downloaded native adapter includes ws; a fresh native source directory needs <code>npm --prefix native-bridge ci --omit=dev</code>. An error under the old adapter path is an old setup, not the new <code>cli.js</code> command</td>
+</tr>
+<tr>
+<td><code>Cannot find module .../bridge/bin/longshot-bridge</code></td>
+<td>Run Agent API commands from the source root containing <code>bridge/</code>, or use the absolute script path. The native proxy ZIP is not the full Agent API source</td>
+</tr>
+<tr>
+<td>Adapter does not start / mitmdump missing</td>
+<td>Run <code>python3 bootstrap.py</code> with Python 3.12+ or select the intended installed runtime with <code>--mitmdump</code></td>
+</tr>
+<tr>
+<td>Pairing cannot connect</td>
+<td>Use control port 8901, the current token and the exact current <code>moz-extension://...</code> origin. Ensure the adapter process is ready</td>
+</tr>
+<tr>
+<td>Tool gets proxy authentication failure</td>
+<td>Use proxy port 8900, username bridge and current token. Update every tool after adapter restart</td>
+</tr>
+<tr>
+<td>Direct/public content instead of the expected proxy request</td>
+<td>Check NO_PROXY/no_proxy, tool exclusions and proxy settings. Confirm the request appears in Native traffic</td>
+</tr>
+<tr>
+<td><code>bridge.invalid</code> fails</td>
+<td>Old alias workflow. Use the real target URL and no hosts-file entry</td>
+</tr>
+<tr>
+<td>Config rejected / unknown property</td>
+<td>Do not reuse <code>allowRaw</code>, <code>forceRaw</code>, <code>torSocks</code>, old scope/time forms or old API controls. Export native config and use its supported keys</td>
+</tr>
+<tr>
+<td>Certificate verification error</td>
+<td>Distinguish client→adapter trust from adapter→origin verification. Trust the printed public adapter CA in the tool; check the real server's certificate separately</td>
+</tr>
+<tr>
+<td>Browser cookies do not reach the tool</td>
+<td>Verify selected tab/store, applicable Domain/path/Secure/partition, cookies.enabled, protected names and whether the request actually traversed the proxy</td>
+</tr>
+<tr>
+<td>Tool sends a cookie probe but it disappears</td>
+<td>Disable/protect the relevant override or add X-Longshot-Preserve / request override off. Do not rely on first-request intent detection</td>
+</tr>
+<tr>
+<td>Browser cookie still changes with request override off</td>
+<td><code>cookies.saveResponses</code> is independent. Disable it too if response synchronization is unwanted</td>
+</tr>
+<tr>
+<td>401/419/440 or 429 pauses the native proxy</td>
+<td>Review tab/session/throttling, then explicitly resume. Deliberate negative-auth tests may need a reviewed pause-status config change and restart</td>
+</tr>
+<tr>
+<td>WAF accepts Firefox but rejects native traffic</td>
+<td>Cookie/UA copying does not reproduce TLS/IP/browser behavior or execute JavaScript challenges. Review the permitted assessment route and evidence</td>
+</tr>
+<tr>
+<td>Onion target blocked</td>
+<td>Configure a real explicit SOCKS/upstream route in the native adapter. Built-in/browser and isolated native Nuclei have different routing</td>
+</tr>
+<tr>
+<td><code>permissions.request may only be called from a user input handler</code></td>
+<td>Use the current extension approval workflow. Save, review, then click Approve this next run to request missing permissions; do not invoke permissions from an asynchronous agent/background setting change</td>
+</tr>
+<tr>
+<td>Generic URL constructor error after Maximum findings</td>
+<td>Check <strong>OAST Provider URL</strong> and <strong>Callback domain</strong>, independently of the target URL. Fill matching values or disable OAST; current validation identifies the relevant field</td>
+</tr>
+<tr>
+<td>Aggressive is off but advanced options remain enabled</td>
+<td>Disable the listed features or enable/save Aggressive and approve the next run</td>
+</tr>
+<tr>
+<td>Session B missing/invalid</td>
+<td>Select a distinct same-origin tab in another container/private cookie store; ordinary tabs do not provide independent cookies</td>
+</tr>
+<tr>
+<td>Approval expired/used/changed</td>
+<td>Save the final settings and approve a new next-run grant; expiry is 30 minutes and it is single-use</td>
+</tr>
+<tr>
+<td>Run fuzzer has no useful request</td>
+<td>Supply a scoped URL, query parameter and nonempty chosen payload set, or use separate Auto-fuzz after inventory discovery</td>
+</tr>
+<tr>
+<td>Probe library update fails</td>
+<td>Check the reported source/network/validation reason. Previous cached data is retained; target scans are not automatically rerun</td>
+</tr>
+<tr>
+<td>No findings / too few checks</td>
+<td>Read actual completed/partial/skipped input coverage; inspect discovery, login, budgets, response type, blocking and exclusions</td>
+</tr>
+<tr>
+<td>OPTIONS allows DELETE</td>
+<td>Inventory only. It does not prove unauthenticated writes or that Longshot attempted them</td>
+</tr>
+<tr>
+<td>OAST connection passes but no target callback</td>
+<td>Run browser callback test, verify matching provider/domain, TTL and target egress; absence remains inconclusive</td>
+</tr>
+<tr>
+<td>Native template is Blocked</td>
+<td>Read executor/capability reason: Nuclei/isolation/helper/signature/scope/approval/routing may be missing</td>
+</tr>
+<tr>
+<td>Smart analyzer cannot name the backend</td>
+<td>Unknown is a valid result. WAF/proxy layers can hide or rewrite evidence; verify deployment inventory manually</td>
+</tr>
+<tr>
+<td>cimematic viewer lacks a live page</td>
+<td>Check active tab/login/origin, capture/loading restrictions and dependencies; use Captured only and recorded evidence</td>
+</tr>
+<tr>
+<td>Viewer points at a general page area</td>
+<td>There may be no matching HTML field for a header/API/cookie finding. Page-context positioning is not exact input proof</td>
+</tr>
+<tr>
+<td>Assessment files are waiting/erroring</td>
+<td>Connect Agent API, check the chosen absolute folder/status and pending checkpoints. Browser storage remains separate</td>
+</tr>
+<tr>
+<td>Native traffic has no response bodies or ZAP findings</td>
+<td>Expected metadata-only view; inspect the external tool's own history and report</td>
+</tr>
+<tr>
+<td>PDF API response is HTML/instructions</td>
+<td>Use Print / Save to PDF; do not rename HTML bytes to .pdf</td>
+</tr>
+<tr>
+<td>Translated UI still shows English</td>
+<td>Code terms, command samples, URLs, payloads and captured evidence are intentionally preserved. Check version/language for actual UI prose; machine translation quality can vary</td>
+</tr>
+</tbody>
+</table>
+<p>For diagnostics, start from the field-specific message and the relevant component's logs. A native proxy pairing error, a browser scan session failure and an Agent API connection failure require different fixes. Do not treat a completed UI action or successful pairing as evidence that every planned request or check ran.</p>
+<h2 id="terms-and-source-references">Terms and source references</h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Plain-language meaning / reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview">HTTP request/response</a></td>
+<td>Message to a web server / its reply, including method, URL, headers and optional body</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/Origin">Origin</a></td>
+<td>Scheme, host and port used as a web security boundary</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies">Cookie</a></td>
+<td>Browser-managed state selected for applicable requests</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Session_Management">Session management</a></td>
+<td>How the application recognizes a user across requests</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/essential-skills">Payload</a></td>
+<td>A test value sent to an input; not automatically a successful exploit</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/sql-injection">SQL injection</a></td>
+<td>Input changes how a database query is interpreted</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/nosql-injection">NoSQL injection</a></td>
+<td>Input changes a non-SQL database query or operator behavior</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting">XSS</a></td>
+<td>Attacker-controlled data reaches executable browser content</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cross-site-scripting/dom-based">DOM XSS</a></td>
+<td>Client-side JavaScript carries untrusted data into an execution-capable sink</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/server-side-template-injection">SSTI</a></td>
+<td>Input is interpreted as server template instructions</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/os-command-injection">Command injection</a></td>
+<td>Input alters commands executed by an operating-system shell/program</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/file-path-traversal">Path traversal</a></td>
+<td>Input escapes the intended file path boundary</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/ssrf">SSRF</a></td>
+<td>A server makes an unintended request to another destination</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/xxe">XXE</a></td>
+<td>XML external-entity processing causes unintended resource access</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/csrf">CSRF</a></td>
+<td>Another site induces an unintended authenticated application action</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/cors">CORS</a></td>
+<td>Browser policy controlling cross-origin response access</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/access-control/idor">Access control / IDOR</a></td>
+<td>Whether a user may access an object/action, not merely whether its URL is reachable</td>
+</tr>
+<tr>
+<td><a href="https://portswigger.net/web-security/logic-flaws">Business logic</a></td>
+<td>Rules about valid prices, workflows, balances and state transitions</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">CSP</a></td>
+<td>Browser-enforced resource/script policy; a missing header alone is not XSS execution</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-community/Web_Application_Firewall">WAF</a></td>
+<td>HTTP filtering layer whose presence does not reveal every active rule</td>
+</tr>
+<tr>
+<td><a href="https://en.wikipedia.org/wiki/Reverse_proxy">Reverse proxy</a></td>
+<td>Intermediary receiving requests before an application server</td>
+</tr>
+<tr>
+<td><a href="https://developer.mozilla.org/en-US/docs/Glossary/TLS">TLS / CA</a></td>
+<td>Connection encryption and the certificate trust used to authenticate its endpoint</td>
+</tr>
+<tr>
+<td><a href="https://nvd.nist.gov/vuln">CVE / NVD</a></td>
+<td>Identifier/database for known vulnerabilities; matching a banner is not exploit verification</td>
+</tr>
+<tr>
+<td><a href="https://cwe.mitre.org/">CWE</a></td>
+<td>Classification of weakness types</td>
+</tr>
+<tr>
+<td><a href="https://top10.owasp.org/2025/">OWASP Top 10:2025</a></td>
+<td>Awareness categories, not a complete scanner test suite</td>
+</tr>
+<tr>
+<td><a href="https://owasp.org/www-project-web-security-testing-guide/">WSTG</a></td>
+<td>Web security testing reference covering automated and manual work</td>
+</tr>
+</tbody>
+</table>
+<p>Implementation basis for this tutorial: manifest 2.18.1; <code>content/checks.js</code>; <code>lib/core.js</code>, <code>lib/v2.js</code>, audit/DOM/probe modules; dashboard/help/coverage/native UI; native adapter config, overrides and CLI; Agent API/native client; release validation artifacts. Where older documentation conflicts with removed legacy transport behavior, the shipped 2.18.1 runtime is the basis used here.</p>
+<p>Additional setup references:</p>
+<ul>
+<li><a href="https://www.extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/">Mozilla temporary installation</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging">Mozilla native messaging</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/addons/network/options/connection/">ZAP outgoing connection settings</a></li>
+<li><a href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/">ZAP active-scan policy and limitations</a></li>
+<li><a href="https://docs.mitmproxy.org/stable/concepts/certificates/">mitmproxy certificates</a></li>
+<li><a href="https://github.com/projectdiscovery/interactsh">Official Interactsh</a></li>
+<li><a href="https://docs.projectdiscovery.io/templates/reference/template-signing">Nuclei template signing</a></li>
+<li><a href="#owasp-top-10-coverage">Complete release coverage document</a></li>
+</ul>
+<p>This tutorial is general guidance for the named release. Application-specific results still require an authorized target, reached workflows and reviewed evidence.</p></main></div><footer>Longshot Security · Authorized assessments only · <a href="../index.html">Back to Longshot</a></footer></body></html>
